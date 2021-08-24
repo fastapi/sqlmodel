@@ -2,7 +2,6 @@ from unittest.mock import patch
 
 import pytest
 from sqlalchemy.exc import MultipleResultsFound
-from sqlalchemy.sql.expression import delete
 from sqlmodel import Session, create_engine, delete
 
 from ...conftest import get_testing_print_function
