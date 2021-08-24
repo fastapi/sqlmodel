@@ -12,7 +12,6 @@ from typing import (
     Callable,
     ClassVar,
     Dict,
-    ForwardRef,
     List,
     Mapping,
     Optional,
@@ -30,7 +29,7 @@ from pydantic.errors import ConfigError, DictError
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import BaseConfig, ModelMetaclass, validate_model
-from pydantic.typing import NoArgAnyCallable, resolve_annotations
+from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
 from sqlalchemy import (
     Boolean,
@@ -343,7 +342,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 )
                 relationship_to = temp_field.type_
                 if isinstance(temp_field.type_, ForwardRef):
-                    relationship_to = temp_field.type_.__forward_arg__
+                    relationship_to = temp_field.type_.__forward_arg__  # type: ignore
                 rel_kwargs: Dict[str, Any] = {}
                 if rel_info.back_populates:
                     rel_kwargs["back_populates"] = rel_info.back_populates

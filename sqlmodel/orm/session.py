@@ -1,4 +1,4 @@
-from typing import Any, Mapping, Optional, Sequence, TypeVar, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Type, TypeVar, Union, overload
 
 from sqlalchemy import util
 from sqlalchemy.orm import Query as _Query
@@ -118,13 +118,13 @@ class Session(_Session):
 
     def get(
         self,
-        entity: _T,
+        entity: Type[_T],
         ident: Any,
         options: Optional[Sequence[Any]] = None,
         populate_existing: bool = False,
         with_for_update: Optional[Union[Literal[True], Mapping[str, Any]]] = None,
         identity_token: Optional[Any] = None,
-    ) -> _T:
+    ) -> Optional[_T]:
         return super().get(
             entity,
             ident,

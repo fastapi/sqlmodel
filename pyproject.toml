@@ -47,6 +47,9 @@ coverage = {extras = ["toml"], version = "^5.5"}
 fastapi = "^0.68.0"
 requests = "^2.26.0"
 autoflake = "^1.4"
+isort = "^5.9.3"
+async_generator = {version = "*", python = "~3.6"}
+async-exit-stack = {version = "*", python = "~3.6"}
 
 [build-system]
 requires = ["poetry-core"]
