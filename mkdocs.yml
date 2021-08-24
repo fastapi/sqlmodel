@@ -1,0 +1,132 @@
+site_name: SQLModel
+site_description: SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
+site_url: https://sqlmodel.tiangolo.com/
+theme:
+  name: material
+  palette:
+  - scheme: default
+    primary: deep purple
+    accent: amber
+    toggle:
+      icon: material/lightbulb-outline
+      name: Switch to light mode
+  - scheme: slate
+    primary: deep purple
+    accent: amber
+    toggle:
+      icon: material/lightbulb
+      name: Switch to dark mode
+  features:
+  - search.suggest
+  - search.highlight
+  icon:
+    repo: fontawesome/brands/github-alt
+  logo: img/icon-white.svg
+  favicon: img/favicon.png
+  language: en
+repo_name: tiangolo/sqlmodel
+repo_url: https://github.com/tiangolo/sqlmodel
+edit_uri: ''
+google_analytics:
+    - UA-205713594-2
+    - auto
+plugins:
+- search
+nav:
+  - SQLModel: index.md
+  - features.md
+  - databases.md
+  - db-to-code.md
+  - Tutorial - User Guide:
+    - tutorial/index.md
+    - tutorial/create-db-and-table-with-db-browser.md
+    - tutorial/create-db-and-table.md
+    - tutorial/insert.md
+    - tutorial/automatic-id-none-refresh.md
+    - tutorial/select.md
+    - tutorial/where.md
+    - tutorial/one.md
+    - tutorial/limit-and-offset.md
+    - tutorial/update.md
+    - tutorial/delete.md
+    - Connect Tables - JOIN:
+      - tutorial/connect/index.md
+      - tutorial/connect/create-connected-tables.md
+      - tutorial/connect/create-connected-rows.md
+      - tutorial/connect/read-connected-data.md
+      - tutorial/connect/update-data-connections.md
+      - tutorial/connect/remove-data-connections.md
+    - Relationship Attributes:
+      - tutorial/relationship-attributes/index.md
+      - tutorial/relationship-attributes/define-relationships-attributes.md
+      - tutorial/relationship-attributes/create-and-update-relationships.md
+      - tutorial/relationship-attributes/read-relationships.md
+      - tutorial/relationship-attributes/remove-relationships.md
+      - tutorial/relationship-attributes/back-populates.md
+      - tutorial/relationship-attributes/type-annotation-strings.md
+    - Many to Many:
+      - tutorial/many-to-many/index.md
+      - tutorial/many-to-many/create-models-with-link.md
+      - tutorial/many-to-many/create-data.md
+      - tutorial/many-to-many/update-remove-relationships.md
+      - tutorial/many-to-many/link-with-extra-fields.md
+    - tutorial/code-structure.md
+    - FastAPI and Pydantic:
+      - tutorial/fastapi/index.md
+      - tutorial/fastapi/simple-hero-api.md
+      - tutorial/fastapi/response-model.md
+      - tutorial/fastapi/multiple-models.md
+      - tutorial/fastapi/read-one.md
+      - tutorial/fastapi/limit-and-offset.md
+      - tutorial/fastapi/update.md
+      - tutorial/fastapi/delete.md
+      - tutorial/fastapi/session-with-dependency.md
+      - tutorial/fastapi/teams.md
+      - tutorial/fastapi/relationships.md
+      - tutorial/fastapi/tests.md
+  - Advanced User Guide:
+    - advanced/index.md
+  - alternatives.md
+  - help.md
+  - contributing.md
+  - release-notes.md
+
+markdown_extensions:
+- toc:
+    permalink: true
+- markdown.extensions.codehilite:
+    guess_lang: false
+- admonition
+- codehilite
+- extra
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_div_format ''
+- pymdownx.tabbed
+- mdx_include
+
+extra:
+  social:
+  - icon: fontawesome/brands/github-alt
+    link: https://github.com/tiangolo/sqlmodel
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/tiangolo
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/in/tiangolo
+  - icon: fontawesome/brands/dev
+    link: https://dev.to/tiangolo
+  - icon: fontawesome/brands/medium
+    link: https://medium.com/@tiangolo
+  - icon: fontawesome/solid/globe
+    link: https://tiangolo.com
+
+extra_css:
+  - css/termynal.css
+  - css/custom.css
+
+extra_javascript:
+  - https://unpkg.com/mermaid@8.4.6/dist/mermaid.min.js
+  - js/termynal.js
+  - js/custom.js
