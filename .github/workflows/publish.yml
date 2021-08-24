@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  publish:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-test
+      - name: Install poetry
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "poetry>=1.2.0a1"
+          python -m poetry plugin add poetry-version-plugin 
+      - name: Configure poetry
+        run: python -m poetry config virtualenvs.in-project true
+      - name: Ensure cache is healthy
+        if: steps.cache.outputs.cache-hit == 'true'
+        run: python -m poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: python -m poetry install
+      - name: Publish
+        env:
+          PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
+        run: |
+          python -m poetry config pypi-token.pypi $PYPI_TOKEN
+          bash scripts/publish.sh
