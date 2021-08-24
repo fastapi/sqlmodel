@@ -42,6 +42,12 @@ jobs:
       - name: Install Material for MkDocs Insiders
         if: github.event.pull_request.head.repo.fork == false && steps.cache.outputs.cache-hit != 'true'
         run: pip install git+https://${{ secrets.ACTIONS_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git
+      
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+      
       - name: Build Docs
         run: python -m mkdocs build
       - name: Zip docs
