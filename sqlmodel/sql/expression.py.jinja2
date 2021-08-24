@@ -1,0 +1,119 @@
+import sys
+from datetime import datetime
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Generic,
+    Mapping,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    cast,
+    overload,
+)
+from uuid import UUID
+
+from sqlalchemy import Column
+from sqlalchemy.orm import InstrumentedAttribute
+from sqlalchemy.sql.elements import ColumnClause
+from sqlalchemy.sql.expression import Select as _Select
+
+_TSelect = TypeVar("_TSelect")
+
+# Workaround Generics incompatibility in Python 3.6
+# Ref: https://github.com/python/typing/issues/449#issuecomment-316061322
+if sys.version_info.minor >= 7:
+
+    class Select(_Select, Generic[_TSelect]):
+        pass
+
+    # This is not comparable to sqlalchemy.sql.selectable.ScalarSelect, that has a different
+    # purpose. This is the same as a normal SQLAlchemy Select class where there's only one
+    # entity, so the result will be converted to a scalar by default. This way writing
+    # for loops on the results will feel natural.
+    class SelectOfScalar(_Select, Generic[_TSelect]):
+        pass
+
+
+else:
+    from typing import GenericMeta  # type: ignore
+
+    class GenericSelectMeta(GenericMeta, _Select.__class__):  # type: ignore
+        pass
+
+    class _Py36Select(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
+        pass
+
+    class _Py36SelectOfScalar(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
+        pass
+
+    # Cast them for editors to work correctly, from several tricks tried, this works
+    # for both VS Code and PyCharm
+    Select = cast("Select", _Py36Select)  # type: ignore
+    SelectOfScalar = cast("SelectOfScalar", _Py36SelectOfScalar)  # type: ignore
+
+
+if TYPE_CHECKING:  # pragma: no cover
+    from ..main import SQLModel
+
+# Generated TypeVars start
+
+{% for i in range(number_of_types) %}
+_TScalar_{{ i }} = TypeVar(
+    "_TScalar_{{ i }}",
+    Column,
+    Sequence,
+    Mapping,
+    UUID,
+    datetime,
+    float,
+    int,
+    bool,
+    bytes,
+    str,
+    None,
+)
+
+_TModel_{{ i }} = TypeVar("_TModel_{{ i }}", bound="SQLModel")
+
+{% endfor %}
+
+# Generated TypeVars end
+
+@overload
+def select(entity_0: _TScalar_0, **kw: Any) -> SelectOfScalar[_TScalar_0]:  # type: ignore
+    ...
+
+
+@overload
+def select(entity_0: Type[_TModel_0], **kw: Any) -> SelectOfScalar[_TModel_0]:  # type: ignore
+    ...
+
+
+# Generated overloads start
+
+{% for signature in signatures %}
+
+@overload
+def select(  # type: ignore
+    {% for arg in signature[0] %}{{ arg.name }}: {{ arg.annotation }}, {% endfor %}**kw: Any,
+    ) -> Select[Tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]:
+    ...
+
+{% endfor %}
+
+# Generated overloads end
+
+def select(*entities: Any, **kw: Any) -> Union[Select, SelectOfScalar]:
+    if len(entities) == 1:
+        return SelectOfScalar._create(*entities, **kw)  # type: ignore
+    return Select._create(*entities, **kw)
+
+
+# TODO: add several @overload from Python types to SQLAlchemy equivalents
+def col(column_expression: Any) -> ColumnClause:
+    if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
+        raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
+    return column_expression
