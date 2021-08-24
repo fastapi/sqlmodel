@@ -66,20 +66,6 @@ $ bash scripts/format.sh
 
 It will also auto-sort all your imports.
 
-### Format imports
-
-There is another script that formats all the imports and makes sure you don't have unused imports:
-
-<div class="termy">
-
-```console
-$ bash scripts/format-imports.sh
-```
-
-</div>
-
-As it runs one command after the other and modifies and reverts many files, it takes a bit longer to run, so it might be easier to use `scripts/format.sh` frequently and `scripts/format-imports.sh` only before committing.
-
 ## Docs
 
 The documentation uses <a href="https://www.mkdocs.org/" class="external-link" target="_blank">MkDocs</a> with <a href="https://squidfunk.github.io/mkdocs-material/" class="external-link" target="_blank">Material for MkDocs</a>.
