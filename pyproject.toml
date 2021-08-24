@@ -46,6 +46,7 @@ mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^5.5"}
 fastapi = "^0.68.0"
 requests = "^2.26.0"
+autoflake = "^1.4"
 
 [build-system]
 requires = ["poetry-core"]
