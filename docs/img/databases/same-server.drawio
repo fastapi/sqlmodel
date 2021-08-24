@@ -1,0 +1,84 @@
+<mxfile>
+    <diagram id="objTApYHlBqCKos3M7rL" name="Page-1">
+        <mxGraphModel dx="1263" dy="1167" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="440" width="700" height="510" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; style=&quot;font-size: 18px&quot;&gt;Machine / Computer&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="435" y="460" width="230" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="9" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.3;entryY=0.013;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="9" target="31" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="9" target="26" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="560" y="690"/>
+                            <mxPoint x="735" y="690"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="9" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; color=&quot;#ffffff&quot; style=&quot;font-size: 18px&quot;&gt;Database application&lt;/font&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#00CC00;" parent="1" vertex="1">
+                    <mxGeometry x="430" y="540" width="150" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="group;fillColor=#808080;" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="670" y="510" width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="" style="group" parent="11" vertex="1" connectable="0">
+                    <mxGeometry width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;" parent="10" vertex="1">
+                    <mxGeometry width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; style=&quot;font-size: 18px&quot;&gt;File&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="10" vertex="1">
+                    <mxGeometry x="22.666666666666668" y="20" width="124.66666666666667" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; style=&quot;font-size: 18px&quot;&gt;Data&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa0;" parent="10" vertex="1">
+                    <mxGeometry x="56.666666666666664" y="60" width="64.76190476190476" height="64.76190476190476" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="" style="group;fillColor=#808080;" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="650" y="710" width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="" style="group" parent="24" vertex="1" connectable="0">
+                    <mxGeometry width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;" parent="25" vertex="1">
+                    <mxGeometry width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; style=&quot;font-size: 18px&quot;&gt;File&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="25" vertex="1">
+                    <mxGeometry x="22.666666666666668" y="20" width="124.66666666666667" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; style=&quot;font-size: 18px&quot;&gt;Data&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa0;" parent="25" vertex="1">
+                    <mxGeometry x="56.666666666666664" y="60" width="64.76190476190476" height="64.76190476190476" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="" style="group;fillColor=#808080;" parent="1" vertex="1" connectable="0">
+                    <mxGeometry x="440" y="730" width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="" style="group" parent="29" vertex="1" connectable="0">
+                    <mxGeometry width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#999999;" parent="30" vertex="1">
+                    <mxGeometry width="170" height="160" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; style=&quot;font-size: 18px&quot;&gt;File&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="30" vertex="1">
+                    <mxGeometry x="22.666666666666668" y="20" width="124.66666666666667" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; style=&quot;font-size: 18px&quot;&gt;Data&lt;/font&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fa0;" parent="30" vertex="1">
+                    <mxGeometry x="56.666666666666664" y="60" width="64.76190476190476" height="64.76190476190476" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="16" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;font face=&quot;Roboto&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Roboto&quot; color=&quot;#ffffff&quot; style=&quot;font-size: 18px&quot;&gt;Your code&lt;/font&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#7e56c2;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="550" width="120" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
