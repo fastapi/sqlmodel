@@ -1,8 +1,9 @@
-from tests.conftest import get_testing_print_function
 from typing import Any, Dict, List, Union
 from unittest.mock import patch
 
 from sqlmodel import create_engine
+
+from tests.conftest import get_testing_print_function
 
 
 def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):

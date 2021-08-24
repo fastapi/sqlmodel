@@ -1,12 +1,6 @@
-from typing import Any, Dict, List, Union
-from unittest.mock import patch
-
-from sqlalchemy import inspect
-from sqlalchemy.engine.reflection import Inspector
-from sqlmodel import create_engine
 from fastapi.testclient import TestClient
+from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
-
 
 openapi_schema = {
     "openapi": "3.0.2",
@@ -537,7 +531,7 @@ def test_tutorial(clear_sqlmodel):
         response = client.post("/teams/", json=team_z_force)
         assert response.status_code == 200, response.text
         team_z_force_data = response.json()
-        team_z_force_id = team_z_force_data["id"]
+        team_z_force_data["id"]
         response = client.get("/teams/")
         data = response.json()
         assert len(data) == 2

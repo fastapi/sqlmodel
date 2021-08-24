@@ -1,12 +1,8 @@
-from typing import Any, Dict, List, Union
 from unittest.mock import patch
-import pytest
 
-from sqlalchemy import inspect
-from sqlalchemy.engine.reflection import Inspector
-from sqlmodel import create_engine
-from sqlmodel.pool import StaticPool
+import pytest
 from sqlalchemy.exc import SAWarning
+from sqlmodel import create_engine
 
 from ....conftest import get_testing_print_function
 

@@ -1,12 +1,6 @@
-from typing import Any, Dict, List, Union
-from unittest.mock import patch
-
 from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine
-from sqlmodel.pool import StaticPool
-
-from ....conftest import get_testing_print_function
 
 
 def test_tutorial001(clear_sqlmodel):

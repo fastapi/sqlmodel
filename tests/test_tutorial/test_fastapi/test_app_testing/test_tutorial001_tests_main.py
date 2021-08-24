@@ -1,21 +1,17 @@
 import importlib
-from contextlib import contextmanager
-from typing import Any, Dict, List, Union
-from unittest.mock import patch
 
 import pytest
-from docs_src.tutorial.fastapi.app_testing.tutorial001 import main as app_mod
-from docs_src.tutorial.fastapi.app_testing.tutorial001 import test_main as test_mod
-from docs_src.tutorial.fastapi.app_testing.tutorial001.test_main import (
-    session_fixture,
-    client_fixture,
-)
 from fastapi.testclient import TestClient
 from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import Session, create_engine
-from sqlmodel.pool import StaticPool
 
+from docs_src.tutorial.fastapi.app_testing.tutorial001 import main as app_mod
+from docs_src.tutorial.fastapi.app_testing.tutorial001 import test_main as test_mod
+from docs_src.tutorial.fastapi.app_testing.tutorial001.test_main import (
+    client_fixture,
+    session_fixture,
+)
 
 assert session_fixture, "This keeps the session fixture used below"
 assert client_fixture, "This keeps the client fixture used below"

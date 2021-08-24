@@ -2,10 +2,11 @@ import shutil
 import subprocess
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
+
 import pytest
+from pydantic import BaseModel
 from sqlmodel import SQLModel
 from sqlmodel.main import default_registry
-from pydantic import BaseModel
 
 top_level_path = Path(__file__).resolve().parent.parent
 docs_src_path = top_level_path / "docs_src"

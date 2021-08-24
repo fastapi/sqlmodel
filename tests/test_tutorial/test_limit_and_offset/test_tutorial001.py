@@ -1,9 +1,8 @@
-from typing import Any, Dict, List, Union
 from unittest.mock import patch
 
 from sqlmodel import create_engine
-from ...conftest import get_testing_print_function
 
+from ...conftest import get_testing_print_function
 
 expected_calls = [
     [

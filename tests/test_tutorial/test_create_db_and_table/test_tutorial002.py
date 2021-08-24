@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine

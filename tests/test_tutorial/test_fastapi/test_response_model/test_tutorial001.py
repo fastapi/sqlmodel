@@ -1,12 +1,6 @@
-from typing import Any, Dict, List, Union
-from unittest.mock import patch
-
-from sqlalchemy import inspect
-from sqlalchemy.engine.reflection import Inspector
-from sqlmodel import create_engine
 from fastapi.testclient import TestClient
+from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
-
 
 openapi_schema = {
     "openapi": "3.0.2",
