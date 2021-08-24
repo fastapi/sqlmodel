@@ -1,0 +1,96 @@
+[tool.poetry]
+name = "sqlmodel"
+version = "0"
+description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
+authors = ["Sebastián Ramírez <tiangolo@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/tiangolo/sqlmodel"
+documentation = "https://sqlmodel.tiangolo.com"
+repository = "https://github.com/tiangolo/sqlmodel"
+license = "MIT"
+exclude = ["sqlmodel/sql/expression.py.jinja2"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: AsyncIO",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Database",
+    "Topic :: Database :: Database Engines/Servers",
+    "Topic :: Internet",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Internet :: WWW/HTTP",
+    "Typing :: Typed",
+]
+
+[tool.poetry.dependencies]
+python = "^3.6.1"
+SQLAlchemy = ">=1.4.17,<1.5.0"
+pydantic = "^1.8.2"
+sqlalchemy2-stubs = "^0.0.2-alpha.5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+mypy = "^0.812"
+flake8 = "^3.9.2"
+black = {version = "^21.5-beta.1", python = "^3.7"}
+mkdocs = "^1.2.1"
+mkdocs-material = "^7.1.9"
+mdx-include = "^1.4.1"
+coverage = {extras = ["toml"], version = "^5.5"}
+fastapi = "^0.68.0"
+requests = "^2.26.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry-version-plugin]
+source = "init"
+
+[tool.coverage.run]
+parallel = true
+source = [
+    "docs_src",
+    "tests",
+    "sqlmodel"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@overload",
+    'if __name__ == "__main__":',
+    "if TYPE_CHECKING:",
+]
+
+[tool.isort]
+profile = "black"
+known_third_party = ["sqlmodel"]
+skip_glob = [
+    "sqlmodel/__init__.py",
+    ]
+
+
+[tool.mypy]
+# --strict
+disallow_any_generics = true
+disallow_subclassing_any = true 
+disallow_untyped_calls = true 
+disallow_untyped_defs = true
+disallow_incomplete_defs = true 
+check_untyped_defs = true 
+disallow_untyped_decorators = true 
+no_implicit_optional = true
+warn_redundant_casts = true 
+warn_unused_ignores = true
+warn_return_any = true 
+implicit_reexport = false
+strict_equality = true
+# --strict end
