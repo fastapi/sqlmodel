@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+
+## 0.0.3
+
 * ⬆️ Update and relax specification range for `sqlalchemy-stubs`. PR [#4](https://github.com/tiangolo/sqlmodel/pull/4) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.2
