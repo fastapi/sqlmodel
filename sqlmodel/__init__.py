@@ -1,4 +1,4 @@
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 # Re-export from SQLAlchemy
 from sqlalchemy.engine import create_mock_engine as create_mock_engine
