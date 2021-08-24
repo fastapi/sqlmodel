@@ -31,7 +31,7 @@ from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import BaseConfig, ModelMetaclass, validate_model
 from pydantic.typing import NoArgAnyCallable, resolve_annotations
-from pydantic.utils import ROOT_KEY, Representation, ValueItems
+from pydantic.utils import ROOT_KEY, Representation
 from sqlalchemy import (
     Boolean,
     Column,
@@ -453,6 +453,12 @@ class_registry = weakref.WeakValueDictionary()  # type: ignore
 default_registry = registry()
 
 
+def _value_items_is_true(v) -> bool:
+    # Re-implement Pydantic's ValueItems.is_true() as it hasn't been released as of
+    # the current latest, Pydantic 1.8.2
+    return v is True or v is ...
+
+
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
@@ -589,7 +595,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return cls(**value_as_dict)
 
     # From Pydantic, override to only show keys from fields, omit SQLAlchemy attributes
-    def _calculate_keys(
+    def _calculate_keys(  # type: ignore
         self,
         include: Optional[Mapping[Union[int, str], Any]],
         exclude: Optional[Mapping[Union[int, str], Any]],
@@ -622,7 +628,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             keys -= update.keys()
 
         if exclude:
-            keys -= {k for k, v in exclude.items() if ValueItems.is_true(v)}
+            keys -= {k for k, v in exclude.items() if _value_items_is_true(v)}
 
         return keys
 
