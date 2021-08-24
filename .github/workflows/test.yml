@@ -42,7 +42,9 @@ jobs:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: python -m poetry install
+      - name: Lint
+        run: python -m poetry run bash scripts/lint.sh
       - name: Test
-        run: bash scripts/test.sh
+        run: python -m poetry run bash scripts/test.sh
       - name: Upload coverage
         uses: codecov/codecov-action@v1
