@@ -45,10 +45,10 @@ else:
     class GenericSelectMeta(GenericMeta, _Select.__class__):  # type: ignore
         pass
 
-    class _Py36Select(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
+    class _Py36Select(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):  # type: ignore
         pass
 
-    class _Py36SelectOfScalar(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
+    class _Py36SelectOfScalar(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):  # type: ignore
         pass
 
     # Cast them for editors to work correctly, from several tricks tried, this works
