@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+
+## 0.0.4
+
 * 🎨 Fix type detection of select results in PyCharm. PR [#15](https://github.com/tiangolo/sqlmodel/pull/15) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.3
