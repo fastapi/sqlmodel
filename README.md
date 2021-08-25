@@ -213,3 +213,15 @@ And at the same time, ✨ it is also a **Pydantic** model ✨. You can use inher
 ## License
 
 This project is licensed under the terms of the MIT license.
+
+## Citation
+
+```bibtex
+@misc{Ramírez_sqlmodel_2021,
+author = {Ramírez, Sebastián},
+month = {8},
+title = {{sqlmodel}},
+url = {https://github.com/tiangolo/sqlmodel},
+year = {2021}
+}
+```
