@@ -137,7 +137,9 @@ And **inline errors**:
 
 ### Write to the Database
 
-You can learn a lot more about **SQLModel** by quickly following the **tutorial**, but if you need a taste right now of how to put all that together and save to the database, you can do this:
+You can learn a lot more about **SQLModel** by quickly following the [**tutorial**][#tutorial], but if you need a taste right now of how to put all that together and save to the database, you can do this:
+
+[#tutorial]: https://sqlmodel.tiangolo.com/tutorial/
 
 ```Python hl_lines="18  21  23-27"
 from typing import Optional
