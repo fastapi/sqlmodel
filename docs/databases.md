@@ -85,7 +85,7 @@ Some examples of databases that work like this could be **PostgreSQL**, **MySQL*
 
 ### Distributed servers
 
-In some cases, the database could even be a group server applications running on different machines, working together and communicating between them to be more efficient and handle more data.
+In some cases, the database could even be a group of server applications running on different machines, working together and communicating between them to be more efficient and handle more data.
 
 In this case, your code would talk to one or more of these server applications running on different machines.
 
