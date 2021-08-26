@@ -152,7 +152,7 @@ It will be called when a user sends a request with a `POST` **operation** to the
 
 ## The **SQLModel** Advantage
 
-Here's where having our **SQLModel** class models be both **SQLAlchemy** models and **Pydantic** models at the same tieme shine. ✨
+Here's where having our **SQLModel** class models be both **SQLAlchemy** models and **Pydantic** models at the same time shine. ✨
 
 Here we use the **same** class model to define the **request body** that will be received by our API.
 
@@ -190,7 +190,7 @@ When a client sends a request to the **path** `/heroes/` with a `GET` HTTP **ope
 
 ## One Session per Request
 
-Remember that we shoud use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session?
+Remember that we shoud use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session.
 
 Here it is much more obvious.
 
