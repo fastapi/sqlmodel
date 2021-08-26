@@ -271,7 +271,7 @@ In the example above we are using two equal signs (`==`). That's called the "**e
 !!! tip
     An **operator** is just a symbol that is put beside one value or in the middle of two values to do something with them.
 
-    `==` is called **equality** operator because it checks if two things are **equal**.
+    `==` is called the **equality** operator because it checks if two things are **equal**.
 
 When writing Python, if you write something using this equality operator (`==`) like:
 
