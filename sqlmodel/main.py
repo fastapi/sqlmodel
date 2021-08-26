@@ -49,6 +49,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time
+from sqlalchemy.sql.sqltypes import Enum as SQLAlchemyEnum
 
 from .sql.sqltypes import GUID, AutoString
 
@@ -389,7 +390,7 @@ def get_sqlachemy_type(field: ModelField) -> Any:
     if issubclass(field.type_, time):
         return Time
     if issubclass(field.type_, Enum):
-        return Enum
+        return SQLAlchemyEnum(field.type_)
     if issubclass(field.type_, bytes):
         return LargeBinary
     if issubclass(field.type_, Decimal):
