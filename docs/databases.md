@@ -99,9 +99,9 @@ Having distributed systems also creates additional challenges, so there's a high
 
 We already talked about the different ways to interact with a database and how they handle files, etc. That applies to most or all of the databases.
 
-But there's another way to categorize databases that is very important. As you can imagine, there are many types of databases and many databases in each group. But in general, they can be separated in two big groups: "SQL Databases" and "NoSQL Databases".
+But there's another way to categorize databases that is very important. As you can imagine, there are many types of databases and many databases in each group. But in general, they can be separated in two big groups: **SQL** databases and **NoSQL** databases.
 
-We will get to why the name "SQL" in a bit, but first, let's see what is it all about.
+We will get to why the name is "SQL" in a bit, but first, let's see what is it all about.
 
 ### SQLModel for SQL Databases
 
@@ -264,17 +264,17 @@ It doesn't have the meaning that you would use in English of something being rel
 
 The technical term **relation** just refers to each one of these tables.
 
-And because of this technical term, these **SQL Databases** are also called **Relational Databases** (in fact, that is the technically correct term). But it still just refers to these databases made with multiple tables.
+And because of this technical term, these **SQL Databases** are also called **Relational Databases** (in fact, that is the technically correct term). But it still just refers to these as databases made with multiple tables.
 
 ### SQL - The Language
 
-After developing these ideas of how to store data in multiple tables they also created a **language** that could be used to interact with them.
+After developing these ideas of how to store data in multiple tables, the same smart people also created a **language** that could be used to interact with them.
 
-The language is called **SQL**, the name comes from for **Structured Query Language**.
+The language is called **SQL**, which stands for **Structured Query Language**.
 
-Nevertheless, the language is not only used to *query* for data. It is also used to create records/rows, to update them, to delete them. And to manipulate the database, create tables, etc.
+Despite its name, the SQL language is not only used to *query* for data. It is also used to create records/rows, update them, delete them, manipulate the database, create tables, etc.
 
-This language is supported by all these databases that handle multiple tables, that's why they are called **SQL Databases**. Although, each database has small variations in the SQL language they support.
+Because this language is supported by all these databases that handle multiple tables, they are called **SQL Databases**. However, it's important to note that each database has small variations in the SQL language (*dialect*) they support.
 
 Let's imagine that the table holding the heroes is called the `hero` table. An example of a SQL query to get all the data from it could look like:
 
