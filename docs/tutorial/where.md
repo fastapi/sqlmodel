@@ -204,7 +204,7 @@ We care specially about the **select** statement:
 
 </details>
 
-## Filter Rows Using `WHERE` wtih **SQLModel**
+## Filter Rows Using `WHERE` with **SQLModel**
 
 Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can add a `.where()` to a **SQLModel** `select()` statment to filter rows, which will filter the objects returned:
 
