@@ -90,9 +90,9 @@ And you want it to have this data:
 | 2  | Spider-Boy | Pedro Parqueador | null |
 | 3  | Rusty-Man | Tommy Sharp | 48 |
 
-### Create a SQLModel Model
+### Create an SQLModel Model
 
-Then you could create a **SQLModel** model like this:
+Then you could create an **SQLModel** model like this:
 
 ```Python
 from typing import Optional
@@ -107,7 +107,7 @@ class Hero(SQLModel, table=True):
     age: Optional[int] = None
 ```
 
-That class `Hero` is a **SQLModel** model, the equivalent of a SQL table in Python code.
+That class `Hero` is an **SQLModel** model, the equivalent of a SQL table in Python code.
 
 And each of those class attributes is equivalent to each **table column**.
 
@@ -169,7 +169,7 @@ with Session(engine) as session:
     session.commit()
 ```
 
-That will save a **SQLite** database with the 3 heroes.
+That will save an **SQLite** database with the 3 heroes.
 
 ### Select from the Database
 
@@ -204,9 +204,9 @@ with Session(engine) as session:
 
 ## SQLAlchemy and Pydantic
 
-That class `Hero` is a **SQLModel** model.
+That class `Hero` is an **SQLModel** model.
 
-But at the same time, ✨ it is a **SQLAlchemy** model ✨. So, you can combine it and use it with other SQLAlchemy models, or you could easily migrate applications with SQLAlchemy to **SQLModel**.
+But at the same time, ✨ it is an **SQLAlchemy** model ✨. So, you can combine it and use it with other SQLAlchemy models, or you could easily migrate applications with SQLAlchemy to **SQLModel**.
 
 And at the same time, ✨ it is also a **Pydantic** model ✨. You can use inheritance with it to define all your **data models** while avoiding code duplication. That makes it very easy to use with **FastAPI**.
 
