@@ -56,7 +56,7 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 
 </details>
 
-The **relationship attribute `heroes`** is still a list of heroes, annotatted as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
+The **relationship attribute `heroes`** is still a list of heroes, annotated as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
 
 We use the same **`Relationship()`** function.
 
