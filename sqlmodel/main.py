@@ -199,14 +199,13 @@ def Relationship(
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
 ) -> Any:
-    relationship_info = RelationshipInfo(
+    return RelationshipInfo(
         back_populates=back_populates,
         link_model=link_model,
         sa_relationship=sa_relationship,
         sa_relationship_args=sa_relationship_args,
         sa_relationship_kwargs=sa_relationship_kwargs,
     )
-    return relationship_info
 
 
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
@@ -511,9 +510,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if getattr(self.__config__, "table", False):
-                if is_instrumented(self, name):
-                    set_attribute(self, name, value)
+            if getattr(self.__config__, "table", False) and is_instrumented(self, name):
+                set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
             if name not in self.__sqlmodel_relationships__:
@@ -531,13 +529,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         if update is not None:
             obj = {**obj, **update}
         # End SQLModel support dict
-        if not getattr(cls.__config__, "table", False):
-            # If not table, normal Pydantic code
-            m = cls.__new__(cls)
-        else:
-            # If table, create the new instance normally to make SQLAlchemy create
-            # the _sa_instance_state attribute
-            m = cls()
+        m = cls.__new__(cls) if not getattr(cls.__config__, "table", False) else cls()
+        # If table, create the new instance normally to make SQLAlchemy create
+        # the _sa_instance_state attribute
         values, fields_set, validation_error = validate_model(cls, obj)
         if validation_error:
             raise validation_error
@@ -601,7 +595,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_unset: bool,
         update: Optional[Dict[str, Any]] = None,
     ) -> Optional[AbstractSet[str]]:
-        if include is None and exclude is None and exclude_unset is False:
+        if include is None and exclude is None and not exclude_unset:
             # Original in Pydantic:
             # return None
             # Updated to not return SQLAlchemy attributes
@@ -610,16 +604,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
 
         keys: AbstractSet[str]
-        if exclude_unset:
-            keys = self.__fields_set__.copy()
-        else:
-            # Original in Pydantic:
-            # keys = self.__dict__.keys()
-            # Updated to not return SQLAlchemy attributes
-            # Do not include relationships as that would easily lead to infinite
-            # recursion, or traversing the whole database
-            keys = self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
-
+        keys = self.__fields_set__.copy() if exclude_unset else self.__fields__.keys()
         if include is not None:
             keys &= include.keys()
 
