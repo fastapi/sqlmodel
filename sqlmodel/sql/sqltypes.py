@@ -52,9 +52,6 @@ class GUID(TypeDecorator):
                 return f"{value.int:x}"
 
     def process_result_value(self, value, dialect):
-        if value is None:
-            return value
-        else:
-            if not isinstance(value, uuid.UUID):
-                value = uuid.UUID(value)
-            return value
+        if value is not None and not isinstance(value, uuid.UUID):
+            value = uuid.UUID(value)
+        return value
