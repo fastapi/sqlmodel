@@ -4,11 +4,11 @@ from sqlalchemy import util
 from sqlalchemy.orm import Query as _Query
 from sqlalchemy.orm import Session as _Session
 from sqlalchemy.sql.base import Executable as _Executable
-from sqlmodel.sql.expression import Select, SelectOfScalar
 from typing_extensions import Literal
 
 from ..engine.result import Result, ScalarResult
 from ..sql.base import Executable
+from ..sql.expression import Select, SelectOfScalar
 
 _TSelectParam = TypeVar("_TSelectParam")
 
