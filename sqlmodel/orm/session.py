@@ -3,6 +3,7 @@ from typing import Any, Mapping, Optional, Sequence, Type, TypeVar, Union, overl
 from sqlalchemy import util
 from sqlalchemy.orm import Query as _Query
 from sqlalchemy.orm import Session as _Session
+from sqlalchemy.orm import sessionmaker as _sessionmaker
 from sqlalchemy.sql.base import Executable as _Executable
 from sqlmodel.sql.expression import Select, SelectOfScalar
 from typing_extensions import Literal
@@ -137,3 +138,10 @@ class Session(_Session):
             with_for_update=with_for_update,
             identity_token=identity_token,
         )
+
+
+class sessionmaker(_sessionmaker):
+    def __init__(self, *args, **kwargs):
+        if 'class_' not in kwargs:
+            kwargs['class_'] = Session
+        super().__init__(*args, **kwargs)

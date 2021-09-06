@@ -129,6 +129,7 @@ from sqlalchemy.types import VARCHAR as VARCHAR
 # Extensions and modifications of SQLAlchemy in SQLModel
 from .engine.create import create_engine as create_engine
 from .orm.session import Session as Session
+from .orm.session import sessionmaker as sessionmaker
 from .sql.expression import select as select
 from .sql.expression import col as col
 from .sql.sqltypes import AutoString as AutoString
