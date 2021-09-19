@@ -13,6 +13,7 @@ expected_calls = [
             "age": None,
             "secret_name": "Dive Wilson",
             "team_id": 1,
+            "experience_points": 1,
         },
     ],
     [

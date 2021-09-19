@@ -10,7 +10,7 @@ def create_heroes():
         team_z_force = Team(name="Z-Force", headquarters="Sister Margaret’s Bar")
 
         hero_deadpond = Hero(
-            name="Deadpond", secret_name="Dive Wilson", team=team_z_force
+            name="Deadpond", secret_name="Dive Wilson", team=team_z_force, experience_points=1
         )
         session.add(hero_deadpond)
         session.commit()
