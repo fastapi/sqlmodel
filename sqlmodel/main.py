@@ -1,4 +1,5 @@
 import ipaddress
+from sqlalchemy.sql.type_api import TypeEngine
 import uuid
 import weakref
 from datetime import date, datetime, time, timedelta
@@ -72,6 +73,7 @@ class FieldInfo(PydanticFieldInfo):
         foreign_key = kwargs.pop("foreign_key", Undefined)
         index = kwargs.pop("index", Undefined)
         sa_column = kwargs.pop("sa_column", Undefined)
+        sa_column_type = kwargs.pop("sa_column_type", Undefined)
         sa_column_args = kwargs.pop("sa_column_args", Undefined)
         sa_column_kwargs = kwargs.pop("sa_column_kwargs", Undefined)
         if sa_column is not Undefined:
@@ -91,6 +93,7 @@ class FieldInfo(PydanticFieldInfo):
         self.foreign_key = foreign_key
         self.index = index
         self.sa_column = sa_column
+        self.sa_column_type = sa_column_type
         self.sa_column_args = sa_column_args
         self.sa_column_kwargs = sa_column_kwargs
 
@@ -153,6 +156,7 @@ def Field(
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
     sa_column: Union[Column, UndefinedType] = Undefined,
+    sa_column_type: Union[TypeEngine, UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
@@ -183,6 +187,7 @@ def Field(
         nullable=nullable,
         index=index,
         sa_column=sa_column,
+        sa_column_type=sa_column_type,
         sa_column_args=sa_column_args,
         sa_column_kwargs=sa_column_kwargs,
         **current_schema_extra,
@@ -370,6 +375,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 
 def get_sqlachemy_type(field: ModelField) -> Any:
+    if hasattr(field.type_, "sa_column_type"):
+        sa_column_type = getattr(field.type_, "sa_column_type")
+        if callable(sa_column_type):
+            return sa_column_type()
+        return sa_column_type
     if issubclass(field.type_, str):
         if field.field_info.max_length:
             return AutoString(length=field.field_info.max_length)
@@ -412,7 +422,11 @@ def get_column_from_field(field: ModelField) -> Column:
     sa_column = getattr(field.field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
-    sa_type = get_sqlachemy_type(field)
+    sa_column_type = getattr(field.field_info, "sa_column_type", Undefined)
+    if sa_column_type is not Undefined:
+        sa_type = sa_column_type
+    else:
+        sa_type = get_sqlachemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
     nullable = not field.required
     index = getattr(field.field_info, "index", Undefined)
