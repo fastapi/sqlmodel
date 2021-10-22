@@ -43,15 +43,15 @@ The key features are:
 
 <a href="https://fastapi.tiangolo.com" target="_blank"><img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" style="width: 20%;"></a>
 
-**SQLModel** is designed to simplify interacting with SQL databases in <a href="https://fastapi.tiangolo.com" class="external-link" target="_blank">FastAPI</a> applications, it was created by the same <a href="https://tiangolo.com/" class="external-link" target="_blank">author</a>. 😁
+**SQLModel** is designed to simplify interacting with SQL databases in <a href="https://fastapi.tiangolo.com" class="external-link" target="_blank">FastAPI</a> applications. It was created by the same <a href="https://tiangolo.com/" class="external-link" target="_blank">author</a>. 😁
 
-It combines SQLAlchemy and Pydantic and tries to simplify the code you write as much as possible, allowing you to reduce the **code duplication to a minimum**, but while getting the **best developer experience** possible.
+**SQLModel** is a thin layer on top of **Pydantic** and **SQLAlchemy**, carefully designed to be compatible with both.
 
-**SQLModel** is, in fact, a thin layer on top of **Pydantic** and **SQLAlchemy**, carefully designed to be compatible with both.
+**SQLModel** helps you simplify your code and reduce **code duplication**  with the **best developer experience** possible.
 
 ## Requirements
 
-A recent and currently supported version of Python (right now, <a href="https://www.python.org/downloads/" class="external-link" target="_blank">Python supports versions 3.6 and above</a>).
+A currently supported version of Python (right now, <a href="https://www.python.org/downloads/" class="external-link" target="_blank"> **SQLModel** supports versions 3.6 and above</a>).
 
 As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. They will be automatically installed when you install SQLModel.
 
@@ -82,7 +82,7 @@ Imagine you have a SQL table called `hero` with:
 * `secret_name`
 * `age`
 
-And you want it to have this data:
+columns and the following data:
 
 | id | name | secret_name | age |
 -----|------|-------------|------|
@@ -107,13 +107,13 @@ class Hero(SQLModel, table=True):
     age: Optional[int] = None
 ```
 
-That class `Hero` is a **SQLModel** model, the equivalent of a SQL table in Python code.
+That class `Hero` is a **SQLModel** model, the equivalent of a SQL table in Python code. 
 
-And each of those class attributes is equivalent to each **table column**.
+Each class attribute is equivalent to a **table column**.
 
 ### Create Rows
 
-Then you could **create each row** of the table as an **instance** of the model:
+Next you coan **create each row** of the table as an **instance** of the `Hero` class:
 
 ```Python
 hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
@@ -121,23 +121,23 @@ hero_2 = Hero(name="Spider-Boy", secret_name="Pedro Parqueador")
 hero_3 = Hero(name="Rusty-Man", secret_name="Tommy Sharp", age=48)
 ```
 
-This way, you can use conventional Python code with **classes** and **instances** that represent **tables** and **rows**, and that way communicate with the **SQL database**.
+With this pattern you can use conventional Python code with **classes** and **instances** that represent **tables** and **rows**, and that way communicate with the **SQL database**. 
 
 ### Editor Support
 
-Everything is designed for you to get the best developer experience possible, with the best editor support.
+**SQLModel** is designed for the best developer experience possible. Editor support incudes the following:
 
-Including **autocompletion**:
+**Autocompletion**:
 
 <img class="shadow" src="https://sqlmodel.tiangolo.com/img/index/autocompletion01.png">
 
-And **inline errors**:
+**Inline errors**:
 
 <img class="shadow" src="https://sqlmodel.tiangolo.com/img/index/inline-errors01.png">
 
 ### Write to the Database
 
-You can learn a lot more about **SQLModel** by quickly following the **tutorial**, but if you need a taste right now of how to put all that together and save to the database, you can do this:
+You can learn a lot more about **SQLModel** by following the **tutorial**, but if you want a taste of how to put all that together and save to the database, you can do this:
 
 ```Python hl_lines="18  21  23-27"
 from typing import Optional
@@ -169,11 +169,11 @@ with Session(engine) as session:
     session.commit()
 ```
 
-That will save a **SQLite** database with the 3 heroes.
+This code will save a **SQLite** database with the 3 heroes.
 
 ### Select from the Database
 
-Then you could write queries to select from that same database, for example with:
+Then you can write queries to select from that same database. For example:
 
 ```Python hl_lines="15-18"
 from typing import Optional
@@ -198,17 +198,17 @@ with Session(engine) as session:
 
 ### Editor Support Everywhere
 
-**SQLModel** was carefully designed to give you the best developer experience and editor support, **even after selecting data** from the database:
+**SQLModel** was designed to give you the best developer experience and editor support, **even after selecting data** from the database:
 
 <img class="shadow" src="https://sqlmodel.tiangolo.com/img/index/autocompletion02.png">
 
 ## SQLAlchemy and Pydantic
 
-That class `Hero` is a **SQLModel** model.
+That class `Hero` is a **SQLModel** model. 
 
-But at the same time, ✨ it is a **SQLAlchemy** model ✨. So, you can combine it and use it with other SQLAlchemy models, or you could easily migrate applications with SQLAlchemy to **SQLModel**.
+At the same time, ✨ the class is a **SQLAlchemy** model ✨. You can use it with other SQLAlchemy models. Alternatively, you could migrate applications that use SQLAlchemy to **SQLModel** quickly.
 
-And at the same time, ✨ it is also a **Pydantic** model ✨. You can use inheritance with it to define all your **data models** while avoiding code duplication. That makes it very easy to use with **FastAPI**.
+And at the same time, ✨ the class is also a **Pydantic** model ✨. You can use inheritance with it to define all your **data models** while avoiding code duplication. This characteristic makes it easy to use with **FastAPI**.
 
 ## License
 
