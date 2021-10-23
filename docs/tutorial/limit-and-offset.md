@@ -207,7 +207,7 @@ The database right now has **only 7 rows**, so this query can only get 1 row.
 
 But don't worry, the database won't throw an error trying to get 3 rows when there's only one (as would happen with a Python list).
 
-The database knows that we want to **limit** the number of results, but it doesn't necessarily have to find those many results.
+The database knows that we want to **limit** the number of results, but it doesn't necessarily have to find that many results.
 
 ## Run the Program with the Last Batch on the Comamnd Line
 
