@@ -43,7 +43,7 @@ black = {version = "^21.5-beta.1", python = "^3.7"}
 mkdocs = "^1.2.1"
 mkdocs-material = "^7.1.9"
 mdx-include = "^1.4.1"
-coverage = {extras = ["toml"], version = "^5.5"}
+coverage = {extras = ["toml"], version = "^6.1"}
 fastapi = "^0.68.0"
 requests = "^2.26.0"
 autoflake = "^1.4"
