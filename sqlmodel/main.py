@@ -444,6 +444,10 @@ def get_column_from_field(field: ModelField) -> Column:
     sa_column_kwargs = getattr(field.field_info, "sa_column_kwargs", Undefined)
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict, sa_column_kwargs))
+
+    if "type_" in kwargs:
+        sa_type = kwargs.pop("type_")
+
     return Column(sa_type, *args, **kwargs)
 
 
