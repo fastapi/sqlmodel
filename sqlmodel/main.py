@@ -41,7 +41,8 @@ from sqlalchemy import (
     Integer,
     Interval,
     Numeric,
-    inspect, TypeDecorator,
+    inspect,
+    TypeDecorator,
 )
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
