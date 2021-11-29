@@ -41,7 +41,7 @@ mypy = "^0.812"
 flake8 = "^3.9.2"
 black = {version = "^21.5-beta.1", python = "^3.7"}
 mkdocs = "^1.2.1"
-mkdocs-material = "^7.1.9"
+mkdocs-material = "^8.0.1"
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^5.5"}
 fastapi = "^0.68.0"
