@@ -101,7 +101,7 @@ class RelationshipInfo(Representation):
         *,
         back_populates: Optional[str] = None,
         link_model: Optional[Any] = None,
-        sa_relationship: Optional[RelationshipProperty] = None,
+        sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
         sa_relationship_args: Optional[Sequence[Any]] = None,
         sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
     ) -> None:
@@ -127,32 +127,32 @@ def Field(
     default: Any = Undefined,
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
-    alias: str = None,
-    title: str = None,
-    description: str = None,
+    alias: Optional[str] = None,
+    title: Optional[str] = None,
+    description: Optional[str] = None,
     exclude: Union[
         AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
     ] = None,
     include: Union[
         AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
     ] = None,
-    const: bool = None,
-    gt: float = None,
-    ge: float = None,
-    lt: float = None,
-    le: float = None,
-    multiple_of: float = None,
-    min_items: int = None,
-    max_items: int = None,
-    min_length: int = None,
-    max_length: int = None,
+    const: Optional[bool] = None,
+    gt: Optional[float] = None,
+    ge: Optional[float] = None,
+    lt: Optional[float] = None,
+    le: Optional[float] = None,
+    multiple_of: Optional[float] = None,
+    min_items: Optional[int] = None,
+    max_items: Optional[int] = None,
+    min_length: Optional[int] = None,
+    max_length: Optional[int] = None,
     allow_mutation: bool = True,
-    regex: str = None,
+    regex: Optional[str] = None,
     primary_key: bool = False,
     foreign_key: Optional[Any] = None,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_column: Union[Column, UndefinedType] = Undefined,
+    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
@@ -195,7 +195,7 @@ def Relationship(
     *,
     back_populates: Optional[str] = None,
     link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty] = None,
+    sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
 ) -> Any:
@@ -217,19 +217,25 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
-        if getattr(cls.__config__, "table", False):  # type: ignore
+        if getattr(cls.__config__, "table", False):
             DeclarativeMeta.__setattr__(cls, name, value)
         else:
             super().__setattr__(name, value)
 
     def __delattr__(cls, name: str) -> None:
-        if getattr(cls.__config__, "table", False):  # type: ignore
+        if getattr(cls.__config__, "table", False):
             DeclarativeMeta.__delattr__(cls, name)
         else:
             super().__delattr__(name)
 
     # From Pydantic
-    def __new__(cls, name, bases, class_dict: dict, **kwargs) -> Any:
+    def __new__(
+        cls,
+        name: str,
+        bases: Tuple[Type[Any], ...],
+        class_dict: Dict[str, Any],
+        **kwargs: Any,
+    ) -> Any:
         relationships: Dict[str, RelationshipInfo] = {}
         dict_for_pydantic = {}
         original_annotations = resolve_annotations(
@@ -342,7 +348,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 )
                 relationship_to = temp_field.type_
                 if isinstance(temp_field.type_, ForwardRef):
-                    relationship_to = temp_field.type_.__forward_arg__  # type: ignore
+                    relationship_to = temp_field.type_.__forward_arg__
                 rel_kwargs: Dict[str, Any] = {}
                 if rel_info.back_populates:
                     rel_kwargs["back_populates"] = rel_info.back_populates
@@ -360,7 +366,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_args.extend(rel_info.sa_relationship_args)
                 if rel_info.sa_relationship_kwargs:
                     rel_kwargs.update(rel_info.sa_relationship_kwargs)
-                rel_value: RelationshipProperty = relationship(
+                rel_value: RelationshipProperty = relationship(  # type: ignore
                     relationship_to, *rel_args, **rel_kwargs
                 )
                 dict_used[rel_name] = rel_value
@@ -408,7 +414,7 @@ def get_sqlachemy_type(field: ModelField) -> Any:
         return GUID
 
 
-def get_column_from_field(field: ModelField) -> Column:
+def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     sa_column = getattr(field.field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
@@ -440,10 +446,10 @@ def get_column_from_field(field: ModelField) -> Column:
         kwargs["default"] = sa_default
     sa_column_args = getattr(field.field_info, "sa_column_args", Undefined)
     if sa_column_args is not Undefined:
-        args.extend(list(cast(Sequence, sa_column_args)))
+        args.extend(list(cast(Sequence[Any], sa_column_args)))
     sa_column_kwargs = getattr(field.field_info, "sa_column_kwargs", Undefined)
     if sa_column_kwargs is not Undefined:
-        kwargs.update(cast(dict, sa_column_kwargs))
+        kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
     return Column(sa_type, *args, **kwargs)
 
 
@@ -452,24 +458,27 @@ class_registry = weakref.WeakValueDictionary()  # type: ignore
 default_registry = registry()
 
 
-def _value_items_is_true(v) -> bool:
+def _value_items_is_true(v: Any) -> bool:
     # Re-implement Pydantic's ValueItems.is_true() as it hasn't been released as of
     # the current latest, Pydantic 1.8.2
     return v is True or v is ...
+
+
+_TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[Union[str, Callable[..., str]]]
-    __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty]]
+    __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty]]  # type: ignore
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
 
     class Config:
         orm_mode = True
 
-    def __new__(cls, *args, **kwargs) -> Any:
+    def __new__(cls, *args: Any, **kwargs: Any) -> Any:
         new_object = super().__new__(cls)
         # SQLAlchemy doesn't call __init__ on the base class
         # Ref: https://docs.sqlalchemy.org/en/14/orm/constructors.html
@@ -520,7 +529,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 super().__setattr__(name, value)
 
     @classmethod
-    def from_orm(cls: Type["SQLModel"], obj: Any, update: Dict[str, Any] = None):
+    def from_orm(
+        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+    ) -> _TSQLModel:
         # Duplicated from Pydantic
         if not cls.__config__.orm_mode:
             raise ConfigError(
@@ -533,7 +544,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # End SQLModel support dict
         if not getattr(cls.__config__, "table", False):
             # If not table, normal Pydantic code
-            m = cls.__new__(cls)
+            m: _TSQLModel = cls.__new__(cls)
         else:
             # If table, create the new instance normally to make SQLAlchemy create
             # the _sa_instance_state attribute
@@ -554,7 +565,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     @classmethod
     def parse_obj(
-        cls: Type["SQLModel"], obj: Any, update: Dict[str, Any] = None
+        cls: Type["SQLModel"], obj: Any, update: Optional[Dict[str, Any]] = None
     ) -> "SQLModel":
         obj = cls._enforce_dict_if_root(obj)
         # SQLModel, support update dict

@@ -63,9 +63,9 @@ if TYPE_CHECKING:  # pragma: no cover
 {% for i in range(number_of_types) %}
 _TScalar_{{ i }} = TypeVar(
     "_TScalar_{{ i }}",
-    Column,
-    Sequence,
-    Mapping,
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
     UUID,
     datetime,
     float,
@@ -106,14 +106,14 @@ def select(  # type: ignore
 
 # Generated overloads end
 
-def select(*entities: Any, **kw: Any) -> Union[Select, SelectOfScalar]:
+def select(*entities: Any, **kw: Any) -> Union[Select, SelectOfScalar]:  # type: ignore
     if len(entities) == 1:
         return SelectOfScalar._create(*entities, **kw)  # type: ignore
-    return Select._create(*entities, **kw)
+    return Select._create(*entities, **kw)  # type: ignore
 
 
 # TODO: add several @overload from Python types to SQLAlchemy equivalents
-def col(column_expression: Any) -> ColumnClause:
+def col(column_expression: Any) -> ColumnClause:  # type: ignore
     if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
     return column_expression
