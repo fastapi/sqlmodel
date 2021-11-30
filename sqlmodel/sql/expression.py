@@ -45,10 +45,10 @@ else:
     class GenericSelectMeta(GenericMeta, _Select.__class__):  # type: ignore
         pass
 
-    class _Py36Select(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):  # type: ignore
+    class _Py36Select(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
         pass
 
-    class _Py36SelectOfScalar(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):  # type: ignore
+    class _Py36SelectOfScalar(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
         pass
 
     # Cast them for editors to work correctly, from several tricks tried, this works
@@ -65,9 +65,9 @@ if TYPE_CHECKING:  # pragma: no cover
 
 _TScalar_0 = TypeVar(
     "_TScalar_0",
-    Column,
-    Sequence,
-    Mapping,
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
     UUID,
     datetime,
     float,
@@ -83,9 +83,9 @@ _TModel_0 = TypeVar("_TModel_0", bound="SQLModel")
 
 _TScalar_1 = TypeVar(
     "_TScalar_1",
-    Column,
-    Sequence,
-    Mapping,
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
     UUID,
     datetime,
     float,
@@ -101,9 +101,9 @@ _TModel_1 = TypeVar("_TModel_1", bound="SQLModel")
 
 _TScalar_2 = TypeVar(
     "_TScalar_2",
-    Column,
-    Sequence,
-    Mapping,
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
     UUID,
     datetime,
     float,
@@ -119,9 +119,9 @@ _TModel_2 = TypeVar("_TModel_2", bound="SQLModel")
 
 _TScalar_3 = TypeVar(
     "_TScalar_3",
-    Column,
-    Sequence,
-    Mapping,
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
     UUID,
     datetime,
     float,
@@ -446,14 +446,14 @@ def select(  # type: ignore
 # Generated overloads end
 
 
-def select(*entities: Any, **kw: Any) -> Union[Select, SelectOfScalar]:
+def select(*entities: Any, **kw: Any) -> Union[Select, SelectOfScalar]:  # type: ignore
     if len(entities) == 1:
         return SelectOfScalar._create(*entities, **kw)  # type: ignore
     return Select._create(*entities, **kw)  # type: ignore
 
 
 # TODO: add several @overload from Python types to SQLAlchemy equivalents
-def col(column_expression: Any) -> ColumnClause:
+def col(column_expression: Any) -> ColumnClause:  # type: ignore
     if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
     return column_expression
