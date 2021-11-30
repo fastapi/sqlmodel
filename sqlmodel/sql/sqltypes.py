@@ -8,7 +8,7 @@ from sqlalchemy.sql.type_api import TypeEngine
 from sqlalchemy.types import CHAR, TypeDecorator
 
 
-class AutoString(types.TypeDecorator[types.String]):
+class AutoString(types.TypeDecorator):  # type: ignore
 
     impl = types.String
     cache_ok = True
@@ -23,7 +23,7 @@ class AutoString(types.TypeDecorator[types.String]):
 
 # Reference form SQLAlchemy docs: https://docs.sqlalchemy.org/en/14/core/custom_types.html#backend-agnostic-guid-type
 # with small modifications
-class GUID(TypeDecorator[Any]):
+class GUID(TypeDecorator):  # type: ignore
     """Platform-independent GUID type.
 
     Uses PostgreSQL's UUID type, otherwise uses
@@ -34,7 +34,7 @@ class GUID(TypeDecorator[Any]):
     impl = CHAR
     cache_ok = True
 
-    def load_dialect_impl(self, dialect: Dialect) -> TypeEngine[Any]:
+    def load_dialect_impl(self, dialect: Dialect) -> TypeEngine:  # type: ignore
         if dialect.name == "postgresql":
             return dialect.type_descriptor(UUID())  # type: ignore
         else:
