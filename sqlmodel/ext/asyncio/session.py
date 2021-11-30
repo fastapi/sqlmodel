@@ -21,7 +21,7 @@ class AsyncSession(_AsyncSession):
         self,
         bind: Optional[Union[AsyncConnection, AsyncEngine]] = None,
         binds: Optional[Mapping[object, Union[AsyncConnection, AsyncEngine]]] = None,
-        **kw,
+        **kw: Any,
     ):
         # All the same code of the original AsyncSession
         kw["future"] = True
@@ -52,7 +52,7 @@ class AsyncSession(_AsyncSession):
         # util.immutabledict has the union() method. Is this a bug in SQLAlchemy?
         execution_options = execution_options.union({"prebuffer_rows": True})  # type: ignore
 
-        return await greenlet_spawn(  # type: ignore
+        return await greenlet_spawn(
             self.sync_session.exec,
             statement,
             params=params,
