@@ -32,6 +32,7 @@ google_analytics:
     - auto
 plugins:
 - search
+- social
 nav:
   - SQLModel: index.md
   - features.md
