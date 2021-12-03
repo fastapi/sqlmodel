@@ -8,14 +8,14 @@ theme:
     primary: deep purple
     accent: amber
     toggle:
-      icon: material/lightbulb-outline
-      name: Switch to light mode
+      icon: material/lightbulb
+      name: Switch to dark mode
   - scheme: slate
     primary: deep purple
     accent: amber
     toggle:
-      icon: material/lightbulb
-      name: Switch to dark mode
+      icon: material/lightbulb-outline
+      name: Switch to light mode
   features:
   - search.suggest
   - search.highlight
