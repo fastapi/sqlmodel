@@ -521,7 +521,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 super().__setattr__(name, value)
 
     @classmethod
-    def from_orm(cls: Type["_Model"], obj: Any, update: Dict[str, Any] = None):
+    def from_orm(cls: Type["_Model"], obj: Any, update: Dict[str, Any] = None) -> "_Model":
         # Duplicated from Pydantic
         if not cls.__config__.orm_mode:
             raise ConfigError(
