@@ -9,7 +9,7 @@ class Hero(SQLModel, table=True):
     name: str
     secret_name: str
     age: Optional[int] = None
-    money: condecimal(max_digits=6, decimal_places=3) = Field(default=0)
+    money: condecimal(max_digits=5, decimal_places=3) = Field(default=0)
 
 
 sqlite_file_name = "database.db"
