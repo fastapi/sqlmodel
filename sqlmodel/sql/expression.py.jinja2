@@ -36,7 +36,6 @@ if sys.version_info.minor >= 7:
     class SelectOfScalar(_Select, Generic[_TSelect]):
         pass
 
-
 else:
     from typing import GenericMeta  # type: ignore
 
