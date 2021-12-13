@@ -51,6 +51,10 @@ jobs:
       - name: Install Material for MkDocs Insiders
         if: github.event.pull_request.head.repo.fork == false && steps.cache.outputs.cache-hit != 'true'
         run: python -m poetry run pip install git+https://${{ secrets.ACTIONS_TOKEN }}@github.com/squidfunk/mkdocs-material-insiders.git
+      - uses: actions/cache@v2
+        with:
+          key: mkdocs-cards-${{ github.ref }}
+          path: .cache
       - name: Build Docs
         run: python -m poetry run mkdocs build
       - name: Zip docs
