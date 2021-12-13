@@ -84,6 +84,7 @@ nav:
       - tutorial/fastapi/tests.md
   - Advanced User Guide:
     - advanced/index.md
+    - advanced/decimal.md
   - alternatives.md
   - help.md
   - contributing.md

@@ -399,7 +399,10 @@ def get_sqlachemy_type(field: ModelField) -> Any:
     if issubclass(field.type_, bytes):
         return LargeBinary
     if issubclass(field.type_, Decimal):
-        return Numeric
+        return Numeric(
+            precision=getattr(field.type_, "max_digits", None),
+            scale=getattr(field.type_, "decimal_places", None),
+        )
     if issubclass(field.type_, ipaddress.IPv4Address):
         return AutoString
     if issubclass(field.type_, ipaddress.IPv4Network):
