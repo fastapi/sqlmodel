@@ -26,7 +26,7 @@ Pydantic has special support for `Decimal` types using the <a href="https://pyda
 
     But meanwhile, you can already use this feature with `condecimal()` in **SQLModel** it as it's explained here.
 
-When you use `condecimal()` you can specify the number of decimal places and digits to support. They will be validated by Pydantic (for example when using FastAPI) and the same information will also be used for the database columns.
+When you use `condecimal()` you can specify the number of digits and decimal places to support. They will be validated by Pydantic (for example when using FastAPI) and the same information will also be used for the database columns.
 
 !!! info
     For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/14/core/type_basics.html#sqlalchemy.types.DECIMAL" class="external-link" target="_blank">SQLAlchemy's `DECIMAL` type</a>.
@@ -49,6 +49,31 @@ Let's say that each hero in the database will have an amount of money. We could 
 ```
 
 </details>
+
+Here we are saying that `money` can have at most `5` digits with `max_digits`, **this includes the integers** (to the left of the decimal dot) **and the decimals** (to the right of the decimal dot).
+
+We are also saying that the number of decimal places (to the right of the decimal dot) is `3`, so we can have **3 decimal digits** for these numbers in the `money` field. This means that we will have **2 digits for the integer part** and **3 digits for the decimal part**.
+
+✅ So, for example, these are all valid numbers for the `money` field:
+
+* `12.345`
+* `12.3`
+* `12`
+* `1.2`
+* `0.123`
+* `0`
+
+🚫 But these are all invalid numbers for that `money` field:
+
+* `1.2345`
+    * This number has more than 3 decimal places.
+* `123.234`
+    * This number has more than 5 digits in total (integer and decimal part).
+* `123`
+    * Even though this number doesn't have any decimals, we still have 3 places saved for them, which means that we can **only use 2 places** for the **integer part**, and this number has 3 integer digits. So, the allowed number of integer digits is `max_digits` - `decimal_places` = 2.
+
+!!! tip
+    Make sure you adjust the number of digits and decimal places for your own needs, in your own application. 🤓
 
 ## Create models with Decimals
 
