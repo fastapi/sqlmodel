@@ -4,7 +4,6 @@ from sqlmodel import create_engine
 
 from ...conftest import get_testing_print_function
 
-
 expected_calls = [
     [
         "Created hero:",
@@ -14,7 +13,6 @@ expected_calls = [
             "age": None,
             "secret_name": "Dive Wilson",
             "team_id": 1,
-            "experience_points": 1,
         },
     ],
     [
