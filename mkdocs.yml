@@ -30,9 +30,6 @@ edit_uri: ''
 google_analytics:
     - UA-205713594-2
     - auto
-plugins:
-- search
-- social
 nav:
   - SQLModel: index.md
   - features.md
