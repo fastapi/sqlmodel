@@ -107,7 +107,7 @@ Most of that should look familiar:
 
 The column will be named `team_id`. It will be an integer, and it could be `NULL` in the database (or `None` in Python), becase there could be some heroes that don't belong to any team.
 
-As we don't have to explicitly pass `team_id=None` when creating a hero, we add a default of `None` to the `Field()`.
+We add a default of `None` to the `Field()` so we don't have to explicitly pass `team_id=None` when creating a hero.
 
 Now, here's the new part:
 
