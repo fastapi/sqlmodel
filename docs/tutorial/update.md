@@ -39,7 +39,7 @@ In a similar way to `SELECT` statements, the first part defines the columns to w
 
 And the second part, with the `WHERE`, defines to which rows it should apply that update.
 
-In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the udpate in that row.
+In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
 
 !!! info
     Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
@@ -70,7 +70,7 @@ After that update, the data in the table will look like this, with the new age f
 </table>
 
 !!! tip
-    It will probably be more common to find the row to update by Id, for example:
+    It will probably be more common to find the row to update by `id`, for example:
 
     ```SQL
     UPDATE hero
@@ -340,7 +340,7 @@ Now let's review all that code:
 
 The update process with **SQLModel** is more or less the same as with creating new objects, you add them to the session, and then commit them.
 
-This also means that you can update several fields (atributes, columns) at once, and you can also update several objects (heroes) at once:
+This also means that you can update several fields (attributes, columns) at once, and you can also update several objects (heroes) at once:
 
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
 # Code above omitted 👆

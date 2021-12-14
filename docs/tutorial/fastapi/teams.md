@@ -1,4 +1,4 @@
-# FastAPI Path Opeartions for Teams - Other Models
+# FastAPI Path Operations for Teams - Other Models
 
 Let's now update the **FastAPI** application to handle data for teams.
 
