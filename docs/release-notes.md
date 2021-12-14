@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* ✏ Fix typos in `docs/tutorial/index.md` and `docs/databases.md`. PR [#5](https://github.com/tiangolo/sqlmodel/pull/5) by [@sebastianmarines](https://github.com/sebastianmarines).
 
 ## 0.0.5
 
