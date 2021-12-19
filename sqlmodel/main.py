@@ -396,7 +396,7 @@ def get_sqlachemy_type(field: ModelField) -> Any:
     if issubclass(field.type_, time):
         return Time
     if issubclass(field.type_, enum.Enum):
-        return Enum
+        return Enum(field.type_)
     if issubclass(field.type_, bytes):
         return LargeBinary
     if issubclass(field.type_, Decimal):
