@@ -8,14 +8,14 @@ theme:
     primary: deep purple
     accent: amber
     toggle:
-      icon: material/lightbulb-outline
-      name: Switch to light mode
+      icon: material/lightbulb
+      name: Switch to dark mode
   - scheme: slate
     primary: deep purple
     accent: amber
     toggle:
-      icon: material/lightbulb
-      name: Switch to dark mode
+      icon: material/lightbulb-outline
+      name: Switch to light mode
   features:
   - search.suggest
   - search.highlight
@@ -30,8 +30,6 @@ edit_uri: ''
 google_analytics:
     - UA-205713594-2
     - auto
-plugins:
-- search
 nav:
   - SQLModel: index.md
   - features.md
@@ -86,6 +84,7 @@ nav:
       - tutorial/fastapi/tests.md
   - Advanced User Guide:
     - advanced/index.md
+    - advanced/decimal.md
   - alternatives.md
   - help.md
   - contributing.md

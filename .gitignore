@@ -11,3 +11,4 @@ htmlcov
 coverage.xml
 site
 *.db
+.cache
