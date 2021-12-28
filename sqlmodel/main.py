@@ -426,7 +426,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     nullable = not field.required
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
-        index = True
+        index = False
     if hasattr(field.field_info, "nullable"):
         field_nullable = getattr(field.field_info, "nullable")
         if field_nullable != Undefined:
