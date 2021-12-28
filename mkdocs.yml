@@ -19,6 +19,7 @@ theme:
   features:
   - search.suggest
   - search.highlight
+  - content.tabs.link
   icon:
     repo: fontawesome/brands/github-alt
   logo: img/icon-white.svg
@@ -43,6 +44,7 @@ nav:
     - tutorial/automatic-id-none-refresh.md
     - tutorial/select.md
     - tutorial/where.md
+    - tutorial/indexes.md
     - tutorial/one.md
     - tutorial/limit-and-offset.md
     - tutorial/update.md
@@ -103,7 +105,8 @@ markdown_extensions:
     - name: mermaid
       class: mermaid
       format: !!python/name:pymdownx.superfences.fence_div_format ''
-- pymdownx.tabbed
+- pymdownx.tabbed:
+    alternate_style: true
 - mdx_include
 
 extra:
