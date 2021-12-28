@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+
+## 0.0.6
+
 ### Breaking Changes
 
 **SQLModel** no longer creates indexes by default for every column, indexes are now opt-in. You can read more about it in PR [#205](https://github.com/tiangolo/sqlmodel/pull/205).
