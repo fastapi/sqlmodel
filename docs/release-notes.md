@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* ⬆ Upgrade mypy, fix type annotations. PR [#218](https://github.com/tiangolo/sqlmodel/pull/218) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.6
 
