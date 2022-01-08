@@ -28,9 +28,6 @@ theme:
 repo_name: tiangolo/sqlmodel
 repo_url: https://github.com/tiangolo/sqlmodel
 edit_uri: ''
-google_analytics:
-    - UA-205713594-2
-    - auto
 nav:
   - SQLModel: index.md
   - features.md
@@ -104,12 +101,15 @@ markdown_extensions:
     custom_fences:
     - name: mermaid
       class: mermaid
-      format: !!python/name:pymdownx.superfences.fence_div_format ''
+      format: !!python/name:pymdownx.superfences.fence_code_format ''
 - pymdownx.tabbed:
     alternate_style: true
 - mdx_include
 
 extra:
+  analytics:
+    provider: google
+    property: UA-205713594-2
   social:
   - icon: fontawesome/brands/github-alt
     link: https://github.com/tiangolo/sqlmodel
@@ -129,6 +129,5 @@ extra_css:
   - css/custom.css
 
 extra_javascript:
-  - https://unpkg.com/mermaid@8.4.6/dist/mermaid.min.js
   - js/termynal.js
   - js/custom.js
