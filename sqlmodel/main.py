@@ -303,6 +303,14 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # other future tools based on Pydantic can use.
             new_cls.__config__.read_with_orm_mode = True
 
+        config_validate = get_config("validate")
+        if config_validate is True:
+            # If it was passed by kwargs, ensure it's also set in config
+            new_cls.__config__.validate = config_validate
+            for k, v in new_cls.__fields__.items():
+                col = get_column_from_field(v)
+                setattr(new_cls, k, col)
+
         config_registry = get_config("registry")
         if config_registry is not Undefined:
             config_registry = cast(registry, config_registry)
@@ -498,9 +506,11 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         )
         # Only raise errors if not a SQLModel model
         if (
-            not getattr(__pydantic_self__.__config__, "table", False)
+            (not getattr(__pydantic_self__.__config__, "table", False)
+            or getattr(__pydantic_self__.__config__, "validate", False))
             and validation_error
         ):
+            raise validation_error
             raise validation_error
         # Do not set values as in Pydantic, pass them through setattr, so SQLAlchemy
         # can handle them
