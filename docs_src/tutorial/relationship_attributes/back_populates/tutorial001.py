@@ -5,7 +5,7 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, sele
 
 class Team(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
     headquarters: str
 
     heroes: List["Hero"] = Relationship()
@@ -13,9 +13,9 @@ class Team(SQLModel, table=True):
 
 class Hero(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
     secret_name: str
-    age: Optional[int] = None
+    age: Optional[int] = Field(default=None, index=True)
 
     team_id: Optional[int] = Field(default=None, foreign_key="team.id")
     team: Optional[Team] = Relationship()
