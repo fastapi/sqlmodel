@@ -233,7 +233,7 @@ The object returned by `select(Hero)` is a special type of object with some meth
 
 One of those methods is `.where()` used to (unsurprisingly) add a `WHERE` to the SQL statement in that **select** object.
 
-There are other methods that will will explore later. 💡
+There are other methods that we will explore later. 💡
 
 Most of these methods return the same object again after modifying it.
 
@@ -698,7 +698,7 @@ age=35 id=5 name='Black Lion' secret_name='Trevor Challa'
 
 Here's a good moment to see that being able to use these pure Python expressions instead of keyword arguments can help a lot. ✨
 
-We can use the same standard Python comparison operators like `.
+We can use the same standard Python comparison operators like `<`, `<=`, `>`, `>=`, `==`, etc.
 
 ## Multiple `.where()`
 
@@ -933,3 +933,7 @@ And with that the editor knows this code is actually fine, because this is a spe
 ## Recap
 
 You can use `.where()` with powerful expressions using **SQLModel** columns (the special class attributes) to filter the rows that you want. 🚀
+
+Up to now, the database would have been **looking through each one of the records** (rows) to find the ones that match what you want. If you have thousands or millions of records, this could be very **slow**. 😱
+
+In the next section I'll tell you how to add **indexes** to the database, this is what will make the queries **very efficient**. 😎

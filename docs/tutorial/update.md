@@ -10,7 +10,7 @@ As before, we'll continue from where we left off with the previous code.
 <summary>👀 Full file preview</summary>
 
 ```Python
-{!./docs_src/tutorial/where/tutorial006.py!}
+{!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
 </details>
