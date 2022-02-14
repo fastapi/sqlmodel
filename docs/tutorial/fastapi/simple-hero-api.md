@@ -190,7 +190,7 @@ When a client sends a request to the **path** `/heroes/` with a `GET` HTTP **ope
 
 ## One Session per Request
 
-Remember that we shoud use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session?
+Remember that we shoud use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session.
 
 Here it is much more obvious.
 
