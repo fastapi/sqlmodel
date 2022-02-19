@@ -97,7 +97,7 @@ $ python3 --version
 // This is too old! 😱
 Python 3.5.6
 // Let's see if python3.10 is available
-$ python3.10 --verson
+$ python3.10 --version
 // Oh, no, this one is not available 😔
 command not found: python3.10
 $ python3.9 --version

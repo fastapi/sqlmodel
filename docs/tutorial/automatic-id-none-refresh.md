@@ -399,7 +399,7 @@ In this case, after committing the object to the database with the **session**, 
 
 ## Print Data After Closing the Session
 
-Now, as a fnal experiment, we can also print data after the **session** is closed.
+Now, as a final experiment, we can also print data after the **session** is closed.
 
 There are no surprises here, it still works:
 
