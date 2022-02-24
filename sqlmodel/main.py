@@ -440,7 +440,7 @@ def get_column_from_field(
     if foreign_key:
         tablename = getattr(cls, "__tablename__", None)
         if tablename is not None:
-            fk_name = f"{field.name}_{tablename}_fkey"
+            fk_name = f"{tablename}_{field.name}_fkey"
             args.append(ForeignKey(foreign_key, name=fk_name))
         else:
             args.append(ForeignKey(foreign_key))
