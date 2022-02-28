@@ -323,7 +323,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # triggers an error
         base_is_table = False
         for base in bases:
-            config = getattr(base, "__config__")
+            config = getattr(base, "__config__", None)
             if config and getattr(config, "table", False):
                 base_is_table = True
                 break
