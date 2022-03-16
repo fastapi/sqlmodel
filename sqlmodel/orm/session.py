@@ -60,7 +60,7 @@ class Session(_Session):
         results = super().execute(
             statement,
             params=params,
-            execution_options=execution_options,  # type: ignore
+            execution_options=execution_options,
             bind_arguments=bind_arguments,
             _parent_execute_state=_parent_execute_state,
             _add_event=_add_event,
@@ -74,7 +74,7 @@ class Session(_Session):
         self,
         statement: _Executable,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
-        execution_options: Mapping[str, Any] = util.EMPTY_DICT,
+        execution_options: Optional[Mapping[str, Any]] = util.EMPTY_DICT,
         bind_arguments: Optional[Mapping[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
@@ -101,7 +101,7 @@ class Session(_Session):
         return super().execute(  # type: ignore
             statement,
             params=params,
-            execution_options=execution_options,  # type: ignore
+            execution_options=execution_options,
             bind_arguments=bind_arguments,
             _parent_execute_state=_parent_execute_state,
             _add_event=_add_event,
