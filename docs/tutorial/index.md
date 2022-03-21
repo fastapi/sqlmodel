@@ -64,7 +64,7 @@ $ cd sqlmodel-tutorial
 
 Make sure you have an officially supported version of Python.
 
-Currently it is **Python 3.6** and above (Python 3.5 was already deprecated).
+Currently it is **Python 3.7** and above (Python 3.6 was already deprecated).
 
 You can check which version you have with:
 
