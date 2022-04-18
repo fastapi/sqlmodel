@@ -2,6 +2,8 @@ name: Test
 
 on:
   push:
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize]
   workflow_dispatch:
@@ -16,7 +18,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
 
     steps:
@@ -57,4 +59,4 @@ jobs:
       - name: Test
         run: python -m poetry run bash scripts/test.sh
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v2
