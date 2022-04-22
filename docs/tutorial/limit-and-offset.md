@@ -81,7 +81,7 @@ In this case, instead of getting all the 7 rows, we are limiting them to only ge
 
 <img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
 
-## Run the Program on the Comamnd Line
+## Run the Program on the Command Line
 
 If we run it on the command line, it will output:
 
@@ -153,7 +153,7 @@ Each of those methods applies the change in the internal special select statemen
 
 **Offset** means "skip this many rows", and as we want to skip the ones we already saw, the first three, we use `.offset(3)`.
 
-## Run the Program with Offset on the Comamnd Line
+## Run the Program with Offset on the Command Line
 
 Now we can run the program on the command line, and it will output:
 
@@ -207,9 +207,9 @@ The database right now has **only 7 rows**, so this query can only get 1 row.
 
 But don't worry, the database won't throw an error trying to get 3 rows when there's only one (as would happen with a Python list).
 
-The database knows that we want to **limit** the number of results, but it doesn't necessarily has to find those many results.
+The database knows that we want to **limit** the number of results, but it doesn't necessarily have to find that many results.
 
-## Run the Program with the Last Batch on the Comamnd Line
+## Run the Program with the Last Batch on the Command Line
 
 And if we run it in the command line, it will output:
 
@@ -271,7 +271,7 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 
 </details>
 
-## Run the Program with Limit and Where on the Comamnd Line
+## Run the Program with Limit and Where on the Command Line
 
 If we run it on the command line, it will find all the heroes in the database with an age above 32. That would normally be 4 heroes.
 

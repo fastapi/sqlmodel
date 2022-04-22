@@ -5,14 +5,14 @@ from sqlmodel import Field, Relationship, SQLModel, create_engine
 
 class Weapon(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
 
     hero: "Hero" = Relationship(back_populates="weapon")
 
 
 class Power(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
 
     hero_id: int = Field(foreign_key="hero.id")
     hero: "Hero" = Relationship(back_populates="powers")
@@ -20,7 +20,7 @@ class Power(SQLModel, table=True):
 
 class Team(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
     headquarters: str
 
     heroes: List["Hero"] = Relationship(back_populates="team")
@@ -28,9 +28,9 @@ class Team(SQLModel, table=True):
 
 class Hero(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
     secret_name: str
-    age: Optional[int] = None
+    age: Optional[int] = Field(default=None, index=True)
 
     team_id: Optional[int] = Field(default=None, foreign_key="team.id")
     team: Optional[Team] = Relationship(back_populates="heroes")
