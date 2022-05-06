@@ -7,7 +7,7 @@ class Weapon(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(index=True)
 
-    hero: "Hero" = Relationship(back_populates="weapon")
+    owner: "Hero" = Relationship(back_populates="weapon")
 
 
 class Power(SQLModel, table=True):
