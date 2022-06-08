@@ -369,6 +369,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     relationship_to, *rel_args, **rel_kwargs
                 )
                 dict_used[rel_name] = rel_value
+                setattr(cls, rel_name, rel_value)  # Fix #315
             DeclarativeMeta.__init__(cls, classname, bases, dict_used, **kw)
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
