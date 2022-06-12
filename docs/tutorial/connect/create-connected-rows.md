@@ -159,7 +159,7 @@ As the `Hero` class model now has a field (column, attribute) `team_id`, we can 
 
 We haven't committed this hero to the database yet, but there are already a couple of things to pay **attention** to.
 
-If the database already had some teams, we wouldn't even know **what is the ID** that is going to be automatically assigned to each team by the database, for example, we couldn't just guess `1` or `2`. 
+If the database already had some teams, we wouldn't even know the **ID** that will be automatically assigned to each team by the database. For example, we couldn't just guess `1` or `2`.
 
 But once the team is created and committed to the database, we can access the object's `id` field to get that ID.
 
