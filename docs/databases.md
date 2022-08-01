@@ -85,7 +85,7 @@ Some examples of databases that work like this could be **PostgreSQL**, **MySQL*
 
 ### Distributed servers
 
-In some cases, the database could even be a group server applications running on different machines, working together and communicating between them to be more efficient and handle more data.
+In some cases, the database could even be a group of server applications running on different machines, working together and communicating between them to be more efficient and handle more data.
 
 In this case, your code would talk to one or more of these server applications running on different machines.
 
@@ -250,7 +250,7 @@ As these **primary key** IDs can uniquely identify each row on the table for tea
 
 <img alt="table relationships" src="/img/databases/relationships.svg">
 
-So, in the table for heroes, we use the `team_id` column to define a relationship to the *foreign* table for teams. Each value in the `team_id` column on the table with heroes will be the same value as the `id` column of one row in the table wiwth teams.
+So, in the table for heroes, we use the `team_id` column to define a relationship to the *foreign* table for teams. Each value in the `team_id` column on the table with heroes will be the same value as the `id` column of one row in the table with teams.
 
 In the table for heroes we have a **primary key** that is the `id`. But we also have another column `team_id` that refers to a **key** in a **foreign** table. There's a technical term for that too, the `team_id` is a "**foreign key**".
 

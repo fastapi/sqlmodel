@@ -212,4 +212,4 @@ And at the same time, ✨ it is also a **Pydantic** model ✨. You can use inher
 
 ## License
 
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the [MIT license](https://github.com/tiangolo/sqlmodel/blob/main/LICENSE).

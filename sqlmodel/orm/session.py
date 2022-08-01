@@ -1,4 +1,4 @@
-from typing import Any, Mapping, Optional, Sequence, TypeVar, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Type, TypeVar, Union, overload
 
 from sqlalchemy import util
 from sqlalchemy.orm import Query as _Query
@@ -10,14 +10,14 @@ from typing_extensions import Literal
 from ..engine.result import Result, ScalarResult
 from ..sql.base import Executable
 
-_T = TypeVar("_T")
+_TSelectParam = TypeVar("_TSelectParam")
 
 
 class Session(_Session):
     @overload
     def exec(
         self,
-        statement: Select[_T],
+        statement: Select[_TSelectParam],
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
@@ -25,13 +25,13 @@ class Session(_Session):
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
-    ) -> Union[Result[_T]]:
+    ) -> Result[_TSelectParam]:
         ...
 
     @overload
     def exec(
         self,
-        statement: SelectOfScalar[_T],
+        statement: SelectOfScalar[_TSelectParam],
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
@@ -39,12 +39,16 @@ class Session(_Session):
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
-    ) -> Union[ScalarResult[_T]]:
+    ) -> ScalarResult[_TSelectParam]:
         ...
 
     def exec(
         self,
-        statement: Union[Select[_T], SelectOfScalar[_T], Executable[_T]],
+        statement: Union[
+            Select[_TSelectParam],
+            SelectOfScalar[_TSelectParam],
+            Executable[_TSelectParam],
+        ],
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
@@ -52,11 +56,11 @@ class Session(_Session):
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
-    ) -> Union[Result[_T], ScalarResult[_T]]:
+    ) -> Union[Result[_TSelectParam], ScalarResult[_TSelectParam]]:
         results = super().execute(
             statement,
             params=params,
-            execution_options=execution_options,  # type: ignore
+            execution_options=execution_options,
             bind_arguments=bind_arguments,
             _parent_execute_state=_parent_execute_state,
             _add_event=_add_event,
@@ -70,7 +74,7 @@ class Session(_Session):
         self,
         statement: _Executable,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
-        execution_options: Mapping[str, Any] = util.EMPTY_DICT,
+        execution_options: Optional[Mapping[str, Any]] = util.EMPTY_DICT,
         bind_arguments: Optional[Mapping[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
@@ -97,7 +101,7 @@ class Session(_Session):
         return super().execute(  # type: ignore
             statement,
             params=params,
-            execution_options=execution_options,  # type: ignore
+            execution_options=execution_options,
             bind_arguments=bind_arguments,
             _parent_execute_state=_parent_execute_state,
             _add_event=_add_event,
@@ -118,13 +122,14 @@ class Session(_Session):
 
     def get(
         self,
-        entity: _T,
+        entity: Type[_TSelectParam],
         ident: Any,
         options: Optional[Sequence[Any]] = None,
         populate_existing: bool = False,
         with_for_update: Optional[Union[Literal[True], Mapping[str, Any]]] = None,
         identity_token: Optional[Any] = None,
-    ) -> _T:
+        execution_options: Optional[Mapping[Any, Any]] = util.EMPTY_DICT,
+    ) -> Optional[_TSelectParam]:
         return super().get(
             entity,
             ident,
@@ -132,4 +137,5 @@ class Session(_Session):
             populate_existing=populate_existing,
             with_for_update=with_for_update,
             identity_token=identity_token,
+            execution_options=execution_options,
         )
