@@ -4,7 +4,7 @@ Now let's see how to update data in the database with a **FastAPI** *path operat
 
 ## `HeroUpdate` Model
 
-We want clients to be able to udpate the `name`, the `secret_name`, and the `age` of a hero.
+We want clients to be able to update the `name`, the `secret_name`, and the `age` of a hero.
 
 But we don't want them to have to include all the data again just to **update a single field**.
 
