@@ -198,13 +198,14 @@ def Relationship(
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
 ) -> Any:
-    return RelationshipInfo(
+    relationship_info = RelationshipInfo(
         back_populates=back_populates,
         link_model=link_model,
         sa_relationship=sa_relationship,
         sa_relationship_args=sa_relationship_args,
         sa_relationship_kwargs=sa_relationship_kwargs,
     )
+    return relationship_info
 
 
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
@@ -620,7 +621,15 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
 
         keys: AbstractSet[str]
-        keys = self.__fields_set__.copy() if exclude_unset else self.__fields__.keys()
+        if exclude_unset:
+            keys = self.__fields_set__.copy()
+        else:
+            # Original in Pydantic:
+            # keys = self.__dict__.keys()
+            # Updated to not return SQLAlchemy attributes
+            # Do not include relationships as that would easily lead to infinite
+            # recursion, or traversing the whole database
+            keys = self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
         if include is not None:
             keys &= include.keys()
 
