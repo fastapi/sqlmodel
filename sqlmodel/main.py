@@ -61,6 +61,7 @@ class FieldInfo(PydanticFieldInfo):
         primary_key = kwargs.pop("primary_key", False)
         nullable = kwargs.pop("nullable", Undefined)
         foreign_key = kwargs.pop("foreign_key", Undefined)
+        unique = kwargs.pop("unique", False)
         index = kwargs.pop("index", Undefined)
         sa_column = kwargs.pop("sa_column", Undefined)
         sa_column_args = kwargs.pop("sa_column_args", Undefined)
@@ -80,6 +81,7 @@ class FieldInfo(PydanticFieldInfo):
         self.primary_key = primary_key
         self.nullable = nullable
         self.foreign_key = foreign_key
+        self.unique = unique
         self.index = index
         self.sa_column = sa_column
         self.sa_column_args = sa_column_args
@@ -141,6 +143,7 @@ def Field(
     regex: Optional[str] = None,
     primary_key: bool = False,
     foreign_key: Optional[Any] = None,
+    unique: bool = False,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
@@ -171,6 +174,7 @@ def Field(
         regex=regex,
         primary_key=primary_key,
         foreign_key=foreign_key,
+        unique=unique,
         nullable=nullable,
         index=index,
         sa_column=sa_column,
@@ -426,12 +430,14 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     nullable = not primary_key and _is_field_nullable(field)
     args = []
     foreign_key = getattr(field.field_info, "foreign_key", None)
+    unique = getattr(field.field_info, "unique", False)
     if foreign_key:
         args.append(ForeignKey(foreign_key))
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
+        "unique": unique,
     }
     sa_default = Undefined
     if field.field_info.default_factory:
