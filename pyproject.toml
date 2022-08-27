@@ -44,7 +44,7 @@ mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^5.5"}
-fastapi = "^0.68.0"
+fastapi = "^0.68.1"
 requests = "^2.26.0"
 autoflake = "^1.4"
 isort = "^5.9.3"
