@@ -23,7 +23,7 @@ class ScalarResult(_ScalarResult, Generic[_T]):
         return super().__iter__()
 
     def __next__(self) -> _T:
-        return super().__next__()
+        return super().__next__()  # type: ignore
 
     def first(self) -> Optional[_T]:
         return super().first()
@@ -32,7 +32,7 @@ class ScalarResult(_ScalarResult, Generic[_T]):
         return super().one_or_none()
 
     def one(self) -> _T:
-        return super().one()
+        return super().one()  # type: ignore
 
 
 class Result(_Result, Generic[_T]):
@@ -70,10 +70,10 @@ class Result(_Result, Generic[_T]):
         return super().scalar_one()  # type: ignore
 
     def scalar_one_or_none(self) -> Optional[_T]:
-        return super().scalar_one_or_none()  # type: ignore
+        return super().scalar_one_or_none()
 
     def one(self) -> _T:  # type: ignore
         return super().one()  # type: ignore
 
     def scalar(self) -> Optional[_T]:
-        return super().scalar()  # type: ignore
+        return super().scalar()

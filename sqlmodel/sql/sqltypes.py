@@ -1,13 +1,14 @@
 import uuid
-from typing import Any, cast
+from typing import Any, Optional, cast
 
 from sqlalchemy import types
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.engine.interfaces import Dialect
+from sqlalchemy.sql.type_api import TypeEngine
 from sqlalchemy.types import CHAR, TypeDecorator
 
 
-class AutoString(types.TypeDecorator):
+class AutoString(types.TypeDecorator):  # type: ignore
 
     impl = types.String
     cache_ok = True
@@ -22,7 +23,7 @@ class AutoString(types.TypeDecorator):
 
 # Reference form SQLAlchemy docs: https://docs.sqlalchemy.org/en/14/core/custom_types.html#backend-agnostic-guid-type
 # with small modifications
-class GUID(TypeDecorator):
+class GUID(TypeDecorator):  # type: ignore
     """Platform-independent GUID type.
 
     Uses PostgreSQL's UUID type, otherwise uses
@@ -33,13 +34,13 @@ class GUID(TypeDecorator):
     impl = CHAR
     cache_ok = True
 
-    def load_dialect_impl(self, dialect):
+    def load_dialect_impl(self, dialect: Dialect) -> TypeEngine:  # type: ignore
         if dialect.name == "postgresql":
-            return dialect.type_descriptor(UUID())
+            return dialect.type_descriptor(UUID())  # type: ignore
         else:
-            return dialect.type_descriptor(CHAR(32))
+            return dialect.type_descriptor(CHAR(32))  # type: ignore
 
-    def process_bind_param(self, value, dialect):
+    def process_bind_param(self, value: Any, dialect: Dialect) -> Optional[str]:
         if value is None:
             return value
         elif dialect.name == "postgresql":
@@ -51,10 +52,10 @@ class GUID(TypeDecorator):
                 # hexstring
                 return f"{value.int:x}"
 
-    def process_result_value(self, value, dialect):
+    def process_result_value(self, value: Any, dialect: Dialect) -> Optional[uuid.UUID]:
         if value is None:
             return value
         else:
             if not isinstance(value, uuid.UUID):
                 value = uuid.UUID(value)
-            return value
+            return cast(uuid.UUID, value)
