@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+
+## 0.0.7
+
 ### Features
 
 * ✨ Allow setting `unique` in `Field()` for a column. PR [#83](https://github.com/tiangolo/sqlmodel/pull/83) by [@raphaelgibson](https://github.com/raphaelgibson).
