@@ -39,6 +39,6 @@ After deleting it successfully, we just return a response of:
 
 ## Recap
 
-That's it, feel free to try it out in the interactve docs UI to delete some heroes. 💥
+That's it, feel free to try it out in the interactive docs UI to delete some heroes. 💥
 
 Using **FastAPI** to read data and combining it with **SQLModel** makes it quite straightforward to delete data from the database.
