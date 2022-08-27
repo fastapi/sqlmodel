@@ -47,10 +47,10 @@ class GUID(TypeDecorator):  # type: ignore
             return str(value)
         else:
             if not isinstance(value, uuid.UUID):
-                return f"{uuid.UUID(value).int:x}"
+                return uuid.UUID(value).hex
             else:
                 # hexstring
-                return f"{value.int:x}"
+                return value.hex
 
     def process_result_value(self, value: Any, dialect: Dialect) -> Optional[uuid.UUID]:
         if value is None:

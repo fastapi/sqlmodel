@@ -25,23 +25,15 @@ from typing import (
 
 from pydantic import BaseConfig, BaseModel
 from pydantic.errors import ConfigError, DictError
+from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
 from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Date,
-    DateTime,
-    Float,
-    ForeignKey,
-    Integer,
-    Interval,
-    Numeric,
-    inspect,
-)
+from sqlalchemy import Boolean, Column, Date, DateTime
+from sqlalchemy import Enum as sa_Enum
+from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
@@ -377,6 +369,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     relationship_to, *rel_args, **rel_kwargs
                 )
                 dict_used[rel_name] = rel_value
+                setattr(cls, rel_name, rel_value)  # Fix #315
             DeclarativeMeta.__init__(cls, classname, bases, dict_used, **kw)
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
@@ -402,7 +395,7 @@ def get_sqlachemy_type(field: ModelField) -> Any:
     if issubclass(field.type_, time):
         return Time
     if issubclass(field.type_, Enum):
-        return Enum
+        return sa_Enum(field.type_)
     if issubclass(field.type_, bytes):
         return LargeBinary
     if issubclass(field.type_, Decimal):
@@ -422,6 +415,7 @@ def get_sqlachemy_type(field: ModelField) -> Any:
         return AutoString
     if issubclass(field.type_, uuid.UUID):
         return GUID
+    raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
 
 def get_column_from_field(field: ModelField) -> Column:  # type: ignore
@@ -430,7 +424,6 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
         return sa_column
     sa_type = get_sqlachemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
-    nullable = not field.required
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
         index = False
@@ -438,6 +431,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
         field_nullable = getattr(field.field_info, "nullable")
         if field_nullable != Undefined:
             nullable = field_nullable
+    nullable = not primary_key and _is_field_nullable(field)
     args = []
     foreign_key = getattr(field.field_info, "foreign_key", None)
     if foreign_key:
@@ -515,9 +509,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # Do not set values as in Pydantic, pass them through setattr, so SQLAlchemy
         # can handle them
         # object.__setattr__(__pydantic_self__, '__dict__', values)
-        object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
         for key, value in values.items():
             setattr(__pydantic_self__, key, value)
+        object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
         non_pydantic_keys = data.keys() - values.keys()
         for key in non_pydantic_keys:
             if key in __pydantic_self__.__sqlmodel_relationships__:
@@ -598,7 +592,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             values, fields_set, validation_error = validate_model(cls, value)
             if validation_error:
                 raise validation_error
-            model = cls(**values)
+            model = cls(**value)
             # Reset fields set, this would have been done in Pydantic in __init__
             object.__setattr__(model, "__fields_set__", fields_set)
             return model
@@ -654,3 +648,13 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     @declared_attr  # type: ignore
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
+
+
+def _is_field_nullable(field: ModelField) -> bool:
+    if not field.required:
+        # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
+        is_optional = field.allow_none and (
+            field.shape != SHAPE_SINGLETON or not field.sub_fields
+        )
+        return is_optional and field.default is None and field.default_factory is None
+    return False
