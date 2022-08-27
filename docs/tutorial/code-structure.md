@@ -8,7 +8,7 @@ The class `Hero` has a reference to the class `Team` internally.
 
 But the class `Team` also has a reference to the class `Hero`.
 
-So, if those two classes where in separate files and you tried to import the classes in each other's file directly, it would result in a **circular import**. 🔄
+So, if those two classes were in separate files and you tried to import the classes in each other's file directly, it would result in a **circular import**. 🔄
 
 And Python will not be able to handle it and will throw an error. 🚨
 
@@ -170,7 +170,7 @@ Let's assume that now the file structure is:
 
 The problem with circular imports is that Python can't resolve them at <abbr title="While it is executing the program, as oposed to the code as just text in a file stored on disk.">*runtime*</abbr>.
 
-but when using Python **type annotations** it's very common to need to declare the type of some variables with classes imported from other files.
+But when using Python **type annotations** it's very common to need to declare the type of some variables with classes imported from other files.
 
 And the files with those classes might **also need to import** more things from the first files.
 
@@ -198,7 +198,7 @@ It has a value of `True` for editors and tools that analyze the code with the ty
 
 But when Python is executing, its value is `False`.
 
-So, we can us it in an `if` block and import things inside the `if` block. And they will be "imported" only for editors, but not at runtime.
+So, we can use it in an `if` block and import things inside the `if` block. And they will be "imported" only for editors, but not at runtime.
 
 ### Hero Model File
 
