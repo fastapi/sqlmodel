@@ -218,11 +218,11 @@ And when getting the data with `hero.dict(exclude_unset=True)`, we would get:
 }
 ```
 
-So, we would use that value and upate the `age` to `None` in the database, **just as the client intended**.
+So, we would use that value and update the `age` to `None` in the database, **just as the client intended**.
 
 Notice that `age` here is `None`, and **we still detected it**.
 
-Also that `name` was not even sent, and we don't *accidentally* set it to `None` or something, we just didn't touch it, because the client didn't send it, so we are **perfectly fine**, even in these corner cases. ✨
+Also that `name` was not even sent, and we don't *accidentally* set it to `None` or something, we just didn't touch it, because the client didn't sent it, so we are **perfectly fine**, even in these corner cases. ✨
 
 These are some of the advantages of Pydantic, that we can use with SQLModel. 🎉
 

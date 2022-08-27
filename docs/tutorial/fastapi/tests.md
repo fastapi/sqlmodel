@@ -82,7 +82,7 @@ But now we need to deal with a bit of logistics and details we are not paying at
 
 This test looks fine, but there's a problem.
 
-If we run it, it will use the same **production database** that we are using to store our very important **heroes**, and we will end up adding adding unnecesary data to it, or even worse, in future tests we could end up removing production data.
+If we run it, it will use the same **production database** that we are using to store our very important **heroes**, and we will end up adding unnecesary data to it, or even worse, in future tests we could end up removing production data.
 
 So, we should use an independent **testing database**, just for the tests.
 
