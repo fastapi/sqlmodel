@@ -18,8 +18,8 @@ Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamRead` **d
 
 And we also create a `TeamUpdate` **data model**.
 
-```Python hl_lines="7-9  12-15  18-19  22-23  26-29"
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:1-29]!}
+```Python hl_lines="7-9  12-15  18-19  22-23  26-28"
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:1-28]!}
 
 # Code below omitted 👇
 ```
@@ -42,7 +42,7 @@ Let's now update the `Hero` models too.
 ```Python hl_lines="3-8  11-15  17-18  21-22  25-29"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:32-58]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:31-57]!}
 
 # Code below omitted 👇
 ```
@@ -66,10 +66,10 @@ And even though the `HeroBase` is *not* a **table model**, we can declare `team_
 
 Notice that the **relationship attributes**, the ones with `Relationship()`, are **only** in the **table models**, as those are the ones that are handled by **SQLModel** with SQLAlchemy and that can have the automatic fetching of data from the database when we access them.
 
-```Python hl_lines="11  39"
+```Python hl_lines="11  38"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:7-58]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:7-57]!}
 
 # Code below omitted 👇
 ```
@@ -92,7 +92,7 @@ These are equivalent and very similar to the **path operations** for the **heroe
 ```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:140-194]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:139-193]!}
 
 # Code below omitted 👇
 ```

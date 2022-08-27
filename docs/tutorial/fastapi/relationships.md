@@ -55,11 +55,11 @@ And the same way, we declared the `TeamRead` with only the same base fields of t
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:32-37]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:31-36]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:46-47]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:45-46]!}
 
 # Code below omitted 👇
 ```
@@ -80,11 +80,11 @@ In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, s
 ```Python hl_lines="3  8  12  17"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:105-110]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:104-109]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:160-165]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:159-164]!}
 
 # Code below omitted 👇
 ```
