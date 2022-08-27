@@ -865,7 +865,7 @@ It would be an error telling you that
 
 This is because as we are using pure and plain Python annotations for the fields, `age` is indeed annotated as `Optional[int]`, which means `int` or `None`.
 
-By using this simple and standard Python type annotations We get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
+By using this simple and standard Python type annotations we get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
 
 And when we use these special **class attributes** in a `.where()`, during execution of the program, the special class attribute will know that the comparison only applies for the values that are not `NULL` in the database, and it will work correctly.
 
