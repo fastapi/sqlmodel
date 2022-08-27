@@ -437,7 +437,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
-        "unique": unique
+        "unique": unique,
     }
     sa_default = Undefined
     if field.field_info.default_factory:

@@ -1,8 +1,8 @@
-import pytest
 from typing import Optional
 
-from sqlmodel import Field, Session, SQLModel, create_engine
+import pytest
 from sqlalchemy.exc import IntegrityError
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sqlmodel):
@@ -65,7 +65,9 @@ def test_should_allow_duplicate_row_if_unique_constraint_is_false(clear_sqlmodel
         assert heroes[0].name == heroes[1].name
 
 
-def test_should_raise_exception_when_try_to_duplicate_row_if_unique_constraint_is_true(clear_sqlmodel):
+def test_should_raise_exception_when_try_to_duplicate_row_if_unique_constraint_is_true(
+    clear_sqlmodel,
+):
     class Hero(SQLModel, table=True):
         id: Optional[int] = Field(default=None, primary_key=True)
         name: str
