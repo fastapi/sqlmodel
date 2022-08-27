@@ -519,9 +519,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if getattr(self.__config__, "table", False):
-                if is_instrumented(self, name):
-                    set_attribute(self, name, value)
+            if getattr(self.__config__, "table", False) and is_instrumented(self, name):
+                set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
             if name not in self.__sqlmodel_relationships__:
@@ -611,7 +610,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_unset: bool,
         update: Optional[Dict[str, Any]] = None,
     ) -> Optional[AbstractSet[str]]:
-        if include is None and exclude is None and exclude_unset is False:
+        if include is None and exclude is None and not exclude_unset:
             # Original in Pydantic:
             # return None
             # Updated to not return SQLAlchemy attributes
@@ -629,7 +628,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             # Do not include relationships as that would easily lead to infinite
             # recursion, or traversing the whole database
             keys = self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
-
         if include is not None:
             keys &= include.keys()
 
