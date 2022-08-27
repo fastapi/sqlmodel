@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{%- block scripts %}
+{{ super() }}
+<script src="https://cdn.jsdelivr.net/npm/qabot@0.4"></script>
+<script>
+    // This prevents the global search from interfering with qa-bot's internal text input.
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('qa-bot').forEach((x) => {
+        x.addEventListener('keydown', (event) => {
+          event.stopPropagation();
+        });
+      });
+    });
+</script>
+<qa-bot 
+    server="https://tiangolo-sqlmodel.docsqa.jina.ai" 
+    theme="infer" 
+    title="SQLModel Bot"
+    description="SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
+    style="font-size: 0.8rem"
+>
+    <template>
+        <dl>
+            <dt>You can ask questions about SQLModel. Try:</dt>
+            <dd>Which Python version is supported?</dd>
+            <dd>How SQLModel interacts with the database?</dd>
+            <dd>How can I link tables?</dd>
+        </dl>
+    </template>
+</qa-bot>
+{%- endblock %}
