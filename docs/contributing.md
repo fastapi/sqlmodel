@@ -42,7 +42,7 @@ $ poetry shell
 
 </div>
 
-That will set up the environment variables needed dand will start a new shell with them.
+That will set up the environment variables needed and start a new shell with them.
 
 #### Using your local SQLModel
 
