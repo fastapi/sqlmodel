@@ -42,7 +42,7 @@ But if the integer is not the ID of any hero in the database, it will not find a
 
 So, we check it in an `if` block, if it's `None`, we raise an `HTTPException` with a `404` status code.
 
-And to use it we first import `HTTPException` from `fastapi`.
+And to use it, we first import `HTTPException` from `fastapi`.
 
 This will let the client know that they probably made a mistake on their side and requested a hero that doesn't exist in the database.
 
