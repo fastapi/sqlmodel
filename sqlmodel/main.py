@@ -558,8 +558,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     @classmethod
     def parse_obj(
-        cls: Type["SQLModel"], obj: Any, update: Optional[Dict[str, Any]] = None
-    ) -> "SQLModel":
+        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+    ) -> _TSQLModel:
         obj = cls._enforce_dict_if_root(obj)
         # SQLModel, support update dict
         if update is not None:
@@ -573,7 +573,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     # From Pydantic, override to enforce validation with dict
     @classmethod
-    def validate(cls: Type["SQLModel"], value: Any) -> "SQLModel":
+    def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
         if isinstance(value, cls):
             return value.copy() if cls.__config__.copy_on_model_validation else value
 
