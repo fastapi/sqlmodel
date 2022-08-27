@@ -490,8 +490,8 @@ $ python app.py
 
 // Now the important part, the SELECT with WHERE 💡
 
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00014s] ('Deadpond',)
 
@@ -726,8 +726,8 @@ This will select the rows `WHERE` the `age` is **greater than or equal** to `35`
 The equivalent SQL would be:
 
 ```SQL hl_lines="3"
-SELECT id, name, secret_name, age 
-FROM hero 
+SELECT id, name, secret_name, age
+FROM hero
 WHERE age >= 35 AND age < 40
 ```
 
@@ -743,8 +743,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // The SELECT statement with WHERE, also using AND
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.age >= ? AND hero.age < ?
 INFO Engine [no key 0.00014s] (35, 40)
 
@@ -838,8 +838,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // The SELECT statement with WHERE, also using OR 🔍
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.age <= ? OR hero.age > ?
 INFO Engine [no key 0.00021s] (35, 90)
 

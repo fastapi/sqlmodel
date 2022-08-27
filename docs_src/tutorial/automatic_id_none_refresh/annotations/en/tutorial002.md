@@ -181,8 +181,8 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-    FROM hero 
+    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [generated in 0.00017s] (1,)
 
@@ -196,8 +196,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-    FROM hero 
+    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.001245s ago] (2,)
 
@@ -211,8 +211,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-    FROM hero 
+    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.002215s ago] (3,)
 
@@ -265,8 +265,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [generated in 0.00024s] (1,)
     ```
@@ -278,8 +278,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.001487s ago] (2,)
     ```
@@ -291,8 +291,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.002377s ago] (3,)
     ```

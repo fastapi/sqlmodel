@@ -274,7 +274,7 @@ This `session.exec(statement)` will generate this output:
 
 ```
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 INFO Engine [no key 0.00032s] ()
 ```
@@ -455,7 +455,7 @@ In this chapter we are touching some of them.
 
 ### SQLModel's `select`
 
-When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`. 
+When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`.
 
 SQLAchemy also has it's own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
 

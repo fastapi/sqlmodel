@@ -111,8 +111,8 @@ That would print a list with all the heroes in the Preventers team:
 $ python app.py
 
 // Automatically fetch the heroes
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
+FROM hero
 WHERE ? = hero.team_id
 INFO Engine [cached since 0.8774s ago] (2,)
 

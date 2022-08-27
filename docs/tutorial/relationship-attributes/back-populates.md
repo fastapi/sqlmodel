@@ -144,10 +144,10 @@ But now, what happens when we print the `preventers_team.heroes`?
 
 ``` hl_lines="3"
 Preventers Team Heroes again: [
-        Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2), 
-        Hero(name='Spider-Boy', age=None, id=3, secret_name='Pedro Parqueador', team_id=2, team=None), 
-        Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2), 
-        Hero(name='Dr. Weird', age=36, id=7, secret_name='Steve Weird', team_id=2), 
+        Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2),
+        Hero(name='Spider-Boy', age=None, id=3, secret_name='Pedro Parqueador', team_id=2, team=None),
+        Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2),
+        Hero(name='Dr. Weird', age=36, id=7, secret_name='Steve Weird', team_id=2),
         Hero(name='Captain North America', age=93, id=8, secret_name='Esteban Rogelios', team_id=2)
 ]
 ```
@@ -182,15 +182,15 @@ Now, if we commit it and print again:
 When we access `preventers_team.heroes` after the `commit`, that triggers a refresh, so we get the latest list, without **Spider-Boy**, so that's fine again:
 
 ```
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
+FROM hero
 WHERE ? = hero.team_id
 2021-08-13 11:15:24,658 INFO sqlalchemy.engine.Engine [cached since 0.1924s ago] (2,)
 
 Preventers Team Heroes after commit: [
-        Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2), 
-        Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2), 
-        Hero(name='Dr. Weird', age=36, id=7, secret_name='Steve Weird', team_id=2), 
+        Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2),
+        Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2),
+        Hero(name='Dr. Weird', age=36, id=7, secret_name='Steve Weird', team_id=2),
         Hero(name='Captain North America', age=93, id=8, secret_name='Esteban Rogelios', team_id=2)
 ]
 ```
@@ -260,9 +260,9 @@ That second print would output:
 
 ```
 Preventers Team Heroes again: [
-        Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2), 
-        Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2), 
-        Hero(name='Dr. Weird', age=36, id=7, secret_name='Steve Weird', team_id=2), 
+        Hero(name='Rusty-Man', age=48, id=2, secret_name='Tommy Sharp', team_id=2),
+        Hero(name='Tarantula', age=32, id=6, secret_name='Natalia Roman-on', team_id=2),
+        Hero(name='Dr. Weird', age=36, id=7, secret_name='Steve Weird', team_id=2),
         Hero(name='Captain North America', age=93, id=8, secret_name='Esteban Rogelios', team_id=2)
 ]
 ```

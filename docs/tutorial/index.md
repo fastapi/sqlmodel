@@ -136,7 +136,7 @@ Here are the commands you could use:
     <div class="termy">
 
     ```console
-    // Remember that you might need to use python3.9 or similar 💡 
+    // Remember that you might need to use python3.9 or similar 💡
     // Create the virtual environment using the module "venv"
     $ python3 -m venv env
     // ...here it creates the virtual enviroment in the directory "env"

@@ -86,8 +86,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // The SELECT with WHERE
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.age <= ?
 INFO Engine [no key 0.00021s] (35,)
 
@@ -132,8 +132,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // The SELECT with WHERE
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.age <= ?
 INFO Engine [no key 0.00021s] (35,)
 
@@ -180,8 +180,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // The SELECT with WHERE
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00015s] ('Deadpond',)
 
@@ -203,8 +203,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // The SELECT with WHERE
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00015s] ('Deadpond',)
 
@@ -274,8 +274,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // SELECT with WHERE
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.age < ?
 INFO Engine [no key 0.00014s] (25,)
 
@@ -370,8 +370,8 @@ $ python app.py
 // Some boilerplate output omitted 😉
 
 // SELECT with WHERE
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00021s] (1,)
 
@@ -413,8 +413,8 @@ $ python app.py
 
 // SELECT with WHERE
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00024s] (9001,)
 
