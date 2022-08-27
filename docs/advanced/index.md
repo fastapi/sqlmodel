@@ -1,12 +1,10 @@
 # Advanced User Guide
 
-The **Advanced User Guide** will be coming soon to a <del>theater</del> **documentation** near you... 😅
+The **Advanced User Guide** is gradually growing, you can already read about some advanced topics.
 
-I just have to `add` it, `commit` it, and `refresh` it. 😉
+At some point it will include:
 
-It will include:
-
-* How to use the `async` and `await` with the async session.
+* How to use `async` and `await` with the async session.
 * How to run migrations.
 * How to combine **SQLModel** models with SQLAlchemy.
-* ...and more.
+* ...and more. 🤓

@@ -305,6 +305,31 @@ And of course, all these fields will be in the columns for the resulting `hero` 
 
 And those inherited fields will also be in the **autocompletion** and **inline errors** in editors, etc.
 
+### Columns and Inheritance with Multiple Models
+
+Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
+
+```Python hl_lines="4  6  9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-14]!}
+
+# Code below omitted 👇
+```
+
+<details>
+<summary>👀 Full file preview</summary>
+
+```Python
+{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py!}
+```
+
+</details>
+
+This won't affect this parent **data model** `HeroBase`.
+
+But once the child model `Hero` (the actual **table model**) inherits those fields, it will use those field configurations to create the indexes when creating the tables in the database.
+
 ### The `HeroCreate` **Data Model**
 
 Now let's see the `HeroCreate` model that will be used to define the data that we want to receive in the API when creating a new hero.
@@ -336,7 +361,7 @@ And because we can't leave the empty space when creating a new class, but we don
 
 This means that there's nothing else special in this class apart from the fact that it is named `HeroCreate` and that it inherits from `HeroBase`.
 
-As an alternative, we could use `HeroBase` directly in the API code instead of `HeroCreate`, but it would show up in the auomatic docs UI with that name "`HeroBase`" which could be **confusing** for clients. Instead, "`HeroCreate`" is a bit more explicit about what it is for.
+As an alternative, we could use `HeroBase` directly in the API code instead of `HeroCreate`, but it would show up in the automatic docs UI with that name "`HeroBase`" which could be **confusing** for clients. Instead, "`HeroCreate`" is a bit more explicit about what it is for.
 
 On top of that, we could easily decide in the future that we want to receive **more data** when creating a new hero apart from the data in `HeroBase` (for example a password), and now we already have the class to put those extra fields.
 
