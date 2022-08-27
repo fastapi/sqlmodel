@@ -81,7 +81,7 @@ expected_calls = [
     ],
     [
         "Spider-Boy's team:",
-        {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
+        {"headquarters": "Sharp Tower", "id": 2, "name": "Preventers"},
     ],
     [
         "Spider-Boy's team again:",

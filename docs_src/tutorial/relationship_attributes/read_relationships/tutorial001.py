@@ -99,7 +99,7 @@ def select_heroes():
         result = session.exec(statement)
         hero_spider_boy = result.one()
 
-        statement = select(Team).where(Team.id == hero_spider_boy.id)
+        statement = select(Team).where(Team.id == hero_spider_boy.team_id)
         result = session.exec(statement)
         team = result.first()
         print("Spider-Boy's team:", team)

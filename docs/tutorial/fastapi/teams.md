@@ -12,7 +12,7 @@ Let's add the models for the teams.
 
 It's the same process we did for heroes, with a base model, a **table model**, and some other **data models**.
 
-We have a `TeamBase` **data model**, and from it we inherit with a `Team` **table model**.
+We have a `TeamBase` **data model**, and from it, we inherit with a `Team` **table model**.
 
 Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamRead` **data models**.
 
@@ -108,9 +108,9 @@ These are equivalent and very similar to the **path operations** for the **heroe
 
 ## Using Relationships Attributes
 
-Up to this point we are actually not using the **relationship attributes**, but we could access them in our code.
+Up to this point, we are actually not using the **relationship attributes**, but we could access them in our code.
 
-In the next chapter we will play more with them.
+In the next chapter, we will play more with them.
 
 ## Check the Docs UI
 

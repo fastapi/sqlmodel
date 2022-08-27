@@ -102,7 +102,7 @@ In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, s
 
 Now let's stop for a second and think about it.
 
-We cannot simply include *all* the data including all the internal relationships, because each **hero** has an attribute `team` with their team, and then that **team** also has an attribute `heroes` with all the **heroes** in the team, including this one.
+We cannot simply include *all* the data, including all the internal relationships, because each **hero** has an attribute `team` with their team, and then that **team** also has an attribute `heroes` with all the **heroes** in the team, including this one.
 
 If we tried to include everything, we could make the server application **crash** trying to extract **infinite data**, going through the same hero and team over and over again internally, something like this:
 
@@ -152,7 +152,7 @@ If we tried to include everything, we could make the server application **crash*
 }
 ```
 
-As you can see, in this example we would get the hero **Rusty-Man**, and from this hero we would get the team **Preventers**, and then from this team we would get its heroes, of course, including **Rusty-Man**... 😱
+As you can see, in this example, we would get the hero **Rusty-Man**, and from this hero we would get the team **Preventers**, and then from this team we would get its heroes, of course, including **Rusty-Man**... 😱
 
 So we start again, and in the end, the server would just crash trying to get all the data with a `"Maximum recursion error"`, we would not even get a response like the one above.
 
@@ -164,7 +164,7 @@ This is a decision that will depend on **each application**.
 
 In our case, let's say that if we get a **list of heroes**, we don't want to also include each of their teams in each one.
 
-And if we get a **list of teams**, we don't want to get a a list of the heroes for each one.
+And if we get a **list of teams**, we don't want to get a list of the heroes for each one.
 
 But if we get a **single hero**, we want to include the team data (without the team's heroes).
 
@@ -195,7 +195,7 @@ We'll add them **after** the other models so that we can easily reference the pr
 
 </details>
 
-These two models are very **simple in code**, but there's a lot happening here, let's check it out.
+These two models are very **simple in code**, but there's a lot happening here. Let's check it out.
 
 ### Inheritance and Type Annotations
 
@@ -203,7 +203,7 @@ The `HeroReadWithTeam` **inherits** from `HeroRead`, which means that it will ha
 
 And then it adds the **new field** `team`, which could be `None`, and is declared with the type `TeamRead` with the base fields for reading a team.
 
-Then we do the same for the `TeamReadWithHeroes`, it **inherits** from `TeamRead`, and declare the **new field** `heroes` which is a list of `HeroRead`.
+Then we do the same for the `TeamReadWithHeroes`, it **inherits** from `TeamRead`, and declares the **new field** `heroes`, which is a list of `HeroRead`.
 
 ### Data Models Without Relationship Attributes
 
@@ -213,7 +213,7 @@ Instead, here these are only **data models** that will tell FastAPI **which attr
 
 ### Reference to Other Models
 
-Also notice that the field `team` is not declared with this new `TeamReadWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamRead` model.
+Also, notice that the field `team` is not declared with this new `TeamReadWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamRead` model.
 
 And the same for `TeamReadWithHeroes`, the model used for the new field `heroes` uses `HeroRead` to get only each hero's data.
 
@@ -326,7 +326,7 @@ Now we get the list of **heroes** included:
 
 ## Recap
 
-Using the same techniques to declare additonal **data models** we can tell FastAPI what data to return in the responses, even when we return **table models**.
+Using the same techniques to declare additional **data models**, we can tell FastAPI what data to return in the responses, even when we return **table models**.
 
 Here we almost **didn't have to change the FastAPI app** code, but of course, there will be cases where you need to get the data and process it in different ways in the *path operation function* before returning it.
 
@@ -334,4 +334,4 @@ But even in those cases, you will be able to define the **data models** to use i
 
 By this point, you already have a very robust API to handle data in a SQL database combining **SQLModel** with **FastAPI**, and implementing **best practices**, like data validation, conversion, filtering, and documentation. ✨
 
-In the next chapter I'll tell you how to implement automated **testing** for your application using FastAPI and SQLModel. ✅
+In the next chapter, I'll tell you how to implement automated **testing** for your application using FastAPI and SQLModel. ✅
