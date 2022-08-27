@@ -2,7 +2,7 @@
 
 We have been using the same `Hero` model to declare the schema of the data we receive in the API, the table model in the database, and the schema of the data we send back in responses.
 
-But in most of the cases there are slight differences, let's use multiple models to solve it.
+But in most of the cases, there are slight differences. Let's use multiple models to solve it.
 
 Here you will see the main and biggest feature of **SQLModel**. 😎
 
@@ -10,7 +10,7 @@ Here you will see the main and biggest feature of **SQLModel**. 😎
 
 Let's start by reviewing the automatically generated schemas from the docs UI.
 
-For input we have:
+For input, we have:
 
 <img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/simple-hero-api/image01.png">
 
@@ -20,7 +20,7 @@ This means that the client could try to use the same ID that already exists in t
 
 That's not what we want.
 
-We want the client to only send the data that is needed to create a new hero:
+We want the client only to send the data that is needed to create a new hero:
 
 * `name`
 * `secret_name`
@@ -63,7 +63,7 @@ The ultimate goal of an API is for some **clients to use it**.
 
 The clients could be a frontend application, a command line program, a graphical user interface, a mobile application, another backend application, etc.
 
-And the code those clients write depend on what our API tells them they **need to send**, and what they can **expect to receive**.
+And the code those clients write depends on what our API tells them they **need to send**, and what they can **expect to receive**.
 
 Making both sides very clear will make it much easier to interact with the API.
 
@@ -164,7 +164,7 @@ Let's first check how is the process to create a hero now:
 
 Let's check that in detail.
 
-Now we use the type annotation `HeroCreate` for the request JSON data, in the `hero` parameter of the **path operation function**.
+Now we use the type annotation `HeroCreate` for the request JSON data in the `hero` parameter of the **path operation function**.
 
 ```Python hl_lines="3"
 # Code above omitted 👆
@@ -180,9 +180,9 @@ The method `.from_orm()` reads data from another object with attributes and crea
 
 The alternative is `Hero.parse_obj()` that reads data from a dictionary.
 
-But as in this case we have a `HeroCreate` instance in the `hero` variable, this is an object with attributes, so we use `.from_orm()` to read those attributes.
+But as in this case, we have a `HeroCreate` instance in the `hero` variable. This is an object with attributes, so we use `.from_orm()` to read those attributes.
 
-With this we create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
+With this, we create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
 
 ```Python hl_lines="3"
 # Code above omitted 👆
@@ -192,7 +192,7 @@ With this we create a new `Hero` instance (the one for the database) and put it 
 # Code below omitted 👇
 ```
 
-Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally we return the same `db_hero` variable that has the just refreshed `Hero` instance.
+Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally, we return the same `db_hero` variable that has the just refreshed `Hero` instance.
 
 Because it is just refreshed, it has the `id` field set with a new ID taken from the database.
 
@@ -206,30 +206,30 @@ And now that we return it, FastAPI will validate the data with the `response_mod
 # Code below omitted 👇
 ```
 
-This will validate that all the data that we promised is there, and will remove any data we didn't declare.
+This will validate that all the data that we promised is there and will remove any data we didn't declare.
 
 !!! tip
-    This filtering could be very important, and could be a very good security feature, for example to make sure you filter private data, hashed passwords, etc.
+    This filtering could be very important and could be a very good security feature, for example, to make sure you filter private data, hashed passwords, etc.
 
     You can read more about it in the <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI docs about Response Model</a>.
 
-In particular, it will make sure that the `id` is there, and that it is indeed an integer (and not `None`).
+In particular, it will make sure that the `id` is there and that it is indeed an integer (and not `None`).
 
 ## Shared Fields
 
 But looking closely, we could see that these models have a lot of **duplicated information**.
 
-All **the 3 models** declare that thay share some **common fields** that look exactly the same:
+All **the 3 models** declare that they share some **common fields** that look exactly the same:
 
 * `name`, required
 * `secret_name`, required
 * `age`, optional
 
-And then they declare other fields with some differences (in this case only about the `id`).
+And then they declare other fields with some differences (in this case, only about the `id`).
 
 We want to **avoid duplicated information** if possible.
 
-This is important if, for example, in the future we decide to **refactor the code** and rename one field (column). For example, from `secret_name` to `secret_identity`.
+This is important if, for example, in the future, we decide to **refactor the code** and rename one field (column). For example, from `secret_name` to `secret_identity`.
 
 If we have that duplicated in multiple models, we could easily forget to update one of them. But if we **avoid duplication**, there's only one place that would need updating. ✨
 
@@ -363,7 +363,7 @@ This means that there's nothing else special in this class apart from the fact t
 
 As an alternative, we could use `HeroBase` directly in the API code instead of `HeroCreate`, but it would show up in the automatic docs UI with that name "`HeroBase`" which could be **confusing** for clients. Instead, "`HeroCreate`" is a bit more explicit about what it is for.
 
-On top of that, we could easily decide in the future that we want to receive **more data** when creating a new hero apart from the data in `HeroBase` (for example a password), and now we already have the class to put those extra fields.
+On top of that, we could easily decide in the future that we want to receive **more data** when creating a new hero apart from the data in `HeroBase` (for example, a password), and now we already have the class to put those extra fields.
 
 ### The `HeroRead` **Data Model**
 
@@ -390,7 +390,7 @@ This one just declares that the `id` field is required when reading a hero from 
 
 ## Review the Updated Docs UI
 
-The FastAPI code is still the same as above, we still use `Hero`, `HeroCreate`, and `HeroRead`. But now we define them in a smarter way with inheritance.
+The FastAPI code is still the same as above, we still use `Hero`, `HeroCreate`, and `HeroRead`. But now, we define them in a smarter way with inheritance.
 
 So, we can jump to the docs UI right away and see how they look with the updated data.
 
@@ -400,7 +400,7 @@ Let's see the new UI for creating a hero:
 
 <img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/multiple-models/image02.png">
 
-Nice! It now shows that to create a hero, we just pass the `name`, `secret_name`, and optinally `age`.
+Nice! It now shows that to create a hero, we just pass the `name`, `secret_name`, and optionally `age`.
 
 We no longer pass an `id`.
 
@@ -416,7 +416,7 @@ And if we check the schema for the **Read Heroes** *path operation* it will also
 
 ## Inheritance and Table Models
 
-We just saw how powerful inheritance of these models can be.
+We just saw how powerful the inheritance of these models could be.
 
 This is a very simple example, and it might look a bit... meh. 😅
 

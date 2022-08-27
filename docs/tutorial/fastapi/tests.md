@@ -76,7 +76,7 @@ Let's start with a simple test, with just the basic test code we need the check 
 
 That's the **core** of the code we need for all the tests later.
 
-But now we need to deal with a bit of logistics and details we are not paying attention to just yet. 🤓
+But now, we need to deal with a bit of logistics and details we are not paying attention to just yet. 🤓
 
 ## Testing Database
 
@@ -155,7 +155,7 @@ That way, when we call `.create_all()` all the **table models** are correctly re
 
 ## Memory Database
 
-Now we are not using the production database, instead we use a **new testing database** with the `testing.db` file, which is great.
+Now we are not using the production database. Instead, we use a **new testing database** with the `testing.db` file, which is great.
 
 But SQLite also supports having an **in memory** database. This means that all the database is only in memory, and it is never saved in a file on disk.
 
@@ -171,7 +171,7 @@ Other alternatives and ideas 👀
 </summary>
 Before arriving at the idea of using an **in-memory database** we could have explored other alternatives and ideas.
 
-The first, is that we are not deleting the file after we finish the test, so, the next test could have **leftover data**. So, the right thing would be to delete the file right after finishing the test. 🔥
+The first is that we are not deleting the file after we finish the test, so the next test could have **leftover data**. So, the right thing would be to delete the file right after finishing the test. 🔥
 
 But if each test has to create a new file and then delete it afterwards, running all the tests could be **a bit slow**.
 
@@ -179,7 +179,7 @@ Right now, we have a file `testing.db` that is used by all the tests (we only ha
 
 So, if we tried to run the tests at the same time **in parallel** to try to speed things up a bit, they would clash trying to use the *same* `testing.db` file.
 
-Of couse, we could also fix that, using some **random name** for each testing database file... but in the case of SQLite, we have an even better alternative with just using an **in-memory database**. ✨
+Of course, we could also fix that, using some **random name** for each testing database file... but in the case of SQLite, we have an even better alternative by just using an **in-memory database**. ✨
 
 </details>
 
@@ -208,7 +208,7 @@ And all the other tests can do the same.
 
 Great, that works, and you could replicate all that process in each of the test functions.
 
-But we had to add a lot of **boilerplate code** to handle the custom database, creating it in memory, the custom session, the dependency override.
+But we had to add a lot of **boilerplate code** to handle the custom database, creating it in memory, the custom session, and the dependency override.
 
 Do we really have to duplicate all that for **each test**? No, we can do better! 😎
 
@@ -242,12 +242,12 @@ Let's see the first code example with a fixture:
 
 **pytest** fixtures work in a very similar way to FastAPI dependencies, but have some minor differences:
 
-* In pytest fixtures we need to add a decorator of `@pytest.fixture()` on top.
+* In pytest fixtures, we need to add a decorator of `@pytest.fixture()` on top.
 * To use a pytest fixture in a function, we have to declare the parameter with the **exact same name**. In FastAPI we have to **explicitly use `Depends()`** with the actual function inside it.
 
 But apart from the way we declare them and how we tell the framework that we want to have them in the function, they **work in a very similar way**.
 
-Now we create lot's of tests, and re-use that same fixture in all of them, saving us that **boilerplate code**.
+Now we create lot's of tests and re-use that same fixture in all of them, saving us that **boilerplate code**.
 
 **pytest** will make sure to run them right before (and finish them right after) each test function. So, each test function will actually have its own database, engine, and session.
 
@@ -255,7 +255,7 @@ Now we create lot's of tests, and re-use that same fixture in all of them, savin
 
 Awesome, that fixture helps us prevent a lot of duplicated code.
 
-But currently we still have to write some code in the test function that will be repetitive for other tests, right now we:
+But currently, we still have to write some code in the test function that will be repetitive for other tests, right now we:
 
 * create the **dependency override**
 * put it in the `app.dependency_overrides`
@@ -277,7 +277,7 @@ So, we can create a **client fixture** that will be used in all the tests, and i
 !!! tip
     Check out the number bubbles to see what is done by each line of code.
 
-Now we have a **client fixture** that in turns uses the **session fixture**.
+Now we have a **client fixture** that, in turn, uses the **session fixture**.
 
 And in the actual test function, we just have to declare that we require this **client fixture**.
 
@@ -285,7 +285,7 @@ And in the actual test function, we just have to declare that we require this **
 
 At this point, it all might seem like we just did a lot of changes for nothing, to get **the same result**. 🤔
 
-But normally we will create **lots of other test functions**. And now all the boilerplate and complexity is **writen only once**, in those two fixtures.
+But normally we will create **lots of other test functions**. And now all the boilerplate and complexity is **written only once**, in those two fixtures.
 
 Let's add some more tests:
 
@@ -315,9 +315,9 @@ Now, any additional test functions can be as **simple** as the first one, they j
 
 ## Why Two Fixtures
 
-Now, seeing the code we could think, why do we put **two fixtures** instead of **just one** with all the code? And that makes total sense!
+Now, seeing the code, we could think, why do we put **two fixtures** instead of **just one** with all the code? And that makes total sense!
 
-For these examples, **that would have been simpler**, there's no need to separate that code in two fixtures for them...
+For these examples, **that would have been simpler**, there's no need to separate that code into two fixtures for them...
 
 But for the next test function, we will require **both fixtures**, the **client** and the **session**.
 
@@ -340,7 +340,7 @@ But for the next test function, we will require **both fixtures**, the **client*
 
 </details>
 
-In this test function we want to check that the *path operation* to **read a list of heroes** actually sends us heroes.
+In this test function, we want to check that the *path operation* to **read a list of heroes** actually sends us heroes.
 
 But if the **database is empty**, we would get an **empty list**, and we wouldn't know if the hero data is being sent correctly or not.
 
@@ -362,7 +362,7 @@ The function for the **client fixture** and the actual testing function will **b
 
 ## Add the Rest of the Tests
 
-Using the same ideas, requiring the fixtures, creating data that we need for the tests, etc. we can now add the rest of the tests, they look quite similar to what we have done up to now.
+Using the same ideas, requiring the fixtures, creating data that we need for the tests, etc., we can now add the rest of the tests. They look quite similar to what we have done up to now.
 
 ```Python hl_lines="3  18  33"
 # Code above omitted 👆
@@ -406,9 +406,9 @@ project/test_main.py <font color="#A6E22E">.......         [100%]</font>
 
 Did you read all that? Wow, I'm impressed! 😎
 
-Adding tests to your application will give you a lot of **certainty** that everything is **working correctly**, as you indended.
+Adding tests to your application will give you a lot of **certainty** that everything is **working correctly**, as you intended.
 
-And tests will be notoriously useful when **refactoring** your code, **changing things**, **adding features**. Because tests they can help catch a lot of errors that can be easily introduced by refactoring.
+And tests will be notoriously useful when **refactoring** your code, **changing things**, **adding features**. Because tests can help catch a lot of errors that can be easily introduced by refactoring.
 
 And they will give you the confidence to work faster and **more efficiently**, because you know that you are checking if you are **not breaking anything**. 😅
 

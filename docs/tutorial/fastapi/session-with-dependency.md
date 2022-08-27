@@ -90,7 +90,7 @@ We import `Depends()` from `fastapi`. Then we use it in the *path operation func
 
     You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
 
-The value of a dependency will **only be used for one request**, FastAPI will call it right before calling your code, and will give you the value from that dependency.
+The value of a dependency will **only be used for one request**, FastAPI will call it right before calling your code and will give you the value from that dependency.
 
 If it had `yield`, then it will continue the rest of the execution once you are done sending the response. In the case of the **session**, it will finish the cleanup code from the `with` block, closing the session, etc.
 
