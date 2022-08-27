@@ -4,7 +4,7 @@ Now let's see how to update data in the database with a **FastAPI** *path operat
 
 ## `HeroUpdate` Model
 
-We want clients to be able to udpate the `name`, the `secret_name`, and the `age` of a hero.
+We want clients to be able to update the `name`, the `secret_name`, and the `age` of a hero.
 
 But we don't want them to have to include all the data again just to **update a single field**.
 
@@ -222,7 +222,7 @@ So, we would use that value and upate the `age` to `None` in the database, **jus
 
 Notice that `age` here is `None`, and **we still detected it**.
 
-Also that `name` was not even sent, and we don't *accidentaly* set it to `None` or something, we just didn't touch it, because the client didn't sent it, so we are **pefectly fine**, even in these corner cases. ✨
+Also that `name` was not even sent, and we don't *accidentally* set it to `None` or something, we just didn't touch it, because the client didn't send it, so we are **perfectly fine**, even in these corner cases. ✨
 
 These are some of the advantages of Pydantic, that we can use with SQLModel. 🎉
 
