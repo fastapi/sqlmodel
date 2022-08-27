@@ -3,6 +3,7 @@ site_description: SQLModel, SQL databases in Python, designed for simplicity, co
 site_url: https://sqlmodel.tiangolo.com/
 theme:
   name: material
+  custom_dir: docs/overrides
   palette:
   - scheme: default
     primary: deep purple
