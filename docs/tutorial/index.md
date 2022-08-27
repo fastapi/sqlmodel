@@ -2,7 +2,7 @@
 
 ## Type hints
 
-If you need a refreshed about how to use Python type hints (type annotations), check <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">FastAPI's Python types intro</a>.
+If you need a refresher about how to use Python type hints (type annotations), check <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">FastAPI's Python types intro</a>.
 
 You can also check the <a href="https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html" class="external-link" target="_blank">mypy cheat sheet</a>.
 
@@ -97,7 +97,7 @@ $ python3 --version
 // This is too old! 😱
 Python 3.5.6
 // Let's see if python3.10 is available
-$ python3.10 --verson
+$ python3.10 --version
 // Oh, no, this one is not available 😔
 command not found: python3.10
 $ python3.9 --version
