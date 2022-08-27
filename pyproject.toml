@@ -31,7 +31,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
-SQLAlchemy = ">=1.4.17,<1.5.0"
+SQLAlchemy = ">=1.4.17,<=1.4.41"
 pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
@@ -44,7 +44,7 @@ mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^5.5"}
-fastapi = "^0.68.0"
+fastapi = "^0.68.1"
 requests = "^2.26.0"
 autoflake = "^1.4"
 isort = "^5.9.3"
@@ -102,3 +102,5 @@ strict_equality = true
 [[tool.mypy.overrides]]
 module = "sqlmodel.sql.expression"
 warn_unused_ignores = false
+
+# invalidate CI cache: 1
