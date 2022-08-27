@@ -582,7 +582,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             values, fields_set, validation_error = validate_model(cls, value)
             if validation_error:
                 raise validation_error
-            model = cls(**values)
+            model = cls(**value)
             # Reset fields set, this would have been done in Pydantic in __init__
             object.__setattr__(model, "__fields_set__", fields_set)
             return model
