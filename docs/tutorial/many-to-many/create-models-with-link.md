@@ -40,7 +40,7 @@ And **both fields are primary keys**. We hadn't used this before. 🤓
 Let's see the `Team` model, it's almost identical as before, but with a little change:
 
 ```Python hl_lines="8"
-# Code above ommited 👆
+# Code above omitted 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:15-20]!}
 
@@ -56,7 +56,7 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 
 </details>
 
-The **relationship attribute `heroes`** is still a list of heroes, annotatted as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
+The **relationship attribute `heroes`** is still a list of heroes, annotated as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
 
 We use the same **`Relationship()`** function.
 
@@ -69,7 +69,7 @@ And here's the important part to allow the **many-to-many** relationship, we use
 Let's see the other side, here's the `Hero` model:
 
 ```Python hl_lines="9"
-# Code above ommited 👆
+# Code above omitted 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:23-29]!}
 
@@ -102,7 +102,7 @@ And now we have a **`link_model=HeroTeamLink`**. ✨
 The same as before, we will have the rest of the code to create the **engine**, and a function to create all the tables `create_db_and_tables()`.
 
 ```Python hl_lines="9"
-# Code above ommited 👆
+# Code above omitted 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:32-39]!}
 
@@ -122,7 +122,7 @@ The same as before, we will have the rest of the code to create the **engine**, 
 And as in previous examples, we will add that function to a function `main()`, and we will call that `main()` function in the main block:
 
 ```Python hl_lines="4"
-# Code above ommited 👆
+# Code above omitted 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-79]!}
     # We will do more stuff here later 👈
@@ -149,7 +149,7 @@ If you run the code in the command line, it would output:
 ```console
 $ python app.py
 
-// Boilerplate ommited 😉
+// Boilerplate omitted 😉
 
 INFO Engine 
 CREATE TABLE team (
