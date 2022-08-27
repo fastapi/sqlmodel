@@ -646,3 +646,46 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     @declared_attr  # type: ignore
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
+
+
+def create_model(
+    model_name: str,
+    field_definitions: Dict[str, Tuple[Any, Any]],
+    *,
+    __module__: str = __name__,
+    **kwargs,
+) -> Type[SQLModelMetaclass]:
+    """
+    Dynamically create a model, similar to the Pydantic `create_model()` method
+
+    :param model_name: name of the created model
+    :param field_definitions: data fields of the create model
+    :param __module__: module of the created model
+    :param **kwargs: Other keyword arguments to pass to the metaclass constructor, e.g. table=True
+    """
+    fields = {}
+    annotations = {}
+
+    for f_name, f_def in field_definitions.items():
+        if f_name.startswith("_"):
+            raise ValueError("Field names may not start with an underscore")
+        try:
+            if isinstance(f_def, tuple) and len(f_def) > 1:
+                f_annotation, f_value = f_def
+            elif isinstance(f_def, tuple):
+                f_annotation, f_value = f_def[0], Field(nullable=False)
+            else:
+                f_annotation, f_value = f_def, Field(nullable=False)
+        except ValueError as e:
+            raise ConfigError(
+                "field_definitions values must be either a tuple of (<type_annotation>, <default_value>)"
+                "or just a type annotation [or a 1-tuple of (<type_annotation>,)]"
+            ) from e
+
+        if f_annotation:
+            annotations[f_name] = f_annotation
+        fields[f_name] = f_value
+
+    namespace = {"__annotations__": annotations, "__module__": __module__, **fields}
+
+    return type(model_name, (SQLModel,), namespace, **kwargs)
