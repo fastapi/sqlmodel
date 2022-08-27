@@ -23,7 +23,7 @@ $ python -m pip install fastapi "uvicorn[standard]"
 ```
 
 </div>
-s
+
 ## **SQLModel** Code - Models, Engine
 
 Now let's start with the SQLModel code.
