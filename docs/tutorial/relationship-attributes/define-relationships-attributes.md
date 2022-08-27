@@ -96,7 +96,7 @@ Next, use that `Relationship` to declare a new attribute in the model classes:
 
 ## What Are These Relationship Attributes
 
-This new attributes are not the same as fields, they **don't represent a column** directly in the database, and their value is not a singular value like an integer. Their value is the actual **entire object** that is related.
+These new attributes are not the same as fields, they **don't represent a column** directly in the database, and their value is not a singular value like an integer. Their value is the actual **entire object** that is related.
 
 So, in the case of a `Hero` instance, if you call `hero.team`, you will get the entire `Team` instance object that this hero belongs to. ✨
 

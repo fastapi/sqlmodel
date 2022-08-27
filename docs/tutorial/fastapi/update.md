@@ -61,7 +61,7 @@ We will use a `PATCH` HTTP operation. This is used to **partially update data**,
 
 </details>
 
-We also read the `hero_id` from the *path parameter* an the request body, a `HeroUpdate`.
+We also read the `hero_id` from the *path parameter* and the request body, a `HeroUpdate`.
 
 ### Read the Existing Hero
 
@@ -100,7 +100,7 @@ But that also means that if we just call `hero.dict()` we will get a dictionary 
 }
 ```
 
-And then if we update the hero in the database with this data, we would be removing any existing values, and that's probably **not what the client intended**.
+And then, if we update the hero in the database with this data, we would be removing any existing values, and that's probably **not what the client intended**.
 
 But fortunately Pydantic models (and so SQLModel models) have a parameter we can pass to the `.dict()` method for that: `exclude_unset=True`.
 
@@ -200,7 +200,7 @@ We are **not simply omitting** the data that has the **default values**.
 
 And we are **not simply omitting** anything that is `None`.
 
-This means that, if a model in the database **has a value different than the default**, the client could **reset it to the same value as the default**, or even `None`, and we would **still notice it** and **update it accordingly**. 🤯🚀
+This means that if a model in the database **has a value different than the default**, the client could **reset it to the same value as the default**, or even `None`, and we would **still notice it** and **update it accordingly**. 🤯🚀
 
 So, if the client wanted to intentionally remove the `age` of a hero, they could just send a JSON with:
 
@@ -222,7 +222,7 @@ So, we would use that value and update the `age` to `None` in the database, **ju
 
 Notice that `age` here is `None`, and **we still detected it**.
 
-Also that `name` was not even sent, and we don't *accidentally* set it to `None` or something, we just didn't touch it, because the client didn't sent it, so we are **perfectly fine**, even in these corner cases. ✨
+Also, that `name` was not even sent, and we don't *accidentally* set it to `None` or something. We just didn't touch it because the client didn't send it, so we are **perfectly fine**, even in these corner cases. ✨
 
 These are some of the advantages of Pydantic, that we can use with SQLModel. 🎉
 
