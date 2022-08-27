@@ -170,7 +170,7 @@ Let's assume that now the file structure is:
 
 The problem with circular imports is that Python can't resolve them at <abbr title="While it is executing the program, as oposed to the code as just text in a file stored on disk.">*runtime*</abbr>.
 
-but when using Python **type annotations** it's very common to need to declare the type of some variables with classes imported from other files.
+But when using Python **type annotations** it's very common to need to declare the type of some variables with classes imported from other files.
 
 And the files with those classes might **also need to import** more things from the first files.
 
