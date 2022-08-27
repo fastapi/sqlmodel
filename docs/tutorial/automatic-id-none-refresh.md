@@ -1,6 +1,6 @@
 # Automatic IDs, None Defaults, and Refreshing Data
 
-In the previous chapter we saw how to add rows to the database using **SQLModel**.
+In the previous chapter, we saw how to add rows to the database using **SQLModel**.
 
 Now let's talk a bit about why the `id` field **can't be `NULL`** on the database because it's a **primary key**, and we declare it using `Field(primary_key=True)`.
 
@@ -11,7 +11,7 @@ But the same `id` field actually **can be `None`** in the Python code, so we dec
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:6-10]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>
@@ -68,7 +68,7 @@ If we ran this code before saving the hero to the database and the `hero_1.id` w
 TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
 ```
 
-But by declaring it with `Optional[int]` the editor will help us to avoid writing broken code by showing us a warning telling us that the code could be invalid if `hero_1.id` is `None`. 🔍
+But by declaring it with `Optional[int]`, the editor will help us to avoid writing broken code by showing us a warning telling us that the code could be invalid if `hero_1.id` is `None`. 🔍
 
 ## Print the Default `id` Values
 
@@ -79,7 +79,7 @@ We can confirm that by printing our heroes before adding them to the database:
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-31]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>
@@ -98,7 +98,7 @@ That will output:
 ```console
 $ python app.py
 
-// Output above ommitted 👆
+// Output above omitted 👆
 
 Before interacting with the database
 Hero 1: id=None name='Deadpond' secret_name='Dive Wilson' age=None
@@ -118,7 +118,7 @@ What happens when we `add` these objects to the **session**?
 
 After we add the `Hero` instance objects to the **session**, the IDs are *still* `None`.
 
-We can verify by creating a session using a `with` block, and adding the objects. And then printing them again:
+We can verify by creating a session using a `with` block and adding the objects. And then printing them again:
 
 ```Python hl_lines="19-21"
 # Code above omitted 👆
@@ -144,7 +144,7 @@ This will, again, output the `id`s of the objects as `None`:
 ```console
 $ python app.py
 
-// Output above ommitted 👆
+// Output above omitted 👆
 
 After adding to the session
 Hero 1: id=None name='Deadpond' secret_name='Dive Wilson' age=None
@@ -165,7 +165,7 @@ Then we can `commit` the changes in the session, and print again:
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-48]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>
@@ -184,7 +184,7 @@ And now, something unexpected happens, look at the output, it seems as if the `H
 ```console
 $ python app.py
 
-// Output above ommitted 👆
+// Output above omitted 👆
 
 // Here the engine talks to the database, the SQL part
 INFO Engine BEGIN (implicit)
