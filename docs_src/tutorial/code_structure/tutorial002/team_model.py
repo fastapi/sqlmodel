@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 class Team(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
     headquarters: str
 
     heroes: List["Hero"] = Relationship(back_populates="team")
