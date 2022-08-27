@@ -425,7 +425,6 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
         return sa_column
     sa_type = get_sqlachemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
-    nullable = not primary_key and _is_field_nullable(field)
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
         index = False
@@ -433,6 +432,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
         field_nullable = getattr(field.field_info, "nullable")
         if field_nullable != Undefined:
             nullable = field_nullable
+    nullable = not primary_key and _is_field_nullable(field)
     args = []
     foreign_key = getattr(field.field_info, "foreign_key", None)
     if foreign_key:
