@@ -18,7 +18,7 @@ class HeroTeamLink(SQLModel, table=True):
 
 class Team(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
     headquarters: str
 
     hero_links: List[HeroTeamLink] = Relationship(back_populates="team")
@@ -26,9 +26,9 @@ class Team(SQLModel, table=True):
 
 class Hero(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str
+    name: str = Field(index=True)
     secret_name: str
-    age: Optional[int] = None
+    age: Optional[int] = Field(default=None, index=True)
 
     team_links: List[HeroTeamLink] = Relationship(back_populates="hero")
 

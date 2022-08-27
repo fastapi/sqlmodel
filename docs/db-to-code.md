@@ -143,7 +143,7 @@ If the user provides this ID:
 2
 ```
 
-...the  would be this table (with a single row):
+...the result would be this table (with a single row):
 
 <table>
 <tr>
