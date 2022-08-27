@@ -5,9 +5,9 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
 class HeroBase(SQLModel):
-    name: str
+    name: str = Field(index=True)
     secret_name: str
-    age: Optional[int] = None
+    age: Optional[int] = Field(default=None, index=True)
 
 
 class Hero(HeroBase, table=True):

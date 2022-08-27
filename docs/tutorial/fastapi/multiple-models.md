@@ -305,6 +305,31 @@ And of course, all these fields will be in the columns for the resulting `hero` 
 
 And those inherited fields will also be in the **autocompletion** and **inline errors** in editors, etc.
 
+### Columns and Inheritance with Multiple Models
+
+Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
+
+```Python hl_lines="4  6  9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-14]!}
+
+# Code below omitted 👇
+```
+
+<details>
+<summary>👀 Full file preview</summary>
+
+```Python
+{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py!}
+```
+
+</details>
+
+This won't affect this parent **data model** `HeroBase`.
+
+But once the child model `Hero` (the actual **table model**) inherits those fields, it will use those field configurations to create the indexes when creating the tables in the database.
+
 ### The `HeroCreate` **Data Model**
 
 Now let's see the `HeroCreate` model that will be used to define the data that we want to receive in the API when creating a new hero.

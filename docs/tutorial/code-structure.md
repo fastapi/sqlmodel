@@ -8,7 +8,7 @@ The class `Hero` has a reference to the class `Team` internally.
 
 But the class `Team` also has a reference to the class `Hero`.
 
-So, if those two classes where in separate files and you tried to import the classes in each other's file directly, it would result in a **circular import**. 🔄
+So, if those two classes were in separate files and you tried to import the classes in each other's file directly, it would result in a **circular import**. 🔄
 
 And Python will not be able to handle it and will throw an error. 🚨
 

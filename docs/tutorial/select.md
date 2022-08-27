@@ -97,9 +97,9 @@ FROM hero
 
 That would end up in the same result. Although we won't use that for **SQLModel**.
 
-### `SELECT` Less Columns
+### `SELECT` Fewer Columns
 
-We can also `SELECT` less columns, for example:
+We can also `SELECT` fewer columns, for example:
 
 ```SQL
 SELECT id, name
@@ -150,7 +150,7 @@ Another variation is that most of the SQL keywords like `SELECT` can also be wri
 
 This is the interesting part. The tables returned by SQL databases **don't have to exist** in the database as independent tables. 🧙
 
-For example, in our database, we only have one table that has all the columns, `id`, `name`, `secret_name`, `age`. And here we are getting a result table with less columns.
+For example, in our database, we only have one table that has all the columns, `id`, `name`, `secret_name`, `age`. And here we are getting a result table with fewer columns.
 
 One of the main points of SQL is to be able to keep the data structured in different tables, without repeating data, etc, and then query the database in many ways and get many different tables as a result.
 

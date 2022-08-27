@@ -18,7 +18,7 @@ We'll continue with the same examples we have been using in the previous chapter
 <summary>👀 Full file preview</summary>
 
 ```Python
-{!./docs_src/tutorial/where/tutorial006.py!}
+{!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
 </details>
@@ -32,7 +32,7 @@ We have been iterating over the rows in a `result` object like:
 ```Python hl_lines="7-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial006.py[ln:44-49]!}
+{!./docs_src/tutorial/indexes/tutorial002.py[ln:44-49]!}
 
 # Code below omitted 👇
 ```
@@ -41,7 +41,7 @@ We have been iterating over the rows in a `result` object like:
 <summary>👀 Full file preview</summary>
 
 ```Python
-{!./docs_src/tutorial/where/tutorial006.py!}
+{!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
 </details>
