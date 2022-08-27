@@ -361,7 +361,7 @@ And because we can't leave the empty space when creating a new class, but we don
 
 This means that there's nothing else special in this class apart from the fact that it is named `HeroCreate` and that it inherits from `HeroBase`.
 
-As an alternative, we could use `HeroBase` directly in the API code instead of `HeroCreate`, but it would show up in the auomatic docs UI with that name "`HeroBase`" which could be **confusing** for clients. Instead, "`HeroCreate`" is a bit more explicit about what it is for.
+As an alternative, we could use `HeroBase` directly in the API code instead of `HeroCreate`, but it would show up in the automatic docs UI with that name "`HeroBase`" which could be **confusing** for clients. Instead, "`HeroCreate`" is a bit more explicit about what it is for.
 
 On top of that, we could easily decide in the future that we want to receive **more data** when creating a new hero apart from the data in `HeroBase` (for example a password), and now we already have the class to put those extra fields.
 

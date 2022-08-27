@@ -60,7 +60,7 @@ Notice that each hero can only have **one** connection. But each team can receiv
 
 ## Introduce Many-to-Many
 
-But let's say that as **Deadpond** is a great chracter, they recruit him to the new **Preventers** team, but he's still part of the **Z-Force** team too.
+But let's say that as **Deadpond** is a great character, they recruit him to the new **Preventers** team, but he's still part of the **Z-Force** team too.
 
 So, now, we need to be able to have a hero that is connected to **many** teams. And then, each team, should still be able to receive **many** heroes. So we need a **Many-to-Many** relationship.
 

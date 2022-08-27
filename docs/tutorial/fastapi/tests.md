@@ -311,7 +311,7 @@ Let's add some more tests:
 
     That's why we add these two extra tests here.
 
-Now, any additional test functions can be as **simple** as the first one, they just have to **declate the `client` parameter** to get the `TestClient` **fixture** with all the database stuff setup. Nice! 😎
+Now, any additional test functions can be as **simple** as the first one, they just have to **declare the `client` parameter** to get the `TestClient` **fixture** with all the database stuff setup. Nice! 😎
 
 ## Why Two Fixtures
 

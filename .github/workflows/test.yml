@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        python-version: ["3.6.15", "3.7", "3.8", "3.9", "3.10"]
       fail-fast: false
 
     steps:
@@ -40,9 +40,13 @@ jobs:
           key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-root
       - name: Install poetry
         if: steps.cache.outputs.cache-hit != 'true'
+        # TODO: remove python -m pip install --force git+https://github.com/python-poetry/poetry-core.git@ad33bc2
+        # once there's a release of Poetry 1.2.x including poetry-core > 1.1.0a6
+        # Ref: https://github.com/python-poetry/poetry-core/pull/188
         run: |
           python -m pip install --upgrade pip
-          python -m pip install "poetry==1.2.0b1"
+          python -m pip install --force git+https://github.com/python-poetry/poetry-core.git@ad33bc2
+          python -m pip install "poetry==1.2.0a2"
           python -m poetry plugin add poetry-version-plugin
       - name: Configure poetry
         run: python -m poetry config virtualenvs.create false
@@ -50,7 +54,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: python -m poetry install
       - name: Lint
-        if: ${{ matrix.python-version != '3.6' }}
+        if: ${{ matrix.python-version != '3.6.15' }}
         run: python -m poetry run bash scripts/lint.sh
       - name: Test
         run: python -m poetry run bash scripts/test.sh
