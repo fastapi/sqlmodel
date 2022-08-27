@@ -102,3 +102,5 @@ strict_equality = true
 [[tool.mypy.overrides]]
 module = "sqlmodel.sql.expression"
 warn_unused_ignores = false
+
+# invalidate CI cache: 1
