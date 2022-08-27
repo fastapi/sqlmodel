@@ -1,4 +1,4 @@
-# Read Heroes with Limit and Offset wtih FastAPI
+# Read Heroes with Limit and Offset with FastAPI
 
 When a client sends a request to get all the heroes, we have been returning them all.
 
