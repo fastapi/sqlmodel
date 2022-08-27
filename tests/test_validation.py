@@ -18,9 +18,9 @@ def test_validation(clear_sqlmodel):
     """
 
     class Hero(SQLModel):
-        name: Optional[str]
-        secret_name: Optional[str]
-        age: Optional[int]
+        name: Optional[str] = None
+        secret_name: Optional[str] = None
+        age: Optional[int] = None
 
         @validator("name", "secret_name", "age")
         def reject_none(cls, v):
