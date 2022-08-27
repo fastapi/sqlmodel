@@ -38,7 +38,7 @@ sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 mypy = "0.930"
-flake8 = "^3.9.2"
+flake8 = "^5.0.4"
 black = {version = "^21.5-beta.1", python = "^3.7"}
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
