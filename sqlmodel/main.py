@@ -415,6 +415,7 @@ def get_sqlachemy_type(field: ModelField) -> Any:
         return AutoString
     if issubclass(field.type_, uuid.UUID):
         return GUID
+    raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
 
 def get_column_from_field(field: ModelField) -> Column:  # type: ignore
