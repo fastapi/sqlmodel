@@ -274,7 +274,7 @@ The language is called **SQL**, the name comes from for **Structured Query Langu
 
 Nevertheless, the language is not only used to *query* for data. It is also used to create records/rows, to update them, to delete them. And to manipulate the database, create tables, etc.
 
-This language is supported by all these databases that handle multiple tables, that's why they are called **SQL Databases**. Although, each database has small variations in the SQL language they support.
+This language is supported by all these databases that handle multiple tables, that's why they are called **SQL Databases**. Although, each database has small variations in the SQL language they support (*dialect*).
 
 Let's imagine that the table holding the heroes is called the `hero` table. An example of a SQL query to get all the data from it could look like:
 
