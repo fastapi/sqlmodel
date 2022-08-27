@@ -499,9 +499,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # Do not set values as in Pydantic, pass them through setattr, so SQLAlchemy
         # can handle them
         # object.__setattr__(__pydantic_self__, '__dict__', values)
-        object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
         for key, value in values.items():
             setattr(__pydantic_self__, key, value)
+        object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
         non_pydantic_keys = data.keys() - values.keys()
         for key in non_pydantic_keys:
             if key in __pydantic_self__.__sqlmodel_relationships__:
