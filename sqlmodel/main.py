@@ -25,6 +25,7 @@ from typing import (
 
 from pydantic import BaseConfig, BaseModel
 from pydantic.errors import ConfigError, DictError
+from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
@@ -424,7 +425,6 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
         return sa_column
     sa_type = get_sqlachemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
-    nullable = not field.required
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
         index = False
@@ -432,6 +432,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
         field_nullable = getattr(field.field_info, "nullable")
         if field_nullable != Undefined:
             nullable = field_nullable
+    nullable = not primary_key and _is_field_nullable(field)
     args = []
     foreign_key = getattr(field.field_info, "foreign_key", None)
     if foreign_key:
@@ -646,3 +647,13 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     @declared_attr  # type: ignore
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
+
+
+def _is_field_nullable(field: ModelField) -> bool:
+    if not field.required:
+        # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
+        is_optional = field.allow_none and (
+            field.shape != SHAPE_SINGLETON or not field.sub_fields
+        )
+        return is_optional and field.default is None and field.default_factory is None
+    return False
