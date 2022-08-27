@@ -36,7 +36,7 @@ class Hero(SQLModel, table=True):
     team: Optional[Team] = Relationship(back_populates="heroes")
 
     weapon_id: Optional[int] = Field(default=None, foreign_key="weapon.id")
-    weapon: Optional[Weapon] = Relationship(back_populates="owner")
+    weapon: Optional[Weapon] = Relationship(back_populates="hero")
 
     powers: List[Power] = Relationship(back_populates="hero")
 
