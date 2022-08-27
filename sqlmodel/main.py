@@ -31,9 +31,19 @@ from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
 from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
-from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
-from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    Interval,
+    Numeric,
+    inspect,
+)
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
