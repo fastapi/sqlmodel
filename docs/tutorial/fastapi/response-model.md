@@ -22,7 +22,7 @@ You can see that there's a possible "Successful Response" with a code `200`, but
 
 <img class="shadow" alt="API docs UI without response data schemas" src="/img/tutorial/fastapi/response-model/image01.png">
 
-Right now we only tell FastAPI the data we want to receive, but we don't tell it yet the data we want to send back.
+Right now, we only tell FastAPI the data we want to receive, but we don't tell it yet the data we want to send back.
 
 Let's do that now. 🤓
 
