@@ -9,7 +9,7 @@ def test_create_db_and_table(cov_tmp_path: Path):
     assert "BEGIN" in result.stdout
     assert 'PRAGMA main.table_info("hero")' in result.stdout
     assert "CREATE TABLE hero (" in result.stdout
-    assert "id INTEGER," in result.stdout
+    assert "id INTEGER NOT NULL," in result.stdout
     assert "name VARCHAR NOT NULL," in result.stdout
     assert "secret_name VARCHAR NOT NULL," in result.stdout
     assert "age INTEGER," in result.stdout
