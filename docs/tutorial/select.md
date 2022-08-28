@@ -350,7 +350,7 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 
 ## Review The Code
 
-Great, you're now being able to read the data from the database! 🎉
+Great, you're now able to read the data from the database! 🎉
 
 Let's review the code up to this point:
 
