@@ -13,24 +13,22 @@ def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
             primary_key=True,
         )
         non_nullable_integer_with_field: int = Field(default=..., nullable=False)
-
-        # Does not use Field
         nullable_integer: Optional[int] = None
         non_nullable_integer: int
 
-        # Uses Field
         non_nullable_optional_string_with_field: Optional[str] = Field(
-            default=..., nullable=False
+            default=...,
+            nullable=False,
         )
         non_nullable_optional_string_with_field_no_default_set: Optional[str] = Field(
-            nullable=False
+            nullable=False,
         )
         non_nullable_optional_string_with_field_with_default: Optional[str] = Field(
-            default=None, nullable=False
+            default=None,
+            nullable=False,
         )
         non_nullable_string_with_field: str = Field(default=..., nullable=False)
 
-        # Does not use Field
         nullable_optional_string: Optional[str] = Field(default=None, nullable=True)
         non_nullable_string: str
 
@@ -81,9 +79,10 @@ def test_non_nullable_optional_field_with_no_default_set(clear_sqlmodel, caplog)
     assert "\n\tnullable_integer_primary_key INTEGER NOT NULL," in create_table_log
     assert "\n\toptional_non_nullable_no_default VARCHAR NOT NULL," in create_table_log
 
-    # We can create a hero with `None` set for the optional non-nullable field,
-    # but we cannot commit it.
+    # We can create a hero with `None` set for the optional non-nullable field
     hero = Hero(nullable_integer_primary_key=123, optional_non_nullable_no_default=None)
+    
+    # But we cannot commit it.
     with Session(engine) as session:
         session.add(hero)
         with pytest.raises(IntegrityError):
