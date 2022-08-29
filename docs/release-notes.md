@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* ✏ Fix typo in `docs/tutorial/connect/remove-data-connections.md`. PR [#421](https://github.com/tiangolo/sqlmodel/pull/421) by [@VerdantFox](https://github.com/VerdantFox).
 
 ## 0.0.7
 
