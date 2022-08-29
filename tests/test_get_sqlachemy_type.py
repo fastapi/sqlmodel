@@ -3,7 +3,6 @@ from unittest.mock import MagicMock
 
 import pytest
 from pydantic.fields import ModelField
-
 from sqlmodel.main import get_sqlachemy_type
 
 
