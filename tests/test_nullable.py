@@ -81,7 +81,6 @@ def test_non_nullable_optional_field_with_no_default_set(clear_sqlmodel, caplog)
 
     # We can create a hero with `None` set for the optional non-nullable field
     hero = Hero(nullable_integer_primary_key=123, optional_non_nullable_no_default=None)
-    
     # But we cannot commit it.
     with Session(engine) as session:
         session.add(hero)
