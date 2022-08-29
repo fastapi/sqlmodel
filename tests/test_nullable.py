@@ -81,7 +81,8 @@ def test_non_nullable_optional_field_with_no_default_set(clear_sqlmodel, caplog)
     assert "\n\tnullable_integer_primary_key INTEGER NOT NULL," in create_table_log
     assert "\n\toptional_non_nullable_no_default VARCHAR NOT NULL," in create_table_log
 
-    # Ensure we cannot create a hero with `None` set for the non-nullable field:
+    # We can create a hero with `None` set for the optional non-nullable field,
+    # but we cannot commit it.
     hero = Hero(nullable_integer_primary_key=123, optional_non_nullable_no_default=None)
     with Session(engine) as session:
         session.add(hero)
