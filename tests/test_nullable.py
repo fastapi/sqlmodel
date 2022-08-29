@@ -1,6 +1,8 @@
 from typing import Optional
 
-from sqlmodel import Field, SQLModel, create_engine
+import pytest
+from sqlalchemy.exc import IntegrityError
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
@@ -78,3 +80,10 @@ def test_non_nullable_optional_field_with_no_default_set(clear_sqlmodel, caplog)
     ][0]
     assert "\n\tnullable_integer_primary_key INTEGER NOT NULL," in create_table_log
     assert "\n\toptional_non_nullable_no_default VARCHAR NOT NULL," in create_table_log
+
+    # Ensure we cannot create a hero with `None` set for the non-nullable field:
+    hero = Hero(nullable_integer_primary_key=123, optional_non_nullable_no_default=None)
+    with Session(engine) as session:
+        session.add(hero)
+        with pytest.raises(IntegrityError):
+            session.commit()
