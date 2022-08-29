@@ -7,7 +7,6 @@ from sqlmodel import Field, Session, SQLModel, create_engine
 
 def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
     class Hero(SQLModel, table=True):
-        # Uses Field
         nullable_integer_primary_key: Optional[int] = Field(
             default=None,
             primary_key=True,
