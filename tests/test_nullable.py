@@ -7,29 +7,27 @@ from sqlmodel import Field, Session, SQLModel, create_engine
 
 def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
     class Hero(SQLModel, table=True):
-        nullable_integer_primary_key: Optional[int] = Field(
+        primary_key: Optional[int] = Field(
             default=None,
             primary_key=True,
         )
-        non_nullable_integer_with_field: int = Field(default=..., nullable=False)
-        nullable_integer: Optional[int] = None
-        non_nullable_integer: int
-
-        non_nullable_optional_string_with_field: Optional[str] = Field(
+        value: str
+        optional_non_nullable: Optional[str] = Field(
+            nullable=False,
+        )
+        optional_default_ellipses_non_nullable: Optional[str] = Field(
             default=...,
             nullable=False,
         )
-        non_nullable_optional_string_with_field_no_default_set: Optional[str] = Field(
-            nullable=False,
-        )
-        non_nullable_optional_string_with_field_with_default: Optional[str] = Field(
+        optional_default_none_non_nullable: Optional[str] = Field(
             default=None,
             nullable=False,
         )
-        non_nullable_string_with_field: str = Field(default=..., nullable=False)
-
-        nullable_optional_string: Optional[str] = Field(default=None, nullable=True)
-        non_nullable_string: str
+        default_ellipses_non_nullable: str = Field(default=..., nullable=False)
+        optional_default_none_nullable: Optional[str] = Field(
+            default=None,
+            nullable=True,
+        )
 
     engine = create_engine("sqlite://", echo=True)
     SQLModel.metadata.create_all(engine)
@@ -37,26 +35,17 @@ def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
     create_table_log = [
         message for message in caplog.messages if "CREATE TABLE hero" in message
     ][0]
-    assert "\n\tnullable_integer_primary_key INTEGER NOT NULL," in create_table_log
-    assert "\n\tnullable_integer INTEGER," in create_table_log
-    assert "\n\tnon_nullable_integer INTEGER NOT NULL," in create_table_log
-    assert "\n\tnon_nullable_integer_with_field INTEGER NOT NULL," in create_table_log
-
-    assert "\n\tnullable_optional_string VARCHAR," in create_table_log
+    assert "\n\tprimary_key INTEGER NOT NULL," in create_table_log
+    assert "\n\tvalue VARCHAR NOT NULL," in create_table_log
     assert (
-        "\n\tnon_nullable_optional_string_with_field VARCHAR NOT NULL,"
+        "\n\toptional_default_ellipses_non_nullable VARCHAR NOT NULL,"
         in create_table_log
     )
     assert (
-        "\n\tnon_nullable_optional_string_with_field_no_default_set VARCHAR NOT NULL,"
-        in create_table_log
+        "\n\toptional_default_none_non_nullable VARCHAR NOT NULL," in create_table_log
     )
-    assert (
-        "\n\tnon_nullable_optional_string_with_field_with_default VARCHAR NOT NULL,"
-        in create_table_log
-    )
-    assert "\n\tnon_nullable_string VARCHAR NOT NULL," in create_table_log
-    assert "\n\tnon_nullable_string_with_field VARCHAR NOT NULL," in create_table_log
+    assert "\n\tdefault_ellipses_non_nullable VARCHAR NOT NULL," in create_table_log
+    assert "\n\toptional_default_none_nullable VARCHAR," in create_table_log
 
 
 # Test for regression in https://github.com/tiangolo/sqlmodel/issues/420
