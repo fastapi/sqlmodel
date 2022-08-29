@@ -1,4 +1,4 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 from unittest.mock import MagicMock
 
 import pytest
@@ -12,6 +12,7 @@ from sqlmodel.main import get_sqlachemy_type
     [
         List[str],
         Dict[str, Any],
+        Union[int, str],
     ],
 )
 def test_non_type_does_not_break(input_type: type) -> None:
