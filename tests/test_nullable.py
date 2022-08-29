@@ -75,4 +75,3 @@ def test_non_nullable_optional_field_with_no_default_set(clear_sqlmodel, caplog)
         session.add(hero)
         with pytest.raises(IntegrityError):
             session.commit()
-
