@@ -37,6 +37,7 @@ def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
     ][0]
     assert "\n\tprimary_key INTEGER NOT NULL," in create_table_log
     assert "\n\trequired_value VARCHAR NOT NULL," in create_table_log
+    assert "\n\toptional_non_nullable VARCHAR NOT NULL," in create_table_log
     assert (
         "\n\toptional_default_ellipses_non_nullable VARCHAR NOT NULL,"
         in create_table_log
