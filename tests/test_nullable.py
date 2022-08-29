@@ -11,7 +11,7 @@ def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
             default=None,
             primary_key=True,
         )
-        value: str
+        required_value: str
         optional_non_nullable: Optional[str] = Field(
             nullable=False,
         )
@@ -36,7 +36,7 @@ def test_nullable_fields_set_properly(clear_sqlmodel, caplog):
         message for message in caplog.messages if "CREATE TABLE hero" in message
     ][0]
     assert "\n\tprimary_key INTEGER NOT NULL," in create_table_log
-    assert "\n\tvalue VARCHAR NOT NULL," in create_table_log
+    assert "\n\trequired_value VARCHAR NOT NULL," in create_table_log
     assert (
         "\n\toptional_default_ellipses_non_nullable VARCHAR NOT NULL,"
         in create_table_log
