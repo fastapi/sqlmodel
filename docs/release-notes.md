@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+
+## 0.0.8
+
 ### Fixes
 
 * 🐛 Fix auto detecting and setting `nullable`, allowing overrides in field. PR [#423](https://github.com/tiangolo/sqlmodel/pull/423) by [@JonasKs](https://github.com/JonasKs).
