@@ -442,7 +442,6 @@ openapi_schema = {
                 "title": "TeamUpdate",
                 "type": "object",
                 "properties": {
-                    "id": {"title": "Id", "type": "integer"},
                     "name": {"title": "Name", "type": "string"},
                     "headquarters": {"title": "Headquarters", "type": "string"},
                 },

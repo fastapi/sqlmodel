@@ -46,7 +46,7 @@ We will continue with the code from the previous chapter.
 
 ## Break a Connection
 
-We don't really have to delete anyting to break a connection. We can just assign `None` to the foreign key, in this case, to the `team_id`.
+We don't really have to delete anything to break a connection. We can just assign `None` to the foreign key, in this case, to the `team_id`.
 
 Let's say **Spider-Boy** is tired of the lack of friendly neighbors and wants to get out of the **Preventers**.
 

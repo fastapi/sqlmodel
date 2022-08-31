@@ -498,7 +498,7 @@ In this example it's just the `SQLModel.metadata.create_all(engine)`.
 
 Let's put it in a function `create_db_and_tables()`:
 
-```Python  hl_lines="22-23"
+```Python  hl_lines="19-20"
 {!./docs_src/tutorial/create_db_and_table/tutorial002.py[ln:1-20]!}
 
 # More code here later 👇
@@ -513,9 +513,9 @@ Let's put it in a function `create_db_and_tables()`:
 
 </details>
 
-If `SQLModel.metadata.create_all(engine)` was not in a function and we tried to import something from this module (from this file) in another, it would try to create the database and table **every time**.
+If `SQLModel.metadata.create_all(engine)` was not in a function and we tried to import something from this module (from this file) in another, it would try to create the database and table **every time** we executed that other file that imported this module.
 
-We don't want that to happen like that, only when we **intend** it to happen, that's why we put it in a function.
+We don't want that to happen like that, only when we **intend** it to happen, that's why we put it in a function, because we can make sure that the tables are created only when we call that function, and not when this module is imported somewhere else.
 
 Now we would be able to, for example, import the `Hero` class in some other file without having those **side effects**.
 
