@@ -1,0 +1,61 @@
+name: Documentation
+description: Suggest changes or request additions to the documentation
+labels: [documentation]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest in SQLModel! 🚀
+
+        Please follow these instructions, fill every question, and do every step. 🙏
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: First Check
+      description: Please confirm and check all the following options.
+      options:
+        - label: I added a very descriptive title to this issue.
+          required: true
+        - label: I used the GitHub search to find a similar issue and didn't find it.
+          required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Requested Change
+      description: What kind of change are you requesting?
+      multiple: true
+      options:
+        - Additional Documentation
+        - Clarification
+        - Correction
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: section
+    attributes:
+      label: Documentation Section
+      description: What would the section you're requestion be called/what section requires a correction?
+      placeholder: |
+        https://sqlmodel.tiangolo.com/databases/#what-is-a-database
+        https://github.com/tiangolo/sqlmodel/blob/75ce45588b6a13136916929be4c44946f7e00cbd/docs/databases.md
+        "Databases - What is a Database?"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        What changes would you like to be made to the documentation?
+      placeholder: |
+        * I'd like a page introducing databases, which could describe...
+        * Running the code in section X does not work as described as...
+        * The description in section Y isn't very clear to me because..., could it be clarified?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Add any additional context information or screenshots you think are useful.

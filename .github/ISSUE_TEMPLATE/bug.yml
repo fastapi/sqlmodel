@@ -1,6 +1,6 @@
-name: Question
-description: Ask a question
-labels: [question]
+name: Bug
+description: Report a bug
+labels: [bug]
 body:
   - type: markdown
     attributes:
@@ -61,7 +61,7 @@ body:
     attributes:
       label: Example Code
       description: |
-        If applicable, please add a self-contained, [minimal, reproducible, example](https://stackoverflow.com/help/minimal-reproducible-example) with your use case.
+        Please add a self-contained, [minimal, reproducible, example](https://stackoverflow.com/help/minimal-reproducible-example) with your use case.
 
         If I (or someone) can copy it, run it, and see it right away, there's a much higher chance I (or someone) will be able to help you.
 
@@ -92,15 +92,67 @@ body:
             print(hero_1)
       render: python
     validations:
-      required: false
+      required: true
   - type: textarea
     id: description
     attributes:
       label: Description
       description: |
-        What is the question?
+        What is the problem, question, or error?
+
+        Write a short description telling me what you are doing, what you expect to happen, and what is currently happening.
       placeholder: |
-        * How do I have an automatically generated `created_at` field?
+        * Create a Hero model.
+        * Create a Hero instance.
+        * Save it to a SQLite database.
+        * Check the data with DB Browser for SQLite.
+        * There's only one hero there, but I expected it to include many others recruited by the first one.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: What operating system are you on?
+      multiple: true
+      options:
+        - Linux
+        - Windows
+        - macOS
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: os-details
+    attributes:
+      label: Operating System Details
+      description: You can add more details about your operating system here, in particular if you chose "Other".
+  - type: input
+    id: sqlmodel-version
+    attributes:
+      label: SQLModel Version
+      description: |
+        What SQLModel version are you using?
+
+        You can find the SQLModel version with:
+
+        ```bash
+        python -c "import sqlmodel; print(sqlmodel.__version__)"
+        ```
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: Python Version
+      description: |
+        What Python version are you using?
+
+        You can find the Python version with:
+
+        ```bash
+        python --version
+        ```
     validations:
       required: true
   - type: textarea
