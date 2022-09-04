@@ -85,6 +85,7 @@ nav:
   - Advanced User Guide:
     - advanced/index.md
     - advanced/decimal.md
+    - advanced/asyncio.md
   - alternatives.md
   - help.md
   - contributing.md
