@@ -11,7 +11,6 @@ from ...engine.result import Result, ScalarResult
 from ...orm.session import Session
 from ...sql.expression import Select, SelectOfScalar
 
-_T = TypeVar("_T")
 _TSelectParam = TypeVar("_TSelectParam")
 
 
@@ -78,8 +77,8 @@ class AsyncSession(_AsyncSession):
             **kw,
         )
         if isinstance(statement, SelectOfScalar):
-            return (await results).scalars()
-        return await results
+            return (await results).scalars()  # type: ignore
+        return await results  # type: ignore
 
     async def execute(
         self,
@@ -89,7 +88,7 @@ class AsyncSession(_AsyncSession):
         bind_arguments: Optional[Mapping[str, Any]] = None,
         **kw: Any,
     ) -> Result[Any]:
-        return await super().execute(
+        return await super().execute(  # type: ignore
             statement=statement,
             params=params,
             execution_options=execution_options,
