@@ -71,7 +71,19 @@ Read rows. Using the asynchronous context manager.
 We connect all the functions together.
 
 ```Python
-{!./docs_src/advanced/asyncio/tutorial001.py[ln:48-55]!}
+{!./docs_src/advanced/asyncio/tutorial001.py[ln:48-51]!}
+```
+
+Running an asynchronous function (python3.7+)
+
+```Python
+{!./docs_src/advanced/asyncio/tutorial001.py[ln:53-55]!}
+```
+
+Running an asynchronous function (python3.6)
+
+```Python
+{!./docs_src/advanced/asyncio/tutorial001_py36.py[ln:53-56]!}
 ```
 
 Full example.
