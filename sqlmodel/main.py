@@ -135,12 +135,17 @@ def Field(
     lt: Optional[float] = None,
     le: Optional[float] = None,
     multiple_of: Optional[float] = None,
+    max_digits: Optional[int] = None,
+    decimal_places: Optional[int] = None,
     min_items: Optional[int] = None,
     max_items: Optional[int] = None,
+    unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    discriminator: Optional[str] = None,
+    repr: bool = True,
     primary_key: bool = False,
     foreign_key: Optional[Any] = None,
     unique: bool = False,
@@ -166,12 +171,17 @@ def Field(
         lt=lt,
         le=le,
         multiple_of=multiple_of,
+        max_digits=max_digits,
+        decimal_places=decimal_places,
         min_items=min_items,
         max_items=max_items,
+        unique_items=unique_items,
         min_length=min_length,
         max_length=max_length,
         allow_mutation=allow_mutation,
         regex=regex,
+        discriminator=discriminator,
+        repr=repr,
         primary_key=primary_key,
         foreign_key=foreign_key,
         unique=unique,
@@ -576,7 +586,11 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     def __repr_args__(self) -> Sequence[Tuple[Optional[str], Any]]:
         # Don't show SQLAlchemy private attributes
-        return [(k, v) for k, v in self.__dict__.items() if not k.startswith("_sa_")]
+        return [
+            (k, v)
+            for k, v in super().__repr_args__()
+            if not (isinstance(k, str) and k.startswith("_sa_"))
+        ]
 
     # From Pydantic, override to enforce validation with dict
     @classmethod
