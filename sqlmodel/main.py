@@ -325,8 +325,6 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 break
         if getattr(cls.__config__, "table", False) and not base_is_table:
             dict_used = dict_.copy()
-            for field_name, field_value in cls.__fields__.items():
-                dict_used[field_name] = get_column_from_field(field_value)
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
                     # There's a SQLAlchemy relationship declared, that takes precedence
