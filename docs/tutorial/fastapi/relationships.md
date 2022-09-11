@@ -158,6 +158,16 @@ So we start again, and in the end, the server would just crash trying to get all
 
 So, we need to carefully choose in which cases we want to include data and in which not.
 
+### Specifically include a relation
+
+If recursion is not an issue for a specific relations it might be handy not to
+duplicate the models for reading.
+
+This can be done by adding `sa_relationship_kwargs={"lazy": "selectin"})` to
+your relationship (be careful with that option, this will not lazy load anymore 😱).
+Then add the config option `include_relations = {"field_to_include"}` for the
+field you want to **always** include.
+
 ## What Data to Include
 
 This is a decision that will depend on **each application**.
