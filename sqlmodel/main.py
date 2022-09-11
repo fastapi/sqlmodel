@@ -783,10 +783,16 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         if include is None and exclude is None and not exclude_unset:
             # Original in Pydantic:
             # return None
-            # Updated to not return SQLAlchemy attributes
-            # Do not include relationships as that would easily lead to infinite
-            # recursion, or traversing the whole database
-            return self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
+            # updated to only return SQLAlchemy attributes
+            # if include_relations is set in the Config for a model
+            # Otherwise do not include relationships as that would easily lead
+            # to infinite recursion, or traversing the whole database
+            model_keys = set(self.__fields__.keys())
+            include_relations = getattr(self.Config(), "include_relations", {})
+            for relation_key in self.__sqlmodel_relationships__.keys():
+                if relation_key in include_relations:
+                    model_keys.add(relation_key)
+            return model_keys
 
         keys: AbstractSet[str]
         if exclude_unset:
