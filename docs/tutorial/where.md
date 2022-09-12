@@ -436,7 +436,7 @@ Maybe your code could even run and seem like it's all fine, and then some months
 
 And maybe finally you would realize that we wrote the code using `secret_identity` which is not a column in the table. We should have written `secret_name` instead.
 
-Now, with the the expressions, your editor would show you an error right away if you tried this:
+Now, with the expressions, your editor would show you an error right away if you tried this:
 
 ```Python
 # Expression ✨
