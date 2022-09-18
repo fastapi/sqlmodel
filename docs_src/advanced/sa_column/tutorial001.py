@@ -2,8 +2,8 @@ from datetime import datetime
 from time import sleep
 from typing import Optional
 
-from sqlmodel import Field, Session, SQLModel, create_engine, select
 from sqlalchemy import Column, DateTime, func
+from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
 class Hero(SQLModel, table=True):
