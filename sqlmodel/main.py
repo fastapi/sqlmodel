@@ -84,6 +84,7 @@ class FieldInfo(PydanticFieldInfo):
         self.foreign_key = foreign_key
         self.unique = unique
         self.index = index
+        self.sa_type = sa_type
         self.sa_column = sa_column
         self.sa_column_args = sa_column_args
         self.sa_column_kwargs = sa_column_kwargs
