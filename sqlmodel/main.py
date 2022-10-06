@@ -376,8 +376,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 
 def get_sqlachemy_type(field: ModelField) -> Any:
-    if "sa_type" in field.field_info.extra:
-        return field.field_info.extra["sa_type"]
+    if not issubclass(type(field.field_info.sa_type), type(Undefined)):
+        return field.field_info.sa_type
     if issubclass(field.type_, str):
         if field.field_info.max_length:
             return AutoString(length=field.field_info.max_length)
