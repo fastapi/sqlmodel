@@ -63,6 +63,7 @@ class FieldInfo(PydanticFieldInfo):
         foreign_key = kwargs.pop("foreign_key", Undefined)
         unique = kwargs.pop("unique", False)
         index = kwargs.pop("index", Undefined)
+        sa_type = kwargs.pop("sa_type", Undefined)
         sa_column = kwargs.pop("sa_column", Undefined)
         sa_column_args = kwargs.pop("sa_column_args", Undefined)
         sa_column_kwargs = kwargs.pop("sa_column_kwargs", Undefined)
@@ -146,6 +147,7 @@ def Field(
     unique: bool = False,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
+    sa_type: Type[Any],
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
@@ -177,6 +179,7 @@ def Field(
         unique=unique,
         nullable=nullable,
         index=index,
+        sa_type=sa_type,
         sa_column=sa_column,
         sa_column_args=sa_column_args,
         sa_column_kwargs=sa_column_kwargs,
