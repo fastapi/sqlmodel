@@ -369,9 +369,9 @@ This new session we created uses the *same* **engine**, but it's a new and indep
 
 The code above creating the models could, for example, live in a function handling web API requests and creating models.
 
-And the second section reading data from the database could be in another function for other requests.
+And the second session reading data from the database could be in another function for other requests.
 
-So, both sections could be in **different places** and would need their own sessions.
+So, both sessions could be in **different places** and would need their own sessions.
 
 !!! info
     To be fair, in this example all that code could actually share the same **session**, there's actually no need to have two here.
