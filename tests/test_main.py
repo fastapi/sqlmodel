@@ -100,7 +100,7 @@ def test_sa_relationship(clear_sqlmodel):
     class Team(SQLModel, table=True):
         id: Optional[int] = Field(default=None, primary_key=True)
         name: str = Field(unique=True)
-        heroes: List["Hero"] = Relationship(
+        heroes: List["Hero"] = Relationship(  # noqa: F821
             sa_relationship=RelationshipProperty("Hero", back_populates="team")
         )
 
