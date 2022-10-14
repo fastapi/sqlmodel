@@ -1,11 +1,12 @@
 import asyncio
-from typing import Optional, Union, Any
-from typing import Annotated
+from typing import Annotated, Optional
 
+
+# TODO change when https://github.com/tiangolo/sqlmodel/pull/435 accepted
+# TODO replace following 3 lines with:
+# ------ from sqlmodel import AsyncSession, create_async_engine, Field, SQLModel, select
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import Field, Session, SQLModel, select
-from sqlmodel.main import FieldInfo
+from sqlmodel import Field, SQLModel, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 

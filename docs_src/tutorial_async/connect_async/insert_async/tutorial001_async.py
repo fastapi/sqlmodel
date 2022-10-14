@@ -1,11 +1,12 @@
 import asyncio
-from typing import Optional, Union, Any
-from typing import Annotated
+from typing import Annotated, Optional
 
+
+# TODO change when https://github.com/tiangolo/sqlmodel/pull/435 accepted
+# TODO replace following 3 lines with:
+# ------ from sqlmodel import AsyncSession, create_async_engine, Field, SQLModel, select
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import Field, Session, SQLModel, select
-from sqlmodel.main import FieldInfo
+from sqlmodel import Field, SQLModel, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 
@@ -42,8 +43,7 @@ async def create_db_and_tables():
 
 async def create_heroes():
 
-    async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
-    async with async_session() as session:
+    async with AsyncSession(engine, expire_on_commit=False) as session:
         team_preventers = Team(name="Preventers", headquarters="Sharp Tower")
         team_z_force = Team(name="Z-Force", headquarters="Sister Margaret’s Bar")
         session.add(team_preventers)
