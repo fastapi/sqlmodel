@@ -1,26 +1,29 @@
 import asyncio
-from typing import Optional
+from typing import Optional, Union, Any
+from typing import Annotated
 
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
-
-from sqlmodel import MetaData, Field, Session, SQLModel, select
+from sqlmodel import Field, Session, SQLModel, select
+from sqlmodel.main import FieldInfo
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 
 class Team(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
+    id: Annotated[int, Field(primary_key=True)]
+    name: Annotated[str, Field(index=True)]
     headquarters: str
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
+    id: Annotated[int, Field(primary_key=True)]
+    name: Annotated[str, Field(index=True)]
     secret_name: str
-    age: Optional[int] = Field(default=None, index=True)
+    age: Annotated[Optional[int], Field(default_factory=lambda: None, index=True)]
 
-    team_id: Optional[int] = Field(default=None, foreign_key="team.id")
+    team_id: Annotated[
+        Optional[int], Field(default_factory=lambda: None, foreign_key="team.id")
+    ]
 
 
 sqlite_file_name = "database.db"

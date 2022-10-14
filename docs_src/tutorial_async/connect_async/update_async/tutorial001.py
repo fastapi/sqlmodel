@@ -1,40 +1,54 @@
-from typing import Optional
+import asyncio
+from typing import Optional, Union, Any
+from typing import Annotated
 
-from sqlmodel import Field, Session, SQLModel, create_engine
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.orm import sessionmaker
+from sqlmodel import Field, Session, SQLModel, select
+from sqlmodel.main import FieldInfo
+from sqlmodel.ext.asyncio.session import AsyncSession
 
 
 class Team(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
+    id: Annotated[int, Field(primary_key=True)]
+    name: Annotated[str, Field(index=True)]
     headquarters: str
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
+    id: Annotated[int, Field(primary_key=True)]
+    name: Annotated[str, Field(index=True)]
     secret_name: str
-    age: Optional[int] = Field(default=None, index=True)
+    age: Annotated[Optional[int], Field(default_factory=lambda: None, index=True)]
 
-    team_id: Optional[int] = Field(default=None, foreign_key="team.id")
+    team_id: Annotated[
+        Optional[int], Field(default_factory=lambda: None, foreign_key="team.id")
+    ]
 
 
 sqlite_file_name = "database.db"
-sqlite_url = f"sqlite:///{sqlite_file_name}"
+sqlite_url = f"sqlite+aiosqlite:///{sqlite_file_name}"
 
-engine = create_engine(sqlite_url, echo=True)
-
-
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+engine = create_async_engine(sqlite_url, echo=True)
 
 
-def create_heroes():
-    with Session(engine) as session:
+async def create_db_and_tables():
+    meta = SQLModel.metadata
+
+    async with engine.begin() as conn:
+        await conn.run_sync(meta.drop_all)
+        await conn.run_sync(meta.create_all)
+
+
+async def create_heroes():
+
+    async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+    async with async_session() as session:
         team_preventers = Team(name="Preventers", headquarters="Sharp Tower")
         team_z_force = Team(name="Z-Force", headquarters="Sister Margaret’s Bar")
         session.add(team_preventers)
         session.add(team_z_force)
-        session.commit()
+        await session.commit()
 
         hero_deadpond = Hero(
             name="Deadpond", secret_name="Dive Wilson", team_id=team_z_force.id
@@ -49,11 +63,11 @@ def create_heroes():
         session.add(hero_deadpond)
         session.add(hero_rusty_man)
         session.add(hero_spider_boy)
-        session.commit()
+        await session.commit()
 
-        session.refresh(hero_deadpond)
-        session.refresh(hero_rusty_man)
-        session.refresh(hero_spider_boy)
+        await session.refresh(hero_deadpond)
+        await session.refresh(hero_rusty_man)
+        await session.refresh(hero_spider_boy)
 
         print("Created hero:", hero_deadpond)
         print("Created hero:", hero_rusty_man)
@@ -61,15 +75,15 @@ def create_heroes():
 
         hero_spider_boy.team_id = team_preventers.id
         session.add(hero_spider_boy)
-        session.commit()
-        session.refresh(hero_spider_boy)
+        await session.commit()
+        await session.refresh(hero_spider_boy)
         print("Updated hero:", hero_spider_boy)
 
 
-def main():
-    create_db_and_tables()
-    create_heroes()
+async def main():
+    await create_db_and_tables()
+    await create_heroes()
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
