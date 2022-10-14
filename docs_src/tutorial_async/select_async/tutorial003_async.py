@@ -1,14 +1,14 @@
 import asyncio
-from typing import Optional
+from typing import Annotated, Optional
 
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import Field, Session, SQLModel, select
+
+from sqlmodel import Field, SQLModel, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: Annotated[int, Field(primary_key=True)]
     name: str
     secret_name: str
     age: Optional[int] = None
@@ -33,8 +33,7 @@ async def create_heroes():
     hero_2 = Hero(name="Spider-Boy", secret_name="Pedro Parqueador")
     hero_3 = Hero(name="Rusty-Man", secret_name="Tommy Sharp", age=48)
 
-    async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
-    async with async_session() as session:
+    async with AsyncSession(engine) as session:
         session.add(hero_1)
         session.add(hero_2)
         session.add(hero_3)
@@ -43,8 +42,7 @@ async def create_heroes():
 
 
 async def select_heroes():
-    async_session = sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
-    async with async_session() as session:
+    async with AsyncSession(engine) as session:
         statement = select(Hero)
         results = await session.exec(statement)
         heroes = results.all()
@@ -58,4 +56,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main)
+    asyncio.run(main())
