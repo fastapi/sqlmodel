@@ -23,7 +23,7 @@ sqlite_url = f"sqlite+aiosqlite:///{sqlite_file_name}"
 engine = create_async_engine(sqlite_url, echo=True)
 
 
-async def create_db_and_tables():
+async def create_db_and_tables() -> None:
     meta = SQLModel.metadata
 
     async with engine.begin() as conn:
@@ -31,7 +31,7 @@ async def create_db_and_tables():
         await conn.run_sync(meta.create_all)
 
 
-async def create_heroes():
+async def create_heroes() -> None:
 
     hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
     hero_2 = Hero(name="Spider-Boy", secret_name="Pedro Parqueador")
@@ -45,7 +45,7 @@ async def create_heroes():
         await session.commit()
 
 
-async def select_heroes():
+async def select_heroes() -> None:
     async with AsyncSession(engine) as session:
         statement = select(Hero)
         results = await session.exec(statement)
@@ -53,7 +53,7 @@ async def select_heroes():
             print(hero)
 
 
-async def main():
+async def main() -> None:
     await create_db_and_tables()
     await create_heroes()
     await select_heroes()

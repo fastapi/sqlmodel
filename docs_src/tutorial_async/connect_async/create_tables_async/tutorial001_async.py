@@ -33,7 +33,7 @@ sqlite_url = f"sqlite+aiosqlite:///{sqlite_file_name}"
 engine = create_async_engine(sqlite_url, echo=True)
 
 
-async def create_db_and_tables():
+async def create_db_and_tables() -> None:
     meta = SQLModel.metadata
 
     async with engine.begin() as conn:
@@ -41,7 +41,7 @@ async def create_db_and_tables():
         await conn.run_sync(meta.create_all)
 
 
-async def main():
+async def main() -> None:
     await create_db_and_tables()
 
 
