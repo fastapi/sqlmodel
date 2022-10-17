@@ -1,5 +1,6 @@
 import pytest
 from unittest.mock import patch
+from typing import Any,  List
 
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -53,14 +54,14 @@ expected_calls = [
 
 
 @pytest.mark.asyncio()
-async def test_tutorial(clear_sqlmodel):
+async def test_tutorial(clear_sqlmodel:Any)->None:
     from docs_src.tutorial_async.connect_async.update_async import (
         tutorial001_async as mod,
     )
 
     mod.sqlite_url = "sqlite+aiosqlite://"
     mod.engine = create_async_engine(mod.sqlite_url)
-    calls = []
+    calls: List[Any] = []
 
     new_print = get_testing_print_function(calls)
 

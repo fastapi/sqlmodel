@@ -11,8 +11,8 @@ from sqlmodel import create_engine
 from tests.conftest import get_testing_print_function
 
 
-def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
-    assert calls[0][0] == [
+def check_calls(calls: List[List[List[Union[str, Dict[str, Any]]]]])->None:
+    expected_result: List[Union[str, Dict[str, Any]]] = [
         {
             "name": "Deadpond",
             "secret_name": "Dive Wilson",
@@ -33,15 +33,16 @@ def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
         },
     ]
 
+    assert calls[0][0] == expected_result
 
 @pytest.mark.asyncio
-async def test_tutorial_003(clear_sqlmodel):
+async def test_tutorial_003(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.select_async import tutorial003_async as mod
 
     mod.sqlite_url = "sqlite+aiosqlite://"
     mod.engine = create_async_engine(mod.sqlite_url)
 
-    calls = []
+    calls: List[Any] = []
 
     new_print = get_testing_print_function(calls)
 
@@ -51,12 +52,12 @@ async def test_tutorial_003(clear_sqlmodel):
 
 
 @pytest.mark.asyncio
-async def test_tutorial_004(clear_sqlmodel):
+async def test_tutorial_004(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.select_async import tutorial004_async as mod
 
     mod.sqlite_url = "sqlite+aiosqlite://"
     mod.engine = create_async_engine(mod.sqlite_url)
-    calls = []
+    calls: List[Any] = []
 
     new_print = get_testing_print_function(calls)
 
