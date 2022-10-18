@@ -1,8 +1,14 @@
+import sys
+
 import pytest
 from sqlalchemy import inspect
 from sqlalchemy.ext.asyncio import create_async_engine
 
+beforePYTHON3_9 = sys.version_info < (3, 9)
+reasonPEP593 = "Annotations(PEP593 https://peps.python.org/pep-0593/) only compatible with Python ver >= 3.9"
 
+
+@pytest.mark.skipif(beforePYTHON3_9, reason=reasonPEP593)
 @pytest.mark.asyncio
 async def test_async_tutorial001() -> None:
     from docs_src.tutorial_async.connect_async.create_tables_async import (

@@ -1,3 +1,4 @@
+import sys
 from typing import Any, List
 from unittest.mock import patch
 
@@ -64,6 +65,11 @@ expected_calls = [
 ]
 
 
+beforePYTHON3_9 = sys.version_info < (3, 9)
+reasonPEP593 = "Annotations(PEP593 https://peps.python.org/pep-0593/) only compatible with Python ver >= 3.9"
+
+
+@pytest.mark.skipif(beforePYTHON3_9, reason=reasonPEP593)
 @pytest.mark.asyncio()
 async def test_tutorial001(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.connect_async.select_async import (
@@ -81,6 +87,7 @@ async def test_tutorial001(clear_sqlmodel: Any) -> None:
     assert calls == expected_calls
 
 
+@pytest.mark.skipif(beforePYTHON3_9, reason=reasonPEP593)
 @pytest.mark.asyncio()
 async def test_tutorial002(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.connect_async.select_async import (
