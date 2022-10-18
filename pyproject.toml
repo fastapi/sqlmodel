@@ -39,7 +39,8 @@ aiosqlite = "^0.17.0"
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 mypy = "0.930"
-flake8 = "^3.9.2"
+flake8 = "^3.8"
+importlib-metadata = "4.13.0"  #required for flake8 with 3.7 see https://github.com/PyCQA/flake8/issues/1701
 black = "^22.10.0"
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
