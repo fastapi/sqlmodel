@@ -40,7 +40,7 @@ aiosqlite = "^0.17.0"
 pytest = "^6.2.4"
 mypy = "0.930"
 flake8 = "^3.9.2"
-black = {version = "^21.5-beta.1", python = "^3.7"}
+black = "^22.10.0"
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
 mdx-include = "^1.4.1"
@@ -51,8 +51,6 @@ autoflake = "^1.4"
 isort = "^5.9.3"
 async_generator = {version = "*", python = "~3.6"}
 async-exit-stack = {version = "*", python = "~3.6"}
-
-[tool.poetry.group.dev.dependencies]
 pytest-asyncio = "^0.19.0"
 SQLAlchemy = {extras = ["asyncio"], version = "^1.4.41"}
 

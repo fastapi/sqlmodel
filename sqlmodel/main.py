@@ -11,6 +11,7 @@ from typing import (
     Callable,
     ClassVar,
     Dict,
+    ForwardRef,
     List,
     Mapping,
     Optional,
@@ -21,7 +22,6 @@ from typing import (
     TypeVar,
     Union,
     cast,
-    ForwardRef,
 )
 
 from pydantic import BaseConfig, BaseModel

@@ -1,17 +1,13 @@
-import pytest
 from typing import Any, Dict, List, Union
 from unittest.mock import patch
 
+import pytest
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import MetaData, Session, SQLModel, create_engine, select
-from sqlmodel.ext.asyncio.session import AsyncSession
-from sqlmodel import create_engine
 
 from tests.conftest import get_testing_print_function
 
 
-def check_calls(calls: List[List[List[Union[str, Dict[str, Any]]]]])->None:
+def check_calls(calls: List[List[List[Union[str, Dict[str, Any]]]]]) -> None:
     expected_result: List[Union[str, Dict[str, Any]]] = [
         {
             "name": "Deadpond",
@@ -34,6 +30,7 @@ def check_calls(calls: List[List[List[Union[str, Dict[str, Any]]]]])->None:
     ]
 
     assert calls[0][0] == expected_result
+
 
 @pytest.mark.asyncio
 async def test_tutorial_003(clear_sqlmodel: Any) -> None:

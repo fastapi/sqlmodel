@@ -1,17 +1,13 @@
-import pytest
 from typing import Any, Dict, List, Union
 from unittest.mock import patch
 
+import pytest
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import MetaData, Session, SQLModel, create_engine, select
-from sqlmodel.ext.asyncio.session import AsyncSession
-from sqlmodel import create_engine
 
 from tests.conftest import get_testing_print_function
 
 
-def check_calls(calls: List[List[Union[str, Dict[str, Any]]]])->None:
+def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]) -> None:
     assert calls[0][0] == {
         "name": "Deadpond",
         "secret_name": "Dive Wilson",
@@ -33,7 +29,7 @@ def check_calls(calls: List[List[Union[str, Dict[str, Any]]]])->None:
 
 
 @pytest.mark.asyncio
-async def test_tutorial_async_001(clear_sqlmodel:Any)->None:
+async def test_tutorial_async_001(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.select_async import tutorial001_async as mod
 
     mod.sqlite_url = "sqlite+aiosqlite://"
@@ -48,7 +44,7 @@ async def test_tutorial_async_001(clear_sqlmodel:Any)->None:
 
 
 @pytest.mark.asyncio
-async def test_tutorial_async_002(clear_sqlmodel:Any)->None:
+async def test_tutorial_async_002(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.select_async import tutorial002_async as mod
 
     mod.sqlite_url = "sqlite+aiosqlite://"

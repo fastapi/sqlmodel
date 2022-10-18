@@ -1,11 +1,8 @@
-import pytest
+from typing import Any, List
 from unittest.mock import patch
-from typing import List, Any, Dict
 
+import pytest
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import Session, SQLModel, select
-from sqlmodel.ext.asyncio.session import AsyncSession
 
 from tests.conftest import get_testing_print_function
 
@@ -68,7 +65,7 @@ expected_calls = [
 
 
 @pytest.mark.asyncio()
-async def test_tutorial001(clear_sqlmodel:Any)->None:
+async def test_tutorial001(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.connect_async.select_async import (
         tutorial001_async as mod,
     )
@@ -85,7 +82,7 @@ async def test_tutorial001(clear_sqlmodel:Any)->None:
 
 
 @pytest.mark.asyncio()
-async def test_tutorial002(clear_sqlmodel:Any)->None:
+async def test_tutorial002(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.connect_async.select_async import (
         tutorial002_async as mod,
     )

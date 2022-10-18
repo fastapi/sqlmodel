@@ -1,11 +1,8 @@
-import pytest
+from typing import Any, List
 from unittest.mock import patch
-from typing import Any,  List
 
+import pytest
 from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker
-from sqlmodel import Session, SQLModel, select
-from sqlmodel.ext.asyncio.session import AsyncSession
 
 from tests.conftest import get_testing_print_function
 
@@ -64,7 +61,7 @@ expected_calls = [
 
 
 @pytest.mark.asyncio()
-async def test_tutorial_async(clear_sqlmodel:Any)->None:
+async def test_tutorial_async(clear_sqlmodel: Any) -> None:
     from docs_src.tutorial_async.connect_async.delete_async import (
         tutorial001_async as mod,
     )

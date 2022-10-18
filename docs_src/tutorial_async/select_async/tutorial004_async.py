@@ -1,7 +1,6 @@
 import asyncio
 from typing import Annotated, Optional
 
-
 # TODO change when https://github.com/tiangolo/sqlmodel/pull/435 accepted
 # TODO replace following 3 lines with:
 # ------ from sqlmodel import AsyncSession, create_async_engine, Field, SQLModel, select
