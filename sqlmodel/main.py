@@ -514,6 +514,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         for key in non_pydantic_keys:
             if key in __pydantic_self__.__sqlmodel_relationships__:
                 setattr(__pydantic_self__, key, data[key])
+        __pydantic_self__._init_private_attributes()
 
     def __setattr__(self, name: str, value: Any) -> None:
         if name in {"_sa_instance_state"}:
