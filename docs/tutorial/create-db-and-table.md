@@ -415,7 +415,7 @@ Now run the program with Python:
 // We set echo=True, so this will show the SQL code
 $ python app.py
 
-// First, some boilerplate SQL that we are not that intereted in
+// First, some boilerplate SQL that we are not that interested in
 
 INFO Engine BEGIN (implicit)
 INFO Engine PRAGMA main.table_info("hero")
