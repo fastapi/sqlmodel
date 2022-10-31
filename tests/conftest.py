@@ -5,7 +5,7 @@ from typing import Any, Callable, Dict, List, Union
 
 import pytest
 from pydantic import BaseModel
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, create_engine
 from sqlmodel.main import default_registry
 
 top_level_path = Path(__file__).resolve().parent.parent
@@ -21,6 +21,13 @@ def clear_sqlmodel():
     yield
     SQLModel.metadata.clear()
     default_registry.dispose()
+
+
+@pytest.fixture()
+def in_memory_engine(clear_sqlmodel):
+    engine = create_engine("sqlite:///memory")
+    yield engine
+    SQLModel.metadata.drop_all(engine, checkfirst=True)
 
 
 @pytest.fixture()

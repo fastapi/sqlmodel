@@ -34,6 +34,7 @@ from pydantic.utils import ROOT_KEY, Representation
 from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
 from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
@@ -207,6 +208,7 @@ def Relationship(
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
+    __sqlalchemy_constructs__: Dict[str, Any]
     __config__: Type[BaseConfig]
     __fields__: Dict[str, ModelField]
 
@@ -232,6 +234,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         **kwargs: Any,
     ) -> Any:
         relationships: Dict[str, RelationshipInfo] = {}
+        sqlalchemy_constructs = {}
         dict_for_pydantic = {}
         original_annotations = resolve_annotations(
             class_dict.get("__annotations__", {}), class_dict.get("__module__", None)
@@ -241,6 +244,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         for k, v in class_dict.items():
             if isinstance(v, RelationshipInfo):
                 relationships[k] = v
+            elif isinstance(v, hybrid_property):
+                sqlalchemy_constructs[k] = v
             else:
                 dict_for_pydantic[k] = v
         for k, v in original_annotations.items():
@@ -253,6 +258,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             "__weakref__": None,
             "__sqlmodel_relationships__": relationships,
             "__annotations__": pydantic_annotations,
+            "__sqlalchemy_constructs__": sqlalchemy_constructs,
         }
         # Duplicate logic from Pydantic to filter config kwargs because if they are
         # passed directly including the registry Pydantic will pass them over to the
@@ -276,6 +282,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             **new_cls.__annotations__,
         }
 
+        # We did not provide the sqlalchemy constructs to Pydantic's new function above
+        # so that they wouldn't be modified. Instead we set them directly to the class below:
+        for k, v in sqlalchemy_constructs.items():
+            setattr(new_cls, k, v)
+
         def get_config(name: str) -> Any:
             config_class_value = getattr(new_cls.__config__, name, Undefined)
             if config_class_value is not Undefined:
@@ -290,8 +301,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             new_cls.__config__.table = config_table
             for k, v in new_cls.__fields__.items():
-                col = get_column_from_field(v)
-                setattr(new_cls, k, col)
+                if k in sqlalchemy_constructs:
+                    continue
+                setattr(new_cls, k, get_column_from_field(v))
             # Set a config flag to tell FastAPI that this should be read with a field
             # in orm_mode instead of preemptively converting it to a dict.
             # This could be done by reading new_cls.__config__.table in FastAPI, but
@@ -326,6 +338,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         if getattr(cls.__config__, "table", False) and not base_is_table:
             dict_used = dict_.copy()
             for field_name, field_value in cls.__fields__.items():
+                if field_name in cls.__sqlalchemy_constructs__:
+                    continue
                 dict_used[field_name] = get_column_from_field(field_value)
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
