@@ -31,3 +31,46 @@ The `updated_at` column has an `onupdate` value of `func.now()`, this means that
 ```
 
 </details>
+
+### Pydantic Implementation
+
+Implementing these timestamps on the DB side with SQLAlchemy works very well as the database itself is what will create and update the fields whenever a relevant database interaction occurs.
+
+It's possible to achieve similar behaviour with Pydantic, for the `created_at` timestamp by using a Pydantic `Field` with a `default_factory`:
+
+```python
+from datetime import datetime
+
+from pydantic import BaseModel, Field
+
+
+class Model(BaseModel):
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+m1 = Model()
+m2 = Model()
+print(f'{m1.created_at} != {m2.created_at}')
+#> 2022-05-19 10:49:22.053624 != 2022-05-19 10:49:22.053641
+```
+
+Another approach is to use a Pydantic `validator`:
+
+```python
+from datetime import datetime
+
+from pydantic import BaseModel, validator
+
+class Model(BaseModel):
+    created_at: datetime = None
+
+    @validator('ts', pre=True, always=True)
+    def set_created_at_now(cls, v):
+        return v or datetime.now()
+```
+
+Both of these approaches come with the major caveat that default fields are set during the **Pydantic model instantiation**, as opposed to during **interactions with the database**, instead of the SQLModel approach which sets it with `server_default` which means that the timestamp will be exactly when the row is created in the database.
+
+The real issue starts when looking at the `updated_at` timestamp - SQLAlchemy has the `onupdate` default which runs a function when the row is updated in the database, but there is no easy way to do this in Pydantic as it has no concept of 'about to be saved'.
+
+So the pure Pydantic approach would require some additional logic to always change the `updated_at` timestamp before doing a write to the database, which adds some more complexity to the code and does not have benefits over the SQLAlchemy approach.
