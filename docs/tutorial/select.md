@@ -88,7 +88,7 @@ You can try that out in **DB Browser for SQLite**:
 
 ### A SQL Shortcut
 
-If we want to get all the columns like in this case above, in SQL there's a shortcut, instead of specifying each of the column names wew could write a `*`:
+If we want to get all the columns like in this case above, in SQL there's a shortcut, instead of specifying each of the column names we could write a `*`:
 
 ```SQL
 SELECT *

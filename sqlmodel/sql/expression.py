@@ -29,14 +29,14 @@ _TSelect = TypeVar("_TSelect")
 if sys.version_info.minor >= 7:
 
     class Select(_Select, Generic[_TSelect]):
-        pass
+        inherit_cache = True
 
     # This is not comparable to sqlalchemy.sql.selectable.ScalarSelect, that has a different
     # purpose. This is the same as a normal SQLAlchemy Select class where there's only one
     # entity, so the result will be converted to a scalar by default. This way writing
     # for loops on the results will feel natural.
     class SelectOfScalar(_Select, Generic[_TSelect]):
-        pass
+        inherit_cache = True
 
 else:
     from typing import GenericMeta  # type: ignore
@@ -45,10 +45,10 @@ else:
         pass
 
     class _Py36Select(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
-        pass
+        inherit_cache = True
 
     class _Py36SelectOfScalar(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
-        pass
+        inherit_cache = True
 
     # Cast them for editors to work correctly, from several tricks tried, this works
     # for both VS Code and PyCharm
