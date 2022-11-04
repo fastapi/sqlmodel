@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* 👷 Update Dependabot config. PR [#484](https://github.com/tiangolo/sqlmodel/pull/484) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.8
 
