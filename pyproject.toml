@@ -30,16 +30,18 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7"
 SQLAlchemy = ">=1.4.17,<=1.4.41"
 pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
+aiosqlite = "^0.17.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
 mypy = "0.930"
-flake8 = "^3.9.2"
-black = {version = "^21.5-beta.1", python = "^3.7"}
+flake8 = "^3.8"
+importlib-metadata = "4.13.0"  #required for flake8 with 3.7 see https://github.com/PyCQA/flake8/issues/1701
+black = "^22.10.0"
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
 mdx-include = "^1.4.1"
@@ -50,6 +52,9 @@ autoflake = "^1.4"
 isort = "^5.9.3"
 async_generator = {version = "*", python = "~3.6"}
 async-exit-stack = {version = "*", python = "~3.6"}
+pytest-asyncio = "^0.19.0"
+SQLAlchemy = {extras = ["asyncio"], version = "^1.4.41"}
+
 
 [build-system]
 requires = ["poetry-core"]
