@@ -39,7 +39,7 @@ sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 pytest = "^7.0.1"
 mypy = "0.971"
 flake8 = "^5.0.4"
-black = {version = "^21.5-beta.1", python = "^3.7"}
+black = {version = "^22.10.0", python = "^3.7"}
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
 pillow = {version = "^9.3.0", python = "^3.7"}
