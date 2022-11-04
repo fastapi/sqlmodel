@@ -67,6 +67,7 @@ source = [
     "tests",
     "sqlmodel"
 ]
+context = '${CONTEXT}'
 
 [tool.coverage.report]
 exclude_lines = [
