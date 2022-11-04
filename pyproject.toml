@@ -36,7 +36,7 @@ pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.4"
+pytest = "^7.0.1"
 mypy = "0.930"
 flake8 = "^3.9.2"
 black = {version = "^21.5-beta.1", python = "^3.7"}
