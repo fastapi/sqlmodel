@@ -1,11 +1,10 @@
 import uuid
 from typing import Any, Optional, cast
 
-from sqlalchemy import types
+from sqlalchemy import CHAR, types
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.engine.interfaces import Dialect
 from sqlalchemy.sql.type_api import TypeEngine
-from sqlalchemy.types import CHAR, TypeDecorator
 
 
 class AutoString(types.TypeDecorator):  # type: ignore
@@ -23,7 +22,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
 
 # Reference form SQLAlchemy docs: https://docs.sqlalchemy.org/en/14/core/custom_types.html#backend-agnostic-guid-type
 # with small modifications
-class GUID(TypeDecorator):  # type: ignore
+class GUID(types.TypeDecorator):  # type: ignore
     """Platform-independent GUID type.
 
     Uses PostgreSQL's UUID type, otherwise uses
@@ -47,10 +46,10 @@ class GUID(TypeDecorator):  # type: ignore
             return str(value)
         else:
             if not isinstance(value, uuid.UUID):
-                return f"{uuid.UUID(value).int:x}"
+                return uuid.UUID(value).hex
             else:
                 # hexstring
-                return f"{value.int:x}"
+                return value.hex
 
     def process_result_value(self, value: Any, dialect: Dialect) -> Optional[uuid.UUID]:
         if value is None:

@@ -24,7 +24,6 @@ class TeamRead(TeamBase):
 
 
 class TeamUpdate(SQLModel):
-    id: Optional[int] = None
     name: Optional[str] = None
     headquarters: Optional[str] = None
 
