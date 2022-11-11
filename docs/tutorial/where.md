@@ -311,7 +311,7 @@ Instead, it results in a special type of object. If you tried that in an interac
 <sqlalchemy.sql.elements.BinaryExpression object at 0x7f4aec0d6c90>
 ```
 
-So, that result value is an **expession** object. 💡
+So, that result value is an **expression** object. 💡
 
 And `.where()` takes one (or more) of these **expression** objects to update the SQL statement.
 
@@ -421,7 +421,7 @@ Of course, the keyword arguments would have been a bit shorter.
 
 But with the **expressions** your editor can help you a lot with autocompletion and inline error checks. ✨
 
-Let me give you an example. Let's imagine that keword arguments were supported in SQLModel and you wanted to filter using the secret identity of Spider-Boy.
+Let me give you an example. Let's imagine that keyword arguments were supported in SQLModel and you wanted to filter using the secret identity of Spider-Boy.
 
 You could write:
 
@@ -694,7 +694,7 @@ age=35 id=5 name='Black Lion' secret_name='Trevor Challa'
 !!! tip
     We get `Black Lion` here too because although the age is not *strictly* less than `35` it is *equal* to `35`.
 
-### Benefits of Expresions
+### Benefits of Expressions
 
 Here's a good moment to see that being able to use these pure Python expressions instead of keyword arguments can help a lot. ✨
 

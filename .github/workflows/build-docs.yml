@@ -19,9 +19,9 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3.1.0
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.7"
       # Allow debugging with tmate
@@ -65,7 +65,7 @@ jobs:
         run: python -m poetry run mkdocs build --config-file mkdocs.insiders.yml
       - name: Zip docs
         run: python -m poetry run bash ./scripts/zip-docs.sh
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: docs-zip
           path: ./docs.zip
