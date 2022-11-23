@@ -424,7 +424,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     sa_column = getattr(field.field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
-    sa_type = get_sqlachemy_type(field)
+    sa_type = get_sqlalchemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
