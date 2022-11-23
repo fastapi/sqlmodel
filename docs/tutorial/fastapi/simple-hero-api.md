@@ -63,6 +63,9 @@ But here we will make sure we don't share the same **session** in more than one 
 And we also need to disable it because in **FastAPI** each request could be handled by multiple interacting threads.
 
 !!! info
+    If you are using an in-memory SQLite database you should also pass `poolclass=sqlmodel.pool.StaticPool` to the `create_engine()` function since the database exists only within the scope of each connection. The StaticPool implementation will maintain a single connection globally.
+
+!!! info
     That's enough information for now, you can read more about it in the <a href="https://fastapi.tiangolo.com/async/" class="external-link" target="_blank">FastAPI docs for `async` and `await`</a>.
 
     The main point is, by ensuring you **don't share** the same **session** with more than one request, the code is already safe.
