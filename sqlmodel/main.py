@@ -375,7 +375,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
-def get_sqlachemy_type(field: ModelField) -> Any:
+def get_sqlalchemy_type(field: ModelField) -> Any:
     if not issubclass(type(field.field_info.sa_type), type(Undefined)):
         return field.field_info.sa_type
     if issubclass(field.type_, str):
