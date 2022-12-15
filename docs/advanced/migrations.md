@@ -92,7 +92,7 @@ Then go to `migrations\script.py.mako` to add sqlmodel module.
 ```Python hl_lines="5-5"
 # Code above omitted 👆
 
-{!./docs_src/advanced/migrations/tutorial003.py[ln:8-10]!}
+{!./docs_src/advanced/migrations/tutorial003.mako[ln:8-10]!}
 
 # Code below omitted 👇
 ```
@@ -104,7 +104,7 @@ Then go to `migrations\script.py.mako` to add sqlmodel module.
 <summary>👀 Full script.py.mako example</summary>
 
 ```Python
-{!./docs_src/advanced/migrations/tutorial003.py!}
+{!./docs_src/advanced/migrations/tutorial003.mako!}
 ```
 
 </details>
