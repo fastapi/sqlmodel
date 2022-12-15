@@ -1,7 +1,7 @@
 """init_db
 
 Revision ID: 34abfb7ac266
-Revises: 
+Revises:
 Create Date:
 
 """

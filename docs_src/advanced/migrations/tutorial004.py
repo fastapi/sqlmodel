@@ -1,6 +1,6 @@
 from logging.config import fileConfig  # isort:skip
 
-from main import Hero  # isort:skip
+from main import Hero  # noqa: F401, isort:skip
 from sqlmodel import SQLModel  # isort:skip
 
 from sqlalchemy import engine_from_config  # isort:skip
