@@ -127,6 +127,7 @@ nav:
     - Advanced User Guide:
       - advanced/index.md
       - advanced/decimal.md
+      - advanced/migrations.md
       - advanced/uuid.md
   - Resources:
     - resources/index.md
