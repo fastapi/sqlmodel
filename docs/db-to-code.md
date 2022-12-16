@@ -62,7 +62,7 @@ The user is probably, in some way, telling your application:
 2
 ```
 
-And the  would be this table (with a single row):
+And the result would be this table (with a single row):
 
 <table>
 <tr>
