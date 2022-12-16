@@ -61,6 +61,7 @@ class FieldInfo(PydanticFieldInfo):
         primary_key = kwargs.pop("primary_key", False)
         nullable = kwargs.pop("nullable", Undefined)
         foreign_key = kwargs.pop("foreign_key", Undefined)
+        unique = kwargs.pop("unique", False)
         index = kwargs.pop("index", Undefined)
         sa_column = kwargs.pop("sa_column", Undefined)
         sa_column_args = kwargs.pop("sa_column_args", Undefined)
@@ -80,6 +81,7 @@ class FieldInfo(PydanticFieldInfo):
         self.primary_key = primary_key
         self.nullable = nullable
         self.foreign_key = foreign_key
+        self.unique = unique
         self.index = index
         self.sa_column = sa_column
         self.sa_column_args = sa_column_args
@@ -141,6 +143,7 @@ def Field(
     regex: Optional[str] = None,
     primary_key: bool = False,
     foreign_key: Optional[Any] = None,
+    unique: bool = False,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
@@ -171,6 +174,7 @@ def Field(
         regex=regex,
         primary_key=primary_key,
         foreign_key=foreign_key,
+        unique=unique,
         nullable=nullable,
         index=index,
         sa_column=sa_column,
@@ -375,7 +379,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
-def get_sqlachemy_type(field: ModelField) -> Any:
+def get_sqlalchemy_type(field: ModelField) -> Any:
     if issubclass(field.type_, str):
         if field.field_info.max_length:
             return AutoString(length=field.field_info.max_length)
@@ -422,24 +426,28 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     sa_column = getattr(field.field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
-    sa_type = get_sqlachemy_type(field)
+    sa_type = get_sqlalchemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
         index = False
+    nullable = not primary_key and _is_field_noneable(field)
+    # Override derived nullability if the nullable property is set explicitly
+    # on the field
     if hasattr(field.field_info, "nullable"):
         field_nullable = getattr(field.field_info, "nullable")
         if field_nullable != Undefined:
             nullable = field_nullable
-    nullable = not primary_key and _is_field_nullable(field)
     args = []
     foreign_key = getattr(field.field_info, "foreign_key", None)
+    unique = getattr(field.field_info, "unique", False)
     if foreign_key:
         args.append(ForeignKey(foreign_key))
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
+        "unique": unique,
     }
     sa_default = Undefined
     if field.field_info.default_factory:
@@ -523,9 +531,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if getattr(self.__config__, "table", False):
-                if is_instrumented(self, name):
-                    set_attribute(self, name, value)
+            if getattr(self.__config__, "table", False) and is_instrumented(self, name):
+                set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
             if name not in self.__sqlmodel_relationships__:
@@ -568,8 +575,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     @classmethod
     def parse_obj(
-        cls: Type["SQLModel"], obj: Any, update: Optional[Dict[str, Any]] = None
-    ) -> "SQLModel":
+        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+    ) -> _TSQLModel:
         obj = cls._enforce_dict_if_root(obj)
         # SQLModel, support update dict
         if update is not None:
@@ -583,7 +590,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     # From Pydantic, override to enforce validation with dict
     @classmethod
-    def validate(cls: Type["SQLModel"], value: Any) -> "SQLModel":
+    def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
         if isinstance(value, cls):
             return value.copy() if cls.__config__.copy_on_model_validation else value
 
@@ -615,7 +622,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_unset: bool,
         update: Optional[Dict[str, Any]] = None,
     ) -> Optional[AbstractSet[str]]:
-        if include is None and exclude is None and exclude_unset is False:
+        if include is None and exclude is None and not exclude_unset:
             # Original in Pydantic:
             # return None
             # Updated to not return SQLAlchemy attributes
@@ -633,7 +640,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             # Do not include relationships as that would easily lead to infinite
             # recursion, or traversing the whole database
             keys = self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
-
         if include is not None:
             keys &= include.keys()
 
@@ -650,11 +656,10 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
 
-def _is_field_nullable(field: ModelField) -> bool:
+def _is_field_noneable(field: ModelField) -> bool:
     if not field.required:
         # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
-        is_optional = field.allow_none and (
+        return field.allow_none and (
             field.shape != SHAPE_SINGLETON or not field.sub_fields
         )
-        return is_optional and field.default is None and field.default_factory is None
     return False
