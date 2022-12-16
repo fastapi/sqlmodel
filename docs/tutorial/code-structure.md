@@ -198,7 +198,7 @@ It has a value of `True` for editors and tools that analyze the code with the ty
 
 But when Python is executing, its value is `False`.
 
-So, we can us it in an `if` block and import things inside the `if` block. And they will be "imported" only for editors, but not at runtime.
+So, we can use it in an `if` block and import things inside the `if` block. And they will be "imported" only for editors, but not at runtime.
 
 ### Hero Model File
 

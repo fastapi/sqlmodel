@@ -158,7 +158,7 @@ Here we use the **same** class model to define the **request body** that will be
 
 Because **FastAPI** is based on Pydantic, it will use the same model (the Pydantic part) to do automatic data validation and <abbr title="also called serialization, marshalling">conversion</abbr> from the JSON request to an object that is an actual instance of the `Hero` class.
 
-And then because this same **SQLModel** object is not only a **Pydantic** model instance but also a **SQLAlchemy** model instance, we can use it directly in a **session** to create the row in the database.
+And then, because this same **SQLModel** object is not only a **Pydantic** model instance but also a **SQLAlchemy** model instance, we can use it directly in a **session** to create the row in the database.
 
 So we can use intuitive standard Python **type annotations**, and we don't have to duplicate a lot of the code for the database models and the API data models. 🎉
 
@@ -190,13 +190,13 @@ When a client sends a request to the **path** `/heroes/` with a `GET` HTTP **ope
 
 ## One Session per Request
 
-Remember that we shoud use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session?
+Remember that we should use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session?
 
 Here it is much more obvious.
 
 We should normally have **one session per request** in most of the cases.
 
-In some isolated cases we would want to have new sessions inside, so, **more than one session** per request.
+In some isolated cases, we would want to have new sessions inside, so, **more than one session** per request.
 
 But we would **never want to *share* the same session** among different requests.
 
@@ -277,7 +277,7 @@ And then you can get them back with the **Read Heroes** *path operation*:
 
 Now you can terminate that Uvicorn server by going back to the terminal and pressing <kbd>Ctrl+C</kbd>.
 
-And then you can open **DB Browser for SQLite** and check the database, to explore the data and confirm that it indeed saved the heroes. 🎉
+And then, you can open **DB Browser for SQLite** and check the database, to explore the data and confirm that it indeed saved the heroes. 🎉
 
 <img class="shadow" alt="DB Browser for SQLite showing the heroes" src="/img/tutorial/fastapi/simple-hero-api/db-browser-01.png">
 
@@ -287,4 +287,4 @@ Good job! This is already a FastAPI **web API** application to interact with the
 
 There are several things we can improve and extend. For example, we want the database to decide the ID of each new hero, we don't want to allow a user to send it.
 
-We will do all those improvements in the next chapters. 🚀
+We will make all those improvements in the next chapters. 🚀

@@ -1,3 +1,4 @@
+import os
 from itertools import product
 from pathlib import Path
 from typing import List, Tuple
@@ -51,5 +52,12 @@ result = (
 )
 
 result = black.format_str(result, mode=black.Mode())
+
+current_content = destiny_path.read_text()
+
+if current_content != result and os.getenv("CHECK_JINJA"):
+    raise RuntimeError(
+        "sqlmodel/sql/expression.py content not update with Jinja2 template"
+    )
 
 destiny_path.write_text(result)
