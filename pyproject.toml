@@ -36,14 +36,16 @@ pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2.4"
-mypy = "0.930"
-flake8 = "^3.9.2"
-black = {version = "^21.5-beta.1", python = "^3.7"}
+pytest = "^7.0.1"
+mypy = "0.971"
+flake8 = "^5.0.4"
+black = {version = "^22.10.0", python = "^3.7"}
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
+pillow = {version = "^9.3.0", python = "^3.7"}
+cairosvg = {version = "^2.5.2", python = "^3.7"}
 mdx-include = "^1.4.1"
-coverage = {extras = ["toml"], version = "^5.5"}
+coverage = {extras = ["toml"], version = "^6.2"}
 fastapi = "^0.68.1"
 requests = "^2.26.0"
 autoflake = "^1.4"
@@ -65,6 +67,7 @@ source = [
     "tests",
     "sqlmodel"
 ]
+context = '${CONTEXT}'
 
 [tool.coverage.report]
 exclude_lines = [
