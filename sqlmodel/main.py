@@ -6,7 +6,6 @@ from decimal import Decimal
 from enum import Enum
 from pathlib import Path
 from typing import (
-    TYPE_CHECKING,
     AbstractSet,
     Any,
     Callable,
@@ -24,25 +23,17 @@ from typing import (
     cast,
 )
 
-from pydantic import BaseModel
+from pydantic import BaseConfig, BaseModel
 from pydantic.errors import ConfigError, DictError
+from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
-from pydantic.main import BaseConfig, ModelMetaclass, validate_model
+from pydantic.main import ModelMetaclass, validate_model
 from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Date,
-    DateTime,
-    Float,
-    ForeignKey,
-    Integer,
-    Interval,
-    Numeric,
-    inspect,
-)
+from sqlalchemy import Boolean, Column, Date, DateTime
+from sqlalchemy import Enum as sa_Enum
+from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
@@ -70,6 +61,7 @@ class FieldInfo(PydanticFieldInfo):
         primary_key = kwargs.pop("primary_key", False)
         nullable = kwargs.pop("nullable", Undefined)
         foreign_key = kwargs.pop("foreign_key", Undefined)
+        unique = kwargs.pop("unique", False)
         index = kwargs.pop("index", Undefined)
         sa_column = kwargs.pop("sa_column", Undefined)
         sa_column_args = kwargs.pop("sa_column_args", Undefined)
@@ -89,6 +81,7 @@ class FieldInfo(PydanticFieldInfo):
         self.primary_key = primary_key
         self.nullable = nullable
         self.foreign_key = foreign_key
+        self.unique = unique
         self.index = index
         self.sa_column = sa_column
         self.sa_column_args = sa_column_args
@@ -101,7 +94,7 @@ class RelationshipInfo(Representation):
         *,
         back_populates: Optional[str] = None,
         link_model: Optional[Any] = None,
-        sa_relationship: Optional[RelationshipProperty] = None,
+        sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
         sa_relationship_args: Optional[Sequence[Any]] = None,
         sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
     ) -> None:
@@ -127,32 +120,33 @@ def Field(
     default: Any = Undefined,
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
-    alias: str = None,
-    title: str = None,
-    description: str = None,
+    alias: Optional[str] = None,
+    title: Optional[str] = None,
+    description: Optional[str] = None,
     exclude: Union[
         AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
     ] = None,
     include: Union[
         AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
     ] = None,
-    const: bool = None,
-    gt: float = None,
-    ge: float = None,
-    lt: float = None,
-    le: float = None,
-    multiple_of: float = None,
-    min_items: int = None,
-    max_items: int = None,
-    min_length: int = None,
-    max_length: int = None,
+    const: Optional[bool] = None,
+    gt: Optional[float] = None,
+    ge: Optional[float] = None,
+    lt: Optional[float] = None,
+    le: Optional[float] = None,
+    multiple_of: Optional[float] = None,
+    min_items: Optional[int] = None,
+    max_items: Optional[int] = None,
+    min_length: Optional[int] = None,
+    max_length: Optional[int] = None,
     allow_mutation: bool = True,
-    regex: str = None,
+    regex: Optional[str] = None,
     primary_key: bool = False,
     foreign_key: Optional[Any] = None,
+    unique: bool = False,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_column: Union[Column, UndefinedType] = Undefined,
+    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
@@ -180,6 +174,7 @@ def Field(
         regex=regex,
         primary_key=primary_key,
         foreign_key=foreign_key,
+        unique=unique,
         nullable=nullable,
         index=index,
         sa_column=sa_column,
@@ -195,7 +190,7 @@ def Relationship(
     *,
     back_populates: Optional[str] = None,
     link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty] = None,
+    sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
 ) -> Any:
@@ -217,19 +212,25 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
-        if getattr(cls.__config__, "table", False):  # type: ignore
+        if getattr(cls.__config__, "table", False):
             DeclarativeMeta.__setattr__(cls, name, value)
         else:
             super().__setattr__(name, value)
 
     def __delattr__(cls, name: str) -> None:
-        if getattr(cls.__config__, "table", False):  # type: ignore
+        if getattr(cls.__config__, "table", False):
             DeclarativeMeta.__delattr__(cls, name)
         else:
             super().__delattr__(name)
 
     # From Pydantic
-    def __new__(cls, name, bases, class_dict: dict, **kwargs) -> Any:
+    def __new__(
+        cls,
+        name: str,
+        bases: Tuple[Type[Any], ...],
+        class_dict: Dict[str, Any],
+        **kwargs: Any,
+    ) -> Any:
         relationships: Dict[str, RelationshipInfo] = {}
         dict_for_pydantic = {}
         original_annotations = resolve_annotations(
@@ -342,7 +343,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 )
                 relationship_to = temp_field.type_
                 if isinstance(temp_field.type_, ForwardRef):
-                    relationship_to = temp_field.type_.__forward_arg__  # type: ignore
+                    relationship_to = temp_field.type_.__forward_arg__
                 rel_kwargs: Dict[str, Any] = {}
                 if rel_info.back_populates:
                     rel_kwargs["back_populates"] = rel_info.back_populates
@@ -360,16 +361,17 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_args.extend(rel_info.sa_relationship_args)
                 if rel_info.sa_relationship_kwargs:
                     rel_kwargs.update(rel_info.sa_relationship_kwargs)
-                rel_value: RelationshipProperty = relationship(
+                rel_value: RelationshipProperty = relationship(  # type: ignore
                     relationship_to, *rel_args, **rel_kwargs
                 )
                 dict_used[rel_name] = rel_value
+                setattr(cls, rel_name, rel_value)  # Fix #315
             DeclarativeMeta.__init__(cls, classname, bases, dict_used, **kw)
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
-def get_sqlachemy_type(field: ModelField) -> Any:
+def get_sqlalchemy_type(field: ModelField) -> Any:
     if issubclass(field.type_, str):
         if field.field_info.max_length:
             return AutoString(length=field.field_info.max_length)
@@ -389,11 +391,14 @@ def get_sqlachemy_type(field: ModelField) -> Any:
     if issubclass(field.type_, time):
         return Time
     if issubclass(field.type_, Enum):
-        return Enum
+        return sa_Enum(field.type_)
     if issubclass(field.type_, bytes):
         return LargeBinary
     if issubclass(field.type_, Decimal):
-        return Numeric
+        return Numeric(
+            precision=getattr(field.type_, "max_digits", None),
+            scale=getattr(field.type_, "decimal_places", None),
+        )
     if issubclass(field.type_, ipaddress.IPv4Address):
         return AutoString
     if issubclass(field.type_, ipaddress.IPv4Network):
@@ -406,30 +411,35 @@ def get_sqlachemy_type(field: ModelField) -> Any:
         return AutoString
     if issubclass(field.type_, uuid.UUID):
         return GUID
+    raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: ModelField) -> Column:
+def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     sa_column = getattr(field.field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
-    sa_type = get_sqlachemy_type(field)
+    sa_type = get_sqlalchemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
-    nullable = not field.required
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
-        index = True
+        index = False
+    nullable = not primary_key and _is_field_noneable(field)
+    # Override derived nullability if the nullable property is set explicitly
+    # on the field
     if hasattr(field.field_info, "nullable"):
         field_nullable = getattr(field.field_info, "nullable")
         if field_nullable != Undefined:
             nullable = field_nullable
     args = []
     foreign_key = getattr(field.field_info, "foreign_key", None)
+    unique = getattr(field.field_info, "unique", False)
     if foreign_key:
         args.append(ForeignKey(foreign_key))
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
+        "unique": unique,
     }
     sa_default = Undefined
     if field.field_info.default_factory:
@@ -440,11 +450,11 @@ def get_column_from_field(field: ModelField) -> Column:
         kwargs["default"] = sa_default
     sa_column_args = getattr(field.field_info, "sa_column_args", Undefined)
     if sa_column_args is not Undefined:
-        args.extend(list(cast(Sequence, sa_column_args)))
+        args.extend(list(cast(Sequence[Any], sa_column_args)))
     sa_column_kwargs = getattr(field.field_info, "sa_column_kwargs", Undefined)
     if sa_column_kwargs is not Undefined:
-        kwargs.update(cast(dict, sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)
+        kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
+    return Column(sa_type, *args, **kwargs)  # type: ignore
 
 
 class_registry = weakref.WeakValueDictionary()  # type: ignore
@@ -452,24 +462,27 @@ class_registry = weakref.WeakValueDictionary()  # type: ignore
 default_registry = registry()
 
 
-def _value_items_is_true(v) -> bool:
+def _value_items_is_true(v: Any) -> bool:
     # Re-implement Pydantic's ValueItems.is_true() as it hasn't been released as of
     # the current latest, Pydantic 1.8.2
     return v is True or v is ...
+
+
+_TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[Union[str, Callable[..., str]]]
-    __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty]]
+    __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty]]  # type: ignore
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
 
     class Config:
         orm_mode = True
 
-    def __new__(cls, *args, **kwargs) -> Any:
+    def __new__(cls, *args: Any, **kwargs: Any) -> Any:
         new_object = super().__new__(cls)
         # SQLAlchemy doesn't call __init__ on the base class
         # Ref: https://docs.sqlalchemy.org/en/14/orm/constructors.html
@@ -482,9 +495,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def __init__(__pydantic_self__, **data: Any) -> None:
         # Uses something other than `self` the first arg to allow "self" as a
         # settable attribute
-        if TYPE_CHECKING:
-            __pydantic_self__.__dict__: Dict[str, Any] = {}
-            __pydantic_self__.__fields_set__: Set[str] = set()
         values, fields_set, validation_error = validate_model(
             __pydantic_self__.__class__, data
         )
@@ -497,9 +507,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # Do not set values as in Pydantic, pass them through setattr, so SQLAlchemy
         # can handle them
         # object.__setattr__(__pydantic_self__, '__dict__', values)
-        object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
         for key, value in values.items():
             setattr(__pydantic_self__, key, value)
+        object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
         non_pydantic_keys = data.keys() - values.keys()
         for key in non_pydantic_keys:
             if key in __pydantic_self__.__sqlmodel_relationships__:
@@ -511,16 +521,17 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if getattr(self.__config__, "table", False):
-                if is_instrumented(self, name):
-                    set_attribute(self, name, value)
+            if getattr(self.__config__, "table", False) and is_instrumented(self, name):
+                set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
             if name not in self.__sqlmodel_relationships__:
                 super().__setattr__(name, value)
 
     @classmethod
-    def from_orm(cls: Type["SQLModel"], obj: Any, update: Dict[str, Any] = None):
+    def from_orm(
+        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+    ) -> _TSQLModel:
         # Duplicated from Pydantic
         if not cls.__config__.orm_mode:
             raise ConfigError(
@@ -533,7 +544,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # End SQLModel support dict
         if not getattr(cls.__config__, "table", False):
             # If not table, normal Pydantic code
-            m = cls.__new__(cls)
+            m: _TSQLModel = cls.__new__(cls)
         else:
             # If table, create the new instance normally to make SQLAlchemy create
             # the _sa_instance_state attribute
@@ -554,8 +565,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     @classmethod
     def parse_obj(
-        cls: Type["SQLModel"], obj: Any, update: Dict[str, Any] = None
-    ) -> "SQLModel":
+        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+    ) -> _TSQLModel:
         obj = cls._enforce_dict_if_root(obj)
         # SQLModel, support update dict
         if update is not None:
@@ -569,7 +580,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     # From Pydantic, override to enforce validation with dict
     @classmethod
-    def validate(cls: Type["SQLModel"], value: Any) -> "SQLModel":
+    def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
         if isinstance(value, cls):
             return value.copy() if cls.__config__.copy_on_model_validation else value
 
@@ -578,7 +589,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             values, fields_set, validation_error = validate_model(cls, value)
             if validation_error:
                 raise validation_error
-            model = cls(**values)
+            model = cls(**value)
             # Reset fields set, this would have been done in Pydantic in __init__
             object.__setattr__(model, "__fields_set__", fields_set)
             return model
@@ -594,14 +605,14 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return cls(**value_as_dict)
 
     # From Pydantic, override to only show keys from fields, omit SQLAlchemy attributes
-    def _calculate_keys(  # type: ignore
+    def _calculate_keys(
         self,
         include: Optional[Mapping[Union[int, str], Any]],
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
         update: Optional[Dict[str, Any]] = None,
     ) -> Optional[AbstractSet[str]]:
-        if include is None and exclude is None and exclude_unset is False:
+        if include is None and exclude is None and not exclude_unset:
             # Original in Pydantic:
             # return None
             # Updated to not return SQLAlchemy attributes
@@ -619,7 +630,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             # Do not include relationships as that would easily lead to infinite
             # recursion, or traversing the whole database
             keys = self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
-
         if include is not None:
             keys &= include.keys()
 
@@ -634,3 +644,12 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     @declared_attr  # type: ignore
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
+
+
+def _is_field_noneable(field: ModelField) -> bool:
+    if not field.required:
+        # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
+        return field.allow_none and (
+            field.shape != SHAPE_SINGLETON or not field.sub_fields
+        )
+    return False

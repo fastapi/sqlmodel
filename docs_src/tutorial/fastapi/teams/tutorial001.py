@@ -5,7 +5,7 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, sele
 
 
 class TeamBase(SQLModel):
-    name: str
+    name: str = Field(index=True)
     headquarters: str
 
 
@@ -24,15 +24,14 @@ class TeamRead(TeamBase):
 
 
 class TeamUpdate(SQLModel):
-    id: Optional[int] = None
     name: Optional[str] = None
     headquarters: Optional[str] = None
 
 
 class HeroBase(SQLModel):
-    name: str
+    name: str = Field(index=True)
     secret_name: str
-    age: Optional[int] = None
+    age: Optional[int] = Field(default=None, index=True)
 
     team_id: Optional[int] = Field(default=None, foreign_key="team.id")
 

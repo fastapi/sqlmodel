@@ -204,7 +204,7 @@ We care specially about the **select** statement:
 
 </details>
 
-## Filter Rows Using `WHERE` wtih **SQLModel**
+## Filter Rows Using `WHERE` with **SQLModel**
 
 Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can add a `.where()` to a **SQLModel** `select()` statment to filter rows, which will filter the objects returned:
 
@@ -233,7 +233,7 @@ The object returned by `select(Hero)` is a special type of object with some meth
 
 One of those methods is `.where()` used to (unsurprisingly) add a `WHERE` to the SQL statement in that **select** object.
 
-There are other methods that will will explore later. 💡
+There are other methods that we will explore later. 💡
 
 Most of these methods return the same object again after modifying it.
 
@@ -271,7 +271,7 @@ In the example above we are using two equal signs (`==`). That's called the "**e
 !!! tip
     An **operator** is just a symbol that is put beside one value or in the middle of two values to do something with them.
 
-    `==` is called **equality** operator because it checks if two things are **equal**.
+    `==` is called the **equality** operator because it checks if two things are **equal**.
 
 When writing Python, if you write something using this equality operator (`==`) like:
 
@@ -311,7 +311,7 @@ Instead, it results in a special type of object. If you tried that in an interac
 <sqlalchemy.sql.elements.BinaryExpression object at 0x7f4aec0d6c90>
 ```
 
-So, that result value is an **expession** object. 💡
+So, that result value is an **expression** object. 💡
 
 And `.where()` takes one (or more) of these **expression** objects to update the SQL statement.
 
@@ -421,7 +421,7 @@ Of course, the keyword arguments would have been a bit shorter.
 
 But with the **expressions** your editor can help you a lot with autocompletion and inline error checks. ✨
 
-Let me give you an example. Let's imagine that keword arguments were supported in SQLModel and you wanted to filter using the secret identity of Spider-Boy.
+Let me give you an example. Let's imagine that keyword arguments were supported in SQLModel and you wanted to filter using the secret identity of Spider-Boy.
 
 You could write:
 
@@ -436,7 +436,7 @@ Maybe your code could even run and seem like it's all fine, and then some months
 
 And maybe finally you would realize that we wrote the code using `secret_identity` which is not a column in the table. We should have written `secret_name` instead.
 
-Now, with the the expressions, your editor would show you an error right away if you tried this:
+Now, with the expressions, your editor would show you an error right away if you tried this:
 
 ```Python
 # Expression ✨
@@ -694,11 +694,11 @@ age=35 id=5 name='Black Lion' secret_name='Trevor Challa'
 !!! tip
     We get `Black Lion` here too because although the age is not *strictly* less than `35` it is *equal* to `35`.
 
-### Benefits of Expresions
+### Benefits of Expressions
 
 Here's a good moment to see that being able to use these pure Python expressions instead of keyword arguments can help a lot. ✨
 
-We can use the same standard Python comparison operators like `.
+We can use the same standard Python comparison operators like `<`, `<=`, `>`, `>=`, `==`, etc.
 
 ## Multiple `.where()`
 
@@ -865,7 +865,7 @@ It would be an error telling you that
 
 This is because as we are using pure and plain Python annotations for the fields, `age` is indeed annotated as `Optional[int]`, which means `int` or `None`.
 
-By using this simple and standard Python type annotations We get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
+By using this simple and standard Python type annotations we get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
 
 And when we use these special **class attributes** in a `.where()`, during execution of the program, the special class attribute will know that the comparison only applies for the values that are not `NULL` in the database, and it will work correctly.
 
@@ -933,3 +933,7 @@ And with that the editor knows this code is actually fine, because this is a spe
 ## Recap
 
 You can use `.where()` with powerful expressions using **SQLModel** columns (the special class attributes) to filter the rows that you want. 🚀
+
+Up to now, the database would have been **looking through each one of the records** (rows) to find the ones that match what you want. If you have thousands or millions of records, this could be very **slow**. 😱
+
+In the next section I'll tell you how to add **indexes** to the database, this is what will make the queries **very efficient**. 😎
