@@ -450,7 +450,7 @@ Now let's review all this code once again.
 
     And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
 
-```{ .python .annotate hl_lines="54" }
+```{ .python .annotate }
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}
 ```
 
