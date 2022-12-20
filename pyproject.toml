@@ -49,8 +49,8 @@ requests = "^2.28.0"
 httpx = "^0.23.1"
 autoflake = "^2.0.0"
 isort = "^5.11.3"
-async_generator = {version = "*", python = "~3.6"}
-async-exit-stack = {version = "*", python = "~3.6"}
+async_generator = {version = "*"}
+async-exit-stack = {version = "*"}
 
 [build-system]
 requires = ["poetry-core"]
