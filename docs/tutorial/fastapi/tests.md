@@ -389,7 +389,7 @@ Now we can run the tests with `pytest` and see the results:
 $ pytest
 
 ============= test session starts ==============
-platform linux -- Python 3.7.5, pytest-6.2.4, py-1.10.0, pluggy-0.13.1
+platform linux -- Python 3.8.1, pytest-7.2.0, py-1.10.0, pluggy-0.13.1
 rootdir: /home/user/code/sqlmodel-tutorial
 <b>collected 7 items                              </b>
 
