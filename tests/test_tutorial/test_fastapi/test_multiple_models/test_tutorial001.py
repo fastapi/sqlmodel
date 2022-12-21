@@ -103,7 +103,7 @@ openapi_schema = {
                     "loc": {
                         "title": "Location",
                         "type": "array",
-                        "items": {"type": "string"},
+                        "items": {"anyOf": [{"type": "string"}, {"type": "integer"}]},
                     },
                     "msg": {"title": "Message", "type": "string"},
                     "type": {"title": "Error Type", "type": "string"},
@@ -166,8 +166,8 @@ def test_tutorial(clear_sqlmodel):
         data = response.json()
 
         assert response.status_code == 200, response.text
-
-        # assert data == openapi_schema
+        print(data)
+        assert data == openapi_schema
 
     # Test inherited indexes
     insp: Inspector = inspect(mod.engine)

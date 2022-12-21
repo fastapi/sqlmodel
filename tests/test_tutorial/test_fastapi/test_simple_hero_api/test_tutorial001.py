@@ -79,7 +79,7 @@ openapi_schema = {
                     "loc": {
                         "title": "Location",
                         "type": "array",
-                        "items": {"type": "string"},
+                        "items": {"anyOf": [{"type": "string"}, {"type": "integer"}]},
                     },
                     "msg": {"title": "Message", "type": "string"},
                     "type": {"title": "Error Type", "type": "string"},
@@ -143,4 +143,4 @@ def test_tutorial(clear_sqlmodel):
 
         assert response.status_code == 200, response.text
 
-        # assert data == openapi_schema
+        assert data == openapi_schema
