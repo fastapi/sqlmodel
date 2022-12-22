@@ -1,4 +1,6 @@
-__version__ = "0.0.8"
+import importlib.metadata
+
+__version__ = importlib.metadata.version("sqlmodel")
 
 # Re-export from SQLAlchemy
 from sqlalchemy.engine import create_mock_engine as create_mock_engine
