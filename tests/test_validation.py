@@ -7,7 +7,7 @@ from sqlmodel import SQLModel
 
 
 def test_validation(clear_sqlmodel):
-    """Test validation of implicit and explict None values.
+    """Test validation of implicit and explicit None values.
 
     # For consistency with pydantic, validators are not to be called on
     # arguments that are not explicitly provided.

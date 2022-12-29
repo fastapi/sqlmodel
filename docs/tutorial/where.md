@@ -206,7 +206,7 @@ We care specially about the **select** statement:
 
 ## Filter Rows Using `WHERE` with **SQLModel**
 
-Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can add a `.where()` to a **SQLModel** `select()` statment to filter rows, which will filter the objects returned:
+Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can add a `.where()` to a **SQLModel** `select()` statement to filter rows, which will filter the objects returned:
 
 ```Python hl_lines="5"
 # Code above omitted 👆
@@ -748,7 +748,7 @@ FROM hero
 WHERE hero.age >= ? AND hero.age < ?
 INFO Engine [no key 0.00014s] (35, 40)
 
-// The two heros printed
+// The two heroes printed
 age=35 id=5 name='Black Lion' secret_name='Trevor Challa'
 age=36 id=6 name='Dr. Weird' secret_name='Steve Weird'
 
