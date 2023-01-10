@@ -34,6 +34,8 @@ python = "^3.6.1"
 SQLAlchemy = ">=1.4.17,<=1.4.41"
 pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
+typer = "^0.7.0"
+mkdocs-markdownextradata-plugin = "^0.2.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
