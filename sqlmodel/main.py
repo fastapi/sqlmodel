@@ -510,7 +510,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         if ((not getattr(__pydantic_self__.__config__, "table", False)
             or getattr(__pydantic_self__.__config__, "validate", False))
             and validation_error
-            ):
+                ):
             raise validation_error
         # Do not set values as in Pydantic, pass them through setattr, so SQLAlchemy
         # can handle them
