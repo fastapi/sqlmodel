@@ -3,6 +3,21 @@ from typing import List, Optional
 from sqlmodel import Field, Relationship, SQLModel, create_engine
 
 
+class Hero(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    secret_name: str
+    age: Optional[int] = Field(default=None, index=True)
+
+    team_id: Optional[int] = Field(default=None, foreign_key="team.id")
+    team: Optional["Team"] = Relationship(back_populates="heroes")
+
+    weapon_id: Optional[int] = Field(default=None, foreign_key="weapon.id")
+    weapon: Optional["Weapon"] = Relationship(back_populates="hero")
+
+    powers: List["Power"] = Relationship(back_populates="hero")
+
+
 class Weapon(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(index=True)
@@ -24,21 +39,6 @@ class Team(SQLModel, table=True):
     headquarters: str
 
     heroes: List["Hero"] = Relationship(back_populates="team")
-
-
-class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
-    secret_name: str
-    age: Optional[int] = Field(default=None, index=True)
-
-    team_id: Optional[int] = Field(default=None, foreign_key="team.id")
-    team: Optional[Team] = Relationship(back_populates="heroes")
-
-    weapon_id: Optional[int] = Field(default=None, foreign_key="weapon.id")
-    weapon: Optional[Weapon] = Relationship(back_populates="hero")
-
-    powers: List[Power] = Relationship(back_populates="hero")
 
 
 sqlite_file_name = "database.db"

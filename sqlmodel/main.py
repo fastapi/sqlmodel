@@ -478,6 +478,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty]]  # type: ignore
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
+    __allow_unmapped__ = True # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
 
     class Config:
         orm_mode = True

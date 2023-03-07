@@ -21,7 +21,6 @@ from sqlalchemy.schema import MetaData as MetaData
 from sqlalchemy.schema import PrimaryKeyConstraint as PrimaryKeyConstraint
 from sqlalchemy.schema import Sequence as Sequence
 from sqlalchemy.schema import Table as Table
-from sqlalchemy.schema import ThreadLocalMetaData as ThreadLocalMetaData
 from sqlalchemy.schema import UniqueConstraint as UniqueConstraint
 from sqlalchemy.sql import alias as alias
 from sqlalchemy.sql import all_ as all_
@@ -71,7 +70,6 @@ from sqlalchemy.sql import or_ as or_
 from sqlalchemy.sql import outerjoin as outerjoin
 from sqlalchemy.sql import outparam as outparam
 from sqlalchemy.sql import over as over
-from sqlalchemy.sql import subquery as subquery
 from sqlalchemy.sql import table as table
 from sqlalchemy.sql import tablesample as tablesample
 from sqlalchemy.sql import text as text
