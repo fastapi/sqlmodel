@@ -118,7 +118,7 @@ class Session(_Session):
         Or otherwise you might want to use `session.execute()` instead of
         `session.query()`.
         """
-        return super().query(*entities, **kwargs)
+        return super().query(*entities, **kwargs)  # type: ignore
 
     def get(
         self,

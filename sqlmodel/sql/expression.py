@@ -26,34 +26,15 @@ _TSelect = TypeVar("_TSelect")
 
 # Workaround Generics incompatibility in Python 3.6
 # Ref: https://github.com/python/typing/issues/449#issuecomment-316061322
-if sys.version_info.minor >= 7:
+class Select(_Select[_TSelect], Generic[_TSelect]):
+    inherit_cache = True
 
-    class Select(_Select, Generic[_TSelect]):
-        inherit_cache = True
-
-    # This is not comparable to sqlalchemy.sql.selectable.ScalarSelect, that has a different
-    # purpose. This is the same as a normal SQLAlchemy Select class where there's only one
-    # entity, so the result will be converted to a scalar by default. This way writing
-    # for loops on the results will feel natural.
-    class SelectOfScalar(_Select, Generic[_TSelect]):
-        inherit_cache = True
-
-else:
-    from typing import GenericMeta  # type: ignore
-
-    class GenericSelectMeta(GenericMeta, _Select.__class__):  # type: ignore
-        pass
-
-    class _Py36Select(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
-        inherit_cache = True
-
-    class _Py36SelectOfScalar(_Select, Generic[_TSelect], metaclass=GenericSelectMeta):
-        inherit_cache = True
-
-    # Cast them for editors to work correctly, from several tricks tried, this works
-    # for both VS Code and PyCharm
-    Select = cast("Select", _Py36Select)  # type: ignore
-    SelectOfScalar = cast("SelectOfScalar", _Py36SelectOfScalar)  # type: ignore
+# This is not comparable to sqlalchemy.sql.selectable.ScalarSelect, that has a different
+# purpose. This is the same as a normal SQLAlchemy Select class where there's only one
+# entity, so the result will be converted to a scalar by default. This way writing
+# for loops on the results will feel natural.
+class SelectOfScalar(_Select[_TSelect], Generic[_TSelect]):
+    inherit_cache = True
 
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -427,4 +408,4 @@ def select(*entities: Any) -> Union[Select, SelectOfScalar]:  # type: ignore
 def col(column_expression: Any) -> ColumnClause:  # type: ignore
     if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
-    return column_expression
+    return column_expression  # type: ignore

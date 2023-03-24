@@ -173,8 +173,18 @@ def test_tutorial(clear_sqlmodel):
     insp: Inspector = inspect(mod.engine)
     indexes = insp.get_indexes(str(mod.Hero.__tablename__))
     expected_indexes = [
-        {"name": "ix_hero_age", "column_names": ["age"], "unique": 0, 'dialect_options': {}},
-        {"name": "ix_hero_name", "column_names": ["name"], "unique": 0, 'dialect_options': {}},
+        {
+            "name": "ix_hero_age",
+            "column_names": ["age"],
+            "unique": 0,
+            "dialect_options": {},
+        },
+        {
+            "name": "ix_hero_name",
+            "column_names": ["name"],
+            "unique": 0,
+            "dialect_options": {},
+        },
     ]
     for index in expected_indexes:
         assert index in indexes, "This expected index should be in the indexes in DB"
