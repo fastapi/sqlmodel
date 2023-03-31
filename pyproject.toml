@@ -20,6 +20,8 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Topic :: Database",
     "Topic :: Database :: Database Engines/Servers",
     "Topic :: Internet",
@@ -48,8 +50,8 @@ fastapi = "^0.68.1"
 requests = "^2.26.0"
 autoflake = "^1.4"
 isort = "^5.9.3"
-async_generator = {version = "*", python = "~3.6"}
-async-exit-stack = {version = "*", python = "~3.6"}
+async_generator = {version = "*", python = "~3.7"}
+async-exit-stack = {version = "*", python = "~3.7"}
 
 [build-system]
 requires = ["poetry-core"]
