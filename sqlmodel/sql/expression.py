@@ -22,8 +22,6 @@ from sqlalchemy.sql.expression import Select as _Select
 
 _TSelect = TypeVar("_TSelect")
 
-# Workaround Generics incompatibility in Python 3.6
-# Ref: https://github.com/python/typing/issues/449#issuecomment-316061322
 class Select(_Select[_TSelect], Generic[_TSelect]):
     inherit_cache = True
 
