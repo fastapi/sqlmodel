@@ -8,7 +8,7 @@ If you already cloned the repository and you know that you need to deep dive in 
 
 ### Python
 
-SQLModel supports Python 3.7 and above, but for development you should have at least **Python 3.7**.
+SQLModel supports Python 3.7 and above.
 
 ### Poetry
 
