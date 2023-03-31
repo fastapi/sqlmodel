@@ -22,8 +22,7 @@ from sqlalchemy.sql.expression import Select as _Select
 
 _TSelect = TypeVar("_TSelect")
 
-
-class Select(_Select, Generic[_TSelect]):
+class Select(_Select[_TSelect], Generic[_TSelect]):
     inherit_cache = True
 
 
