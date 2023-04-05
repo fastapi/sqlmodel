@@ -48,10 +48,6 @@ def create_heroes():
         session.add(hero_spider_boy)
         session.commit()
 
-        session.refresh(hero_deadpond)
-        session.refresh(hero_rusty_man)
-        session.refresh(hero_spider_boy)
-
         print("Created hero:", hero_deadpond)
         print("Created hero:", hero_rusty_man)
         print("Created hero:", hero_spider_boy)

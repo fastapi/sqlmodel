@@ -48,10 +48,6 @@ def create_heroes():
         session.add(hero_spider_boy)
         session.commit()
 
-        session.refresh(hero_deadpond)
-        session.refresh(hero_rusty_man)
-        session.refresh(hero_spider_boy)
-
         print("Created hero:", hero_deadpond)
         print("Created hero:", hero_rusty_man)
         print("Created hero:", hero_spider_boy)
@@ -71,7 +67,6 @@ def create_heroes():
         )
         session.add(team_wakaland)
         session.commit()
-        session.refresh(team_wakaland)
         print("Team Wakaland:", team_wakaland)
 
         hero_tarantula = Hero(name="Tarantula", secret_name="Natalia Roman-on", age=32)
@@ -85,9 +80,6 @@ def create_heroes():
         team_preventers.heroes.append(hero_cap)
         session.add(team_preventers)
         session.commit()
-        session.refresh(hero_tarantula)
-        session.refresh(hero_dr_weird)
-        session.refresh(hero_cap)
         print("Preventers new hero:", hero_tarantula)
         print("Preventers new hero:", hero_dr_weird)
         print("Preventers new hero:", hero_cap)
