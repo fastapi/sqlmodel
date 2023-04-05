@@ -131,5 +131,6 @@ def main():
     select_heroes()
     update_heroes()
 
+
 if __name__ == "__main__":
     main()
