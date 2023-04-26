@@ -52,7 +52,7 @@ With what we have learned **up to now**, we could use a `select()` statement, th
 
 ## Get Relationship Team - New Way
 
-But now that we have the **relationship attributes**, we can just access them, and **SQLModel** (actually SQLAlchemy) will go and fetch the correspoinding data from the database, and make it available in the attribute. ✨
+But now that we have the **relationship attributes**, we can just access them, and **SQLModel** (actually SQLAlchemy) will go and fetch the corresponding data from the database, and make it available in the attribute. ✨
 
 So, the highlighted block above, has the same results as the block below:
 

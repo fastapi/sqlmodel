@@ -12,7 +12,7 @@ Let's see the utilities to read a single row.
 
 ## Continue From Previous Code
 
-We'll continue with the same examples we have been using in the previous chapters to create and select data and we'll keep udpating them.
+We'll continue with the same examples we have been using in the previous chapters to create and select data and we'll keep updating them.
 
 <details>
 <summary>👀 Full file preview</summary>
