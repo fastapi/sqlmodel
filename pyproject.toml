@@ -107,3 +107,8 @@ module = "sqlmodel.sql.expression"
 warn_unused_ignores = false
 
 # invalidate CI cache: 1
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'
+#
+# ignore-words-list = ''
