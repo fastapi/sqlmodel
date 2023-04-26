@@ -109,6 +109,6 @@ warn_unused_ignores = false
 # invalidate CI cache: 1
 
 [tool.codespell]
-skip = '.git,*.pdf,*.svg'
-#
-# ignore-words-list = ''
+skip = '.git,*.pdf,*.svg,*.drawio'
+# Ines - name
+ignore-words-list = 'ines'
