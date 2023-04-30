@@ -22,8 +22,10 @@ from sqlalchemy.sql.expression import Select as _Select
 
 _TSelect = TypeVar("_TSelect")
 
+
 class Select(_Select[_TSelect], Generic[_TSelect]):
     inherit_cache = True
+
 
 # This is not comparable to sqlalchemy.sql.selectable.ScalarSelect, that has a different
 # purpose. This is the same as a normal SQLAlchemy Select class where there's only one
