@@ -32,7 +32,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-SQLAlchemy = ">=2.0.0,<=2.0.5.post1"
+SQLAlchemy = ">=2.0.0,<=2.0.11"
 pydantic = "^1.8.2"
 
 [tool.poetry.dev-dependencies]
