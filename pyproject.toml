@@ -38,10 +38,10 @@ sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
 mypy = "0.971"
-flake8 = "^5.0.4"
+flake8 = "^6.0.0"
 black = {version = "^22.10.0", python = "^3.8.1"}
-mkdocs = "^1.2.1"
-mkdocs-material = "^8.1.4"
+mkdocs = "^1.4.3"
+mkdocs-material = "^9.1.15"
 pillow = {version = "^9.3.0", python = "^3.8.1"}
 cairosvg = {version = "^2.5.2", python = "^3.8.1"}
 mdx-include = "^1.4.1"
