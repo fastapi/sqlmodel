@@ -32,7 +32,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.8.1"
 SQLAlchemy = ">=1.4.17,<=1.4.41"
-pydantic = "^1.8.2"
+pydantic = "^1.10.8"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
 [tool.poetry.dev-dependencies]
