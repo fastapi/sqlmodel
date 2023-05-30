@@ -64,7 +64,7 @@ $ cd sqlmodel-tutorial
 
 Make sure you have an officially supported version of Python.
 
-Currently it is **Python 3.6** and above (Python 3.5 was already deprecated).
+Currently it is **Python 3.8.1** and above (Python 3.5 was already deprecated).
 
 You can check which version you have with:
 
@@ -72,7 +72,7 @@ You can check which version you have with:
 
 ```console
 $ python3 --version
-Python 3.6.9
+Python 3.8.16
 ```
 
 </div>
@@ -81,11 +81,10 @@ There's a chance that you have multiple Python versions installed.
 
 You might want to try with the specific versions, for example with:
 
+* `python3.11`
 * `python3.10`
 * `python3.9`
-* `python3.8`
-* `python3.7`
-* `python3.6`
+* `python3.8.1`
 
 The code would look like this:
 
@@ -136,7 +135,7 @@ Here are the commands you could use:
     <div class="termy">
 
     ```console
-    // Remember that you might need to use python3.9 or similar 💡 
+    // Remember that you might need to use python3.9 or similar 💡
     // Create the virtual environment using the module "venv"
     $ python3 -m venv env
     // ...here it creates the virtual enviroment in the directory "env"

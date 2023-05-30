@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.8
 
 RUN pip install httpx PyGithub "pydantic==1.5.1"
 
