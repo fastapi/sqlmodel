@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sqlmodel"
-version = "0"
+version = "0.0.8"
 description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
 authors = ["Sebastián Ramírez <tiangolo@gmail.com>"]
 readme = "README.md"
@@ -57,16 +57,9 @@ async-exit-stack = {version = "*", python = "~3.6"}
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry-version-plugin]
-source = "init"
-
 [tool.coverage.run]
 parallel = true
-source = [
-    "docs_src",
-    "tests",
-    "sqlmodel"
-]
+source = ["docs_src", "tests", "sqlmodel"]
 context = '${CONTEXT}'
 
 [tool.coverage.report]
@@ -80,9 +73,7 @@ exclude_lines = [
 [tool.isort]
 profile = "black"
 known_third_party = ["sqlmodel"]
-skip_glob = [
-    "sqlmodel/__init__.py",
-    ]
+skip_glob = ["sqlmodel/__init__.py"]
 
 
 [tool.mypy]
