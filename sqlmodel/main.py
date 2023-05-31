@@ -29,7 +29,7 @@ from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
-from pydantic.typing import NoArgAnyCallable, resolve_annotations
+from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
 from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
@@ -342,6 +342,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     config=BaseConfig,
                 )
                 relationship_to = temp_field.type_
+                if isinstance(temp_field.type_, ForwardRef):
+                    relationship_to = temp_field.type_.__forward_arg__
                 rel_kwargs: Dict[str, Any] = {}
                 if rel_info.back_populates:
                     rel_kwargs["back_populates"] = rel_info.back_populates
