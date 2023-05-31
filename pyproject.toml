@@ -47,7 +47,7 @@ cairosvg = {version = "^2.5.2", python = "^3.8.1"}
 mdx-include = "^1.4.2"
 coverage = {extras = ["toml"], version = "^7.2"}
 fastapi = "^0.95.2"
-httpx = "^0.23.0"
+httpx = "^0.24.0"
 requests = "^2.26.0"
 autoflake = "^2.1.1"
 isort = "^5.9.3"
