@@ -213,7 +213,7 @@ openapi_schema = {
                     "loc": {
                         "title": "Location",
                         "type": "array",
-                        "items": {"type": "string"},
+                        "items": {"anyOf": [{"type": "string"}, {"type": "integer"}]},
                     },
                     "msg": {"title": "Message", "type": "string"},
                     "type": {"title": "Error Type", "type": "string"},
@@ -233,7 +233,6 @@ def test_tutorial(clear_sqlmodel):
     )
 
     with TestClient(mod.app) as client:
-
         hero1_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
         hero2_data = {
             "name": "Spider-Boy",

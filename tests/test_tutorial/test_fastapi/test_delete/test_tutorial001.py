@@ -241,7 +241,7 @@ openapi_schema = {
                     "loc": {
                         "title": "Location",
                         "type": "array",
-                        "items": {"type": "string"},
+                        "items": {"anyOf": [{"type": "string"}, {"type": "integer"}]},
                     },
                     "msg": {"title": "Message", "type": "string"},
                     "type": {"title": "Error Type", "type": "string"},
@@ -261,7 +261,6 @@ def test_tutorial(clear_sqlmodel):
     )
 
     with TestClient(mod.app) as client:
-
         hero1_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
         hero2_data = {
             "name": "Spider-Boy",
@@ -288,6 +287,11 @@ def test_tutorial(clear_sqlmodel):
         response = client.get("/openapi.json")
         data = response.json()
         assert response.status_code == 200, response.text
+        print("-" * 50)
+        print(data)
+        print("=" * 50)
+        print(openapi_schema)
+        print("*" * 50)
         assert data == openapi_schema
         response = client.get("/heroes/")
         assert response.status_code == 200, response.text
