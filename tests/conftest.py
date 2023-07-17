@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
 
 import pytest
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 from sqlmodel import SQLModel
 from sqlmodel.main import default_registry
 

@@ -30,9 +30,9 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7.0"
 SQLAlchemy = ">=1.4.17,<=1.4.41"
-pydantic = "^1.8.2"
+pydantic = "^2.0.0"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
 [tool.poetry.dev-dependencies]
@@ -46,12 +46,13 @@ pillow = {version = "^9.3.0", python = "^3.7"}
 cairosvg = {version = "^2.5.2", python = "^3.7"}
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^6.2"}
-fastapi = "^0.68.1"
+fastapi = "^0.100.0"
 requests = "^2.26.0"
 autoflake = "^1.4"
 isort = "^5.9.3"
 async_generator = {version = "*", python = "~3.6"}
 async-exit-stack = {version = "*", python = "~3.6"}
+httpx = "^0.24.1"
 
 [build-system]
 requires = ["poetry-core"]

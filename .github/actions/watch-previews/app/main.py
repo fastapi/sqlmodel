@@ -6,7 +6,7 @@ from typing import List, Optional
 import httpx
 from github import Github
 from github.NamedUser import NamedUser
-from pydantic import BaseModel, BaseSettings, SecretStr
+from pydantic.v1 import BaseModel, BaseSettings, SecretStr
 
 github_api = "https://api.github.com"
 netlify_api = "https://api.netlify.com"

@@ -5,7 +5,7 @@ from typing import List, Tuple
 
 import black
 from jinja2 import Template
-from pydantic import BaseModel
+from pydantic.v1 import BaseModel
 
 template_path = Path(__file__).parent.parent / "sqlmodel/sql/expression.py.jinja2"
 destiny_path = Path(__file__).parent.parent / "sqlmodel/sql/expression.py"

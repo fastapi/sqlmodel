@@ -6,7 +6,7 @@ from typing import Optional
 import httpx
 from github import Github
 from github.PullRequest import PullRequest
-from pydantic import BaseModel, BaseSettings, SecretStr, ValidationError
+from pydantic.v1 import BaseModel, BaseSettings, SecretStr, ValidationError
 
 github_api = "https://api.github.com"
 

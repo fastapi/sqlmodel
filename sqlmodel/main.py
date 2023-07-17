@@ -23,14 +23,14 @@ from typing import (
     cast,
 )
 
-from pydantic import BaseConfig, BaseModel
-from pydantic.errors import ConfigError, DictError
-from pydantic.fields import SHAPE_SINGLETON
-from pydantic.fields import FieldInfo as PydanticFieldInfo
-from pydantic.fields import ModelField, Undefined, UndefinedType
-from pydantic.main import ModelMetaclass, validate_model
-from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
-from pydantic.utils import ROOT_KEY, Representation
+from pydantic.v1 import ConfigDict, BaseConfig, BaseModel
+from pydantic.v1.errors import ConfigError, DictError
+from pydantic.v1.fields import SHAPE_SINGLETON
+from pydantic.v1.fields import FieldInfo as PydanticFieldInfo
+from pydantic.v1.fields import ModelField, Undefined, UndefinedType
+from pydantic.v1.main import ModelMetaclass, validate_model
+from pydantic.v1.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
+from pydantic.v1.utils import ROOT_KEY, Representation
 from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
 from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
@@ -411,7 +411,7 @@ def get_sqlalchemy_type(field: ModelField) -> Any:
         return AutoString
     if issubclass(field.type_, uuid.UUID):
         return GUID
-    raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
+        raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
 
 def get_column_from_field(field: ModelField) -> Column:  # type: ignore
@@ -478,9 +478,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty]]  # type: ignore
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
-
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Any:
         new_object = super().__new__(cls)

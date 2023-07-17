@@ -12,3 +12,7 @@ coverage.xml
 site
 *.db
 .cache
+.ruff-cache
+.python-version
+.coverage.*
+log.txt
