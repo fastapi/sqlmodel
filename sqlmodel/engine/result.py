@@ -1,4 +1,4 @@
-from typing import Generic, Iterator, List, Optional, Sequence, TypeVar
+from typing import Generic, Iterator, List, Optional, Sequence, Tuple, TypeVar
 
 from sqlalchemy.engine.result import Result as _Result
 from sqlalchemy.engine.result import ScalarResult as _ScalarResult
@@ -35,7 +35,7 @@ class ScalarResult(_ScalarResult[_T], Generic[_T]):
         return super().one()
 
 
-class Result(_Result[_T], Generic[_T]):
+class Result(_Result[Tuple[_T]], Generic[_T]):
     def scalars(self, index: int = 0) -> ScalarResult[_T]:
         return super().scalars(index)  # type: ignore
 
