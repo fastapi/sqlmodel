@@ -23,7 +23,7 @@ from sqlalchemy.sql.expression import Select as _Select
 _TSelect = TypeVar("_TSelect")
 
 
-class Select(_Select[_TSelect], Generic[_TSelect]):
+class Select(_Select[Tuple[_TSelect]], Generic[_TSelect]):
     inherit_cache = True
 
 
@@ -31,7 +31,7 @@ class Select(_Select[_TSelect], Generic[_TSelect]):
 # purpose. This is the same as a normal SQLAlchemy Select class where there's only one
 # entity, so the result will be converted to a scalar by default. This way writing
 # for loops on the results will feel natural.
-class SelectOfScalar(_Select, Generic[_TSelect]):
+class SelectOfScalar(_Select[Tuple[_TSelect]], Generic[_TSelect]):
     inherit_cache = True
 
 
