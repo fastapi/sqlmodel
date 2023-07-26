@@ -11,6 +11,7 @@ from typing import (
 )
 
 from sqlalchemy import util
+from sqlalchemy.orm import Mapper as _Mapper
 from sqlalchemy.orm import Query as _Query
 from sqlalchemy.orm import Session as _Session
 from sqlalchemy.sql.base import Executable as _Executable
@@ -133,13 +134,14 @@ class Session(_Session):
 
     def get(
         self,
-        entity: Type[_TSelectParam],
+        entity: Union[Type[_TSelectParam], "_Mapper[_TSelectParam]"],
         ident: Any,
         options: Optional[Sequence[Any]] = None,
         populate_existing: bool = False,
         with_for_update: Optional[_ForUpdateArg] = None,
         identity_token: Optional[Any] = None,
         execution_options: Mapping[Any, Any] = util.EMPTY_DICT,
+        bind_arguments: Optional[Dict[str, Any]] = None,
     ) -> Optional[_TSelectParam]:
         return super().get(
             entity,
@@ -149,4 +151,5 @@ class Session(_Session):
             with_for_update=with_for_update,
             identity_token=identity_token,
             execution_options=execution_options,
+            bind_arguments=bind_arguments
         )
