@@ -138,7 +138,7 @@ class Session(_Session):
         populate_existing: bool = False,
         with_for_update: Optional[Union[Literal[True], Mapping[str, Any]]] = None,
         identity_token: Optional[Any] = None,
-        execution_options: Optional[Mapping[Any, Any]] = util.EMPTY_DICT,
+        execution_options: Mapping[Any, Any] = util.EMPTY_DICT,
     ) -> Optional[_TSelectParam]:
         return super().get(
             entity,
