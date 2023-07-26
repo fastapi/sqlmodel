@@ -14,6 +14,7 @@ from sqlalchemy import util
 from sqlalchemy.orm import Query as _Query
 from sqlalchemy.orm import Session as _Session
 from sqlalchemy.sql.base import Executable as _Executable
+from sqlalchemy.sql.selectable import ForUpdateArg as _ForUpdateArg
 from sqlmodel.sql.expression import Select, SelectOfScalar
 from typing_extensions import Literal
 
@@ -136,7 +137,7 @@ class Session(_Session):
         ident: Any,
         options: Optional[Sequence[Any]] = None,
         populate_existing: bool = False,
-        with_for_update: Optional[Union[Literal[True], Mapping[str, Any]]] = None,
+        with_for_update: Optional[_ForUpdateArg] = None,
         identity_token: Optional[Any] = None,
         execution_options: Mapping[Any, Any] = util.EMPTY_DICT,
     ) -> Optional[_TSelectParam]:
