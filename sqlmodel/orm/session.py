@@ -1,4 +1,14 @@
-from typing import Any, Mapping, Optional, Sequence, Type, TypeVar, Union, overload
+from typing import (
+    Any,
+    Dict,
+    Mapping,
+    Optional,
+    Sequence,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
 
 from sqlalchemy import util
 from sqlalchemy.orm import Query as _Query
@@ -21,7 +31,7 @@ class Session(_Session):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Mapping[str, Any]] = None,
+        bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
@@ -35,7 +45,7 @@ class Session(_Session):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Mapping[str, Any]] = None,
+        bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
@@ -52,7 +62,7 @@ class Session(_Session):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Mapping[str, Any]] = None,
+        bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
@@ -75,7 +85,7 @@ class Session(_Session):
         statement: _Executable,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Optional[Mapping[str, Any]] = util.EMPTY_DICT,
-        bind_arguments: Optional[Mapping[str, Any]] = None,
+        bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
