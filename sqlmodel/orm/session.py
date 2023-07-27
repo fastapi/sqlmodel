@@ -150,5 +150,5 @@ class Session(_Session):
             with_for_update=with_for_update,
             identity_token=identity_token,
             execution_options=execution_options,
-            bind_arguments=bind_arguments
+            bind_arguments=bind_arguments,
         )
