@@ -17,7 +17,6 @@ from sqlalchemy.orm import Session as _Session
 from sqlalchemy.sql.base import Executable as _Executable
 from sqlalchemy.sql.selectable import ForUpdateArg as _ForUpdateArg
 from sqlmodel.sql.expression import Select, SelectOfScalar
-from typing_extensions import Literal
 
 from ..engine.result import Result, ScalarResult
 from ..sql.base import Executable
@@ -151,5 +150,5 @@ class Session(_Session):
             with_for_update=with_for_update,
             identity_token=identity_token,
             execution_options=execution_options,
-            bind_arguments=bind_arguments
+            bind_arguments=bind_arguments,
         )
