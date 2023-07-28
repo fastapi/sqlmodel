@@ -50,7 +50,7 @@ jobs:
         run: python -m poetry install
       - name: Install Material for MkDocs Insiders
         if: ( github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false ) && steps.cache.outputs.cache-hit != 'true'
-        run: python -m poetry run pip install git+https://${{ secrets.ASYNCER_MKDOCS_MATERIAL_INSIDERS }}@github.com/squidfunk/mkdocs-material-insiders.git
+        run: python -m poetry run pip install git+https://${{ secrets.SQLMODEL_MKDOCS_MATERIAL_INSIDERS }}@github.com/squidfunk/mkdocs-material-insiders.git
       - uses: actions/cache@v3
         with:
           key: mkdocs-cards-${{ github.ref }}
