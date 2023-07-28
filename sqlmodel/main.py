@@ -29,7 +29,7 @@ from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
-from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
+from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations  # type: ignore
 from pydantic.utils import ROOT_KEY, Representation
 from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
