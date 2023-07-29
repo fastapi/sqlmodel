@@ -64,15 +64,13 @@ $ cd sqlmodel-tutorial
 
 Make sure you have an officially supported version of Python.
 
-Currently it is **Python 3.6** and above (Python 3.5 was already deprecated).
-
 You can check which version you have with:
 
 <div class="termy">
 
 ```console
 $ python3 --version
-Python 3.6.9
+Python 3.11
 ```
 
 </div>
@@ -84,8 +82,6 @@ You might want to try with the specific versions, for example with:
 * `python3.10`
 * `python3.9`
 * `python3.8`
-* `python3.7`
-* `python3.6`
 
 The code would look like this:
 

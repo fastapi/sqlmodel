@@ -17,10 +17,10 @@ classifiers = [
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Topic :: Database",
     "Topic :: Database :: Database Engines/Servers",
     "Topic :: Internet",
@@ -30,7 +30,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7"
 SQLAlchemy = ">=1.4.17,<=1.4.41"
 pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
@@ -39,19 +39,17 @@ sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 pytest = "^7.0.1"
 mypy = "0.971"
 flake8 = "^5.0.4"
-black = {version = "^22.10.0", python = "^3.7"}
+black = "^22.10.0"
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
-pillow = {version = "^9.3.0", python = "^3.7"}
-cairosvg = {version = "^2.5.2", python = "^3.7"}
+pillow = "^9.3.0"
+cairosvg = "^2.5.2"
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^6.2"}
 fastapi = "^0.68.1"
 requests = "^2.26.0"
 autoflake = "^1.4"
 isort = "^5.9.3"
-async_generator = {version = "*", python = "~3.6"}
-async-exit-stack = {version = "*", python = "~3.6"}
 
 [build-system]
 requires = ["poetry-core"]

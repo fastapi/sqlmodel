@@ -5,24 +5,30 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize]
+    types:
+      - opened
+      - synchronize
   workflow_dispatch:
     inputs:
       debug_enabled:
-        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'     
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
         required: false
         default: false
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.6.15", "3.7", "3.8", "3.9", "3.10"]
+        python-version:
+          - "3.7"
+          - "3.8"
+          - "3.9"
+          - "3.10"
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3.1.0
+      - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -37,24 +43,19 @@ jobs:
         id: cache
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-root
+          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-root-v2
       - name: Install poetry
         if: steps.cache.outputs.cache-hit != 'true'
-        # TODO: remove python -m pip install --force git+https://github.com/python-poetry/poetry-core.git@ad33bc2
-        # once there's a release of Poetry 1.2.x including poetry-core > 1.1.0a6
-        # Ref: https://github.com/python-poetry/poetry-core/pull/188
         run: |
           python -m pip install --upgrade pip
-          python -m pip install --force git+https://github.com/python-poetry/poetry-core.git@ad33bc2
-          python -m pip install "poetry==1.2.0a2"
-          python -m poetry plugin add poetry-version-plugin
+          python -m pip install "poetry"
+          python -m poetry self add poetry-version-plugin
       - name: Configure poetry
         run: python -m poetry config virtualenvs.create false
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: python -m poetry install
       - name: Lint
-        if: ${{ matrix.python-version != '3.6.15' }}
         run: python -m poetry run bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
@@ -68,7 +69,8 @@ jobs:
           name: coverage
           path: coverage
   coverage-combine:
-    needs: [test]
+    needs:
+      - test
     runs-on: ubuntu-latest
 
     steps:
@@ -96,3 +98,15 @@ jobs:
         with:
           name: coverage-html
           path: htmlcov
+
+  # https://github.com/marketplace/actions/alls-green#why
+  alls-green:  # This job does nothing and is only used for the branch protection
+    if: always()
+    needs:
+      - coverage-combine
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decide whether the needed jobs succeeded or failed
+        uses: re-actors/alls-green@release/v1
+        with:
+          jobs: ${{ toJSON(needs) }}
