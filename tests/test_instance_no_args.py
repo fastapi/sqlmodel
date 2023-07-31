@@ -8,7 +8,7 @@ from sqlmodel import Field, SQLModel
 def test_allow_instantiation_without_arguments(clear_sqlmodel):
     class Item(SQLModel):
         id: Optional[int] = Field(default=None, primary_key=True)
-        name: str
+        name: str 
         description: Optional[str] = None
 
         class Config:
