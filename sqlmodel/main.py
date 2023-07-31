@@ -19,7 +19,7 @@ from typing import (
     Set,
     Tuple,
     Type,
-    TypeVar,ForwardRef,
+    TypeVar,
     Union,
     cast,
     overload,
@@ -385,7 +385,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         class_dict: Dict[str, Any],
         **kwargs: Any,
     ) -> Any:
-        
+
         relationships: Dict[str, RelationshipInfo] = {}
         dict_for_pydantic = {}
         original_annotations = class_dict.get("__annotations__", {})
@@ -422,21 +422,21 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             key: pydantic_kwargs.pop(key)
             for key in pydantic_kwargs.keys() & allowed_config_kwargs
         }
-        config_table = getattr(class_dict.get('Config', object()), 'table', False)
+        config_table = getattr(class_dict.get("Config", object()), "table", False)
         # If we have a table, we need to have defaults for all fields
         # Pydantic v2 sets a __pydantic_core_schema__ which is very hard to change. Changing the fields does not do anything
         if config_table is True:
             for key in original_annotations.keys():
                 if dict_used.get(key, PydanticUndefined) is PydanticUndefined:
                     dict_used[key] = None
-        
+
         new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
             **new_cls.__annotations__,
         }
-        
+
         def get_config(name: str) -> Any:
             config_class_value = new_cls.model_config.get(name, PydanticUndefined)
             if config_class_value is not PydanticUndefined:
@@ -449,7 +449,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_table = get_config("table")
         if config_table is True:
             # If it was passed by kwargs, ensure it's also set in config
-            new_cls.model_config['table'] = config_table
+            new_cls.model_config["table"] = config_table
             for k, v in new_cls.model_fields.items():
                 col = get_column_from_field(v)
                 setattr(new_cls, k, col)
@@ -458,7 +458,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            new_cls.model_config['read_from_attributes'] = True
+            new_cls.model_config["read_from_attributes"] = True
 
         config_registry = get_config("registry")
         if config_registry is not PydanticUndefined:
@@ -518,7 +518,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_args.extend(rel_info.sa_relationship_args)
                 if rel_info.sa_relationship_kwargs:
                     rel_kwargs.update(rel_info.sa_relationship_kwargs)
-                rel_value: RelationshipProperty = relationship( 
+                rel_value: RelationshipProperty = relationship(
                     relationship_to, *rel_args, **rel_kwargs
                 )
                 setattr(cls, rel_name, rel_value)  # Fix #315
@@ -675,7 +675,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             if not (isinstance(k, str) and k.startswith("_sa_"))
         ]
 
-
     @declared_attr  # type: ignore
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
@@ -691,6 +690,7 @@ def _is_field_noneable(field: FieldInfo) -> bool:
                     return True
         return False
     return False
+
 
 def _get_field_metadata(field: FieldInfo) -> object:
     for meta in field.metadata:
