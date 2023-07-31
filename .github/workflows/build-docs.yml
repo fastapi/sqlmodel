@@ -18,7 +18,7 @@ jobs:
       docs: ${{ steps.filter.outputs.docs }}
     steps:
     - uses: actions/checkout@v3
-    # For pull requests it's not necessary to checkout the code but for master it is
+    # For pull requests it's not necessary to checkout the code but for the main branch it is
     - uses: dorny/paths-filter@v2
       id: filter
       with:
@@ -50,7 +50,7 @@ jobs:
         id: cache
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-docs-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-v05
+          key: ${{ runner.os }}-python-docs-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml') }}-v01
       - name: Install Poetry
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
