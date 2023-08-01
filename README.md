@@ -50,7 +50,7 @@ It combines SQLAlchemy and Pydantic and tries to simplify the code you write as 
 
 ## Requirements
 
-A recent and currently supported <a href="https://www.python.org/downloads/" class="external-link" target="_blank">version of Python Python</a>.
+A recent and currently supported <a href="https://www.python.org/downloads/" class="external-link" target="_blank">version of Python</a>.
 
 As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. They will be automatically installed when you install SQLModel.
 
