@@ -423,7 +423,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             key: pydantic_kwargs.pop(key)
             for key in pydantic_kwargs.keys() & allowed_config_kwargs
         }
-        config_table = getattr(class_dict.get("Config", object()), "table", False) or kwargs.get("table", False)
+        config_table = getattr(
+            class_dict.get("Config", object()), "table", False
+        ) or kwargs.get("table", False)
         # If we have a table, we need to have defaults for all fields
         # Pydantic v2 sets a __pydantic_core_schema__ which is very hard to change. Changing the fields does not do anything
         if config_table is True:
@@ -432,7 +434,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 if value is PydanticUndefined:
                     dict_used[key] = None
                 elif isinstance(value, FieldInfo):
-                    if value.default is PydanticUndefined and value.default_factory is None:
+                    if (
+                        value.default in (PydanticUndefined, Ellipsis)
+                    ) and value.default_factory is None:
+                        value.original_default = (
+                            value.default
+                        )  # So we can check for nullable
                         value.default = None
 
         new_cls: Type["SQLModelMetaclass"] = super().__new__(
@@ -641,6 +648,7 @@ def get_column_from_field(field: FieldInfo) -> Column:  # type: ignore
 class_registry = weakref.WeakValueDictionary()  # type: ignore
 
 default_registry = registry()
+_TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
@@ -698,12 +706,28 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(cls, *args, **kwargs):
-        return super().model_validate(*args, **kwargs)
+    def model_validate(
+        cls: type[_TSQLModel],
+        obj: Any,
+        *,
+        strict: bool | None = None,
+        from_attributes: bool | None = None,
+        context: dict[str, Any] | None = None,
+    ) -> _TSQLModel:
+        # Somehow model validate doesn't call __init__ so it would remove our init logic
+        validated = super().model_validate(
+            obj, strict=strict, from_attributes=from_attributes, context=context
+        )
+        return cls(**{key: value for key, value in validated})
 
 
 def _is_field_noneable(field: FieldInfo) -> bool:
+    if getattr(field, "nullable", PydanticUndefined) is not PydanticUndefined:
+        return field.nullable
     if not field.is_required():
+        default = getattr(field, "original_default", field.default)
+        if default is PydanticUndefined:
+            return False
         if field.annotation is None or field.annotation is NoneType:
             return True
         if get_origin(field.annotation) is Union:
