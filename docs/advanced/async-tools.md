@@ -16,12 +16,6 @@ To run the example, you need to install some required packages. Use the followin
 pip install sqlmodel asyncpg fastapi uvicorn
 ```
 
-## Required Libraries:
-
--   **FastAPI**: A modern, asynchronous web framework.
--   **SQLModel**: An ORM based on SQLAlchemy and Pydantic for easier database interaction.
--   **asyncpg**: An asynchronous PostgreSQL driver.
-
 ## Final code
 ```
 from contextlib import asynccontextmanager
