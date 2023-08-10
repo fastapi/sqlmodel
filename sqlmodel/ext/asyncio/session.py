@@ -9,7 +9,7 @@ from sqlmodel.sql.base import Executable
 
 from ...engine.result import ScalarResult
 from ...orm.session import Session
-from ...sql.expression import Select
+from ...sql.expression import Select, SelectOfScalar
 
 _T = TypeVar("_T")
 
@@ -42,7 +42,7 @@ class AsyncSession(_AsyncSession):
 
     async def exec(
         self,
-        statement: Union[Select[_T], Executable[_T]],
+        statement: Union[Select[_T], SelectOfScalar[_T], Executable[_T]],
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[Any, Any] = util.EMPTY_DICT,
         bind_arguments: Optional[Mapping[str, Any]] = None,

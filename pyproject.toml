@@ -50,6 +50,9 @@ fastapi = "^0.68.1"
 requests = "^2.26.0"
 autoflake = "^1.4"
 isort = "^5.9.3"
+testcontainers = "^3.7.1"
+psycopg2-binary = "^2.9.7"
+asyncpg = "^0.28.0"
 
 [build-system]
 requires = ["poetry-core"]
