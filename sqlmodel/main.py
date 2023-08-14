@@ -24,14 +24,15 @@ from typing import (
     cast,
 )
 
+from fastapi._compat import ModelField, UndefinedType
+from jinja2 import Undefined
 from pydantic import BaseConfig, BaseModel
 from pydantic.errors import ConfigError, DictError
-from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
-from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
 from pydantic.typing import NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
+from pydantic.v1.fields import SHAPE_SINGLETON
 from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
 from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
@@ -573,7 +574,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         if update is not None:
             obj = {**obj, **update}
         # End SQLModel support dict
-        return super().parse_obj(obj)
+        return super().model_validate(obj)
 
     def __repr_args__(self) -> Sequence[Tuple[Optional[str], Any]]:
         # Don't show SQLAlchemy private attributes
@@ -583,7 +584,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     @classmethod
     def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
         if isinstance(value, cls):
-            return value.copy() if cls.__config__.copy_on_model_validation else value
+            return value.model_copy() if cls.__config__.copy_on_model_validation else value
 
         value = cls._enforce_dict_if_root(value)
         if isinstance(value, dict):
@@ -619,18 +620,18 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             # Updated to not return SQLAlchemy attributes
             # Do not include relationships as that would easily lead to infinite
             # recursion, or traversing the whole database
-            return self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
+            return self.model_fields.keys()  # | self.__sqlmodel_relationships__.keys()
 
         keys: AbstractSet[str]
         if exclude_unset:
-            keys = self.__fields_set__.copy()
+            keys = self.model_fields_set.copy()
         else:
             # Original in Pydantic:
             # keys = self.__dict__.keys()
             # Updated to not return SQLAlchemy attributes
             # Do not include relationships as that would easily lead to infinite
             # recursion, or traversing the whole database
-            keys = self.__fields__.keys()  # | self.__sqlmodel_relationships__.keys()
+            keys = self.model_fields.keys()  # | self.__sqlmodel_relationships__.keys()
         if include is not None:
             keys &= include.keys()
 
