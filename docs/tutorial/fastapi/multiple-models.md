@@ -57,7 +57,7 @@ But in the responses, we must always send a model from the database, and it must
 
 This means that our application is making the promise to the clients that if it sends a hero, it will for sure have an `id` with a value, it will not be `None`.
 
-### Why Is it Important to have a contract for Responses
+### Why Is it Important to Have a Contract for Responses
 
 The ultimate goal of an API is for some **clients to use it**.
 
