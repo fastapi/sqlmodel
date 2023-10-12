@@ -79,7 +79,7 @@ class AsyncSession(_AsyncSession):
         execution_options: Mapping[Any, Any] = util.EMPTY_DICT,
         bind_arguments: Optional[Mapping[str, Any]] = None,
         **kw: Any,
-    ) -> ScalarResult[_TSelectParam]:
+    ) -> Union[Result[_TSelectParam], ScalarResult[_TSelectParam]]:
         # TODO: the documentation says execution_options accepts a dict, but only
         # util.immutabledict has the union() method. Is this a bug in SQLAlchemy?
         execution_options = execution_options.union({"prebuffer_rows": True})  # type: ignore
