@@ -11,6 +11,7 @@ from typing import (
     Callable,
     ClassVar,
     Dict,
+    ForwardRef,
     List,
     Mapping,
     Optional,
@@ -29,7 +30,7 @@ from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
-from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
+from pydantic.typing import NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
 from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
@@ -332,6 +333,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # There's a SQLAlchemy relationship declared, that takes precedence
                     # over anything else, use that and continue with the next attribute
                     dict_used[rel_name] = rel_info.sa_relationship
+                    setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
                 ann = cls.__annotations__[rel_name]
                 temp_field = ModelField.infer(
