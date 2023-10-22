@@ -333,6 +333,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # There's a SQLAlchemy relationship declared, that takes precedence
                     # over anything else, use that and continue with the next attribute
                     dict_used[rel_name] = rel_info.sa_relationship
+                    setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
                 ann = cls.__annotations__[rel_name]
                 temp_field = ModelField.infer(

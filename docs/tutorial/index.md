@@ -135,7 +135,7 @@ Here are the commands you could use:
     // Remember that you might need to use python3.9 or similar 💡 
     // Create the virtual environment using the module "venv"
     $ python3 -m venv env
-    // ...here it creates the virtual enviroment in the directory "env"
+    // ...here it creates the virtual environment in the directory "env"
     // Activate the virtual environment
     $ source ./env/bin/activate
     // Verify that the virtual environment is active
@@ -157,7 +157,7 @@ Here are the commands you could use:
     ```console
     // Create the virtual environment using the module "venv"
     # >$ python3 -m venv env
-    // ...here it creates the virtual enviroment in the directory "env"
+    // ...here it creates the virtual environment in the directory "env"
     // Activate the virtual environment
     # >$ .\env\Scripts\Activate.ps1
     // Verify that the virtual environment is active

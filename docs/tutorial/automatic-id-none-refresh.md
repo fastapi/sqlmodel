@@ -36,7 +36,7 @@ When we create a new `Hero` instance, we don't set the `id`:
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-26]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>
@@ -125,7 +125,7 @@ We can verify by creating a session using a `with` block and adding the objects.
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-41]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>
@@ -238,7 +238,7 @@ To confirm and understand how this **automatic expiration and refresh** of data 
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-58]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>
@@ -271,7 +271,7 @@ Let's see how it works:
 ```console
 $ python app.py
 
-// Output above ommitted 👆
+// Output above omitted 👆
 
 // After committing, the objects are expired and have no values
 After committing the session
@@ -335,7 +335,7 @@ You can do that too with `session.refresh(object)`:
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-67]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>
@@ -362,7 +362,7 @@ Here's how the output would look like:
 ```console
 $ python app.py
 
-// Output above ommitted 👆
+// Output above omitted 👆
 
 // The first refresh
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
@@ -427,7 +427,7 @@ And the output shows again the same data:
 ```console
 $ python app.py
 
-// Output above ommitted 👆
+// Output above omitted 👆
 
 // By finishing the with block, the Session is closed, including a rollback of any pending transaction that could have been there and was not committed
 INFO Engine ROLLBACK
