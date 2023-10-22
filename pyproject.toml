@@ -51,6 +51,8 @@ requests = "^2.26.0"
 autoflake = "^1.4"
 isort = "^5.9.3"
 
+aiosqlite = "^0.17"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

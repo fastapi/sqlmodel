@@ -127,8 +127,12 @@ from sqlalchemy.types import VARBINARY as VARBINARY
 from sqlalchemy.types import VARCHAR as VARCHAR
 
 # Extensions and modifications of SQLAlchemy in SQLModel
-from .engine.create import create_engine as create_engine
+from .engine.create import (
+    create_engine as create_engine,
+    create_async_engine as create_async_engine,
+)
 from .orm.session import Session as Session
+from .ext.asyncio.session import AsyncSession as AsyncSession
 from .sql.expression import select as select
 from .sql.expression import col as col
 from .sql.sqltypes import AutoString as AutoString
