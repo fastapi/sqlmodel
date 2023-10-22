@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* 📝 Fix typos (duplication) in main page. PR [#631](https://github.com/tiangolo/sqlmodel/pull/631) by [@Mr-DRP](https://github.com/Mr-DRP).
 * 📝 Update release notes, add second author to PR. PR [#429](https://github.com/tiangolo/sqlmodel/pull/429) by [@br-follow](https://github.com/br-follow).
 * 📝 Update instructions about how to make a foreign key required in `docs/tutorial/relationship-attributes/define-relationships-attributes.md`. PR [#474](https://github.com/tiangolo/sqlmodel/pull/474) by [@jalvaradosegura](https://github.com/jalvaradosegura).
 * 🐛 Fix SQLAlchemy version 1.4.36 breaks SQLModel relationships (#315). PR [#461](https://github.com/tiangolo/sqlmodel/pull/461) by [@byrman](https://github.com/byrman).
