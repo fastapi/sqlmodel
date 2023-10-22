@@ -171,7 +171,7 @@ The first step is to import the `Session` class:
 ```Python hl_lines="3"
 {!./docs_src/tutorial/insert/tutorial001.py[ln:1-3]!}
 
-# Code below ommitted 👇
+# Code below omitted 👇
 ```
 
 <details>

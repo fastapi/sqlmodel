@@ -179,4 +179,4 @@ INFO Engine ROLLBACK
 
 ## Recap
 
-After setting up the model link, using it with **relationship attributes** is fairly straighforward, just Python objects. ✨
+After setting up the model link, using it with **relationship attributes** is fairly straightforward, just Python objects. ✨

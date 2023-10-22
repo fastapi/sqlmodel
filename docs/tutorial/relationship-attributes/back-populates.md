@@ -123,7 +123,7 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 
 </details>
 
-The first important thing is, we *haven't commited* the hero yet, so accessing the list of heroes would not trigger an automatic refresh.
+The first important thing is, we *haven't committed* the hero yet, so accessing the list of heroes would not trigger an automatic refresh.
 
 But in our code, in this exact point in time, we already said that **Spider-Boy** is no longer part of the **Preventers**. 🔥
 

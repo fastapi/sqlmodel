@@ -6,7 +6,7 @@ class _DefaultPlaceholder:
     You shouldn't use this class directly.
 
     It's used internally to recognize when a default value has been overwritten, even
-    if the overriden default value was truthy.
+    if the overridden default value was truthy.
     """
 
     def __init__(self, value: Any):
@@ -27,6 +27,6 @@ def Default(value: _TDefaultType) -> _TDefaultType:
     You shouldn't use this function directly.
 
     It's used internally to recognize when a default value has been overwritten, even
-    if the overriden default value was truthy.
+    if the overridden default value was truthy.
     """
     return _DefaultPlaceholder(value)  # type: ignore
