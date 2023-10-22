@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* 📝 Update outdated link in `docs/db-to-code.md`. PR [#649](https://github.com/tiangolo/sqlmodel/pull/649) by [@MatveyF](https://github.com/MatveyF).
 * ✏️ Fix typos found with codespell. PR [#520](https://github.com/tiangolo/sqlmodel/pull/520) by [@kianmeng](https://github.com/kianmeng).
 * 📝 Fix typos (duplication) in main page. PR [#631](https://github.com/tiangolo/sqlmodel/pull/631) by [@Mr-DRP](https://github.com/Mr-DRP).
 * 📝 Update release notes, add second author to PR. PR [#429](https://github.com/tiangolo/sqlmodel/pull/429) by [@br-follow](https://github.com/br-follow).
