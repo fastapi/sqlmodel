@@ -11,6 +11,7 @@ from typing import (
     Callable,
     ClassVar,
     Dict,
+    ForwardRef,
     List,
     Mapping,
     Optional,
@@ -29,7 +30,7 @@ from pydantic.fields import SHAPE_SINGLETON
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
-from pydantic.typing import ForwardRef, NoArgAnyCallable, resolve_annotations
+from pydantic.typing import NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
 from sqlalchemy import Boolean, Column, Date, DateTime
 from sqlalchemy import Enum as sa_Enum
@@ -332,6 +333,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # There's a SQLAlchemy relationship declared, that takes precedence
                     # over anything else, use that and continue with the next attribute
                     dict_used[rel_name] = rel_info.sa_relationship
+                    setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
                 ann = cls.__annotations__[rel_name]
                 temp_field = ModelField.infer(
@@ -419,16 +421,18 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     sa_column = getattr(field.field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
-    sa_type = get_sqlachemy_type(field)
+    sa_type = get_sqlalchemy_type(field)
     primary_key = getattr(field.field_info, "primary_key", False)
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
         index = False
+    nullable = not primary_key and _is_field_noneable(field)
+    # Override derived nullability if the nullable property is set explicitly
+    # on the field
     if hasattr(field.field_info, "nullable"):
         field_nullable = getattr(field.field_info, "nullable")
         if field_nullable != Undefined:
             nullable = field_nullable
-    nullable = not primary_key and _is_field_nullable(field)
     args = []
     foreign_key = getattr(field.field_info, "foreign_key", None)
     unique = getattr(field.field_info, "unique", False)
@@ -645,11 +649,10 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
 
-def _is_field_nullable(field: ModelField) -> bool:
+def _is_field_noneable(field: ModelField) -> bool:
     if not field.required:
         # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
-        is_optional = field.allow_none and (
+        return field.allow_none and (
             field.shape != SHAPE_SINGLETON or not field.sub_fields
         )
-        return is_optional and field.default is None and field.default_factory is None
     return False

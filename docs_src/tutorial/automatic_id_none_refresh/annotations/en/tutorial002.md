@@ -157,7 +157,7 @@
     Hero 3:
     ```
 
-21. Print the line `"After commiting the session, show IDs"`.
+21. Print the line `"After committing the session, show IDs"`.
 
     Generates the output:
 

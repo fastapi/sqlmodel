@@ -62,7 +62,7 @@ The user is probably, in some way, telling your application:
 2
 ```
 
-And the  would be this table (with a single row):
+And the result would be this table (with a single row):
 
 <table>
 <tr>
@@ -111,7 +111,7 @@ DROP TABLE hero;
 
 That is how you tell the database in SQL to delete the entire table `hero`.
 
-<a href="http://www.nooooooooooooooo.com/" class="external-link" target="_blank">Nooooo!</a> We lost all the data in the `hero` table! 💥😱
+<a href="https://theuselessweb.site/nooooooooooooooo/" class="external-link" target="_blank">Nooooo!</a> We lost all the data in the `hero` table! 💥😱
 
 ### SQL Sanitization
 

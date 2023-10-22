@@ -132,7 +132,7 @@
     !!! tip
         SQLAlchemy is still using the previous transaction, so it doesn't have to create a new one.
 
-18. Print the first hero, now udpated.
+18. Print the first hero, now updated.
 
     This generates the output:
 

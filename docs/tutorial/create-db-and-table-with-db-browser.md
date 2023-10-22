@@ -164,6 +164,6 @@ Of course, you can also go and take a full SQL course or read a book about SQL, 
 
 We saw how to interact with SQLite databases in files using **DB Browser for SQLite** in a visual user interface.
 
-We also saw how to use it to write some SQL directly to the SQLite database. This will be useful to verify the data in the database is looking correclty, to debug, etc.
+We also saw how to use it to write some SQL directly to the SQLite database. This will be useful to verify the data in the database is looking correctly, to debug, etc.
 
 In the next chapters we will start using **SQLModel** to interact with the database, and we will continue to use **DB Browser for SQLite** at the same time to look at the database underneath. 🔍
