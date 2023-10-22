@@ -1,18 +1,24 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+title: SQLModel
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
 authors:
-- family-names: "Ramírez"
-  given-names: "Sebastián"
-  #orcid: "https://orcid.org/0000-0000-0000-0000"
-title: "sqlmodel"
-version: 0.0.3
-#doi: 10.5281/zenodo.1234
-date-released: 2021-08-24
-url: "https://github.com/tiangolo/sqlmodel"
-
-#### Citations file related resources:
-## - https://github.blog/2021-08-19-enhanced-support-citations-github/
-## - https://citation-file-format.github.io/
-## - https://www.linkedin.com/posts/github_enhanced-citation-support-on-github-activity-6834161054352850944-LRDT
-## - https://citation-file-format.github.io/cff-initializer-javascript/
+  - given-names: Sebastián
+    family-names: Ramírez
+    email: tiangolo@gmail.com
+identifiers:
+repository-code: 'https://github.com/tiangolo/sqlmodel'
+url: 'https://sqlmodel.tiangolo.com'
+abstract: >-
+  SQLModel, SQL databases in Python, designed for
+  simplicity, compatibility, and robustness.
+keywords:
+  - fastapi
+  - pydantic
+  - sqlalchemy
+license: MIT
