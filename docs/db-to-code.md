@@ -111,7 +111,7 @@ DROP TABLE hero;
 
 That is how you tell the database in SQL to delete the entire table `hero`.
 
-<a href="http://www.nooooooooooooooo.com/" class="external-link" target="_blank">Nooooo!</a> We lost all the data in the `hero` table! 💥😱
+<a href="https://theuselessweb.site/nooooooooooooooo/" class="external-link" target="_blank">Nooooo!</a> We lost all the data in the `hero` table! 💥😱
 
 ### SQL Sanitization
 
