@@ -94,7 +94,7 @@ def test_should_raise_exception_when_try_to_duplicate_row_if_unique_constraint_i
             session.refresh(hero_2)
 
 
-def test_sa_relationship(clear_sqlmodel):
+def test_sa_relationship_property(clear_sqlmodel):
     """Test https://github.com/tiangolo/sqlmodel/issues/315#issuecomment-1272122306"""
 
     class Team(SQLModel, table=True):
@@ -124,4 +124,5 @@ def test_sa_relationship(clear_sqlmodel):
         session.commit()
         session.refresh(hero_rusty_man)
         # The next statement should not raise an AttributeError
+        assert hero_rusty_man.team
         assert hero_rusty_man.team.name == "Preventers"
