@@ -2,11 +2,11 @@
 
 ## Type hints
 
-If you need a refreshed about how to use Python type hints (type annotations), check <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">FastAPI's Python types intro</a>.
+If you need a refresher about how to use Python type hints (type annotations), check <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">FastAPI's Python types intro</a>.
 
 You can also check the <a href="https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html" class="external-link" target="_blank">mypy cheat sheet</a>.
 
-**SQLModel** uses type annotations for everything, this way you can use a familiar Python syntax and get all the editor support posible, with autocompletion and in-editor error checking.
+**SQLModel** uses type annotations for everything, this way you can use a familiar Python syntax and get all the editor support possible, with autocompletion and in-editor error checking.
 
 ## Intro
 
@@ -64,15 +64,13 @@ $ cd sqlmodel-tutorial
 
 Make sure you have an officially supported version of Python.
 
-Currently it is **Python 3.6** and above (Python 3.5 was already deprecated).
-
 You can check which version you have with:
 
 <div class="termy">
 
 ```console
 $ python3 --version
-Python 3.6.9
+Python 3.11
 ```
 
 </div>
@@ -84,8 +82,6 @@ You might want to try with the specific versions, for example with:
 * `python3.10`
 * `python3.9`
 * `python3.8`
-* `python3.7`
-* `python3.6`
 
 The code would look like this:
 
@@ -97,7 +93,7 @@ $ python3 --version
 // This is too old! 😱
 Python 3.5.6
 // Let's see if python3.10 is available
-$ python3.10 --verson
+$ python3.10 --version
 // Oh, no, this one is not available 😔
 command not found: python3.10
 $ python3.9 --version

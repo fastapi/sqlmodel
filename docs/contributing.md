@@ -6,10 +6,6 @@ First, you might want to see the basic ways to [help SQLModel and get help](help
 
 If you already cloned the repository and you know that you need to deep dive in the code, here are some guidelines to set up your environment.
 
-### Python
-
-SQLModel supports Python 3.6 and above, but for development you should have at least **Python 3.7**.
-
 ### Poetry
 
 **SQLModel** uses <a href="https://python-poetry.org/" class="external-link" target="_blank">Poetry</a> to build, package, and publish the project.
@@ -42,7 +38,7 @@ $ poetry shell
 
 </div>
 
-That will set up the environment variables needed dand will start a new shell with them.
+That will set up the environment variables needed and start a new shell with them.
 
 #### Using your local SQLModel
 
