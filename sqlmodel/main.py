@@ -384,6 +384,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 def get_sqlalchemy_type(field: ModelField) -> Any:
     if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
+        # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
+        if issubclass(field.type_, Enum):
+            return sa_Enum(field.type_)
         if issubclass(field.type_, str):
             if field.field_info.max_length:
                 return AutoString(length=field.field_info.max_length)
@@ -402,8 +405,6 @@ def get_sqlalchemy_type(field: ModelField) -> Any:
             return Interval
         if issubclass(field.type_, time):
             return Time
-        if issubclass(field.type_, Enum):
-            return sa_Enum(field.type_)
         if issubclass(field.type_, bytes):
             return LargeBinary
         if issubclass(field.type_, Decimal):
