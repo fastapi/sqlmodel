@@ -86,16 +86,16 @@ skip_glob = [
 [tool.mypy]
 # --strict
 disallow_any_generics = true
-disallow_subclassing_any = true 
-disallow_untyped_calls = true 
+disallow_subclassing_any = true
+disallow_untyped_calls = true
 disallow_untyped_defs = true
-disallow_incomplete_defs = true 
-check_untyped_defs = true 
-disallow_untyped_decorators = true 
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
 no_implicit_optional = true
-warn_redundant_casts = true 
+warn_redundant_casts = true
 warn_unused_ignores = true
-warn_return_any = true 
+warn_return_any = true
 implicit_reexport = false
 strict_equality = true
 # --strict end
@@ -104,4 +104,23 @@ strict_equality = true
 module = "sqlmodel.sql.expression"
 warn_unused_ignores = false
 
-# invalidate CI cache: 1
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+# "__init__.py" = ["F401"]
+
+[tool.ruff.isort]
+known-third-party = ["sqlmodel", "sqlalchemy", "pydantic", "fastapi"]
