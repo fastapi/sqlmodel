@@ -92,7 +92,3 @@ class AsyncSession(_AsyncSession):
             bind_arguments=bind_arguments,
             **kw,
         )
-
-    async def __aenter__(self) -> "AsyncSession":
-        # PyCharm does not understand TypeVar here :/
-        return await super().__aenter__()
