@@ -42,7 +42,7 @@ We want to allow clients to set different `offset` and `limit` values.
 
 But we don't want them to be able to set a `limit` of something like `9999`, that's over `9000`! 😱
 
-So, to prevent it, we add additional validation to the `limit` query parameter, declaring that it has to be **l**ess **t**han or **e**qual to `100` with `lte=100`.
+So, to prevent it, we add additional validation to the `limit` query parameter, declaring that it has to be **l**ess than or **e**qual to `100` with `le=100`.
 
 This way, a client can decide to take fewer heroes if they want, but not more.
 

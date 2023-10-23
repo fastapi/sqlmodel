@@ -159,7 +159,7 @@ As the `Hero` class model now has a field (column, attribute) `team_id`, we can 
 
 We haven't committed this hero to the database yet, but there are already a couple of things to pay **attention** to.
 
-If the database already had some teams, we wouldn't even know **what is the ID** that is going to be automatically assigned to each team by the database, for example, we couldn't just guess `1` or `2`. 
+If the database already had some teams, we wouldn't even know **what is the ID** that is going to be automatically assigned to each team by the database, for example, we couldn't just guess `1` or `2`.
 
 But once the team is created and committed to the database, we can access the object's `id` field to get that ID.
 
@@ -171,8 +171,8 @@ That line alone would generate an output of:
 
 ```
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00025s] (2,)
 ```
@@ -199,8 +199,8 @@ Let's now create two more heroes:
 When creating `hero_rusty_man`, we are accessing `team_preventers.id`, so that will also trigger a refresh of its data, generating an output of:
 
 ```
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.001795s ago] (1,)
 ```
@@ -256,18 +256,18 @@ $ python app.py
 INFO Engine BEGIN (implicit)
 
 // Refresh the first hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00021s] (1,)
 // Refresh the second hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001575s ago] (2,)
 // Refresh the third hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002518s ago] (3,)
 
