@@ -190,7 +190,7 @@ First we have to import `select` from `sqlmodel` at the top of the file:
 ```Python hl_lines="3"
 {!./docs_src/tutorial/select/tutorial001.py[ln:1-3]!}
 
-# More code below ommitted 👇
+# More code below omitted 👇
 ```
 
 <details>
@@ -274,7 +274,7 @@ This `session.exec(statement)` will generate this output:
 
 ```
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 INFO Engine [no key 0.00032s] ()
 ```
@@ -455,7 +455,7 @@ In this chapter we are touching some of them.
 
 ### SQLModel's `select`
 
-When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`. 
+When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`.
 
 SQLAchemy also has it's own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
 
@@ -472,7 +472,7 @@ SQLAlchemy's own `Session` has a method `session.execute()`. It doesn't have a `
 
 If you see SQLAlchemy tutorials, they will always use `session.execute()`.
 
-**SQLModel**'s own `Session` inherits directly from SQLAlchemy's `Session`, and adds this additonal method `session.exec()`. Underneath, it uses the same `session.execute()`.
+**SQLModel**'s own `Session` inherits directly from SQLAlchemy's `Session`, and adds this additional method `session.exec()`. Underneath, it uses the same `session.execute()`.
 
 But `session.exec()` does several **tricks** combined with the tricks in `session()` to give you the **best editor support**, with **autocompletion** and **inline errors** everywhere, even after getting data from a select. ✨
 
