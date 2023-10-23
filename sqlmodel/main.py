@@ -374,7 +374,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 
 def get_sqlalchemy_type(field: ModelField) -> Any:
-    if isinstance(field.type_, type):
+    if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
         if issubclass(field.type_, str):
             if field.field_info.max_length:
                 return AutoString(length=field.field_info.max_length)
