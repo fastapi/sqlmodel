@@ -1,7 +1,8 @@
 from typing import Any, Dict, List, Optional, Union
 
 import pytest
-from sqlmodel import SQLModel, Field
+
+from sqlmodel import Field, SQLModel
 
 
 def test_type_list_breaks() -> None:
