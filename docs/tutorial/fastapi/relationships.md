@@ -84,7 +84,7 @@ In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, s
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:159-164]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:158-163]!}
 
 # Code below omitted 👇
 ```
@@ -234,7 +234,7 @@ In the case of the hero, this tells FastAPI to extract the `team` too. And in th
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/relationships/tutorial001.py[ln:168-173]!}
+{!./docs_src/tutorial/fastapi/relationships/tutorial001.py[ln:167-172]!}
 
 # Code below omitted 👇
 ```
