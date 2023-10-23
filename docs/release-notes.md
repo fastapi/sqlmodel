@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.9
+
 ### Breaking Changes
 
 * 🗑️ Deprecate Python 3.6 and upgrade Poetry and Poetry Version Plugin. PR [#627](https://github.com/tiangolo/sqlmodel/pull/627) by [@tiangolo](https://github.com/tiangolo).
