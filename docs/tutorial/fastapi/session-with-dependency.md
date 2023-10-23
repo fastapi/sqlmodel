@@ -177,7 +177,7 @@ And then we remove the previous `with` block with the old **session**.
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-107]!}
+{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-106]!}
 ```
 
 <details>

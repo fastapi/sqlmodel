@@ -342,10 +342,10 @@ $ python app.py
 
 // Create the table
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 
@@ -353,8 +353,8 @@ CREATE TABLE hero (
 CREATE INDEX ix_hero_name ON hero (name)
 
 // The SELECT with WHERE looks the same
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00014s] ('Deadpond',)
 

@@ -20,7 +20,7 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # To allow latest-changes to commit to the main branch
           token: ${{ secrets.SQLMODEL_LATEST_CHANGES }}

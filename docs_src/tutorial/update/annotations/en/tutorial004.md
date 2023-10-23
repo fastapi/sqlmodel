@@ -5,8 +5,8 @@
     This generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.name = ?
     INFO Engine [no key 0.00018s] ('Spider-Boy',)
     ```
@@ -29,8 +29,8 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.name = ?
     INFO Engine [no key 0.00020s] ('Captain North America',)
     ```
@@ -109,8 +109,8 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [generated in 0.00023s] (2,)
     ```
@@ -123,8 +123,8 @@
     This generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.001709s ago] (7,)
     ```
@@ -132,7 +132,7 @@
     !!! tip
         SQLAlchemy is still using the previous transaction, so it doesn't have to create a new one.
 
-18. Print the first hero, now udpated.
+18. Print the first hero, now updated.
 
     This generates the output:
 
