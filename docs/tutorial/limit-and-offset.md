@@ -271,11 +271,11 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 
 </details>
 
-## Run the Program with Limit and Where on the Command Line
+## Run the Program with Limit, Offset, and Where on the Command Line
 
 If we run it on the command line, it will find all the heroes in the database with an age above 32. That would normally be 4 heroes.
 
-But we are limiting the results to only get the first 3:
+But we are starting to include after an offset of 1 (so we don't count the first one), and we are limiting the results to only get the first 2 after that:
 
 <div class="termy">
 
@@ -284,18 +284,17 @@ $ python app.py
 
 // Previous output omitted 🙈
 
-// Select with WHERE and LIMIT
+// Select with WHERE and LIMIT and OFFSET
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 WHERE hero.age > ?
  LIMIT ? OFFSET ?
-INFO Engine [no key 0.00022s] (32, 3, 0)
+INFO Engine [no key 0.00022s] (32, 2, 1)
 
-// Print the heroes received, only 3
+// Print the heroes received, only 2
 [
-    Hero(age=35, secret_name='Trevor Challa', id=5, name='Black Lion'),
-    Hero(age=36, secret_name='Steve Weird', id=6, name='Dr. Weird'),
-    Hero(age=48, secret_name='Tommy Sharp', id=3, name='Rusty-Man')
+    Hero(age=36, id=6, name='Dr. Weird', secret_name='Steve Weird'),
+    Hero(age=48, id=3, name='Rusty-Man', secret_name='Tommy Sharp')
 ]
 ```
 
