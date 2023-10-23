@@ -220,7 +220,7 @@ Each supported database has it's own URL type. For example, for **SQLite** it is
 * `sqlite:///databases/local/application.db`
 * `sqlite:///db.sqlite`
 
-SQLite supports a special database that lives all *in memory*. Hence, it's very fast, but be careful, the database gets deleted after the program terminates. You can specify this in-memory database by using only two `//` and no filename like this:
+SQLite supports a special database that lives all *in memory*. Hence, it's very fast, but be careful, the database gets deleted after the program terminates. You can specify this in-memory database by using just two slash characters (`//`) and no file name:
 
 * `sqlite://`
 
