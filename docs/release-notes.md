@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* ⬆ Bump dawidd6/action-download-artifact from 2.24.2 to 2.28.0. PR [#660](https://github.com/tiangolo/sqlmodel/pull/660) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 📝 Update docs, use `offset` in example with `limit` and `where`. PR [#273](https://github.com/tiangolo/sqlmodel/pull/273) by [@jbmchuck](https://github.com/jbmchuck).
 * 📝 Fix docs for Pydantic's fields using `le` (`lte` is invalid, use `le` ). PR [#207](https://github.com/tiangolo/sqlmodel/pull/207) by [@jrycw](https://github.com/jrycw).
 * ✅ Refactor OpenAPI FastAPI tests to simplify updating them later, this moves things around without changes. PR [#671](https://github.com/tiangolo/sqlmodel/pull/671) by [@tiangolo](https://github.com/tiangolo).
