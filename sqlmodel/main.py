@@ -26,15 +26,24 @@ from typing import (
 
 from pydantic import BaseConfig, BaseModel
 from pydantic.errors import ConfigError, DictError
-from pydantic.fields import SHAPE_SINGLETON
+from pydantic.fields import SHAPE_SINGLETON, ModelField, Undefined, UndefinedType
 from pydantic.fields import FieldInfo as PydanticFieldInfo
-from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
 from pydantic.typing import NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
-from sqlalchemy import Boolean, Column, Date, DateTime
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    Interval,
+    Numeric,
+    inspect,
+)
 from sqlalchemy import Enum as sa_Enum
-from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
@@ -305,9 +314,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             config_registry = cast(registry, config_registry)
             # If it was passed by kwargs, ensure it's also set in config
             new_cls.__config__.registry = config_table
-            setattr(new_cls, "_sa_registry", config_registry)
-            setattr(new_cls, "metadata", config_registry.metadata)
-            setattr(new_cls, "__abstract__", True)
+            setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
+            setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
+            setattr(new_cls, "__abstract__", True)  # noqa: B010
         return new_cls
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
@@ -320,19 +329,15 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # triggers an error
         base_is_table = False
         for base in bases:
-            config = getattr(base, "__config__")
+            config = getattr(base, "__config__")  # noqa: B009
             if config and getattr(config, "table", False):
                 base_is_table = True
                 break
         if getattr(cls.__config__, "table", False) and not base_is_table:
-            dict_used = dict_.copy()
-            for field_name, field_value in cls.__fields__.items():
-                dict_used[field_name] = get_column_from_field(field_value)
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
                     # There's a SQLAlchemy relationship declared, that takes precedence
                     # over anything else, use that and continue with the next attribute
-                    dict_used[rel_name] = rel_info.sa_relationship
                     setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
                 ann = cls.__annotations__[rel_name]
@@ -351,7 +356,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_kwargs["back_populates"] = rel_info.back_populates
                 if rel_info.link_model:
                     ins = inspect(rel_info.link_model)
-                    local_table = getattr(ins, "local_table")
+                    local_table = getattr(ins, "local_table")  # noqa: B009
                     if local_table is None:
                         raise RuntimeError(
                             "Couldn't find the secondary table for "
@@ -366,53 +371,57 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 rel_value: RelationshipProperty = relationship(  # type: ignore
                     relationship_to, *rel_args, **rel_kwargs
                 )
-                dict_used[rel_name] = rel_value
                 setattr(cls, rel_name, rel_value)  # Fix #315
-            DeclarativeMeta.__init__(cls, classname, bases, dict_used, **kw)
+            # SQLAlchemy no longer uses dict_
+            # Ref: https://github.com/sqlalchemy/sqlalchemy/commit/428ea01f00a9cc7f85e435018565eb6da7af1b77
+            # Tag: 1.4.36
+            DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
 def get_sqlalchemy_type(field: ModelField) -> Any:
-    if issubclass(field.type_, str):
-        if field.field_info.max_length:
-            return AutoString(length=field.field_info.max_length)
-        return AutoString
-    if issubclass(field.type_, float):
-        return Float
-    if issubclass(field.type_, bool):
-        return Boolean
-    if issubclass(field.type_, int):
-        return Integer
-    if issubclass(field.type_, datetime):
-        return DateTime
-    if issubclass(field.type_, date):
-        return Date
-    if issubclass(field.type_, timedelta):
-        return Interval
-    if issubclass(field.type_, time):
-        return Time
-    if issubclass(field.type_, Enum):
-        return sa_Enum(field.type_)
-    if issubclass(field.type_, bytes):
-        return LargeBinary
-    if issubclass(field.type_, Decimal):
-        return Numeric(
-            precision=getattr(field.type_, "max_digits", None),
-            scale=getattr(field.type_, "decimal_places", None),
-        )
-    if issubclass(field.type_, ipaddress.IPv4Address):
-        return AutoString
-    if issubclass(field.type_, ipaddress.IPv4Network):
-        return AutoString
-    if issubclass(field.type_, ipaddress.IPv6Address):
-        return AutoString
-    if issubclass(field.type_, ipaddress.IPv6Network):
-        return AutoString
-    if issubclass(field.type_, Path):
-        return AutoString
-    if issubclass(field.type_, uuid.UUID):
-        return GUID
+    if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
+        # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
+        if issubclass(field.type_, Enum):
+            return sa_Enum(field.type_)
+        if issubclass(field.type_, str):
+            if field.field_info.max_length:
+                return AutoString(length=field.field_info.max_length)
+            return AutoString
+        if issubclass(field.type_, float):
+            return Float
+        if issubclass(field.type_, bool):
+            return Boolean
+        if issubclass(field.type_, int):
+            return Integer
+        if issubclass(field.type_, datetime):
+            return DateTime
+        if issubclass(field.type_, date):
+            return Date
+        if issubclass(field.type_, timedelta):
+            return Interval
+        if issubclass(field.type_, time):
+            return Time
+        if issubclass(field.type_, bytes):
+            return LargeBinary
+        if issubclass(field.type_, Decimal):
+            return Numeric(
+                precision=getattr(field.type_, "max_digits", None),
+                scale=getattr(field.type_, "decimal_places", None),
+            )
+        if issubclass(field.type_, ipaddress.IPv4Address):
+            return AutoString
+        if issubclass(field.type_, ipaddress.IPv4Network):
+            return AutoString
+        if issubclass(field.type_, ipaddress.IPv6Address):
+            return AutoString
+        if issubclass(field.type_, ipaddress.IPv6Network):
+            return AutoString
+        if issubclass(field.type_, Path):
+            return AutoString
+        if issubclass(field.type_, uuid.UUID):
+            return GUID
     raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
 
@@ -429,7 +438,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     # Override derived nullability if the nullable property is set explicitly
     # on the field
     if hasattr(field.field_info, "nullable"):
-        field_nullable = getattr(field.field_info, "nullable")
+        field_nullable = getattr(field.field_info, "nullable")  # noqa: B009
         if field_nullable != Undefined:
             nullable = field_nullable
     args = []
