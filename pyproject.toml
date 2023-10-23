@@ -35,7 +35,7 @@ SQLAlchemy = ">=1.4.17,<=1.4.41"
 pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^7.0.1"
 mypy = "0.971"
 black = "^22.10.0"
@@ -47,8 +47,6 @@ mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^6.2"}
 fastapi = "^0.68.1"
 requests = "^2.26.0"
-
-[tool.poetry.group.dev.dependencies]
 ruff = "^0.1.1"
 
 [build-system]
