@@ -26,15 +26,24 @@ from typing import (
 
 from pydantic import BaseConfig, BaseModel
 from pydantic.errors import ConfigError, DictError
-from pydantic.fields import SHAPE_SINGLETON
+from pydantic.fields import SHAPE_SINGLETON, ModelField, Undefined, UndefinedType
 from pydantic.fields import FieldInfo as PydanticFieldInfo
-from pydantic.fields import ModelField, Undefined, UndefinedType
 from pydantic.main import ModelMetaclass, validate_model
 from pydantic.typing import NoArgAnyCallable, resolve_annotations
 from pydantic.utils import ROOT_KEY, Representation
-from sqlalchemy import Boolean, Column, Date, DateTime
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Integer,
+    Interval,
+    Numeric,
+    inspect,
+)
 from sqlalchemy import Enum as sa_Enum
-from sqlalchemy import Float, ForeignKey, Integer, Interval, Numeric, inspect
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
@@ -305,9 +314,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             config_registry = cast(registry, config_registry)
             # If it was passed by kwargs, ensure it's also set in config
             new_cls.__config__.registry = config_table
-            setattr(new_cls, "_sa_registry", config_registry)
-            setattr(new_cls, "metadata", config_registry.metadata)
-            setattr(new_cls, "__abstract__", True)
+            setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
+            setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
+            setattr(new_cls, "__abstract__", True)  # noqa: B010
         return new_cls
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
@@ -320,7 +329,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # triggers an error
         base_is_table = False
         for base in bases:
-            config = getattr(base, "__config__")
+            config = getattr(base, "__config__")  # noqa: B009
             if config and getattr(config, "table", False):
                 base_is_table = True
                 break
@@ -351,7 +360,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_kwargs["back_populates"] = rel_info.back_populates
                 if rel_info.link_model:
                     ins = inspect(rel_info.link_model)
-                    local_table = getattr(ins, "local_table")
+                    local_table = getattr(ins, "local_table")  # noqa: B009
                     if local_table is None:
                         raise RuntimeError(
                             "Couldn't find the secondary table for "
@@ -430,7 +439,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     # Override derived nullability if the nullable property is set explicitly
     # on the field
     if hasattr(field.field_info, "nullable"):
-        field_nullable = getattr(field.field_info, "nullable")
+        field_nullable = getattr(field.field_info, "nullable")  # noqa: B009
         if field_nullable != Undefined:
             nullable = field_nullable
     args = []

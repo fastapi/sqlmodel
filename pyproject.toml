@@ -35,10 +35,9 @@ SQLAlchemy = ">=1.4.17,<=1.4.41"
 pydantic = "^1.8.2"
 sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^7.0.1"
 mypy = "0.971"
-flake8 = "^5.0.4"
 black = "^22.10.0"
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
@@ -48,8 +47,7 @@ mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^6.2"}
 fastapi = "^0.68.1"
 requests = "^2.26.0"
-autoflake = "^1.4"
-isort = "^5.9.3"
+ruff = "^0.1.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -75,27 +73,19 @@ exclude_lines = [
     "if TYPE_CHECKING:",
 ]
 
-[tool.isort]
-profile = "black"
-known_third_party = ["sqlmodel"]
-skip_glob = [
-    "sqlmodel/__init__.py",
-    ]
-
-
 [tool.mypy]
 # --strict
 disallow_any_generics = true
-disallow_subclassing_any = true 
-disallow_untyped_calls = true 
+disallow_subclassing_any = true
+disallow_untyped_calls = true
 disallow_untyped_defs = true
-disallow_incomplete_defs = true 
-check_untyped_defs = true 
-disallow_untyped_decorators = true 
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
 no_implicit_optional = true
-warn_redundant_casts = true 
+warn_redundant_casts = true
 warn_unused_ignores = true
-warn_return_any = true 
+warn_return_any = true
 implicit_reexport = false
 strict_equality = true
 # --strict end
@@ -104,4 +94,23 @@ strict_equality = true
 module = "sqlmodel.sql.expression"
 warn_unused_ignores = false
 
-# invalidate CI cache: 1
+[tool.ruff]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+# "__init__.py" = ["F401"]
+
+[tool.ruff.isort]
+known-third-party = ["sqlmodel", "sqlalchemy", "pydantic", "fastapi"]
