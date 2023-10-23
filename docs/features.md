@@ -12,7 +12,7 @@ Nevertheless, SQLModel is completely **independent** of FastAPI and can be used 
 
 ## Just Modern Python
 
-It's all based on standard <abbr title="Python currently supported versions, 3.6 and above.">modern **Python**</abbr> type annotations. No new syntax to learn. Just standard modern Python.
+It's all based on standard <abbr title="Currently supported versions of Python">modern **Python**</abbr> type annotations. No new syntax to learn. Just standard modern Python.
 
 If you need a 2 minute refresher of how to use Python types (even if you don't use SQLModel or FastAPI), check the FastAPI tutorial section: <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">Python types intro</a>.
 
