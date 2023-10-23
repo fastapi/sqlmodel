@@ -38,7 +38,6 @@ sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 [tool.poetry.dev-dependencies]
 pytest = "^7.0.1"
 mypy = "0.971"
-flake8 = "^5.0.4"
 black = "^22.10.0"
 mkdocs = "^1.2.1"
 mkdocs-material = "^8.1.4"
@@ -48,8 +47,9 @@ mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = "^6.2"}
 fastapi = "^0.68.1"
 requests = "^2.26.0"
-autoflake = "^1.4"
-isort = "^5.9.3"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.1.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -74,14 +74,6 @@ exclude_lines = [
     'if __name__ == "__main__":',
     "if TYPE_CHECKING:",
 ]
-
-[tool.isort]
-profile = "black"
-known_third_party = ["sqlmodel"]
-skip_glob = [
-    "sqlmodel/__init__.py",
-    ]
-
 
 [tool.mypy]
 # --strict
