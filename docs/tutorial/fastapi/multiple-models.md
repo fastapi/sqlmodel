@@ -53,7 +53,7 @@ Here's the weird thing, the `id` currently seems also "optional". 🤔
 
 This is because in our **SQLModel** class we declare the `id` with `Optional[int]`, because it could be `None` in memory until we save it in the database and we finally get the actual ID.
 
-But in the responses, we must always send a model from the database, and it must **always have an ID**. So the `id` in the responses must also be declared as required.
+But in the responses, we always send a model from the database, so it **always has an ID**. So the `id` in the responses can be declared as required.
 
 This means that our application is making the promise to the clients that if it sends a hero, it will for sure have an `id` with a value, it will not be `None`.
 
@@ -63,7 +63,7 @@ The ultimate goal of an API is for some **clients to use it**.
 
 The clients could be a frontend application, a command line program, a graphical user interface, a mobile application, another backend application, etc.
 
-And the code those clients write depends on what our API tells them they **need to send**, and what they must **expect to receive**.
+And the code those clients write depends on what our API tells them they **need to send**, and what they can **expect to receive**.
 
 Making both sides very clear will make it much easier to interact with the API.
 
