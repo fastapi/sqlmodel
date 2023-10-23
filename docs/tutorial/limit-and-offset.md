@@ -93,7 +93,7 @@ $ python app.py
 // Previous output omitted 🙈
 
 // Select with LIMIT
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00014s] (3, 0)
@@ -165,7 +165,7 @@ $python app.py
 // Previous output omitted 🙈
 
 // Select with LIMIT and OFFSET
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00020s] (3, 3)
@@ -221,7 +221,7 @@ $ python app.py
 // Previous output omitted 🙈
 
 // Select last batch with LIMIT and OFFSET
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00038s] (3, 6)
@@ -241,7 +241,7 @@ You probably noticed the new SQL keywords `LIMIT` and `OFFSET`.
 You can use them in SQL, at the end of the other parts:
 
 ```SQL
-SELECT id, name, secret_name, age 
+SELECT id, name, secret_name, age
 FROM hero
 LIMIT 3 OFFSET 6
 ```
@@ -285,8 +285,8 @@ $ python app.py
 // Previous output omitted 🙈
 
 // Select with WHERE and LIMIT
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.age > ?
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00022s] (32, 3, 0)

@@ -122,16 +122,16 @@ INFO Engine COMMIT
 // Automatically start a new transaction
 INFO Engine BEGIN (implicit)
 // Refresh the data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00019s] (1,)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001959s ago] (2,)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.003215s ago] (3,)
 
@@ -139,8 +139,8 @@ INFO Engine [cached since 0.003215s ago] (3,)
 Deadpond: name='Deadpond' age=None id=1 secret_name='Dive Wilson'
 
 // Accessing the .team attribute triggers a refresh
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team, heroteamlink 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [generated in 0.00025s] (1,)
 
@@ -151,8 +151,8 @@ Deadpond teams: [Team(id=1, name='Z-Force', headquarters='Sister Margaret’s Ba
 Rusty-Man: name='Rusty-Man' age=48 id=2 secret_name='Tommy Sharp'
 
 // Accessing the .team attribute triggers a refresh
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team, heroteamlink 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [cached since 0.001716s ago] (2,)
 
@@ -163,8 +163,8 @@ Rusty-Man Teams: [Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 Spider-Boy: name='Spider-Boy' age=None id=3 secret_name='Pedro Parqueador'
 
 // Accessing the .team attribute triggers a refresh
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team, heroteamlink 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [cached since 0.002739s ago] (3,)
 
