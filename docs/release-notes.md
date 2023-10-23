@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* ✅ Refactor OpenAPI FastAPI tests to simplify updating them later, this moves things around without changes. PR [#671](https://github.com/tiangolo/sqlmodel/pull/671) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump actions/checkout from 3 to 4. PR [#670](https://github.com/tiangolo/sqlmodel/pull/670) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Update mypy config, use `strict = true` instead of manual configs. PR [#428](https://github.com/tiangolo/sqlmodel/pull/428) by [@michaeloliverx](https://github.com/michaeloliverx).
 * 🐛 Fix `AsyncSession` type annotations for `exec()`. PR [#58](https://github.com/tiangolo/sqlmodel/pull/58) by [@Bobronium](https://github.com/Bobronium).
