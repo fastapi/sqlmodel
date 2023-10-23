@@ -422,15 +422,15 @@ INFO Engine PRAGMA main.table_info("hero")
 INFO Engine [raw sql] ()
 INFO Engine PRAGMA temp.table_info("hero")
 INFO Engine [raw sql] ()
-INFO Engine 
+INFO Engine
 
 // Finally, the glorious SQL to create the table ✨
 
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 

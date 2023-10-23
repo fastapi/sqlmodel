@@ -53,11 +53,11 @@ Here's the weird thing, the `id` currently seems also "optional". 🤔
 
 This is because in our **SQLModel** class we declare the `id` with `Optional[int]`, because it could be `None` in memory until we save it in the database and we finally get the actual ID.
 
-But in the responses, we would always send a model from the database, and it would **always have an ID**. So the `id` in the responses could be declared as required too.
+But in the responses, we always send a model from the database, so it **always has an ID**. So the `id` in the responses can be declared as required.
 
-This would mean that our application is making the compromise with the clients that if it sends a hero, it would for sure have an `id` with a value, it would not be `None`.
+This means that our application is making the promise to the clients that if it sends a hero, it will for sure have an `id` with a value, it will not be `None`.
 
-### Why Is it Important to Compromise with the Responses
+### Why Is it Important to Have a Contract for Responses
 
 The ultimate goal of an API is for some **clients to use it**.
 
