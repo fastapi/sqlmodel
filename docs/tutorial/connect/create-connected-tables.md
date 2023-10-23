@@ -191,24 +191,24 @@ INFO Engine PRAGMA temp.table_info("hero")
 INFO Engine [raw sql] ()
 
 // Create the tables
-INFO Engine 
+INFO Engine
 CREATE TABLE team (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        headquarters VARCHAR NOT NULL, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        headquarters VARCHAR NOT NULL,
         PRIMARY KEY (id)
 )
 
 
 INFO Engine [no key 0.00010s] ()
-INFO Engine 
+INFO Engine
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
-        team_id INTEGER, 
-        PRIMARY KEY (id), 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
+        team_id INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY(team_id) REFERENCES team (id)
 )
 
@@ -229,9 +229,9 @@ So, the first SQL could also be written as:
 
 ```SQL
 CREATE TABLE team (
-    id INTEGER, 
-    name TEXT NOT NULL, 
-    headquarters TEXT NOT NULL, 
+    id INTEGER,
+    name TEXT NOT NULL,
+    headquarters TEXT NOT NULL,
     PRIMARY KEY (id)
 )
 ```
@@ -240,12 +240,12 @@ And the second table could be written as:
 
 ```SQL hl_lines="8"
 CREATE TABLE hero (
-    id INTEGER, 
-    name TEXT NOT NULL, 
-    secret_name TEXT NOT NULL, 
-    age INTEGER, 
-    team_id INTEGER, 
-    PRIMARY KEY (id), 
+    id INTEGER,
+    name TEXT NOT NULL,
+    secret_name TEXT NOT NULL,
+    age INTEGER,
+    team_id INTEGER,
+    PRIMARY KEY (id),
     FOREIGN KEY(team_id) REFERENCES team (id)
 )
 ```

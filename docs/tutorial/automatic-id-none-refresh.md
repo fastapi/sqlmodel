@@ -198,9 +198,9 @@ INFO Engine COMMIT
 
 // And now our prints
 After committing the session
-Hero 1: 
-Hero 2: 
-Hero 3: 
+Hero 1:
+Hero 2:
+Hero 3:
 
 // What is happening here? 😱
 ```
@@ -275,17 +275,17 @@ $ python app.py
 
 // After committing, the objects are expired and have no values
 After committing the session
-Hero 1: 
-Hero 2: 
-Hero 3: 
+Hero 1:
+Hero 2:
+Hero 3:
 
 // Now we will access an attribute like the ID, this is the first print
 After committing the session, show IDs
 
 // Notice that before printing the first ID, the Session makes the Engine go to the database to refresh the data 🤓
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00017s] (1,)
 
@@ -293,8 +293,8 @@ INFO Engine [generated in 0.00017s] (1,)
 Hero 1 ID: 1
 
 // Before the next print, refresh the data for the second object
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001245s ago] (2,)
 
@@ -302,8 +302,8 @@ INFO Engine [cached since 0.001245s ago] (2,)
 Hero 2 ID: 2
 
 // Before the third print, refresh its data
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002215s ago] (3,)
 
@@ -365,20 +365,20 @@ $ python app.py
 // Output above omitted 👆
 
 // The first refresh
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00024s] (1,)
 
 // The second refresh
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001487s ago] (2,)
 
 // The third refresh
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002377s ago] (3,)
 
@@ -468,12 +468,12 @@ INFO Engine PRAGMA main.table_info("hero")
 INFO Engine [raw sql] ()
 INFO Engine PRAGMA temp.table_info("hero")
 INFO Engine [raw sql] ()
-INFO Engine 
+INFO Engine
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 
@@ -497,23 +497,23 @@ INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.001483s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 INFO Engine COMMIT
 After committing the session
-Hero 1: 
-Hero 2: 
-Hero 3: 
+Hero 1:
+Hero 2:
+Hero 3:
 After committing the session, show IDs
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00029s] (1,)
 Hero 1 ID: 1
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002132s ago] (2,)
 Hero 2 ID: 2
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.003367s ago] (3,)
 Hero 3 ID: 3
@@ -521,16 +521,16 @@ After committing the session, show names
 Hero 1 name: Deadpond
 Hero 2 name: Spider-Boy
 Hero 3 name: Rusty-Man
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00025s] (1,)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001583s ago] (2,)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002722s ago] (3,)
 After refreshing the heroes
