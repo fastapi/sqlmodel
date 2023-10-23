@@ -35,7 +35,7 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
     FROM hero
     INFO Engine [no key 0.00032s] ()
     ```

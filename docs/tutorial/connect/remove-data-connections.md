@@ -56,7 +56,7 @@ We can simply set the `team_id` to `None`, and now it doesn't have a connection 
 # Code above omitted 👆
 
 {!./docs_src/tutorial/connect/delete/tutorial001.py[ln:31-32]!}
-        
+
         # Previous code here omitted 👈
 
 {!./docs_src/tutorial/connect/delete/tutorial001.py[ln:68-72]!}
@@ -94,8 +94,8 @@ INFO Engine COMMIT
 // Automatically start a new transaction
 INFO Engine BEGIN (implicit)
 // Refresh the hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.1661s ago] (3,)
 

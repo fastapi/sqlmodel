@@ -6,8 +6,8 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.name = ?
     INFO Engine [no key 0.00011s] ('Spider-Youngster',)
     ```
@@ -65,8 +65,8 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.name = ?
     INFO Engine [no key 0.00013s] ('Spider-Youngster',)
     ```
