@@ -165,16 +165,16 @@ INFO Engine COMMIT
 INFO Engine BEGIN (implicit)
 
 // Automatically fetch the data on attribute access
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00028s] (1,)
-INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training 
-FROM heroteamlink 
+INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training
+FROM heroteamlink
 WHERE ? = heroteamlink.team_id
 INFO Engine [generated in 0.00026s] (1,)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00024s] (1,)
 
@@ -182,12 +182,12 @@ INFO Engine [generated in 0.00024s] (1,)
 Z-Force hero: name='Deadpond' age=None id=1 secret_name='Dive Wilson' is training: False
 
 // Automatically fetch the data on attribute access
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.008822s ago] (2,)
-INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training 
-FROM heroteamlink 
+INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training
+FROM heroteamlink
 WHERE ? = heroteamlink.team_id
 INFO Engine [cached since 0.005778s ago] (2,)
 
@@ -195,8 +195,8 @@ INFO Engine [cached since 0.005778s ago] (2,)
 Preventers hero: name='Deadpond' age=None id=1 secret_name='Dive Wilson' is training: True
 
 // Automatically fetch the data on attribute access
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.004196s ago] (2,)
 
@@ -204,8 +204,8 @@ INFO Engine [cached since 0.004196s ago] (2,)
 Preventers hero: name='Spider-Boy' age=None id=2 secret_name='Pedro Parqueador' is training: True
 
 // Automatically fetch the data on attribute access
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.006005s ago] (3,)
 
@@ -253,14 +253,14 @@ $ python app.py
 INFO Engine BEGIN (implicit)
 
 // Select the hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00014s] ('Spider-Boy',)
 
 // Select the team
-INFO Engine SELECT team.id, team.name, team.headquarters 
-FROM team 
+INFO Engine SELECT team.id, team.name, team.headquarters
+FROM team
 WHERE team.name = ?
 INFO Engine [no key 0.00012s] ('Z-Force',)
 
@@ -269,18 +269,18 @@ INFO Engine INSERT INTO heroteamlink (team_id, hero_id, is_training) VALUES (?, 
 INFO Engine [generated in 0.00023s] (1, 2, 1)
 
 // Automatically refresh the data on attribute access
-INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training 
-FROM heroteamlink 
+INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training
+FROM heroteamlink
 WHERE ? = heroteamlink.team_id
 INFO Engine [cached since 0.01514s ago] (1,)
 INFO Engine COMMIT
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.08953s ago] (2,)
-INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training 
-FROM heroteamlink 
+INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training
+FROM heroteamlink
 WHERE ? = heroteamlink.hero_id
 INFO Engine [generated in 0.00018s] (2,)
 
@@ -291,18 +291,18 @@ Updated Spider-Boy's Teams: [
 ]
 
 // Automatically refresh team data on attribute access
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.1084s ago] (1,)
-INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training 
-FROM heroteamlink 
+INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training
+FROM heroteamlink
 WHERE ? = heroteamlink.team_id
 INFO Engine [cached since 0.1054s ago] (1,)
 
 // Print team hero links
 Z-Force heroes: [
-    HeroTeamLink(team_id=1, is_training=False, hero_id=1), 
+    HeroTeamLink(team_id=1, is_training=False, hero_id=1),
     HeroTeamLink(team_id=1, is_training=True, hero_id=2)
 ]
 ```
@@ -350,8 +350,8 @@ $ python app.py
 // Previous output omitted 🙈
 
 // Automatically fetch team data on attribute access
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00015s] (2,)
 
@@ -366,16 +366,16 @@ INFO Engine COMMIT
 INFO Engine BEGIN (implicit)
 
 // Automatically fetch data on attribute access
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.2004s ago] (2,)
-INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training 
-FROM heroteamlink 
+INFO Engine SELECT heroteamlink.team_id AS heroteamlink_team_id, heroteamlink.hero_id AS heroteamlink_hero_id, heroteamlink.is_training AS heroteamlink_is_training
+FROM heroteamlink
 WHERE ? = heroteamlink.hero_id
 INFO Engine [cached since 0.1005s ago] (2,)
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.09707s ago] (2,)
 
@@ -383,8 +383,8 @@ INFO Engine [cached since 0.09707s ago] (2,)
 Spider-Boy team: headquarters='Sharp Tower' id=2 name='Preventers' is training: False
 
 // Automatically fetch data on attribute access
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.2097s ago] (1,)
 

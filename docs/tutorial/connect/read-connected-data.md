@@ -203,8 +203,8 @@ $ python app.py
 // Previous output omitted 😉
 
 // Get the heroes with their teams
-2021-08-09 08:55:50,682 INFO sqlalchemy.engine.Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
-FROM hero, team 
+2021-08-09 08:55:50,682 INFO sqlalchemy.engine.Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
+FROM hero, team
 WHERE hero.team_id = team.id
 2021-08-09 08:55:50,682 INFO sqlalchemy.engine.Engine [no key 0.00015s] ()
 
@@ -323,7 +323,7 @@ $ python app.py
 // Previous output omitted 😉
 
 // Select using a JOIN with automatic ON
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
 FROM hero JOIN team ON team.id = hero.team_id
 INFO Engine [no key 0.00032s] ()
 
@@ -458,7 +458,7 @@ $ python app.py
 // Previous output omitted 😉
 
 // SELECT using LEFT OUTER JOIN
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
 FROM hero LEFT OUTER JOIN team ON team.id = hero.team_id
 
 INFO Engine [no key 0.00051s] ()
@@ -522,9 +522,9 @@ If we run that, it would output:
 $ python app.py
 
 // Select only the hero data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
 // But still join with the team table
-FROM hero JOIN team ON team.id = hero.team_id 
+FROM hero JOIN team ON team.id = hero.team_id
 // And filter with WHERE to get only the Preventers
 WHERE team.name = ?
 INFO Engine [no key 0.00066s] ('Preventers',)
@@ -564,9 +564,9 @@ And if we run that, it will output:
 $ python app.py
 
 // Select the hero and the team data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
 // Join the hero with the team table
-FROM hero JOIN team ON team.id = hero.team_id 
+FROM hero JOIN team ON team.id = hero.team_id
 // Filter with WHERE to get only Preventers
 WHERE team.name = ?
 INFO Engine [no key 0.00018s] ('Preventers',)
