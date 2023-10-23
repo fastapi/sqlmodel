@@ -68,7 +68,7 @@ Successfully installed sqlmodel
 
 ## Example
 
-For an introduction to databases, SQL, and everything else, see the <a href="https://sqlmodel.tiangolo.com" target="_blank">SQLModel documentation</a>.
+For an introduction to databases, SQL, and everything else, see the <a href="https://sqlmodel.tiangolo.com/databases/" target="_blank">SQLModel documentation</a>.
 
 Here's a quick example. ✨
 
