@@ -151,35 +151,35 @@ $ python app.py
 
 // Boilerplate omitted 😉
 
-INFO Engine 
+INFO Engine
 CREATE TABLE team (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        headquarters VARCHAR NOT NULL, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        headquarters VARCHAR NOT NULL,
         PRIMARY KEY (id)
 )
 
 
 INFO Engine [no key 0.00033s] ()
-INFO Engine 
+INFO Engine
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 
 
 INFO Engine [no key 0.00016s] ()
-INFO Engine 
+INFO Engine
 
 // Our shinny new link table ✨
 CREATE TABLE heroteamlink (
-        team_id INTEGER, 
-        hero_id INTEGER, 
-        PRIMARY KEY (team_id, hero_id), 
-        FOREIGN KEY(team_id) REFERENCES team (id), 
+        team_id INTEGER,
+        hero_id INTEGER,
+        PRIMARY KEY (team_id, hero_id),
+        FOREIGN KEY(team_id) REFERENCES team (id),
         FOREIGN KEY(hero_id) REFERENCES hero (id)
 )
 

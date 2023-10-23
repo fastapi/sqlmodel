@@ -115,9 +115,7 @@ This means that this attribute could be `None`, or it could be a full `Team` obj
 
 This is because the related **`team_id` could also be `None`** (or `NULL` in the database).
 
-If it was required for a `Hero` instance to belong to a `Team`, then the `team_id` would be `int` instead of `Optional[int]`.
-
-And the `team` attribute would be a `Team` instead of `Optional[Team]`.
+If it was required for a `Hero` instance to belong to a `Team`, then the `team_id` would be `int` instead of `Optional[int]`, its `Field` would be `Field(foreign_key="team.id")` instead of `Field(default=None, foreign_key="team.id")` and the `team` attribute would be a `Team` instead of `Optional[Team]`.
 
 ## Relationship Attributes With Lists
 

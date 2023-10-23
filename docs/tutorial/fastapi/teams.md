@@ -92,7 +92,7 @@ These are equivalent and very similar to the **path operations** for the **heroe
 ```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:139-193]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:138-192]!}
 
 # Code below omitted 👇
 ```
