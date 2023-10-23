@@ -334,14 +334,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 base_is_table = True
                 break
         if getattr(cls.__config__, "table", False) and not base_is_table:
-            dict_used = dict_.copy()
-            for field_name, field_value in cls.__fields__.items():
-                dict_used[field_name] = get_column_from_field(field_value)
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
                     # There's a SQLAlchemy relationship declared, that takes precedence
                     # over anything else, use that and continue with the next attribute
-                    dict_used[rel_name] = rel_info.sa_relationship
                     setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
                 ann = cls.__annotations__[rel_name]
@@ -375,9 +371,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 rel_value: RelationshipProperty = relationship(  # type: ignore
                     relationship_to, *rel_args, **rel_kwargs
                 )
-                dict_used[rel_name] = rel_value
                 setattr(cls, rel_name, rel_value)  # Fix #315
-            DeclarativeMeta.__init__(cls, classname, bases, dict_used, **kw)
+            # SQLAlchemy no longer uses dict_
+            # Ref: https://github.com/sqlalchemy/sqlalchemy/commit/428ea01f00a9cc7f85e435018565eb6da7af1b77
+            # Tag: 1.4.36
+            DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
