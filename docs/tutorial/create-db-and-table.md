@@ -415,22 +415,22 @@ Now run the program with Python:
 // We set echo=True, so this will show the SQL code
 $ python app.py
 
-// First, some boilerplate SQL that we are not that intereted in
+// First, some boilerplate SQL that we are not that interested in
 
 INFO Engine BEGIN (implicit)
 INFO Engine PRAGMA main.table_info("hero")
 INFO Engine [raw sql] ()
 INFO Engine PRAGMA temp.table_info("hero")
 INFO Engine [raw sql] ()
-INFO Engine 
+INFO Engine
 
 // Finally, the glorious SQL to create the table ✨
 
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 

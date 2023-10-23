@@ -11,9 +11,8 @@
 <a href="https://github.com/tiangolo/sqlmodel/actions?query=workflow%3APublish" target="_blank">
     <img src="https://github.com/tiangolo/sqlmodel/workflows/Publish/badge.svg" alt="Publish">
 </a>
-<a href="https://codecov.io/gh/tiangolo/sqlmodel" target="_blank">
-    <img src="https://img.shields.io/codecov/c/github/tiangolo/sqlmodel?color=%2334D058" alt="Coverage">
-</a>
+<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/tiangolo/sqlmodel" target="_blank">
+    <img src="https://coverage-badge.samuelcolvin.workers.dev/tiangolo/sqlmodel.svg" alt="Coverage">
 <a href="https://pypi.org/project/sqlmodel" target="_blank">
     <img src="https://img.shields.io/pypi/v/sqlmodel?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
@@ -51,7 +50,7 @@ It combines SQLAlchemy and Pydantic and tries to simplify the code you write as 
 
 ## Requirements
 
-A recent and currently supported version of Python (right now, <a href="https://www.python.org/downloads/" class="external-link" target="_blank">Python supports versions 3.6 and above</a>).
+A recent and currently supported <a href="https://www.python.org/downloads/" class="external-link" target="_blank">version of Python</a>.
 
 As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. They will be automatically installed when you install SQLModel.
 
