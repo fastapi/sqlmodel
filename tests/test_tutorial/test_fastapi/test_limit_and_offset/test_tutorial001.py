@@ -62,9 +62,8 @@ def test_tutorial(clear_sqlmodel):
         assert data[0]["name"] == hero2_data["name"]
 
         response = client.get("/openapi.json")
-        data = response.json()
         assert response.status_code == 200, response.text
-        assert data == {
+        assert response.json() == {
             "openapi": "3.0.2",
             "info": {"title": "FastAPI", "version": "0.1.0"},
             "paths": {
@@ -87,9 +86,9 @@ def test_tutorial(clear_sqlmodel):
                                 "required": False,
                                 "schema": {
                                     "title": "Limit",
+                                    "maximum": 100.0,
                                     "type": "integer",
                                     "default": 100,
-                                    "lte": 100,
                                 },
                                 "name": "limit",
                                 "in": "query",
