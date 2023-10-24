@@ -50,7 +50,7 @@ It combines SQLAlchemy and Pydantic and tries to simplify the code you write as 
 
 ## Requirements
 
-A recent and currently supported <a href="https://www.python.org/downloads/" class="external-link" target="_blank">version of Python Python</a>.
+A recent and currently supported <a href="https://www.python.org/downloads/" class="external-link" target="_blank">version of Python</a>.
 
 As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. They will be automatically installed when you install SQLModel.
 
@@ -68,7 +68,7 @@ Successfully installed sqlmodel
 
 ## Example
 
-For an introduction to databases, SQL, and everything else, see the <a href="https://sqlmodel.tiangolo.com" target="_blank">SQLModel documentation</a>.
+For an introduction to databases, SQL, and everything else, see the <a href="https://sqlmodel.tiangolo.com/databases/" target="_blank">SQLModel documentation</a>.
 
 Here's a quick example. ✨
 

@@ -5,8 +5,8 @@
     This generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.name = ?
     INFO Engine [no key 0.00017s] ('Spider-Boy',)
     ```
@@ -53,8 +53,8 @@
     This generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [generated in 0.00018s] (2,)
     ```
