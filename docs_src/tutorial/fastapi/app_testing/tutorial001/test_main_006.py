@@ -16,19 +16,19 @@ def session_fixture():
         yield session
 
 
-@pytest.fixture(name="client")  # (1)
-def client_fixture(session: Session):  # (2)
-    def get_session_override():  # (3)
+@pytest.fixture(name="client")  # (1)!
+def client_fixture(session: Session):  # (2)!
+    def get_session_override():  # (3)!
         return session
 
-    app.dependency_overrides[get_session] = get_session_override  # (4)
+    app.dependency_overrides[get_session] = get_session_override  # (4)!
 
-    client = TestClient(app)  # (5)
-    yield client  # (6)
-    app.dependency_overrides.clear()  # (7)
+    client = TestClient(app)  # (5)!
+    yield client  # (6)!
+    app.dependency_overrides.clear()  # (7)!
 
 
-def test_create_hero(client: TestClient):  # (8)
+def test_create_hero(client: TestClient):  # (8)!
     response = client.post(
         "/heroes/", json={"name": "Deadpond", "secret_name": "Dive Wilson"}
     )

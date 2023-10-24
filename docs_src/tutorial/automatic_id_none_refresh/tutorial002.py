@@ -21,17 +21,17 @@ def create_db_and_tables():
 
 
 def create_heroes():
-    hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")  # (1)
-    hero_2 = Hero(name="Spider-Boy", secret_name="Pedro Parqueador")  # (2)
-    hero_3 = Hero(name="Rusty-Man", secret_name="Tommy Sharp", age=48)  # (3)
+    hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")  # (1)!
+    hero_2 = Hero(name="Spider-Boy", secret_name="Pedro Parqueador")  # (2)!
+    hero_3 = Hero(name="Rusty-Man", secret_name="Tommy Sharp", age=48)  # (3)!
 
-    print("Before interacting with the database")  # (4)
-    print("Hero 1:", hero_1)  # (5)
-    print("Hero 2:", hero_2)  # (6)
-    print("Hero 3:", hero_3)  # (7)
+    print("Before interacting with the database")  # (4)!
+    print("Hero 1:", hero_1)  # (5)!
+    print("Hero 2:", hero_2)  # (6)!
+    print("Hero 3:", hero_3)  # (7)!
 
-    with Session(engine) as session:  # (8)
-        session.add(hero_1)  # (9)
+    with Session(engine) as session:  # (8)!
+        session.add(hero_1)  # (9)!
         session.add(hero_2)  # (10)
         session.add(hero_3)  # (11)
 
