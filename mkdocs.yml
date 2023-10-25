@@ -110,7 +110,7 @@ markdown_extensions:
 extra:
   analytics:
     provider: google
-    property: UA-205713594-2
+    property: G-J8HVTT936W
   social:
   - icon: fontawesome/brands/github-alt
     link: https://github.com/tiangolo/sqlmodel

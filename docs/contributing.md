@@ -6,10 +6,6 @@ First, you might want to see the basic ways to [help SQLModel and get help](help
 
 If you already cloned the repository and you know that you need to deep dive in the code, here are some guidelines to set up your environment.
 
-### Python
-
-SQLModel supports Python 3.6 and above, but for development you should have at least **Python 3.7**.
-
 ### Poetry
 
 **SQLModel** uses <a href="https://python-poetry.org/" class="external-link" target="_blank">Poetry</a> to build, package, and publish the project.
@@ -116,7 +112,7 @@ There is a script that you can run locally to test all the code and generate cov
 <div class="termy">
 
 ```console
-$ bash scripts/test-cov-html.sh
+$ bash scripts/test.sh
 ```
 
 </div>

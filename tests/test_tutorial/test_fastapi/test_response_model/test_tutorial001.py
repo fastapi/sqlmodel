@@ -111,7 +111,6 @@ def test_tutorial(clear_sqlmodel):
     )
 
     with TestClient(mod.app) as client:
-
         hero_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
         response = client.post("/heroes/", json=hero_data)
         data = response.json()
