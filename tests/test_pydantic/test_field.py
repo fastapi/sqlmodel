@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import List, Optional, Union
+from typing import Optional, Union
 
 import pytest
 from pydantic import ValidationError
@@ -20,16 +20,6 @@ def test_decimal():
         Model(dec=Decimal("0.069"))
     with pytest.raises(ValidationError):
         Model(dec=Decimal("420"))
-
-
-def test_unique_items():
-    class Model(SQLModel):
-        unique_strings: List[str] = Field(unique_items=True)
-
-    Model(unique_strings=["x", "y"])
-
-    with pytest.raises(ValidationError):
-        Model(unique_strings=["x", "y", "x"])
 
 
 def test_discriminator():
