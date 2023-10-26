@@ -1,14 +1,10 @@
-"""
-Tests to ensure that the SQLModel `Field` constructor works as
-expected from the Pydantic `Field` function.
-"""
-import sys
 from decimal import Decimal
 from typing import List, Optional, Union
 
 import pytest
 from pydantic import ValidationError
 from sqlmodel import Field, SQLModel
+from typing_extensions import Literal
 
 
 def test_decimal():
@@ -36,12 +32,7 @@ def test_unique_items():
         Model(unique_strings=["x", "y", "x"])
 
 
-@pytest.mark.skipif(
-    sys.version_info < (3, 8), reason="requires Python 3.8+ (for `typing.Literal`)"
-)
 def test_discriminator():
-    from typing import Literal
-
     # Example adapted from
     # [Pydantic docs](https://pydantic-docs.helpmanual.io/usage/types/#discriminated-unions-aka-tagged-unions):
 
