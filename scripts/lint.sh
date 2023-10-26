@@ -5,4 +5,4 @@ set -x
 
 mypy sqlmodel
 ruff sqlmodel tests docs_src scripts
-black sqlmodel tests docs_src --check
+ruff format sqlmodel tests docs_src --check
