@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* ✨ Do not allow invalid combinations of field parameters for columns and relationships, `sa_column` excludes `sa_column_args`, `primary_key`, `nullable`, etc.. PR [#681](https://github.com/tiangolo/sqlmodel/pull/681) by [@tiangolo](https://github.com/tiangolo).
 ## 0.0.10
 
 ### Features
