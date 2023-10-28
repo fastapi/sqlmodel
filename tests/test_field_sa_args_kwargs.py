@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sqlalchemy import Column, ForeignKey
+from sqlalchemy import ForeignKey
 from sqlmodel import Field, SQLModel, create_engine
 
 
@@ -13,7 +13,7 @@ def test_sa_column_args(clear_sqlmodel, caplog) -> None:
         id: Optional[int] = Field(default=None, primary_key=True)
         team_id: Optional[int] = Field(
             default=None,
-            sa_column=Column(ForeignKey("team.id")),
+            sa_column_args=[ForeignKey("team.id")],
         )
 
     engine = create_engine("sqlite://", echo=True)
