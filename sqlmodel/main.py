@@ -309,6 +309,27 @@ def Field(
     return field_info
 
 
+@overload
+def Relationship(
+    *,
+    back_populates: Optional[str] = None,
+    link_model: Optional[Any] = None,
+    sa_relationship_args: Optional[Sequence[Any]] = None,
+    sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+) -> Any:
+    ...
+
+
+@overload
+def Relationship(
+    *,
+    back_populates: Optional[str] = None,
+    link_model: Optional[Any] = None,
+    sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
+) -> Any:
+    ...
+
+
 def Relationship(
     *,
     back_populates: Optional[str] = None,
