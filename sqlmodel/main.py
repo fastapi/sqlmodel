@@ -22,6 +22,7 @@ from typing import (
     TypeVar,
     Union,
     cast,
+    overload,
 )
 
 from pydantic import BaseConfig, BaseModel
@@ -87,6 +88,28 @@ class FieldInfo(PydanticFieldInfo):
                     "Passing sa_column_kwargs is not supported when "
                     "also passing a sa_column"
                 )
+            if primary_key is not Undefined:
+                raise RuntimeError(
+                    "Passing primary_key is not supported when "
+                    "also passing a sa_column"
+                )
+            if nullable is not Undefined:
+                raise RuntimeError(
+                    "Passing nullable is not supported when " "also passing a sa_column"
+                )
+            if foreign_key is not Undefined:
+                raise RuntimeError(
+                    "Passing foreign_key is not supported when "
+                    "also passing a sa_column"
+                )
+            if unique is not Undefined:
+                raise RuntimeError(
+                    "Passing unique is not supported when " "also passing a sa_column"
+                )
+            if index is not Undefined:
+                raise RuntimeError(
+                    "Passing index is not supported when " "also passing a sa_column"
+                )
         super().__init__(default=default, **kwargs)
         self.primary_key = primary_key
         self.nullable = nullable
@@ -126,6 +149,7 @@ class RelationshipInfo(Representation):
         self.sa_relationship_kwargs = sa_relationship_kwargs
 
 
+@overload
 def Field(
     default: Any = Undefined,
     *,
@@ -156,9 +180,88 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    primary_key: bool = False,
-    foreign_key: Optional[Any] = None,
-    unique: bool = False,
+    primary_key: Union[bool, UndefinedType] = Undefined,
+    foreign_key: Any = Undefined,
+    unique: Union[bool, UndefinedType] = Undefined,
+    nullable: Union[bool, UndefinedType] = Undefined,
+    index: Union[bool, UndefinedType] = Undefined,
+    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
+    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
+    schema_extra: Optional[Dict[str, Any]] = None,
+) -> Any:
+    ...
+
+
+@overload
+def Field(
+    default: Any = Undefined,
+    *,
+    default_factory: Optional[NoArgAnyCallable] = None,
+    alias: Optional[str] = None,
+    title: Optional[str] = None,
+    description: Optional[str] = None,
+    exclude: Union[
+        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
+    ] = None,
+    include: Union[
+        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
+    ] = None,
+    const: Optional[bool] = None,
+    gt: Optional[float] = None,
+    ge: Optional[float] = None,
+    lt: Optional[float] = None,
+    le: Optional[float] = None,
+    multiple_of: Optional[float] = None,
+    max_digits: Optional[int] = None,
+    decimal_places: Optional[int] = None,
+    min_items: Optional[int] = None,
+    max_items: Optional[int] = None,
+    unique_items: Optional[bool] = None,
+    min_length: Optional[int] = None,
+    max_length: Optional[int] = None,
+    allow_mutation: bool = True,
+    regex: Optional[str] = None,
+    discriminator: Optional[str] = None,
+    repr: bool = True,
+    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    schema_extra: Optional[Dict[str, Any]] = None,
+) -> Any:
+    ...
+
+
+def Field(
+    default: Any = Undefined,
+    *,
+    default_factory: Optional[NoArgAnyCallable] = None,
+    alias: Optional[str] = None,
+    title: Optional[str] = None,
+    description: Optional[str] = None,
+    exclude: Union[
+        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
+    ] = None,
+    include: Union[
+        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
+    ] = None,
+    const: Optional[bool] = None,
+    gt: Optional[float] = None,
+    ge: Optional[float] = None,
+    lt: Optional[float] = None,
+    le: Optional[float] = None,
+    multiple_of: Optional[float] = None,
+    max_digits: Optional[int] = None,
+    decimal_places: Optional[int] = None,
+    min_items: Optional[int] = None,
+    max_items: Optional[int] = None,
+    unique_items: Optional[bool] = None,
+    min_length: Optional[int] = None,
+    max_length: Optional[int] = None,
+    allow_mutation: bool = True,
+    regex: Optional[str] = None,
+    discriminator: Optional[str] = None,
+    repr: bool = True,
+    primary_key: Union[bool, UndefinedType] = Undefined,
+    foreign_key: Any = Undefined,
+    unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
@@ -204,6 +307,27 @@ def Field(
     )
     field_info._validate()
     return field_info
+
+
+@overload
+def Relationship(
+    *,
+    back_populates: Optional[str] = None,
+    link_model: Optional[Any] = None,
+    sa_relationship_args: Optional[Sequence[Any]] = None,
+    sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+) -> Any:
+    ...
+
+
+@overload
+def Relationship(
+    *,
+    back_populates: Optional[str] = None,
+    link_model: Optional[Any] = None,
+    sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
+) -> Any:
+    ...
 
 
 def Relationship(
@@ -440,21 +564,28 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     if isinstance(sa_column, Column):
         return sa_column
     sa_type = get_sqlalchemy_type(field)
-    primary_key = getattr(field.field_info, "primary_key", False)
+    primary_key = getattr(field.field_info, "primary_key", Undefined)
+    if primary_key is Undefined:
+        primary_key = False
     index = getattr(field.field_info, "index", Undefined)
     if index is Undefined:
         index = False
     nullable = not primary_key and _is_field_noneable(field)
     # Override derived nullability if the nullable property is set explicitly
     # on the field
-    if hasattr(field.field_info, "nullable"):
-        field_nullable = getattr(field.field_info, "nullable")  # noqa: B009
-        if field_nullable != Undefined:
-            nullable = field_nullable
+    field_nullable = getattr(field.field_info, "nullable", Undefined)  # noqa: B009
+    if field_nullable != Undefined:
+        assert not isinstance(field_nullable, UndefinedType)
+        nullable = field_nullable
     args = []
-    foreign_key = getattr(field.field_info, "foreign_key", None)
-    unique = getattr(field.field_info, "unique", False)
+    foreign_key = getattr(field.field_info, "foreign_key", Undefined)
+    if foreign_key is Undefined:
+        foreign_key = None
+    unique = getattr(field.field_info, "unique", Undefined)
+    if unique is Undefined:
+        unique = False
     if foreign_key:
+        assert isinstance(foreign_key, str)
         args.append(ForeignKey(foreign_key))
     kwargs = {
         "primary_key": primary_key,
