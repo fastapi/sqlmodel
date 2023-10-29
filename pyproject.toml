@@ -39,7 +39,7 @@ sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 pytest = "^7.0.1"
 mypy = "0.971"
 # Needed by the code generator using templates
-black = "^22.10.0"
+black = ">=22.10,<24.0"
 mkdocs-material = "9.1.21"
 pillow = "^9.3.0"
 cairosvg = "^2.5.2"
