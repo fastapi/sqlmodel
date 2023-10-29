@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 
-from .main import app, get_session  # (1)
+from .main import app, get_session  # (1)!
 
 
 def test_create_hero():
@@ -12,17 +12,17 @@ def test_create_hero():
 
     with Session(engine) as session:
 
-        def get_session_override():  # (2)
-            return session  # (3)
+        def get_session_override():  # (2)!
+            return session  # (3)!
 
-        app.dependency_overrides[get_session] = get_session_override  # (4)
+        app.dependency_overrides[get_session] = get_session_override  # (4)!
 
         client = TestClient(app)
 
         response = client.post(
             "/heroes/", json={"name": "Deadpond", "secret_name": "Dive Wilson"}
         )
-        app.dependency_overrides.clear()  # (5)
+        app.dependency_overrides.clear()  # (5)!
         data = response.json()
 
         assert response.status_code == 200

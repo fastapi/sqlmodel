@@ -1,15 +1,15 @@
 from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
-from sqlmodel.pool import StaticPool  # (1)
+from sqlmodel.pool import StaticPool  # (1)!
 
 from .main import app, get_session
 
 
 def test_create_hero():
     engine = create_engine(
-        "sqlite://",  # (2)
+        "sqlite://",  # (2)!
         connect_args={"check_same_thread": False},
-        poolclass=StaticPool,  # (3)
+        poolclass=StaticPool,  # (3)!
     )
     SQLModel.metadata.create_all(engine)
 
