@@ -104,7 +104,7 @@ def read_heroes(
     *,
     session: Session = Depends(get_session),
     offset: int = 0,
-    limit: int = Query(default=100, lte=100),
+    limit: int = Query(default=100, le=100),
 ):
     heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
     return heroes
@@ -136,7 +136,6 @@ def update_hero(
 
 @app.delete("/heroes/{hero_id}")
 def delete_hero(*, session: Session = Depends(get_session), hero_id: int):
-
     hero = session.get(Hero, hero_id)
     if not hero:
         raise HTTPException(status_code=404, detail="Hero not found")
@@ -159,7 +158,7 @@ def read_teams(
     *,
     session: Session = Depends(get_session),
     offset: int = 0,
-    limit: int = Query(default=100, lte=100),
+    limit: int = Query(default=100, le=100),
 ):
     teams = session.exec(select(Team).offset(offset).limit(limit)).all()
     return teams

@@ -220,7 +220,7 @@ Each supported database has it's own URL type. For example, for **SQLite** it is
 * `sqlite:///databases/local/application.db`
 * `sqlite:///db.sqlite`
 
-For SQLAlchemy, there's also a special one, which is a database all *in memory*, this means that it is deleted after the program terminates, and it's also very fast:
+SQLite supports a special database that lives all *in memory*. Hence, it's very fast, but be careful, the database gets deleted after the program terminates. You can specify this in-memory database by using just two slash characters (`//`) and no file name:
 
 * `sqlite://`
 
@@ -422,15 +422,15 @@ INFO Engine PRAGMA main.table_info("hero")
 INFO Engine [raw sql] ()
 INFO Engine PRAGMA temp.table_info("hero")
 INFO Engine [raw sql] ()
-INFO Engine 
+INFO Engine
 
 // Finally, the glorious SQL to create the table ✨
 
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 

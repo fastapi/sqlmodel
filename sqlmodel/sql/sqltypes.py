@@ -8,7 +8,6 @@ from sqlalchemy.sql.type_api import TypeEngine
 
 
 class AutoString(types.TypeDecorator):  # type: ignore
-
     impl = types.String
     cache_ok = True
     mysql_default_length = 255

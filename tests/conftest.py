@@ -42,8 +42,7 @@ def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedP
             module,
         ],
         cwd=str(cwd),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         encoding="utf-8",
     )
     return result
