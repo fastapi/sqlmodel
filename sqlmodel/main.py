@@ -524,7 +524,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 
 def get_sqlalchemy_type(field: ModelField) -> Any:
-    sa_type = getattr(field.field_info, "sa_type")  # noqa: B009
+    sa_type = getattr(field.field_info, "sa_type", Undefined)  # noqa: B009
     if sa_type is not Undefined:
         return sa_type
     if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
