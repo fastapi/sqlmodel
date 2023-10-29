@@ -63,17 +63,17 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: python -m poetry install
       - name: Install Material for MkDocs Insiders
-        if: ( github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false ) && steps.cache.outputs.cache-hit != 'true'
+        if: ( github.event_name != 'pull_request' || github.secret_source == 'Actions' ) && steps.cache.outputs.cache-hit != 'true'
         run: python -m poetry run pip install git+https://${{ secrets.SQLMODEL_MKDOCS_MATERIAL_INSIDERS }}@github.com/squidfunk/mkdocs-material-insiders.git
       - uses: actions/cache@v3
         with:
           key: mkdocs-cards-${{ github.ref }}
           path: .cache
       - name: Build Docs
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true
+        if: github.event_name == 'pull_request' && github.secret_source != 'Actions'
         run: python -m poetry run mkdocs build
       - name: Build Docs with Insiders
-        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork == false
+        if: github.event_name != 'pull_request' || github.secret_source == 'Actions'
         run: python -m poetry run mkdocs build --config-file mkdocs.insiders.yml
       - uses: actions/upload-artifact@v3
         with:
