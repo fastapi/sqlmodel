@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* 🎨 Update inline source examples, hide `#` in annotations (from MkDocs Material). PR [#677](https://github.com/tiangolo/sqlmodel/pull/677) by [@Matthieu-LAURENT39](https://github.com/Matthieu-LAURENT39).
 * ✨ Do not allow invalid combinations of field parameters for columns and relationships, `sa_column` excludes `sa_column_args`, `primary_key`, `nullable`, etc.. PR [#681](https://github.com/tiangolo/sqlmodel/pull/681) by [@tiangolo](https://github.com/tiangolo).
 ## 0.0.10
 
