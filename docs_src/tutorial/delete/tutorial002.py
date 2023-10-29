@@ -83,11 +83,11 @@ def delete_heroes():
 
         statement = select(Hero).where(Hero.name == "Spider-Youngster")  # (8)!
         results = session.exec(statement)  # (9)!
-        hero = results.first()  # (10)
+        hero = results.first()  # (10)!
 
-        if hero is None:  # (11)
-            print("There's no hero named Spider-Youngster")  # (12)
-    # (13)
+        if hero is None:  # (11)!
+            print("There's no hero named Spider-Youngster")  # (12)!
+    # (13)!
 
 
 def main():

@@ -39,5 +39,5 @@ def main():  # (7)!
     create_heroes()  # (9)!
 
 
-if __name__ == "__main__":  # (10)
-    main()  # (11)
+if __name__ == "__main__":  # (10)!
+    main()  # (11)!

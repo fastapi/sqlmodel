@@ -37,15 +37,15 @@ def select_heroes():
     with Session(engine) as session:  # (7)!
         statement = select(Hero)  # (8)!
         results = session.exec(statement)  # (9)!
-        for hero in results:  # (10)
-            print(hero)  # (11)
-    # (12)
+        for hero in results:  # (10)!
+            print(hero)  # (11)!
+    # (12)!
 
 
 def main():
     create_db_and_tables()
     create_heroes()
-    select_heroes()  # (13)
+    select_heroes()  # (13)!
 
 
 if __name__ == "__main__":
