@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+
+## 0.0.11
+
 ### Features
 
 * ✨ Add support for passing a custom SQLAlchemy type to `Field()` with `sa_type`. PR [#505](https://github.com/tiangolo/sqlmodel/pull/505) by [@maru0123-2004](https://github.com/maru0123-2004).
