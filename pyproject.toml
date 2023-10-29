@@ -37,7 +37,7 @@ sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0.1"
-mypy = "0.971"
+mypy = "1.4.1"
 # Needed by the code generator using templates
 black = ">=22.10,<24.0"
 mkdocs-material = "9.1.21"
