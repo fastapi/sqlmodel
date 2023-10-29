@@ -2,6 +2,7 @@
 
 ## Latest Changes
 
+* ⬆ Update coverage requirement from ^6.2 to >=6.2,<8.0. PR [#663](https://github.com/tiangolo/sqlmodel/pull/663) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Update mkdocs-material requirement from 9.1.21 to 9.2.7. PR [#675](https://github.com/tiangolo/sqlmodel/pull/675) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Upgrade mypy manually. PR [#684](https://github.com/tiangolo/sqlmodel/pull/684) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Update black requirement from ^22.10.0 to >=22.10,<24.0. PR [#664](https://github.com/tiangolo/sqlmodel/pull/664) by [@dependabot[bot]](https://github.com/apps/dependabot).
