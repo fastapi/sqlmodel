@@ -24,11 +24,13 @@ from sqlalchemy.schema import Table as Table
 from sqlalchemy.schema import ThreadLocalMetaData as ThreadLocalMetaData
 from sqlalchemy.schema import UniqueConstraint as UniqueConstraint
 from sqlalchemy.sql import LABEL_STYLE_DEFAULT as LABEL_STYLE_DEFAULT
-from sqlalchemy.sql import \
-    LABEL_STYLE_DISAMBIGUATE_ONLY as LABEL_STYLE_DISAMBIGUATE_ONLY
+from sqlalchemy.sql import (
+    LABEL_STYLE_DISAMBIGUATE_ONLY as LABEL_STYLE_DISAMBIGUATE_ONLY,
+)
 from sqlalchemy.sql import LABEL_STYLE_NONE as LABEL_STYLE_NONE
-from sqlalchemy.sql import \
-    LABEL_STYLE_TABLENAME_PLUS_COL as LABEL_STYLE_TABLENAME_PLUS_COL
+from sqlalchemy.sql import (
+    LABEL_STYLE_TABLENAME_PLUS_COL as LABEL_STYLE_TABLENAME_PLUS_COL,
+)
 from sqlalchemy.sql import alias as alias
 from sqlalchemy.sql import all_ as all_
 from sqlalchemy.sql import and_ as and_
