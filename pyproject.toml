@@ -41,7 +41,7 @@ alembic = "^1.12.0"
 sqlmodel = "sqlmodel.cli:cli"
 
 [tool.poetry.plugins."sqlmodel"]
-migrations = "sqlmodel.cli.migrations:migrations"
+migrations = "sqlmodel.cli.migrations.cli:migrations"
 
 
 [tool.poetry.group.dev.dependencies]
