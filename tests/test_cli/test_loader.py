@@ -1,10 +1,7 @@
-from typer.testing import CliRunner
+from sqlmodel.cli import cli
 
 
 def test_import_module() -> None:
-    from sqlmodel.cli import cli
-    from sqlmodel.cli.migrations.cli import migrations
-
     assert len(cli.registered_groups) == 1
     assert cli.registered_groups[0].name == "migrations"
 
