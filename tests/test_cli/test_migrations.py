@@ -1,6 +1,7 @@
-from sqlmodel.cli import cli
-from pathlib import Path
 import configparser
+from pathlib import Path
+
+from sqlmodel.cli import cli
 
 
 def test_base_init(tmpdir, runner):
