@@ -22,7 +22,7 @@ def init(
     directory: Path = Path("migrations"),
     template: str = "generic",  # Should be Literal["generic", "multidb", "async"]
     target_metadata: Annotated[Optional[str], typer.Argument()] = None,
-):
+) -> None:
     """Initialize Alembic"""
     _config_file = module / config_file
     _directory = module / directory
@@ -62,7 +62,7 @@ def revision(
     version_path: Annotated[Optional[str], typer.Argument()] = None,
     rev_id: Annotated[Optional[str], typer.Argument()] = None,
     depends_on: Annotated[Optional[str], typer.Argument()] = None,
-):
+) -> None:
     """Create a new Alembic revision"""
     config = Config(module / config_file)
     command.revision(
@@ -82,7 +82,7 @@ def revision(
 @migrations.command()
 def show(
     module: Path = Path("."), config_file: Path = Path("alembic.ini"), rev: str = "head"
-):
+) -> None:
     """Show the revision"""
     config = Config(module / config_file)
     command.show(config, rev)
@@ -95,7 +95,7 @@ def merge(
     message: Annotated[Optional[str], typer.Argument()] = None,
     branch_label: Annotated[Optional[List[str]], typer.Argument()] = None,
     rev_id: Annotated[Optional[str], typer.Argument()] = None,
-):
+) -> None:
     """Merge two revisions together, creating a new migration file"""
     config = Config(module / config_file)
     command.merge(
@@ -114,7 +114,7 @@ def upgrade(
     config_file: Path = Path("alembic.ini"),
     sql: bool = False,
     tag: Annotated[Optional[str], typer.Argument()] = None,
-):
+) -> None:
     """Upgrade to the given revision"""
     config = Config(module / config_file)
     command.upgrade(config, revision)
@@ -127,7 +127,7 @@ def downgrade(
     config_file: Path = Path("alembic.ini"),
     sql: bool = False,
     tag: Annotated[Optional[str], typer.Argument()] = None,
-):
+) -> None:
     """Downgrade to the given revision"""
     config = Config(module / config_file)
     command.downgrade(config, revision)
