@@ -1,6 +1,6 @@
+import pkg_resources
 import pytest
 import typer
-import pkg_resources
 from typer.testing import CliRunner
 
 app = typer.Typer(name="dummy", help="Dummy app")

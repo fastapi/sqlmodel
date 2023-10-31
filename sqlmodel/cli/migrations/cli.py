@@ -33,8 +33,8 @@ def init(
 
     command.init(
         config,
-        _directory,
-        template=template_path,
+        str(_directory),
+        template=str(template_path),
         package=True,
     )
     logger.debug("Inited alembic")
@@ -85,7 +85,8 @@ def show(
 ) -> None:
     """Show the revision"""
     config = Config(module / config_file)
-    command.show(config, rev)
+    # Untyped function in Alembic
+    command.show(config, rev)  # type: ignore
 
 
 def merge(
