@@ -1,4 +1,5 @@
-from typing import Any, Mapping, Optional, Sequence, Type, TypeVar, Union, overload
+from typing import (Any, Mapping, Optional, Sequence, Type, TypeVar, Union,
+                    overload)
 
 from sqlalchemy import util
 from sqlalchemy.orm import Query as _Query
