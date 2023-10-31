@@ -11,8 +11,8 @@ We will start with the **simplest version**, with just heroes (no teams yet).
 
 This is almost the same code as you start to know by heart:
 
-```Python 
-{!./docs_src/tutorial/migrations/simple_hero_migration/models.py!} 
+```Python
+{!./docs_src/tutorial/migrations/simple_hero_migration/models.py!}
 ```
 
 Let's jump in your shell and init migrations:
@@ -47,7 +47,7 @@ Let's review what happened: Below files just got created!
         ├── __init__.py
         ├── env.py
         ├── README
-        ├── script.py.mako 
+        ├── script.py.mako
         └── versions
             └── __init__.py
 ```
@@ -61,17 +61,17 @@ Let's review them step by step.
 We need to tell alembic how to connect to the database:
 
 ```ini hl_lines="10"
-{!./docs_src/tutorial/migrations/simple_hero_migration/alembic001.ini[ln:1-5]!} 
+{!./docs_src/tutorial/migrations/simple_hero_migration/alembic001.ini[ln:1-5]!}
 
 #.... Lot's of configuration!
 
 
 {!./docs_src/tutorial/migrations/simple_hero_migration/alembic001.ini[ln:63]!} # 👈 Let's Change that!
 ```
-Adapting our file, you will have: 
+Adapting our file, you will have:
 
 ```ini hl_lines="10"
-{!./docs_src/tutorial/migrations/simple_hero_migration/alembic.ini[ln:1-5]!} 
+{!./docs_src/tutorial/migrations/simple_hero_migration/alembic.ini[ln:1-5]!}
 
 #.... Lot's of configuration!
 
@@ -85,7 +85,7 @@ For the full document, refer to [Alembic's official documentation](https://alemb
 It gives which Tables you want to migrate, let's open it and:
 
 1. Import our models
-2. Change `target_metadata` value 
+2. Change `target_metadata` value
 
 ```Python hl_lines="5 7"
 {!./docs_src/tutorial/migrations/simple_hero_migration/migrations/001.py[ln:1-5]!} 👈 Import your model
@@ -117,7 +117,7 @@ It created a new file `0610946706a0_.py`
 
 ```hl_lines="13"
 .
-├── project
+└── project
     ├── __init__.py
     ├── models.py
     ├── alembic.ini
@@ -125,7 +125,7 @@ It created a new file `0610946706a0_.py`
         ├── __init__.py
         ├── env.py
         ├── README
-        ├── script.py.mako 
+        ├── script.py.mako
         └── versions
             ├── __init__.py
             └── 0610946706a0_.py
@@ -141,9 +141,9 @@ Parent: <base>
 Path: /path/to/your/project/migrations/versions/0610946706a0_.py #👈 That's our file
 
     empty message
-    
+
     Revision ID: 50624637e300
-    Revises: 
+    Revises:
     Create Date: 2023-10-31 19:40:22.084162
 ```
 </div>
@@ -173,7 +173,7 @@ Why the heck `0610946706a0_.py`?!!!!
 The goal is to have a unique revision name to avoid collision.
 In order to have a cleaner file name, we can edit `alembic.ini` and uncomment
 
-```ini 
+```ini
 {!./docs_src/tutorial/migrations/simple_hero_migration/alembic.ini[ln:11]!} #👈 Uncoment this line
 ```
 

@@ -17,9 +17,9 @@ migrations = Typer(
 
 @migrations.command()
 def init(
-    module: Path = ".",
-    config_file: Path = "alembic.ini",
-    directory: Path = "migrations",
+    module: Path = Path("."),
+    config_file: Path = Path("alembic.ini"),
+    directory: Path = Path("migrations"),
     template: str = "generic",  # Should be Literal["generic", "multidb", "async"]
     target_metadata: Annotated[Optional[str], typer.Argument()] = None,
 ):
@@ -51,8 +51,8 @@ def init(
 
 @migrations.command()
 def revision(
-    module: Path = ".",
-    config_file: Path = "alembic.ini",
+    module: Path = Path("."),
+    config_file: Path = Path("alembic.ini"),
     message: Annotated[Optional[str], typer.Argument()] = None,
     autogenerate: bool = True,
     sql: bool = False,
@@ -80,7 +80,9 @@ def revision(
 
 
 @migrations.command()
-def show(module: Path = ".", config_file: Path = "alembic.ini", rev: str = "head"):
+def show(
+    module: Path = Path("."), config_file: Path = Path("alembic.ini"), rev: str = "head"
+):
     """Show the revision"""
     config = Config(module / config_file)
     command.show(config, rev)
@@ -88,8 +90,8 @@ def show(module: Path = ".", config_file: Path = "alembic.ini", rev: str = "head
 
 def merge(
     revisions: List[str],
-    module: Path = ".",
-    config_file: Path = "alembic.ini",
+    module: Path = Path("."),
+    config_file: Path = Path("alembic.ini"),
     message: Annotated[Optional[str], typer.Argument()] = None,
     branch_label: Annotated[Optional[List[str]], typer.Argument()] = None,
     rev_id: Annotated[Optional[str], typer.Argument()] = None,
@@ -108,8 +110,8 @@ def merge(
 @migrations.command()
 def upgrade(
     revision: str = "head",
-    module: Path = ".",
-    config_file: Path = "alembic.ini",
+    module: Path = Path("."),
+    config_file: Path = Path("alembic.ini"),
     sql: bool = False,
     tag: Annotated[Optional[str], typer.Argument()] = None,
 ):
@@ -121,8 +123,8 @@ def upgrade(
 @migrations.command()
 def downgrade(
     revision: str = "head",
-    module: Path = ".",
-    config_file: Path = "alembic.ini",
+    module: Path = Path("."),
+    config_file: Path = Path("alembic.ini"),
     sql: bool = False,
     tag: Annotated[Optional[str], typer.Argument()] = None,
 ):
