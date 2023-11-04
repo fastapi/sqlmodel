@@ -2,6 +2,9 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Upgrade latest-changes GitHub Action. PR [#693](https://github.com/tiangolo/sqlmodel/pull/693) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.11
 
