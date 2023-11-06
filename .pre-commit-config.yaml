@@ -13,8 +13,8 @@ repos:
         -   --unsafe
     -   id: end-of-file-fixer
     -   id: trailing-whitespace
--   repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.1.2
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.4
     hooks:
     -   id: ruff
         args:
