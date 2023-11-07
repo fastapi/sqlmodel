@@ -108,8 +108,8 @@ $ python app.py
 
 // The SELECT with WHERE
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00011s] ('Spider-Youngster',)
 
@@ -272,8 +272,8 @@ $ python app.py
 INFO Engine BEGIN (implicit)
 
 // SQL to search for the hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00013s] ('Spider-Youngster',)
 ```

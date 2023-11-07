@@ -115,12 +115,12 @@ INFO Engine COMMIT
 INFO Engine BEGIN (implicit)
 
 // Automatically refresh the data while accessing the attribute .teams
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00044s] (3,)
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team, heroteamlink 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [cached since 0.1648s ago] (3,)
 
@@ -131,8 +131,8 @@ Updated Spider-Boy's Teams: [
 ]
 
 // Automatically refresh the data while accessing the attribute .heores
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero, heroteamlink 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero, heroteamlink
 WHERE ? = heroteamlink.team_id AND hero.id = heroteamlink.hero_id
 INFO Engine [cached since 0.1499s ago] (1,)
 
@@ -208,12 +208,12 @@ INFO Engine COMMIT
 INFO Engine BEGIN (implicit)
 
 // Automatically refresh the data while accessing the attribute .heroes
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00029s] (1,)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero, heroteamlink 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero, heroteamlink
 WHERE ? = heroteamlink.team_id AND hero.id = heroteamlink.hero_id
 INFO Engine [cached since 0.5625s ago] (1,)
 
@@ -223,12 +223,12 @@ Reverted Z-Force's heroes: [
 ]
 
 // Automatically refresh the data while accessing the attribute .teams
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.4209s ago] (3,)
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team, heroteamlink 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team, heroteamlink
 WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [cached since 0.5842s ago] (3,)
 

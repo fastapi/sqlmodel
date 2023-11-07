@@ -27,15 +27,15 @@ def test_tutorial(clear_sqlmodel):
     expected_indexes = [
         {
             "name": "ix_hero_name",
+            "dialect_options": {},
             "column_names": ["name"],
             "unique": 0,
-            "dialect_options": {},
         },
         {
             "name": "ix_hero_age",
+            "dialect_options": {},
             "column_names": ["age"],
             "unique": 0,
-            "dialect_options": {},
         },
     ]
     for index in expected_indexes:

@@ -132,8 +132,8 @@ $ python app.py
 // Some boilerplate and previous output omitted 😉
 
 // The SELECT with WHERE
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00017s] ('Spider-Boy',)
 
@@ -275,8 +275,8 @@ $ python app.py
 // Previous output omitted 🙈
 
 // The SQL to SELECT the fresh hero data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00018s] (2,)
 ```

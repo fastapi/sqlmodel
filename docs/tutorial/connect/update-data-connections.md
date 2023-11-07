@@ -56,7 +56,7 @@ Doing it is just like updating any other field:
 # Code above omitted 👆
 
 {!./docs_src/tutorial/connect/update/tutorial001.py[ln:31-32]!}
-        
+
         # Previous code here omitted 👈
 
 {!./docs_src/tutorial/connect/update/tutorial001.py[ln:62-66]!}
@@ -94,8 +94,8 @@ INFO Engine COMMIT
 // Automatically start a new transaction
 INFO Engine BEGIN (implicit)
 // Refresh the hero data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.08837s ago] (3,)
 
