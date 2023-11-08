@@ -12,3 +12,4 @@ coverage.xml
 site
 *.db
 .cache
+!docs_src/**/env.py

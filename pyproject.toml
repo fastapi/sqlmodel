@@ -33,7 +33,16 @@ classifiers = [
 python = "^3.7"
 SQLAlchemy = ">=1.4.36,<2.0.0"
 pydantic = "^1.9.0"
-sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
+sqlalchemy2-stubs = { version = "*", allow-prereleases = true }
+typer = "^0.9.0"
+alembic = "^1.12.0"
+
+[tool.poetry.scripts]
+sqlmodel = "sqlmodel.cli:cli"
+
+[tool.poetry.plugins."sqlmodel"]
+migrations = "sqlmodel.cli.migrations.cli:migrations"
+
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0.1"
@@ -44,7 +53,7 @@ mkdocs-material = "9.2.7"
 pillow = "^9.3.0"
 cairosvg = "^2.5.2"
 mdx-include = "^1.4.1"
-coverage = {extras = ["toml"], version = ">=6.2,<8.0"}
+coverage = { extras = ["toml"], version = ">=6.2,<8.0" }
 fastapi = "^0.68.1"
 requests = "^2.26.0"
 ruff = "^0.1.2"
@@ -58,11 +67,7 @@ source = "init"
 
 [tool.coverage.run]
 parallel = true
-source = [
-    "docs_src",
-    "tests",
-    "sqlmodel"
-]
+source = ["docs_src", "tests", "sqlmodel"]
 context = '${CONTEXT}'
 
 [tool.coverage.report]
@@ -91,9 +96,9 @@ select = [
     "UP", # pyupgrade
 ]
 ignore = [
-    "E501",  # line too long, handled by black
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
+    "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
     "W191", # indentation contains tabs
 ]
 
