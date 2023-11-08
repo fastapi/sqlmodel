@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#686](https://github.com/tiangolo/sqlmodel/pull/686) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * 👷 Upgrade latest-changes GitHub Action. PR [#693](https://github.com/tiangolo/sqlmodel/pull/693) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.11
