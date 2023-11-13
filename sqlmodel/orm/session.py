@@ -1,6 +1,7 @@
 from typing import (
     Any,
     Dict,
+    Literal,
     Mapping,
     Optional,
     Sequence,
@@ -15,7 +16,6 @@ from sqlalchemy.orm import Mapper as _Mapper
 from sqlalchemy.orm import Query as _Query
 from sqlalchemy.orm import Session as _Session
 from sqlalchemy.sql.base import Executable as _Executable
-from typing_extensions import Literal
 
 from ..engine.result import Result, ScalarResult
 from ..sql.base import Executable
@@ -137,7 +137,7 @@ class Session(_Session):
         ident: Any,
         options: Optional[Sequence[Any]] = None,
         populate_existing: bool = False,
-        with_for_update: Optional[_ForUpdateArg] = None,
+        with_for_update: Optional[Union[Literal[True], Mapping[str, Any]]] = None,
         identity_token: Optional[Any] = None,
         execution_options: Mapping[Any, Any] = util.EMPTY_DICT,
         bind_arguments: Optional[Dict[str, Any]] = None,

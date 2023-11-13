@@ -35,6 +35,14 @@ class SelectOfScalar(_Select[Tuple[_TSelect]], Generic[_TSelect]):
     inherit_cache = True
 
 
+# This is not comparable to sqlalchemy.sql.selectable.ScalarSelect, that has a different
+# purpose. This is the same as a normal SQLAlchemy Select class where there's only one
+# entity, so the result will be converted to a scalar by default. This way writing
+# for loops on the results will feel natural.
+class SelectOfScalar(_Select, Generic[_TSelect]):
+    inherit_cache = True
+
+
 if TYPE_CHECKING:  # pragma: no cover
     from ..main import SQLModel
 
