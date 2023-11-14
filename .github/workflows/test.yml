@@ -58,8 +58,6 @@ jobs:
       - name: Install Pydantic v2
         if: matrix.pydantic-version == 'pydantic-v2'
         run: pip install "pydantic>=2.0.2,<3.0.0"
-      - name: Lint
-        run: python -m poetry run bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
         run: python -m poetry run bash scripts/test.sh
@@ -71,6 +69,8 @@ jobs:
         with:
           name: coverage
           path: coverage
+      - name: Lint
+        run: python -m poetry run bash scripts/lint.sh
   coverage-combine:
     needs:
       - test
