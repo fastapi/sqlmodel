@@ -19,13 +19,13 @@ IS_PYDANTIC_V2 = int(PYDANTIC_VERSION.split(".")[0]) >= 2
 
 
 if IS_PYDANTIC_V2:
-    from pydantic import ConfigDict
+    from pydantic import ConfigDict as PydanticModelConfig
     from pydantic_core import PydanticUndefined as PydanticUndefined  # noqa
     from pydantic_core import PydanticUndefinedType as PydanticUndefinedType
 else:
-    from pydantic import BaseConfig  # noqa
+    from pydantic import BaseConfig as PydanticModelConfig
     from pydantic.fields import ModelField  # noqa
-    from pydantic.fields import Undefined as PydanticUndefined, SHAPE_SINGLETON
+    from pydantic.fields import Undefined as PydanticUndefined, UndefinedType as PydanticUndefinedType, SHAPE_SINGLETON # noqa
     from pydantic.typing import resolve_annotations
 
 if TYPE_CHECKING:
@@ -37,16 +37,12 @@ T = TypeVar("T")
 InstanceOrType = Union[T, Type[T]]
 
 if IS_PYDANTIC_V2:
-    PydanticModelConfig = ConfigDict
-
-    class SQLModelConfig(ConfigDict, total=False):
+    class SQLModelConfig(PydanticModelConfig, total=False):
         table: Optional[bool]
         registry: Optional[Any]
 
 else:
-    PydanticModelConfig = BaseConfig
-
-    class SQLModelConfig(BaseConfig):
+    class SQLModelConfig(PydanticModelConfig):
         table: Optional[bool] = None
         registry: Optional[Any] = None
 
@@ -72,7 +68,7 @@ def set_config_value(
     model: InstanceOrType["SQLModel"],
     parameter: str,
     value: Any,
-    v1_parameter: str = None,
+    v1_parameter: Optional[str] = None,
 ) -> None:
     if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore
@@ -82,14 +78,14 @@ def set_config_value(
 
 def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
     if IS_PYDANTIC_V2:
-        return model.model_fields  # type: ignore
+        return model.model_fields # type: ignore
     else:
         return model.__fields__  # type: ignore
 
 
 def get_fields_set(model: InstanceOrType["SQLModel"]) -> set[str]:
     if IS_PYDANTIC_V2:
-        return model.__pydantic_fields_set__
+        return model.__pydantic_fields_set__ # type: ignore
     else:
         return model.__fields_set__  # type: ignore
 
@@ -127,10 +123,10 @@ def is_table(class_dict: dict[str, Any]) -> bool:
         config = class_dict.get("__config__", {})
     config_table = config.get("table", PydanticUndefined)
     if config_table is not PydanticUndefined:
-        return config_table
+        return config_table # type: ignore
     kw_table = class_dict.get("table", PydanticUndefined)
     if kw_table is not PydanticUndefined:
-        return kw_table
+        return kw_table # type: ignore
     return False
 
 
@@ -197,7 +193,7 @@ def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) 
 def is_field_noneable(field: "FieldInfo") -> bool:
     if IS_PYDANTIC_V2:
         if getattr(field, "nullable", PydanticUndefined) is not PydanticUndefined:
-            return field.nullable
+            return field.nullable # type: ignore
         if not field.is_required():
             default = getattr(field, "original_default", field.default)
             if default is PydanticUndefined:

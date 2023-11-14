@@ -739,7 +739,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     if IS_PYDANTIC_V2:
-
         @classmethod
         def model_validate(
             cls: type[_TSQLModel],
