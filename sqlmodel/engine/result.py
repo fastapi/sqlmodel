@@ -27,6 +27,7 @@ class ScalarResult(_ScalarResult, Generic[_T]):
 
     def first(self) -> Optional[_T]:
         return super().first()
+
     def one_or_none(self) -> Optional[_T]:
         return super().one_or_none()
 

@@ -1,3 +1,4 @@
+from types import NoneType
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -11,7 +12,6 @@ from typing import (
     get_args,
     get_origin,
 )
-from types import NoneType
 
 from pydantic import VERSION as PYDANTIC_VERSION
 
@@ -20,11 +20,12 @@ IS_PYDANTIC_V2 = int(PYDANTIC_VERSION.split(".")[0]) >= 2
 
 if IS_PYDANTIC_V2:
     from pydantic import ConfigDict
-    from pydantic_core import PydanticUndefined as PydanticUndefined, PydanticUndefinedType as PydanticUndefinedType # noqa
+    from pydantic_core import PydanticUndefined as PydanticUndefined  # noqa
+    from pydantic_core import PydanticUndefinedType as PydanticUndefinedType
 else:
-    from pydantic import BaseConfig # noqa
-    from pydantic.fields import ModelField # noqa
-    from pydantic.fields import Undefined as PydanticUndefined, UndefinedType as PydanticUndefinedType, SHAPE_SINGLETON
+    from pydantic import BaseConfig  # noqa
+    from pydantic.fields import ModelField  # noqa
+    from pydantic.fields import Undefined as PydanticUndefined, SHAPE_SINGLETON
     from pydantic.typing import resolve_annotations
 
 if TYPE_CHECKING:
@@ -68,26 +69,29 @@ def get_config_value(
 
 
 def set_config_value(
-    model: InstanceOrType["SQLModel"], parameter: str, value: Any, v1_parameter: str = None
+    model: InstanceOrType["SQLModel"],
+    parameter: str,
+    value: Any,
+    v1_parameter: str = None,
 ) -> None:
     if IS_PYDANTIC_V2:
-        model.model_config[parameter] = value # type: ignore
+        model.model_config[parameter] = value  # type: ignore
     else:
         setattr(model.__config__, v1_parameter or parameter, value)  # type: ignore
 
 
 def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
     if IS_PYDANTIC_V2:
-        return model.model_fields # type: ignore
+        return model.model_fields  # type: ignore
     else:
-        return model.__fields__ # type: ignore
+        return model.__fields__  # type: ignore
 
 
 def get_fields_set(model: InstanceOrType["SQLModel"]) -> set[str]:
     if IS_PYDANTIC_V2:
         return model.__pydantic_fields_set__
     else:
-        return model.__fields_set__ # type: ignore
+        return model.__fields_set__  # type: ignore
 
 
 def set_fields_set(
@@ -103,13 +107,17 @@ def set_attribute_mode(cls: Type["SQLModelMetaclass"]) -> None:
     if IS_PYDANTIC_V2:
         cls.model_config["read_from_attributes"] = True
     else:
-        cls.__config__.read_with_orm_mode = True # type: ignore
+        cls.__config__.read_with_orm_mode = True  # type: ignore
+
 
 def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
     if IS_PYDANTIC_V2:
         return class_dict.get("__annotations__", {})
     else:
-        return resolve_annotations(class_dict.get("__annotations__", {}),class_dict.get("__module__", None))
+        return resolve_annotations(
+            class_dict.get("__annotations__", {}), class_dict.get("__module__", None)
+        )
+
 
 def is_table(class_dict: dict[str, Any]) -> bool:
     config: SQLModelConfig = {}
@@ -124,6 +132,7 @@ def is_table(class_dict: dict[str, Any]) -> bool:
     if kw_table is not PydanticUndefined:
         return kw_table
     return False
+
 
 def get_relationship_to(
     name: str,
@@ -170,6 +179,7 @@ def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) 
     """
     if IS_PYDANTIC_V2:
         from .main import FieldInfo
+
         # Pydantic v2 sets a __pydantic_core_schema__ which is very hard to change. Changing the fields does not do anything
         for key in annotations.keys():
             value = class_dict.get(key, PydanticUndefined)
@@ -180,8 +190,9 @@ def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) 
                     value.default in (PydanticUndefined, Ellipsis)
                 ) and value.default_factory is None:
                     # So we can check for nullable
-                    value.original_default = value.default  
+                    value.original_default = value.default
                     value.default = None
+
 
 def is_field_noneable(field: "FieldInfo") -> bool:
     if IS_PYDANTIC_V2:

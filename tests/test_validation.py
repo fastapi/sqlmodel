@@ -7,6 +7,7 @@ from sqlmodel import SQLModel
 
 from .conftest import needs_pydanticv1, needs_pydanticv2
 
+
 @needs_pydanticv1
 def test_validation_pydantic_v1(clear_sqlmodel):
     """Test validation of implicit and explicit None values.
@@ -33,6 +34,7 @@ def test_validation_pydantic_v1(clear_sqlmodel):
 
     with pytest.raises(ValidationError):
         Hero.from_orm({"name": None, "age": 25})
+
 
 @needs_pydanticv2
 def test_validation_pydantic_v2(clear_sqlmodel):

@@ -2,8 +2,8 @@ from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException
 from sqlmodel import Field, Session, SQLModel, create_engine, select
-
 from sqlmodel.compat import IS_PYDANTIC_V2
+
 
 class HeroBase(SQLModel):
     name: str = Field(index=True)

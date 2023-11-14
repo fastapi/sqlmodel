@@ -52,19 +52,19 @@ from sqlalchemy.sql.sqltypes import LargeBinary, Time
 from .compat import (
     IS_PYDANTIC_V2,
     NoArgAnyCallable,
+    PydanticModelConfig,
     PydanticUndefined,
     PydanticUndefinedType,
     SQLModelConfig,
+    get_annotations,
     get_config_value,
     get_model_fields,
     get_relationship_to,
+    is_field_noneable,
+    is_table,
     set_config_value,
     set_empty_defaults,
     set_fields_set,
-    is_table,
-    is_field_noneable,
-    PydanticModelConfig,
-    get_annotations
 )
 from .sql.sqltypes import GUID, AutoString
 
@@ -72,7 +72,6 @@ if not IS_PYDANTIC_V2:
     from pydantic.errors import ConfigError, DictError
     from pydantic.main import validate_model
     from pydantic.utils import ROOT_KEY
-    from pydantic.typing import resolve_annotations
 
 _T = TypeVar("_T")
 
@@ -444,8 +443,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             )  # skip dunder methods and attributes
         }
         config_kwargs = {
-            key: kwargs[key]
-            for key in kwargs.keys() & allowed_config_kwargs
+            key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
         config_table = is_table(class_dict)
         if config_table:
@@ -690,7 +688,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # settable attribute
         if IS_PYDANTIC_V2:
             old_dict = __pydantic_self__.__dict__.copy()
-            __pydantic_self__.super().__init__(**data) # noqa
+            __pydantic_self__.super().__init__(**data)  # noqa
             __pydantic_self__.__dict__ = {**old_dict, **__pydantic_self__.__dict__}
             non_pydantic_keys = data.keys() - __pydantic_self__.model_fields
         else:
@@ -699,7 +697,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             )
             # Only raise errors if not a SQLModel model
             if (
-                not getattr(__pydantic_self__.__config__, "table", False) # noqa
+                not getattr(__pydantic_self__.__config__, "table", False)  # noqa
                 and validation_error
             ):
                 raise validation_error
@@ -764,7 +762,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
         ) -> _TSQLModel:
             # Duplicated from Pydantic
-            if not cls.__config__.orm_mode: # noqa: attr-defined
+            if not cls.__config__.orm_mode:  # noqa: attr-defined
                 raise ConfigError(
                     "You must have the config attribute orm_mode=True to use from_orm"
                 )
@@ -777,7 +775,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             if update is not None:
                 obj = {**obj, **update}
             # End SQLModel support dict
-            if not getattr(cls.__config__, "table", False): # noqa
+            if not getattr(cls.__config__, "table", False):  # noqa
                 # If not table, normal Pydantic code
                 m: _TSQLModel = cls.__new__(cls)
             else:
@@ -788,21 +786,21 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             if validation_error:
                 raise validation_error
             # Updated to trigger SQLAlchemy internal handling
-            if not getattr(cls.__config__, "table", False): # noqa
+            if not getattr(cls.__config__, "table", False):  # noqa
                 object.__setattr__(m, "__dict__", values)
             else:
                 for key, value in values.items():
                     setattr(m, key, value)
             # Continue with standard Pydantic logic
             object.__setattr__(m, "__fields_set__", fields_set)
-            m._init_private_attributes() # noqa
+            m._init_private_attributes()  # noqa
             return m
 
         @classmethod
         def parse_obj(
             cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
         ) -> _TSQLModel:
-            obj = cls._enforce_dict_if_root(obj) # noqa
+            obj = cls._enforce_dict_if_root(obj)  # noqa
             # SQLModel, support update dict
             if update is not None:
                 obj = {**obj, **update}
@@ -814,7 +812,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
             if isinstance(value, cls):
                 return (
-                    value.copy() if cls.__config__.copy_on_model_validation else value # noqa
+                    value.copy() if cls.__config__.copy_on_model_validation else value  # noqa
                 )
 
             value = cls._enforce_dict_if_root(value)
@@ -826,9 +824,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 # Reset fields set, this would have been done in Pydantic in __init__
                 object.__setattr__(model, "__fields_set__", fields_set)
                 return model
-            elif cls.__config__.orm_mode: # noqa
+            elif cls.__config__.orm_mode:  # noqa
                 return cls.from_orm(value)
-            elif cls.__custom_root_type__: # noqa
+            elif cls.__custom_root_type__:  # noqa
                 return cls.parse_obj(value)
             else:
                 try:
@@ -852,12 +850,12 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 # Do not include relationships as that would easily lead to infinite
                 # recursion, or traversing the whole database
                 return (
-                    self.__fields__.keys() # noqa
+                    self.__fields__.keys()  # noqa
                 )  # | self.__sqlmodel_relationships__.keys()
 
             keys: AbstractSet[str]
             if exclude_unset:
-                keys = self.__fields_set__.copy() # noqa
+                keys = self.__fields_set__.copy()  # noqa
             else:
                 # Original in Pydantic:
                 # keys = self.__dict__.keys()
@@ -865,7 +863,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 # Do not include relationships as that would easily lead to infinite
                 # recursion, or traversing the whole database
                 keys = (
-                    self.__fields__.keys() # noqa
+                    self.__fields__.keys()  # noqa
                 )  # | self.__sqlmodel_relationships__.keys()
             if include is not None:
                 keys &= include.keys()
@@ -877,4 +875,3 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 keys -= {k for k, v in exclude.items() if _value_items_is_true(v)}
 
             return keys
-

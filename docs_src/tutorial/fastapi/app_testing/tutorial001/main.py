@@ -52,6 +52,7 @@ app = FastAPI()
 def on_startup():
     create_db_and_tables()
 
+
 @app.post("/heroes/", response_model=HeroRead)
 def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     if IS_PYDANTIC_V2:
