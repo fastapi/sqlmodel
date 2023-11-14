@@ -2,6 +2,7 @@ from typing import List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel.compat import IS_PYDANTIC_V2
 
 
 class HeroBase(SQLModel):
@@ -51,10 +52,12 @@ app = FastAPI()
 def on_startup():
     create_db_and_tables()
 
-
 @app.post("/heroes/", response_model=HeroRead)
 def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
-    db_hero = Hero.model_validate(hero)
+    if IS_PYDANTIC_V2:
+        db_hero = Hero.model_validate(hero)
+    else:
+        db_hero = Hero.from_orm(hero)
     session.add(db_hero)
     session.commit()
     session.refresh(db_hero)

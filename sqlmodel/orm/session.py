@@ -1,21 +1,10 @@
-from typing import (
-    Any,
-    Dict,
-    Literal,
-    Mapping,
-    Optional,
-    Sequence,
-    Type,
-    TypeVar,
-    Union,
-    overload,
-)
+from typing import Any, Mapping, Optional, Sequence, Type, TypeVar, Union, overload
 
 from sqlalchemy import util
-from sqlalchemy.orm import Mapper as _Mapper
 from sqlalchemy.orm import Query as _Query
 from sqlalchemy.orm import Session as _Session
 from sqlalchemy.sql.base import Executable as _Executable
+from typing_extensions import Literal
 
 from ..engine.result import Result, ScalarResult
 from ..sql.base import Executable
@@ -32,7 +21,7 @@ class Session(_Session):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[Mapping[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
@@ -46,7 +35,7 @@ class Session(_Session):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[Mapping[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
@@ -63,7 +52,7 @@ class Session(_Session):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[Mapping[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
@@ -85,8 +74,8 @@ class Session(_Session):
         self,
         statement: _Executable,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
-        execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        execution_options: Optional[Mapping[str, Any]] = util.EMPTY_DICT,
+        bind_arguments: Optional[Mapping[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
         **kw: Any,
@@ -129,18 +118,17 @@ class Session(_Session):
         Or otherwise you might want to use `session.execute()` instead of
         `session.query()`.
         """
-        return super().query(*entities, **kwargs)  # type: ignore
+        return super().query(*entities, **kwargs)
 
     def get(
         self,
-        entity: Union[Type[_TSelectParam], "_Mapper[_TSelectParam]"],
+        entity: Type[_TSelectParam],
         ident: Any,
         options: Optional[Sequence[Any]] = None,
         populate_existing: bool = False,
         with_for_update: Optional[Union[Literal[True], Mapping[str, Any]]] = None,
         identity_token: Optional[Any] = None,
-        execution_options: Mapping[Any, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        execution_options: Optional[Mapping[Any, Any]] = util.EMPTY_DICT,
     ) -> Optional[_TSelectParam]:
         return super().get(
             entity,
@@ -150,5 +138,4 @@ class Session(_Session):
             with_for_update=with_for_update,
             identity_token=identity_token,
             execution_options=execution_options,
-            bind_arguments=bind_arguments,
         )

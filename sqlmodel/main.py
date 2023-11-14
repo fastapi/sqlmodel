@@ -5,7 +5,6 @@ from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
 from pathlib import Path
-from types import NoneType
 from typing import (
     AbstractSet,
     Any,
@@ -22,8 +21,6 @@ from typing import (
     TypeVar,
     Union,
     cast,
-    get_args,
-    get_origin,
     overload,
 )
 
@@ -64,6 +61,10 @@ from .compat import (
     set_config_value,
     set_empty_defaults,
     set_fields_set,
+    is_table,
+    is_field_noneable,
+    PydanticModelConfig,
+    get_annotations
 )
 from .sql.sqltypes import GUID, AutoString
 
@@ -71,6 +72,7 @@ if not IS_PYDANTIC_V2:
     from pydantic.errors import ConfigError, DictError
     from pydantic.main import validate_model
     from pydantic.utils import ROOT_KEY
+    from pydantic.typing import resolve_annotations
 
 _T = TypeVar("_T")
 
@@ -412,7 +414,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     ) -> Any:
         relationships: Dict[str, RelationshipInfo] = {}
         dict_for_pydantic = {}
-        original_annotations = class_dict.get("__annotations__", {})
+        original_annotations = get_annotations(class_dict)
         pydantic_annotations = {}
         relationship_annotations = {}
         for k, v in class_dict.items():
@@ -436,19 +438,16 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # superclass causing an error
         allowed_config_kwargs: Set[str] = {
             key
-            for key in dir(SQLModelConfig)
+            for key in dir(PydanticModelConfig)
             if not (
                 key.startswith("__") and key.endswith("__")
             )  # skip dunder methods and attributes
         }
-        pydantic_kwargs = kwargs.copy()
         config_kwargs = {
-            key: pydantic_kwargs.pop(key)
-            for key in pydantic_kwargs.keys() & allowed_config_kwargs
+            key: kwargs[key]
+            for key in kwargs.keys() & allowed_config_kwargs
         }
-        config_table = getattr(
-            class_dict.get("Config", object()), "table", False
-        ) or kwargs.get("table", False)
+        config_table = is_table(class_dict)
         if config_table:
             set_empty_defaults(pydantic_annotations, dict_used)
 
@@ -607,7 +606,7 @@ def get_column_from_field(field: ModelField) -> Column:  # type: ignore
     index = getattr(field.field_info, "index", PydanticUndefined)
     if index is PydanticUndefined:
         index = False
-    nullable = not primary_key and _is_field_noneable(field)
+    nullable = not primary_key and is_field_noneable(field)
     # Override derived nullability if the nullable property is set explicitly
     # on the field
     field_nullable = getattr(field.field_info, "nullable", PydanticUndefined)  # noqa: B009
@@ -879,19 +878,3 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
             return keys
 
-
-def _is_field_noneable(field: FieldInfo) -> bool:
-    if getattr(field, "nullable", PydanticUndefined) is not PydanticUndefined:
-        return field.nullable
-    if not field.is_required():
-        default = getattr(field, "original_default", field.default)
-        if default is PydanticUndefined:
-            return False
-        if field.annotation is None or field.annotation is NoneType:
-            return True
-        if get_origin(field.annotation) is Union:
-            for base in get_args(field.annotation):
-                if base is NoneType:
-                    return True
-        return False
-    return False

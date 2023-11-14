@@ -15,7 +15,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
     def load_dialect_impl(self, dialect: Dialect) -> "types.TypeEngine[Any]":
         impl = cast(types.String, self.impl)
         if impl.length is None and dialect.name == "mysql":
-            return dialect.type_descriptor(types.String(self.mysql_default_length))
+            return dialect.type_descriptor(types.String(self.mysql_default_length))  # type: ignore
         return super().load_dialect_impl(dialect)
 
 
@@ -34,9 +34,9 @@ class GUID(types.TypeDecorator):  # type: ignore
 
     def load_dialect_impl(self, dialect: Dialect) -> TypeEngine:  # type: ignore
         if dialect.name == "postgresql":
-            return dialect.type_descriptor(UUID())
+            return dialect.type_descriptor(UUID())  # type: ignore
         else:
-            return dialect.type_descriptor(CHAR(32))
+            return dialect.type_descriptor(CHAR(32))  # type: ignore
 
     def process_bind_param(self, value: Any, dialect: Dialect) -> Optional[str]:
         if value is None:

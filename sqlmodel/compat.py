@@ -11,6 +11,7 @@ from typing import (
     get_args,
     get_origin,
 )
+from types import NoneType
 
 from pydantic import VERSION as PYDANTIC_VERSION
 
@@ -23,7 +24,8 @@ if IS_PYDANTIC_V2:
 else:
     from pydantic import BaseConfig # noqa
     from pydantic.fields import ModelField # noqa
-    from pydantic.fields import Undefined as PydanticUndefined, UndefinedType as PydanticUndefinedType # noqa
+    from pydantic.fields import Undefined as PydanticUndefined, UndefinedType as PydanticUndefinedType, SHAPE_SINGLETON
+    from pydantic.typing import resolve_annotations
 
 if TYPE_CHECKING:
     from .main import FieldInfo, RelationshipInfo, SQLModel, SQLModelMetaclass
@@ -34,24 +36,18 @@ T = TypeVar("T")
 InstanceOrType = Union[T, Type[T]]
 
 if IS_PYDANTIC_V2:
+    PydanticModelConfig = ConfigDict
 
     class SQLModelConfig(ConfigDict, total=False):
         table: Optional[bool]
-        read_from_attributes: Optional[bool]
         registry: Optional[Any]
 
 else:
+    PydanticModelConfig = BaseConfig
 
     class SQLModelConfig(BaseConfig):
         table: Optional[bool] = None
-        read_from_attributes: Optional[bool] = None
         registry: Optional[Any] = None
-
-        def __getitem__(self, item: str) -> Any:
-            return self.__getattr__(item)
-
-        def __setitem__(self, item: str, value: Any) -> None:
-            return self.__setattr__(item, value)
 
 
 # Inspired from https://github.com/roman-right/beanie/blob/main/beanie/odm/utils/pydantic.py
@@ -59,7 +55,7 @@ def get_model_config(model: type) -> Optional[SQLModelConfig]:
     if IS_PYDANTIC_V2:
         return getattr(model, "model_config", None)
     else:
-        return getattr(model, "Config", None)
+        return getattr(model, "__config__", None)
 
 
 def get_config_value(
@@ -68,7 +64,7 @@ def get_config_value(
     if IS_PYDANTIC_V2:
         return model.model_config.get(parameter, default)
     else:
-        return getattr(model.Config, parameter, default)
+        return getattr(model.__config__, parameter, default)
 
 
 def set_config_value(
@@ -77,7 +73,7 @@ def set_config_value(
     if IS_PYDANTIC_V2:
         model.model_config[parameter] = value # type: ignore
     else:
-        model.Config[v1_parameter or parameter] = value  # type: ignore
+        setattr(model.__config__, v1_parameter or parameter, value)  # type: ignore
 
 
 def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
@@ -109,6 +105,25 @@ def set_attribute_mode(cls: Type["SQLModelMetaclass"]) -> None:
     else:
         cls.__config__.read_with_orm_mode = True # type: ignore
 
+def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
+    if IS_PYDANTIC_V2:
+        return class_dict.get("__annotations__", {})
+    else:
+        return resolve_annotations(class_dict.get("__annotations__", {}),class_dict.get("__module__", None))
+
+def is_table(class_dict: dict[str, Any]) -> bool:
+    config: SQLModelConfig = {}
+    if IS_PYDANTIC_V2:
+        config = class_dict.get("model_config", {})
+    else:
+        config = class_dict.get("__config__", {})
+    config_table = config.get("table", PydanticUndefined)
+    if config_table is not PydanticUndefined:
+        return config_table
+    kw_table = class_dict.get("table", PydanticUndefined)
+    if kw_table is not PydanticUndefined:
+        return kw_table
+    return False
 
 def get_relationship_to(
     name: str,
@@ -167,3 +182,27 @@ def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) 
                     # So we can check for nullable
                     value.original_default = value.default  
                     value.default = None
+
+def is_field_noneable(field: "FieldInfo") -> bool:
+    if IS_PYDANTIC_V2:
+        if getattr(field, "nullable", PydanticUndefined) is not PydanticUndefined:
+            return field.nullable
+        if not field.is_required():
+            default = getattr(field, "original_default", field.default)
+            if default is PydanticUndefined:
+                return False
+            if field.annotation is None or field.annotation is NoneType:
+                return True
+            if get_origin(field.annotation) is Union:
+                for base in get_args(field.annotation):
+                    if base is NoneType:
+                        return True
+            return False
+        return False
+    else:
+        if not field.required:
+            # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
+            return field.allow_none and (
+                field.shape != SHAPE_SINGLETON or not field.sub_fields
+            )
+        return False

@@ -23,15 +23,7 @@ from sqlalchemy.sql.expression import Select as _Select
 _TSelect = TypeVar("_TSelect")
 
 
-class Select(_Select[Tuple[_TSelect]], Generic[_TSelect]):
-    inherit_cache = True
-
-
-# This is not comparable to sqlalchemy.sql.selectable.ScalarSelect, that has a different
-# purpose. This is the same as a normal SQLAlchemy Select class where there's only one
-# entity, so the result will be converted to a scalar by default. This way writing
-# for loops on the results will feel natural.
-class SelectOfScalar(_Select[Tuple[_TSelect]], Generic[_TSelect]):
+class Select(_Select, Generic[_TSelect]):
     inherit_cache = True
 
 
@@ -125,12 +117,12 @@ _TModel_3 = TypeVar("_TModel_3", bound="SQLModel")
 
 
 @overload
-def select(entity_0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
+def select(entity_0: _TScalar_0, **kw: Any) -> SelectOfScalar[_TScalar_0]:  # type: ignore
     ...
 
 
 @overload
-def select(entity_0: Type[_TModel_0]) -> SelectOfScalar[_TModel_0]:  # type: ignore
+def select(entity_0: Type[_TModel_0], **kw: Any) -> SelectOfScalar[_TModel_0]:  # type: ignore
     ...
 
 
@@ -141,6 +133,7 @@ def select(entity_0: Type[_TModel_0]) -> SelectOfScalar[_TModel_0]:  # type: ign
 def select(  # type: ignore
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1]]:
     ...
 
@@ -149,6 +142,7 @@ def select(  # type: ignore
 def select(  # type: ignore
     entity_0: _TScalar_0,
     entity_1: Type[_TModel_1],
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TModel_1]]:
     ...
 
@@ -157,6 +151,7 @@ def select(  # type: ignore
 def select(  # type: ignore
     entity_0: Type[_TModel_0],
     entity_1: _TScalar_1,
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TScalar_1]]:
     ...
 
@@ -165,6 +160,7 @@ def select(  # type: ignore
 def select(  # type: ignore
     entity_0: Type[_TModel_0],
     entity_1: Type[_TModel_1],
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TModel_1]]:
     ...
 
@@ -174,6 +170,7 @@ def select(  # type: ignore
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2]]:
     ...
 
@@ -183,6 +180,7 @@ def select(  # type: ignore
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     entity_2: Type[_TModel_2],
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1, _TModel_2]]:
     ...
 
@@ -192,6 +190,7 @@ def select(  # type: ignore
     entity_0: _TScalar_0,
     entity_1: Type[_TModel_1],
     entity_2: _TScalar_2,
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TModel_1, _TScalar_2]]:
     ...
 
@@ -201,6 +200,7 @@ def select(  # type: ignore
     entity_0: _TScalar_0,
     entity_1: Type[_TModel_1],
     entity_2: Type[_TModel_2],
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TModel_1, _TModel_2]]:
     ...
 
@@ -210,6 +210,7 @@ def select(  # type: ignore
     entity_0: Type[_TModel_0],
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TScalar_1, _TScalar_2]]:
     ...
 
@@ -219,6 +220,7 @@ def select(  # type: ignore
     entity_0: Type[_TModel_0],
     entity_1: _TScalar_1,
     entity_2: Type[_TModel_2],
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TScalar_1, _TModel_2]]:
     ...
 
@@ -228,6 +230,7 @@ def select(  # type: ignore
     entity_0: Type[_TModel_0],
     entity_1: Type[_TModel_1],
     entity_2: _TScalar_2,
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TModel_1, _TScalar_2]]:
     ...
 
@@ -237,6 +240,7 @@ def select(  # type: ignore
     entity_0: Type[_TModel_0],
     entity_1: Type[_TModel_1],
     entity_2: Type[_TModel_2],
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TModel_1, _TModel_2]]:
     ...
 
@@ -247,6 +251,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3]]:
     ...
 
@@ -257,6 +262,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TModel_3]]:
     ...
 
@@ -267,6 +273,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: Type[_TModel_2],
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1, _TModel_2, _TScalar_3]]:
     ...
 
@@ -277,6 +284,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: Type[_TModel_2],
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1, _TModel_2, _TModel_3]]:
     ...
 
@@ -287,6 +295,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TModel_1, _TScalar_2, _TScalar_3]]:
     ...
 
@@ -297,6 +306,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: _TScalar_2,
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TModel_1, _TScalar_2, _TModel_3]]:
     ...
 
@@ -307,6 +317,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: Type[_TModel_2],
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TModel_1, _TModel_2, _TScalar_3]]:
     ...
 
@@ -317,6 +328,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: Type[_TModel_2],
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TScalar_0, _TModel_1, _TModel_2, _TModel_3]]:
     ...
 
@@ -327,6 +339,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TScalar_1, _TScalar_2, _TScalar_3]]:
     ...
 
@@ -337,6 +350,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TScalar_1, _TScalar_2, _TModel_3]]:
     ...
 
@@ -347,6 +361,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: Type[_TModel_2],
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TScalar_1, _TModel_2, _TScalar_3]]:
     ...
 
@@ -357,6 +372,7 @@ def select(  # type: ignore
     entity_1: _TScalar_1,
     entity_2: Type[_TModel_2],
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TScalar_1, _TModel_2, _TModel_3]]:
     ...
 
@@ -367,6 +383,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TModel_1, _TScalar_2, _TScalar_3]]:
     ...
 
@@ -377,6 +394,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: _TScalar_2,
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TModel_1, _TScalar_2, _TModel_3]]:
     ...
 
@@ -387,6 +405,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: Type[_TModel_2],
     entity_3: _TScalar_3,
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TModel_1, _TModel_2, _TScalar_3]]:
     ...
 
@@ -397,6 +416,7 @@ def select(  # type: ignore
     entity_1: Type[_TModel_1],
     entity_2: Type[_TModel_2],
     entity_3: Type[_TModel_3],
+    **kw: Any,
 ) -> Select[Tuple[_TModel_0, _TModel_1, _TModel_2, _TModel_3]]:
     ...
 
@@ -404,14 +424,14 @@ def select(  # type: ignore
 # Generated overloads end
 
 
-def select(*entities: Any) -> Union[Select, SelectOfScalar]:  # type: ignore
+def select(*entities: Any, **kw: Any) -> Union[Select, SelectOfScalar]:  # type: ignore
     if len(entities) == 1:
-        return SelectOfScalar(*entities)  # type: ignore
-    return Select(*entities)  # type: ignore
+        return SelectOfScalar._create(*entities, **kw)  # type: ignore
+    return Select._create(*entities, **kw)  # type: ignore
 
 
 # TODO: add several @overload from Python types to SQLAlchemy equivalents
 def col(column_expression: Any) -> ColumnClause:  # type: ignore
     if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
-    return column_expression  # type: ignore
+    return column_expression
