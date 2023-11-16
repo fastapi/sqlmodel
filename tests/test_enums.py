@@ -5,6 +5,8 @@ from sqlalchemy import create_mock_engine
 from sqlalchemy.sql.type_api import TypeEngine
 from sqlmodel import Field, SQLModel
 
+from .conftest import needs_pydanticv1, needs_pydanticv2
+
 """
 Tests related to Enums
 
@@ -72,7 +74,8 @@ def test_sqlite_ddl_sql(capsys):
     assert "CREATE TYPE" not in captured.out
 
 
-def test_json_schema_flat_model():
+@needs_pydanticv1
+def test_json_schema_flat_model_pydantic_v1():
     assert FlatModel.schema() == {
         "title": "FlatModel",
         "type": "object",
@@ -92,7 +95,8 @@ def test_json_schema_flat_model():
     }
 
 
-def test_json_schema_inherit_model():
+@needs_pydanticv1
+def test_json_schema_inherit_model_pydantic_v1():
     assert InheritModel.schema() == {
         "title": "InheritModel",
         "type": "object",
@@ -105,6 +109,45 @@ def test_json_schema_inherit_model():
             "MyEnum2": {
                 "title": "MyEnum2",
                 "description": "An enumeration.",
+                "enum": ["C", "D"],
+                "type": "string",
+            }
+        },
+    }
+
+
+@needs_pydanticv2
+def test_json_schema_flat_model_pydantic_v2():
+    assert FlatModel.model_json_schema() == {
+        "title": "FlatModel",
+        "type": "object",
+        "properties": {
+            "id": {"default": None, "format": "uuid", "title": "Id", "type": "string"},
+            "enum_field": {"allOf": [{"$ref": "#/$defs/MyEnum1"}], "default": None},
+        },
+        "$defs": {
+            "MyEnum1": {
+                "title": "MyEnum1",
+                "enum": ["A", "B"],
+                "type": "string",
+            }
+        },
+    }
+
+
+@needs_pydanticv2
+def test_json_schema_inherit_model_pydantic_v2():
+    assert InheritModel.model_json_schema() == {
+        "title": "InheritModel",
+        "type": "object",
+        "properties": {
+            "id": {"title": "Id", "type": "string", "format": "uuid"},
+            "enum_field": {"$ref": "#/$defs/MyEnum2"},
+        },
+        "required": ["id", "enum_field"],
+        "$defs": {
+            "MyEnum2": {
+                "title": "MyEnum2",
                 "enum": ["C", "D"],
                 "type": "string",
             }

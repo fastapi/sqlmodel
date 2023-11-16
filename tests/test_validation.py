@@ -1,7 +1,6 @@
 from typing import Optional
 
 import pytest
-from pydantic import field_validator
 from pydantic.error_wrappers import ValidationError
 from sqlmodel import SQLModel
 
@@ -19,21 +18,22 @@ def test_validation_pydantic_v1(clear_sqlmodel):
     https://github.com/samuelcolvin/pydantic/issues/1223
 
     """
+    from pydantic import validator
 
     class Hero(SQLModel):
         name: Optional[str] = None
         secret_name: Optional[str] = None
         age: Optional[int] = None
 
-        @field_validator("name", "secret_name", "age")
+        @validator("name", "secret_name", "age")
         def reject_none(cls, v):
             assert v is not None
             return v
 
-    Hero.from_orm({"age": 25})
+    Hero.validate({"age": 25})
 
     with pytest.raises(ValidationError):
-        Hero.from_orm({"name": None, "age": 25})
+        Hero.validate({"name": None, "age": 25})
 
 
 @needs_pydanticv2
@@ -47,6 +47,7 @@ def test_validation_pydantic_v2(clear_sqlmodel):
     https://github.com/samuelcolvin/pydantic/issues/1223
 
     """
+    from pydantic import field_validator
 
     class Hero(SQLModel):
         name: Optional[str] = None

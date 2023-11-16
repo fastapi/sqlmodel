@@ -1,10 +1,4 @@
-import ipaddress
-import uuid
 import weakref
-from datetime import date, datetime, time, timedelta
-from decimal import Decimal
-from enum import Enum
-from pathlib import Path
 from typing import (
     AbstractSet,
     Any,
@@ -25,48 +19,37 @@ from typing import (
 )
 
 from pydantic import BaseModel
-from pydantic.fields import SHAPE_SINGLETON, ModelField
 from pydantic.fields import FieldInfo as PydanticFieldInfo
-from pydantic.main import ModelMetaclass
 from pydantic.utils import Representation
 from sqlalchemy import (
-    Boolean,
     Column,
-    Date,
-    DateTime,
-    Float,
-    ForeignKey,
-    Integer,
-    Interval,
-    Numeric,
     inspect,
 )
-from sqlalchemy import Enum as sa_Enum
 from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
-from sqlalchemy.sql.sqltypes import LargeBinary, Time
 
 from .compat import (
     IS_PYDANTIC_V2,
+    ModelMetaclass,
     NoArgAnyCallable,
     PydanticModelConfig,
     PydanticUndefined,
     PydanticUndefinedType,
     SQLModelConfig,
+    class_dict_is_table,
+    cls_is_table,
     get_annotations,
+    get_column_from_field,
     get_config_value,
     get_model_fields,
     get_relationship_to,
-    is_field_noneable,
-    is_table,
     set_config_value,
     set_empty_defaults,
     set_fields_set,
 )
-from .sql.sqltypes import GUID, AutoString
 
 if not IS_PYDANTIC_V2:
     from pydantic.errors import ConfigError, DictError
@@ -144,7 +127,6 @@ class FieldInfo(PydanticFieldInfo):
         self.sa_column = sa_column
         self.sa_column_args = sa_column_args
         self.sa_column_kwargs = sa_column_kwargs
-        self.original_default = PydanticUndefined
 
 
 class RelationshipInfo(Representation):
@@ -445,8 +427,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        config_table = is_table(class_dict)
-        if config_table:
+        if class_dict_is_table(class_dict, kwargs):
             set_empty_defaults(pydantic_annotations, dict_used)
 
         new_cls: Type["SQLModelMetaclass"] = super().__new__(
@@ -501,13 +482,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # this allows FastAPI cloning a SQLModel for the response_model without
         # trying to create a new SQLAlchemy, for a new table, with the same name, that
         # triggers an error
-        base_is_table = False
-        for base in bases:
-            config = getattr(base, "__config__")  # noqa: B009
-            if config and getattr(config, "table", False):
-                base_is_table = True
-                break
-        if getattr(cls.__config__, "table", False) and not base_is_table:
+        base_is_table = any(cls_is_table(base) for base in bases)
+        if cls_is_table(cls) and not base_is_table:
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
                     # There's a SQLAlchemy relationship declared, that takes precedence
@@ -543,104 +519,6 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
-
-
-def get_sqlalchemy_type(field: ModelField) -> Any:
-    sa_type = getattr(field.field_info, "sa_type", PydanticUndefined)  # noqa: B009
-    if sa_type is not PydanticUndefined:
-        return sa_type
-    if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
-        # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
-        if issubclass(field.type_, Enum):
-            return sa_Enum(field.type_)
-        if issubclass(field.type_, str):
-            if field.field_info.max_length:
-                return AutoString(length=field.field_info.max_length)
-            return AutoString
-        if issubclass(field.type_, float):
-            return Float
-        if issubclass(field.type_, bool):
-            return Boolean
-        if issubclass(field.type_, int):
-            return Integer
-        if issubclass(field.type_, datetime):
-            return DateTime
-        if issubclass(field.type_, date):
-            return Date
-        if issubclass(field.type_, timedelta):
-            return Interval
-        if issubclass(field.type_, time):
-            return Time
-        if issubclass(field.type_, bytes):
-            return LargeBinary
-        if issubclass(field.type_, Decimal):
-            return Numeric(
-                precision=getattr(field.type_, "max_digits", None),
-                scale=getattr(field.type_, "decimal_places", None),
-            )
-        if issubclass(field.type_, ipaddress.IPv4Address):
-            return AutoString
-        if issubclass(field.type_, ipaddress.IPv4Network):
-            return AutoString
-        if issubclass(field.type_, ipaddress.IPv6Address):
-            return AutoString
-        if issubclass(field.type_, ipaddress.IPv6Network):
-            return AutoString
-        if issubclass(field.type_, Path):
-            return AutoString
-        if issubclass(field.type_, uuid.UUID):
-            return GUID
-    raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
-
-
-def get_column_from_field(field: ModelField) -> Column:  # type: ignore
-    sa_column = getattr(field.field_info, "sa_column", PydanticUndefined)
-    if isinstance(sa_column, Column):
-        return sa_column
-    sa_type = get_sqlalchemy_type(field)
-    primary_key = getattr(field.field_info, "primary_key", PydanticUndefined)
-    if primary_key is PydanticUndefined:
-        primary_key = False
-    index = getattr(field.field_info, "index", PydanticUndefined)
-    if index is PydanticUndefined:
-        index = False
-    nullable = not primary_key and is_field_noneable(field)
-    # Override derived nullability if the nullable property is set explicitly
-    # on the field
-    field_nullable = getattr(field.field_info, "nullable", PydanticUndefined)  # noqa: B009
-    if field_nullable != PydanticUndefined:
-        assert not isinstance(field_nullable, PydanticUndefinedType)
-        nullable = field_nullable
-    args = []
-    foreign_key = getattr(field.field_info, "foreign_key", PydanticUndefined)
-    if foreign_key is PydanticUndefined:
-        foreign_key = None
-    unique = getattr(field.field_info, "unique", PydanticUndefined)
-    if unique is PydanticUndefined:
-        unique = False
-    if foreign_key:
-        assert isinstance(foreign_key, str)
-        args.append(ForeignKey(foreign_key))
-    kwargs = {
-        "primary_key": primary_key,
-        "nullable": nullable,
-        "index": index,
-        "unique": unique,
-    }
-    sa_default = PydanticUndefined
-    if field.field_info.default_factory:
-        sa_default = field.field_info.default_factory
-    elif field.field_info.default is not PydanticUndefined:
-        sa_default = field.field_info.default
-    if sa_default is not PydanticUndefined:
-        kwargs["default"] = sa_default
-    sa_column_args = getattr(field.field_info, "sa_column_args", PydanticUndefined)
-    if sa_column_args is not PydanticUndefined:
-        args.extend(list(cast(Sequence[Any], sa_column_args)))
-    sa_column_kwargs = getattr(field.field_info, "sa_column_kwargs", PydanticUndefined)
-    if sa_column_kwargs is not PydanticUndefined:
-        kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)  # type: ignore
 
 
 class_registry = weakref.WeakValueDictionary()  # type: ignore
@@ -688,7 +566,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # settable attribute
         if IS_PYDANTIC_V2:
             old_dict = __pydantic_self__.__dict__.copy()
-            __pydantic_self__.super().__init__(**data)  # noqa
+            super().__init__(**data)  # noqa
             __pydantic_self__.__dict__ = {**old_dict, **__pydantic_self__.__dict__}
             non_pydantic_keys = data.keys() - __pydantic_self__.model_fields
         else:
@@ -739,6 +617,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     if IS_PYDANTIC_V2:
+
         @classmethod
         def model_validate(
             cls: type[_TSQLModel],
@@ -752,7 +631,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             validated = super().model_validate(
                 obj, strict=strict, from_attributes=from_attributes, context=context
             )
-            return cls(**dict(validated))
+            return cls(**validated.model_dump(exclude_unset=True))
 
     else:
 
@@ -761,7 +640,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
         ) -> _TSQLModel:
             # Duplicated from Pydantic
-            if not cls.__config__.orm_mode:  # noqa: attr-defined
+            if not cls.__config__.orm_mode:  # noqa
                 raise ConfigError(
                     "You must have the config attribute orm_mode=True to use from_orm"
                 )
