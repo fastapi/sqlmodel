@@ -45,12 +45,19 @@ from sqlalchemy import (
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
-from sqlalchemy.orm import RelationshipProperty, declared_attr, registry, relationship
+from sqlalchemy.orm import (
+    Mapped,
+    RelationshipProperty,
+    declared_attr,
+    registry,
+    relationship,
+)
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time
+from typing_extensions import get_origin
 
 from .sql.sqltypes import GUID, AutoString
 
@@ -483,7 +490,16 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # over anything else, use that and continue with the next attribute
                     setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
-                ann = cls.__annotations__[rel_name]
+                raw_ann = cls.__annotations__[rel_name]
+                origin = get_origin(raw_ann)
+                if origin is Mapped:
+                    ann = raw_ann.__args__[0]
+                else:
+                    ann = raw_ann
+                    # Plain forward references, for models not yet defined, are not
+                    # handled well by SQLAlchemy without Mapped, so, wrap the
+                    # annotations in Mapped here
+                    cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
                 temp_field = ModelField.infer(
                     name=rel_name,
                     value=rel_info,
@@ -511,9 +527,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_args.extend(rel_info.sa_relationship_args)
                 if rel_info.sa_relationship_kwargs:
                     rel_kwargs.update(rel_info.sa_relationship_kwargs)
-                rel_value: RelationshipProperty = relationship(  # type: ignore
-                    relationship_to, *rel_args, **rel_kwargs
-                )
+                rel_value = relationship(relationship_to, *rel_args, **rel_kwargs)
                 setattr(cls, rel_name, rel_value)  # Fix #315
             # SQLAlchemy no longer uses dict_
             # Ref: https://github.com/sqlalchemy/sqlalchemy/commit/428ea01f00a9cc7f85e435018565eb6da7af1b77
