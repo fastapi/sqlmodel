@@ -79,6 +79,12 @@ strict = true
 module = "sqlmodel.sql.expression"
 warn_unused_ignores = false
 
+[[tool.mypy.overrides]]
+module = "docs_src.*"
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
+disallow_untyped_calls = false
+
 [tool.ruff]
 select = [
     "E",  # pycodestyle errors
