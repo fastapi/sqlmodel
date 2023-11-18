@@ -34,9 +34,9 @@ for total_args in range(2, number_of_types + 1):
                 arg = Arg(name=f"entity_{i}", annotation=t_var)
                 ret_type = t_var
             else:
-                t_type = f"_TModel_{i}"
-                t_var = f"Type[{t_type}]"
-                arg = Arg(name=f"entity_{i}", annotation=t_var)
+                t_type = f"_T{i}"
+                t_var = f"_TCCA[{t_type}]"
+                arg = Arg(name=f"__ent{i}", annotation=t_var)
                 ret_type = t_type
             args.append(arg)
             return_types.append(ret_type)

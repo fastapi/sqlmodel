@@ -31,9 +31,8 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
-SQLAlchemy = ">=1.4.36,<2.0.0"
+SQLAlchemy = ">=2.0.0,<2.1.0"
 pydantic = "^1.9.0"
-sqlalchemy2-stubs = {version = "*", allow-prereleases = true}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0.1"
@@ -45,9 +44,10 @@ pillow = "^9.3.0"
 cairosvg = "^2.5.2"
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = ">=6.2,<8.0"}
-fastapi = "^0.68.1"
-requests = "^2.26.0"
+fastapi = "^0.103.2"
 ruff = "^0.1.2"
+# For FastAPI tests
+httpx = "0.24.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -79,6 +79,12 @@ strict = true
 [[tool.mypy.overrides]]
 module = "sqlmodel.sql.expression"
 warn_unused_ignores = false
+
+[[tool.mypy.overrides]]
+module = "docs_src.*"
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
+disallow_untyped_calls = false
 
 [tool.ruff]
 select = [
