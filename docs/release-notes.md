@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Upgrade SQLAlchemy to 2.0, including initial work by farahats9. PR [#700](https://github.com/tiangolo/sqlmodel/pull/700) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#686](https://github.com/tiangolo/sqlmodel/pull/686) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
