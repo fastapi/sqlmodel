@@ -56,6 +56,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: python -m poetry install
       - name: Lint
+        # Do not run on Python 3.7 as mypy behaves differently
+        if: matrix.python-version != '3.7'
         run: python -m poetry run bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
