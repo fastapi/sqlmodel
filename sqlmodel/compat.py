@@ -180,6 +180,7 @@ def get_relationship_to(
     annotation: Any,
 ) -> Any:
     if IS_PYDANTIC_V2:
+        # TODO: review rename origin and relationship_to
         relationship_to = get_origin(annotation)
         # Direct relationships (e.g. 'Team' or Team) have None as an origin
         if relationship_to is None:
@@ -190,6 +191,7 @@ def get_relationship_to(
         # If a list, then also get the real field
         elif relationship_to is list:
             relationship_to = get_args(annotation)[0]
+        # TODO: given this, should there be a recursive call in this whole if block to get_relationship_to?
         if isinstance(relationship_to, ForwardRef):
             relationship_to = relationship_to.__forward_arg__
         return relationship_to
@@ -217,6 +219,7 @@ def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) 
         annotations: Dict[str, Any]: The annotations to provide to pydantic
         class_dict: Dict[str, Any]: The class dict for the defaults
     """
+    # TODO: no v1?
     if IS_PYDANTIC_V2:
         from .main import FieldInfo
 
