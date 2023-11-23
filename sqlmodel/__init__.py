@@ -33,7 +33,6 @@ from sqlalchemy.sql import LABEL_STYLE_NONE as LABEL_STYLE_NONE
 from sqlalchemy.sql import (
     LABEL_STYLE_TABLENAME_PLUS_COL as LABEL_STYLE_TABLENAME_PLUS_COL,
 )
-from sqlalchemy.sql import Subquery as Subquery
 from sqlalchemy.sql import alias as alias
 from sqlalchemy.sql import bindparam as bindparam
 from sqlalchemy.sql import column as column
