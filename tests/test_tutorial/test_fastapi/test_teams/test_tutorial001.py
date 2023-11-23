@@ -94,7 +94,7 @@ def test_tutorial(clear_sqlmodel):
         response = client.get("/openapi.json")
         assert response.status_code == 200, response.text
         assert response.json() == {
-            "openapi": "3.0.2",
+            "openapi": "3.1.0",
             "info": {"title": "FastAPI", "version": "0.1.0"},
             "paths": {
                 "/heroes/": {
@@ -579,7 +579,9 @@ def test_tutorial(clear_sqlmodel):
                             "loc": {
                                 "title": "Location",
                                 "type": "array",
-                                "items": {"type": "string"},
+                                "items": {
+                                    "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                },
                             },
                             "msg": {"title": "Message", "type": "string"},
                             "type": {"title": "Error Type", "type": "string"},
