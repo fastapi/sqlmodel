@@ -323,6 +323,7 @@ def Field(
         sa_column_kwargs=sa_column_kwargs,
         **current_schema_extra,
     )
+    post_init_field_info(field_info)
     return field_info
 
 
