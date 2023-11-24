@@ -38,20 +38,19 @@ from sqlalchemy.sql.sqltypes import LargeBinary, Time
 
 from .sql.sqltypes import GUID, AutoString
 
-IS_PYDANTIC_V2 = int(PYDANTIC_VERSION.split(".")[0]) >= 2
-
+IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
 if IS_PYDANTIC_V2:
     from pydantic import ConfigDict as PydanticModelConfig
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
-    from pydantic_core import PydanticUndefined as PydanticUndefined  # noqa
-    from pydantic_core import PydanticUndefinedType as PydanticUndefinedType
+    from pydantic_core import PydanticUndefined as Undefined  # noqa
+    from pydantic_core import PydanticUndefinedType as UndefinedType
 else:
     from pydantic import BaseConfig as PydanticModelConfig
     from pydantic.fields import SHAPE_SINGLETON, ModelField
-    from pydantic.fields import Undefined as PydanticUndefined  # noqa
-    from pydantic.fields import UndefinedType as PydanticUndefinedType
+    from pydantic.fields import Undefined as Undefined  # noqa
+    from pydantic.fields import UndefinedType as UndefinedType
     from pydantic.main import ModelMetaclass as ModelMetaclass
     from pydantic.typing import resolve_annotations
 
@@ -152,11 +151,11 @@ def class_dict_is_table(
         config = class_dict.get("model_config", {})
     else:
         config = class_dict.get("__config__", {})
-    config_table = config.get("table", PydanticUndefined)
-    if config_table is not PydanticUndefined:
+    config_table = config.get("table", Undefined)
+    if config_table is not Undefined:
         return config_table  # type: ignore
-    kw_table = class_kwargs.get("table", PydanticUndefined)
-    if kw_table is not PydanticUndefined:
+    kw_table = class_kwargs.get("table", Undefined)
+    if kw_table is not Undefined:
         return kw_table  # type: ignore
     return False
 
@@ -225,12 +224,12 @@ def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) 
 
         # Pydantic v2 sets a __pydantic_core_schema__ which is very hard to change. Changing the fields does not do anything
         for key in annotations.keys():
-            value = class_dict.get(key, PydanticUndefined)
-            if value is PydanticUndefined:
+            value = class_dict.get(key, Undefined)
+            if value is Undefined:
                 class_dict[key] = None
             elif isinstance(value, FieldInfo):
                 if (
-                    value.default in (PydanticUndefined, Ellipsis)
+                    value.default in (Undefined, Ellipsis)
                 ) and value.default_factory is None:
                     # So we can check for nullable
                     value.default = None
@@ -238,10 +237,10 @@ def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) 
 
 def _is_field_noneable(field: "FieldInfo") -> bool:
     if IS_PYDANTIC_V2:
-        if getattr(field, "nullable", PydanticUndefined) is not PydanticUndefined:
+        if getattr(field, "nullable", Undefined) is not Undefined:
             return field.nullable  # type: ignore
         if not field.is_required():
-            if field.default is PydanticUndefined:
+            if field.default is Undefined:
                 return False
             if field.annotation is None or field.annotation is NoneType:
                 return True
@@ -265,8 +264,8 @@ def get_sqlalchemy_type(field: Any) -> Any:
         field_info = field
     else:
         field_info = field.field_info
-    sa_type = getattr(field_info, "sa_type", PydanticUndefined)  # noqa: B009
-    if sa_type is not PydanticUndefined:
+    sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
+    if sa_type is not Undefined:
         return sa_type
 
     type_ = get_type_from_field(field)
@@ -370,29 +369,29 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         field_info = field
     else:
         field_info = field.field_info
-    sa_column = getattr(field_info, "sa_column", PydanticUndefined)
+    sa_column = getattr(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
     sa_type = get_sqlalchemy_type(field)
-    primary_key = getattr(field_info, "primary_key", PydanticUndefined)
-    if primary_key is PydanticUndefined:
+    primary_key = getattr(field_info, "primary_key", Undefined)
+    if primary_key is Undefined:
         primary_key = False
-    index = getattr(field_info, "index", PydanticUndefined)
-    if index is PydanticUndefined:
+    index = getattr(field_info, "index", Undefined)
+    if index is Undefined:
         index = False
     nullable = not primary_key and _is_field_noneable(field)
     # Override derived nullability if the nullable property is set explicitly
     # on the field
-    field_nullable = getattr(field_info, "nullable", PydanticUndefined)  # noqa: B009
-    if field_nullable is not PydanticUndefined:
-        assert not isinstance(field_nullable, PydanticUndefinedType)
+    field_nullable = getattr(field_info, "nullable", Undefined)  # noqa: B009
+    if field_nullable is not Undefined:
+        assert not isinstance(field_nullable, UndefinedType)
         nullable = field_nullable
     args = []
-    foreign_key = getattr(field_info, "foreign_key", PydanticUndefined)
-    if foreign_key is PydanticUndefined:
+    foreign_key = getattr(field_info, "foreign_key", Undefined)
+    if foreign_key is Undefined:
         foreign_key = None
-    unique = getattr(field_info, "unique", PydanticUndefined)
-    if unique is PydanticUndefined:
+    unique = getattr(field_info, "unique", Undefined)
+    if unique is Undefined:
         unique = False
     if foreign_key:
         assert isinstance(foreign_key, str)
@@ -403,17 +402,17 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         "index": index,
         "unique": unique,
     }
-    sa_default = PydanticUndefined
+    sa_default = Undefined
     if field_info.default_factory:
         sa_default = field_info.default_factory
-    elif field_info.default is not PydanticUndefined:
+    elif field_info.default is not Undefined:
         sa_default = field_info.default
-    if sa_default is not PydanticUndefined:
+    if sa_default is not Undefined:
         kwargs["default"] = sa_default
-    sa_column_args = getattr(field_info, "sa_column_args", PydanticUndefined)
-    if sa_column_args is not PydanticUndefined:
+    sa_column_args = getattr(field_info, "sa_column_args", Undefined)
+    if sa_column_args is not Undefined:
         args.extend(list(cast(Sequence[Any], sa_column_args)))
-    sa_column_kwargs = getattr(field_info, "sa_column_kwargs", PydanticUndefined)
-    if sa_column_kwargs is not PydanticUndefined:
+    sa_column_kwargs = getattr(field_info, "sa_column_kwargs", Undefined)
+    if sa_column_kwargs is not Undefined:
         kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
     return Column(sa_type, *args, **kwargs)  # type: ignore
