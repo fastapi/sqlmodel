@@ -43,9 +43,9 @@ from .compat import (
     ModelMetaclass,
     NoArgAnyCallable,
     PydanticModelConfig,
-    PydanticUndefined,
-    PydanticUndefinedType,
     SQLModelConfig,
+    Undefined,
+    UndefinedType,
     class_dict_is_table,
     cls_is_table,
     get_annotations,
@@ -77,50 +77,50 @@ def __dataclass_transform__(
 
 
 class FieldInfo(PydanticFieldInfo):
-    def __init__(self, default: Any = PydanticUndefined, **kwargs: Any) -> None:
+    def __init__(self, default: Any = Undefined, **kwargs: Any) -> None:
         primary_key = kwargs.pop("primary_key", False)
-        nullable = kwargs.pop("nullable", PydanticUndefined)
-        foreign_key = kwargs.pop("foreign_key", PydanticUndefined)
+        nullable = kwargs.pop("nullable", Undefined)
+        foreign_key = kwargs.pop("foreign_key", Undefined)
         unique = kwargs.pop("unique", False)
-        index = kwargs.pop("index", PydanticUndefined)
-        sa_type = kwargs.pop("sa_type", PydanticUndefined)
-        sa_column = kwargs.pop("sa_column", PydanticUndefined)
-        sa_column_args = kwargs.pop("sa_column_args", PydanticUndefined)
-        sa_column_kwargs = kwargs.pop("sa_column_kwargs", PydanticUndefined)
-        if sa_column is not PydanticUndefined:
-            if sa_column_args is not PydanticUndefined:
+        index = kwargs.pop("index", Undefined)
+        sa_type = kwargs.pop("sa_type", Undefined)
+        sa_column = kwargs.pop("sa_column", Undefined)
+        sa_column_args = kwargs.pop("sa_column_args", Undefined)
+        sa_column_kwargs = kwargs.pop("sa_column_kwargs", Undefined)
+        if sa_column is not Undefined:
+            if sa_column_args is not Undefined:
                 raise RuntimeError(
                     "Passing sa_column_args is not supported when "
                     "also passing a sa_column"
                 )
-            if sa_column_kwargs is not PydanticUndefined:
+            if sa_column_kwargs is not Undefined:
                 raise RuntimeError(
                     "Passing sa_column_kwargs is not supported when "
                     "also passing a sa_column"
                 )
-            if primary_key is not PydanticUndefined:
+            if primary_key is not Undefined:
                 raise RuntimeError(
                     "Passing primary_key is not supported when "
                     "also passing a sa_column"
                 )
-            if nullable is not PydanticUndefined:
+            if nullable is not Undefined:
                 raise RuntimeError(
                     "Passing nullable is not supported when " "also passing a sa_column"
                 )
-            if foreign_key is not PydanticUndefined:
+            if foreign_key is not Undefined:
                 raise RuntimeError(
                     "Passing foreign_key is not supported when "
                     "also passing a sa_column"
                 )
-            if unique is not PydanticUndefined:
+            if unique is not Undefined:
                 raise RuntimeError(
                     "Passing unique is not supported when also passing a sa_column"
                 )
-            if index is not PydanticUndefined:
+            if index is not Undefined:
                 raise RuntimeError(
                     "Passing index is not supported when also passing a sa_column"
                 )
-            if sa_type is not PydanticUndefined:
+            if sa_type is not Undefined:
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
@@ -166,7 +166,7 @@ class RelationshipInfo(Representation):
 
 @overload
 def Field(
-    default: Any = PydanticUndefined,
+    default: Any = Undefined,
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
@@ -195,16 +195,14 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    primary_key: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    foreign_key: Any = PydanticUndefined,
-    unique: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    nullable: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    index: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    sa_type: Union[Type[Any], PydanticUndefinedType] = PydanticUndefined,
-    sa_column_args: Union[Sequence[Any], PydanticUndefinedType] = PydanticUndefined,
-    sa_column_kwargs: Union[
-        Mapping[str, Any], PydanticUndefinedType
-    ] = PydanticUndefined,
+    primary_key: Union[bool, UndefinedType] = Undefined,
+    foreign_key: Any = Undefined,
+    unique: Union[bool, UndefinedType] = Undefined,
+    nullable: Union[bool, UndefinedType] = Undefined,
+    index: Union[bool, UndefinedType] = Undefined,
+    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
+    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     ...
@@ -212,7 +210,7 @@ def Field(
 
 @overload
 def Field(
-    default: Any = PydanticUndefined,
+    default: Any = Undefined,
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
@@ -241,14 +239,14 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    sa_column: Union[Column, PydanticUndefinedType] = PydanticUndefined,  # type: ignore
+    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     ...
 
 
 def Field(
-    default: Any = PydanticUndefined,
+    default: Any = Undefined,
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
@@ -277,17 +275,15 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    primary_key: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    foreign_key: Any = PydanticUndefined,
-    unique: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    nullable: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    index: Union[bool, PydanticUndefinedType] = PydanticUndefined,
-    sa_type: Union[Type[Any], PydanticUndefinedType] = PydanticUndefined,
-    sa_column: Union[Column, PydanticUndefinedType] = PydanticUndefined,  # type: ignore
-    sa_column_args: Union[Sequence[Any], PydanticUndefinedType] = PydanticUndefined,
-    sa_column_kwargs: Union[
-        Mapping[str, Any], PydanticUndefinedType
-    ] = PydanticUndefined,
+    primary_key: Union[bool, UndefinedType] = Undefined,
+    foreign_key: Any = Undefined,
+    unique: Union[bool, UndefinedType] = Undefined,
+    nullable: Union[bool, UndefinedType] = Undefined,
+    index: Union[bool, UndefinedType] = Undefined,
+    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
+    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
@@ -447,13 +443,13 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         }
 
         def get_config(name: str) -> Any:
-            config_class_value = get_config_value(new_cls, name, PydanticUndefined)
-            if config_class_value is not PydanticUndefined:
+            config_class_value = get_config_value(new_cls, name, Undefined)
+            if config_class_value is not Undefined:
                 return config_class_value
-            kwarg_value = kwargs.get(name, PydanticUndefined)
-            if kwarg_value is not PydanticUndefined:
+            kwarg_value = kwargs.get(name, Undefined)
+            if kwarg_value is not Undefined:
                 return kwarg_value
-            return PydanticUndefined
+            return Undefined
 
         config_table = get_config("table")
         if config_table is True:
@@ -472,7 +468,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             )
 
         config_registry = get_config("registry")
-        if config_registry is not PydanticUndefined:
+        if config_registry is not Undefined:
             config_registry = cast(registry, config_registry)
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(new_cls, "registry", config_table)
