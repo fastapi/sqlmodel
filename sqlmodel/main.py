@@ -373,7 +373,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         model_fields: Dict[str, FieldInfo]
     else:
         __config__: Type[SQLModelConfig]
-        __fields__: Dict[str, FieldInfo]
+        __fields__: Dict[str, ModelField]
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
