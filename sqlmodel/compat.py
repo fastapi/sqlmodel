@@ -46,6 +46,10 @@ if IS_PYDANTIC_V2:
     from pydantic._internal._model_construction import ModelMetaclass
     from pydantic_core import PydanticUndefined as Undefined  # noqa
     from pydantic_core import PydanticUndefinedType as UndefinedType
+
+    # Dummy for types, to make it importable
+    class ModelField:
+        pass
 else:
     from pydantic import BaseConfig as PydanticModelConfig
     from pydantic.fields import SHAPE_SINGLETON, ModelField
@@ -75,7 +79,6 @@ else:
         registry: Optional[Any] = None
 
 
-# Inspired from https://github.com/roman-right/beanie/blob/main/beanie/odm/utils/pydantic.py
 def get_model_config(model: type) -> Optional[SQLModelConfig]:
     if IS_PYDANTIC_V2:
         return getattr(model, "model_config", None)
@@ -416,3 +419,8 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
     return Column(sa_type, *args, **kwargs)  # type: ignore
+
+
+def post_init_field_info(field_info: FieldInfo) -> None:
+    if not IS_PYDANTIC_V2:
+        field_info._validate()
