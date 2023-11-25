@@ -36,7 +36,7 @@ else:
     from pydantic.typing import resolve_annotations
 
 if TYPE_CHECKING:
-    from .main import FieldInfo, RelationshipInfo, SQLModel, SQLModelMetaclass
+    from .main import FieldInfo, RelationshipInfo, SQLModel
 
 
 T = TypeVar("T")
