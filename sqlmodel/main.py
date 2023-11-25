@@ -432,6 +432,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
+        # TODO: review if this is necessary
         if class_dict_is_table(class_dict, kwargs):
             set_empty_defaults(pydantic_annotations, dict_used)
 
@@ -693,6 +694,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def __init__(__pydantic_self__, **data: Any) -> None:
         # Uses something other than `self` the first arg to allow "self" as a
         # settable attribute
+        # TODO: review how this works and check defaults set in metaclass __new__
         if IS_PYDANTIC_V2:
             old_dict = __pydantic_self__.__dict__.copy()
             super().__init__(**data)  # noqa
@@ -747,6 +749,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
 
+    # TODO: refactor this and make each method available in both Pydantic v1 and v2
+    # add deprecations, re-use methods from backwards compatibility parts, etc.
     if IS_PYDANTIC_V2:
 
         @classmethod

@@ -99,6 +99,7 @@ def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
             class_dict.get("__annotations__", {}), class_dict.get("__module__", None)
         )
 
+
 # TODO: review if this is necessary
 def class_dict_is_table(
     class_dict: dict[str, Any], class_kwargs: dict[str, Any]
