@@ -142,15 +142,17 @@ def get_relationship_to(
         use_annotation = annotation
         # Direct relationships (e.g. 'Team' or Team) have None as an origin
         if origin is None:
-            return annotation
+            if isinstance(use_annotation, ForwardRef):
+                use_annotation = use_annotation.__forward_arg__
+            else:
+                return use_annotation
         # If Union (e.g. Optional), get the real field
         elif origin is Union:
             use_annotation = get_args(annotation)[0]
         # If a list, then also get the real field
         elif origin is list:
             use_annotation = get_args(annotation)[0]
-        elif isinstance(origin, ForwardRef):
-            use_annotation = origin.__forward_arg__
+
         return get_relationship_to(
             name=name, rel_info=rel_info, annotation=use_annotation
         )
