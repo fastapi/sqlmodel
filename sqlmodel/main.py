@@ -455,7 +455,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_table = get_config("table")
         if config_table is True:
             # If it was passed by kwargs, ensure it's also set in config
-            set_config_value(new_cls, "table", config_table)
+            set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
                 col = get_column_from_field(v)
                 setattr(new_cls, k, col)
@@ -465,14 +465,17 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
             set_config_value(
-                new_cls, "read_from_attributes", True, v1_parameter="read_with_orm_mode"
+                model=new_cls, parameter="read_from_attributes", value=True
             )
+            # For compatibility with older versions
+            # TODO: remove this in the future
+            set_config_value(model=new_cls, parameter="read_with_orm_mode", value=True)
 
         config_registry = get_config("registry")
         if config_registry is not Undefined:
             config_registry = cast(registry, config_registry)
             # If it was passed by kwargs, ensure it's also set in config
-            set_config_value(new_cls, "registry", config_table)
+            set_config_value(model=new_cls, parameter="registry", value=config_table)
             setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
             setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
             setattr(new_cls, "__abstract__", True)  # noqa: B010

@@ -96,15 +96,15 @@ def get_config_value(
 
 
 def set_config_value(
+    *,
     model: InstanceOrType["SQLModel"],
     parameter: str,
     value: Any,
-    v1_parameter: Optional[str] = None,
 ) -> None:
     if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore
     else:
-        setattr(model.__config__, v1_parameter or parameter, value)  # type: ignore
+        setattr(model.__config__, parameter, value)  # type: ignore
 
 
 def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
