@@ -56,13 +56,6 @@ else:
         registry: Optional[Any] = None
 
 
-def get_model_config(model: type) -> Optional[SQLModelConfig]:
-    if IS_PYDANTIC_V2:
-        return getattr(model, "model_config", None)
-    else:
-        return getattr(model, "__config__", None)
-
-
 def get_config_value(
     model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
 ) -> Any:
@@ -91,13 +84,6 @@ def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"
         return model.__fields__  # type: ignore
 
 
-def get_fields_set(model: InstanceOrType["SQLModel"]) -> set[str]:
-    if IS_PYDANTIC_V2:
-        return model.__pydantic_fields_set__  # type: ignore
-    else:
-        return model.__fields_set__  # type: ignore
-
-
 def set_fields_set(
     new_object: InstanceOrType["SQLModel"], fields: set["FieldInfo"]
 ) -> None:
@@ -107,13 +93,6 @@ def set_fields_set(
         object.__setattr__(new_object, "__fields_set__", fields)
 
 
-def set_attribute_mode(cls: Type["SQLModelMetaclass"]) -> None:
-    if IS_PYDANTIC_V2:
-        cls.model_config["read_from_attributes"] = True
-    else:
-        cls.__config__.read_with_orm_mode = True  # type: ignore
-
-
 def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
     if IS_PYDANTIC_V2:
         return class_dict.get("__annotations__", {})
@@ -121,23 +100,6 @@ def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
         return resolve_annotations(
             class_dict.get("__annotations__", {}), class_dict.get("__module__", None)
         )
-
-
-def class_dict_is_table(
-    class_dict: dict[str, Any], class_kwargs: dict[str, Any]
-) -> bool:
-    config: SQLModelConfig = {}
-    if IS_PYDANTIC_V2:
-        config = class_dict.get("model_config", {})
-    else:
-        config = class_dict.get("__config__", {})
-    config_table = config.get("table", Undefined)
-    if config_table is not Undefined:
-        return config_table  # type: ignore
-    kw_table = class_kwargs.get("table", Undefined)
-    if kw_table is not Undefined:
-        return kw_table  # type: ignore
-    return False
 
 
 def cls_is_table(cls: Type) -> bool:
