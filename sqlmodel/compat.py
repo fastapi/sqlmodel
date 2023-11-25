@@ -138,21 +138,22 @@ def get_relationship_to(
     annotation: Any,
 ) -> Any:
     if IS_PYDANTIC_V2:
-        # TODO: review rename origin and relationship_to
-        relationship_to = get_origin(annotation)
+        origin = get_origin(annotation)
+        use_annotation = annotation
         # Direct relationships (e.g. 'Team' or Team) have None as an origin
-        if relationship_to is None:
-            relationship_to = annotation
+        if origin is None:
+            return annotation
         # If Union (e.g. Optional), get the real field
-        elif relationship_to is Union:
-            relationship_to = get_args(annotation)[0]
+        elif origin is Union:
+            use_annotation = get_args(annotation)[0]
         # If a list, then also get the real field
-        elif relationship_to is list:
-            relationship_to = get_args(annotation)[0]
-        # TODO: given this, should there be a recursive call in this whole if block to get_relationship_to?
-        if isinstance(relationship_to, ForwardRef):
-            relationship_to = relationship_to.__forward_arg__
-        return relationship_to
+        elif origin is list:
+            use_annotation = get_args(annotation)[0]
+        elif isinstance(origin, ForwardRef):
+            use_annotation = origin.__forward_arg__
+        return get_relationship_to(
+            name=name, rel_info=rel_info, annotation=use_annotation
+        )
     else:
         temp_field = ModelField.infer(
             name=name,
