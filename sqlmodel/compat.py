@@ -41,7 +41,7 @@ from .sql.sqltypes import GUID, AutoString
 IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
 if IS_PYDANTIC_V2:
-    from pydantic import ConfigDict as PydanticModelConfig
+    from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
     from pydantic_core import PydanticUndefined as Undefined  # noqa
@@ -51,7 +51,7 @@ if IS_PYDANTIC_V2:
     class ModelField:
         pass
 else:
-    from pydantic import BaseConfig as PydanticModelConfig
+    from pydantic import BaseConfig as BaseConfig
     from pydantic.fields import SHAPE_SINGLETON, ModelField
     from pydantic.fields import Undefined as Undefined  # noqa
     from pydantic.fields import UndefinedType as UndefinedType
