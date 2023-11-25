@@ -56,9 +56,9 @@ from typing_extensions import get_origin
 
 from .compat import (
     IS_PYDANTIC_V2,
+    BaseConfig,
     ModelField,
     ModelMetaclass,
-    PydanticModelConfig,
     SQLModelConfig,
     Undefined,
     UndefinedType,
@@ -444,7 +444,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # superclass causing an error
         allowed_config_kwargs: Set[str] = {
             key
-            for key in dir(PydanticModelConfig)
+            for key in dir(BaseConfig)
             if not (
                 key.startswith("__") and key.endswith("__")
             )  # skip dunder methods and attributes

@@ -13,6 +13,7 @@ from typing import (
 )
 
 from pydantic import VERSION as PYDANTIC_VERSION
+from pydantic.fields import FieldInfo
 
 IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
@@ -35,7 +36,7 @@ else:
     from pydantic.typing import resolve_annotations
 
 if TYPE_CHECKING:
-    from .main import FieldInfo, RelationshipInfo, SQLModel
+    from .main import RelationshipInfo, SQLModel
 
 
 T = TypeVar("T")
@@ -43,13 +44,13 @@ InstanceOrType = Union[T, Type[T]]
 
 if IS_PYDANTIC_V2:
 
-    class SQLModelConfig(PydanticModelConfig, total=False):
+    class SQLModelConfig(BaseConfig, total=False):
         table: Optional[bool]
         registry: Optional[Any]
 
 else:
 
-    class SQLModelConfig(PydanticModelConfig):
+    class SQLModelConfig(BaseConfig):
         table: Optional[bool] = None
         registry: Optional[Any] = None
 
