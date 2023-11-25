@@ -56,7 +56,7 @@ else:
 
 
 def get_config_value(
-    model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
+    *, model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
 ) -> Any:
     if IS_PYDANTIC_V2:
         return model.model_config.get(parameter, default)

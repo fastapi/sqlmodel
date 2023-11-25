@@ -379,13 +379,13 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
-        if get_config_value(cls, "table", False):
+        if get_config_value(model=cls, parameter="table", default=False):
             DeclarativeMeta.__setattr__(cls, name, value)
         else:
             super().__setattr__(name, value)
 
     def __delattr__(cls, name: str) -> None:
-        if get_config_value(cls, "table", False):
+        if get_config_value(model=cls, parameter="table", default=False):
             DeclarativeMeta.__delattr__(cls, name)
         else:
             super().__delattr__(name)
@@ -445,7 +445,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         }
 
         def get_config(name: str) -> Any:
-            config_class_value = get_config_value(new_cls, name, Undefined)
+            config_class_value = get_config_value(
+                model=new_cls, parameter=name, default=Undefined
+            )
             if config_class_value is not Undefined:
                 return config_class_value
             kwarg_value = kwargs.get(name, Undefined)
@@ -724,7 +726,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if get_config_value(self, "table", False) and is_instrumented(self, name):
+            if get_config_value(
+                model=self, parameter="table", default=False
+            ) and is_instrumented(self, name):
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
