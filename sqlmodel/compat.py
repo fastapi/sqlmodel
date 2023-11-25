@@ -2,7 +2,6 @@ from types import NoneType
 from typing import (
     TYPE_CHECKING,
     Any,
-    Callable,
     Dict,
     ForwardRef,
     Optional,
