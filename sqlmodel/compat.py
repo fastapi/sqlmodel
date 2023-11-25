@@ -39,7 +39,6 @@ if TYPE_CHECKING:
     from .main import FieldInfo, RelationshipInfo, SQLModel, SQLModelMetaclass
 
 
-NoArgAnyCallable = Callable[[], Any]
 T = TypeVar("T")
 InstanceOrType = Union[T, Type[T]]
 

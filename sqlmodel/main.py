@@ -64,6 +64,7 @@ if not IS_PYDANTIC_V2:
     from pydantic.utils import ROOT_KEY
 
 _T = TypeVar("_T")
+NoArgAnyCallable = Callable[[], Any]
 
 
 def __dataclass_transform__(
