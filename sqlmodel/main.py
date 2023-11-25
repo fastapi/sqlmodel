@@ -497,11 +497,6 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # over anything else, use that and continue with the next attribute
                     setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
-                # TODO: remove this
-                # From PR
-                # ann = cls.__annotations__[rel_name]
-                # relationship_to = get_relationship_to(rel_name, rel_info, ann)
-                # From main, modified with PR code
                 raw_ann = cls.__annotations__[rel_name]
                 origin = get_origin(raw_ann)
                 if origin is Mapped:
@@ -512,18 +507,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # handled well by SQLAlchemy without Mapped, so, wrap the
                     # annotations in Mapped here
                     cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
-                # TODO: remove this, moved to get_relationship_to
-                # temp_field = ModelField.infer(
-                #     name=rel_name,
-                #     value=rel_info,
-                #     annotation=ann,
-                #     class_validators=None,
-                #     config=BaseConfig,
-                # )
-                # relationship_to = temp_field.type_
-                # if isinstance(temp_field.type_, ForwardRef):
-                #     relationship_to = temp_field.type_.__forward_arg__
-                relationship_to = get_relationship_to(rel_name, rel_info, ann)
+                relationship_to = get_relationship_to(
+                    name=rel_name, rel_info=rel_info, annotation=ann
+                )
                 rel_kwargs: Dict[str, Any] = {}
                 if rel_info.back_populates:
                     rel_kwargs["back_populates"] = rel_info.back_populates
