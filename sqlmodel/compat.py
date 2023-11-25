@@ -99,6 +99,23 @@ def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
             class_dict.get("__annotations__", {}), class_dict.get("__module__", None)
         )
 
+# TODO: review if this is necessary
+def class_dict_is_table(
+    class_dict: dict[str, Any], class_kwargs: dict[str, Any]
+) -> bool:
+    config: SQLModelConfig = {}
+    if IS_PYDANTIC_V2:
+        config = class_dict.get("model_config", {})
+    else:
+        config = class_dict.get("__config__", {})
+    config_table = config.get("table", Undefined)
+    if config_table is not Undefined:
+        return config_table  # type: ignore
+    kw_table = class_kwargs.get("table", Undefined)
+    if kw_table is not Undefined:
+        return kw_table  # type: ignore
+    return False
+
 
 def cls_is_table(cls: Type) -> bool:
     if IS_PYDANTIC_V2:
