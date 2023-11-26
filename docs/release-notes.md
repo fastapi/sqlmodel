@@ -6,6 +6,10 @@
 
 * ✅ Move OpenAPI tests inline to simplify updating them with Pydantic v2. PR [#709](https://github.com/tiangolo/sqlmodel/pull/709) by [@tiangolo](https://github.com/tiangolo).
 
+### Upgrades
+
+* ⬆️ Add support for Python 3.11 and Python 3.12. PR [#710](https://github.com/tiangolo/sqlmodel/pull/710) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.12
 
 ### Features
