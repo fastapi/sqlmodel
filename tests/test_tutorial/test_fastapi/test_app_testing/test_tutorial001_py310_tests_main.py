@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def test_run_tests(clear_sqlmodel):
-    from docs_src.tutorial.fastapi.app_testing.tutorial001 import test_main as mod
+    from docs_src.tutorial.fastapi.app_testing.tutorial001_py310 import test_main as mod
 
     test_path = Path(mod.__file__).resolve().parent
     top_level_path = Path(__file__).resolve().parent.parent.parent.parent.parent
