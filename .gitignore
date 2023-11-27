@@ -7,7 +7,7 @@ poetry.lock
 dist
 htmlcov
 *.egg-info
-.coverage
+.coverage*
 coverage.xml
 site
 *.db
