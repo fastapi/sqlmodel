@@ -41,12 +41,15 @@ And the second part, with the `WHERE`, defines to which rows it should apply tha
 
 In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
 
-!!! info
-    Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
+/// info
 
-    And in the `WHERE` the same single equals sign (`=`) is used for **comparison** between two values, to find rows that match.
+Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
 
-    This is in contrast to Python and most programming languages, where a single equals sign (`=`) is used for assignment, and two equal signs (`==`) are used for comparisons.
+And in the `WHERE` the same single equals sign (`=`) is used for **comparison** between two values, to find rows that match.
+
+This is in contrast to Python and most programming languages, where a single equals sign (`=`) is used for assignment, and two equal signs (`==`) are used for comparisons.
+
+///
 
 You can try that in **DB Browser for SQLite**:
 
@@ -69,16 +72,19 @@ After that update, the data in the table will look like this, with the new age f
 </tr>
 </table>
 
-!!! tip
-    It will probably be more common to find the row to update by `id`, for example:
+/// tip
 
-    ```SQL
-    UPDATE hero
-    SET age=16
-    WHERE id = 2
-    ```
+It will probably be more common to find the row to update by `id`, for example:
 
-    But in the example above I used `name` to make it more intuitive.
+```SQL
+UPDATE hero
+SET age=16
+WHERE id = 2
+```
+
+But in the example above I used `name` to make it more intuitive.
+
+///
 
 Now let's do the same update in code, with **SQLModel**.
 
@@ -143,8 +149,11 @@ Hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=None id=2
 
 </div>
 
-!!! tip
-    Notice that by this point, the hero still doesn't have an age.
+/// tip
+
+Notice that by this point, the hero still doesn't have an age.
+
+///
 
 ## Set a Field Value
 
@@ -333,8 +342,11 @@ Now let's review all that code:
 
 {!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
 
-!!! tip
-    Check out the number bubbles to see what is done by each line of code.
+/// tip
+
+Check out the number bubbles to see what is done by each line of code.
+
+///
 
 ## Multiple Updates
 
@@ -361,8 +373,11 @@ This also means that you can update several fields (attributes, columns) at once
 
 </details>
 
-!!! tip
-    Review what each line does by clicking each number bubble in the code. 👆
+/// tip
+
+Review what each line does by clicking each number bubble in the code. 👆
+
+///
 
 ## Recap
 

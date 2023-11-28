@@ -12,10 +12,13 @@ So, we need to have all those fields **marked as optional**.
 
 And because the `HeroBase` has some of them as *required* and not optional, we will need to **create a new model**.
 
-!!! tip
-    Here is one of those cases where it probably makes sense to use an **independent model** instead of trying to come up with a complex tree of models inheriting from each other.
+/// tip
 
-    Because each field is **actually different** (we just change it to `Optional`, but that's already making it different), it makes sense to have them in their own model.
+Here is one of those cases where it probably makes sense to use an **independent model** instead of trying to come up with a complex tree of models inheriting from each other.
+
+Because each field is **actually different** (we just change it to `Optional`, but that's already making it different), it makes sense to have them in their own model.
+
+///
 
 So, let's create this new `HeroUpdate` model:
 

@@ -30,8 +30,11 @@ The `team` table looks like this:
 </tr>
 </table>
 
-!!! tip
-    Notice that it doesn't have any foreign key to other tables.
+/// tip
+
+Notice that it doesn't have any foreign key to other tables.
+
+///
 
 And the `hero` table looks like this:
 
@@ -106,19 +109,22 @@ Specifically, the new link table `heroteamlink` would be:
 </tr>
 </table>
 
-!!! info
-    Other names used for this **link table** are:
+/// info
 
-    * association table
-    * secondary table
-    * junction table
-    * intermediate table
-    * join table
-    * through table
-    * relationship table
-    * connection table
+Other names used for this **link table** are:
 
-    I'm using the term "link table" because it's short, doesn't collide with other terms already used (e.g. "relationship"), it's easy to remember how to write it, etc.
+* association table
+* secondary table
+* junction table
+* intermediate table
+* join table
+* through table
+* relationship table
+* connection table
+
+I'm using the term "link table" because it's short, doesn't collide with other terms already used (e.g. "relationship"), it's easy to remember how to write it, etc.
+
+///
 
 ## Link Primary Key
 

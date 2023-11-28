@@ -445,10 +445,13 @@ Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
 
 Now let's review all this code once again.
 
-!!! tip
-    Each one of the numbered bubbles shows what each line will print in the output.
+/// tip
 
-    And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
+Each one of the numbered bubbles shows what each line will print in the output.
+
+And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
+
+///
 
 ```{ .python .annotate }
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}

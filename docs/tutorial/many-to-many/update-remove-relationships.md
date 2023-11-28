@@ -82,10 +82,13 @@ We can use the same **relationship attributes** to include `hero_spider_boy` in 
 
 </details>
 
-!!! tip
-    Because we are accessing an attribute in the models right after we commit, with `hero_spider_boy.teams` and `team_z_force.heroes`, the data is refreshed automatically.
+/// tip
 
-    So we don't have to call `session.refresh()`.
+Because we are accessing an attribute in the models right after we commit, with `hero_spider_boy.teams` and `team_z_force.heroes`, the data is refreshed automatically.
+
+So we don't have to call `session.refresh()`.
+
+///
 
 We then commit the change, refresh, and print the updated **Spider-Boy**'s heroes to confirm.
 

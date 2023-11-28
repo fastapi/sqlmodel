@@ -77,10 +77,13 @@ So, the highlighted block above, has the same results as the block below:
 
 </details>
 
-!!! tip
-    The automatic data fetching will work as long as the starting object (in this case the `Hero`) is associated with an **open** session.
+/// tip
 
-    For example, here, **inside** a `with` block with a `Session` object.
+The automatic data fetching will work as long as the starting object (in this case the `Hero`) is associated with an **open** session.
+
+For example, here, **inside** a `with` block with a `Session` object.
+
+///
 
 ## Get a List of Relationship Objects
 

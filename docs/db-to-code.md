@@ -172,8 +172,11 @@ The difference in the final SQL statement is subtle, but it changes the meaning 
 SELECT * FROM hero WHERE id = "2; DROP TABLE hero;";
 ```
 
-!!! tip
-    Notice the double quotes (`"`) making it a string instead of more raw SQL.
+/// tip
+
+Notice the double quotes (`"`) making it a string instead of more raw SQL.
+
+///
 
 The database will not find any record with that ID:
 
@@ -187,8 +190,11 @@ Then your code will continue to execute and calmly tell the user that it couldn'
 
 But we never deleted the `hero` table. 🎉
 
-!!! info
-    Of course, there are also other ways to do SQL data sanitization without using a tool like **SQLModel**, but it's still a nice feature you get by default.
+/// info
+
+Of course, there are also other ways to do SQL data sanitization without using a tool like **SQLModel**, but it's still a nice feature you get by default.
+
+///
 
 ### Editor Support
 
@@ -291,8 +297,11 @@ There are many ORMs available apart from **SQLModel**, you can read more about s
 
 ## SQL Table Names
 
-!!! info "Technical Background"
-    This is a bit of boring background for SQL purists. Feel free to skip this section. 😉
+/// info  | Technical Background
+
+This is a bit of boring background for SQL purists. Feel free to skip this section. 😉
+
+///
 
 When working with pure SQL, it's common to name the tables in plural. So, the table would be named `heroes` instead of `hero`, because it could contain multiple rows, each with one hero.
 
@@ -304,5 +313,8 @@ You will see **your own code** a lot more than the internal table names, so it's
 
 So, to keep things consistent, I'll keep using the same table names that **SQLModel** would have generated.
 
-!!! tip
-    You can also override the table name. You can read about it in the Advanced User Guide.
+/// tip
+
+You can also override the table name. You can read about it in the Advanced User Guide.
+
+///

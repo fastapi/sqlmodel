@@ -126,8 +126,11 @@ This is the name of the **table** in the database, so it is `"team"`, not the na
 
 If you had a custom table name, you would use that custom table name.
 
-!!! info
-    You can learn about setting a custom table name for a model in the Advanced User Guide.
+/// info
+
+You can learn about setting a custom table name for a model in the Advanced User Guide.
+
+///
 
 ### Create the Tables
 
@@ -167,8 +170,11 @@ And as before, we'll call this function from another function `main()`, and we'l
 
 ## Run the Code
 
-!!! tip
-    Before running the code, make sure you delete the file `database.db` to make sure you start from scratch.
+/// tip
+
+Before running the code, make sure you delete the file `database.db` to make sure you start from scratch.
+
+///
 
 If we run the code we have up to now, it will go and create the database file `database.db` and the tables in it we just defined, `team` and `hero`:
 

@@ -37,8 +37,11 @@ Each row in the table `hero` will point to a row in the table `team`:
 
 <img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.svg">
 
-!!! info
-    We will later update **Spider-Boy** to add him to the **Preventers** team too, but not yet.
+/// info
+
+We will later update **Spider-Boy** to add him to the **Preventers** team too, but not yet.
+
+///
 
 We will continue with the code in the previous example and we will add more things to it.
 

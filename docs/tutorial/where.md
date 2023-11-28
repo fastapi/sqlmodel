@@ -81,10 +81,13 @@ Then the database will bring a table like this:
 </tr>
 </table>
 
-!!! tip
-    Even if the result is only one row, the database always returns a **table**.
+/// tip
 
-    In this case, a table with only one row.
+Even if the result is only one row, the database always returns a **table**.
+
+In this case, a table with only one row.
+
+///
 
 You can try that out in **DB Browser for SQLite**:
 
@@ -268,10 +271,13 @@ So, what's happening there?
 
 In the example above we are using two equal signs (`==`). That's called the "**equality operator**".
 
-!!! tip
-    An **operator** is just a symbol that is put beside one value or in the middle of two values to do something with them.
+/// tip
 
-    `==` is called the **equality** operator because it checks if two things are **equal**.
+An **operator** is just a symbol that is put beside one value or in the middle of two values to do something with them.
+
+`==` is called the **equality** operator because it checks if two things are **equal**.
+
+///
 
 When writing Python, if you write something using this equality operator (`==`) like:
 
@@ -291,8 +297,11 @@ True
 False
 ```
 
-!!! tip
-    `<`, `>`, `==`, `>=`, `<=`, and `!=` are all **operators** used for **comparisons**.
+/// tip
+
+`<`, `>`, `==`, `>=`, `<=`, and `!=` are all **operators** used for **comparisons**.
+
+///
 
 But SQLAlchemy adds some magic to the columns/fields in a **model class** to make those Python comparisons have super powers.
 
@@ -451,8 +460,11 @@ select(Hero).where(Hero.secret_name == "Pedro Parqueador")
 
 I think that alone, having better editor support, autocompletion, and inline errors, is enough to make it worth having expressions instead of keyword arguments. ✨
 
-!!! tip
-    **Expressions** also provide more features for other types of comparisons, shown down below. 👇
+/// tip
+
+**Expressions** also provide more features for other types of comparisons, shown down below. 👇
+
+///
 
 ## Exec the Statement
 
@@ -502,12 +514,15 @@ secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 </div>
 
 
-!!! tip
-    The `results` object is an iterable to be used in a `for` loop.
+/// tip
 
-    Even if we got only one row, we iterate over that `results` object. Just as if it was a list of one element.
+The `results` object is an iterable to be used in a `for` loop.
 
-    We'll see other ways to get the data later.
+Even if we got only one row, we iterate over that `results` object. Just as if it was a list of one element.
+
+We'll see other ways to get the data later.
+
+///
 
 ## Other Comparisons
 
@@ -597,8 +612,11 @@ age=36 id=6 name='Dr. Weird' secret_name='Steve Weird'
 age=93 id=7 name='Captain North America' secret_name='Esteban Rogelios'
 ```
 
-!!! tip
-    Notice that it didn't select `Black Lion`, because the age is not *strictly* greater than `35`.
+/// tip
+
+Notice that it didn't select `Black Lion`, because the age is not *strictly* greater than `35`.
+
+///
 
 ### More Than or Equal
 
@@ -630,8 +648,11 @@ age=36 id=6 name='Dr. Weird' secret_name='Steve Weird'
 age=93 id=7 name='Captain North America' secret_name='Esteban Rogelios'
 ```
 
-!!! tip
-    This time we got `Black Lion` too because although the age is not *strictly* greater than `35`it is *equal* to `35`.
+/// tip
+
+This time we got `Black Lion` too because although the age is not *strictly* greater than `35`it is *equal* to `35`.
+
+///
 
 ### Less Than
 
@@ -660,8 +681,11 @@ And we get the younger one with an age in the database:
 age=32 id=4 name='Tarantula' secret_name='Natalia Roman-on'
 ```
 
-!!! tip
-    We could imagine that **Spider-Boy** is even **younger**. But because we don't know the age, it is `NULL` in the database (`None` in Python), it doesn't match any of these age comparisons with numbers.
+/// tip
+
+We could imagine that **Spider-Boy** is even **younger**. But because we don't know the age, it is `NULL` in the database (`None` in Python), it doesn't match any of these age comparisons with numbers.
+
+///
 
 ### Less Than or Equal
 
@@ -691,8 +715,11 @@ age=32 id=4 name='Tarantula' secret_name='Natalia Roman-on'
 age=35 id=5 name='Black Lion' secret_name='Trevor Challa'
 ```
 
-!!! tip
-    We get `Black Lion` here too because although the age is not *strictly* less than `35` it is *equal* to `35`.
+/// tip
+
+We get `Black Lion` here too because although the age is not *strictly* less than `35` it is *equal* to `35`.
+
+///
 
 ### Benefits of Expressions
 
@@ -925,10 +952,13 @@ col(Hero.age) > 35
 
 And with that the editor knows this code is actually fine, because this is a special **SQLModel** column.
 
-!!! tip
-    That `col()` will come handy later, giving autocompletion to several other things we can do with these special **class attributes** for columns.
+/// tip
 
-    But we'll get there later.
+That `col()` will come handy later, giving autocompletion to several other things we can do with these special **class attributes** for columns.
+
+But we'll get there later.
+
+///
 
 ## Recap
 

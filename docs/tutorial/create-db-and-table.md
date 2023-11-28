@@ -33,8 +33,11 @@ The first thing we need to do is create a class to represent the data in the tab
 
 A class like this that represents some data is commonly called a **model**.
 
-!!! tip
-    That's why this package is called `SQLModel`. Because it's mainly used to create **SQL Models**.
+/// tip
+
+That's why this package is called `SQLModel`. Because it's mainly used to create **SQL Models**.
+
+///
 
 For that, we will import `SQLModel` (plus other things we will also use) and create a class `Hero` that inherits from `SQLModel` and represents the **table model** for our heroes:
 
@@ -57,10 +60,13 @@ This class `Hero` **represents the table** for our heroes. And each instance we 
 
 We use the config `table=True` to tell **SQLModel** that this is a **table model**, it represents a table.
 
-!!! info
-    It's also possible to have models without `table=True`, those would be only **data models**, without a table in the database, they would not be **table models**.
+/// info
 
-    Those **data models** will be **very useful later**, but for now, we'll just keep adding the `table=True` configuration.
+It's also possible to have models without `table=True`, those would be only **data models**, without a table in the database, they would not be **table models**.
+
+Those **data models** will be **very useful later**, but for now, we'll just keep adding the `table=True` configuration.
+
+///
 
 ## Define the Fields, Columns
 
@@ -112,8 +118,11 @@ And we also set the default value of `age` to `None`.
 
 </details>
 
-!!! tip
-    We also define `id` with `Optional`. But we will talk about `id` below.
+/// tip
+
+We also define `id` with `Optional`. But we will talk about `id` below.
+
+///
 
 This way, we tell **SQLModel** that `age` is not required when validating data and that it has a default value of `None`.
 
@@ -121,10 +130,13 @@ And we also tell it that, in the SQL database, the default value of `age` is `NU
 
 So, this column is "nullable" (can be set to `NULL`).
 
-!!! info
-    In terms of **Pydantic**, `age` is an **optional field**.
+/// info
 
-    In terms of **SQLAlchemy**, `age` is a **nullable column**.
+In terms of **Pydantic**, `age` is an **optional field**.
+
+In terms of **SQLAlchemy**, `age` is a **nullable column**.
+
+///
 
 ### Primary Key `id`
 
@@ -207,10 +219,13 @@ Creating the **engine** is very simple, just call `create_engine()` with a URL f
 
 You should normally have a single **engine** object for your whole application and re-use it everywhere.
 
-!!! tip
-    There's another related thing called a **Session** that normally should *not* be a single object per application.
+/// tip
 
-    But we will talk about it later.
+There's another related thing called a **Session** that normally should *not* be a single object per application.
+
+But we will talk about it later.
+
+///
 
 ### Engine Database URL
 
@@ -272,8 +287,11 @@ engine = create_engine(sqlite_url)
 
 ### Engine Technical Details
 
-!!! tip
-    If you didn't know about SQLAlchemy before and are just learning **SQLModel**, you can probably skip this section, scroll below.
+/// tip
+
+If you didn't know about SQLAlchemy before and are just learning **SQLModel**, you can probably skip this section, scroll below.
+
+///
 
 You can read a lot more about the engine in the <a href="https://docs.sqlalchemy.org/en/14/tutorial/engine.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
 
@@ -289,12 +307,15 @@ Now everything is in place to finally create the database and table:
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-!!! tip
-    Creating the engine doesn't create the `database.db` file.
+/// tip
 
-    But once we run `SQLModel.metadata.create_all(engine)`, it creates the `database.db` file **and** creates the `hero` table in that database.
+Creating the engine doesn't create the `database.db` file.
 
-    Both things are done in this single step.
+But once we run `SQLModel.metadata.create_all(engine)`, it creates the `database.db` file **and** creates the `hero` table in that database.
+
+Both things are done in this single step.
+
+///
 
 Let's unwrap that:
 
@@ -404,8 +425,11 @@ Put the code it in a file `app.py` if you haven't already.
 
 </details>
 
-!!! tip
-    Remember to [activate the virtual environment](./index.md#create-a-python-virtual-environment){.internal-link target=_blank} before running it.
+/// tip
+
+Remember to [activate the virtual environment](./index.md#create-a-python-virtual-environment){.internal-link target=_blank} before running it.
+
+///
 
 Now run the program with Python:
 
@@ -442,20 +466,23 @@ INFO Engine COMMIT
 
 </div>
 
-!!! info
-    I simplified the output above a bit to make it easier to read.
+/// info
 
-    But in reality, instead of showing:
+I simplified the output above a bit to make it easier to read.
 
-    ```
-    INFO Engine BEGIN (implicit)
-    ```
+But in reality, instead of showing:
 
-    it would show something like:
+```
+INFO Engine BEGIN (implicit)
+```
 
-    ```
-    2021-07-25 21:37:39,175 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-    ```
+it would show something like:
+
+```
+2021-07-25 21:37:39,175 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+```
+
+///
 
 ### `TEXT` or `VARCHAR`
 
@@ -479,8 +506,11 @@ Additional to the difference between those two data types, some databases like M
 
 To make it easier to start using **SQLModel** right away independent of the database you use (even with MySQL), and without any extra configurations, by default, `str` fields are interpreted as `VARCHAR` in most databases and `VARCHAR(255)` in MySQL, this way you know the same class will be compatible with the most popular databases without extra effort.
 
-!!! tip
-    You will learn how to change the maximum length of string columns later in the Advanced Tutorial - User Guide.
+/// tip
+
+You will learn how to change the maximum length of string columns later in the Advanced Tutorial - User Guide.
+
+///
 
 ### Verify the Database
 
@@ -519,8 +549,11 @@ We don't want that to happen like that, only when we **intend** it to happen, th
 
 Now we would be able to, for example, import the `Hero` class in some other file without having those **side effects**.
 
-!!! tip
-    😅 **Spoiler alert**: The function is called `create_db_and_tables()` because we will have more **tables** in the future with other classes apart from `Hero`. 🚀
+/// tip
+
+😅 **Spoiler alert**: The function is called `create_db_and_tables()` because we will have more **tables** in the future with other classes apart from `Hero`. 🚀
+
+///
 
 ### Create Data as a Script
 
@@ -528,10 +561,13 @@ We prevented the side effects when importing something from your `app.py` file.
 
 But we still want it to **create the database and table** when we call it with Python directly as an independent script from the terminal, just as as above.
 
-!!! tip
-    Think of the word **script** and **program** as interchangeable.
+/// tip
 
-    The word **script** often implies that the code could be run independently and easily. Or in some cases it refers to a relatively simple program.
+Think of the word **script** and **program** as interchangeable.
+
+The word **script** often implies that the code could be run independently and easily. Or in some cases it refers to a relatively simple program.
+
+///
 
 For that we can use the special variable `__name__` in an `if` block:
 
@@ -559,10 +595,13 @@ $ python app.py
 from app import Hero
 ```
 
-!!! tip
-    That `if` block using `if __name__ == "__main__":` is sometimes called the "**main block**".
+/// tip
 
-    The official name (in the <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">Python docs</a>) is "**Top-level script environment**".
+That `if` block using `if __name__ == "__main__":` is sometimes called the "**main block**".
+
+The official name (in the <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">Python docs</a>) is "**Top-level script environment**".
+
+///
 
 #### More details
 
@@ -614,8 +653,11 @@ if __name__ == "__main__":
 
 ...will **not** be executed.
 
-!!! info
-    For more information, check <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">the official Python docs</a>.
+/// info
+
+For more information, check <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">the official Python docs</a>.
+
+///
 
 ## Last Review
 
@@ -631,8 +673,11 @@ Now, let's give the code a final look:
 
 {!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
 
-!!! tip
-    Review what each line does by clicking each number bubble in the code. 👆
+/// tip
+
+Review what each line does by clicking each number bubble in the code. 👆
+
+///
 
 ## Recap
 
