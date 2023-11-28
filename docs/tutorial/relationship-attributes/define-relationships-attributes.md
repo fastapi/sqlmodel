@@ -123,10 +123,13 @@ And in the `Team` class, the `heroes` attribute is annotated as a list of `Hero`
 
 **SQLModel** (actually SQLAlchemy) is smart enough to know that the relationship is established by the `team_id`, as that's the foreign key that points from the `hero` table to the `team` table, so we don't have to specify that explicitly here.
 
-!!! tip
-    There's a couple of things we'll check again in some of the next chapters, about the `List["Hero"]` and the `back_populates`.
+/// tip
 
-    But for now, let's first see how to use these relationship attributes.
+There's a couple of things we'll check again in some of the next chapters, about the `List["Hero"]` and the `back_populates`.
+
+But for now, let's first see how to use these relationship attributes.
+
+///
 
 ## Next Steps
 

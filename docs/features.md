@@ -40,12 +40,15 @@ You won't need to keep guessing the types of different attributes in your models
 
 <img class="shadow" src="/img/index/autocompletion01.png">
 
-!!! info
-    Don't worry, adopting this in-development standard only affects/improves editor support.
+/// info
 
-    It doesn't affect performance or correctness. And if the in-progress standard was deprecated your code won't be affected.
+Don't worry, adopting this in-development standard only affects/improves editor support.
 
-    Meanwhile, you will get inline errors (like type checks) and autocompletion on places you wouldn't get with any other library. 🎉
+It doesn't affect performance or correctness. And if the in-progress standard was deprecated your code won't be affected.
+
+Meanwhile, you will get inline errors (like type checks) and autocompletion on places you wouldn't get with any other library. 🎉
+
+///
 
 ## Short
 

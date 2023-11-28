@@ -57,8 +57,11 @@ $ cd sqlmodel-tutorial
 
 </div>
 
-!!! tip
-    Make sure you don't name it also `sqlmodel`, so that you don't end up overriding the name of the package.
+/// tip
+
+Make sure you don't name it also `sqlmodel`, so that you don't end up overriding the name of the package.
+
+///
 
 ### Make sure you have Python
 
@@ -119,10 +122,13 @@ In very short, a virtual environment is a small directory that contains a copy o
 
 And when you "activate" it, any package that you install, for example with `pip`, will be installed in that virtual environment.
 
-!!! tip
-    There are other tools to manage virtual environments, like <a href="https://python-poetry.org/" class="external-link" target="_blank">Poetry</a>.
+/// tip
 
-    And there are alternatives that are particularly useful for deployment like <a href="https://docs.docker.com/get-started/" class="external-link" target="_blank">Docker</a> and other types of containers. In this case, the "virtual environment" is not just the Python standard files and the installed packages, but the whole system.
+There are other tools to manage virtual environments, like <a href="https://python-poetry.org/" class="external-link" target="_blank">Poetry</a>.
+
+And there are alternatives that are particularly useful for deployment like <a href="https://docs.docker.com/get-started/" class="external-link" target="_blank">Docker</a> and other types of containers. In this case, the "virtual environment" is not just the Python standard files and the installed packages, but the whole system.
+
+///
 
 Go ahead and create a Python virtual environment for this project. And make sure to also upgrade `pip`.
 

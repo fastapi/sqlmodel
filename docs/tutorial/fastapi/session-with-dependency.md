@@ -81,14 +81,17 @@ We import `Depends()` from `fastapi`. Then we use it in the *path operation func
 
 </details>
 
-!!! tip
-    Here's a tip about that `*,` thing in the parameters.
+/// tip
 
-    Here we are passing the parameter `session` that has a "default value" of `Depends(get_session)` before the parameter `hero`, that doesn't have any default value.
+Here's a tip about that `*,` thing in the parameters.
 
-    Python would normally complain about that, but we can use the initial "parameter" `*,` to mark all the rest of the parameters as "keyword only", which solves the problem.
+Here we are passing the parameter `session` that has a "default value" of `Depends(get_session)` before the parameter `hero`, that doesn't have any default value.
 
-    You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
+Python would normally complain about that, but we can use the initial "parameter" `*,` to mark all the rest of the parameters as "keyword only", which solves the problem.
+
+You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
+
+///
 
 The value of a dependency will **only be used for one request**, FastAPI will call it right before calling your code and will give you the value from that dependency.
 

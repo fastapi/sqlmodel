@@ -333,8 +333,11 @@ Now let's review all that code:
 
 {!./docs_src/tutorial/delete/annotations/en/tutorial002.md!}
 
-!!! tip
-    Check out the number bubbles to see what is done by each line of code.
+/// tip
+
+Check out the number bubbles to see what is done by each line of code.
+
+///
 
 ## Recap
 

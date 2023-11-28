@@ -110,8 +110,11 @@ INFO Engine [no key 0.00014s] (3, 0)
 
 Great! We got only 3 heroes as we wanted.
 
-!!! tip
-    We will check out that SQL code more in a bit.
+/// tip
+
+We will check out that SQL code more in a bit.
+
+///
 
 ## Select with Offset and Limit
 
@@ -119,10 +122,13 @@ Now we can limit the results to get only the first 3.
 
 But imagine we are in a user interface showing the results in batches of 3 heroes at a time.
 
-!!! tip
-    This is commonly called "pagination". Because the user interface would normally show a "page" of a predefined number of heroes at a time.
+/// tip
 
-    And then you can interact with the user interface to get the next page, and so on.
+This is commonly called "pagination". Because the user interface would normally show a "page" of a predefined number of heroes at a time.
+
+And then you can interact with the user interface to get the next page, and so on.
+
+///
 
 How do we get the next 3?
 

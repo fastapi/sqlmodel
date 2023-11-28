@@ -71,8 +71,11 @@ This will return the first object in the `results` (if there was any).
 
 That way, we don't have to deal with an iterable or a list.
 
-!!! tip
-    Notice that `.first()` is a method of the `results` object, not of the `select()` statement.
+/// tip
+
+Notice that `.first()` is a method of the `results` object, not of the `select()` statement.
+
+///
 
 Although this query would find two rows, by using `.first()` we get only the first row.
 

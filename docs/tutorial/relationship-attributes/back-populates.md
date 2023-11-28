@@ -58,8 +58,11 @@ As you already know how this works, I won't separate that in a select `statement
 
 </details>
 
-!!! tip
-    When writing your own code, this is probably the style you will use most often, as it's shorter, more convenient, and you still get all the power of autocompletion and inline errors.
+/// tip
+
+When writing your own code, this is probably the style you will use most often, as it's shorter, more convenient, and you still get all the power of autocompletion and inline errors.
+
+///
 
 ## Print the Data
 
@@ -127,8 +130,11 @@ The first important thing is, we *haven't committed* the hero yet, so accessing 
 
 But in our code, in this exact point in time, we already said that **Spider-Boy** is no longer part of the **Preventers**. 🔥
 
-!!! tip
-    We could revert that later by not committing the **session**, but that's not what we are interested in here.
+/// tip
+
+We could revert that later by not committing the **session**, but that's not what we are interested in here.
+
+///
 
 Here, at this point in the code, in memory, the code expects **Preventers** to *not include* **Spider-Boy**.
 
@@ -247,10 +253,13 @@ And we can keep the rest of the code the same:
 
 </details>
 
-!!! tip
-    This is the same section where we updated `hero_spider_boy.team` to `None` but we *haven't committed* that change yet.
+/// tip
 
-    The same section that caused a problem before.
+This is the same section where we updated `hero_spider_boy.team` to `None` but we *haven't committed* that change yet.
+
+The same section that caused a problem before.
+
+///
 
 ## Review the Result
 
@@ -336,8 +345,11 @@ So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 
 </details>
 
-!!! tip
-    Each **relationship attribute** points to the other one, in the other model, using `back_populates`.
+/// tip
+
+Each **relationship attribute** points to the other one, in the other model, using `back_populates`.
+
+///
 
 Although it's simple code, it can be confusing to think about 😵, because the same line has concepts related to both models in multiple places:
 

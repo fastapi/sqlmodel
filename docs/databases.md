@@ -1,9 +1,12 @@
 # Intro to Databases
 
-!!! info
-    Are you a seasoned developer and already know everything about databases? 🤓
+/// info
 
-    Then you can skip to the [Tutorial - User Guide: First Steps](tutorial/index.md){.internal-link target=_blank} right away.
+Are you a seasoned developer and already know everything about databases? 🤓
+
+Then you can skip to the [Tutorial - User Guide: First Steps](tutorial/index.md){.internal-link target=_blank} right away.
+
+///
 
 If you don't know everything about databases, here's a quick overview.
 
@@ -17,8 +20,11 @@ So, what is a database?
 
 A **database** is a system to store and manage data in a structured and very efficient way.
 
-!!! tip
-    It's very common to abbreviate the word "database" as **"DB"**.
+/// tip
+
+It's very common to abbreviate the word "database" as **"DB"**.
+
+///
 
 As there's a lot of information about databases, and it can get very technical and academic, I'll give you a quick overview about some of the main concepts here.
 
@@ -28,8 +34,11 @@ I'll even tell you a bit about different types of databases, including the ones 
 
 When starting to program, it might **not be obvious** why having a database apart from the code for your program is a **good idea**. Let's start with that.
 
-!!! tip
-    If that's obvious to you, just continue in the next section below. 👇
+/// tip
+
+If that's obvious to you, just continue in the next section below. 👇
+
+///
 
 In your code you already have **variables**, **dictionaries**, **lists**, etc. They all store **data** in some way already. Why would you need to have a separate database?
 
@@ -308,8 +317,11 @@ Next, it receives the data and puts it in Python objects that you can continue t
 
 I'll tell you more about SQL, SQLModel, how to use them, and how they are related in the next sections.
 
-!!! info "Technical Details"
-    SQLModel is built on top of SQLAlchemy. It is, in fact, just <a href="https://www.sqlalchemy.org/" class="external-link" target="_blank">SQLAlchemy</a> and <a href="https://pydantic-docs.helpmanual.io/" class="external-link" target="_blank">Pydantic</a> mixed together with some sugar on top.
+/// info  | Technical Details
+
+SQLModel is built on top of SQLAlchemy. It is, in fact, just <a href="https://www.sqlalchemy.org/" class="external-link" target="_blank">SQLAlchemy</a> and <a href="https://pydantic-docs.helpmanual.io/" class="external-link" target="_blank">Pydantic</a> mixed together with some sugar on top.
+
+///
 
 ## NoSQL Databases
 
