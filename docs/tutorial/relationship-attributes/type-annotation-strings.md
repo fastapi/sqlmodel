@@ -8,14 +8,13 @@ In the first Relationship attribute, we declare it with `List["Hero"]`, putting 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
 ```
 
-</details>
+///
 
 What's that about? Can't we just write it normally as `List[Hero]`?
 

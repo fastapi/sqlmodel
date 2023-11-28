@@ -63,14 +63,13 @@ Import the things we need from `sqlmodel` and create a new `Team` model:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is very similar to what we have been doing with the `Hero` model.
 
@@ -95,14 +94,13 @@ This is the same model we have been using up to now, we are just adding the new 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 Most of that should look familiar:
 
@@ -142,14 +140,13 @@ Now we can add the same code as before to create the engine and the function to 
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:21-28]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 And as before, we'll call this function from another function `main()`, and we'll add that function `main()` to the main block of the file:
 
@@ -159,14 +156,13 @@ And as before, we'll call this function from another function `main()`, and we'l
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:31-36]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Run the Code
 

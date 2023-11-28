@@ -26,14 +26,13 @@ Let's see how that works by writing an **incomplete** version first, without `ba
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Read Data Objects
 
@@ -49,14 +48,13 @@ As you already know how this works, I won't separate that in a select `statement
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 /// tip
 
@@ -76,14 +74,13 @@ Now, let's print the current **Spider-Boy**, the current **Preventers** team, an
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 Up to this point, it's all good. 😊
 
@@ -117,14 +114,13 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 The first important thing is, we *haven't committed* the hero yet, so accessing the list of heroes would not trigger an automatic refresh.
 
@@ -176,14 +172,13 @@ Now, if we commit it and print again:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 When we access `preventers_team.heroes` after the `commit`, that triggers a refresh, so we get the latest list, without **Spider-Boy**, so that's fine again:
 
@@ -221,14 +216,13 @@ Let's add it back:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 And we can keep the rest of the code the same:
 
@@ -244,14 +238,13 @@ And we can keep the rest of the code the same:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 /// tip
 
@@ -290,14 +283,13 @@ It's quite simple code, it's just a string, but it might be confusing to think e
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 The string in `back_populates` is the name of the attribute *in the other* model, that will reference *the current* model.
 
@@ -313,14 +305,13 @@ So, in the class `Team`, we have an attribute `heroes` and we declare it with `R
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 The string in `back_populates="team"` refers to the attribute `team` in the class `Hero` (the other class).
 
@@ -336,14 +327,13 @@ So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 /// tip
 
@@ -376,11 +366,10 @@ So, `back_populates` would most probably be something like `"hero"` or `"heroes"
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003.py!}
 ```
 
-</details>
+///

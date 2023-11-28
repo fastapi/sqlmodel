@@ -47,14 +47,13 @@ For that, we will import `SQLModel` (plus other things we will also use) and cre
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 This class `Hero` **represents the table** for our heroes. And each instance we create later will **represent a row** in the table.
 
@@ -82,14 +81,13 @@ And the type of each of them will also be the type of table column:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 Let's now see with more detail these field/column declarations.
 
@@ -109,14 +107,13 @@ And we also set the default value of `age` to `None`.
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 /// tip
 
@@ -152,14 +149,13 @@ To do that, we use the special `Field` function from `sqlmodel` and set the argu
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 That way, we tell **SQLModel** that this `id` field/column is the primary key of the table.
 
@@ -208,14 +204,13 @@ Creating the **engine** is very simple, just call `create_engine()` with a URL f
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 You should normally have a single **engine** object for your whole application and re-use it everywhere.
 
@@ -245,14 +240,13 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the <a href="https://docs.sqlalchemy.org/en/14/core/engines.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
 
@@ -270,14 +264,13 @@ It is particularly useful for **learning** and **debugging**:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 But in production, you would probably want to remove `echo=True`:
 
@@ -416,14 +409,13 @@ Let's run the program to see it all working.
 
 Put the code it in a file `app.py` if you haven't already.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
 ```
 
-</details>
+///
 
 /// tip
 
@@ -534,14 +526,13 @@ Let's put it in a function `create_db_and_tables()`:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/create_db_and_table/tutorial002.py!}
 ```
 
-</details>
+///
 
 If `SQLModel.metadata.create_all(engine)` was not in a function and we tried to import something from this module (from this file) in another, it would try to create the database and table **every time** we executed that other file that imported this module.
 

@@ -22,14 +22,13 @@ If you need to refresh how *path parameters* work, including their data validati
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
 ```
 
-</details>
+///
 
 For example, to get the hero with ID `2` we would send a `GET` request to:
 
@@ -57,14 +56,13 @@ This will let the client know that they probably made a mistake on their side an
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Return the Hero
 
@@ -80,14 +78,13 @@ And because we are using the `response_model` with `HeroRead`, it will be valida
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Check the Docs UI
 

@@ -14,14 +14,13 @@ We will use the application with the hero models, but without team models, and w
 
 Now we will see how useful it is to have this session dependency. ✨
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/main.py!}
 ```
 
-</details>
+///
 
 ## File Structure
 
@@ -171,10 +170,8 @@ But **it works great for testing**, because it can be quickly created before eac
 
 And also, because it never has to write anything to a file and it's all just in memory, it will be even faster than normally. 🏎
 
-<details>
-<summary>
-Other alternatives and ideas 👀
-</summary>
+/// details | Other alternatives and ideas 👀
+
 Before arriving at the idea of using an **in-memory database** we could have explored other alternatives and ideas.
 
 The first is that we are not deleting the file after we finish the test, so the next test could have **leftover data**. So, the right thing would be to delete the file right after finishing the test. 🔥
@@ -187,7 +184,7 @@ So, if we tried to run the tests at the same time **in parallel** to try to spee
 
 Of course, we could also fix that, using some **random name** for each testing database file... but in the case of SQLite, we have an even better alternative by just using an **in-memory database**. ✨
 
-</details>
+///
 
 ## Configure the In-Memory Database
 
@@ -315,14 +312,13 @@ Let's add some more tests:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
 ```
 
-</details>
+///
 
 /// tip
 
@@ -352,14 +348,13 @@ But for the next test function, we will require **both fixtures**, the **client*
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
 ```
 
-</details>
+///
 
 In this test function, we want to check that the *path operation* to **read a list of heroes** actually sends us heroes.
 
@@ -391,14 +386,13 @@ Using the same ideas, requiring the fixtures, creating data that we need for the
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:84-125]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
 ```
 
-</details>
+///
 
 ## Run the Tests
 

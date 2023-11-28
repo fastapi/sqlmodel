@@ -14,14 +14,13 @@ Let's check the old code we used to create some heroes and teams:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 There are several things to **notice** here.
 
@@ -49,14 +48,13 @@ Now let's do all that, but this time using the new, shiny `Relationship` attribu
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
 ```
 
-</details>
+///
 
 Now we can create the `Team` instances and pass them directly to the new `team` argument when creating the `Hero` instances, as `team=team_preventers` instead of `team_id=team_preventers.id`.
 
@@ -84,14 +82,13 @@ The same way we could assign an integer with a `team.id` to a `hero.team_id`, we
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create a Team with Heroes
 
@@ -111,14 +108,13 @@ We could also create the `Hero` instances first, and then pass them in the `hero
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
 Here we create two heroes first, **Black Lion** and **Princess Sure-E**, and then we pass them in the `heroes` argument.
 
@@ -146,14 +142,13 @@ Let's create some more heroes and add them to the `team_preventers.heroes` list 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
 The attribute `team_preventers.heroes` behaves like a list. But it's a special type of list, because when we modify it adding heroes to it, **SQLModel** (actually SQLAlchemy) **keeps track of the necessary changes** to be done in the database.
 

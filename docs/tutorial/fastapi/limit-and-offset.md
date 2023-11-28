@@ -32,14 +32,13 @@ And by default, we will return a maximum of `100` heroes, so `limit` will have a
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001.py!}
 ```
 
-</details>
+///
 
 We want to allow clients to set different `offset` and `limit` values.
 
