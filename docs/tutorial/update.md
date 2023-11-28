@@ -6,14 +6,13 @@ Now let's see how to update data using **SQLModel**.
 
 As before, we'll continue from where we left off with the previous code.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
-</details>
+///
 
 Remember to remove the `database.db` file before running the examples to get the same results.
 
@@ -102,14 +101,13 @@ We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 Let's not forget to add that `update_heroes()` function to the `main()` function so that we call it when executing the program from the command line:
 
@@ -119,14 +117,13 @@ Let's not forget to add that `update_heroes()` function to the `main()` function
 {!./docs_src/tutorial/update/tutorial001.py[ln:58-65]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 Up to that point, running that in the command line will output:
 
@@ -169,14 +166,13 @@ In this case, we will set the `age` to `16`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Add the Hero to the Session
 
@@ -192,14 +188,13 @@ This is the same we did when creating new hero instances:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Commit the Session
 
@@ -215,14 +210,13 @@ This will save the updated hero in the database:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 It will also save anything else that was added to the session.
 
@@ -263,14 +257,13 @@ But in this example we are not accessing any attribute, we will only print the o
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 This refresh will trigger the same SQL query that would be automatically triggered by accessing an attribute. So it will generate this output:
 
@@ -304,14 +297,13 @@ Now we can just print the hero:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 Because we refreshed it right after updating it, it has fresh data, including the new `age` we just updated.
 
@@ -364,14 +356,13 @@ This also means that you can update several fields (attributes, columns) at once
 
 {!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial004.py!}
 ```
 
-</details>
+///
 
 /// tip
 

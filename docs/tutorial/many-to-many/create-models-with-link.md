@@ -18,14 +18,13 @@ We can create it just as any other **SQLModel**:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is a **SQLModel** class model table like any other.
 
@@ -47,14 +46,13 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 The **relationship attribute `heroes`** is still a list of heroes, annotated as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
 
@@ -76,14 +74,13 @@ Let's see the other side, here's the `Hero` model:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 We **removed** the previous `team_id` field (column) because now the relationship is done via the link table. 🔥
 
@@ -109,14 +106,13 @@ The same as before, we will have the rest of the code to create the **engine**, 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 
 And as in previous examples, we will add that function to a function `main()`, and we will call that `main()` function in the main block:
@@ -130,14 +126,13 @@ And as in previous examples, we will add that function to a function `main()`, a
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:83-84]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 
 ## Run the Code

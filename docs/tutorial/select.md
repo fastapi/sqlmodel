@@ -23,14 +23,13 @@ Things are getting more exciting! Let's now see how to read data from the databa
 
 Let's continue from the last code we used to create some data.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 We are creating a **SQLModel** `Hero` class model and creating some records.
 
@@ -175,14 +174,13 @@ We will start with that in a new function `select_heroes()`:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create a `select` Statement
 
@@ -196,14 +194,13 @@ First we have to import `select` from `sqlmodel` at the top of the file:
 # More code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 And then we will use it to create a `SELECT` statement in Python code:
 
@@ -217,14 +214,13 @@ And then we will use it to create a `SELECT` statement in Python code:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 It's a very simple line of code that conveys a lot of information:
 
@@ -263,14 +259,13 @@ Now that we have the `select` statement, we can execute it with the **session**:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will tell the **session** to go ahead and use the **engine** to execute that `SELECT` statement in the database and bring the results back.
 
@@ -316,14 +311,13 @@ Now we can put it in a `for` loop and print each one of the heroes:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will print the output:
 
@@ -345,14 +339,13 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Review The Code
 
@@ -406,14 +399,13 @@ The special `results` object also has a method `results.all()` that returns a li
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial003.py!}
 ```
 
-</details>
+///
 
 With this now we have all the heroes in a list in the `heroes` variable.
 
@@ -447,14 +439,13 @@ But knowing what is each object and what it is all doing, we can simplify it a b
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial004.py!}
 ```
 
-</details>
+///
 
 Here we are putting it all on a single line, you will probably put the select statements in a single line like this more often.
 

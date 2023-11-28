@@ -43,14 +43,13 @@ This is almost the same code we have seen up to now in previous examples:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 There's only one change here from the code we have used before, the `check_same_thread` in the `connect_args`.
 
@@ -88,14 +87,13 @@ And then create an `app` object that is an instance of that `FastAPI` class:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create Database and Tables on `startup`
 
@@ -111,14 +109,13 @@ This should be called only once at startup, not before every request, so we put 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create Heroes *Path Operation*
 
@@ -140,14 +137,13 @@ It will be called when a user sends a request with a `POST` **operation** to the
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 /// info
 
@@ -187,14 +183,13 @@ Now let's add another **path operation** to read all the heroes:
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-46]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is pretty straightforward.
 
