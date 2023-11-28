@@ -109,7 +109,8 @@ markdown_extensions:
       class: mermaid
       format: !!python/name:pymdownx.superfences.fence_code_format ''
 - pymdownx.betterem
-- pymdownx.highlight
+- pymdownx.highlight:
+    linenums: !ENV [LINENUMS, false]
 - pymdownx.blocks.details
 - pymdownx.blocks.admonition:
     types:
