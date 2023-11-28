@@ -8,8 +8,11 @@ Let's add a new *path operation* to read one single hero.
 
 We want to get the hero based on the `id`, so we will use a **path parameter** `hero_id`.
 
-!!! info
-    If you need to refresh how *path parameters* work, including their data validation, check the <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">FastAPI docs about Path Parameters</a>.
+/// info
+
+If you need to refresh how *path parameters* work, including their data validation, check the <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">FastAPI docs about Path Parameters</a>.
+
+///
 
 ```Python hl_lines="8"
 {!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}

@@ -57,8 +57,11 @@ $ cd sqlmodel-tutorial
 
 </div>
 
-!!! tip
-    Make sure you don't name it also `sqlmodel`, so that you don't end up overriding the name of the package.
+/// tip
+
+Make sure you don't name it also `sqlmodel`, so that you don't end up overriding the name of the package.
+
+///
 
 ### Make sure you have Python
 
@@ -119,61 +122,68 @@ In very short, a virtual environment is a small directory that contains a copy o
 
 And when you "activate" it, any package that you install, for example with `pip`, will be installed in that virtual environment.
 
-!!! tip
-    There are other tools to manage virtual environments, like <a href="https://python-poetry.org/" class="external-link" target="_blank">Poetry</a>.
+/// tip
 
-    And there are alternatives that are particularly useful for deployment like <a href="https://docs.docker.com/get-started/" class="external-link" target="_blank">Docker</a> and other types of containers. In this case, the "virtual environment" is not just the Python standard files and the installed packages, but the whole system.
+There are other tools to manage virtual environments, like <a href="https://python-poetry.org/" class="external-link" target="_blank">Poetry</a>.
+
+And there are alternatives that are particularly useful for deployment like <a href="https://docs.docker.com/get-started/" class="external-link" target="_blank">Docker</a> and other types of containers. In this case, the "virtual environment" is not just the Python standard files and the installed packages, but the whole system.
+
+///
 
 Go ahead and create a Python virtual environment for this project. And make sure to also upgrade `pip`.
 
 Here are the commands you could use:
 
-=== "Linux, macOS, Linux in Windows"
+/// tab | Linux, macOS, Linux in Windows
 
-    <div class="termy">
+<div class="termy">
 
-    ```console
-    // Remember that you might need to use python3.9 or similar 💡
-    // Create the virtual environment using the module "venv"
-    $ python3 -m venv env
-    // ...here it creates the virtual environment in the directory "env"
-    // Activate the virtual environment
-    $ source ./env/bin/activate
-    // Verify that the virtual environment is active
-    # (env) $$ which python
-    // The important part is that it is inside the project directory, at "code/sqlmodel-tutorial/env/bin/python"
-    /home/leela/code/sqlmodel-tutorial/env/bin/python
-    // Use the module "pip" to install and upgrade the package "pip" 🤯
-    # (env) $$ python -m pip install --upgrade pip
-    ---> 100%
-    Successfully installed pip
-    ```
+```console
+// Remember that you might need to use python3.9 or similar 💡
+// Create the virtual environment using the module "venv"
+$ python3 -m venv env
+// ...here it creates the virtual environment in the directory "env"
+// Activate the virtual environment
+$ source ./env/bin/activate
+// Verify that the virtual environment is active
+# (env) $$ which python
+// The important part is that it is inside the project directory, at "code/sqlmodel-tutorial/env/bin/python"
+/home/leela/code/sqlmodel-tutorial/env/bin/python
+// Use the module "pip" to install and upgrade the package "pip" 🤯
+# (env) $$ python -m pip install --upgrade pip
+---> 100%
+Successfully installed pip
+```
 
-    </div>
+</div>
 
-=== "Windows PowerShell"
+///
 
-    <div class="termy">
+/// tab | Windows PowerShell
 
-    ```console
-    // Create the virtual environment using the module "venv"
-    # >$ python3 -m venv env
-    // ...here it creates the virtual environment in the directory "env"
-    // Activate the virtual environment
-    # >$ .\env\Scripts\Activate.ps1
-    // Verify that the virtual environment is active
-    # (env) >$ Get-Command python
-    // The important part is that it is inside the project directory, at "code\sqlmodel-tutorial\env\python.exe"
-    CommandType    Name    Version     Source
-    -----------    ----    -------     ------
-    Application    python  0.0.0.0     C:\Users\leela\code\sqlmodel-tutorial\env\python.exe
-    // Use the module "pip" to install and upgrade the package "pip" 🤯
-    # (env) >$ python3 -m pip install --upgrade pip
-    ---> 100%
-    Successfully installed pip
-    ```
+<div class="termy">
 
-    </div>
+```console
+// Create the virtual environment using the module "venv"
+# >$ python3 -m venv env
+// ...here it creates the virtual environment in the directory "env"
+// Activate the virtual environment
+# >$ .\env\Scripts\Activate.ps1
+// Verify that the virtual environment is active
+# (env) >$ Get-Command python
+// The important part is that it is inside the project directory, at "code\sqlmodel-tutorial\env\python.exe"
+CommandType    Name    Version     Source
+-----------    ----    -------     ------
+Application    python  0.0.0.0     C:\Users\leela\code\sqlmodel-tutorial\env\python.exe
+// Use the module "pip" to install and upgrade the package "pip" 🤯
+# (env) >$ python3 -m pip install --upgrade pip
+---> 100%
+Successfully installed pip
+```
+
+</div>
+
+///
 
 ## Install **SQLModel**
 

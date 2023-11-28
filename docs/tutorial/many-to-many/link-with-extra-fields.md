@@ -18,8 +18,11 @@ A row in the table `heroteamlink` points to **one** particular hero, but a singl
 
 And also, the same row in the table `heroteamlink` points to **one** team, but a single team can be connected to **many** hero-team links, so it's also **one-to-many**.
 
-!!! tip
-    The previous many-to-many relationship was also just two one-to-many relationships combined, but now it's going to be much more explicit.
+/// tip
+
+The previous many-to-many relationship was also just two one-to-many relationships combined, but now it's going to be much more explicit.
+
+///
 
 ## Update Link Model
 
@@ -51,10 +54,13 @@ The new **relationship attributes** have their own `back_populates` pointing to 
 * `team`: has `back_populates="hero_links"`, because in the `Team` model, the attribute will contain the links to the **team's heroes**.
 * `hero`: has `back_populates="team_links"`, because in the `Hero` model, the attribute will contain the links to the **hero's teams**.
 
-!!! info
-    In SQLAlchemy this is called an Association Object or Association Model.
+/// info
 
-    I'm calling it **Link Model** just because that's easier to write avoiding typos. But you are also free to call it however you want. 😉
+In SQLAlchemy this is called an Association Object or Association Model.
+
+I'm calling it **Link Model** just because that's easier to write avoiding typos. But you are also free to call it however you want. 😉
+
+///
 
 ## Update Team Model
 

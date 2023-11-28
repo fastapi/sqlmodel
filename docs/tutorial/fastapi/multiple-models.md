@@ -136,8 +136,11 @@ But `HeroCreate` and `HeroRead` don't have `table = True`. They are only **data 
 
 This also means that `SQLModel.metadata.create_all()` won't create tables in the database for `HeroCreate` and `HeroRead`, because they don't have `table = True`, which is exactly what we want. 🚀
 
-!!! tip
-    We will improve this code to avoid duplicating the fields, but for now we can continue learning with these models.
+/// tip
+
+We will improve this code to avoid duplicating the fields, but for now we can continue learning with these models.
+
+///
 
 ## Use Multiple Models to Create a Hero
 
@@ -208,10 +211,13 @@ And now that we return it, FastAPI will validate the data with the `response_mod
 
 This will validate that all the data that we promised is there and will remove any data we didn't declare.
 
-!!! tip
-    This filtering could be very important and could be a very good security feature, for example, to make sure you filter private data, hashed passwords, etc.
+/// tip
 
-    You can read more about it in the <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI docs about Response Model</a>.
+This filtering could be very important and could be a very good security feature, for example, to make sure you filter private data, hashed passwords, etc.
+
+You can read more about it in the <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI docs about Response Model</a>.
+
+///
 
 In particular, it will make sure that the `id` is there and that it is indeed an integer (and not `None`).
 

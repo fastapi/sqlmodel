@@ -73,12 +73,15 @@ You repeat this process **a few more times**, and you finally arrive at the lett
 
 You had to open the dictionary a few times, maybe **5 or 10**. That's actually **very little work** compared to what it could have been.
 
-!!! note "Technical Details"
-    Do you like **fancy words**? Cool! Programmers tend to like fancy words. 😅
+/// note  | Technical Details
 
-    That <abbr title="a recipe, a sequence of predefined steps that achieve a result">algorithm</abbr> I showed you above is called **Binary Search**.
+Do you like **fancy words**? Cool! Programmers tend to like fancy words. 😅
 
-    It's called like that because you **search** something by splitting the dictionary (or any ordered list of things) in **two** ("binary" means "two") parts. And you do that process multiple times until you find what you want.
+That <abbr title="a recipe, a sequence of predefined steps that achieve a result">algorithm</abbr> I showed you above is called **Binary Search**.
+
+It's called like that because you **search** something by splitting the dictionary (or any ordered list of things) in **two** ("binary" means "two") parts. And you do that process multiple times until you find what you want.
+
+///
 
 ### An Index and a Novel
 
@@ -297,10 +300,13 @@ We use the same `Field()` again as we did before, and set `index=True`. That's i
 
 Notice that we didn't set an argument of `default=None` or anything similar. This means that **SQLModel** (thanks to Pydantic) will keep it as a **required** field.
 
-!!! info
-    SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
+/// info
 
-    In this case the generated name would be `ix_hero_name`.
+SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
+
+In this case the generated name would be `ix_hero_name`.
+
+///
 
 ## Query Data
 

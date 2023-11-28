@@ -62,8 +62,11 @@ FROM hero, team
 WHERE hero.team_id = team.id
 ```
 
-!!! info
-    Because we have two columns called `name`, one for `hero` and one for `team`, we can specify them with the prefix of the table name and the dot to make it explicit what we refer to.
+/// info
+
+Because we have two columns called `name`, one for `hero` and one for `team`, we can specify them with the prefix of the table name and the dot to make it explicit what we refer to.
+
+///
 
 Notice that now in the `WHERE` part we are not comparing one column with a literal value (like `hero.name = "Deadpond"`), but we are comparing two columns.
 
@@ -99,14 +102,17 @@ You can go ahead and try it in **DB Browser for SQLite**:
 
 <img class="shadow" src="/img/tutorial/relationships/select/image01.png">
 
-!!! note
-    Wait, what about Spider-Boy? 😱
+/// note
 
-    He doesn't have a team, so his `team_id` is `NULL` in the database. And this SQL is comparing that `NULL` from the `team_id` with all the `id` fields in the rows in the `team` table.
+Wait, what about Spider-Boy? 😱
 
-    As there's no team with an ID of `NULL`, it doesn't find a match.
+He doesn't have a team, so his `team_id` is `NULL` in the database. And this SQL is comparing that `NULL` from the `team_id` with all the `id` fields in the rows in the `team` table.
 
-    But we'll see how to fix that later with a `LEFT JOIN`.
+As there's no team with an ID of `NULL`, it doesn't find a match.
+
+But we'll see how to fix that later with a `LEFT JOIN`.
+
+///
 
 ## Select Related Data with **SQLModel**
 
@@ -164,10 +170,13 @@ For each iteration in the `for` loop we get a a tuple with an instance of the cl
 
 And in this `for` loop we assign them to the variable `hero` and the variable `team`.
 
-!!! info
-    There was a lot of research, design, and work behind **SQLModel** to make this provide the best possible developer experience.
+/// info
 
-    And you should get autocompletion and inline errors in your editor for both `hero` and `team`. 🎉
+There was a lot of research, design, and work behind **SQLModel** to make this provide the best possible developer experience.
+
+And you should get autocompletion and inline errors in your editor for both `hero` and `team`. 🎉
+
+///
 
 ## Add It to Main
 
@@ -281,10 +290,13 @@ Also in **DB Browser for SQLite**:
 
 <img class="shadow" src="/img/tutorial/relationships/select/image02.png">
 
-!!! tip
-    Why bother with all this if the result is the same?
+/// tip
 
-    This `JOIN` will be useful in a bit to be able to also get Spider-Boy, even if he doesn't have a team.
+Why bother with all this if the result is the same?
+
+This `JOIN` will be useful in a bit to be able to also get Spider-Boy, even if he doesn't have a team.
+
+///
 
 ## Join Tables in **SQLModel**
 
@@ -420,8 +432,11 @@ And that would return the following result, including **Spider-Boy** 🎉:
 </tr>
 </table>
 
-!!! tip
-    The only difference between this query and the previous is that extra `LEFT OUTER`.
+/// tip
+
+The only difference between this query and the previous is that extra `LEFT OUTER`.
+
+///
 
 And here's another of the SQL variations, you could write `LEFT OUTER JOIN` or just `LEFT JOIN`, it means the same.
 
