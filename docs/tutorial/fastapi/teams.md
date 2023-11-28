@@ -24,14 +24,13 @@ And we also create a `TeamUpdate` **data model**.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
 
-</details>
+///
 
 We now also have **relationship attributes**. 🎉
 
@@ -47,14 +46,13 @@ Let's now update the `Hero` models too.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
 
-</details>
+///
 
 We now have a `team_id` in the hero models.
 
@@ -74,14 +72,13 @@ Notice that the **relationship attributes**, the ones with `Relationship()`, are
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Path Operations for Teams
 
@@ -97,14 +94,13 @@ These are equivalent and very similar to the **path operations** for the **heroe
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Using Relationships Attributes
 

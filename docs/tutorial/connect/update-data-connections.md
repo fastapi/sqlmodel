@@ -37,14 +37,13 @@ Now we'll see how to **update** those connections between rows tables.
 
 We will continue with the code we used to create some heroes, and we'll update them.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Assign a Team to a Hero
 
@@ -64,14 +63,13 @@ Doing it is just like updating any other field:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 We can simply **assign** a value to that field attribute `team_id`, then `add()` the hero to the session, and then `commit()`.
 

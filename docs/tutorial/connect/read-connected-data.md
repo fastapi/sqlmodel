@@ -35,14 +35,13 @@ And the `hero` table has this data:
 
 We will continue with the code in the previous example and we will add more things to it.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## `SELECT` Connected Data with SQL
 
@@ -132,14 +131,13 @@ So, we can pass the `Hero` and `Team` model classes. And we can also use both th
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 Notice that in the comparison with `==` we are using the class attributes for both `Hero.team_id` and `Team.id`.
 
@@ -157,14 +155,13 @@ And as we used `select` with two models, we will receive tuples of instances of 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 For each iteration in the `for` loop we get a a tuple with an instance of the class `Hero` and an instance of the class `Team`.
 
@@ -190,14 +187,13 @@ As always, we must remember to add this new `select_heroes()` function to the `m
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 
 ## Run the Program
@@ -312,14 +308,13 @@ And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we alre
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial002.py!}
 ```
 
-</details>
+///
 
 Also notice that we are still including `Team` in the `select(Hero, Team)`, because we still want to access that data.
 
@@ -454,14 +449,13 @@ Now let's replicate the same query in **SQLModel**.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial003.py!}
 ```
 
-</details>
+///
 
 And if we run it, it will output:
 
@@ -516,14 +510,13 @@ We could even add some additional `.where()` after `.join()` to filter the data 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial004.py!}
 ```
 
-</details>
+///
 
 Here we are **filtering** with `.where()` to get only the heroes that belong to the **Preventers** team.
 
@@ -562,14 +555,13 @@ By putting the `Team` in `select()` we tell **SQLModel** and the database that w
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial005.py!}
 ```
 
-</details>
+///
 
 And if we run that, it will output:
 

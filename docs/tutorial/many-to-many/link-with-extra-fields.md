@@ -40,14 +40,13 @@ And we will also add two **relationship attributes**, for the linked `team` and 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 The new **relationship attributes** have their own `back_populates` pointing to new relationship attributes we will create in the `Hero` and `Team` models:
 
@@ -76,14 +75,13 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Update Hero Model
 
@@ -99,14 +97,13 @@ We change the `teams` relationship attribute for `team_links`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Create Relationships
 
@@ -122,14 +119,13 @@ But now we create the **explicit link models** manually, pointing to their hero 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will be also automatically included in the session when we commit.
 
@@ -235,14 +231,13 @@ Here we do that in the `update_heroes()` function:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Run the Program with the New Relationship
 
@@ -335,14 +330,13 @@ We can do that by iterating on the links:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Run the Program with the Updated Relationships
 

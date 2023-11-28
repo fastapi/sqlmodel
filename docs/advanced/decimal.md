@@ -47,14 +47,13 @@ Let's say that each hero in the database will have an amount of money. We could 
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
 
-</details>
+///
 
 Here we are saying that `money` can have at most `5` digits with `max_digits`, **this includes the integers** (to the left of the decimal dot) **and the decimals** (to the right of the decimal dot).
 
@@ -96,14 +95,13 @@ When creating new models you can actually pass normal (`float`) numbers, Pydanti
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Select Decimal data
 
@@ -117,14 +115,13 @@ Then, when working with Decimal types, you can confirm that they indeed avoid th
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Review the results
 

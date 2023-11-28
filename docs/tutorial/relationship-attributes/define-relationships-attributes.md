@@ -47,14 +47,13 @@ Up to now, we have only used the `team_id` column to connect the tables when que
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is a **plain field** like all the others, all representing a **column in the table**.
 
@@ -68,14 +67,13 @@ First, import `Relationship` from `sqlmodel`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
 ```
 
-</details>
+///
 
 Next, use that `Relationship` to declare a new attribute in the model classes:
 
@@ -85,14 +83,13 @@ Next, use that `Relationship` to declare a new attribute in the model classes:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## What Are These Relationship Attributes
 

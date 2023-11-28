@@ -20,14 +20,13 @@ Are you already a **SQL expert** and don't have time for all my explanations?
 
 Fine, in that case, you can **sneak peek** the final code to create indexes here.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python hl_lines="8  10"
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
-</details>
+///
 
 ..but if you are not an expert, **continue reading**, this will probably be useful. 🤓
 
@@ -270,14 +269,13 @@ Here's the `Hero` model we had before:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial001.py!}
 ```
 
-</details>
+///
 
 Let's now update it to tell **SQLModel** to create an index for the `name` field when creating the table:
 
@@ -287,14 +285,13 @@ Let's now update it to tell **SQLModel** to create an index for the `name` field
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial001.py!}
 ```
 
-</details>
+///
 
 We use the same `Field()` again as we did before, and set `index=True`. That's it! 🚀
 
@@ -324,14 +321,13 @@ This is great because it means that indexes are very **simple to use**. But it m
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is exactly the same code as we had before, but now the database will **use the index** underneath.
 
@@ -380,14 +376,13 @@ We are going to query the `hero` table doing comparisons on the `age` field too,
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
-</details>
+///
 
 In this case, we want the default value of `age` to continue being `None`, so we set `default=None` when using `Field()`.
 

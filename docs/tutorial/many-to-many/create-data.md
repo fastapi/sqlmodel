@@ -8,14 +8,13 @@ We'll create data for this same **many-to-many** relationship with a link table:
 
 We'll continue from where we left off with the previous code.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create Heroes
 
@@ -29,14 +28,13 @@ As we have done before, we'll create a function `create_heroes()` and we'll crea
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is very similar to what we have done before.
 
@@ -58,14 +56,13 @@ Now let's do as we have done before, `commit` the **session**, `refresh` the dat
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Add to Main
 
@@ -79,14 +76,13 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Run the Program
 

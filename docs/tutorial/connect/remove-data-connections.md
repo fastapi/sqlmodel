@@ -35,14 +35,13 @@ Let's see how to **remove** connections between rows in tables.
 
 We will continue with the code from the previous chapter.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Break a Connection
 
@@ -64,14 +63,13 @@ We can simply set the `team_id` to `None`, and now it doesn't have a connection 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 Again, we just **assign** a value to that field attribute `team_id`, now the value is `None`, which means `NULL` in the database. Then we `add()` the hero to the session, and then `commit()`.
 

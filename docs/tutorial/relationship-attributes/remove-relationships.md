@@ -16,14 +16,13 @@ We can remove the relationship by setting it to `None`, the same as with the `te
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py!}
 ```
 
-</details>
+///
 
 And of course, we should remember to add this `update_heroes()` function to `main()` so that it runs when we call this program from the command line:
 
@@ -35,14 +34,13 @@ And of course, we should remember to add this `update_heroes()` function to `mai
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py!}
 ```
 
-</details>
+///
 
 ## Recap
 

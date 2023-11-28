@@ -135,14 +135,13 @@ We'll create 3 right away, for the 3 heroes:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 /// tip
 
@@ -180,14 +179,13 @@ The first step is to import the `Session` class:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 Then we can create a new session:
 
@@ -199,14 +197,13 @@ Then we can create a new session:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 The new `Session` takes an `engine` as a parameter. And it will use the **engine** underneath.
 
@@ -227,14 +224,13 @@ Now that we have some hero model instances (some objects in memory) and a **sess
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 By this point, our heroes are *not* stored in the database yet.
 
@@ -265,14 +261,13 @@ Now that we have the heroes in the **session** and that we are ready to save all
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 Once this line is executed, the **session** will use the **engine** to save all the data in the database by sending the corresponding SQL.
 
@@ -306,14 +301,13 @@ But to keep things a bit more organized, let's instead create a new function `ma
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 And then we can call that single `main()` function from that main block:
 
@@ -322,14 +316,13 @@ And then we can call that single `main()` function from that main block:
 {!./docs_src/tutorial/insert/tutorial002.py[ln:36-42]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 By having everything that should happen when called as a script in a single function, we can easily add more code later on.
 
@@ -392,14 +385,13 @@ So once we are done with the session, we should **close** it to make it release 
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 But what happens if we forget to close the session?
 
@@ -418,14 +410,13 @@ But there's a better way to handle the session, using a `with` block:
 {!./docs_src/tutorial/insert/tutorial002.py[ln:23-33]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 This is the same as creating the session manually and then manually closing it. But here, using a `with` block, it will be automatically created when **starting** the `with` block and assigned to the variable `session`, and it will be automatically closed after the `with` block is **finished**.
 

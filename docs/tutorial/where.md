@@ -31,14 +31,13 @@ We'll continue with the same examples we have been using in the previous chapter
 
 And now we will update `select_heroes()` to filter the data.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python hl_lines="36-41"
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 If you already executed the previous examples and have a database with data, **remove the database file** before running each example, that way you won't have duplicate data and you will be able to get the same results.
 
@@ -198,14 +197,13 @@ We care specially about the **select** statement:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Filter Rows Using `WHERE` with **SQLModel**
 
@@ -219,14 +217,13 @@ Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial001.py!}
 ```
 
-</details>
+///
 
 It's a very small change, but it's packed of details. Let's explore them.
 
@@ -480,14 +477,13 @@ It's actually the same as in previous chapters for selecting data:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial001.py!}
 ```
 
-</details>
+///
 
 We take that statement, that now includes a `WHERE`, and we `exec()` it to get the results.
 
@@ -544,14 +540,13 @@ We could get the rows where a column is **not** equal to a value using `!=`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial002.py!}
 ```
 
-</details>
+///
 
 That would output:
 
@@ -572,14 +567,13 @@ Let's update the function `create_heroes()` and add some more rows to make the n
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial003.py!}
 ```
 
-</details>
+///
 
 Now that we have several heroes with different ages, it's gonna be more obvious what the next comparisons do.
 
@@ -595,14 +589,13 @@ Now let's use `>` to get the rows where a column is **more than** a value:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial003.py!}
 ```
 
-</details>
+///
 
 That would output:
 
@@ -630,14 +623,13 @@ Let's do that again, but with `>=` to get the rows where a column is **more than
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial004.py!}
 ```
 
-</details>
+///
 
 Because we are using `>=`, the age `35` will be included in the output:
 
@@ -666,14 +658,13 @@ Similarly, we can use `<` to get the rows where a column is **less than** a valu
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial005.py!}
 ```
 
-</details>
+///
 
 And we get the younger one with an age in the database:
 
@@ -699,14 +690,13 @@ Finally, we can use `<=` to get the rows where a column is **less than or equal*
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial006.py!}
 ```
 
-</details>
+///
 
 And we get the younger ones, `35` and below:
 
@@ -739,14 +729,13 @@ Because `.where()` returns the same special select object back, we can add more 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial007.py!}
 ```
 
-</details>
+///
 
 This will select the rows `WHERE` the `age` is **greater than or equal** to `35`, `AND` also the `age` is **less than** `40`.
 
@@ -795,14 +784,13 @@ As an alternative to using multiple `.where()` we can also pass several expressi
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial008.py!}
 ```
 
-</details>
+///
 
 This is the same as the above, and will result in the same output with the two heroes:
 
@@ -825,14 +813,13 @@ To do it, you can import `or_`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial009.py!}
 ```
 
-</details>
+///
 
 And then pass both expressions to `or_()` and put it inside `.where()`.
 
@@ -846,14 +833,13 @@ For example, here we select the heroes that are the youngest OR the oldest:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial009.py!}
 ```
 
-</details>
+///
 
 When we run it, this generates the output:
 
@@ -910,14 +896,13 @@ To do that, we can import `col()` (as short for "column"):
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial011.py!}
 ```
 
-</details>
+///
 
 And then put the **class attribute** inside `col()` when using it in a `.where()`:
 
@@ -929,14 +914,13 @@ And then put the **class attribute** inside `col()` when using it in a `.where()
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial011.py!}
 ```
 
-</details>
+///
 
 So, now the comparison is not:
 
