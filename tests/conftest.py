@@ -7,7 +7,7 @@ from typing import Any, Callable, Dict, List, Union
 import pytest
 from pydantic import BaseModel
 from sqlmodel import SQLModel
-from sqlmodel.compat import IS_PYDANTIC_V2
+from sqlmodel._compat import IS_PYDANTIC_V2
 from sqlmodel.main import default_registry
 
 top_level_path = Path(__file__).resolve().parent.parent

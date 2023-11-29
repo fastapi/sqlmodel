@@ -54,7 +54,7 @@ from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time
 from typing_extensions import get_origin
 
-from .compat import (
+from ._compat import (
     IS_PYDANTIC_V2,
     BaseConfig,
     ModelField,
