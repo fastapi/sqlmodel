@@ -73,6 +73,7 @@ def test_tutorial001(clear_sqlmodel):
     assert calls == expected_calls
 
 
+@needs_py310
 def test_tutorial002(clear_sqlmodel):
     from docs_src.tutorial.delete import tutorial002_py310 as mod
 
