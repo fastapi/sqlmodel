@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from sqlmodel import create_engine
 
-from tests.conftest import get_testing_print_function
+from tests.conftest import get_testing_print_function, needs_py310
 
 
 def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
@@ -133,6 +133,7 @@ def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
     ]
 
 
+@needs_py310
 def test_tutorial_001(clear_sqlmodel):
     from docs_src.tutorial.automatic_id_none_refresh import tutorial001_py310 as mod
 
@@ -147,6 +148,7 @@ def test_tutorial_001(clear_sqlmodel):
     check_calls(calls)
 
 
+@needs_py310
 def test_tutorial_002(clear_sqlmodel):
     from docs_src.tutorial.automatic_id_none_refresh import tutorial002_py310 as mod
 

@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from sqlmodel import create_engine
 
-from ....conftest import get_testing_print_function
+from ....conftest import get_testing_print_function, needs_py310
 
 expected_calls = [
     [
@@ -62,6 +62,7 @@ expected_calls = [
 ]
 
 
+@needs_py310
 def test_tutorial001(clear_sqlmodel):
     from docs_src.tutorial.connect.select import tutorial001_py310 as mod
 
@@ -76,6 +77,7 @@ def test_tutorial001(clear_sqlmodel):
     assert calls == expected_calls
 
 
+@needs_py310
 def test_tutorial002(clear_sqlmodel):
     from docs_src.tutorial.connect.select import tutorial002_py310 as mod
 

@@ -4,9 +4,10 @@ import pytest
 from sqlalchemy.exc import MultipleResultsFound
 from sqlmodel import Session, create_engine, delete
 
-from ...conftest import get_testing_print_function
+from ...conftest import get_testing_print_function, needs_py310
 
 
+@needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.one import tutorial004_py310 as mod
 

@@ -1,5 +1,6 @@
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
 
@@ -67,3 +68,9 @@ def get_testing_print_function(
         calls.append(data)
 
     return new_print
+
+
+needs_py39 = pytest.mark.skipif(sys.version_info < (3, 9), reason="requires python3.9+")
+needs_py310 = pytest.mark.skipif(
+    sys.version_info < (3, 10), reason="requires python3.10+"
+)

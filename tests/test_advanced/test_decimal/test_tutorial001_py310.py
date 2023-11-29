@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import get_testing_print_function, needs_py310
 
 expected_calls = [
     [
@@ -30,6 +30,7 @@ expected_calls = [
 ]
 
 
+@needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.advanced.decimal import tutorial001_py310 as mod
 

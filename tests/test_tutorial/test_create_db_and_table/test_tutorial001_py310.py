@@ -1,8 +1,9 @@
 from pathlib import Path
 
-from ...conftest import coverage_run
+from ...conftest import coverage_run, needs_py310
 
 
+@needs_py310
 def test_create_db_and_table(cov_tmp_path: Path):
     module = "docs_src.tutorial.create_db_and_table.tutorial001_py310"
     result = coverage_run(module=module, cwd=cov_tmp_path)

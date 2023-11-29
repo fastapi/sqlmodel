@@ -4,7 +4,7 @@ import pytest
 from sqlalchemy.exc import SAWarning
 from sqlmodel import create_engine
 
-from ....conftest import get_testing_print_function
+from ....conftest import get_testing_print_function, needs_py310
 
 expected_calls = [
     [
@@ -272,6 +272,7 @@ expected_calls = [
 ]
 
 
+@needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.relationship_attributes.back_populates import (
         tutorial001_py310 as mod,

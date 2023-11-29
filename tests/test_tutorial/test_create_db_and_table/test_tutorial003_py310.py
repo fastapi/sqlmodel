@@ -2,7 +2,10 @@ from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine
 
+from ...conftest import needs_py310
 
+
+@needs_py310
 def test_create_db_and_table(clear_sqlmodel):
     from docs_src.tutorial.create_db_and_table import tutorial003_py310 as mod
 

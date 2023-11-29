@@ -4,9 +4,10 @@ from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import get_testing_print_function, needs_py310
 
 
+@needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.indexes import tutorial001_py310 as mod
 

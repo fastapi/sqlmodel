@@ -1,6 +1,9 @@
 from sqlmodel import Session, create_engine, select
 
+from ...conftest import needs_py310
 
+
+@needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.insert import tutorial003_py310 as mod
 

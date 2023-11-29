@@ -1,7 +1,10 @@
 import subprocess
 from pathlib import Path
 
+from ....conftest import needs_py39
 
+
+@needs_py39
 def test_run_tests(clear_sqlmodel):
     from docs_src.tutorial.fastapi.app_testing.tutorial001_py39 import test_main as mod
 

@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import get_testing_print_function, needs_py39
 
 expected_calls = [
     [
@@ -58,6 +58,7 @@ expected_calls = [
 ]
 
 
+@needs_py39
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.many_to_many import tutorial003_py39 as mod
 

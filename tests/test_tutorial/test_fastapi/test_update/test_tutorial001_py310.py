@@ -2,7 +2,10 @@ from fastapi.testclient import TestClient
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
 
+from ....conftest import needs_py310
 
+
+@needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.fastapi.update import tutorial001_py310 as mod
 

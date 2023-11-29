@@ -4,7 +4,10 @@ from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
 
+from ....conftest import needs_py39
 
+
+@needs_py39
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.fastapi.multiple_models import tutorial001_py39 as mod
 
