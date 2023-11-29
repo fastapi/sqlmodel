@@ -43,88 +43,58 @@ NoneType = type(None)
 T = TypeVar("T")
 InstanceOrType = Union[T, Type[T]]
 
-if IS_PYDANTIC_V2:
 
-    class SQLModelConfig(BaseConfig, total=False):
-        table: Optional[bool]
-        registry: Optional[Any]
-
-else:
-
-    class SQLModelConfig(BaseConfig):
-        table: Optional[bool] = None
-        registry: Optional[Any] = None
+class FakeMetadata:
+    max_length: Optional[int] = None
+    max_digits: Optional[int] = None
+    decimal_places: Optional[int] = None
 
 
 def _is_union_type(t: Any) -> bool:
     return t is UnionType or t is Union
 
 
-def get_config_value(
-    *, model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
-) -> Any:
-    if IS_PYDANTIC_V2:
+if IS_PYDANTIC_V2:
+
+    class SQLModelConfig(BaseConfig, total=False):
+        table: Optional[bool]
+        registry: Optional[Any]
+
+    def get_config_value(
+        *, model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
+    ) -> Any:
         return model.model_config.get(parameter, default)
-    else:
-        return getattr(model.__config__, parameter, default)
 
+    def set_config_value(
+        *,
+        model: InstanceOrType["SQLModel"],
+        parameter: str,
+        value: Any,
+    ) -> None:
+        model.model_config[parameter] = value
 
-def set_config_value(
-    *,
-    model: InstanceOrType["SQLModel"],
-    parameter: str,
-    value: Any,
-) -> None:
-    if IS_PYDANTIC_V2:
-        model.model_config[parameter] = value  # type: ignore
-    else:
-        setattr(model.__config__, parameter, value)  # type: ignore
-
-
-def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
-    if IS_PYDANTIC_V2:
+    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
         return model.model_fields  # type: ignore
-    else:
-        return model.__fields__  # type: ignore
 
-
-def set_fields_set(
-    new_object: InstanceOrType["SQLModel"], fields: set["FieldInfo"]
-) -> None:
-    if IS_PYDANTIC_V2:
+    def set_fields_set(
+        new_object: InstanceOrType["SQLModel"], fields: set["FieldInfo"]
+    ) -> None:
         object.__setattr__(new_object, "__pydantic_fields_set__", fields)
-    else:
-        object.__setattr__(new_object, "__fields_set__", fields)
 
-
-def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
-    if IS_PYDANTIC_V2:
+    def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
         return class_dict.get("__annotations__", {})
-    else:
-        return resolve_annotations(
-            class_dict.get("__annotations__", {}), class_dict.get("__module__", None)
-        )
 
-
-def cls_is_table(cls: Type) -> bool:
-    if IS_PYDANTIC_V2:
+    def cls_is_table(cls: Type) -> bool:
         config = getattr(cls, "model_config", None)
         if not config:
             return False
         return config.get("table", False)
-    else:
-        config = getattr(cls, "__config__", None)
-        if not config:
-            return False
-        return getattr(config, "table", False)
 
-
-def get_relationship_to(
-    name: str,
-    rel_info: "RelationshipInfo",
-    annotation: Any,
-) -> Any:
-    if IS_PYDANTIC_V2:
+    def get_relationship_to(
+        name: str,
+        rel_info: "RelationshipInfo",
+        annotation: Any,
+    ) -> Any:
         origin = get_origin(annotation)
         use_annotation = annotation
         # Direct relationships (e.g. 'Team' or Team) have None as an origin
@@ -157,22 +127,8 @@ def get_relationship_to(
         return get_relationship_to(
             name=name, rel_info=rel_info, annotation=use_annotation
         )
-    else:
-        temp_field = ModelField.infer(
-            name=name,
-            value=rel_info,
-            annotation=annotation,
-            class_validators=None,
-            config=SQLModelConfig,
-        )
-        relationship_to = temp_field.type_
-        if isinstance(temp_field.type_, ForwardRef):
-            relationship_to = temp_field.type_.__forward_arg__
-        return relationship_to
 
-
-def _is_field_noneable(field: "FieldInfo") -> bool:
-    if IS_PYDANTIC_V2:
+    def _is_field_noneable(field: "FieldInfo") -> bool:
         if getattr(field, "nullable", Undefined) is not Undefined:
             return field.nullable  # type: ignore
         if not field.is_required():
@@ -186,17 +142,8 @@ def _is_field_noneable(field: "FieldInfo") -> bool:
                         return True
             return False
         return False
-    else:
-        if not field.required:
-            # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
-            return field.allow_none and (
-                field.shape != SHAPE_SINGLETON or not field.sub_fields
-            )
-        return field.allow_none
 
-
-def get_type_from_field(field: Any) -> type:
-    if IS_PYDANTIC_V2:
+    def get_type_from_field(field: Any) -> type:
         type_: type | None = field.annotation
         # Resolve Optional fields
         if type_ is None:
@@ -218,32 +165,90 @@ def get_type_from_field(field: Any) -> type:
             # Optional unions are allowed
             return bases[0] if bases[0] is not NoneType else bases[1]
         return origin
-    else:
-        if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
-            return field.type_
-        raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
-
-class FakeMetadata:
-    max_length: Optional[int] = None
-    max_digits: Optional[int] = None
-    decimal_places: Optional[int] = None
-
-
-def get_field_metadata(field: Any) -> Any:
-    if IS_PYDANTIC_V2:
+    def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
             if isinstance(meta, PydanticMetadata):
                 return meta
         return FakeMetadata()
-    else:
+
+    def post_init_field_info(field_info: FieldInfo) -> None:
+        return None
+else:
+
+    class SQLModelConfig(BaseConfig):
+        table: Optional[bool] = None
+        registry: Optional[Any] = None
+
+    def get_config_value(
+        *, model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
+    ) -> Any:
+        return getattr(model.__config__, parameter, default)
+
+    def set_config_value(
+        *,
+        model: InstanceOrType["SQLModel"],
+        parameter: str,
+        value: Any,
+    ) -> None:
+        setattr(model.__config__, parameter, value)  # type: ignore
+
+    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
+        return model.__fields__  # type: ignore
+
+    def set_fields_set(
+        new_object: InstanceOrType["SQLModel"], fields: set["FieldInfo"]
+    ) -> None:
+        object.__setattr__(new_object, "__fields_set__", fields)
+
+    def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
+        return resolve_annotations(
+            class_dict.get("__annotations__", {}),
+            class_dict.get("__module__", None),
+        )
+
+    def cls_is_table(cls: Type) -> bool:
+        config = getattr(cls, "__config__", None)
+        if not config:
+            return False
+        return getattr(config, "table", False)
+
+    def get_relationship_to(
+        name: str,
+        rel_info: "RelationshipInfo",
+        annotation: Any,
+    ) -> Any:
+        temp_field = ModelField.infer(
+            name=name,
+            value=rel_info,
+            annotation=annotation,
+            class_validators=None,
+            config=SQLModelConfig,
+        )
+        relationship_to = temp_field.type_
+        if isinstance(temp_field.type_, ForwardRef):
+            relationship_to = temp_field.type_.__forward_arg__
+        return relationship_to
+
+    def _is_field_noneable(field: "FieldInfo") -> bool:
+        if not field.required:
+            # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
+            return field.allow_none and (
+                field.shape != SHAPE_SINGLETON or not field.sub_fields
+            )
+        return field.allow_none
+
+    def get_type_from_field(field: Any) -> type:
+        if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
+            return field.type_
+        raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
+
+    def get_field_metadata(field: Any) -> Any:
         metadata = FakeMetadata()
         metadata.max_length = field.field_info.max_length
         metadata.max_digits = getattr(field.type_, "max_digits", None)
         metadata.decimal_places = getattr(field.type_, "decimal_places", None)
         return metadata
 
-
-def post_init_field_info(field_info: FieldInfo) -> None:
-    if not IS_PYDANTIC_V2:
+    def post_init_field_info(field_info: FieldInfo) -> None:
         field_info._validate()
