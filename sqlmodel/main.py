@@ -63,7 +63,6 @@ from .compat import (
     Undefined,
     UndefinedType,
     _is_field_noneable,
-    class_dict_is_table,
     cls_is_table,
     get_annotations,
     get_config_value,
@@ -73,7 +72,6 @@ from .compat import (
     get_type_from_field,
     post_init_field_info,
     set_config_value,
-    set_empty_defaults,
     set_fields_set,
 )
 from .sql.sqltypes import GUID, AutoString
@@ -452,10 +450,6 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        # TODO: review if this is necessary
-        if class_dict_is_table(class_dict, kwargs):
-            set_empty_defaults(pydantic_annotations, dict_used)
-
         new_cls: Type["SQLModelMetaclass"] = super().__new__(
             cls, name, bases, dict_used, **config_kwargs
         )

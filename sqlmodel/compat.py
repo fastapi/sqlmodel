@@ -106,24 +106,6 @@ def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
         )
 
 
-# TODO: review if this is necessary
-def class_dict_is_table(
-    class_dict: dict[str, Any], class_kwargs: dict[str, Any]
-) -> bool:
-    config: SQLModelConfig = {}
-    if IS_PYDANTIC_V2:
-        config = class_dict.get("model_config", {})
-    else:
-        config = class_dict.get("__config__", {})
-    config_table = config.get("table", Undefined)
-    if config_table is not Undefined:
-        return config_table  # type: ignore
-    kw_table = class_kwargs.get("table", Undefined)
-    if kw_table is not Undefined:
-        return kw_table  # type: ignore
-    return False
-
-
 def cls_is_table(cls: Type) -> bool:
     if IS_PYDANTIC_V2:
         config = getattr(cls, "model_config", None)
@@ -187,33 +169,6 @@ def get_relationship_to(
         if isinstance(temp_field.type_, ForwardRef):
             relationship_to = temp_field.type_.__forward_arg__
         return relationship_to
-
-
-def set_empty_defaults(annotations: Dict[str, Any], class_dict: Dict[str, Any]) -> None:
-    """
-    Pydantic v2 without required fields with no optionals cannot do empty initialisations.
-    This means we cannot do Table() and set fields later.
-    We go around this by adding a default to everything, being None
-
-    Args:
-        annotations: Dict[str, Any]: The annotations to provide to pydantic
-        class_dict: Dict[str, Any]: The class dict for the defaults
-    """
-    # TODO: no v1?
-    if IS_PYDANTIC_V2:
-        from .main import FieldInfo
-
-        # Pydantic v2 sets a __pydantic_core_schema__ which is very hard to change. Changing the fields does not do anything
-        for key in annotations.keys():
-            value = class_dict.get(key, Undefined)
-            if value is Undefined:
-                class_dict[key] = None
-            elif isinstance(value, FieldInfo):
-                if (
-                    value.default in (Undefined, Ellipsis)
-                ) and value.default_factory is None:
-                    # So we can check for nullable
-                    value.default = None
 
 
 def _is_field_noneable(field: "FieldInfo") -> bool:
