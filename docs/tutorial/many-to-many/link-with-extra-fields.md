@@ -18,8 +18,11 @@ A row in the table `heroteamlink` points to **one** particular hero, but a singl
 
 And also, the same row in the table `heroteamlink` points to **one** team, but a single team can be connected to **many** hero-team links, so it's also **one-to-many**.
 
-!!! tip
-    The previous many-to-many relationship was also just two one-to-many relationships combined, but now it's going to be much more explicit.
+/// tip
+
+The previous many-to-many relationship was also just two one-to-many relationships combined, but now it's going to be much more explicit.
+
+///
 
 ## Update Link Model
 
@@ -37,24 +40,26 @@ And we will also add two **relationship attributes**, for the linked `team` and 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 The new **relationship attributes** have their own `back_populates` pointing to new relationship attributes we will create in the `Hero` and `Team` models:
 
 * `team`: has `back_populates="hero_links"`, because in the `Team` model, the attribute will contain the links to the **team's heroes**.
 * `hero`: has `back_populates="team_links"`, because in the `Hero` model, the attribute will contain the links to the **hero's teams**.
 
-!!! info
-    In SQLAlchemy this is called an Association Object or Association Model.
+/// info
 
-    I'm calling it **Link Model** just because that's easier to write avoiding typos. But you are also free to call it however you want. 😉
+In SQLAlchemy this is called an Association Object or Association Model.
+
+I'm calling it **Link Model** just because that's easier to write avoiding typos. But you are also free to call it however you want. 😉
+
+///
 
 ## Update Team Model
 
@@ -70,14 +75,13 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Update Hero Model
 
@@ -93,14 +97,13 @@ We change the `teams` relationship attribute for `team_links`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Create Relationships
 
@@ -116,14 +119,13 @@ But now we create the **explicit link models** manually, pointing to their hero 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will be also automatically included in the session when we commit.
 
@@ -229,14 +231,13 @@ Here we do that in the `update_heroes()` function:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Run the Program with the New Relationship
 
@@ -329,14 +330,13 @@ We can do that by iterating on the links:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
 
-</details>
+///
 
 ## Run the Program with the Updated Relationships
 

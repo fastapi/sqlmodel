@@ -4,14 +4,13 @@ Now we'll see how to update and remove these **many-to-many** relationships.
 
 We'll continue from where we left off with the previous code.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Get Data to Update
 
@@ -33,14 +32,13 @@ And because we are now using `select()`, we also have to import it.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial002.py!}
 ```
 
-</details>
+///
 
 And of course, we have to add `update_heroes()` to our `main()` function:
 
@@ -50,14 +48,13 @@ And of course, we have to add `update_heroes()` to our `main()` function:
 {!./docs_src/tutorial/many_to_many/tutorial002.py[ln:100-107]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial002.py!}
 ```
 
-</details>
+///
 
 ## Add Many-to-Many Relationships
 
@@ -73,19 +70,21 @@ We can use the same **relationship attributes** to include `hero_spider_boy` in 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial002.py!}
 ```
 
-</details>
+///
 
-!!! tip
-    Because we are accessing an attribute in the models right after we commit, with `hero_spider_boy.teams` and `team_z_force.heroes`, the data is refreshed automatically.
+/// tip
 
-    So we don't have to call `session.refresh()`.
+Because we are accessing an attribute in the models right after we commit, with `hero_spider_boy.teams` and `team_z_force.heroes`, the data is refreshed automatically.
+
+So we don't have to call `session.refresh()`.
+
+///
 
 We then commit the change, refresh, and print the updated **Spider-Boy**'s heroes to confirm.
 
@@ -170,14 +169,13 @@ In this case, we use the method `.remove()`, that takes an item and removes it f
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial002.py!}
 ```
 
-</details>
+///
 
 And this time, just to show again that by using `back_populates` **SQLModel** (actually SQLAlchemy) takes care of connecting the models by their relationships, even though we performed the operation from the `hero_spider_boy` object (modifying `hero_spider_boy.teams`), we are adding `team_z_force` to the **session**. And we commit that, without even add `hero_spider_boy`.
 

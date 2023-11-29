@@ -26,14 +26,13 @@ Let's see how that works by writing an **incomplete** version first, without `ba
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Read Data Objects
 
@@ -49,17 +48,19 @@ As you already know how this works, I won't separate that in a select `statement
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
-!!! tip
-    When writing your own code, this is probably the style you will use most often, as it's shorter, more convenient, and you still get all the power of autocompletion and inline errors.
+/// tip
+
+When writing your own code, this is probably the style you will use most often, as it's shorter, more convenient, and you still get all the power of autocompletion and inline errors.
+
+///
 
 ## Print the Data
 
@@ -73,14 +74,13 @@ Now, let's print the current **Spider-Boy**, the current **Preventers** team, an
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 Up to this point, it's all good. 😊
 
@@ -114,21 +114,23 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 The first important thing is, we *haven't committed* the hero yet, so accessing the list of heroes would not trigger an automatic refresh.
 
 But in our code, in this exact point in time, we already said that **Spider-Boy** is no longer part of the **Preventers**. 🔥
 
-!!! tip
-    We could revert that later by not committing the **session**, but that's not what we are interested in here.
+/// tip
+
+We could revert that later by not committing the **session**, but that's not what we are interested in here.
+
+///
 
 Here, at this point in the code, in memory, the code expects **Preventers** to *not include* **Spider-Boy**.
 
@@ -170,14 +172,13 @@ Now, if we commit it and print again:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
 
-</details>
+///
 
 When we access `preventers_team.heroes` after the `commit`, that triggers a refresh, so we get the latest list, without **Spider-Boy**, so that's fine again:
 
@@ -215,14 +216,13 @@ Let's add it back:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 And we can keep the rest of the code the same:
 
@@ -238,19 +238,21 @@ And we can keep the rest of the code the same:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
-!!! tip
-    This is the same section where we updated `hero_spider_boy.team` to `None` but we *haven't committed* that change yet.
+/// tip
 
-    The same section that caused a problem before.
+This is the same section where we updated `hero_spider_boy.team` to `None` but we *haven't committed* that change yet.
+
+The same section that caused a problem before.
+
+///
 
 ## Review the Result
 
@@ -281,14 +283,13 @@ It's quite simple code, it's just a string, but it might be confusing to think e
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 The string in `back_populates` is the name of the attribute *in the other* model, that will reference *the current* model.
 
@@ -304,14 +305,13 @@ So, in the class `Team`, we have an attribute `heroes` and we declare it with `R
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
 The string in `back_populates="team"` refers to the attribute `team` in the class `Hero` (the other class).
 
@@ -327,17 +327,19 @@ So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
-</details>
+///
 
-!!! tip
-    Each **relationship attribute** points to the other one, in the other model, using `back_populates`.
+/// tip
+
+Each **relationship attribute** points to the other one, in the other model, using `back_populates`.
+
+///
 
 Although it's simple code, it can be confusing to think about 😵, because the same line has concepts related to both models in multiple places:
 
@@ -364,11 +366,10 @@ So, `back_populates` would most probably be something like `"hero"` or `"heroes"
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003.py!}
 ```
 
-</details>
+///

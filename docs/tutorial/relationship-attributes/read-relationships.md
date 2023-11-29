@@ -18,14 +18,13 @@ First, add a function `select_heroes()` where we get a hero to start working wit
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Select the Related Team - Old Way
 
@@ -41,14 +40,13 @@ With what we have learned **up to now**, we could use a `select()` statement, th
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Get Relationship Team - New Way
 
@@ -68,19 +66,21 @@ So, the highlighted block above, has the same results as the block below:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
-!!! tip
-    The automatic data fetching will work as long as the starting object (in this case the `Hero`) is associated with an **open** session.
+/// tip
 
-    For example, here, **inside** a `with` block with a `Session` object.
+The automatic data fetching will work as long as the starting object (in this case the `Hero`) is associated with an **open** session.
+
+For example, here, **inside** a `with` block with a `Session` object.
+
+///
 
 ## Get a List of Relationship Objects
 
@@ -94,14 +94,13 @@ And the same way, when we are working on the **many** side of the **one-to-many*
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py!}
 ```
 
-</details>
+///
 
 That would print a list with all the heroes in the Preventers team:
 

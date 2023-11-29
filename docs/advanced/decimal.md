@@ -21,15 +21,21 @@ In most cases this would probably not be a problem, for example measuring views 
 
 Pydantic has special support for `Decimal` types using the <a href="https://pydantic-docs.helpmanual.io/usage/types/#arguments-to-condecimal" class="external-link" target="_blank">`condecimal()` special function</a>.
 
-!!! tip
-    Pydantic 1.9, that will be released soon, has improved support for `Decimal` types, without needing to use the `condecimal()` function.
+/// tip
 
-    But meanwhile, you can already use this feature with `condecimal()` in **SQLModel** it as it's explained here.
+Pydantic 1.9, that will be released soon, has improved support for `Decimal` types, without needing to use the `condecimal()` function.
+
+But meanwhile, you can already use this feature with `condecimal()` in **SQLModel** it as it's explained here.
+
+///
 
 When you use `condecimal()` you can specify the number of digits and decimal places to support. They will be validated by Pydantic (for example when using FastAPI) and the same information will also be used for the database columns.
 
-!!! info
-    For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/14/core/type_basics.html#sqlalchemy.types.DECIMAL" class="external-link" target="_blank">SQLAlchemy's `DECIMAL` type</a>.
+/// info
+
+For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/14/core/type_basics.html#sqlalchemy.types.DECIMAL" class="external-link" target="_blank">SQLAlchemy's `DECIMAL` type</a>.
+
+///
 
 ## Decimals in SQLModel
 
@@ -41,14 +47,13 @@ Let's say that each hero in the database will have an amount of money. We could 
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
 
-</details>
+///
 
 Here we are saying that `money` can have at most `5` digits with `max_digits`, **this includes the integers** (to the left of the decimal dot) **and the decimals** (to the right of the decimal dot).
 
@@ -72,8 +77,11 @@ We are also saying that the number of decimal places (to the right of the decima
 * `123`
     * Even though this number doesn't have any decimals, we still have 3 places saved for them, which means that we can **only use 2 places** for the **integer part**, and this number has 3 integer digits. So, the allowed number of integer digits is `max_digits` - `decimal_places` = 2.
 
-!!! tip
-    Make sure you adjust the number of digits and decimal places for your own needs, in your own application. 🤓
+/// tip
+
+Make sure you adjust the number of digits and decimal places for your own needs, in your own application. 🤓
+
+///
 
 ## Create models with Decimals
 
@@ -87,14 +95,13 @@ When creating new models you can actually pass normal (`float`) numbers, Pydanti
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Select Decimal data
 
@@ -108,14 +115,13 @@ Then, when working with Decimal types, you can confirm that they indeed avoid th
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Review the results
 
@@ -142,7 +148,10 @@ Total money: 3.300
 
 </div>
 
-!!! warning
-    Although Decimal types are supported and used in the Python side, not all databases support it. In particular, SQLite doesn't support decimals, so it will convert them to the same floating `NUMERIC` type it supports.
+/// warning
 
-    But decimals are supported by most of the other SQL databases. 🎉
+Although Decimal types are supported and used in the Python side, not all databases support it. In particular, SQLite doesn't support decimals, so it will convert them to the same floating `NUMERIC` type it supports.
+
+But decimals are supported by most of the other SQL databases. 🎉
+
+///

@@ -63,14 +63,13 @@ Import the things we need from `sqlmodel` and create a new `Team` model:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is very similar to what we have been doing with the `Hero` model.
 
@@ -95,14 +94,13 @@ This is the same model we have been using up to now, we are just adding the new 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 Most of that should look familiar:
 
@@ -126,8 +124,11 @@ This is the name of the **table** in the database, so it is `"team"`, not the na
 
 If you had a custom table name, you would use that custom table name.
 
-!!! info
-    You can learn about setting a custom table name for a model in the Advanced User Guide.
+/// info
+
+You can learn about setting a custom table name for a model in the Advanced User Guide.
+
+///
 
 ### Create the Tables
 
@@ -139,14 +140,13 @@ Now we can add the same code as before to create the engine and the function to 
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:21-28]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 And as before, we'll call this function from another function `main()`, and we'll add that function `main()` to the main block of the file:
 
@@ -156,19 +156,21 @@ And as before, we'll call this function from another function `main()`, and we'l
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:31-36]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Run the Code
 
-!!! tip
-    Before running the code, make sure you delete the file `database.db` to make sure you start from scratch.
+/// tip
+
+Before running the code, make sure you delete the file `database.db` to make sure you start from scratch.
+
+///
 
 If we run the code we have up to now, it will go and create the database file `database.db` and the tables in it we just defined, `team` and `hero`:
 

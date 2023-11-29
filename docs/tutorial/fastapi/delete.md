@@ -20,14 +20,13 @@ And if we actually find a hero, we just delete it with the **session**.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 After deleting it successfully, we just return a response of:
 

@@ -12,10 +12,13 @@ So, we need to have all those fields **marked as optional**.
 
 And because the `HeroBase` has some of them as *required* and not optional, we will need to **create a new model**.
 
-!!! tip
-    Here is one of those cases where it probably makes sense to use an **independent model** instead of trying to come up with a complex tree of models inheriting from each other.
+/// tip
 
-    Because each field is **actually different** (we just change it to `Optional`, but that's already making it different), it makes sense to have them in their own model.
+Here is one of those cases where it probably makes sense to use an **independent model** instead of trying to come up with a complex tree of models inheriting from each other.
+
+Because each field is **actually different** (we just change it to `Optional`, but that's already making it different), it makes sense to have them in their own model.
+
+///
 
 So, let's create this new `HeroUpdate` model:
 
@@ -27,14 +30,13 @@ So, let's create this new `HeroUpdate` model:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is almost the same as `HeroBase`, but all the fields are optional, so we can't simply inherit from `HeroBase`.
 
@@ -52,14 +54,13 @@ We will use a `PATCH` HTTP operation. This is used to **partially update data**,
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 We also read the `hero_id` from the *path parameter* and the request body, a `HeroUpdate`.
 
@@ -77,14 +78,13 @@ So, we need to read the hero from the database, with the **same logic** we used 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 ### Get the New Data
 
@@ -144,14 +144,13 @@ Then we use that to get the data that was actually sent by the client:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Update the Hero in the Database
 
@@ -165,14 +164,13 @@ Now that we have a **dictionary with the data sent by the client**, we can itera
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
 
-</details>
+///
 
 If you are not familiar with that `setattr()`, it takes an object, like the `db_hero`, then an attribute name (`key`), that in our case could be `"name"`, and a value (`value`). And then it **sets the attribute with that name to the value**.
 

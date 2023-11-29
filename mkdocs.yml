@@ -21,6 +21,13 @@ theme:
   - search.suggest
   - search.highlight
   - content.tabs.link
+  - navigation.indexes
+  - content.tooltips
+  - navigation.path
+  - content.code.annotate
+  - content.code.copy
+  - content.code.select
+  # - navigation.tabs
   icon:
     repo: fontawesome/brands/github-alt
   logo: img/icon-white.svg
@@ -91,20 +98,29 @@ nav:
   - release-notes.md
 
 markdown_extensions:
+- markdown.extensions.attr_list
+- markdown.extensions.tables
+- markdown.extensions.md_in_html
 - toc:
     permalink: true
-- markdown.extensions.codehilite:
-    guess_lang: false
-- admonition
-- codehilite
-- extra
 - pymdownx.superfences:
     custom_fences:
     - name: mermaid
       class: mermaid
       format: !!python/name:pymdownx.superfences.fence_code_format ''
-- pymdownx.tabbed:
-    alternate_style: true
+- pymdownx.betterem
+- pymdownx.highlight:
+    linenums: !ENV [LINENUMS, false]
+- pymdownx.blocks.details
+- pymdownx.blocks.admonition:
+    types:
+    - note
+    - info
+    - tip
+    - warning
+    - danger
+- pymdownx.blocks.tab:
+    alternate_style: True
 - mdx_include
 
 extra:

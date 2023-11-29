@@ -40,14 +40,13 @@ For example, we can pass the same `Hero` **SQLModel** class (because it is also 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/response_model/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## List of Heroes in `response_model`
 
@@ -65,14 +64,13 @@ First, we import `List` from `typing` and then we declare the `response_model` w
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/response_model/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## FastAPI and Response Model
 
@@ -100,10 +98,13 @@ Additionally, because the schemas are defined in using a standard, there are man
 
 For example, client generators, that can automatically create the code necessary to talk to your API in many languages.
 
-!!! info
-    If you are curious about the standards, FastAPI generates OpenAPI, that internally uses JSON Schema.
+/// info
 
-    You can read about all that in the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/#openapi" class="external-link" target="_blank">FastAPI docs - First Steps</a>.
+If you are curious about the standards, FastAPI generates OpenAPI, that internally uses JSON Schema.
+
+You can read about all that in the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/#openapi" class="external-link" target="_blank">FastAPI docs - First Steps</a>.
+
+///
 
 ## Recap
 

@@ -64,14 +64,13 @@ And the same way, we declared the `TeamRead` with only the same base fields of t
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
 
-</details>
+///
 
 Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI uses the `response_model` to validate and **filter** the response data</a>?
 
@@ -89,14 +88,13 @@ In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, s
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Don't Include All the Data
 
@@ -186,14 +184,13 @@ We'll add them **after** the other models so that we can easily reference the pr
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
 These two models are very **simple in code**, but there's a lot happening here. Let's check it out.
 
@@ -239,14 +236,13 @@ In the case of the hero, this tells FastAPI to extract the `team` too. And in th
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/relationships/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Check It Out in the Docs UI
 

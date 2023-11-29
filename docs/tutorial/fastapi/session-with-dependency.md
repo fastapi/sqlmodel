@@ -14,14 +14,13 @@ Up to now, we have been creating a session in each *path operation*, in a `with`
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 That's perfectly fine, but in many use cases we would want to use <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI Dependencies</a>, for example to **verify** that the client is **logged in** and get the **current user** before executing any other code in the *path operation*.
 
@@ -43,14 +42,13 @@ It could use `yield` instead of `return`, and in that case **FastAPI** will make
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Use the Dependency
 
@@ -72,23 +70,25 @@ We import `Depends()` from `fastapi`. Then we use it in the *path operation func
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
 ```
 
-</details>
+///
 
-!!! tip
-    Here's a tip about that `*,` thing in the parameters.
+/// tip
 
-    Here we are passing the parameter `session` that has a "default value" of `Depends(get_session)` before the parameter `hero`, that doesn't have any default value.
+Here's a tip about that `*,` thing in the parameters.
 
-    Python would normally complain about that, but we can use the initial "parameter" `*,` to mark all the rest of the parameters as "keyword only", which solves the problem.
+Here we are passing the parameter `session` that has a "default value" of `Depends(get_session)` before the parameter `hero`, that doesn't have any default value.
 
-    You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
+Python would normally complain about that, but we can use the initial "parameter" `*,` to mark all the rest of the parameters as "keyword only", which solves the problem.
+
+You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
+
+///
 
 The value of a dependency will **only be used for one request**, FastAPI will call it right before calling your code and will give you the value from that dependency.
 
@@ -118,14 +118,13 @@ This means that in the main code of the *path operation function*, it will work 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
 ```
 
-</details>
+///
 
 In fact, you could think that all that block of code inside of the `create_hero()` function is still inside a `with` block for the **session**, because this is more or less what's happening behind the scenes.
 
@@ -145,14 +144,13 @@ But now, the `with` block is not explicitly in the function, but in the dependen
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
 ```
 
-</details>
+///
 
 We will see how this is very useful when testing the code later. ✅
 
@@ -180,14 +178,13 @@ And then we remove the previous `with` block with the old **session**.
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-106]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Recap
 

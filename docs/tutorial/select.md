@@ -23,14 +23,13 @@ Things are getting more exciting! Let's now see how to read data from the databa
 
 Let's continue from the last code we used to create some data.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 We are creating a **SQLModel** `Hero` class model and creating some records.
 
@@ -79,12 +78,15 @@ You can try that out in **DB Browser for SQLite**:
 
 <img class="shadow" src="/img/tutorial/select/image01.png">
 
-!!! warning
-    Here we are getting all the rows.
+/// warning
 
-    If you have thousands of rows, that could be expensive to compute for the database.
+Here we are getting all the rows.
 
-    You would normally want to filter the rows to receive only the ones you want. But we'll learn about that later in the next chapter.
+If you have thousands of rows, that could be expensive to compute for the database.
+
+You would normally want to filter the rows to receive only the ones you want. But we'll learn about that later in the next chapter.
+
+///
 
 ### A SQL Shortcut
 
@@ -172,14 +174,13 @@ We will start with that in a new function `select_heroes()`:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create a `select` Statement
 
@@ -193,14 +194,13 @@ First we have to import `select` from `sqlmodel` at the top of the file:
 # More code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 And then we will use it to create a `SELECT` statement in Python code:
 
@@ -214,14 +214,13 @@ And then we will use it to create a `SELECT` statement in Python code:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 It's a very simple line of code that conveys a lot of information:
 
@@ -240,10 +239,13 @@ We pass the class model `Hero` to the `select()` function. And that tells it tha
 
 And notice that in the `select()` function we don't explicitly specify the `FROM` part. It is already obvious to **SQLModel** (actually to SQLAlchemy) that we want to select `FROM` the table `hero`, because that's the one associated with the `Hero` class model.
 
-!!! tip
-    The value of the `statement` returned by `select()` is a special object that allows us to do other things.
+/// tip
 
-    I'll tell you about that in the next chapters.
+The value of the `statement` returned by `select()` is a special object that allows us to do other things.
+
+I'll tell you about that in the next chapters.
+
+///
 
 ## Execute the Statement
 
@@ -257,14 +259,13 @@ Now that we have the `select` statement, we can execute it with the **session**:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will tell the **session** to go ahead and use the **engine** to execute that `SELECT` statement in the database and bring the results back.
 
@@ -310,14 +311,13 @@ Now we can put it in a `for` loop and print each one of the heroes:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will print the output:
 
@@ -339,14 +339,13 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Review The Code
 
@@ -360,8 +359,11 @@ Let's review the code up to this point:
 
 {!./docs_src/tutorial/select/annotations/en/tutorial002.md!}
 
-!!! tip
-    Check out the number bubbles to see what is done by each line of code.
+/// tip
+
+Check out the number bubbles to see what is done by each line of code.
+
+///
 
 Here it starts to become more evident why we should have a single **engine** for the whole application, but different **sessions** for each group of operations.
 
@@ -373,10 +375,13 @@ And the second section reading data from the database could be in another functi
 
 So, both sections could be in **different places** and would need their own sessions.
 
-!!! info
-    To be fair, in this example all that code could actually share the same **session**, there's actually no need to have two here.
+/// info
 
-    But it allows me to show you how they could be separated and to reinforce the idea that you should have **one engine** per application, and **multiple sessions**, one per each group of operations.
+To be fair, in this example all that code could actually share the same **session**, there's actually no need to have two here.
+
+But it allows me to show you how they could be separated and to reinforce the idea that you should have **one engine** per application, and **multiple sessions**, one per each group of operations.
+
+///
 
 ## Get a List of `Hero` Objects
 
@@ -394,14 +399,13 @@ The special `results` object also has a method `results.all()` that returns a li
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial003.py!}
 ```
 
-</details>
+///
 
 With this now we have all the heroes in a list in the `heroes` variable.
 
@@ -415,8 +419,11 @@ After printing it, we would see something like:
 ]
 ```
 
-!!! info
-    It would actually look more compact, I'm formatting it a bit for you to see that it is actually a list with all the data.
+/// info
+
+It would actually look more compact, I'm formatting it a bit for you to see that it is actually a list with all the data.
+
+///
 
 ## Compact Version
 
@@ -432,14 +439,13 @@ But knowing what is each object and what it is all doing, we can simplify it a b
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial004.py!}
 ```
 
-</details>
+///
 
 Here we are putting it all on a single line, you will probably put the select statements in a single line like this more often.
 
@@ -461,8 +467,11 @@ SQLAchemy also has it's own `select`, and SQLModel's `select` uses SQLAlchemy's 
 
 But SQLModel's version does a lot of **tricks** with type annotations to make sure you get the best **editor support** possible, no matter if you use **VS Code**, **PyCharm**, or something else. ✨
 
-!!! info
-    There was a lot of work and research, with different versions of the internal code, to improve this as much as possible. 🤓
+/// info
+
+There was a lot of work and research, with different versions of the internal code, to improve this as much as possible. 🤓
+
+///
 
 ### SQLModel's `session.exec`
 
@@ -492,10 +501,13 @@ On top of that, **SQLModel**'s `session.exec()` also does some tricks to reduce 
 
 But SQLModel's `Session` still has access to `session.execute()` too.
 
-!!! tip
-    Your editor will give you autocompletion for both `session.exec()` and `session.execute()`.
+/// tip
 
-    📢 Remember to **always use `session.exec()`** to get the best editor support and developer experience.
+Your editor will give you autocompletion for both `session.exec()` and `session.execute()`.
+
+📢 Remember to **always use `session.exec()`** to get the best editor support and developer experience.
+
+///
 
 ### Caveats of **SQLModel** Flavor
 

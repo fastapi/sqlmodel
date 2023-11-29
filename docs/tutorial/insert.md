@@ -70,8 +70,11 @@ You can try that SQL statement in **DB Explorer for SQLite**.
 
 Make sure to open the same database we already created by clicking <kbd>Open Database</kbd> and selecting the same `database.db` file.
 
-!!! tip
-    If you don't have that `database.db` file with the table `hero`, you can re-create it by running the Python program at the top. 👆
+/// tip
+
+If you don't have that `database.db` file with the table `hero`, you can re-create it by running the Python program at the top. 👆
+
+///
 
 Then go to the <kbd>Execute SQL</kbd> tab and copy the SQL from above.
 
@@ -132,19 +135,21 @@ We'll create 3 right away, for the 3 heroes:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
-!!! tip
-    The code above in this file (the omitted code) is just the same code that you see at the top of this chapter.
+/// tip
 
-    The same code we used before to create the `Hero` model.
+The code above in this file (the omitted code) is just the same code that you see at the top of this chapter.
+
+The same code we used before to create the `Hero` model.
+
+///
 
 We are putting that in a function `create_heroes()`, to call it later once we finish it.
 
@@ -174,14 +179,13 @@ The first step is to import the `Session` class:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 Then we can create a new session:
 
@@ -193,19 +197,21 @@ Then we can create a new session:
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 The new `Session` takes an `engine` as a parameter. And it will use the **engine** underneath.
 
-!!! tip
-    We will see a better way to create a **session** using a `with` block later.
+/// tip
+
+We will see a better way to create a **session** using a `with` block later.
+
+///
 
 ## Add Model Instances to the Session
 
@@ -218,14 +224,13 @@ Now that we have some hero model instances (some objects in memory) and a **sess
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 By this point, our heroes are *not* stored in the database yet.
 
@@ -237,10 +242,13 @@ And once we are ready, we can **commit** those changes, and then the **session**
 
 This makes the interactions with the database more efficient (plus some extra benefits).
 
-!!! info "Technical Details"
-    The session will create a new transaction and execute all the SQL code in that transaction.
+/// info  | Technical Details
 
-    This ensures that the data is saved in a single batch, and that it will all succeed or all fail, but it won't leave the database in a broken state.
+The session will create a new transaction and execute all the SQL code in that transaction.
+
+This ensures that the data is saved in a single batch, and that it will all succeed or all fail, but it won't leave the database in a broken state.
+
+///
 
 ## Commit the Session Changes
 
@@ -253,14 +261,13 @@ Now that we have the heroes in the **session** and that we are ready to save all
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 Once this line is executed, the **session** will use the **engine** to save all the data in the database by sending the corresponding SQL.
 
@@ -294,14 +301,13 @@ But to keep things a bit more organized, let's instead create a new function `ma
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 And then we can call that single `main()` function from that main block:
 
@@ -310,14 +316,13 @@ And then we can call that single `main()` function from that main block:
 {!./docs_src/tutorial/insert/tutorial002.py[ln:36-42]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 By having everything that should happen when called as a script in a single function, we can easily add more code later on.
 
@@ -380,14 +385,13 @@ So once we are done with the session, we should **close** it to make it release 
 # More code here later 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
-</details>
+///
 
 But what happens if we forget to close the session?
 
@@ -406,14 +410,13 @@ But there's a better way to handle the session, using a `with` block:
 {!./docs_src/tutorial/insert/tutorial002.py[ln:23-33]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
-</details>
+///
 
 This is the same as creating the session manually and then manually closing it. But here, using a `with` block, it will be automatically created when **starting** the `with` block and assigned to the variable `session`, and it will be automatically closed after the `with` block is **finished**.
 
@@ -433,8 +436,11 @@ Let's focus on the new code:
 
 {!./docs_src/tutorial/insert/annotations/en/tutorial003.md!}
 
-!!! tip
-    Review what each line does by clicking each number bubble in the code. 👆
+/// tip
+
+Review what each line does by clicking each number bubble in the code. 👆
+
+///
 
 You can now put it in a `app.py` file and run it with Python. And you will see an output like the one shown above.
 

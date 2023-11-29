@@ -43,14 +43,13 @@ This is almost the same code we have seen up to now in previous examples:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 There's only one change here from the code we have used before, the `check_same_thread` in the `connect_args`.
 
@@ -62,10 +61,13 @@ But here we will make sure we don't share the same **session** in more than one 
 
 And we also need to disable it because in **FastAPI** each request could be handled by multiple interacting threads.
 
-!!! info
-    That's enough information for now, you can read more about it in the <a href="https://fastapi.tiangolo.com/async/" class="external-link" target="_blank">FastAPI docs for `async` and `await`</a>.
+/// info
 
-    The main point is, by ensuring you **don't share** the same **session** with more than one request, the code is already safe.
+That's enough information for now, you can read more about it in the <a href="https://fastapi.tiangolo.com/async/" class="external-link" target="_blank">FastAPI docs for `async` and `await`</a>.
+
+The main point is, by ensuring you **don't share** the same **session** with more than one request, the code is already safe.
+
+///
 
 ## **FastAPI** App
 
@@ -85,14 +87,13 @@ And then create an `app` object that is an instance of that `FastAPI` class:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create Database and Tables on `startup`
 
@@ -108,19 +109,21 @@ This should be called only once at startup, not before every request, so we put 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Create Heroes *Path Operation*
 
-!!! info
-    If you need a refresher on what a **Path Operation** is (an endpoint with a specific HTTP Operation) and how to work with it in FastAPI, check out the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">FastAPI First Steps docs</a>.
+/// info
+
+If you need a refresher on what a **Path Operation** is (an endpoint with a specific HTTP Operation) and how to work with it in FastAPI, check out the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">FastAPI First Steps docs</a>.
+
+///
 
 Let's create the **path operation** code to create a new hero.
 
@@ -134,21 +137,23 @@ It will be called when a user sends a request with a `POST` **operation** to the
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
-!!! info
-    If you need a refresher on some of those concepts, checkout the FastAPI documentation:
+/// info
 
-    * <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">First Steps</a>
-    * <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">Path Parameters - Data Validation and Data Conversion</a>
-    * <a href="https://fastapi.tiangolo.com/tutorial/body/" class="external-link" target="_blank">Request Body</a>
+If you need a refresher on some of those concepts, checkout the FastAPI documentation:
+
+* <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">First Steps</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">Path Parameters - Data Validation and Data Conversion</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/body/" class="external-link" target="_blank">Request Body</a>
+
+///
 
 ## The **SQLModel** Advantage
 
@@ -162,8 +167,11 @@ And then, because this same **SQLModel** object is not only a **Pydantic** model
 
 So we can use intuitive standard Python **type annotations**, and we don't have to duplicate a lot of the code for the database models and the API data models. 🎉
 
-!!! tip
-    We will improve this further later, but for now, it already shows the power of having **SQLModel** classes be both **SQLAlchemy** models and **Pydantic** models at the same time.
+/// tip
+
+We will improve this further later, but for now, it already shows the power of having **SQLModel** classes be both **SQLAlchemy** models and **Pydantic** models at the same time.
+
+///
 
 ## Read Heroes *Path Operation*
 
@@ -175,14 +183,13 @@ Now let's add another **path operation** to read all the heroes:
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-46]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is pretty straightforward.
 
@@ -226,11 +233,14 @@ $ uvicorn main:app
 
 </div>
 
-!!! info
-    The command `uvicorn main:app` refers to:
+/// info
 
-    * `main`: the file `main.py` (the Python "module").
-    * `app`: the object created inside of `main.py` with the line `app = FastAPI()`.
+The command `uvicorn main:app` refers to:
+
+* `main`: the file `main.py` (the Python "module").
+* `app`: the object created inside of `main.py` with the line `app = FastAPI()`.
+
+///
 
 ### Uvicorn `--reload`
 

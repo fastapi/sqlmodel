@@ -1,5 +1,6 @@
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Union
 
@@ -72,3 +73,8 @@ def get_testing_print_function(
 
 needs_pydanticv2 = pytest.mark.skipif(not IS_PYDANTIC_V2, reason="requires Pydantic v2")
 needs_pydanticv1 = pytest.mark.skipif(IS_PYDANTIC_V2, reason="requires Pydantic v1")
+
+needs_py39 = pytest.mark.skipif(sys.version_info < (3, 9), reason="requires python3.9+")
+needs_py310 = pytest.mark.skipif(
+    sys.version_info < (3, 10), reason="requires python3.10+"
+)

@@ -6,14 +6,13 @@ Now let's delete some data using **SQLModel**.
 
 As before, we'll continue from where we left off with the previous code.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/update/tutorial003.py!}
 ```
 
-</details>
+///
 
 Remember to remove the `database.db` file before running the examples to get the same results.
 
@@ -71,14 +70,13 @@ We'll start by selecting the hero `"Spider-Youngster"` that we updated in the pr
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 As this is a new function `delete_heroes()`, we'll also add it to the `main()` function so that we call it when executing the program from the command line:
 
@@ -88,14 +86,13 @@ As this is a new function `delete_heroes()`, we'll also add it to the `main()` f
 {!./docs_src/tutorial/delete/tutorial001.py[ln:92-100]!}
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 That will print the same existing hero **Spider-Youngster**:
 
@@ -131,14 +128,13 @@ Now, very similar to how we used `session.add()` to add or update new heroes, we
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Commit the Session
 
@@ -154,14 +150,13 @@ This will save all the changes stored in the **session**, like the deleted hero:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 The same as we have seen before, `.commit()` will also save anything else that was added to the session. Including updates, or created heroes.
 
@@ -204,14 +199,13 @@ Because of that, the object still contains its attributes with the data in it, s
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will output:
 
@@ -242,14 +236,13 @@ To confirm if it was deleted, now let's query the database again, with the same 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 Here we are using `results.first()` to get the first object found (in case it found multiple) or `None`, if it didn't find anything.
 
@@ -294,14 +287,13 @@ We'll do it by checking that the "first" item in the `results` is `None`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will output:
 
@@ -333,8 +325,11 @@ Now let's review all that code:
 
 {!./docs_src/tutorial/delete/annotations/en/tutorial002.md!}
 
-!!! tip
-    Check out the number bubbles to see what is done by each line of code.
+/// tip
+
+Check out the number bubbles to see what is done by each line of code.
+
+///
 
 ## Recap
 

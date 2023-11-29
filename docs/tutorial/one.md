@@ -14,14 +14,13 @@ Let's see the utilities to read a single row.
 
 We'll continue with the same examples we have been using in the previous chapters to create and select data and we'll keep updating them.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
-</details>
+///
 
 If you already executed the previous examples and have a database with data, **remove the database file** before running each example, that way you won't have duplicate data and you will be able to get the same results.
 
@@ -37,14 +36,13 @@ We have been iterating over the rows in a `result` object like:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
-</details>
+///
 
 But let's say that we are not interested in all the rows, just the **first** one.
 
@@ -58,21 +56,23 @@ We can call the `.first()` method on the `results` object to get the first row:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will return the first object in the `results` (if there was any).
 
 That way, we don't have to deal with an iterable or a list.
 
-!!! tip
-    Notice that `.first()` is a method of the `results` object, not of the `select()` statement.
+/// tip
+
+Notice that `.first()` is a method of the `results` object, not of the `select()` statement.
+
+///
 
 Although this query would find two rows, by using `.first()` we get only the first row.
 
@@ -111,14 +111,13 @@ In that case, `.first()` will return `None`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial002.py!}
 ```
 
-</details>
+///
 
 In this case, as there's no hero with an age less than 25, `.first()` will return `None`.
 
@@ -159,14 +158,13 @@ In that case, instead of `.first()` we can use `.one()`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial003.py!}
 ```
 
-</details>
+///
 
 Here we know that there's only one `"Deadpond"`, and there shouldn't be any more than one.
 
@@ -230,14 +228,13 @@ Of course, even if we don't duplicate the data, we could get the same error if w
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial004.py!}
 ```
 
-</details>
+///
 
 That would find 2 rows, and would end up with the same error.
 
@@ -253,14 +250,13 @@ And also, if we get no rows at all with `.one()`, it will also raise an error:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial005.py!}
 ```
 
-</details>
+///
 
 In this case, as there are no heroes with an age less than 25, `.one()` will raise an error.
 
@@ -301,14 +297,13 @@ Of course, with `.first()` and `.one()` you would also probably write all that i
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial006.py!}
 ```
 
-</details>
+///
 
 That would result in the same as some examples above.
 
@@ -326,14 +321,13 @@ You could do it the same way we have been doing with a `.where()` and then getti
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial007.py!}
 ```
 
-</details>
+///
 
 That would work correctly, as expected. But there's a shorter version. 👇
 
@@ -349,14 +343,13 @@ As selecting a single row by its Id column with the **primary key** is a common 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial008.py!}
 ```
 
-</details>
+///
 
 `session.get(Hero, 1)` is an equivalent to creating a `select()`, then filtering by Id using `.where()`, and then getting the first item with `.first()`.
 
@@ -393,14 +386,13 @@ Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/one/tutorial009.py!}
 ```
 
-</details>
+///
 
 Running that will output:
 

@@ -22,14 +22,13 @@ Again, we will create several heroes to have some data to select from:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
 ```
 
-</details>
+///
 
 ## Review Select All
 
@@ -43,14 +42,13 @@ This is the code we had to select all the heroes in the `select()` examples:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/select/tutorial003.py!}
 ```
 
-</details>
+///
 
 But this would get us **all** the heroes at the same time, in a database that could have thousands, that could be problematic.
 
@@ -66,14 +64,13 @@ We currently have 7 heroes in the database. But we could as well have thousands,
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
 ```
 
-</details>
+///
 
 The special **select** object we get from `select()` also has a method `.limit()` that we can use to limit the results to a certain number.
 
@@ -110,8 +107,11 @@ INFO Engine [no key 0.00014s] (3, 0)
 
 Great! We got only 3 heroes as we wanted.
 
-!!! tip
-    We will check out that SQL code more in a bit.
+/// tip
+
+We will check out that SQL code more in a bit.
+
+///
 
 ## Select with Offset and Limit
 
@@ -119,10 +119,13 @@ Now we can limit the results to get only the first 3.
 
 But imagine we are in a user interface showing the results in batches of 3 heroes at a time.
 
-!!! tip
-    This is commonly called "pagination". Because the user interface would normally show a "page" of a predefined number of heroes at a time.
+/// tip
 
-    And then you can interact with the user interface to get the next page, and so on.
+This is commonly called "pagination". Because the user interface would normally show a "page" of a predefined number of heroes at a time.
+
+And then you can interact with the user interface to get the next page, and so on.
+
+///
 
 How do we get the next 3?
 
@@ -138,14 +141,13 @@ We can use `.offset()`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/offset_and_limit/tutorial002.py!}
 ```
 
-</details>
+///
 
 The way this works is that the special **select** object we get from `select()` has methods like `.where()`, `.offset()` and `.limit()`.
 
@@ -192,14 +194,13 @@ Then to get the next batch of 3 rows we would offset all the ones we already saw
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/offset_and_limit/tutorial003.py!}
 ```
 
-</details>
+///
 
 The database right now has **only 7 rows**, so this query can only get 1 row.
 
@@ -262,14 +263,13 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/offset_and_limit/tutorial004.py!}
 ```
 
-</details>
+///
 
 ## Run the Program with Limit, Offset, and Where on the Command Line
 

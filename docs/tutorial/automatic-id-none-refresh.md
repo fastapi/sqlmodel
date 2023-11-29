@@ -14,14 +14,13 @@ But the same `id` field actually **can be `None`** in the Python code, so we dec
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 Next, I'll show you a bit more about the synchronization of data between the database and the Python code.
 
@@ -39,14 +38,13 @@ When we create a new `Hero` instance, we don't set the `id`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 ### How `Optional` Helps
 
@@ -82,14 +80,13 @@ We can confirm that by printing our heroes before adding them to the database:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 That will output:
 
@@ -128,14 +125,13 @@ We can verify by creating a session using a `with` block and adding the objects.
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 This will, again, output the `id`s of the objects as `None`:
 
@@ -168,14 +164,13 @@ Then we can `commit` the changes in the session, and print again:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 And now, something unexpected happens, look at the output, it seems as if the `Hero` instance objects had no data at all:
 
@@ -241,14 +236,13 @@ To confirm and understand how this **automatic expiration and refresh** of data 
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 Now we are actually accessing the attributes, because instead of printing the whole object `hero_1`:
 
@@ -338,14 +332,13 @@ You can do that too with `session.refresh(object)`:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 When Python executes this code:
 
@@ -411,14 +404,13 @@ There are no surprises here, it still works:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
 
-</details>
+///
 
 And the output shows again the same data:
 
@@ -445,10 +437,13 @@ Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
 
 Now let's review all this code once again.
 
-!!! tip
-    Each one of the numbered bubbles shows what each line will print in the output.
+/// tip
 
-    And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
+Each one of the numbered bubbles shows what each line will print in the output.
+
+And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
+
+///
 
 ```{ .python .annotate }
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}

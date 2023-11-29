@@ -20,14 +20,13 @@ Are you already a **SQL expert** and don't have time for all my explanations?
 
 Fine, in that case, you can **sneak peek** the final code to create indexes here.
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python hl_lines="8  10"
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
-</details>
+///
 
 ..but if you are not an expert, **continue reading**, this will probably be useful. 🤓
 
@@ -73,12 +72,15 @@ You repeat this process **a few more times**, and you finally arrive at the lett
 
 You had to open the dictionary a few times, maybe **5 or 10**. That's actually **very little work** compared to what it could have been.
 
-!!! note "Technical Details"
-    Do you like **fancy words**? Cool! Programmers tend to like fancy words. 😅
+/// note  | Technical Details
 
-    That <abbr title="a recipe, a sequence of predefined steps that achieve a result">algorithm</abbr> I showed you above is called **Binary Search**.
+Do you like **fancy words**? Cool! Programmers tend to like fancy words. 😅
 
-    It's called like that because you **search** something by splitting the dictionary (or any ordered list of things) in **two** ("binary" means "two") parts. And you do that process multiple times until you find what you want.
+That <abbr title="a recipe, a sequence of predefined steps that achieve a result">algorithm</abbr> I showed you above is called **Binary Search**.
+
+It's called like that because you **search** something by splitting the dictionary (or any ordered list of things) in **two** ("binary" means "two") parts. And you do that process multiple times until you find what you want.
+
+///
 
 ### An Index and a Novel
 
@@ -267,14 +269,13 @@ Here's the `Hero` model we had before:
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/where/tutorial001.py!}
 ```
 
-</details>
+///
 
 Let's now update it to tell **SQLModel** to create an index for the `name` field when creating the table:
 
@@ -284,23 +285,25 @@ Let's now update it to tell **SQLModel** to create an index for the `name` field
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial001.py!}
 ```
 
-</details>
+///
 
 We use the same `Field()` again as we did before, and set `index=True`. That's it! 🚀
 
 Notice that we didn't set an argument of `default=None` or anything similar. This means that **SQLModel** (thanks to Pydantic) will keep it as a **required** field.
 
-!!! info
-    SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
+/// info
 
-    In this case the generated name would be `ix_hero_name`.
+SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
+
+In this case the generated name would be `ix_hero_name`.
+
+///
 
 ## Query Data
 
@@ -318,14 +321,13 @@ This is great because it means that indexes are very **simple to use**. But it m
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial001.py!}
 ```
 
-</details>
+///
 
 This is exactly the same code as we had before, but now the database will **use the index** underneath.
 
@@ -374,14 +376,13 @@ We are going to query the `hero` table doing comparisons on the `age` field too,
 # Code below omitted 👇
 ```
 
-<details>
-<summary>👀 Full file preview</summary>
+/// details | 👀 Full file preview
 
 ```Python
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
-</details>
+///
 
 In this case, we want the default value of `age` to continue being `None`, so we set `default=None` when using `Field()`.
 
