@@ -13,6 +13,10 @@
 
 * ⬆️ Add support for Python 3.11 and Python 3.12. PR [#710](https://github.com/tiangolo/sqlmodel/pull/710) by [@tiangolo](https://github.com/tiangolo).
 
+### Docs
+
+* 📝 Add source examples for Python 3.9 and 3.10. PR [#715](https://github.com/tiangolo/sqlmodel/pull/715) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * 🔧 Show line numbers in docs during local development. PR [#714](https://github.com/tiangolo/sqlmodel/pull/714) by [@tiangolo](https://github.com/tiangolo).
