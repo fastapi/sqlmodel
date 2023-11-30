@@ -48,8 +48,10 @@ mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = ">=6.2,<8.0"}
 fastapi = "^0.103.2"
 ruff = "^0.1.2"
-# For FastAPI tests
 httpx = "0.24.1"
+testcontainers = "^3.7.1"
+psycopg2-binary = "^2.9.7"
+asyncpg = "^0.28.0"
 
 [build-system]
 requires = ["poetry-core"]
