@@ -7,6 +7,7 @@
 
 ### Refactors
 
+* 🔇 Do not raise deprecation warnings for execute as it's automatically used internally. PR [#716](https://github.com/tiangolo/sqlmodel/pull/716) by [@tiangolo](https://github.com/tiangolo).
 * ✅ Move OpenAPI tests inline to simplify updating them with Pydantic v2. PR [#709](https://github.com/tiangolo/sqlmodel/pull/709) by [@tiangolo](https://github.com/tiangolo).
 
 ### Upgrades
