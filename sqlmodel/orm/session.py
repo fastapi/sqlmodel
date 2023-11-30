@@ -95,7 +95,8 @@ class Session(_Session):
         ```Python
         heroes = session.exec(select(Hero)).all()
         ```
-        """
+        """,
+        category=None,
     )
     def execute(  # type: ignore
         self,
