@@ -91,7 +91,6 @@ def test_should_raise_exception_when_try_to_duplicate_row_if_unique_constraint_i
         with Session(engine) as session:
             session.add(hero_2)
             session.commit()
-            session.refresh(hero_2)
 
 
 def test_sa_relationship_property(clear_sqlmodel):
