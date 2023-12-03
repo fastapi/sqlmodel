@@ -81,7 +81,7 @@ def on_startup():
 
 @app.post("/heroes/", response_model=HeroRead)
 def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
-    db_hero = Hero.from_orm(hero)
+    db_hero = Hero.model_validate(hero)
     session.add(db_hero)
     session.commit()
     session.refresh(db_hero)
@@ -135,7 +135,7 @@ def delete_hero(*, session: Session = Depends(get_session), hero_id: int):
 
 @app.post("/teams/", response_model=TeamRead)
 def create_team(*, session: Session = Depends(get_session), team: TeamCreate):
-    db_team = Team.from_orm(team)
+    db_team = Team.model_validate(team)
     session.add(db_team)
     session.commit()
     session.refresh(db_team)
