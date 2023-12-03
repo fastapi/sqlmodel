@@ -58,6 +58,7 @@ from ._compat import (
     BaseConfig,
     ModelField,
     ModelMetaclass,
+    Representation,
     SQLModelConfig,
     Undefined,
     UndefinedType,
@@ -78,12 +79,9 @@ from ._compat import (
 )
 from .sql.sqltypes import GUID, AutoString
 
-if IS_PYDANTIC_V2:
-    from pydantic._internal._repr import Representation
-else:
+if not IS_PYDANTIC_V2:
     from pydantic.errors import DictError
     from pydantic.main import validate_model
-    from pydantic.utils import Representation
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
