@@ -62,20 +62,20 @@ from ._compat import (
     SQLModelConfig,
     Undefined,
     UndefinedType,
-    __sqlmodel_init__,
-    _finish_init,
-    _is_field_noneable,
-    _model_validate,
-    cls_is_table,
+    finish_init,
     get_annotations,
     get_config_value,
     get_field_metadata,
     get_model_fields,
     get_relationship_to,
     get_type_from_field,
+    is_field_noneable,
+    is_table_model_class,
     post_init_field_info,
     set_config_value,
     set_fields_set,
+    sqlmodel_init,
+    sqlmodel_validate,
 )
 from .sql.sqltypes import GUID, AutoString
 
@@ -509,8 +509,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # this allows FastAPI cloning a SQLModel for the response_model without
         # trying to create a new SQLAlchemy, for a new table, with the same name, that
         # triggers an error
-        base_is_table = any(cls_is_table(base) for base in bases)
-        if cls_is_table(cls) and not base_is_table:
+        base_is_table = any(is_table_model_class(base) for base in bases)
+        if is_table_model_class(cls) and not base_is_table:
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
                     # There's a SQLAlchemy relationship declared, that takes precedence
@@ -628,7 +628,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     index = getattr(field_info, "index", Undefined)
     if index is Undefined:
         index = False
-    nullable = not primary_key and _is_field_noneable(field)
+    nullable = not primary_key and is_field_noneable(field)
     # Override derived nullability if the nullable property is set explicitly
     # on the field
     field_nullable = getattr(field_info, "nullable", Undefined)  # noqa: B009
@@ -724,8 +724,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         # So, to be able to set up the internal SQLAlchemy logic alone without
         # executing the rest, and support things like Model.model_validate(), we
         # use a contextvar to know if we should execute everything.
-        if _finish_init.get():
-            __sqlmodel_init__(__pydantic_self__, **data)
+        if finish_init.get():
+            sqlmodel_init(self=__pydantic_self__, data=data)
 
     def __setattr__(self, name: str, value: Any) -> None:
         if name in {"_sa_instance_state"}:
@@ -767,7 +767,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         context: Union[Dict[str, Any], None] = None,
         update: Union[Dict[str, Any], None] = None,
     ) -> _TSQLModel:
-        return _model_validate(
+        return sqlmodel_validate(
             cls=cls,
             obj=obj,
             strict=strict,
