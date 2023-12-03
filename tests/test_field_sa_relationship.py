@@ -6,7 +6,7 @@ from sqlmodel import Field, Relationship, SQLModel
 
 
 def test_sa_relationship_no_args() -> None:
-    with pytest.raises(RuntimeError):
+    with pytest.raises(RuntimeError):  # pragma: no cover
 
         class Team(SQLModel, table=True):
             id: Optional[int] = Field(default=None, primary_key=True)
@@ -30,7 +30,7 @@ def test_sa_relationship_no_args() -> None:
 
 
 def test_sa_relationship_no_kwargs() -> None:
-    with pytest.raises(RuntimeError):
+    with pytest.raises(RuntimeError):  # pragma: no cover
 
         class Team(SQLModel, table=True):
             id: Optional[int] = Field(default=None, primary_key=True)

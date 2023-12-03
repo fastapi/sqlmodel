@@ -12,7 +12,7 @@ def test_missing_sql_type():
             yield cls.validate
 
         @classmethod
-        def validate(cls, v):  # pragma: nocover
+        def validate(cls, v):  # pragma: no cover
             return v
 
     with pytest.raises(ValueError):
