@@ -122,15 +122,12 @@ def test_json_schema_flat_model_pydantic_v2():
         "title": "FlatModel",
         "type": "object",
         "properties": {
-            "id": {"default": None, "format": "uuid", "title": "Id", "type": "string"},
-            "enum_field": {"allOf": [{"$ref": "#/$defs/MyEnum1"}], "default": None},
+            "id": {"title": "Id", "type": "string", "format": "uuid"},
+            "enum_field": {"$ref": "#/$defs/MyEnum1"},
         },
+        "required": ["id", "enum_field"],
         "$defs": {
-            "MyEnum1": {
-                "title": "MyEnum1",
-                "enum": ["A", "B"],
-                "type": "string",
-            }
+            "MyEnum1": {"enum": ["A", "B"], "title": "MyEnum1", "type": "string"}
         },
     }
 
@@ -146,10 +143,6 @@ def test_json_schema_inherit_model_pydantic_v2():
         },
         "required": ["id", "enum_field"],
         "$defs": {
-            "MyEnum2": {
-                "title": "MyEnum2",
-                "enum": ["C", "D"],
-                "type": "string",
-            }
+            "MyEnum2": {"enum": ["C", "D"], "title": "MyEnum2", "type": "string"}
         },
     }
