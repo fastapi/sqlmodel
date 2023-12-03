@@ -62,6 +62,7 @@ from ._compat import (
     SQLModelConfig,
     Undefined,
     UndefinedType,
+    _calculate_keys,
     finish_init,
     get_annotations,
     get_config_value,
@@ -669,13 +670,6 @@ class_registry = weakref.WeakValueDictionary()  # type: ignore
 
 default_registry = registry()
 
-
-def _value_items_is_true(v: Any) -> bool:
-    # Re-implement Pydantic's ValueItems.is_true() as it hasn't been released as of
-    # the current latest, Pydantic 1.8.2
-    return v is True or v is ...
-
-
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
@@ -825,35 +819,10 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_unset: bool,
         update: Optional[Dict[str, Any]] = None,
     ) -> Optional[AbstractSet[str]]:
-        if include is None and exclude is None and not exclude_unset:
-            # Original in Pydantic:
-            # return None
-            # Updated to not return SQLAlchemy attributes
-            # Do not include relationships as that would easily lead to infinite
-            # recursion, or traversing the whole database
-            return (
-                self.__fields__.keys()  # noqa
-            )  # | self.__sqlmodel_relationships__.keys()
-
-        keys: AbstractSet[str]
-        if exclude_unset:
-            keys = self.__fields_set__.copy()  # noqa
-        else:
-            # Original in Pydantic:
-            # keys = self.__dict__.keys()
-            # Updated to not return SQLAlchemy attributes
-            # Do not include relationships as that would easily lead to infinite
-            # recursion, or traversing the whole database
-            keys = (
-                self.__fields__.keys()  # noqa
-            )  # | self.__sqlmodel_relationships__.keys()
-        if include is not None:
-            keys &= include.keys()
-
-        if update:
-            keys -= update.keys()
-
-        if exclude:
-            keys -= {k for k, v in exclude.items() if _value_items_is_true(v)}
-
-        return keys
+        return _calculate_keys(
+            self,
+            include=include,
+            exclude=exclude,
+            exclude_unset=exclude_unset,
+            update=update,
+        )

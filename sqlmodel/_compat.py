@@ -4,9 +4,11 @@ from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import (
     TYPE_CHECKING,
+    AbstractSet,
     Any,
     Dict,
     ForwardRef,
+    Mapping,
     Optional,
     Set,
     Type,
@@ -29,7 +31,7 @@ UnionType = getattr(types, "UnionType", Union)
 NoneType = type(None)
 T = TypeVar("T")
 InstanceOrType = Union[T, Type[T]]
-TSQLModel = TypeVar("TSQLModel", bound="SQLModel")
+_TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
 class FakeMetadata:
@@ -195,14 +197,22 @@ if IS_PYDANTIC_V2:
     def post_init_field_info(field_info: FieldInfo) -> None:
         return None
 
+    # Dummy to make it importable
+    def _calculate_keys(
+        self,
+        include: Optional[Mapping[Union[int, str], Any]],
+        exclude: Optional[Mapping[Union[int, str], Any]],
+        exclude_unset: bool,
+        update: Optional[Dict[str, Any]] = None,
+    ) -> Optional[AbstractSet[str]]:
+        return None
+
     def sqlmodel_table_construct(
-        # SQLModel override
-        # cls: Type[_TSQLModel], _fields_set: Union[Set[str], None] = None, **values: Any
         *,
-        self_instance: TSQLModel,
+        self_instance: _TSQLModel,
         values: Dict[str, Any],
         _fields_set: Union[Set[str], None] = None,
-    ) -> TSQLModel:
+    ) -> _TSQLModel:
         # Copy from Pydantic's BaseModel.construct()
         # Ref: https://github.com/pydantic/pydantic/blob/v2.5.2/pydantic/main.py#L198
         # Modified to not include everything, only the model fields, and to
@@ -265,16 +275,16 @@ if IS_PYDANTIC_V2:
         return self_instance
 
     def sqlmodel_validate(
-        cls: Type[TSQLModel],
+        cls: Type[_TSQLModel],
         obj: Any,
         *,
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
         context: Union[Dict[str, Any], None] = None,
         update: Union[Dict[str, Any], None] = None,
-    ) -> TSQLModel:
+    ) -> _TSQLModel:
         if not is_table_model_class(cls):
-            new_obj: TSQLModel = cls.__new__(cls)
+            new_obj: _TSQLModel = cls.__new__(cls)
         else:
             # If table, create the new instance normally to make SQLAlchemy create
             # the _sa_instance_state attribute
@@ -343,7 +353,7 @@ else:
     from pydantic.main import ModelMetaclass as ModelMetaclass
     from pydantic.main import validate_model
     from pydantic.typing import resolve_annotations
-    from pydantic.utils import ROOT_KEY
+    from pydantic.utils import ROOT_KEY, ValueItems
     from pydantic.utils import Representation as Representation
 
     class SQLModelConfig(BaseConfig):
@@ -423,15 +433,55 @@ else:
     def post_init_field_info(field_info: FieldInfo) -> None:
         field_info._validate()
 
+    def _calculate_keys(
+        self,
+        include: Optional[Mapping[Union[int, str], Any]],
+        exclude: Optional[Mapping[Union[int, str], Any]],
+        exclude_unset: bool,
+        update: Optional[Dict[str, Any]] = None,
+    ) -> Optional[AbstractSet[str]]:
+        if include is None and exclude is None and not exclude_unset:
+            # Original in Pydantic:
+            # return None
+            # Updated to not return SQLAlchemy attributes
+            # Do not include relationships as that would easily lead to infinite
+            # recursion, or traversing the whole database
+            return (
+                self.__fields__.keys()  # noqa
+            )  # | self.__sqlmodel_relationships__.keys()
+
+        keys: AbstractSet[str]
+        if exclude_unset:
+            keys = self.__fields_set__.copy()  # noqa
+        else:
+            # Original in Pydantic:
+            # keys = self.__dict__.keys()
+            # Updated to not return SQLAlchemy attributes
+            # Do not include relationships as that would easily lead to infinite
+            # recursion, or traversing the whole database
+            keys = (
+                self.__fields__.keys()  # noqa
+            )  # | self.__sqlmodel_relationships__.keys()
+        if include is not None:
+            keys &= include.keys()
+
+        if update:
+            keys -= update.keys()
+
+        if exclude:
+            keys -= {k for k, v in exclude.items() if ValueItems.is_true(v)}
+
+        return keys
+
     def sqlmodel_validate(
-        cls: Type[TSQLModel],
+        cls: Type[_TSQLModel],
         obj: Any,
         *,
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
         context: Union[Dict[str, Any], None] = None,
         update: Union[Dict[str, Any], None] = None,
-    ) -> TSQLModel:
+    ) -> _TSQLModel:
         # This was SQLModel's original from_orm() for Pydantic v1
         # Duplicated from Pydantic
         if not cls.__config__.orm_mode:  # noqa
@@ -449,7 +499,7 @@ else:
         # End SQLModel support dict
         if not getattr(cls.__config__, "table", False):  # noqa
             # If not table, normal Pydantic code
-            m: TSQLModel = cls.__new__(cls)
+            m: _TSQLModel = cls.__new__(cls)
         else:
             # If table, create the new instance normally to make SQLAlchemy create
             # the _sa_instance_state attribute
