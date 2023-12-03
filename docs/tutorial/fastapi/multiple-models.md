@@ -177,9 +177,7 @@ Now we use the type annotation `HeroCreate` for the request JSON data in the `he
 
 Then we create a new `Hero` (this is the actual **table** model that saves things to the database) using `Hero.model_validate()`.
 
-The method `.model_validate()` reads data from another object with attributes and creates a new instance of this class, in this case `Hero`.
-
-The alternative is `Hero.parse_obj()` that reads data from a dictionary.
+The method `.model_validate()` reads data from another object with attributes (or a dict) and creates a new instance of this class, in this case `Hero`.
 
 But as in this case, we have a `HeroCreate` instance in the `hero` variable. This is an object with attributes, so we use `.model_validate()` to read those attributes.
 
