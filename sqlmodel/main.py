@@ -390,22 +390,20 @@ def Relationship(
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
-    if IS_PYDANTIC_V2:
-        model_config: SQLModelConfig
-        model_fields: Dict[str, FieldInfo]
-    else:
-        __config__: Type[SQLModelConfig]
-        __fields__: Dict[str, ModelField]
+    model_config: SQLModelConfig
+    model_fields: Dict[str, FieldInfo]
+    __config__: Type[SQLModelConfig]
+    __fields__: Dict[str, ModelField]
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
-        if get_config_value(model=cls, parameter="table", default=False):
+        if is_table_model_class(cls):
             DeclarativeMeta.__setattr__(cls, name, value)
         else:
             super().__setattr__(name, value)
 
     def __delattr__(cls, name: str) -> None:
-        if get_config_value(model=cls, parameter="table", default=False):
+        if is_table_model_class(cls):
             DeclarativeMeta.__delattr__(cls, name)
         else:
             super().__delattr__(name)
@@ -733,9 +731,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if get_config_value(
-                model=self, parameter="table", default=False
-            ) and is_instrumented(self, name):
+            if is_table_model_class(self) and is_instrumented(self, name):
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
