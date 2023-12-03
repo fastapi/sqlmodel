@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
-from sqlmodel.compat import IS_PYDANTIC_V2
+from sqlmodel._compat import IS_PYDANTIC_V2
 
 
 class Hero(SQLModel, table=True):
