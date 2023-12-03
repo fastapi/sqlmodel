@@ -26,7 +26,6 @@ from typing import (
 
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo as PydanticFieldInfo
-from pydantic.utils import Representation
 from sqlalchemy import (
     Boolean,
     Column,
@@ -62,7 +61,10 @@ from ._compat import (
     SQLModelConfig,
     Undefined,
     UndefinedType,
+    __sqlmodel_init__,
+    _finish_init,
     _is_field_noneable,
+    _model_validate,
     cls_is_table,
     get_annotations,
     get_config_value,
@@ -76,10 +78,12 @@ from ._compat import (
 )
 from .sql.sqltypes import GUID, AutoString
 
-if not IS_PYDANTIC_V2:
-    from pydantic.errors import ConfigError, DictError
+if IS_PYDANTIC_V2:
+    from pydantic._internal._repr import Representation
+else:
+    from pydantic.errors import DictError
     from pydantic.main import validate_model
-    from pydantic.utils import ROOT_KEY
+    from pydantic.utils import Representation
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
@@ -708,33 +712,22 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def __init__(__pydantic_self__, **data: Any) -> None:
         # Uses something other than `self` the first arg to allow "self" as a
         # settable attribute
-        # TODO: review how this works and check defaults set in metaclass __new__
-        if IS_PYDANTIC_V2:
-            old_dict = __pydantic_self__.__dict__.copy()
-            super().__init__(**data)  # noqa
-            __pydantic_self__.__dict__ = {**old_dict, **__pydantic_self__.__dict__}
-            non_pydantic_keys = data.keys() - __pydantic_self__.model_fields
-        else:
-            values, fields_set, validation_error = validate_model(
-                __pydantic_self__.__class__, data
-            )
-            # Only raise errors if not a SQLModel model
-            if (
-                not getattr(__pydantic_self__.__config__, "table", False)  # noqa
-                and validation_error
-            ):
-                raise validation_error
-            # Do not set values as in Pydantic, pass them through setattr, so SQLAlchemy
-            # can handle them
-            # object.__setattr__(__pydantic_self__, '__dict__', values)
-            for key, value in values.items():
-                setattr(__pydantic_self__, key, value)
-            object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
-            non_pydantic_keys = data.keys() - values.keys()
 
-        for key in non_pydantic_keys:
-            if key in __pydantic_self__.__sqlmodel_relationships__:
-                setattr(__pydantic_self__, key, data[key])
+        # SQLAlchemy does very dark black magic and modifies the __init__ method in
+        # sqlalchemy.orm.instrumentation._generate_init()
+        # so, to make SQLAlchemy work, it's needed to explicitly call __init__ to
+        # trigger all the SQLAlchemy logic, it doesn't work using cls.__new__, setting
+        # attributes obj.__dict__, etc. The __init__ method has to be called. But
+        # there are cases where calling all the default logic is not ideal, e.g.
+        # when calling Model.model_validate(), as the validation is done outside
+        # of instance creation.
+        # At the same time, __init__ is what users would normally call, by creating
+        # a new instance, which should have validation and all the default logic.
+        # So, to be able to set up the internal SQLAlchemy logic alone without
+        # executing the rest, and support things like Model.model_validate(), we
+        # use a contextvar to know if we should execute everything.
+        if _finish_init.get():
+            __sqlmodel_init__(__pydantic_self__, **data)
 
     def __setattr__(self, name: str, value: Any) -> None:
         if name in {"_sa_instance_state"}:
@@ -765,140 +758,108 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     # TODO: refactor this and make each method available in both Pydantic v1 and v2
     # add deprecations, re-use methods from backwards compatibility parts, etc.
-    if IS_PYDANTIC_V2:
 
-        @classmethod
-        def model_validate(
-            cls: type[_TSQLModel],
-            obj: Any,
-            *,
-            strict: bool | None = None,
-            from_attributes: bool | None = None,
-            context: dict[str, Any] | None = None,
-        ) -> _TSQLModel:
-            # Somehow model validate doesn't call __init__ so it would remove our init logic
-            validated = super().model_validate(
-                obj, strict=strict, from_attributes=from_attributes, context=context
+    @classmethod
+    def model_validate(
+        cls: Type[_TSQLModel],
+        obj: Any,
+        *,
+        strict: Union[bool, None] = None,
+        from_attributes: Union[bool, None] = None,
+        context: Union[Dict[str, Any], None] = None,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        return _model_validate(
+            cls=cls,
+            obj=obj,
+            strict=strict,
+            from_attributes=from_attributes,
+            context=context,
+            update=update,
+        )
+
+    @classmethod
+    def from_orm(
+        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+    ) -> _TSQLModel:
+        return cls.model_validate(obj, update=update)
+
+    @classmethod
+    def parse_obj(
+        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+    ) -> _TSQLModel:
+        obj = cls._enforce_dict_if_root(obj)  # noqa
+        # SQLModel, support update dict
+        if update is not None:
+            obj = {**obj, **update}
+        # End SQLModel support dict
+        return super().parse_obj(obj)
+
+    # From Pydantic, override to enforce validation with dict
+    @classmethod
+    def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
+        if isinstance(value, cls):
+            return (
+                value.copy() if cls.__config__.copy_on_model_validation else value  # noqa
             )
-            return cls(**validated.model_dump(exclude_unset=True))
 
-    else:
-
-        @classmethod
-        def from_orm(
-            cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
-        ) -> _TSQLModel:
-            # Duplicated from Pydantic
-            if not cls.__config__.orm_mode:  # noqa
-                raise ConfigError(
-                    "You must have the config attribute orm_mode=True to use from_orm"
-                )
-            obj = (
-                {ROOT_KEY: obj}
-                if cls.__custom_root_type__  # noqa
-                else cls._decompose_class(obj)  # noqa
-            )
-            # SQLModel, support update dict
-            if update is not None:
-                obj = {**obj, **update}
-            # End SQLModel support dict
-            if not getattr(cls.__config__, "table", False):  # noqa
-                # If not table, normal Pydantic code
-                m: _TSQLModel = cls.__new__(cls)
-            else:
-                # If table, create the new instance normally to make SQLAlchemy create
-                # the _sa_instance_state attribute
-                m = cls()
-            values, fields_set, validation_error = validate_model(cls, obj)
+        value = cls._enforce_dict_if_root(value)
+        if isinstance(value, dict):
+            values, fields_set, validation_error = validate_model(cls, value)
             if validation_error:
                 raise validation_error
-            # Updated to trigger SQLAlchemy internal handling
-            if not getattr(cls.__config__, "table", False):  # noqa
-                object.__setattr__(m, "__dict__", values)
-            else:
-                for key, value in values.items():
-                    setattr(m, key, value)
-            # Continue with standard Pydantic logic
-            object.__setattr__(m, "__fields_set__", fields_set)
-            m._init_private_attributes()  # noqa
-            return m
+            model = cls(**value)
+            # Reset fields set, this would have been done in Pydantic in __init__
+            object.__setattr__(model, "__fields_set__", fields_set)
+            return model
+        elif cls.__config__.orm_mode:  # noqa
+            return cls.from_orm(value)
+        elif cls.__custom_root_type__:  # noqa
+            return cls.parse_obj(value)
+        else:
+            try:
+                value_as_dict = dict(value)
+            except (TypeError, ValueError) as e:
+                raise DictError() from e
+            return cls(**value_as_dict)
 
-        @classmethod
-        def parse_obj(
-            cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
-        ) -> _TSQLModel:
-            obj = cls._enforce_dict_if_root(obj)  # noqa
-            # SQLModel, support update dict
-            if update is not None:
-                obj = {**obj, **update}
-            # End SQLModel support dict
-            return super().parse_obj(obj)
+    # From Pydantic, override to only show keys from fields, omit SQLAlchemy attributes
+    def _calculate_keys(
+        self,
+        include: Optional[Mapping[Union[int, str], Any]],
+        exclude: Optional[Mapping[Union[int, str], Any]],
+        exclude_unset: bool,
+        update: Optional[Dict[str, Any]] = None,
+    ) -> Optional[AbstractSet[str]]:
+        if include is None and exclude is None and not exclude_unset:
+            # Original in Pydantic:
+            # return None
+            # Updated to not return SQLAlchemy attributes
+            # Do not include relationships as that would easily lead to infinite
+            # recursion, or traversing the whole database
+            return (
+                self.__fields__.keys()  # noqa
+            )  # | self.__sqlmodel_relationships__.keys()
 
-        # From Pydantic, override to enforce validation with dict
-        @classmethod
-        def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
-            if isinstance(value, cls):
-                return (
-                    value.copy() if cls.__config__.copy_on_model_validation else value  # noqa
-                )
+        keys: AbstractSet[str]
+        if exclude_unset:
+            keys = self.__fields_set__.copy()  # noqa
+        else:
+            # Original in Pydantic:
+            # keys = self.__dict__.keys()
+            # Updated to not return SQLAlchemy attributes
+            # Do not include relationships as that would easily lead to infinite
+            # recursion, or traversing the whole database
+            keys = (
+                self.__fields__.keys()  # noqa
+            )  # | self.__sqlmodel_relationships__.keys()
+        if include is not None:
+            keys &= include.keys()
 
-            value = cls._enforce_dict_if_root(value)
-            if isinstance(value, dict):
-                values, fields_set, validation_error = validate_model(cls, value)
-                if validation_error:
-                    raise validation_error
-                model = cls(**value)
-                # Reset fields set, this would have been done in Pydantic in __init__
-                object.__setattr__(model, "__fields_set__", fields_set)
-                return model
-            elif cls.__config__.orm_mode:  # noqa
-                return cls.from_orm(value)
-            elif cls.__custom_root_type__:  # noqa
-                return cls.parse_obj(value)
-            else:
-                try:
-                    value_as_dict = dict(value)
-                except (TypeError, ValueError) as e:
-                    raise DictError() from e
-                return cls(**value_as_dict)
+        if update:
+            keys -= update.keys()
 
-        # From Pydantic, override to only show keys from fields, omit SQLAlchemy attributes
-        def _calculate_keys(
-            self,
-            include: Optional[Mapping[Union[int, str], Any]],
-            exclude: Optional[Mapping[Union[int, str], Any]],
-            exclude_unset: bool,
-            update: Optional[Dict[str, Any]] = None,
-        ) -> Optional[AbstractSet[str]]:
-            if include is None and exclude is None and not exclude_unset:
-                # Original in Pydantic:
-                # return None
-                # Updated to not return SQLAlchemy attributes
-                # Do not include relationships as that would easily lead to infinite
-                # recursion, or traversing the whole database
-                return (
-                    self.__fields__.keys()  # noqa
-                )  # | self.__sqlmodel_relationships__.keys()
+        if exclude:
+            keys -= {k for k, v in exclude.items() if _value_items_is_true(v)}
 
-            keys: AbstractSet[str]
-            if exclude_unset:
-                keys = self.__fields_set__.copy()  # noqa
-            else:
-                # Original in Pydantic:
-                # keys = self.__dict__.keys()
-                # Updated to not return SQLAlchemy attributes
-                # Do not include relationships as that would easily lead to infinite
-                # recursion, or traversing the whole database
-                keys = (
-                    self.__fields__.keys()  # noqa
-                )  # | self.__sqlmodel_relationships__.keys()
-            if include is not None:
-                keys &= include.keys()
-
-            if update:
-                keys -= update.keys()
-
-            if exclude:
-                keys -= {k for k, v in exclude.items() if _value_items_is_true(v)}
-
-            return keys
+        return keys

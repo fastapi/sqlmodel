@@ -1,10 +1,14 @@
 import types
+from contextlib import contextmanager
+from contextvars import ContextVar
+from dataclasses import dataclass
 from typing import (
     TYPE_CHECKING,
     Any,
     Dict,
     ForwardRef,
     Optional,
+    Set,
     Type,
     TypeVar,
     Union,
@@ -17,6 +21,48 @@ from pydantic.fields import FieldInfo
 
 IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
+
+if TYPE_CHECKING:
+    from .main import RelationshipInfo, SQLModel
+
+UnionType = getattr(types, "UnionType", Union)
+NoneType = type(None)
+T = TypeVar("T")
+InstanceOrType = Union[T, Type[T]]
+_TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
+
+
+class FakeMetadata:
+    max_length: Optional[int] = None
+    max_digits: Optional[int] = None
+    decimal_places: Optional[int] = None
+
+
+@dataclass
+class ObjectWithUpdateWrapper:
+    obj: Any
+    update: Dict[str, Any]
+
+    def __getattribute__(self, __name: str) -> Any:
+        if __name in self.update:
+            return self.update[__name]
+        return getattr(self.obj, __name)
+
+
+def _is_union_type(t: Any) -> bool:
+    return t is UnionType or t is Union
+
+
+_finish_init: ContextVar[bool] = ContextVar("_finish_init", default=True)
+
+
+@contextmanager
+def _partial_init():
+    token = _finish_init.set(False)
+    yield
+    _finish_init.reset(token)
+
+
 if IS_PYDANTIC_V2:
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
@@ -27,34 +73,6 @@ if IS_PYDANTIC_V2:
     # Dummy for types, to make it importable
     class ModelField:
         pass
-else:
-    from pydantic import BaseConfig as BaseConfig
-    from pydantic.fields import SHAPE_SINGLETON, ModelField
-    from pydantic.fields import Undefined as Undefined  # noqa
-    from pydantic.fields import UndefinedType as UndefinedType
-    from pydantic.main import ModelMetaclass as ModelMetaclass
-    from pydantic.typing import resolve_annotations
-
-if TYPE_CHECKING:
-    from .main import RelationshipInfo, SQLModel
-
-UnionType = getattr(types, "UnionType", Union)
-NoneType = type(None)
-T = TypeVar("T")
-InstanceOrType = Union[T, Type[T]]
-
-
-class FakeMetadata:
-    max_length: Optional[int] = None
-    max_digits: Optional[int] = None
-    decimal_places: Optional[int] = None
-
-
-def _is_union_type(t: Any) -> bool:
-    return t is UnionType or t is Union
-
-
-if IS_PYDANTIC_V2:
 
     class SQLModelConfig(BaseConfig, total=False):
         table: Optional[bool]
@@ -175,7 +193,156 @@ if IS_PYDANTIC_V2:
 
     def post_init_field_info(field_info: FieldInfo) -> None:
         return None
+
+    def _sqlmodel_table_construct(
+        # SQLModel override
+        # cls: Type[_TSQLModel], _fields_set: Union[Set[str], None] = None, **values: Any
+        *,
+        self_instance: _TSQLModel,
+        values: Dict[str, Any],
+        _fields_set: Union[Set[str], None] = None,
+    ) -> _TSQLModel:
+        # Copy from Pydantic's BaseModel.construct()
+        # Ref: https://github.com/pydantic/pydantic/blob/v2.5.2/pydantic/main.py#L198
+        # Modified to not include everything, only the model fields, and to
+        # set relationships
+        # SQLModel override to get class SQLAlchemy __dict__ attributes and
+        # set them back in after creating the object
+        # new_obj = cls.__new__(cls)
+        cls = type(self_instance)
+        old_dict = self_instance.__dict__.copy()
+        # End SQLModel override
+
+        fields_values: dict[str, Any] = {}
+        defaults: dict[
+            str, Any
+        ] = {}  # keeping this separate from `fields_values` helps us compute `_fields_set`
+        for name, field in cls.model_fields.items():
+            if field.alias and field.alias in values:
+                fields_values[name] = values.pop(field.alias)
+            elif name in values:
+                fields_values[name] = values.pop(name)
+            elif not field.is_required():
+                defaults[name] = field.get_default(call_default_factory=True)
+        if _fields_set is None:
+            _fields_set = set(fields_values.keys())
+        fields_values.update(defaults)
+
+        _extra: dict[str, Any] | None = None
+        if cls.model_config.get("extra") == "allow":
+            _extra = {}
+            for k, v in values.items():
+                _extra[k] = v
+        # SQLModel override, do not include everything, only the model fields
+        # else:
+        #     fields_values.update(values)
+        # End SQLModel override
+        # SQLModel override
+        # Do not set __dict__, instead use setattr to trigger SQLAlchemy
+        # object.__setattr__(new_obj, "__dict__", fields_values)
+        # instrumentation
+        for key, value in {**old_dict, **fields_values}.items():
+            setattr(self_instance, key, value)
+        # End SQLModel override
+        object.__setattr__(self_instance, "__pydantic_fields_set__", _fields_set)
+        if not cls.__pydantic_root_model__:
+            object.__setattr__(self_instance, "__pydantic_extra__", _extra)
+
+        if cls.__pydantic_post_init__:
+            self_instance.model_post_init(None)
+        elif not cls.__pydantic_root_model__:
+            # Note: if there are any private attributes, cls.__pydantic_post_init__ would exist
+            # Since it doesn't, that means that `__pydantic_private__` should be set to None
+            object.__setattr__(self_instance, "__pydantic_private__", None)
+        # SQLModel override, set relationships
+        # Get and set any relationship objects
+        for key in self_instance.__sqlmodel_relationships__:
+            value = values.get(key, Undefined)
+            if value is not Undefined:
+                setattr(self_instance, key, value)
+        # End SQLModel override
+        return self_instance
+
+    def _model_validate(
+        cls: Type[_TSQLModel],
+        obj: Any,
+        *,
+        strict: Union[bool, None] = None,
+        from_attributes: Union[bool, None] = None,
+        context: Union[Dict[str, Any], None] = None,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        if not cls_is_table(cls):
+            new_obj: _TSQLModel = cls.__new__(cls)
+        else:
+            # If table, create the new instance normally to make SQLAlchemy create
+            # the _sa_instance_state attribute
+            # The wrapper of this function should use with _partial_init()
+            with _partial_init():
+                new_obj = cls()
+        # SQLModel Override to get class SQLAlchemy __dict__ attributes and
+        # set them back in after creating the object
+        old_dict = new_obj.__dict__.copy()
+        use_obj = obj
+        if isinstance(obj, dict) and update:
+            use_obj = {**obj, **update}
+        elif update:
+            use_obj = ObjectWithUpdateWrapper(obj=obj, update=update)
+        cls.__pydantic_validator__.validate_python(
+            use_obj,
+            strict=strict,
+            from_attributes=from_attributes,
+            context=context,
+            self_instance=new_obj,
+        )
+        # Capture fields set to restore it later
+        fields_set = new_obj.__pydantic_fields_set__.copy()
+        if not cls_is_table(cls):
+            # If not table, normal Pydantic code, set __dict__
+            new_obj.__dict__ = {**old_dict, **new_obj.__dict__}
+        else:
+            # Do not set __dict__, instead use setattr to trigger SQLAlchemy
+            # instrumentation
+            for key, value in {**old_dict, **new_obj.__dict__}.items():
+                setattr(new_obj, key, value)
+        # Restore fields set
+        object.__setattr__(new_obj, "__pydantic_fields_set__", fields_set)
+        # Get and set any relationship objects
+        if cls_is_table(cls):
+            for key in new_obj.__sqlmodel_relationships__:
+                value = getattr(use_obj, key, Undefined)
+                if value is not Undefined:
+                    setattr(new_obj, key, value)
+        return new_obj
+
+    def __sqlmodel_init__(__pydantic_self__: "SQLModel", **data: Any) -> None:
+        old_dict = __pydantic_self__.__dict__.copy()
+        if not cls_is_table(__pydantic_self__.__class__):
+            __pydantic_self__.__pydantic_validator__.validate_python(
+                data,
+                self_instance=__pydantic_self__,
+            )
+        else:
+            _sqlmodel_table_construct(
+                self_instance=__pydantic_self__,
+                values=data,
+            )
+        object.__setattr__(
+            __pydantic_self__,
+            "__dict__",
+            {**old_dict, **__pydantic_self__.__dict__},
+        )
+
 else:
+    from pydantic import BaseConfig as BaseConfig
+    from pydantic.errors import ConfigError
+    from pydantic.fields import SHAPE_SINGLETON, ModelField
+    from pydantic.fields import Undefined as Undefined  # noqa
+    from pydantic.fields import UndefinedType as UndefinedType
+    from pydantic.main import ModelMetaclass as ModelMetaclass
+    from pydantic.main import validate_model
+    from pydantic.typing import resolve_annotations
+    from pydantic.utils import ROOT_KEY
 
     class SQLModelConfig(BaseConfig):
         table: Optional[bool] = None
@@ -253,3 +420,73 @@ else:
 
     def post_init_field_info(field_info: FieldInfo) -> None:
         field_info._validate()
+
+    def _model_validate(
+        cls: Type[_TSQLModel],
+        obj: Any,
+        *,
+        strict: Union[bool, None] = None,
+        from_attributes: Union[bool, None] = None,
+        context: Union[Dict[str, Any], None] = None,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        # This was SQLModel's original from_orm() for Pydantic v1
+        # Duplicated from Pydantic
+        if not cls.__config__.orm_mode:  # noqa
+            raise ConfigError(
+                "You must have the config attribute orm_mode=True to use from_orm"
+            )
+        obj = (
+            {ROOT_KEY: obj}
+            if cls.__custom_root_type__  # noqa
+            else cls._decompose_class(obj)  # noqa
+        )
+        # SQLModel, support update dict
+        if update is not None:
+            obj = {**obj, **update}
+        # End SQLModel support dict
+        if not getattr(cls.__config__, "table", False):  # noqa
+            # If not table, normal Pydantic code
+            m: _TSQLModel = cls.__new__(cls)
+        else:
+            # If table, create the new instance normally to make SQLAlchemy create
+            # the _sa_instance_state attribute
+            m = cls()
+        values, fields_set, validation_error = validate_model(cls, obj)
+        if validation_error:
+            raise validation_error
+        # Updated to trigger SQLAlchemy internal handling
+        if not getattr(cls.__config__, "table", False):  # noqa
+            object.__setattr__(m, "__dict__", values)
+        else:
+            for key, value in values.items():
+                setattr(m, key, value)
+        # Continue with standard Pydantic logic
+        object.__setattr__(m, "__fields_set__", fields_set)
+        m._init_private_attributes()  # noqa
+        return m
+
+    def __sqlmodel_init__(__pydantic_self__: "SQLModel", **data: Any) -> None:
+        values, fields_set, validation_error = validate_model(
+            __pydantic_self__.__class__, data
+        )
+        # Only raise errors if not a SQLModel model
+        if (
+            not cls_is_table(__pydantic_self__.__class__)  # noqa
+            and validation_error
+        ):
+            raise validation_error
+        if not cls_is_table(__pydantic_self__.__class__):
+            object.__setattr__(__pydantic_self__, "__dict__", values)
+        else:
+            # Do not set values as in Pydantic, pass them through setattr, so
+            # SQLAlchemy can handle them
+            for key, value in values.items():
+                setattr(__pydantic_self__, key, value)
+        object.__setattr__(__pydantic_self__, "__fields_set__", fields_set)
+        non_pydantic_keys = data.keys() - values.keys()
+
+        if cls_is_table(__pydantic_self__.__class__):
+            for key in non_pydantic_keys:
+                if key in __pydantic_self__.__sqlmodel_relationships__:
+                    setattr(__pydantic_self__, key, data[key])
