@@ -50,6 +50,7 @@ fastapi = "^0.103.2"
 ruff = "^0.1.2"
 # For FastAPI tests
 httpx = "0.24.1"
+dirty-equals = "^0.7.1.post0"
 
 [build-system]
 requires = ["poetry-core"]
