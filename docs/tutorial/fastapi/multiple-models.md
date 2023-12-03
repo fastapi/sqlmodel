@@ -179,9 +179,13 @@ Then we create a new `Hero` (this is the actual **table** model that saves thing
 
 The method `.model_validate()` reads data from another object with attributes (or a dict) and creates a new instance of this class, in this case `Hero`.
 
-But as in this case, we have a `HeroCreate` instance in the `hero` variable. This is an object with attributes, so we use `.model_validate()` to read those attributes.
+In this case, we have a `HeroCreate` instance in the `hero` variable. This is an object with attributes, so we use `.model_validate()` to read those attributes.
 
-With this, we create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
+/// tip
+In versions of **SQLModel** before `0.0.13` you would use the method `.from_orm()`, but it is now deprecated and you should use `.model_validate()` instead.
+///
+
+We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
 
 ```Python hl_lines="3"
 # Code above omitted 👆
