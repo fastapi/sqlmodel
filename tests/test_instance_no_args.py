@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 from sqlmodel import Field, SQLModel
 
 
-def test_allow_instantiation_without_arguments_pydantic_v1(clear_sqlmodel):
+def test_allow_instantiation_without_arguments(clear_sqlmodel):
     class Item(SQLModel, table=True):
         id: Optional[int] = Field(default=None, primary_key=True)
         name: str
