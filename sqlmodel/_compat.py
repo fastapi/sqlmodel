@@ -106,10 +106,7 @@ if IS_PYDANTIC_V2:
         return class_dict.get("__annotations__", {})
 
     def is_table_model_class(cls: Type) -> bool:
-        config = getattr(cls, "model_config", None)
-        if not config:
-            return False
-        return config.get("table", False)
+        return cls.model_config.get("table", False)
 
     def get_relationship_to(
         name: str,
@@ -388,10 +385,7 @@ else:
         )
 
     def is_table_model_class(cls: Type) -> bool:
-        config = getattr(cls, "__config__", None)
-        if not config:
-            return False
-        return getattr(config, "table", False)
+        return getattr(cls.__config__, "table", False)
 
     def get_relationship_to(
         name: str,
