@@ -67,6 +67,7 @@ if IS_PYDANTIC_V2:
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
+    from pydantic._internal._repr import Representation as Representation
     from pydantic_core import PydanticUndefined as Undefined  # noqa
     from pydantic_core import PydanticUndefinedType as UndefinedType
 
@@ -343,6 +344,7 @@ else:
     from pydantic.main import validate_model
     from pydantic.typing import resolve_annotations
     from pydantic.utils import ROOT_KEY
+    from pydantic.utils import Representation as Representation
 
     class SQLModelConfig(BaseConfig):
         table: Optional[bool] = None
