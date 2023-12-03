@@ -482,11 +482,12 @@ else:
             raise ConfigError(
                 "You must have the config attribute orm_mode=True to use from_orm"
             )
-        obj = (
-            {ROOT_KEY: obj}
-            if cls.__custom_root_type__  # noqa
-            else cls._decompose_class(obj)  # noqa
-        )
+        if not isinstance(obj, Mapping):
+            obj = (
+                {ROOT_KEY: obj}
+                if cls.__custom_root_type__  # noqa
+                else cls._decompose_class(obj)  # noqa
+            )
         # SQLModel, support update dict
         if update is not None:
             obj = {**obj, **update}
