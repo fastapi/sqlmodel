@@ -2,9 +2,7 @@ from typing import Optional
 
 import pytest
 from pydantic import ValidationError
-from sqlalchemy import create_engine, select
-from sqlalchemy.orm import Session
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
 def test_allow_instantiation_without_arguments(clear_sqlmodel):
@@ -20,7 +18,8 @@ def test_allow_instantiation_without_arguments(clear_sqlmodel):
         item.name = "Rick"
         db.add(item)
         db.commit()
-        result = db.execute(select(Item)).scalars().all()
+        statement = select(Item)
+        result = db.exec(statement).all()
     assert len(result) == 1
     assert isinstance(item.id, int)
     SQLModel.metadata.clear()
