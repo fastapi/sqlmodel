@@ -51,7 +51,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time
-from typing_extensions import get_origin
+from typing_extensions import deprecated, get_origin
 
 from ._compat import (
     IS_PYDANTIC_V2,
@@ -79,10 +79,6 @@ from ._compat import (
     sqlmodel_validate,
 )
 from .sql.sqltypes import GUID, AutoString
-
-if not IS_PYDANTIC_V2:
-    from pydantic.errors import DictError
-    from pydantic.main import validate_model
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
@@ -744,9 +740,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
 
-    # TODO: refactor this and make each method available in both Pydantic v1 and v2
-    # add deprecations, re-use methods from backwards compatibility parts, etc.
-
     @classmethod
     def model_validate(
         cls: Type[_TSQLModel],
@@ -767,51 +760,41 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         )
 
     @classmethod
+    @deprecated(
+        """
+        🚨 `obj.from_orm(data)` was deprecated in SQLModel 0.0.12, you should
+        instead use `obj.model_validate(data)`.
+        """
+    )
     def from_orm(
         cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
     ) -> _TSQLModel:
         return cls.model_validate(obj, update=update)
 
     @classmethod
+    @deprecated(
+        """
+        🚨 `obj.parse_obj(data)` was deprecated in SQLModel 0.0.12, you should
+        instead use `obj.model_validate(data)`.
+        """
+    )
     def parse_obj(
         cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
     ) -> _TSQLModel:
-        obj = cls._enforce_dict_if_root(obj)  # noqa
-        # SQLModel, support update dict
-        if update is not None:
-            obj = {**obj, **update}
-        # End SQLModel support dict
-        return super().parse_obj(obj)
-
-    # From Pydantic, override to enforce validation with dict
-    @classmethod
-    def validate(cls: Type[_TSQLModel], value: Any) -> _TSQLModel:
-        if isinstance(value, cls):
-            return (
-                value.copy() if cls.__config__.copy_on_model_validation else value  # noqa
-            )
-
-        value = cls._enforce_dict_if_root(value)
-        if isinstance(value, dict):
-            values, fields_set, validation_error = validate_model(cls, value)
-            if validation_error:
-                raise validation_error
-            model = cls(**value)
-            # Reset fields set, this would have been done in Pydantic in __init__
-            object.__setattr__(model, "__fields_set__", fields_set)
-            return model
-        elif cls.__config__.orm_mode:  # noqa
-            return cls.from_orm(value)
-        elif cls.__custom_root_type__:  # noqa
-            return cls.parse_obj(value)
-        else:
-            try:
-                value_as_dict = dict(value)
-            except (TypeError, ValueError) as e:
-                raise DictError() from e
-            return cls(**value_as_dict)
+        if not IS_PYDANTIC_V2:
+            obj = cls._enforce_dict_if_root(obj)  # noqa
+        return cls.model_validate(obj, update=update)
 
     # From Pydantic, override to only show keys from fields, omit SQLAlchemy attributes
+    @deprecated(
+        """
+        🚨 You should not access `obj._calculate_keys()` directly.
+
+        It is only useful for Pydantic v1.X, you should probably upgrade to
+        Pydantic v2.X.
+        """,
+        category=None,
+    )
     def _calculate_keys(
         self,
         include: Optional[Mapping[Union[int, str], Any]],
