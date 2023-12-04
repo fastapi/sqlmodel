@@ -7,6 +7,7 @@ from typing import Any, Callable, Dict, List, Union
 import pytest
 from pydantic import BaseModel
 from sqlmodel import SQLModel
+from sqlmodel._compat import IS_PYDANTIC_V2
 from sqlmodel.main import default_registry
 
 top_level_path = Path(__file__).resolve().parent.parent
@@ -56,12 +57,12 @@ def get_testing_print_function(
         data = []
         for arg in args:
             if isinstance(arg, BaseModel):
-                data.append(arg.dict())
+                data.append(arg.model_dump())
             elif isinstance(arg, list):
                 new_list = []
                 for item in arg:
                     if isinstance(item, BaseModel):
-                        new_list.append(item.dict())
+                        new_list.append(item.model_dump())
                 data.append(new_list)
             else:
                 data.append(arg)
@@ -69,6 +70,9 @@ def get_testing_print_function(
 
     return new_print
 
+
+needs_pydanticv2 = pytest.mark.skipif(not IS_PYDANTIC_V2, reason="requires Pydantic v2")
+needs_pydanticv1 = pytest.mark.skipif(IS_PYDANTIC_V2, reason="requires Pydantic v1")
 
 needs_py39 = pytest.mark.skipif(sys.version_info < (3, 9), reason="requires python3.9+")
 needs_py310 = pytest.mark.skipif(

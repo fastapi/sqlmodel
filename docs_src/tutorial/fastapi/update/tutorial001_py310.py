@@ -48,7 +48,7 @@ def on_startup():
 @app.post("/heroes/", response_model=HeroRead)
 def create_hero(hero: HeroCreate):
     with Session(engine) as session:
-        db_hero = Hero.from_orm(hero)
+        db_hero = Hero.model_validate(hero)
         session.add(db_hero)
         session.commit()
         session.refresh(db_hero)
@@ -77,7 +77,7 @@ def update_hero(hero_id: int, hero: HeroUpdate):
         db_hero = session.get(Hero, hero_id)
         if not db_hero:
             raise HTTPException(status_code=404, detail="Hero not found")
-        hero_data = hero.dict(exclude_unset=True)
+        hero_data = hero.model_dump(exclude_unset=True)
         for key, value in hero_data.items():
             setattr(db_hero, key, value)
         session.add(db_hero)

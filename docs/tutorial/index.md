@@ -82,8 +82,8 @@ There's a chance that you have multiple Python versions installed.
 
 You might want to try with the specific versions, for example with:
 
-* `python3.11`
 * `python3.12`
+* `python3.11`
 * `python3.10`
 * `python3.9`
 

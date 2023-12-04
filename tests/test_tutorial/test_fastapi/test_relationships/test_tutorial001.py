@@ -1,3 +1,4 @@
+from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
@@ -531,8 +532,26 @@ def test_tutorial(clear_sqlmodel):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": {"title": "Age", "type": "integer"},
-                            "team_id": {"title": "Team Id", "type": "integer"},
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
+                            "team_id": IsDict(
+                                {
+                                    "title": "Team Id",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Team Id", "type": "integer"}
+                            ),
                         },
                     },
                     "HeroRead": {
@@ -542,8 +561,26 @@ def test_tutorial(clear_sqlmodel):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": {"title": "Age", "type": "integer"},
-                            "team_id": {"title": "Team Id", "type": "integer"},
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
+                            "team_id": IsDict(
+                                {
+                                    "title": "Team Id",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Team Id", "type": "integer"}
+                            ),
                             "id": {"title": "Id", "type": "integer"},
                         },
                     },
@@ -554,20 +591,85 @@ def test_tutorial(clear_sqlmodel):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": {"title": "Age", "type": "integer"},
-                            "team_id": {"title": "Team Id", "type": "integer"},
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
+                            "team_id": IsDict(
+                                {
+                                    "title": "Team Id",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Team Id", "type": "integer"}
+                            ),
                             "id": {"title": "Id", "type": "integer"},
-                            "team": {"$ref": "#/components/schemas/TeamRead"},
+                            "team": IsDict(
+                                {
+                                    "anyOf": [
+                                        {"$ref": "#/components/schemas/TeamRead"},
+                                        {"type": "null"},
+                                    ]
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"$ref": "#/components/schemas/TeamRead"}
+                            ),
                         },
                     },
                     "HeroUpdate": {
                         "title": "HeroUpdate",
                         "type": "object",
                         "properties": {
-                            "name": {"title": "Name", "type": "string"},
-                            "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": {"title": "Age", "type": "integer"},
-                            "team_id": {"title": "Team Id", "type": "integer"},
+                            "name": IsDict(
+                                {
+                                    "title": "Name",
+                                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Name", "type": "string"}
+                            ),
+                            "secret_name": IsDict(
+                                {
+                                    "title": "Secret Name",
+                                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Secret Name", "type": "string"}
+                            ),
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
+                            "team_id": IsDict(
+                                {
+                                    "title": "Team Id",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Team Id", "type": "integer"}
+                            ),
                         },
                     },
                     "TeamCreate": {
@@ -609,9 +711,36 @@ def test_tutorial(clear_sqlmodel):
                         "title": "TeamUpdate",
                         "type": "object",
                         "properties": {
-                            "id": {"title": "Id", "type": "integer"},
-                            "name": {"title": "Name", "type": "string"},
-                            "headquarters": {"title": "Headquarters", "type": "string"},
+                            "id": IsDict(
+                                {
+                                    "title": "Id",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Id", "type": "integer"}
+                            ),
+                            "name": IsDict(
+                                {
+                                    "title": "Name",
+                                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Name", "type": "string"}
+                            ),
+                            "headquarters": IsDict(
+                                {
+                                    "title": "Headquarters",
+                                    "anyOf": [{"type": "string"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Headquarters", "type": "string"}
+                            ),
                         },
                     },
                     "ValidationError": {

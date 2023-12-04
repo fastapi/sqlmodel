@@ -1,3 +1,4 @@
+from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
@@ -220,7 +221,16 @@ def test_tutorial(clear_sqlmodel):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": {"title": "Age", "type": "integer"},
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
                         },
                     },
                     "HeroRead": {
@@ -230,7 +240,16 @@ def test_tutorial(clear_sqlmodel):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": {"title": "Age", "type": "integer"},
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
                             "id": {"title": "Id", "type": "integer"},
                         },
                     },
