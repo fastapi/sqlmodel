@@ -2,9 +2,11 @@
 
 ## Latest Changes
 
+## 0.0.14
+
 ### Features
 
-* ✨ Add support for Pydantic v2 (while keeping support for v1 if v2 is not available), including initial work by AntonDeMeester. PR [#722](https://github.com/tiangolo/sqlmodel/pull/722) by [@tiangolo](https://github.com/tiangolo).
+* ✨ Add support for Pydantic v2 (while keeping support for v1 if v2 is not available). PR [#722](https://github.com/tiangolo/sqlmodel/pull/722) by [@tiangolo](https://github.com/tiangolo) including initial work in PR [#699](https://github.com/tiangolo/sqlmodel/pull/699) by [@AntonDeMeester](https://github.com/AntonDeMeester).
 
 ## 0.0.13
 
