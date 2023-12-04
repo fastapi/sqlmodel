@@ -36,6 +36,11 @@ theme:
 repo_name: tiangolo/sqlmodel
 repo_url: https://github.com/tiangolo/sqlmodel
 edit_uri: ''
+plugins:
+  search: null
+  markdownextradata:
+    data: ./data
+
 nav:
   - SQLModel: index.md
   - features.md

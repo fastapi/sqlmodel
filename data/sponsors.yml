@@ -1,0 +1,6 @@
+gold: []
+silver:
+  - url: https://www.govcert.lu
+    title: This project is being supported by GOVCERT.LU
+    img: https://sqlmodel.tiangolo.com/img/sponsors/govcert.png
+bronze: []

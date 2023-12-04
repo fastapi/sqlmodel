@@ -1,3 +1,7 @@
+<style>
+.md-content .md-typeset h1 { display: none; }
+</style>
+
 <p align="center">
   <a href="https://sqlmodel.tiangolo.com"><img src="https://sqlmodel.tiangolo.com/img/logo-margin/logo-margin-vector.svg" alt="SQLModel"></a>
 </p>
@@ -37,6 +41,21 @@ The key features are:
 * **Compatible**: It is designed to be compatible with **FastAPI**, Pydantic, and SQLAlchemy.
 * **Extensible**: You have all the power of SQLAlchemy and Pydantic underneath.
 * **Short**: Minimize code duplication. A single type annotation does a lot of work. No need to duplicate models in SQLAlchemy and Pydantic.
+
+## Sponsors
+
+<!-- sponsors -->
+
+{% if sponsors %}
+{% for sponsor in sponsors.gold -%}
+<a href="{{ sponsor.url }}" target="_blank" title="{{ sponsor.title }}"><img src="{{ sponsor.img }}" style="border-radius:15px"></a>
+{% endfor -%}
+{%- for sponsor in sponsors.silver -%}
+<a href="{{ sponsor.url }}" target="_blank" title="{{ sponsor.title }}"><img src="{{ sponsor.img }}" style="border-radius:15px"></a>
+{% endfor %}
+{% endif %}
+
+<!-- /sponsors -->
 
 ## SQL Databases in FastAPI
 

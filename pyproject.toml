@@ -50,6 +50,8 @@ fastapi = "^0.103.2"
 ruff = "^0.1.2"
 # For FastAPI tests
 httpx = "0.24.1"
+typer-cli = "^0.0.13"
+mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
 
 [build-system]
 requires = ["poetry-core"]
