@@ -1,3 +1,4 @@
+INHERIT: ./mkdocs.maybe-insiders.yml
 site_name: SQLModel
 site_description: SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
 site_url: https://sqlmodel.tiangolo.com/
@@ -36,6 +37,11 @@ theme:
 repo_name: tiangolo/sqlmodel
 repo_url: https://github.com/tiangolo/sqlmodel
 edit_uri: ''
+plugins:
+  search: null
+  markdownextradata:
+    data: ./data
+
 nav:
   - SQLModel: index.md
   - features.md
@@ -98,30 +104,28 @@ nav:
   - release-notes.md
 
 markdown_extensions:
-- markdown.extensions.attr_list
-- markdown.extensions.tables
-- markdown.extensions.md_in_html
-- toc:
+  markdown.extensions.attr_list:
+  markdown.extensions.tables:
+  markdown.extensions.md_in_html:
+  toc:
     permalink: true
-- pymdownx.superfences:
+  pymdownx.superfences:
     custom_fences:
     - name: mermaid
       class: mermaid
       format: !!python/name:pymdownx.superfences.fence_code_format ''
-- pymdownx.betterem
-- pymdownx.highlight:
-    linenums: !ENV [LINENUMS, false]
-- pymdownx.blocks.details
-- pymdownx.blocks.admonition:
+  pymdownx.betterem:
+  pymdownx.blocks.details:
+  pymdownx.blocks.admonition:
     types:
     - note
     - info
     - tip
     - warning
     - danger
-- pymdownx.blocks.tab:
+  pymdownx.blocks.tab:
     alternate_style: True
-- mdx_include
+  mdx_include:
 
 extra:
   analytics:

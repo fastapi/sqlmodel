@@ -1,4 +1,3 @@
-INHERIT: mkdocs.yml
 plugins:
-  - search
-  - social
+  social:
+  typeset:
