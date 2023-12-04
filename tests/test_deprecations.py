@@ -22,3 +22,9 @@ def test_deprecated_parse_obj():
     with pytest.warns(DeprecationWarning):
         item = Item.parse_obj({"name": "Hello"})
     assert item.name == "Hello"
+
+
+def test_deprecated_dict():
+    with pytest.warns(DeprecationWarning):
+        data = Item(name="Hello").dict()
+    assert data == {"name": "Hello"}
