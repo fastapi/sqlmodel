@@ -263,7 +263,7 @@ Now we get the **team** data included:
     "id": 1,
     "team": {
         "name": "Z-Force",
-        "headquarters": "Sister Margaret’s Bar",
+        "headquarters": "Sister Margaret's Bar",
         "id": 1
     }
 }

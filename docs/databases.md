@@ -137,7 +137,7 @@ If we worked with a single table to store our heroes, it could be like this:
 <th>id</th><th>name</th><th>secret_name</th><th>age</th><th>team</th><th>headquarters</th>
 </tr>
 <tr>
-<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Factor</td><td>Sister Margaret’s Bar</td>
+<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Factor</td><td>Sister Margaret's Bar</td>
 </tr>
 <tr>
 <td>2</td><td>Spider-Boy</td><td>Pedro Parqueador</td><td>null</td><td>Preventers</td><td>Sharp Tower</td>
@@ -166,7 +166,7 @@ We could end up with inconsistent information, having one place saying "Prevente
 <th>id</th><th>name</th><th>secret_name</th><th>age</th><th>team</th><th>headquarters</th>
 </tr>
 <tr>
-<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 <tr>
 <td>2</td><td>Spider-Boy</td><td>Pedro Parqueador</td><td>null</td><td>Preventers</td><td>Preventers Tower ✅</td>
@@ -185,7 +185,7 @@ We could forget the name of the team and end up adding "Mahjong" with an invalid
 <th>id</th><th>name</th><th>secret_name</th><th>age</th><th>team</th><th>headquarters</th>
 </tr>
 <tr>
-<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 <tr>
 <td>2</td><td>Spider-Boy</td><td>Pedro Parqueador</td><td>null</td><td>Preventers</td><td>Preventers Tower</td>
@@ -194,7 +194,7 @@ We could forget the name of the team and end up adding "Mahjong" with an invalid
 <td>3</td><td>Rusty-Man</td><td>Tommy Sharp</td><td>48</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>4</td><td>Mahjong</td><td>Neena Thurgirl</td><td>31</td><td>Y-Force 🚨</td><td>Sister Margaret’s Bar</td>
+<td>4</td><td>Mahjong</td><td>Neena Thurgirl</td><td>31</td><td>Y-Force 🚨</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -216,7 +216,7 @@ The table for the teams could look like this:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 

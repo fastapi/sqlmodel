@@ -126,7 +126,7 @@ INFO Engine [cached since 0.1648s ago] (3,)
 // Print Spider-Boy teams, including Z-Force 🎉
 Updated Spider-Boy's Teams: [
     Team(id=2, name='Preventers', headquarters='Sharp Tower'),
-    Team(id=1, name='Z-Force', headquarters='Sister Margaret’s Bar')
+    Team(id=1, name='Z-Force', headquarters='Sister Margaret's Bar')
 ]
 
 // Automatically refresh the data while accessing the attribute .heores
@@ -140,7 +140,7 @@ Z-Force heroes: [
     Hero(name='Deadpond', age=None, id=1, secret_name='Dive Wilson'),
     Hero(name='Spider-Boy', age=None, id=3, secret_name='Pedro Parqueador', teams=[
         Team(id=2, name='Preventers', headquarters='Sharp Tower'),
-        Team(id=1, name='Z-Force', headquarters='Sister Margaret’s Bar', heroes=[...])
+        Team(id=1, name='Z-Force', headquarters='Sister Margaret's Bar', heroes=[...])
     ])
 ]
 ```
