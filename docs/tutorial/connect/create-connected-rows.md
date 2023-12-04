@@ -12,7 +12,7 @@ The `team` table will look like this:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -126,7 +126,7 @@ INFO Engine BEGIN (implicit)
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00050s] ('Preventers', 'Sharp Tower')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
-INFO Engine [cached since 0.002324s ago] ('Z-Force', 'Sister Margaret’s Bar')
+INFO Engine [cached since 0.002324s ago] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine COMMIT
 ```
 

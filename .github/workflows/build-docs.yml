@@ -30,6 +30,8 @@ jobs:
             - pyproject.toml
             - mkdocs.yml
             - mkdocs.insiders.yml
+            - ./github/workflows/build-docs.yml
+            - ./github/workflows/deploy-docs.yml
 
   build-docs:
     needs:
@@ -69,12 +71,10 @@ jobs:
         with:
           key: mkdocs-cards-${{ github.ref }}
           path: .cache
+      - name: Verify README
+        run: python ./scripts/docs.py verify-readme
       - name: Build Docs
-        if: github.event_name == 'pull_request' && github.secret_source != 'Actions'
-        run: python -m poetry run mkdocs build
-      - name: Build Docs with Insiders
-        if: github.event_name != 'pull_request' || github.secret_source == 'Actions'
-        run: python -m poetry run mkdocs build --config-file mkdocs.insiders.yml
+        run: python ./scripts/docs.py build
       - uses: actions/upload-artifact@v3
         with:
           name: docs-site

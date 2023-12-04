@@ -12,7 +12,7 @@ The `team` table has this data:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -214,7 +214,7 @@ WHERE hero.team_id = team.id
 2021-08-09 08:55:50,682 INFO sqlalchemy.engine.Engine [no key 0.00015s] ()
 
 // Print the first hero and team
-Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret’s Bar' id=2 name='Z-Force'
+Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret's Bar' id=2 name='Z-Force'
 
 // Print the second hero and team
 Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48 Team: headquarters='Sharp Tower' id=1 name='Preventers'
@@ -335,7 +335,7 @@ FROM hero JOIN team ON team.id = hero.team_id
 INFO Engine [no key 0.00032s] ()
 
 // Print the first hero and team
-Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret’s Bar' id=2 name='Z-Force'
+Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret's Bar' id=2 name='Z-Force'
 
 // Print the second hero and team
 Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48 Team: headquarters='Sharp Tower' id=1 name='Preventers'
@@ -473,7 +473,7 @@ FROM hero LEFT OUTER JOIN team ON team.id = hero.team_id
 INFO Engine [no key 0.00051s] ()
 
 // Print the first hero and team
-Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret’s Bar' id=2 name='Z-Force'
+Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret's Bar' id=2 name='Z-Force'
 // Print the second hero and team
 Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48 Team: headquarters='Sharp Tower' id=1 name='Preventers'
 // Print the third hero and team, we included Spider-Boy 🎉

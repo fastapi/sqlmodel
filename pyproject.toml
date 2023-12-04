@@ -51,6 +51,8 @@ ruff = "^0.1.2"
 # For FastAPI tests
 httpx = "0.24.1"
 dirty-equals = "^0.7.1.post0"
+typer-cli = "^0.0.13"
+mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
 
 [build-system]
 requires = ["poetry-core"]

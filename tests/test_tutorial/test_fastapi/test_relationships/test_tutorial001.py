@@ -14,7 +14,7 @@ def test_tutorial(clear_sqlmodel):
 
     with TestClient(mod.app) as client:
         team_preventers = {"name": "Preventers", "headquarters": "Sharp Tower"}
-        team_z_force = {"name": "Z-Force", "headquarters": "Sister Margaret’s Bar"}
+        team_z_force = {"name": "Z-Force", "headquarters": "Sister Margaret's Bar"}
         response = client.post("/teams/", json=team_preventers)
         assert response.status_code == 200, response.text
         team_preventers_data = response.json()

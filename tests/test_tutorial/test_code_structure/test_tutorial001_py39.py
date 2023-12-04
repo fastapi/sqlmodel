@@ -17,7 +17,7 @@ expected_calls = [
     ],
     [
         "Hero's team:",
-        {"name": "Z-Force", "headquarters": "Sister Margaret’s Bar", "id": 1},
+        {"name": "Z-Force", "headquarters": "Sister Margaret's Bar", "id": 1},
     ],
 ]
 
