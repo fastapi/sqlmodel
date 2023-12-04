@@ -82,7 +82,7 @@ from .sql.sqltypes import GUID, AutoString
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
-IncEx = Set[int] | Set[str] | Dict[int, Any] | Dict[str, Any] | None
+IncEx = Union[Set[int], Set[str], Dict[int, Any], Dict[str, Any], None]
 
 
 def __dataclass_transform__(
@@ -762,7 +762,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def model_dump(
         self,
         *,
-        mode: Literal["json", "python"] | str = "python",
+        mode: Union[Literal["json", "python"], str] = "python",
         include: IncEx = None,
         exclude: IncEx = None,
         by_alias: bool = False,

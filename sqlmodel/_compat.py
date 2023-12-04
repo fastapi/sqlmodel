@@ -15,12 +15,11 @@ from typing import (
     Type,
     TypeVar,
     Union,
-    get_args,
-    get_origin,
 )
 
 from pydantic import VERSION as PYDANTIC_VERSION
 from pydantic.fields import FieldInfo
+from typing_extensions import get_args, get_origin
 
 IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
@@ -99,11 +98,11 @@ if IS_PYDANTIC_V2:
         return model.model_fields
 
     def set_fields_set(
-        new_object: InstanceOrType["SQLModel"], fields: set["FieldInfo"]
+        new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
     ) -> None:
         object.__setattr__(new_object, "__pydantic_fields_set__", fields)
 
-    def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
+    def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
         return class_dict.get("__annotations__", {})
 
     def is_table_model_class(cls: Type[Any]) -> bool:
@@ -167,7 +166,7 @@ if IS_PYDANTIC_V2:
         return False
 
     def get_type_from_field(field: Any) -> type:
-        type_: type | None = field.annotation
+        type_: Any = field.annotation
         # Resolve Optional fields
         if type_ is None:
             raise ValueError("Missing field type")
@@ -240,7 +239,7 @@ if IS_PYDANTIC_V2:
             _fields_set = set(fields_values.keys())
         fields_values.update(defaults)
 
-        _extra: dict[str, Any] | None = None
+        _extra: Union[Dict[str, Any], None] = None
         if cls.model_config.get("extra") == "allow":
             _extra = {}
             for k, v in values.items():
