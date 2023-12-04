@@ -106,7 +106,7 @@ INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.002541s ago] ('Spider-Boy', 'Pedro Parqueador', None)
 // Insert the team data second
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
-INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret’s Bar')
+INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.001239s ago] ('Preventers', 'Sharp Tower')
 // Insert the link data last, to be able to re-use the created IDs
@@ -141,7 +141,7 @@ WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [generated in 0.00025s] (1,)
 
 // Print Deadpond's teams, 2 teams! 🎉
-Deadpond teams: [Team(id=1, name='Z-Force', headquarters='Sister Margaret’s Bar'), Team(id=2, name='Preventers', headquarters='Sharp Tower')]
+Deadpond teams: [Team(id=1, name='Z-Force', headquarters='Sister Margaret's Bar'), Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
 // Print Rusty-Man
 Rusty-Man: name='Rusty-Man' age=48 id=2 secret_name='Tommy Sharp'

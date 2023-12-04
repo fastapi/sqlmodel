@@ -153,7 +153,7 @@ INFO Engine [cached since 0.001858s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 
 // Insert the teams
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
-INFO Engine [generated in 0.00019s] ('Z-Force', 'Sister Margaret’s Bar')
+INFO Engine [generated in 0.00019s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.0007985s ago] ('Preventers', 'Sharp Tower')
 
@@ -389,7 +389,7 @@ WHERE team.id = ?
 INFO Engine [cached since 0.2097s ago] (1,)
 
 // Print Spider-Boy team, including link data, if is training
-Spider-Boy team: headquarters='Sister Margaret’s Bar' id=1 name='Z-Force' is training: True
+Spider-Boy team: headquarters='Sister Margaret's Bar' id=1 name='Z-Force' is training: True
 INFO Engine ROLLBACK
 ```
 

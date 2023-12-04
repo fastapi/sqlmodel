@@ -29,7 +29,7 @@ def create_db_and_tables():
 def create_heroes():
     with Session(engine) as session:
         team_preventers = Team(name="Preventers", headquarters="Sharp Tower")
-        team_z_force = Team(name="Z-Force", headquarters="Sister Margaret’s Bar")
+        team_z_force = Team(name="Z-Force", headquarters="Sister Margaret's Bar")
         session.add(team_preventers)
         session.add(team_z_force)
         session.commit()

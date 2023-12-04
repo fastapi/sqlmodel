@@ -138,7 +138,7 @@ So, the output would be:
 $ python -m project.app
 
 Created hero: id=1 secret_name='Dive Wilson' team_id=1 name='Deadpond' age=None
-Hero's team: name='Z-Force' headquarters='Sister Margaret’s Bar' id=1
+Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
 ```
 
 </div>
@@ -243,7 +243,7 @@ And running that achieves the same result as before:
 $ python -m project.app
 
 Created hero: id=1 age=None name='Deadpond' secret_name='Dive Wilson' team_id=1
-Hero's team: id=1 name='Z-Force' headquarters='Sister Margaret’s Bar'
+Hero's team: id=1 name='Z-Force' headquarters='Sister Margaret's Bar'
 ```
 
 </div>
