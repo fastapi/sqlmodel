@@ -762,7 +762,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     @classmethod
     @deprecated(
         """
-        🚨 `obj.from_orm(data)` was deprecated in SQLModel 0.0.12, you should
+        🚨 `obj.from_orm(data)` was deprecated in SQLModel 0.0.14, you should
         instead use `obj.model_validate(data)`.
         """
     )
@@ -774,7 +774,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     @classmethod
     @deprecated(
         """
-        🚨 `obj.parse_obj(data)` was deprecated in SQLModel 0.0.12, you should
+        🚨 `obj.parse_obj(data)` was deprecated in SQLModel 0.0.14, you should
         instead use `obj.model_validate(data)`.
         """
     )

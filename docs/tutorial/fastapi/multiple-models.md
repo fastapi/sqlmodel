@@ -182,7 +182,7 @@ The method `.model_validate()` reads data from another object with attributes (o
 In this case, we have a `HeroCreate` instance in the `hero` variable. This is an object with attributes, so we use `.model_validate()` to read those attributes.
 
 /// tip
-In versions of **SQLModel** before `0.0.13` you would use the method `.from_orm()`, but it is now deprecated and you should use `.model_validate()` instead.
+In versions of **SQLModel** before `0.0.14` you would use the method `.from_orm()`, but it is now deprecated and you should use `.model_validate()` instead.
 ///
 
 We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
