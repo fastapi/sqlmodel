@@ -19,21 +19,13 @@ In most cases this would probably not be a problem, for example measuring views 
 
 ## Decimal Types
 
-Pydantic has special support for `Decimal` types using the <a href="https://pydantic-docs.helpmanual.io/usage/types/#arguments-to-condecimal" class="external-link" target="_blank">`condecimal()` special function</a>.
+Pydantic has special support for <a href="https://docs.pydantic.dev/latest/api/standard_library_types/#decimaldecimal" class="external-link" target="_blank">`Decimal` types</a>.
 
-/// tip
-
-Pydantic 1.9, that will be released soon, has improved support for `Decimal` types, without needing to use the `condecimal()` function.
-
-But meanwhile, you can already use this feature with `condecimal()` in **SQLModel** it as it's explained here.
-
-///
-
-When you use `condecimal()` you can specify the number of digits and decimal places to support. They will be validated by Pydantic (for example when using FastAPI) and the same information will also be used for the database columns.
+When you use `Decimal` you can specify the number of digits and decimal places to support in the `Field()` function. They will be validated by Pydantic (for example when using FastAPI) and the same information will also be used for the database columns.
 
 /// info
 
-For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/14/core/type_basics.html#sqlalchemy.types.DECIMAL" class="external-link" target="_blank">SQLAlchemy's `DECIMAL` type</a>.
+For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.DECIMAL" class="external-link" target="_blank">SQLAlchemy's `DECIMAL` type</a>.
 
 ///
 
