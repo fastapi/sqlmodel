@@ -24,7 +24,7 @@ arg_groups: List[Arg] = []
 signatures: List[Tuple[List[Arg], List[str]]] = []
 
 for total_args in range(2, number_of_types + 1):
-    arg_types_tuples = product(["scalar", "model"], repeat=total_args)
+    arg_types_tuples = product(["model", "scalar"], repeat=total_args)
     for arg_type_tuple in arg_types_tuples:
         args: List[Arg] = []
         return_types: List[str] = []
