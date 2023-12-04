@@ -1,4 +1,5 @@
-from pydantic import condecimal
+from decimal import Decimal
+
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
@@ -7,7 +8,7 @@ class Hero(SQLModel, table=True):
     name: str = Field(index=True)
     secret_name: str
     age: int | None = Field(default=None, index=True)
-    money: condecimal(max_digits=5, decimal_places=3) = Field(default=0)
+    money: Decimal = Field(default=0, max_digits=5, decimal_places=3)
 
 
 sqlite_file_name = "database.db"
