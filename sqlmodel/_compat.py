@@ -185,8 +185,8 @@ if IS_PYDANTIC_V2:
                     "Cannot have a (non-optional) union as a SQLlchemy field"
                 )
             # Optional unions are allowed
-            return bases[0] if bases[0] is not NoneType else bases[1]  # type: ignore[no-any-return]
-        return origin  # type: ignore[no-any-return]
+            return bases[0] if bases[0] is not NoneType else bases[1]
+        return origin
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
