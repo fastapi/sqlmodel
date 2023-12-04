@@ -51,7 +51,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time
-from typing_extensions import deprecated, get_origin
+from typing_extensions import Literal, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
@@ -82,6 +82,7 @@ from .sql.sqltypes import GUID, AutoString
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
+IncEx = Set[int] | Set[str] | Dict[int, Any] | Dict[str, Any] | None
 
 
 def __dataclass_transform__(
@@ -756,6 +757,42 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             context=context,
             update=update,
         )
+
+    # TODO: remove when deprecating Pydantic v1, only for compatibility
+    def model_dump(
+        self,
+        *,
+        mode: Literal["json", "python"] | str = "python",
+        include: IncEx = None,
+        exclude: IncEx = None,
+        by_alias: bool = False,
+        exclude_unset: bool = False,
+        exclude_defaults: bool = False,
+        exclude_none: bool = False,
+        round_trip: bool = False,
+        warnings: bool = True,
+    ) -> Dict[str, Any]:
+        if IS_PYDANTIC_V2:
+            return super().model_dump(
+                mode=mode,
+                include=include,
+                exclude=exclude,
+                by_alias=by_alias,
+                exclude_unset=exclude_unset,
+                exclude_defaults=exclude_defaults,
+                exclude_none=exclude_none,
+                round_trip=round_trip,
+                warnings=warnings,
+            )
+        else:
+            return self.dict(
+                include=include,
+                exclude=exclude,
+                by_alias=by_alias,
+                exclude_unset=exclude_unset,
+                exclude_defaults=exclude_defaults,
+                exclude_none=exclude_none,
+            )
 
     @classmethod
     @deprecated(
