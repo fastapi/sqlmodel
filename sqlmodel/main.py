@@ -785,7 +785,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 warnings=warnings,
             )
         else:
-            return self.dict(
+            return super().dict(
                 include=include,
                 exclude=exclude,
                 by_alias=by_alias,
