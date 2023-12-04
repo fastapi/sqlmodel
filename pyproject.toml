@@ -50,7 +50,8 @@ fastapi = "^0.103.2"
 ruff = "^0.1.2"
 # For FastAPI tests
 httpx = "0.24.1"
-dirty-equals = "^0.7.1.post0"
+# TODO: upgrade when deprecating Python 3.7
+dirty-equals = "^0.6.0"
 typer-cli = "^0.0.13"
 mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
 
