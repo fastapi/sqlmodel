@@ -2,9 +2,7 @@
 
 ## Latest Changes
 
-* ✏️ Fix typo, simplify single quote/apostrophe character in "Sister Margaret's" everywhere in the docs. PR [#721](https://github.com/tiangolo/sqlmodel/pull/721) by [@tiangolo](https://github.com/tiangolo).
-* 🔧 Update config with new pymdown extensions. PR [#712](https://github.com/tiangolo/sqlmodel/pull/712) by [@tiangolo](https://github.com/tiangolo).
-* 🙈 Update gitignore, include all coverage files. PR [#711](https://github.com/tiangolo/sqlmodel/pull/711) by [@tiangolo](https://github.com/tiangolo).
+## 0.0.13
 
 ### Fixes
 
@@ -21,11 +19,14 @@
 
 ### Docs
 
+* ✏️ Fix typo, simplify single quote/apostrophe character in "Sister Margaret's" everywhere in the docs. PR [#721](https://github.com/tiangolo/sqlmodel/pull/721) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update docs for Decimal, use proper types. PR [#719](https://github.com/tiangolo/sqlmodel/pull/719) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add source examples for Python 3.9 and 3.10. PR [#715](https://github.com/tiangolo/sqlmodel/pull/715) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
 
+* 🙈 Update gitignore, include all coverage files. PR [#711](https://github.com/tiangolo/sqlmodel/pull/711) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update config with new pymdown extensions. PR [#712](https://github.com/tiangolo/sqlmodel/pull/712) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update docs build setup, add support for sponsors, add sponsor GOVCERT.LU. PR [#720](https://github.com/tiangolo/sqlmodel/pull/720) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#697](https://github.com/tiangolo/sqlmodel/pull/697) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * 🔧 Show line numbers in docs during local development. PR [#714](https://github.com/tiangolo/sqlmodel/pull/714) by [@tiangolo](https://github.com/tiangolo).
