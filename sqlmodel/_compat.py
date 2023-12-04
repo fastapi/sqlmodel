@@ -224,8 +224,8 @@ if IS_PYDANTIC_V2:
         old_dict = self_instance.__dict__.copy()
         # End SQLModel override
 
-        fields_values: dict[str, Any] = {}
-        defaults: dict[
+        fields_values: Dict[str, Any] = {}
+        defaults: Dict[
             str, Any
         ] = {}  # keeping this separate from `fields_values` helps us compute `_fields_set`
         for name, field in cls.model_fields.items():
