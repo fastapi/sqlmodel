@@ -74,7 +74,7 @@ jobs:
       - name: Verify README
         run: python ./scripts/docs.py verify-readme
       - name: Build Docs
-        run: python ./scripts/docs.py run mkdocs build
+        run: python ./scripts/docs.py build
       - uses: actions/upload-artifact@v3
         with:
           name: docs-site
