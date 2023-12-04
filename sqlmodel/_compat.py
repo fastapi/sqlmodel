@@ -8,6 +8,7 @@ from typing import (
     Any,
     Dict,
     ForwardRef,
+    Generator,
     Mapping,
     Optional,
     Set,
@@ -59,7 +60,7 @@ finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
 
 
 @contextmanager
-def partial_init():
+def partial_init() -> Generator[None, None, None]:
     token = finish_init.set(False)
     yield
     finish_init.reset(token)
@@ -70,7 +71,7 @@ if IS_PYDANTIC_V2:
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
     from pydantic._internal._repr import Representation as Representation
-    from pydantic_core import PydanticUndefined as Undefined  # noqa
+    from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
 
     # Dummy for types, to make it importable
@@ -92,10 +93,10 @@ if IS_PYDANTIC_V2:
         parameter: str,
         value: Any,
     ) -> None:
-        model.model_config[parameter] = value
+        model.model_config[parameter] = value  # type: ignore[literal-required]
 
     def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
-        return model.model_fields  # type: ignore
+        return model.model_fields
 
     def set_fields_set(
         new_object: InstanceOrType["SQLModel"], fields: set["FieldInfo"]
@@ -105,8 +106,11 @@ if IS_PYDANTIC_V2:
     def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
         return class_dict.get("__annotations__", {})
 
-    def is_table_model_class(cls: Type) -> bool:
-        return cls.model_config.get("table", False)
+    def is_table_model_class(cls: Type[Any]) -> bool:
+        config = getattr(cls, "model_config", {})
+        if config:
+            return config.get("table", False) or False
+        return False
 
     def get_relationship_to(
         name: str,
@@ -157,7 +161,7 @@ if IS_PYDANTIC_V2:
         if not field.is_required():
             if field.default is Undefined:
                 return False
-            if field.annotation is None or field.annotation is NoneType:
+            if field.annotation is None or field.annotation is NoneType:  # type: ignore[comparison-overlap]
                 return True
             return False
         return False
@@ -182,8 +186,8 @@ if IS_PYDANTIC_V2:
                     "Cannot have a (non-optional) union as a SQLlchemy field"
                 )
             # Optional unions are allowed
-            return bases[0] if bases[0] is not NoneType else bases[1]
-        return origin
+            return bases[0] if bases[0] is not NoneType else bases[1]  # type: ignore[no-any-return]
+        return origin  # type: ignore[no-any-return]
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
@@ -196,7 +200,7 @@ if IS_PYDANTIC_V2:
 
     # Dummy to make it importable
     def _calculate_keys(
-        self,
+        self: "SQLModel",
         include: Optional[Mapping[Union[int, str], Any]],
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
@@ -342,25 +346,36 @@ if IS_PYDANTIC_V2:
         )
 
 else:
-    from pydantic import BaseConfig as BaseConfig
+    from pydantic import BaseConfig as BaseConfig  # type: ignore[assignment]
     from pydantic.errors import ConfigError
-    from pydantic.fields import SHAPE_SINGLETON, ModelField
-    from pydantic.fields import Undefined as Undefined  # noqa
-    from pydantic.fields import UndefinedType as UndefinedType
-    from pydantic.main import ModelMetaclass as ModelMetaclass
+    from pydantic.fields import (  # type: ignore[attr-defined, no-redef]
+        SHAPE_SINGLETON,
+        ModelField,
+    )
+    from pydantic.fields import (  # type: ignore[attr-defined, no-redef]
+        Undefined as Undefined,  # noqa
+    )
+    from pydantic.fields import (  # type: ignore[attr-defined, no-redef]
+        UndefinedType as UndefinedType,
+    )
+    from pydantic.main import (  # type: ignore[no-redef]
+        ModelMetaclass as ModelMetaclass,
+    )
     from pydantic.main import validate_model
     from pydantic.typing import resolve_annotations
     from pydantic.utils import ROOT_KEY, ValueItems
-    from pydantic.utils import Representation as Representation
+    from pydantic.utils import (  # type: ignore[no-redef]
+        Representation as Representation,
+    )
 
-    class SQLModelConfig(BaseConfig):
-        table: Optional[bool] = None
-        registry: Optional[Any] = None
+    class SQLModelConfig(BaseConfig):  # type: ignore[no-redef]
+        table: Optional[bool] = None  # type: ignore[misc]
+        registry: Optional[Any] = None  # type: ignore[misc]
 
     def get_config_value(
         *, model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
     ) -> Any:
-        return getattr(model.__config__, parameter, default)
+        return getattr(model.__config__, parameter, default)  # type: ignore[union-attr]
 
     def set_config_value(
         *,
@@ -379,20 +394,23 @@ else:
         object.__setattr__(new_object, "__fields_set__", fields)
 
     def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
-        return resolve_annotations(
+        return resolve_annotations(  # type: ignore[no-any-return]
             class_dict.get("__annotations__", {}),
             class_dict.get("__module__", None),
         )
 
-    def is_table_model_class(cls: Type) -> bool:
-        return getattr(cls.__config__, "table", False)
+    def is_table_model_class(cls: Type[Any]) -> bool:
+        config = getattr(cls, "__config__", None)
+        if config:
+            return getattr(config, "table", False)
+        return False
 
     def get_relationship_to(
         name: str,
         rel_info: "RelationshipInfo",
         annotation: Any,
     ) -> Any:
-        temp_field = ModelField.infer(
+        temp_field = ModelField.infer(  # type: ignore[attr-defined]
             name=name,
             value=rel_info,
             annotation=annotation,
@@ -405,12 +423,12 @@ else:
         return relationship_to
 
     def is_field_noneable(field: "FieldInfo") -> bool:
-        if not field.required:
+        if not field.required:  # type: ignore[attr-defined]
             # Taken from [Pydantic](https://github.com/samuelcolvin/pydantic/blob/v1.8.2/pydantic/fields.py#L946-L947)
-            return field.allow_none and (
-                field.shape != SHAPE_SINGLETON or not field.sub_fields
+            return field.allow_none and (  # type: ignore[attr-defined]
+                field.shape != SHAPE_SINGLETON or not field.sub_fields  # type: ignore[attr-defined]
             )
-        return field.allow_none
+        return field.allow_none  # type: ignore[no-any-return, attr-defined]
 
     def get_type_from_field(field: Any) -> type:
         if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
@@ -425,10 +443,10 @@ else:
         return metadata
 
     def post_init_field_info(field_info: FieldInfo) -> None:
-        field_info._validate()
+        field_info._validate()  # type: ignore[attr-defined]
 
     def _calculate_keys(
-        self,
+        self: "SQLModel",
         include: Optional[Mapping[Union[int, str], Any]],
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
@@ -478,15 +496,15 @@ else:
     ) -> _TSQLModel:
         # This was SQLModel's original from_orm() for Pydantic v1
         # Duplicated from Pydantic
-        if not cls.__config__.orm_mode:  # noqa
+        if not cls.__config__.orm_mode:  # type: ignore[attr-defined] # noqa
             raise ConfigError(
                 "You must have the config attribute orm_mode=True to use from_orm"
             )
         if not isinstance(obj, Mapping):
             obj = (
                 {ROOT_KEY: obj}
-                if cls.__custom_root_type__  # noqa
-                else cls._decompose_class(obj)  # noqa
+                if cls.__custom_root_type__  # type: ignore[attr-defined] # noqa
+                else cls._decompose_class(obj)  # type: ignore[attr-defined] # noqa
             )
         # SQLModel, support update dict
         if update is not None:
@@ -510,7 +528,7 @@ else:
                 setattr(m, key, value)
         # Continue with standard Pydantic logic
         object.__setattr__(m, "__fields_set__", fields_set)
-        m._init_private_attributes()  # noqa
+        m._init_private_attributes()  # type: ignore[attr-defined] # noqa
         return m
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:

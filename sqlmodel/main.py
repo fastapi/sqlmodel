@@ -53,7 +53,7 @@ from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time
 from typing_extensions import deprecated, get_origin
 
-from ._compat import (
+from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
     BaseConfig,
     ModelField,
@@ -361,7 +361,7 @@ def Relationship(
     *,
     back_populates: Optional[str] = None,
     link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
+    sa_relationship: Optional[RelationshipProperty[Any]] = None,
 ) -> Any:
     ...
 
@@ -370,7 +370,7 @@ def Relationship(
     *,
     back_populates: Optional[str] = None,
     link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty] = None,
+    sa_relationship: Optional[RelationshipProperty[Any]] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
 ) -> Any:
@@ -390,7 +390,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     model_config: SQLModelConfig
     model_fields: Dict[str, FieldInfo]
     __config__: Type[SQLModelConfig]
-    __fields__: Dict[str, ModelField]
+    __fields__: Dict[str, ModelField]  # type: ignore[assignment]
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
@@ -447,9 +447,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        new_cls: Type["SQLModelMetaclass"] = super().__new__(
-            cls, name, bases, dict_used, **config_kwargs
-        )
+        new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
@@ -673,7 +671,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[Union[str, Callable[..., str]]]
-    __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty]]
+    __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty[Any]]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
@@ -721,7 +719,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if is_table_model_class(self) and is_instrumented(self, name):
+            if is_table_model_class(self.__class__) and is_instrumented(self, name):  # type: ignore[no-untyped-call]
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
@@ -782,7 +780,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
     ) -> _TSQLModel:
         if not IS_PYDANTIC_V2:
-            obj = cls._enforce_dict_if_root(obj)  # noqa
+            obj = cls._enforce_dict_if_root(obj)  # type: ignore[attr-defined] # noqa
         return cls.model_validate(obj, update=update)
 
     # From Pydantic, override to only show keys from fields, omit SQLAlchemy attributes
