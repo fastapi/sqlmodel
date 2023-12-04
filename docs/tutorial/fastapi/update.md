@@ -90,7 +90,7 @@ So, we need to read the hero from the database, with the **same logic** we used 
 
 The `HeroUpdate` model has all the fields with **default values**, because they all have defaults, they are all optional, which is what we want.
 
-But that also means that if we just call `hero.dict()` we will get a dictionary that could potentially have several or all of those values with their defaults, for example:
+But that also means that if we just call `hero.model_dump()` we will get a dictionary that could potentially have several or all of those values with their defaults, for example:
 
 ```Python
 {
@@ -102,7 +102,7 @@ But that also means that if we just call `hero.dict()` we will get a dictionary 
 
 And then, if we update the hero in the database with this data, we would be removing any existing values, and that's probably **not what the client intended**.
 
-But fortunately Pydantic models (and so SQLModel models) have a parameter we can pass to the `.dict()` method for that: `exclude_unset=True`.
+But fortunately Pydantic models (and so SQLModel models) have a parameter we can pass to the `.model_dump()` method for that: `exclude_unset=True`.
 
 This tells Pydantic to **not include** the values that were **not sent** by the client. Saying it another way, it would **only** include the values that were **sent by the client**.
 
@@ -112,7 +112,7 @@ So, if the client sent a JSON with no values:
 {}
 ```
 
-Then the dictionary we would get in Python using `hero.dict(exclude_unset=True)` would be:
+Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=True)` would be:
 
 ```Python
 {}
@@ -126,7 +126,7 @@ But if the client sent a JSON with:
 }
 ```
 
-Then the dictionary we would get in Python using `hero.dict(exclude_unset=True)` would be:
+Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=True)` would be:
 
 ```Python
 {
@@ -151,6 +151,9 @@ Then we use that to get the data that was actually sent by the client:
 ```
 
 ///
+
+/// tip
+Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
 
 ## Update the Hero in the Database
 
@@ -208,7 +211,7 @@ So, if the client wanted to intentionally remove the `age` of a hero, they could
 }
 ```
 
-And when getting the data with `hero.dict(exclude_unset=True)`, we would get:
+And when getting the data with `hero.model_dump(exclude_unset=True)`, we would get:
 
 ```Python
 {
@@ -226,4 +229,4 @@ These are some of the advantages of Pydantic, that we can use with SQLModel. �
 
 ## Recap
 
-Using `.dict(exclude_unset=True)` in SQLModel models (and Pydantic models) we can easily update data **correctly**, even in the **edge cases**. 😎
+Using `.model_dump(exclude_unset=True)` in SQLModel models (and Pydantic models) we can easily update data **correctly**, even in the **edge cases**. 😎
