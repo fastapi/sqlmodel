@@ -57,12 +57,12 @@ def get_testing_print_function(
         data = []
         for arg in args:
             if isinstance(arg, BaseModel):
-                data.append(arg.dict())
+                data.append(arg.model_dump())
             elif isinstance(arg, list):
                 new_list = []
                 for item in arg:
                     if isinstance(item, BaseModel):
-                        new_list.append(item.dict())
+                        new_list.append(item.model_dump())
                 data.append(new_list)
             else:
                 data.append(arg)
