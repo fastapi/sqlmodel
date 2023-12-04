@@ -388,7 +388,7 @@ else:
         return model.__fields__  # type: ignore
 
     def set_fields_set(
-        new_object: InstanceOrType["SQLModel"], fields: set["FieldInfo"]
+        new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
     ) -> None:
         object.__setattr__(new_object, "__fields_set__", fields)
 
