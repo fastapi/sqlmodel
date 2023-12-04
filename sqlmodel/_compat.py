@@ -165,7 +165,7 @@ if IS_PYDANTIC_V2:
             return False
         return False
 
-    def get_type_from_field(field: Any) -> type:
+    def get_type_from_field(field: Any) -> Any:
         type_: Any = field.annotation
         # Resolve Optional fields
         if type_ is None:
@@ -429,7 +429,7 @@ else:
             )
         return field.allow_none  # type: ignore[no-any-return, attr-defined]
 
-    def get_type_from_field(field: Any) -> type:
+    def get_type_from_field(field: Any) -> Any:
         if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
             return field.type_
         raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
