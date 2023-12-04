@@ -1,7 +1,9 @@
 import logging
 import os
 import re
+import subprocess
 from functools import lru_cache
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 from importlib import metadata
 from pathlib import Path
 
@@ -95,6 +97,58 @@ def verify_readme() -> None:
         )
         raise typer.Abort()
     typer.echo("Valid README ✅")
+
+
+@app.command()
+def live() -> None:
+    """
+    Serve with livereload a docs site for a specific language.
+
+    This only shows the actual translated files, not the placeholders created with
+    build-all.
+
+    Takes an optional LANG argument with the name of the language to serve, by default
+    en.
+    """
+    # Enable line numbers during local development to make it easier to highlight
+    os.environ["LINENUMS"] = "true"
+    mkdocs.commands.serve.serve(dev_addr="127.0.0.1:8008")
+
+
+@app.command()
+def build() -> None:
+    """
+    Build the docs.
+    """
+    insiders_env_file = os.environ.get("INSIDERS_FILE")
+    print(f"Insiders file {insiders_env_file}")
+    if is_mkdocs_insiders():
+        print("Using insiders")
+    print("Building docs")
+    subprocess.run(["mkdocs", "build"], check=True)
+    typer.secho("Successfully built docs", color=typer.colors.GREEN)
+
+
+@app.command()
+def serve() -> None:
+    """
+    A quick server to preview a built site.
+
+    For development, prefer the command live (or just mkdocs serve).
+
+    This is here only to preview the documentation site.
+
+    Make sure you run the build command first.
+    """
+    typer.echo("Warning: this is a very simple server.")
+    typer.echo("For development, use the command live instead.")
+    typer.echo("This is here only to preview the documentation site.")
+    typer.echo("Make sure you run the build command first.")
+    os.chdir("site")
+    server_address = ("", 8008)
+    server = HTTPServer(server_address, SimpleHTTPRequestHandler)
+    typer.echo("Serving at: http://127.0.0.1:8008")
+    server.serve_forever()
 
 
 if __name__ == "__main__":
