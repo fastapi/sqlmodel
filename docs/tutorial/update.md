@@ -96,7 +96,7 @@ We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001.py[ln:44-49]!}
+{!./docs_src/tutorial/update/tutorial001.py[ln:44-55]!}
 
 # Code below omitted 👇
 ```
