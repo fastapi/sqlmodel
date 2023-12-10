@@ -224,7 +224,7 @@ But we will talk about it later.
 
 ### Engine Database URL
 
-Each supported database has it's own URL type. For example, for **SQLite** it is `sqlite:///` followed by the file path. For example:
+Each supported database has its own URL type. For example, for **SQLite** it is `sqlite:///` followed by the file path. For example:
 
 * `sqlite:///database.db`
 * `sqlite:///databases/local/application.db`
