@@ -155,6 +155,8 @@ Then we use that to get the data that was actually sent by the client:
 /// tip
 Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
 
+///
+
 ## Update the Hero in the Database
 
 Now that we have a **dictionary with the data sent by the client**, we can iterate for each one of the keys and the values, and then we set them in the database hero model `db_hero` using `setattr()`.
