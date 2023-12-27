@@ -24,7 +24,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -601,6 +601,8 @@ def get_sqlalchemy_type(field: Any) -> Any:
     if issubclass(type_, ipaddress.IPv6Network):
         return AutoString
     if issubclass(type_, Path):
+        return AutoString
+    if issubclass(type_, EmailStr):
         return AutoString
     if issubclass(type_, uuid.UUID):
         return GUID

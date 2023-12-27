@@ -112,20 +112,21 @@ In addition, the following types are stored as `VARCHAR`:
 * ipaddress.IPv6Address
 * ipaddress.IPv6Network
 * pathlib.Path
+* pydantic.EmailStr
 
 ### IP Addresses
 
 IP Addresses from the <a href="https://docs.python.org/3/library/ipaddress.html" class="external-link" target="_blank">Python `ipaddress` module</a> are stored as text.
 
-```Python hl_lines="1 11"
-{!./docs_src/advanced/column_types/tutorial003.py[ln:1-13]!}
+```Python hl_lines="1 12"
+{!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
 ```
 
 ### Filesystem Paths
 
 Paths to files and directories using the <a href="https://docs.python.org/3/library/pathlib.html" class="external-link" target="_blank">Python `pathlib` module</a> are stored as text.
 
-```Python hl_lines="5 11"
+```Python hl_lines="3 13"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
 ```
 
@@ -141,7 +142,7 @@ ensure you call `absolute()` on the path before setting it in your model.
 UUIDs from the <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python `uuid`
 module</a> are stored as `UUID` types in supported databases (just PostgreSQL at the moment), otherwise as a `CHAR(32)`.
 
-```Python hl_lines="3 10"
+```Python hl_lines="4 11"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
 ```
 
