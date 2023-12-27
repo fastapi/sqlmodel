@@ -123,7 +123,7 @@ Note that while the column types for these are `VARCHAR`, values are not convert
 
 IP Addresses from the <a href="https://docs.python.org/3/library/ipaddress.html" class="external-link" target="_blank">Python `ipaddress` module</a> are stored as text.
 
-```Python hl_lines="1 12"
+```Python hl_lines="5 11"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
 ```
 
@@ -131,7 +131,7 @@ IP Addresses from the <a href="https://docs.python.org/3/library/ipaddress.html"
 
 Paths to files and directories using the <a href="https://docs.python.org/3/library/pathlib.html" class="external-link" target="_blank">Python `pathlib` module</a> are stored as text.
 
-```Python hl_lines="3 13"
+```Python hl_lines="2 12"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
 ```
 
@@ -147,9 +147,19 @@ ensure you call `absolute()` on the path before setting it in your model.
 UUIDs from the <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python `uuid`
 module</a> are stored as `UUID` types in supported databases (just PostgreSQL at the moment), otherwise as a `CHAR(32)`.
 
-```Python hl_lines="4 11"
+```Python hl_lines="3 10"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
 ```
+
+### Email Addresses
+
+Email addresses using <a href="https://docs.pydantic.dev/latest/api/networks/#pydantic.networks.EmailStr" class="external-link" target="_blank">Pydantic's `EmailStr` type</a>
+are stored as strings.
+
+```Python hl_lines="5 14"
+{!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
+```
+
 
 ## Custom Pydantic types
 
