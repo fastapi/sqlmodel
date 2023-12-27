@@ -500,7 +500,7 @@ To make it easier to start using **SQLModel** right away independent of the data
 
 /// tip
 
-You will learn how to change the maximum length of string columns later in the Advanced Tutorial - User Guide.
+You can learn how to change the maximum length of string columns later in the [Advanced Tutorial - User Guide](../advanced/column-types.md){.internal-link target=_blank}.
 
 ///
 
