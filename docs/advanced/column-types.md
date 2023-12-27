@@ -107,7 +107,7 @@ In addition, the following types are stored as `VARCHAR`:
 * pydantic.networks.IPvAnyNetwork
 * pydantic.EmailStr
 
-Note that while the column types for these are `VARCHAR`, values are not converted to and from strings.   
+Note that while the column types for these are `VARCHAR`, values are not converted to and from strings.
 
 ### IP Addresses
 
