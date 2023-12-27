@@ -1,15 +1,12 @@
 # Column Types
 
-In the tutorial, we stored scalar data types in our tables, like strings, numbers and timestamps. In practice, we often
-work with more complicated types that need to be converted to a data type our database supports.
+In the tutorial, we stored scalar data types in our tables, like strings, numbers and timestamps. In practice, we often work with more complicated types that need to be converted to a data type our database supports.
 
 ## Customising String Field Lengths
 
-As we discussed in [`TEXT` or `VARCHAR`](../tutorial/create-db-and-table.md#text-or-varchar), a `str` field type will be
-created as a `VARCHAR`, which has varying maximum-lengths depending on the database engine you are using.
+As we discussed in [`TEXT` or `VARCHAR`](../tutorial/create-db-and-table.md#text-or-varchar), a `str` field type will be created as a `VARCHAR`, which has varying maximum-lengths depending on the database engine you are using.
 
-For cases where you know you only need to store a certain length of text, string field maximum length can be reduced
-using the `max_length` validation argument to `Field()`:
+For cases where you know you only need to store a certain length of text, string field maximum length can be reduced using the `max_length` validation argument to `Field()`:
 
 ```Python hl_lines="11"
 {!./docs_src/advanced/column_types/tutorial001.py[ln:1-12]!}
@@ -25,8 +22,7 @@ using the `max_length` validation argument to `Field()`:
 
 /// warning
 
-Database engines behave differently when you attempt to store longer text than the character length of the `VARCHAR`
-column. Notably:
+Database engines behave differently when you attempt to store longer text than the character length of the `VARCHAR` column. Notably:
 
 * SQLite does not enforce the length of a `VARCHAR`. It will happily store up to 500-million characters of text.
 * MySQL will emit a warning, but will also truncate your text to fit the size of the `VARCHAR`.
@@ -34,9 +30,7 @@ column. Notably:
 
 ///
 
-However if you need to store much longer strings than `VARCHAR` can allow, databases provide `TEXT` or `CLOB`
-(**c**haracter **l**arge **ob**ject) column types. We can use these by specifying an SQLAlchemy column type to the field
-with the `sa_type` keyword argument:
+However if you need to store much longer strings than `VARCHAR` can allow, databases provide `TEXT` or `CLOB` (**c**haracter **l**arge **ob**ject) column types. We can use these by specifying an SQLAlchemy column type to the field with the `sa_type` keyword argument:
 
 ```Python hl_lines="12"
 {!./docs_src/advanced/column_types/tutorial001.py[ln:5-45]!}
@@ -44,16 +38,12 @@ with the `sa_type` keyword argument:
 
 /// tip
 
-`Text` also accepts a character length argument, which databases use to optimise the storage of a particular field.
-Some databases support `TINYTEXT`, `SMALLTEXT`, `MEDIUMTEXT` and `LONGTEXT` column types - ranging from 255 bytes to
-4 gigabytes. If you know the maximum length of data, specifying it like `Text(1000)` will automatically select the
-best-suited, supported type for your database engine.
+`Text` also accepts a character length argument, which databases use to optimise the storage of a particular field. Some databases support `TINYTEXT`, `SMALLTEXT`, `MEDIUMTEXT` and `LONGTEXT` column types - ranging from 255 bytes to 4 gigabytes. If you know the maximum length of data, specifying it like `Text(1000)` will automatically select the best-suited, supported type for your database engine.
 
 ///
 
 
-With this approach, we can use [any kind of SQLAlchemy type](https://docs.sqlalchemy.org/en/20/core/type_basics.html).
-For example, if we were building a mapping application, we could store spatial information:
+With this approach, we can use [any kind of SQLAlchemy type](https://docs.sqlalchemy.org/en/20/core/type_basics.html). For example, we can store pickled objects in the database:
 
 ```Python
 {!./docs_src/advanced/column_types/tutorial002.py!}
@@ -121,7 +111,7 @@ Note that while the column types for these are `VARCHAR`, values are not convert
 
 ### IP Addresses
 
-IP Addresses from the <a href="https://docs.python.org/3/library/ipaddress.html" class="external-link" target="_blank">Python `ipaddress` module</a> are stored as text.
+IP Addresses from the [Python `ipaddress` module](https://docs.python.org/3/library/ipaddress.html){.external-link target=_blank} are stored as text.
 
 ```Python hl_lines="5 11"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
@@ -129,7 +119,7 @@ IP Addresses from the <a href="https://docs.python.org/3/library/ipaddress.html"
 
 ### Filesystem Paths
 
-Paths to files and directories using the <a href="https://docs.python.org/3/library/pathlib.html" class="external-link" target="_blank">Python `pathlib` module</a> are stored as text.
+Paths to files and directories using the [Python `pathlib` module](https://docs.python.org/3/library/pathlib.html){.external-link target=_blank} are stored as text.
 
 ```Python hl_lines="2 12"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
@@ -137,15 +127,13 @@ Paths to files and directories using the <a href="https://docs.python.org/3/libr
 
 /// tip
 
-The stored value of a Path is the basic string value: `str(Path('../path/to/file'))`. If you need to store the full path
-ensure you call `absolute()` on the path before setting it in your model.
+The stored value of a Path is the basic string value: `str(Path('../path/to/file'))`. If you need to store the full path ensure you call `absolute()` on the path before setting it in your model.
 
 ///
 
 ### UUIDs
 
-UUIDs from the <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python `uuid`
-module</a> are stored as `UUID` types in supported databases (just PostgreSQL at the moment), otherwise as a `CHAR(32)`.
+UUIDs from the [Python `uuid` module](https://docs.python.org/3/library/uuid.html){.external-link target=_blank} are stored as native `UUID` types in supported databases (just PostgreSQL at the moment), otherwise as a `CHAR(32)`.
 
 ```Python hl_lines="3 10"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
@@ -153,8 +141,7 @@ module</a> are stored as `UUID` types in supported databases (just PostgreSQL at
 
 ### Email Addresses
 
-Email addresses using <a href="https://docs.pydantic.dev/latest/api/networks/#pydantic.networks.EmailStr" class="external-link" target="_blank">Pydantic's `EmailStr` type</a>
-are stored as strings.
+Email addresses using [Pydantic's `EmailStr` type](https://docs.pydantic.dev/latest/api/networks/#pydantic.networks.EmailStr){.external-link target=_blank} are stored as strings.
 
 ```Python hl_lines="5 14"
 {!./docs_src/advanced/column_types/tutorial003.py[ln:1-15]!}
@@ -163,6 +150,4 @@ are stored as strings.
 
 ## Custom Pydantic types
 
-As SQLModel is built on Pydantic, you can use any custom type as long as it would work in a Pydantic model. However, if
-the type is not a subclass of [a type from the table above](#supported-types), you will need to specify an SQLAlchemy
-type to use.
+As SQLModel is built on Pydantic, you can use any custom type as long as it would work in a Pydantic model. However, if the type is not a subclass of [a type from the table above](#supported-types), you will need to specify an SQLAlchemy type to use.
