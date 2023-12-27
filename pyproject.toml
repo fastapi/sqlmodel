@@ -56,7 +56,7 @@ typer-cli = "^0.0.13"
 mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
 # For column type tests
 wonderwords = "^2.2.0"
-geoalchemy2 = "^0.14.3"
+pydantic = {extras = ["email"], version = ">=1.10.13,<3.0.0"}
 
 [build-system]
 requires = ["poetry-core"]

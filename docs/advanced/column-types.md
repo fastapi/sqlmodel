@@ -112,7 +112,12 @@ In addition, the following types are stored as `VARCHAR`:
 * ipaddress.IPv6Address
 * ipaddress.IPv6Network
 * pathlib.Path
+* pydantic.networks.IPvAnyAddress
+* pydantic.networks.IPvAnyInterface
+* pydantic.networks.IPvAnyNetwork
 * pydantic.EmailStr
+
+Note that while the column types for these are `VARCHAR`, values are not converted to and from strings.   
 
 ### IP Addresses
 
