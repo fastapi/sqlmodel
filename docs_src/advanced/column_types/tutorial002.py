@@ -15,7 +15,7 @@ class ModelOutput(TypedDict):
 
 
 class ModelResult(SQLModel, table=True):
-    id: int = Field(default=..., primary_key=True)
+    id: int = Field(default=None, primary_key=True)
     output: ModelOutput = Field(sa_type=PickleType())
 
 
