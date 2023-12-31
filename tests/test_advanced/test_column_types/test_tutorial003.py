@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import get_testing_print_function, needs_pydanticv2
 
 expected_calls = [
     [
@@ -19,6 +19,7 @@ expected_calls = [
 ]
 
 
+@needs_pydanticv2
 def test_tutorial(clear_sqlmodel):
     from docs_src.advanced.column_types import tutorial003 as mod
 
