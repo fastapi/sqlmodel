@@ -4,10 +4,9 @@ try:
     from datetime import UTC
 except ImportError:
     UTC = None
-from typing import TypedDict
-
 from sqlalchemy import PickleType
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+from typing_extensions import TypedDict
 
 
 class ModelOutput(TypedDict):
