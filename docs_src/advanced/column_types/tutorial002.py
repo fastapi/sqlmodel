@@ -1,4 +1,8 @@
-from datetime import UTC, datetime
+from datetime import datetime
+try:
+    from datetime import UTC
+except ImportError:
+    UTC = None
 from typing import TypedDict
 
 from sqlalchemy import PickleType

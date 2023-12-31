@@ -1,4 +1,8 @@
-from datetime import UTC, datetime
+from datetime import datetime
+try:
+    from datetime import UTC
+except ImportError:
+    UTC = None
 from pathlib import Path
 from uuid import UUID, uuid4
 
