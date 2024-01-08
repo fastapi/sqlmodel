@@ -329,6 +329,7 @@ def Field(
         max_length=max_length,
         allow_mutation=allow_mutation,
         regex=regex,
+        pattern=regex,
         discriminator=discriminator,
         repr=repr,
         primary_key=primary_key,

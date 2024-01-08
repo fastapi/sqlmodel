@@ -6,6 +6,8 @@ from pydantic import ValidationError
 from sqlmodel import Field, SQLModel
 from typing_extensions import Literal
 
+from ..conftest import needs_pydanticv1, needs_pydanticv2
+
 
 def test_decimal():
     class Model(SQLModel):
@@ -55,3 +57,21 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+@needs_pydanticv1
+def test_field_with_regex_kwarg():
+    class Model(SQLModel):
+        pat: str = Field(regex=r"^[a-z]+$")
+
+    with pytest.raises(ValidationError):
+        Model(pat="pydantic1")
+
+
+@needs_pydanticv2
+def test_field_with_regex_kwarg_pydantic2():
+    class Model(SQLModel):
+        pat: str = Field(regex=r"^[a-z]+$")
+
+    with pytest.raises(ValidationError):
+        Model(pat="pydantic2")
