@@ -143,6 +143,8 @@ class FieldInfo(PydanticFieldInfo):
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
+        if not hasattr(PydanticFieldInfo, "validation_alias"):
+            kwargs.pop("validation_alias")
         super().__init__(default=default, **kwargs)
         self.primary_key = primary_key
         self.nullable = nullable
