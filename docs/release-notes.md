@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump tiangolo/issue-manager from 0.4.0 to 0.4.1. PR [#775](https://github.com/tiangolo/sqlmodel/pull/775) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Fix GitHub Actions build docs filter paths for GitHub workflows. PR [#738](https://github.com/tiangolo/sqlmodel/pull/738) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.14
