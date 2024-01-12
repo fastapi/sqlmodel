@@ -154,6 +154,7 @@ Then we use that to get the data that was actually sent by the client:
 
 /// tip
 Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
+///
 
 ## Update the Hero in the Database
 
