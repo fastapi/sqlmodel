@@ -17,6 +17,7 @@ from typing import (
     Union,
 )
 
+from annotated_types import BaseMetadata
 from pydantic import VERSION as PYDANTIC_VERSION
 from pydantic.fields import FieldInfo
 from typing_extensions import get_args, get_origin
@@ -190,8 +191,9 @@ if IS_PYDANTIC_V2:
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
-            if isinstance(meta, PydanticMetadata):
+            if isinstance(meta, (PydanticMetadata, BaseMetadata)):
                 return meta
+
         return FakeMetadata()
 
     def post_init_field_info(field_info: FieldInfo) -> None:

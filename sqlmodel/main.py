@@ -5,6 +5,7 @@ from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
 from pathlib import Path
+from types import FunctionType
 from typing import (
     AbstractSet,
     Any,
@@ -50,7 +51,7 @@ from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
-from sqlalchemy.sql.sqltypes import LargeBinary, Time
+from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from typing_extensions import Literal, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
@@ -78,11 +79,40 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import GUID, AutoString
+from .sql.sqltypes import AutoString, PydanticJSONType
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx = Union[Set[int], Set[str], Dict[int, Any], Dict[str, Any], None]
+
+
+sa_types_map: Dict[Any, Union[Any, Callable[[Any, Any, Any], Any]]] = {
+    Enum: lambda type_, meta, annotation: sa_Enum(type_),
+    str: lambda type_, meta, annotation: AutoString(
+        length=getattr(meta, "max_length", None)
+    ),
+    float: Float,
+    bool: Boolean,
+    int: Integer,
+    datetime: DateTime,
+    date: Date,
+    timedelta: Interval,
+    time: Time,
+    bytes: LargeBinary,
+    Decimal: lambda type_, meta, annotation: Numeric(
+        precision=getattr(meta, "max_digits", None),
+        scale=getattr(meta, "decimal_places", None),
+    ),
+    (
+        ipaddress.IPv4Address,
+        ipaddress.IPv4Network,
+        ipaddress.IPv6Address,
+        ipaddress.IPv6Network,
+        Path,
+    ): AutoString,
+    uuid.UUID: Uuid,  # Custom GUID type is no longer required at SQLAlchemy v2
+    BaseModel: lambda type_, meta, annotation: PydanticJSONType(type=annotation),
+}
 
 
 def __dataclass_transform__(
@@ -556,54 +586,24 @@ def get_sqlalchemy_type(field: Any) -> Any:
         field_info = field
     else:
         field_info = field.field_info
+
     sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
+
     if sa_type is not Undefined:
         return sa_type
 
     type_ = get_type_from_field(field)
     metadata = get_field_metadata(field)
 
-    # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
-    if issubclass(type_, Enum):
-        return sa_Enum(type_)
-    if issubclass(type_, str):
-        max_length = getattr(metadata, "max_length", None)
-        if max_length:
-            return AutoString(length=max_length)
-        return AutoString
-    if issubclass(type_, float):
-        return Float
-    if issubclass(type_, bool):
-        return Boolean
-    if issubclass(type_, int):
-        return Integer
-    if issubclass(type_, datetime):
-        return DateTime
-    if issubclass(type_, date):
-        return Date
-    if issubclass(type_, timedelta):
-        return Interval
-    if issubclass(type_, time):
-        return Time
-    if issubclass(type_, bytes):
-        return LargeBinary
-    if issubclass(type_, Decimal):
-        return Numeric(
-            precision=getattr(metadata, "max_digits", None),
-            scale=getattr(metadata, "decimal_places", None),
-        )
-    if issubclass(type_, ipaddress.IPv4Address):
-        return AutoString
-    if issubclass(type_, ipaddress.IPv4Network):
-        return AutoString
-    if issubclass(type_, ipaddress.IPv6Address):
-        return AutoString
-    if issubclass(type_, ipaddress.IPv6Network):
-        return AutoString
-    if issubclass(type_, Path):
-        return AutoString
-    if issubclass(type_, uuid.UUID):
-        return GUID
+    for expected_type, sa_type in sa_types_map.items():
+        if not issubclass(type_, expected_type):
+            continue
+
+        if not isinstance(sa_type, FunctionType):
+            return sa_type
+
+        return sa_type(type_, metadata, field.annotation)
+
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
