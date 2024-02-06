@@ -1,3 +1,4 @@
+import copy
 import datetime
 import ipaddress
 from decimal import Decimal
@@ -5,6 +6,7 @@ from pathlib import Path
 from uuid import UUID
 
 import sqlalchemy as sa
+import sqlmodel.main
 from pydantic import BaseModel
 from sqlalchemy.engine.mock import MockConnection
 from sqlmodel import AutoString, Field, SQLModel
@@ -130,3 +132,32 @@ def test_default_sa_types_to_python_mapping_is_correct(clear_sqlmodel, capsys):
 
     assert isinstance(Hero.father.type, PydanticJSONType)
     assert "father JSON NOT NULL" in captured.out
+
+
+def test_default_sa_type_mapping_change(clear_sqlmodel, capsys):
+    base_map = copy.deepcopy(sqlmodel.main.sa_types_map)
+    sqlmodel.main.sa_types_map[str] = lambda type_, meta, annotation: sa.Unicode(
+        length=getattr(meta, "max_length", None)
+    )
+
+    class Hero(SQLModel, table=True):
+        id: int = Field(default=None, primary_key=True)
+        name: str = Field(max_length=255)
+        history: str
+
+    assert str(Hero.name.type) == str(sa.Unicode(255))
+    assert str(Hero.history.type) == str(sa.Unicode())
+
+    SQLModel.metadata.create_all(get_engine("mssql://"))
+    captured = capsys.readouterr()
+
+    assert "name NVARCHAR(255) NOT NULL" in captured.out
+    assert "history NVARCHAR(max) NOT NULL" in captured.out
+
+    SQLModel.metadata.create_all(get_engine("sqlite://"))
+    captured = capsys.readouterr()
+
+    assert "name VARCHAR(255) NOT NULL" in captured.out
+    assert "history VARCHAR NOT NULL" in captured.out
+
+    sqlmodel.main.sa_types_map = base_map
