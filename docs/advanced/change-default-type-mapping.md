@@ -48,10 +48,10 @@ def map_python_type_to_sa_type(type_: "PythonType", meta: "PydanticMeta", annota
 
 ## Current mapping
 
-| Python type           | SqlAlchemy type                                                                                                                    | 
+| Python type           | SqlAlchemy type                                                                                                                    |
 |-----------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | Enum                  | `lambda type_, meta, annotation: sa_Enum(type_)`                                                                                   |
-| str                   | `lambda type_, meta, annotation: AutoString(length=getattr(meta, "max_length", None))`                                             | 
+| str                   | `lambda type_, meta, annotation: AutoString(length=getattr(meta, "max_length", None))`                                             |
 | float                 | Float                                                                                                                              |
 | bool                  | Boolean                                                                                                                            |
 | int                   | Integer                                                                                                                            |
