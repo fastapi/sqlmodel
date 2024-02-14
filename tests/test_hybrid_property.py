@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from sqlalchemy import case, create_engine, func
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -15,7 +15,7 @@ def test_query(clear_sqlmodel):
     class Hero(SQLModel, table=True):
         id: Optional[int] = Field(default=None, primary_key=True)
         name: str
-        items: list[Item] = Relationship(back_populates="hero")
+        items: List[Item] = Relationship(back_populates="hero")
 
         @hybrid_property
         def total_items(self):
