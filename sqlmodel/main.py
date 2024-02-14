@@ -869,3 +869,32 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             exclude_unset=exclude_unset,
             update=update,
         )
+
+    if IS_PYDANTIC_V2:
+
+        def __eq__(self, other: Any) -> bool:
+            # Should override comparison method because of the base method uses some additional
+            # pydantic related  logic e.g. comparison of __pydantic_private__ and __pydantic_extra__
+            # of models presented. This fields only available if __init__ was called and missed if
+            # a model instantiated from database
+            # Ref: https://github.com/pydantic/pydantic/commit/62ed0aabd716fba99a5b1cc0cdc26d75d2d8447a
+            if isinstance(other, SQLModel):
+                # When comparing instances of generic types for equality, as long as all field values are equal,
+                # only require their generic origin types to be equal, rather than exact type equality.
+                # This prevents headaches like MyGeneric(x=1) != MyGeneric[Any](x=1).
+                self_type = (
+                    self.__pydantic_generic_metadata__["origin"] or self.__class__
+                )
+                other_type = (
+                    other.__pydantic_generic_metadata__["origin"] or other.__class__
+                )
+
+                dict1 = self.__dict__.copy()
+                dict2 = other.__dict__.copy()
+
+                _ = dict1.pop("_sa_instance_state", None)
+                _ = dict2.pop("_sa_instance_state", None)
+
+                return self_type == other_type and dict1 == dict2
+            else:
+                return super().__eq__(other)
