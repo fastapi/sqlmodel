@@ -1,13 +1,11 @@
 from typing import Optional
 
-from sqlalchemy import create_engine, func, literal_column, text, case
+from sqlalchemy import case, create_engine, func
 from sqlalchemy.ext.hybrid import hybrid_property
-
-from sqlmodel import SQLModel, Field, Session, Relationship, select
+from sqlmodel import Field, Relationship, Session, SQLModel, select
 
 
 def test_query(clear_sqlmodel):
-
     class Item(SQLModel, table=True):
         id: Optional[int] = Field(default=None, primary_key=True)
         value: float
@@ -40,10 +38,9 @@ def test_query(clear_sqlmodel):
         @status.inplace.expression
         @classmethod
         def _status_expression(cls):
-            return (
-                select(case((cls.total_items > 0, "active"), else_="inactive"))
-                .label("status")
-            )
+            return select(
+                case((cls.total_items > 0, "active"), else_="inactive")
+            ).label("status")
 
     hero_1 = Hero(name="Deadpond")
     hero_2 = Hero(name="Spiderman")
@@ -69,9 +66,7 @@ def test_query(clear_sqlmodel):
         session.refresh(item_2)
 
     with Session(engine) as session:
-        hero_statement = select(Hero).where(
-            Hero.total_items > 0.0
-        )
+        hero_statement = select(Hero).where(Hero.total_items > 0.0)
         hero = session.exec(hero_statement).first()
         assert hero.total_items == 3.0
         assert hero.status == "active"
