@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import List, Optional
 
 from sqlalchemy import case, create_engine, func
 from sqlalchemy.ext.hybrid import hybrid_property
