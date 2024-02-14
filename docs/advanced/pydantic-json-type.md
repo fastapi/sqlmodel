@@ -45,7 +45,7 @@ Then map Stats to Hero as shown bellow:
 {!./docs_src/advanced/pydantic_json_type/tutorial002.py[ln:36-39]!}
 ```
 
-After all of these actions we can change mutated model, and it will be saved to database after we call `session.commit()`  
+After all of these actions we can change mutated model, and it will be saved to database after we call `session.commit()`
 
 ```{.python .annotate hl_lines="4" }
 {!./docs_src/advanced/pydantic_json_type/tutorial002.py[ln:76-94]!}
