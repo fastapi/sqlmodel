@@ -46,9 +46,11 @@ class ObjectWithUpdateWrapper:
     update: Dict[str, Any]
 
     def __getattribute__(self, __name: str) -> Any:
-        if __name in self.update:
-            return self.update[__name]
-        return getattr(self.obj, __name)
+        update = super().__getattribute__("update")
+        obj = super().__getattribute__("obj")
+        if __name in update:
+            return update[__name]
+        return getattr(obj, __name)
 
 
 def _is_union_type(t: Any) -> bool:
