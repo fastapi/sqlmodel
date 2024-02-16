@@ -103,7 +103,7 @@ if IS_PYDANTIC_V2:
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"]
-    ) -> Union[Set[str], Callable[[BaseModel], set[str]]]:
+    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
         return object.model_fields_set
 
     def set_fields_set(
@@ -398,7 +398,7 @@ else:
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"]
-    ) -> Union[Set[str], Callable[[BaseModel], set[str]]]:
+    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
         return object.__fields_set__
 
     def set_fields_set(
