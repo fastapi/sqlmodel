@@ -7,7 +7,7 @@ from ....conftest import needs_py39
 
 
 @needs_py39
-def test_tutorial(clear_sqlmodel, insert_assert):
+def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.fastapi.update import tutorial002_py39 as mod
 
     mod.sqlite_url = "sqlite://"

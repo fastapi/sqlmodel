@@ -4,7 +4,7 @@ from sqlmodel import Session, create_engine
 from sqlmodel.pool import StaticPool
 
 
-def test_tutorial(clear_sqlmodel, insert_assert):
+def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.fastapi.update import tutorial002 as mod
 
     mod.sqlite_url = "sqlite://"
