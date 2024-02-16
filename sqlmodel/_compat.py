@@ -102,7 +102,7 @@ if IS_PYDANTIC_V2:
         return model.model_fields
 
     def get_fields_set(
-        object: InstanceOrType["SQLModel"]
+        object: InstanceOrType["SQLModel"],
     ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
         return object.model_fields_set
 
@@ -397,7 +397,7 @@ else:
         return model.__fields__  # type: ignore
 
     def get_fields_set(
-        object: InstanceOrType["SQLModel"]
+        object: InstanceOrType["SQLModel"],
     ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
         return object.__fields_set__
 
