@@ -18,6 +18,7 @@ from typing import (
 )
 
 from pydantic import VERSION as PYDANTIC_VERSION
+from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import get_args, get_origin
 
@@ -96,7 +97,7 @@ if IS_PYDANTIC_V2:
     ) -> None:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
-    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.model_fields
 
     def set_fields_set(
@@ -386,7 +387,7 @@ else:
     ) -> None:
         setattr(model.__config__, parameter, value)  # type: ignore
 
-    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
 
     def set_fields_set(
