@@ -100,6 +100,9 @@ if IS_PYDANTIC_V2:
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.model_fields
 
+    def get_fields_set(object: InstanceOrType["SQLModel"]) -> Union[Set[str], property]:
+        return object.model_fields_set
+
     def set_fields_set(
         new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
     ) -> None:
@@ -389,6 +392,9 @@ else:
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
+
+    def get_fields_set(object: InstanceOrType["SQLModel"]) -> Union[Set[str], property]:
+        return object.__fields_set__
 
     def set_fields_set(
         new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
