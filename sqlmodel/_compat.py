@@ -97,10 +97,10 @@ if IS_PYDANTIC_V2:
     def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
         return model.model_fields
 
-    def set_fields_set(
-        new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
-    ) -> None:
-        object.__setattr__(new_object, "__pydantic_fields_set__", fields)
+    def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
+        object.__setattr__(new_object, "__pydantic_fields_set__", set())
+        object.__setattr__(new_object, "__pydantic_extra__", None)
+        object.__setattr__(new_object, "__pydantic_private__", None)
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
         return class_dict.get("__annotations__", {})
@@ -387,10 +387,8 @@ else:
     def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
 
-    def set_fields_set(
-        new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
-    ) -> None:
-        object.__setattr__(new_object, "__fields_set__", fields)
+    def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
+        object.__setattr__(new_object, "__fields_set__", set())
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
         return resolve_annotations(  # type: ignore[no-any-return]
