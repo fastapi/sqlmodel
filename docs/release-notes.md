@@ -2,6 +2,12 @@
 
 ## Latest Changes
 
+## 0.0.15
+
+### Fixes
+
+* 🐛 Fix class initialization compatibility with Pydantic and SQLModel, fixing errors revealed by the latest Pydantic. PR [#807](https://github.com/tiangolo/sqlmodel/pull/807) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump tiangolo/issue-manager from 0.4.0 to 0.4.1. PR [#775](https://github.com/tiangolo/sqlmodel/pull/775) by [@dependabot[bot]](https://github.com/apps/dependabot).

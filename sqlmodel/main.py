@@ -70,11 +70,11 @@ from ._compat import (  # type: ignore[attr-defined]
     get_model_fields,
     get_relationship_to,
     get_type_from_field,
+    init_pydantic_private_attrs,
     is_field_noneable,
     is_table_model_class,
     post_init_field_info,
     set_config_value,
-    set_fields_set,
     sqlmodel_init,
     sqlmodel_validate,
 )
@@ -686,12 +686,12 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Any:
         new_object = super().__new__(cls)
-        # SQLAlchemy doesn't call __init__ on the base class
+        # SQLAlchemy doesn't call __init__ on the base class when querying from DB
         # Ref: https://docs.sqlalchemy.org/en/14/orm/constructors.html
         # Set __fields_set__ here, that would have been set when calling __init__
         # in the Pydantic model so that when SQLAlchemy sets attributes that are
         # added (e.g. when querying from DB) to the __fields_set__, this already exists
-        set_fields_set(new_object, set())
+        init_pydantic_private_attrs(new_object)
         return new_object
 
     def __init__(__pydantic_self__, **data: Any) -> None:
