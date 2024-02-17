@@ -178,7 +178,7 @@ Now that we have a **dictionary with the data sent by the client**, we can use t
 
 /// tip
 
-The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.15. 🤓
+The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.16. 🤓
 
 Before that, you would need to manually get the values and set them using `setattr()`.
 

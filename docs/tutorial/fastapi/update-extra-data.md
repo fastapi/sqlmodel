@@ -208,7 +208,7 @@ It takes a model object or dictionary with the data to update the object and als
 
 /// tip
 
-The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.15. 😎
+The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.16. 😎
 
 ///
 
