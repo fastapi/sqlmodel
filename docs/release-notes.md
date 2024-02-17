@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add new method `sqlmodel_update()` to update models in place, including an `update` parameter for extra data. PR [#804](https://github.com/tiangolo/sqlmodel/pull/804) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.15
 
 ### Fixes
