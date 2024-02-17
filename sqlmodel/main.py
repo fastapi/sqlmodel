@@ -758,7 +758,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             update=update,
         )
 
-    # TODO: remove when deprecating Pydantic v1, only for compatibility
     def model_dump(
         self,
         *,
@@ -869,3 +868,32 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             exclude_unset=exclude_unset,
             update=update,
         )
+
+    def sqlmodel_update(
+        self: _TSQLModel,
+        obj: Union[Dict[str, Any], BaseModel],
+        *,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        use_update = (update or {}).copy()
+        if isinstance(obj, dict):
+            for key, value in {**obj, **use_update}.items():
+                if key in get_model_fields(self):
+                    setattr(self, key, value)
+        elif isinstance(obj, BaseModel):
+            for key in get_model_fields(obj):
+                if key in use_update:
+                    value = use_update.pop(key)
+                else:
+                    value = getattr(obj, key)
+                setattr(self, key, value)
+            for remaining_key in use_update:
+                if remaining_key in get_model_fields(self):
+                    value = use_update.pop(remaining_key)
+                    setattr(self, remaining_key, value)
+        else:
+            raise ValueError(
+                "Can't use sqlmodel_update() with something that "
+                f"is not a dict or SQLModel or Pydantic model: {obj}"
+            )
+        return self

@@ -6,6 +6,7 @@ from typing import (
     TYPE_CHECKING,
     AbstractSet,
     Any,
+    Callable,
     Dict,
     ForwardRef,
     Generator,
@@ -18,6 +19,7 @@ from typing import (
 )
 
 from pydantic import VERSION as PYDANTIC_VERSION
+from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import get_args, get_origin
 
@@ -46,9 +48,11 @@ class ObjectWithUpdateWrapper:
     update: Dict[str, Any]
 
     def __getattribute__(self, __name: str) -> Any:
-        if __name in self.update:
-            return self.update[__name]
-        return getattr(self.obj, __name)
+        update = super().__getattribute__("update")
+        obj = super().__getattribute__("obj")
+        if __name in update:
+            return update[__name]
+        return getattr(obj, __name)
 
 
 def _is_union_type(t: Any) -> bool:
@@ -94,8 +98,13 @@ if IS_PYDANTIC_V2:
     ) -> None:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
-    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.model_fields
+
+    def get_fields_set(
+        object: InstanceOrType["SQLModel"],
+    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
+        return object.model_fields_set
 
     def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
         object.__setattr__(new_object, "__pydantic_fields_set__", set())
@@ -384,8 +393,13 @@ else:
     ) -> None:
         setattr(model.__config__, parameter, value)  # type: ignore
 
-    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
+
+    def get_fields_set(
+        object: InstanceOrType["SQLModel"],
+    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
+        return object.__fields_set__
 
     def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
         object.__setattr__(new_object, "__fields_set__", set())
