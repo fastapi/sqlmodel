@@ -98,6 +98,8 @@ nav:
   - Advanced User Guide:
     - advanced/index.md
     - advanced/decimal.md
+    - advanced/change-default-type-mapping.md
+    - advanced/pydantic-json-type.md
   - alternatives.md
   - help.md
   - contributing.md
