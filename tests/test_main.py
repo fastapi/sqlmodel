@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from typing import List, Optional
 
 import pytest
@@ -125,3 +126,25 @@ def test_sa_relationship_property(clear_sqlmodel):
         # The next statement should not raise an AttributeError
         assert hero_rusty_man.team
         assert hero_rusty_man.team.name == "Preventers"
+
+
+def test_dataclass_relationship_property_overriding(clear_sqlmodel):
+    @dataclass
+    class BaseTeam:
+        name: str
+
+    @dataclass
+    class BaseHero:
+        name: str
+        team: BaseTeam | None = None
+
+    class Team(SQLModel, BaseTeam, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+
+    class Hero(SQLModel, BaseHero, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        team: Team = Relationship()
+
+    engine = create_engine("sqlite://", echo=True)
+
+    SQLModel.metadata.create_all(engine)
