@@ -74,6 +74,7 @@ nav:
       - tutorial/relationship-attributes/read-relationships.md
       - tutorial/relationship-attributes/remove-relationships.md
       - tutorial/relationship-attributes/back-populates.md
+      - tutorial/relationship-attributes/aliased-relationships.md
       - tutorial/relationship-attributes/type-annotation-strings.md
     - Many to Many:
       - tutorial/many-to-many/index.md
