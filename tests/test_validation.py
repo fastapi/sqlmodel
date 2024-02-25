@@ -71,6 +71,7 @@ def test_validation_pydantic_v2(clear_sqlmodel):
 @needs_pydanticv2
 def test_validation_strict_mode(clear_sqlmodel):
     """Test validation of fields in strict mode from python and json."""
+    from pydantic import TypeAdapter
 
     class Hero(SQLModel):
         id: Optional[int] = None
@@ -85,6 +86,9 @@ def test_validation_strict_mode(clear_sqlmodel):
     uuid_str = str(uuid_obj)
 
     Hero.model_validate({"id": 1, "birth_date": date_obj, "uuid": uuid_obj})
+    TypeAdapter(Hero).validate_python(
+        {"id": 1, "birth_date": date_obj, "uuid": uuid_obj}
+    )
     # Check that python validation requires strict types
     with pytest.raises(ValidationError):
         Hero.model_validate({"id": "1"})
@@ -95,6 +99,9 @@ def test_validation_strict_mode(clear_sqlmodel):
 
     # Check that json is a bit more lax, but still refuses to "cast" values when not necessary
     Hero.model_validate_json(
+        json.dumps({"id": 1, "birth_date": date_str, "uuid": uuid_str})
+    )
+    TypeAdapter(Hero).validate_json(
         json.dumps({"id": 1, "birth_date": date_str, "uuid": uuid_str})
     )
     with pytest.raises(ValidationError):
