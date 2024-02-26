@@ -119,6 +119,62 @@ $ bash scripts/test.sh
 
 This command generates a directory `./htmlcov/`, if you open the file `./htmlcov/index.html` in your browser, you can explore interactively the regions of code that are covered by the tests, and notice if there is any region missing.
 
+### Local testing with Nox
+
+You can use `nox` to run the tests under multiple python and pydantic versions similar to the way the
+github actions run tests for pull-requests.  To setup your local environment, install `nox` and `nox-poetry`.
+Example install using `pipx`:
+
+```console
+$ pip install pipx
+$ pipx install nox
+$ pipx inject nox nox-poetry
+```
+If you are using `pyenv` to manage your pythons, enable all versions that you want to run the
+tests on:
+
+```console
+$ pyenv global 3.7 3.8 3.9 3.10 3.11 3.12
+```
+Run the tests:
+```console
+$ nox -rs tests
+```
+
+This will find all python versions and run the test suite with each python versions / pydantic combination.
+
+### Other nox Sessions
+
+#### Lint
+
+Run mypy and other linting tests for all python / pydantic version combinations using the `lint` session:
+
+```console
+$ nox -r --session=lint
+```
+
+#### The pre-commit session
+
+`pre-commit` is a multi-language linter framework and a Git hook manager.
+
+Run pre-commit from Nox using the pre-commit session:
+
+```console
+$ nox --session=pre-commit
+```
+
+This session always runs with the current stable release of Python.
+
+Use the separator -- to pass additional options to pre-commit. For example,
+the following command installs the pre-commit hooks, so they run automatically
+on every commit you make:
+
+```console
+$ nox --session=pre-commit -- install
+```
+
+
+
 ## Thanks
 
 Thanks for contributing! ☕
