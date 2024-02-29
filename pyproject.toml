@@ -47,7 +47,7 @@ cairosvg = "^2.5.2"
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = ">=6.2,<8.0"}
 fastapi = "^0.103.2"
-ruff = "^0.1.2"
+ruff = ">=0.1.2,<0.4.0"
 # For FastAPI tests
 httpx = "0.24.1"
 # TODO: upgrade when deprecating Python 3.7
