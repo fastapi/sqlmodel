@@ -85,6 +85,7 @@ from .sql.sqltypes import GUID, AutoString
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx = Union[Set[int], Set[str], Dict[int, Any], Dict[str, Any], None]
+SQLAlchemyConstruct = Union[hybrid_property, ColumnProperty, declared_attr]
 
 
 def __dataclass_transform__(
@@ -418,7 +419,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         **kwargs: Any,
     ) -> Any:
         relationships: Dict[str, RelationshipInfo] = {}
-        sqlalchemy_constructs = {}
+        sqlalchemy_constructs: Dict[str, SQLAlchemyConstruct] = {}
         dict_for_pydantic = {}
         original_annotations = get_annotations(class_dict)
         pydantic_annotations = {}
