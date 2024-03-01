@@ -513,6 +513,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             setattr(new_cls, "__abstract__", True)  # noqa: B010
             setattr(new_cls, "__pydantic_private__", {})  # noqa: B010
             setattr(new_cls, "__pydantic_extra__", {})  # noqa: B010
+
         return new_cls
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
