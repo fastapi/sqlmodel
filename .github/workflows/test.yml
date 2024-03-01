@@ -62,10 +62,10 @@ jobs:
         run: python -m poetry install
       - name: Install Pydantic v1
         if: matrix.pydantic-version == 'pydantic-v1'
-        run: pip install "pydantic>=1.10.0,<2.0.0"
+        run: pip install --upgrade "pydantic>=1.10.0,<2.0.0"
       - name: Install Pydantic v2
         if: matrix.pydantic-version == 'pydantic-v2'
-        run: pip install "pydantic>=2.0.2,<3.0.0"
+        run: pip install --upgrade "pydantic>=2.0.2,<3.0.0"
       - name: Lint
         # Do not run on Python 3.7 as mypy behaves differently
         if: matrix.python-version != '3.7' && matrix.pydantic-version == 'pydantic-v2'

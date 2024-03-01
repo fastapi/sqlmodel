@@ -1,3 +1,5 @@
+from typing import Optional
+
 from fastapi import FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
@@ -5,15 +7,16 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select
 class HeroBase(SQLModel):
     name: str = Field(index=True)
     secret_name: str
-    age: int | None = Field(default=None, index=True)
+    age: Optional[int] = Field(default=None, index=True)
 
 
 class Hero(HeroBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
+    hashed_password: str = Field()
 
 
 class HeroCreate(HeroBase):
-    pass
+    password: str
 
 
 class HeroRead(HeroBase):
@@ -21,9 +24,10 @@ class HeroRead(HeroBase):
 
 
 class HeroUpdate(SQLModel):
-    name: str | None = None
-    secret_name: str | None = None
-    age: int | None = None
+    name: Optional[str] = None
+    secret_name: Optional[str] = None
+    age: Optional[int] = None
+    password: Optional[str] = None
 
 
 sqlite_file_name = "database.db"
@@ -37,6 +41,11 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 
+def hash_password(password: str) -> str:
+    # Use something like passlib here
+    return f"not really hashed {password} hehehe"
+
+
 app = FastAPI()
 
 
@@ -47,8 +56,10 @@ def on_startup():
 
 @app.post("/heroes/", response_model=HeroRead)
 def create_hero(hero: HeroCreate):
+    hashed_password = hash_password(hero.password)
     with Session(engine) as session:
-        db_hero = Hero.model_validate(hero)
+        extra_data = {"hashed_password": hashed_password}
+        db_hero = Hero.model_validate(hero, update=extra_data)
         session.add(db_hero)
         session.commit()
         session.refresh(db_hero)
@@ -78,7 +89,12 @@ def update_hero(hero_id: int, hero: HeroUpdate):
         if not db_hero:
             raise HTTPException(status_code=404, detail="Hero not found")
         hero_data = hero.model_dump(exclude_unset=True)
-        db_hero.sqlmodel_update(hero_data)
+        update_data = {}
+        if "password" in hero_data:
+            password = hero_data["password"]
+            hashed_password = hash_password(password)
+            update_data["hashed_password"] = hashed_password
+        db_hero.sqlmodel_update(hero_data, update=update_data)
         session.add(db_hero)
         session.commit()
         session.refresh(db_hero)

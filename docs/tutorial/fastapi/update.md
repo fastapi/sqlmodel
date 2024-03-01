@@ -154,12 +154,13 @@ Then we use that to get the data that was actually sent by the client:
 
 /// tip
 Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
+///
 
 ## Update the Hero in the Database
 
-Now that we have a **dictionary with the data sent by the client**, we can iterate for each one of the keys and the values, and then we set them in the database hero model `db_hero` using `setattr()`.
+Now that we have a **dictionary with the data sent by the client**, we can use the method `db_hero.sqlmodel_update()` to update the object `db_hero`.
 
-```Python hl_lines="10-11"
+```Python hl_lines="10"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
@@ -175,19 +176,17 @@ Now that we have a **dictionary with the data sent by the client**, we can itera
 
 ///
 
-If you are not familiar with that `setattr()`, it takes an object, like the `db_hero`, then an attribute name (`key`), that in our case could be `"name"`, and a value (`value`). And then it **sets the attribute with that name to the value**.
+/// tip
 
-So, if `key` was `"name"` and `value` was `"Deadpuddle"`, then this code:
+The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.16. 🤓
 
-```Python
-setattr(db_hero, key, value)
-```
+Before that, you would need to manually get the values and set them using `setattr()`.
 
-...would be more or less equivalent to:
+///
 
-```Python
-db_hero.name = "Deadpuddle"
-```
+The method `db_hero.sqlmodel_update()` takes an argument with another model object or a dictionary.
+
+For each of the fields in the **original** model object (`db_hero` in this example), it checks if the field is available in the **argument** (`hero_data` in this example) and then updates it with the provided value.
 
 ## Remove Fields
 
