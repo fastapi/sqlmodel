@@ -1,9 +1,7 @@
 from typing import List, Optional
 
-from sqlalchemy import case, create_engine, func, literal_column
-from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy import case, create_engine, func
 from sqlalchemy.orm import column_property, declared_attr
-
 from sqlmodel import Field, Relationship, Session, SQLModel, select
 
 
@@ -21,9 +19,7 @@ def test_query(clear_sqlmodel):
 
         @declared_attr
         def total_items(cls):
-            return column_property(
-                cls._total_items_expression()
-            )
+            return column_property(cls._total_items_expression())
 
         @classmethod
         def _total_items_expression(cls):
@@ -38,7 +34,9 @@ def test_query(clear_sqlmodel):
         def status(cls):
             return column_property(
                 select(
-                    case((cls._total_items_expression() > 0, "active"), else_="inactive")
+                    case(
+                        (cls._total_items_expression() > 0, "active"), else_="inactive"
+                    )
                 ).scalar_subquery()
             )
 
