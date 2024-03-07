@@ -484,9 +484,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
-                col = get_column_from_field(v)
                 if k in sqlalchemy_constructs:
                     continue
+                col = get_column_from_field(v)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
             # in orm_mode instead of preemptively converting it to a dict.
