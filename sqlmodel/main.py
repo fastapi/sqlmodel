@@ -427,11 +427,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         for k, v in class_dict.items():
             if isinstance(v, RelationshipInfo):
                 relationships[k] = v
-            elif isinstance(v, hybrid_property):
-                sqlalchemy_constructs[k] = v
-            elif isinstance(v, ColumnProperty):
-                sqlalchemy_constructs[k] = v
-            elif isinstance(v, declared_attr):
+            elif isinstance(v, (hybrid_property, ColumnProperty, declared_attr)):
                 sqlalchemy_constructs[k] = v
             else:
                 dict_for_pydantic[k] = v
