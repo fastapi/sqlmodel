@@ -391,7 +391,7 @@ def Relationship(
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
-    __sqlalchemy_constructs__: Dict[str, Any]
+    __sqlalchemy_constructs__: Dict[str, SQLAlchemyConstruct]
     model_config: SQLModelConfig
     model_fields: Dict[str, FieldInfo]
     __config__: Type[SQLModelConfig]
