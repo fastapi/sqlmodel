@@ -257,6 +257,7 @@ _TScalar_0 = TypeVar(
     Column,  # type: ignore
     Sequence,  # type: ignore
     Mapping,  # type: ignore
+    Label,  # type: ignore
     UUID,
     datetime,
     float,
@@ -275,6 +276,7 @@ _TScalar_1 = TypeVar(
     Column,  # type: ignore
     Sequence,  # type: ignore
     Mapping,  # type: ignore
+    Label,  # type: ignore
     UUID,
     datetime,
     float,
@@ -293,6 +295,7 @@ _TScalar_2 = TypeVar(
     Column,  # type: ignore
     Sequence,  # type: ignore
     Mapping,  # type: ignore
+    Label,  # type: ignore
     UUID,
     datetime,
     float,
@@ -311,6 +314,7 @@ _TScalar_3 = TypeVar(
     Column,  # type: ignore
     Sequence,  # type: ignore
     Mapping,  # type: ignore
+    Label,  # type: ignore
     UUID,
     datetime,
     float,
@@ -334,6 +338,16 @@ def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]:
 
 @overload
 def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
+    ...
+
+
+@overload
+def select(*entities: _TCCA[_T0]) -> Select[Tuple[_T0, ...]]:
+    ...
+
+
+@overload
+def select(*entities: _TScalar_0) -> Select[Tuple[_TScalar_0, ...]]:
     ...
 
 
