@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 🔥 Remove Jina QA Bot as it has been discontinued. PR [#840](https://github.com/tiangolo/sqlmodel/pull/840) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.16
 
 ### Features
