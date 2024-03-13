@@ -332,7 +332,7 @@ _T3 = TypeVar("_T3")
 
 
 @overload
-def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]:
+def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]:  # type: ignore
     ...
 
 
@@ -342,12 +342,12 @@ def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
 
 
 @overload
-def select(*entities: _TCCA[_T0]) -> Select[Tuple[_T0, ...]]:
+def select(*entities: _TCCA[_T0]) -> Select[Tuple[_T0, ...]]:  # type: ignore
     ...
 
 
 @overload
-def select(*entities: _TScalar_0) -> Select[Tuple[_TScalar_0, ...]]:
+def select(*entities: _TScalar_0) -> Select[Tuple[_TScalar_0, ...]]:  # type: ignore
     ...
 
 
