@@ -87,12 +87,12 @@ def update_hero(hero_id: int, hero: HeroUpdate):
         if not db_hero:
             raise HTTPException(status_code=404, detail="Hero not found")
         hero_data = hero.model_dump(exclude_unset=True)
-        update_data = {}
+        extra_data = {}
         if "password" in hero_data:
             password = hero_data["password"]
             hashed_password = hash_password(password)
-            update_data["hashed_password"] = hashed_password
-        db_hero.sqlmodel_update(hero_data, update=update_data)
+            extra_data["hashed_password"] = hashed_password
+        db_hero.sqlmodel_update(hero_data, update=extra_data)
         session.add(db_hero)
         session.commit()
         session.refresh(db_hero)
