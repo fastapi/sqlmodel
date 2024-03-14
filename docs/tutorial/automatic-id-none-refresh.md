@@ -6,6 +6,20 @@ Now let's talk a bit about why the `id` field **can't be `NULL`** on the databas
 
 But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `Optional[int]`, and set the default value to `Field(default=None)`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="4"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:6-10]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="4"
 # Code above omitted 👆
 
@@ -14,11 +28,25 @@ But the same `id` field actually **can be `None`** in the Python code, so we dec
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -30,6 +58,20 @@ When do we get an actual `int` from the database in that `id` field? Let's see a
 
 When we create a new `Hero` instance, we don't set the `id`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-6"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:23-26]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-6"
 # Code above omitted 👆
 
@@ -38,11 +80,25 @@ When we create a new `Hero` instance, we don't set the `id`:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -72,6 +128,20 @@ But by declaring it with `Optional[int]`, the editor will help us to avoid writi
 
 We can confirm that by printing our heroes before adding them to the database:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9-11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:23-31]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="9-11"
 # Code above omitted 👆
 
@@ -80,11 +150,25 @@ We can confirm that by printing our heroes before adding them to the database:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -117,6 +201,20 @@ After we add the `Hero` instance objects to the **session**, the IDs are *still*
 
 We can verify by creating a session using a `with` block and adding the objects. And then printing them again:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="19-21"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:23-41]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="19-21"
 # Code above omitted 👆
 
@@ -125,11 +223,25 @@ We can verify by creating a session using a `with` block and adding the objects.
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -156,6 +268,20 @@ As we saw before, the **session** is smart and doesn't talk to the database ever
 
 Then we can `commit` the changes in the session, and print again:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="13  16-18"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-48]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="13  16-18"
 # Code above omitted 👆
 
@@ -164,11 +290,25 @@ Then we can `commit` the changes in the session, and print again:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -228,6 +368,20 @@ We didn't access the object's attributes, like `hero.name`. We only accessed the
 
 To confirm and understand how this **automatic expiration and refresh** of data when accessing attributes work, we can print some individual fields (instance attributes):
 
+//// tab | Python 3.10+
+
+```Python hl_lines="21-23  26-28"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-58]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="21-23  26-28"
 # Code above omitted 👆
 
@@ -236,11 +390,25 @@ To confirm and understand how this **automatic expiration and refresh** of data 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -324,6 +492,20 @@ But what if you want to **explicitly refresh** the data?
 
 You can do that too with `session.refresh(object)`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="30-32  35-37"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-67]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="30-32  35-37"
 # Code above omitted 👆
 
@@ -332,11 +514,25 @@ You can do that too with `session.refresh(object)`:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -396,6 +592,20 @@ Now, as a final experiment, we can also print data after the **session** is clos
 
 There are no surprises here, it still works:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="40-42"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-72]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="40-42"
 # Code above omitted 👆
 
@@ -404,11 +614,25 @@ There are no surprises here, it still works:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -445,11 +669,25 @@ And as we created the **engine** with `echo=True`, we can see the SQL statements
 
 ///
 
+//// tab | Python 3.10+
+
+```{ .python .annotate }
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial002_py310.py!}
+```
+
+{!./docs_src/tutorial/automatic_id_none_refresh/annotations/en/tutorial002.md!}
+
+////
+
+//// tab | Python 3.7+
+
 ```{ .python .annotate }
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/automatic_id_none_refresh/annotations/en/tutorial002.md!}
+
+////
 
 And here's all the output generated by running this program, all together:
 

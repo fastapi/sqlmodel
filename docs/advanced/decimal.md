@@ -33,17 +33,43 @@ For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/
 
 Let's say that each hero in the database will have an amount of money. We could make that field a `Decimal` type using the `condecimal()` function:
 
+//// tab | Python 3.10+
+
+```{.python .annotate hl_lines="12" }
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:1-12]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```{.python .annotate hl_lines="12" }
 {!./docs_src/advanced/decimal/tutorial001.py[ln:1-12]!}
 
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/advanced/decimal/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -79,6 +105,20 @@ Make sure you adjust the number of digits and decimal places for your own needs,
 
 When creating new models you can actually pass normal (`float`) numbers, Pydantic will automatically convert them to `Decimal` types, and **SQLModel** will store them as `Decimal` types in the database (using SQLAlchemy).
 
+//// tab | Python 3.10+
+
+```Python hl_lines="4-6"
+# Code above omitted 👆
+
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:25-35]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="4-6"
 # Code above omitted 👆
 
@@ -87,17 +127,45 @@ When creating new models you can actually pass normal (`float`) numbers, Pydanti
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/advanced/decimal/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
+
+////
 
 ///
 
 ## Select Decimal data
 
 Then, when working with Decimal types, you can confirm that they indeed avoid those rounding errors from floats:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="15-16"
+# Code above omitted 👆
+
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:38-51]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="15-16"
 # Code above omitted 👆
@@ -107,11 +175,25 @@ Then, when working with Decimal types, you can confirm that they indeed avoid th
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/advanced/decimal/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
+
+////
 
 ///
 
