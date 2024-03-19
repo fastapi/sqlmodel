@@ -68,11 +68,11 @@ Doing it is just like updating any other field:
 ```Python hl_lines="8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/update/tutorial001_py310.py[ln:31-32]!}
+{!./docs_src/tutorial/connect/update/tutorial001_py310.py[ln:29-30]!}
 
         # Previous code here omitted 👈
 
-{!./docs_src/tutorial/connect/update/tutorial001_py310.py[ln:62-66]!}
+{!./docs_src/tutorial/connect/update/tutorial001_py310.py[ln:60-64]!}
 
 # Code below omitted 👇
 ```

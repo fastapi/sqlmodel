@@ -45,7 +45,7 @@ As we have done before, we'll create a function `create_heroes()` and we'll crea
 ```Python hl_lines="11"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:42-60]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:36-54]!}
 
 # Code below omitted 👇
 ```
@@ -121,7 +121,7 @@ Now let's do as we have done before, `commit` the **session**, `refresh` the dat
 ```Python hl_lines="22-25  27-29  31-36"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:42-75]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:36-69]!}
 
 # Code below omitted 👇
 ```
@@ -186,10 +186,10 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 
 //// tab | Python 3.10+
 
-```Python hl_lines="22-25  27-29  31-36"
+```Python
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:78-80]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:72-74]!}
 
 # Code below omitted 👇
 ```
@@ -198,7 +198,7 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 
 //// tab | Python 3.9+
 
-```Python hl_lines="22-25  27-29  31-36"
+```Python
 # Code above omitted 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:78-80]!}
@@ -210,7 +210,7 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 
 //// tab | Python 3.7+
 
-```Python hl_lines="22-25  27-29  31-36"
+```Python
 # Code above omitted 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-80]!}

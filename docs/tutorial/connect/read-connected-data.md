@@ -140,7 +140,7 @@ So, we can pass the `Hero` and `Team` model classes. And we can also use both th
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:63-65]!}
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:61-63]!}
 
 # Code below omitted 👇
 ```
@@ -192,7 +192,7 @@ And as we used `select` with two models, we will receive tuples of instances of 
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:63-68]!}
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:61-66]!}
 
 # Code below omitted 👇
 ```
@@ -252,7 +252,7 @@ As always, we must remember to add this new `select_heroes()` function to the `m
 ```Python hl_lines="6"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:71-74]!}
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:69-72]!}
 
 # Code below omitted 👇
 ```
@@ -401,7 +401,7 @@ And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we alre
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/select/tutorial002_py310.py[ln:63-68]!}
+{!./docs_src/tutorial/connect/select/tutorial002_py310.py[ln:61-66]!}
 
 # Code below omitted 👇
 ```
@@ -570,7 +570,7 @@ Now let's replicate the same query in **SQLModel**.
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/select/tutorial003_py310.py[ln:63-68]!}
+{!./docs_src/tutorial/connect/select/tutorial003_py310.py[ln:61-66]!}
 
 # Code below omitted 👇
 ```
@@ -659,7 +659,7 @@ We could even add some additional `.where()` after `.join()` to filter the data 
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/select/tutorial004_py310.py[ln:63-68]!}
+{!./docs_src/tutorial/connect/select/tutorial004_py310.py[ln:61-66]!}
 
 # Code below omitted 👇
 ```
@@ -732,7 +732,7 @@ By putting the `Team` in `select()` we tell **SQLModel** and the database that w
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/select/tutorial005_py310.py[ln:63-68]!}
+{!./docs_src/tutorial/connect/select/tutorial005_py310.py[ln:61-66]!}
 
 # Code below omitted 👇
 ```

@@ -206,7 +206,7 @@ We care specially about the **select** statement:
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -254,7 +254,7 @@ Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can 
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial001_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/where/tutorial001_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -542,7 +542,7 @@ It's actually the same as in previous chapters for selecting data:
 ```Python hl_lines="6-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial001_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/where/tutorial001_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -633,7 +633,7 @@ We could get the rows where a column is **not** equal to a value using `!=`:
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial002_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/where/tutorial002_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -688,7 +688,7 @@ Let's update the function `create_heroes()` and add some more rows to make the n
 ```Python hl_lines="4-10  13-19"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial003_py310.py[ln:23-41]!}
+{!./docs_src/tutorial/where/tutorial003_py310.py[ln:21-39]!}
 
 # Code below omitted 👇
 ```
@@ -738,7 +738,7 @@ Now let's use `>` to get the rows where a column is **more than** a value:
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial003_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial003_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -800,7 +800,7 @@ Let's do that again, but with `>=` to get the rows where a column is **more than
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial004_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial004_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -863,7 +863,7 @@ Similarly, we can use `<` to get the rows where a column is **less than** a valu
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial005_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial005_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -923,7 +923,7 @@ Finally, we can use `<=` to get the rows where a column is **less than or equal*
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial006_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial006_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -990,7 +990,7 @@ Because `.where()` returns the same special select object back, we can add more 
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial007_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial007_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -1073,7 +1073,7 @@ As an alternative to using multiple `.where()` we can also pass several expressi
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial008_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial008_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -1129,8 +1129,8 @@ To do it, you can import `or_`:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/where/tutorial009_py310.py[ln:1-3]!}
+```Python hl_lines="1"
+{!./docs_src/tutorial/where/tutorial009_py310.py[ln:1]!}
 
 # Code below omitted 👇
 ```
@@ -1176,7 +1176,7 @@ For example, here we select the heroes that are the youngest OR the oldest:
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial009_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial009_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -1266,8 +1266,8 @@ To do that, we can import `col()` (as short for "column"):
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/where/tutorial011_py310.py[ln:1-3]!}
+```Python hl_lines="1"
+{!./docs_src/tutorial/where/tutorial011_py310.py[ln:1]!}
 
 # Code below omitted 👇
 ```
@@ -1311,7 +1311,7 @@ And then put the **class attribute** inside `col()` when using it in a `.where()
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/where/tutorial011_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/where/tutorial011_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```

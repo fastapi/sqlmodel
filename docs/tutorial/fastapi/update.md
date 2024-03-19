@@ -27,7 +27,7 @@ So, let's create this new `HeroUpdate` model:
 ```Python hl_lines="21-24"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:7-28]!}
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:5-26]!}
 
 # Code below omitted 👇
 ```
@@ -99,7 +99,7 @@ We will use a `PATCH` HTTP operation. This is used to **partially update data**,
 ```Python hl_lines="3-4"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:76-91]!}
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
 # Code below omitted 👇
 ```
@@ -171,7 +171,7 @@ So, we need to read the hero from the database, with the **same logic** we used 
 ```Python hl_lines="6-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:76-91]!}
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
 # Code below omitted 👇
 ```
@@ -285,7 +285,7 @@ Then we use that to get the data that was actually sent by the client:
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:76-91]!}
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
 # Code below omitted 👇
 ```
@@ -357,7 +357,7 @@ Now that we have a **dictionary with the data sent by the client**, we can use t
 ```Python hl_lines="10"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:76-91]!}
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
 
 # Code below omitted 👇
 ```

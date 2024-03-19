@@ -20,8 +20,8 @@ And we also create a `TeamUpdate` **data model**.
 
 //// tab | Python 3.10+
 
-```Python hl_lines="7-9  12-15  18-19  22-23  26-28"
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:1-28]!}
+```Python hl_lines="5-7  10-13  16-17  20-21  24-26"
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:1-26]!}
 
 # Code below omitted 👇
 ```
@@ -84,10 +84,10 @@ Let's now update the `Hero` models too.
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3-8  11-15  17-18  21-22  25-29"
+```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:31-57]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:29-55]!}
 
 # Code below omitted 👇
 ```
@@ -96,7 +96,7 @@ Let's now update the `Hero` models too.
 
 //// tab | Python 3.9+
 
-```Python hl_lines="3-8  11-15  17-18  21-22  25-29"
+```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:31-57]!}
@@ -108,7 +108,7 @@ Let's now update the `Hero` models too.
 
 //// tab | Python 3.7+
 
-```Python hl_lines="3-8  11-15  17-18  21-22  25-29"
+```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:31-57]!}
@@ -161,7 +161,7 @@ Notice that the **relationship attributes**, the ones with `Relationship()`, are
 ```Python hl_lines="11  38"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:7-57]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:5-55]!}
 
 # Code below omitted 👇
 ```
@@ -231,7 +231,7 @@ These are equivalent and very similar to the **path operations** for the **heroe
 ```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:138-192]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:136-190]!}
 
 # Code below omitted 👇
 ```

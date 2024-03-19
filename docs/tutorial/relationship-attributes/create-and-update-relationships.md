@@ -11,7 +11,7 @@ Let's check the old code we used to create some heroes and teams:
 ```Python hl_lines="9  12  18  24"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:31-60]!}
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-58]!}
 
 # Code below omitted 👇
 ```
@@ -73,7 +73,7 @@ Now let's do all that, but this time using the new, shiny `Relationship` attribu
 ```Python hl_lines="9  12  18"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:34-57]!}
+{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:32-55]!}
 
 # Code below omitted 👇
 ```
@@ -151,11 +151,11 @@ The same way we could assign an integer with a `team.id` to a `hero.team_id`, we
 ```Python hl_lines="8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:34-35]!}
+{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:32-33]!}
 
         # Previous code here omitted 👈
 
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:59-63]!}
+{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:57-61]!}
 
 # Code below omitted 👇
 ```
@@ -233,11 +233,11 @@ We could also create the `Hero` instances first, and then pass them in the `hero
 ```Python hl_lines="13  15-16"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:34-35]!}
+{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:32-33]!}
 
         # Previous code here omitted 👈
 
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:65-75]!}
+{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:63-73]!}
 
 # Code below omitted 👇
 ```
@@ -323,11 +323,11 @@ Let's create some more heroes and add them to the `team_preventers.heroes` list 
 ```Python hl_lines="14-18"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:34-35]!}
+{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:32-33]!}
 
         # Previous code here omitted 👈
 
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:77-93]!}
+{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:75-91]!}
 
 # Code below omitted 👇
 ```

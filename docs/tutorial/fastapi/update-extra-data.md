@@ -43,7 +43,7 @@ And the data models for `HeroCreate` and `HeroUpdate` will also have a new field
 ```Python hl_lines="11  15  26"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:7-30]!}
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:5-28]!}
 
 # Code below omitted 👇
 ```
@@ -117,11 +117,11 @@ This contains the `password` field with the plain text password, and we cannot u
 ```Python hl_lines="11"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:44-46]!}
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:42-44]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:57-59]!}
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:55-57]!}
 
 # Code below omitted 👇
 ```
@@ -247,7 +247,7 @@ Similar to how dictionaries have an `update` method, **SQLModel** models have a 
 ```Python hl_lines="8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:57-66]!}
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:55-64]!}
 
 # Code below omitted 👇
 ```
@@ -323,7 +323,7 @@ The same way as before, to avoid removing existing data, we will use `exclude_un
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:85-91]!}
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:83-89]!}
 
 # Code below omitted 👇
 ```
@@ -395,7 +395,7 @@ It takes a model object or dictionary with the data to update the object and als
 ```Python hl_lines="15"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:85-101]!}
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:83-99]!}
 
 # Code below omitted 👇
 ```

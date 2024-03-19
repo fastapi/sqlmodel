@@ -24,12 +24,12 @@ And by default, we will return a maximum of `100` heroes, so `limit` will have a
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3  9  11"
-{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py[ln:1-4]!}
+```Python hl_lines="1  7  9"
+{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py[ln:1-2]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py[ln:54-58]!}
+{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py[ln:52-56]!}
 
 # Code below omitted 👇
 ```

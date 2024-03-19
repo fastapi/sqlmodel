@@ -34,13 +34,12 @@ This is almost the same code we have seen up to now in previous examples:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="20-21"
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:1]!}
+```Python hl_lines="18-19"
 
 # One line of FastAPI imports here later 👈
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:4]!}
+{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:2]!}
 
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:7-22]!}
+{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:5-20]!}
 
 # Code below omitted 👇
 ```
@@ -110,12 +109,12 @@ And then create an `app` object that is an instance of that `FastAPI` class:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3  8"
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:1-4]!}
+```Python hl_lines="1  6"
+{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:1-2]!}
 
 # SQLModel code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:25]!}
+{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23]!}
 
 # Code below omitted 👇
 ```
@@ -167,7 +166,7 @@ This should be called only once at startup, not before every request, so we put 
 ```Python hl_lines="6-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:25-30]!}
+{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23-28]!}
 
 # Code below omitted 👇
 ```
@@ -223,7 +222,7 @@ It will be called when a user sends a request with a `POST` **operation** to the
 ```Python hl_lines="11-12"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:25-39]!}
+{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23-37]!}
 
 # Code below omitted 👇
 ```
@@ -299,7 +298,7 @@ Now let's add another **path operation** to read all the heroes:
 ```Python hl_lines="20-24"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:25-46]!}
+{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23-44]!}
 ```
 
 ////

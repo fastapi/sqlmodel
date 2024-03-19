@@ -37,7 +37,7 @@ For example, we can pass the same `Hero` **SQLModel** class (because it is also 
 ```Python hl_lines="3"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py[ln:33-39]!}
+{!./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py[ln:31-37]!}
 
 # Code below omitted 👇
 ```
@@ -104,12 +104,11 @@ First, we import `List` from `typing` and then we declare the `response_model` w
 
 //// tab | Python 3.10+
 
-```Python hl_lines="1  5"
-{!./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py[ln:1]!}
+```Python hl_lines="3"
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py[ln:42-46]!}
+{!./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py[ln:40-44]!}
 
 # Code below omitted 👇
 ```
@@ -118,8 +117,7 @@ First, we import `List` from `typing` and then we declare the `response_model` w
 
 //// tab | Python 3.9+
 
-```Python hl_lines="1  5"
-{!./docs_src/tutorial/fastapi/response_model/tutorial001_py39.py[ln:1]!}
+```Python hl_lines="3"
 
 # Code here omitted 👈
 

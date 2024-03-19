@@ -43,8 +43,8 @@ Up to now, we have only used the `team_id` column to connect the tables when que
 
 //// tab | Python 3.10+
 
-```Python hl_lines="18"
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:1-18]!}
+```Python hl_lines="16"
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:1-16]!}
 
 # Code below omitted 👇
 ```
@@ -89,8 +89,8 @@ First, import `Relationship` from `sqlmodel`:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1-3]!}
+```Python hl_lines="1"
+{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1]!}
 
 # Code below omitted 👇
 ```
@@ -149,8 +149,8 @@ Next, use that `Relationship` to declare a new attribute in the model classes:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="11  21"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1-21]!}
+```Python hl_lines="9  19"
+{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1-19]!}
 
 # Code below omitted 👇
 ```

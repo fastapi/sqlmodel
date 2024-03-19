@@ -11,7 +11,7 @@ But the same `id` field actually **can be `None`** in the Python code, so we dec
 ```Python hl_lines="4"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:6-10]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:4-8]!}
 
 # Code below omitted 👇
 ```
@@ -63,7 +63,7 @@ When we create a new `Hero` instance, we don't set the `id`:
 ```Python hl_lines="3-6"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:23-26]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:21-24]!}
 
 # Code below omitted 👇
 ```
@@ -133,7 +133,7 @@ We can confirm that by printing our heroes before adding them to the database:
 ```Python hl_lines="9-11"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:23-31]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:21-29]!}
 
 # Code below omitted 👇
 ```
@@ -206,7 +206,7 @@ We can verify by creating a session using a `with` block and adding the objects.
 ```Python hl_lines="19-21"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:23-41]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:21-39]!}
 
 # Code below omitted 👇
 ```
@@ -270,10 +270,10 @@ Then we can `commit` the changes in the session, and print again:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="13  16-18"
+```Python hl_lines="13 16-18"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-48]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-46]!}
 
 # Code below omitted 👇
 ```
@@ -282,7 +282,7 @@ Then we can `commit` the changes in the session, and print again:
 
 //// tab | Python 3.7+
 
-```Python hl_lines="13  16-18"
+```Python hl_lines="13 16-18"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-48]!}
@@ -370,10 +370,10 @@ To confirm and understand how this **automatic expiration and refresh** of data 
 
 //// tab | Python 3.10+
 
-```Python hl_lines="21-23  26-28"
+```Python hl_lines="21-23 26-28"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-58]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-56]!}
 
 # Code below omitted 👇
 ```
@@ -382,7 +382,7 @@ To confirm and understand how this **automatic expiration and refresh** of data 
 
 //// tab | Python 3.7+
 
-```Python hl_lines="21-23  26-28"
+```Python hl_lines="21-23 26-28"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-58]!}
@@ -479,7 +479,6 @@ Hero 2 name: Spider-Boy
 Hero 3 name: Rusty-Man
 
 // Because the Session already refreshed these objects with all their data and the session knows they are not expired, it doesn't have to go again to the database for the names 🤓
-
 ```
 
 </div>
@@ -494,10 +493,10 @@ You can do that too with `session.refresh(object)`:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="30-32  35-37"
+```Python hl_lines="30-32 35-37"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-67]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-65]!}
 
 # Code below omitted 👇
 ```
@@ -506,7 +505,7 @@ You can do that too with `session.refresh(object)`:
 
 //// tab | Python 3.7+
 
-```Python hl_lines="30-32  35-37"
+```Python hl_lines="30-32 35-37"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-67]!}
@@ -597,7 +596,7 @@ There are no surprises here, it still works:
 ```Python hl_lines="40-42"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:33-72]!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py[ln:31-70]!}
 
 # Code below omitted 👇
 ```
@@ -671,7 +670,7 @@ And as we created the **engine** with `echo=True`, we can see the SQL statements
 
 //// tab | Python 3.10+
 
-```{ .python .annotate }
+```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002_py310.py!}
 ```
 
@@ -681,7 +680,7 @@ And as we created the **engine** with `echo=True`, we can see the SQL statements
 
 //// tab | Python 3.7+
 
-```{ .python .annotate }
+```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}
 ```
 

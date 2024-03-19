@@ -277,8 +277,8 @@ Here's the `Hero` model we had before:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="8"
-{!./docs_src/tutorial/where/tutorial001_py310.py[ln:1-10]!}
+```Python hl_lines="6"
+{!./docs_src/tutorial/where/tutorial001_py310.py[ln:1-8]!}
 
 # Code below omitted 👇
 ```
@@ -319,8 +319,8 @@ Let's now update it to tell **SQLModel** to create an index for the `name` field
 
 //// tab | Python 3.10+
 
-```Python hl_lines="8"
-{!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:1-10]!}
+```Python hl_lines="6"
+{!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:1-8]!}
 
 # Code below omitted 👇
 ```
@@ -382,7 +382,7 @@ This is great because it means that indexes are very **simple to use**. But it m
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -464,8 +464,8 @@ We are going to query the `hero` table doing comparisons on the `age` field too,
 
 //// tab | Python 3.10+
 
-```Python hl_lines="10"
-{!./docs_src/tutorial/indexes/tutorial002_py310.py[ln:1-10]!}
+```Python hl_lines="8"
+{!./docs_src/tutorial/indexes/tutorial002_py310.py[ln:1-8]!}
 
 # Code below omitted 👇
 ```

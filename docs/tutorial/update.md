@@ -110,7 +110,7 @@ We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -156,7 +156,7 @@ Let's not forget to add that `update_heroes()` function to the `main()` function
 ```Python hl_lines="6"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001_py310.py[ln:58-65]!}
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:56-63]!}
 ```
 
 ////
@@ -229,7 +229,7 @@ In this case, we will set the `age` to `16`:
 ```Python hl_lines="10"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001_py310.py[ln:44-51]!}
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-49]!}
 
 # Code below omitted 👇
 ```
@@ -279,7 +279,7 @@ This is the same we did when creating new hero instances:
 ```Python hl_lines="11"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001_py310.py[ln:44-52]!}
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-50]!}
 
 # Code below omitted 👇
 ```
@@ -329,7 +329,7 @@ This will save the updated hero in the database:
 ```Python hl_lines="12"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001_py310.py[ln:44-53]!}
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-51]!}
 
 # Code below omitted 👇
 ```
@@ -404,7 +404,7 @@ But in this example we are not accessing any attribute, we will only print the o
 ```Python hl_lines="13"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001_py310.py[ln:44-54]!}
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-52]!}
 
 # Code below omitted 👇
 ```
@@ -472,7 +472,7 @@ Now we can just print the hero:
 ```Python hl_lines="14"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial001_py310.py[ln:44-55]!}
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-53]!}
 
 # Code below omitted 👇
 ```
@@ -536,7 +536,7 @@ Now let's review all that code:
 
 //// tab | Python 3.10+
 
-```{ .python .annotate hl_lines="44-55" }
+```{ .python .annotate hl_lines="42-53" }
 {!./docs_src/tutorial/update/tutorial002_py310.py!}
 ```
 
@@ -571,7 +571,7 @@ This also means that you can update several fields (attributes, columns) at once
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial004_py310.py[ln:44-70]!}
+{!./docs_src/tutorial/update/tutorial004_py310.py[ln:42-68]!}
 
 # Code below omitted 👇
 ```

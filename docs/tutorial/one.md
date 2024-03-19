@@ -45,7 +45,7 @@ We have been iterating over the rows in a `result` object like:
 ```Python hl_lines="7-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/indexes/tutorial002_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/indexes/tutorial002_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -93,7 +93,7 @@ We can call the `.first()` method on the `results` object to get the first row:
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial001_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/one/tutorial001_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -176,7 +176,7 @@ In that case, `.first()` will return `None`:
 ```Python hl_lines="5  7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial002_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/one/tutorial002_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -251,7 +251,7 @@ In that case, instead of `.first()` we can use `.one()`:
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial003_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/one/tutorial003_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -349,7 +349,7 @@ Of course, even if we don't duplicate the data, we could get the same error if w
 ```Python hl_lines="5  7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial004_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/one/tutorial004_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -399,7 +399,7 @@ And also, if we get no rows at all with `.one()`, it will also raise an error:
 ```Python hl_lines="5  7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial005_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/one/tutorial005_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -474,7 +474,7 @@ Of course, with `.first()` and `.one()` you would also probably write all that i
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial006_py310.py[ln:44-47]!}
+{!./docs_src/tutorial/one/tutorial006_py310.py[ln:42-45]!}
 
 # Code below omitted 👇
 ```
@@ -526,7 +526,7 @@ You could do it the same way we have been doing with a `.where()` and then getti
 ```Python hl_lines="5  7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial007_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/one/tutorial007_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -576,7 +576,7 @@ As selecting a single row by its Id column with the **primary key** is a common 
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial008_py310.py[ln:44-47]!}
+{!./docs_src/tutorial/one/tutorial008_py310.py[ln:42-45]!}
 
 # Code below omitted 👇
 ```
@@ -647,7 +647,7 @@ Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/one/tutorial009_py310.py[ln:44-47]!}
+{!./docs_src/tutorial/one/tutorial009_py310.py[ln:42-45]!}
 
 # Code below omitted 👇
 ```

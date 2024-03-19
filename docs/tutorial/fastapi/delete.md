@@ -17,7 +17,7 @@ And if we actually find a hero, we just delete it with the **session**.
 ```Python hl_lines="3-11"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py[ln:91-99]!}
+{!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py[ln:89-97]!}
 
 # Code below omitted 👇
 ```

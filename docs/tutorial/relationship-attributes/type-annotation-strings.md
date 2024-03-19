@@ -4,8 +4,8 @@ In the first Relationship attribute, we declare it with `List["Hero"]`, putting 
 
 //// tab | Python 3.10+
 
-```Python hl_lines="11"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1-21]!}
+```Python hl_lines="9"
+{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1-19]!}
 
 # Code below omitted 👇
 ```

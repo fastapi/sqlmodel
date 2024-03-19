@@ -35,8 +35,8 @@ Let's say that each hero in the database will have an amount of money. We could 
 
 //// tab | Python 3.10+
 
-```{.python .annotate hl_lines="12" }
-{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:1-12]!}
+```python hl_lines="11"
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:1-11]!}
 
 # More code here later 👇
 ```
@@ -45,7 +45,7 @@ Let's say that each hero in the database will have an amount of money. We could 
 
 //// tab | Python 3.7+
 
-```{.python .annotate hl_lines="12" }
+```python hl_lines="12"
 {!./docs_src/advanced/decimal/tutorial001.py[ln:1-12]!}
 
 # More code here later 👇
@@ -89,11 +89,11 @@ We are also saying that the number of decimal places (to the right of the decima
 🚫 But these are all invalid numbers for that `money` field:
 
 * `1.2345`
-    * This number has more than 3 decimal places.
+  * This number has more than 3 decimal places.
 * `123.234`
-    * This number has more than 5 digits in total (integer and decimal part).
+  * This number has more than 5 digits in total (integer and decimal part).
 * `123`
-    * Even though this number doesn't have any decimals, we still have 3 places saved for them, which means that we can **only use 2 places** for the **integer part**, and this number has 3 integer digits. So, the allowed number of integer digits is `max_digits` - `decimal_places` = 2.
+  * Even though this number doesn't have any decimals, we still have 3 places saved for them, which means that we can **only use 2 places** for the **integer part**, and this number has 3 integer digits. So, the allowed number of integer digits is `max_digits` - `decimal_places` = 2.
 
 /// tip
 
@@ -110,7 +110,7 @@ When creating new models you can actually pass normal (`float`) numbers, Pydanti
 ```Python hl_lines="4-6"
 # Code above omitted 👆
 
-{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:25-35]!}
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:24-34]!}
 
 # Code below omitted 👇
 ```
@@ -158,7 +158,7 @@ Then, when working with Decimal types, you can confirm that they indeed avoid th
 ```Python hl_lines="15-16"
 # Code above omitted 👆
 
-{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:38-51]!}
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:37-50]!}
 
 # Code below omitted 👇
 ```

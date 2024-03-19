@@ -16,12 +16,12 @@ If you need to refresh how *path parameters* work, including their data validati
 
 //// tab | Python 3.10+
 
-```Python hl_lines="8"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-4]!}
+```Python hl_lines="6"
+{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:61-67]!}
+{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
 ```
 
 ////
@@ -98,12 +98,12 @@ This will let the client know that they probably made a mistake on their side an
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3  11-13"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-4]!}
+```Python hl_lines="1  9-11"
+{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:61-67]!}
+{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
 ```
 
 ////
@@ -168,12 +168,12 @@ And because we are using the `response_model` with `HeroRead`, it will be valida
 
 //// tab | Python 3.10+
 
-```Python hl_lines="8  14"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-4]!}
+```Python hl_lines="6  12"
+{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:61-67]!}
+{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
 ```
 
 ////

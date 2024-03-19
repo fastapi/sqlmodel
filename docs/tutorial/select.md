@@ -183,7 +183,7 @@ We will start with that in a new function `select_heroes()`:
 ```Python hl_lines="3-4"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:36-37]!}
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-35]!}
 
 # More code here later 👇
 ```
@@ -230,8 +230,8 @@ First we have to import `select` from `sqlmodel` at the top of the file:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:1-3]!}
+```Python hl_lines="1"
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:1]!}
 
 # More code below omitted 👇
 ```
@@ -272,12 +272,12 @@ And then we will use it to create a `SELECT` statement in Python code:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="9"
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:1-3]!}
+```Python hl_lines="7"
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:1]!}
 
 # More code here omitted 👈
 
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:36-38]!}
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-36]!}
 
 # More code here later 👇
 ```
@@ -352,7 +352,7 @@ Now that we have the `select` statement, we can execute it with the **session**:
 ```Python hl_lines="6"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:36-39]!}
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-37]!}
 
 # More code here later 👇
 ```
@@ -432,7 +432,7 @@ Now we can put it in a `for` loop and print each one of the heroes:
 ```Python hl_lines="7-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -488,7 +488,7 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 ```Python hl_lines="14"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial001_py310.py[ln:36-47]!}
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-45]!}
 
 # More code here later 👇
 ```
@@ -590,7 +590,7 @@ The special `results` object also has a method `results.all()` that returns a li
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial003_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/select/tutorial003_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -658,7 +658,7 @@ But knowing what is each object and what it is all doing, we can simplify it a b
 ```Python  hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial004_py310.py[ln:36-39]!}
+{!./docs_src/tutorial/select/tutorial004_py310.py[ln:34-37]!}
 
 # Code below omitted 👇
 ```

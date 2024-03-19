@@ -13,7 +13,7 @@ We can remove the relationship by setting it to `None`, the same as with the `te
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:105-116]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:103-114]!}
 
 # Code below omitted 👇
 ```
@@ -79,7 +79,7 @@ And of course, we should remember to add this `update_heroes()` function to `mai
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:119-123]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:117-121]!}
 
 # Code below omitted 👇
 ```

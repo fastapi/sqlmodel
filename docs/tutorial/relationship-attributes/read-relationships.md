@@ -11,11 +11,11 @@ First, add a function `select_heroes()` where we get a hero to start working wit
 ```Python hl_lines="3-7  14"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:96-100]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-98]!}
 
 # Previous code here omitted 👈
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:110-113]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:108-111]!}
 
 # Code below omitted 👇
 ```
@@ -93,7 +93,7 @@ With what we have learned **up to now**, we could use a `select()` statement, th
 ```Python hl_lines="9-12"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:96-105]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-103]!}
 
 # Code below omitted 👇
 ```
@@ -163,11 +163,11 @@ So, the highlighted block above, has the same results as the block below:
 ```Python hl_lines="11"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:96-100]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-98]!}
 
         # Code from the previous example omitted 👈
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:107]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:105]!}
 
 # Code below omitted 👇
 ```
@@ -251,7 +251,7 @@ And the same way, when we are working on the **many** side of the **one-to-many*
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:96-102]!}
+{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:94-100]!}
 
 # Code below omitted 👇
 ```

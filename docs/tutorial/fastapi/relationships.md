@@ -49,19 +49,19 @@ And the same way, we declared the `TeamRead` with only the same base fields of t
 ```Python hl_lines="3-5  9-10  14-19  23-24"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:7-9]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:5-7]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:22-23]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:20-21]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:31-36]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:29-34]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:45-46]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:43-44]!}
 
 # Code below omitted 👇
 ```
@@ -153,11 +153,11 @@ In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, s
 ```Python hl_lines="3  8  12  17"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:104-109]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:102-107]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:158-163]!}
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:156-161]!}
 
 # Code below omitted 👇
 ```
@@ -309,7 +309,7 @@ We'll add them **after** the other models so that we can easily reference the pr
 ```Python hl_lines="3-4  7-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:61-66]!}
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:59-64]!}
 
 # Code below omitted 👇
 ```
@@ -405,11 +405,11 @@ In the case of the hero, this tells FastAPI to extract the `team` too. And in th
 ```Python hl_lines="3  8  12  17"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:113-118]!}
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:111-116]!}
 
 # Code here omitted 👈
 
-{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:167-172]!}
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:165-170]!}
 
 # Code below omitted 👇
 ```

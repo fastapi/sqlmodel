@@ -44,12 +44,12 @@ And because we are now using `select()`, we also have to import it.
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3  7-12"
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:1-3]!}
+```Python hl_lines="1  5-10"
+{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:1]!}
 
 # Some code here omitted 👈
 
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:78-83]!}
+{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-77]!}
 
 # Code below omitted 👇
 ```
@@ -119,7 +119,7 @@ And of course, we have to add `update_heroes()` to our `main()` function:
 ```Python hl_lines="6"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:100-107]!}
+{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:94-101]!}
 ```
 
 ////
@@ -183,7 +183,7 @@ We can use the same **relationship attributes** to include `hero_spider_boy` in 
 ```Python hl_lines="10-12  14-15"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:78-90]!}
+{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-84]!}
 
 # Code below omitted 👇
 ```
@@ -330,7 +330,7 @@ In this case, we use the method `.remove()`, that takes an item and removes it f
 ```Python hl_lines="17-19  21-22"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:78-97]!}
+{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-91]!}
 
 # Code below omitted 👇
 ```

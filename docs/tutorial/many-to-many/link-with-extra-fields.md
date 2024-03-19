@@ -34,10 +34,10 @@ And we will also add two **relationship attributes**, for the linked `team` and 
 
 //// tab | Python 3.10+
 
-```Python hl_lines="10  12-13"
+```Python hl_lines="6  8-9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:6-16]!}
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:4-10]!}
 
 # Code below omitted 👇
 ```
@@ -120,7 +120,7 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 ```Python hl_lines="8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:19-24]!}
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:13-18]!}
 
 # Code below omitted 👇
 ```
@@ -190,7 +190,7 @@ We change the `teams` relationship attribute for `team_links`:
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:27-33]!}
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:21-27]!}
 
 # Code below omitted 👇
 ```
@@ -260,7 +260,7 @@ But now we create the **explicit link models** manually, pointing to their hero 
 ```Python hl_lines="21-30  32-35"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:46-85]!}
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:40-79]!}
 
 # Code below omitted 👇
 ```
@@ -420,7 +420,7 @@ Here we do that in the `update_heroes()` function:
 ```Python hl_lines="10-15"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:88-103]!}
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:82-97]!}
 
 # Code below omitted 👇
 ```
@@ -563,11 +563,11 @@ We can do that by iterating on the links:
 ```Python hl_lines="8-10"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:88-89]!}
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:82-83]!}
 
         # Code here omitted 👈
 
-{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:105-113]!}
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:99-107]!}
 
 # Code below omitted 👇
 ```

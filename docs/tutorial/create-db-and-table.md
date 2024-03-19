@@ -43,8 +43,8 @@ For that, we will import `SQLModel` (plus other things we will also use) and cre
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3  6"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-10]!}
+```Python hl_lines="1  4"
+{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
 
 # More code here later 👇
 ```
@@ -103,8 +103,8 @@ And the type of each of them will also be the type of table column:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="1  3  7-10"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-10]!}
+```Python hl_lines="1 5-8"
+{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
 
 # More code here later 👇
 ```
@@ -155,8 +155,8 @@ And we also set the default value of `age` to `None`.
 
 //// tab | Python 3.10+
 
-```Python hl_lines="1  10"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-10]!}
+```Python hl_lines="8"
+{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
 
 # More code here later 👇
 ```
@@ -223,8 +223,8 @@ To do that, we use the special `Field` function from `sqlmodel` and set the argu
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3  7"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-10]!}
+```Python hl_lines="1  5"
+{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
 
 # More code here later 👇
 ```
@@ -304,7 +304,7 @@ Creating the **engine** is very simple, just call `create_engine()` with a URL f
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3  16"
+```Python hl_lines="1  14"
 {!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16]!}
 
 # More code here later 👇
@@ -315,7 +315,7 @@ Creating the **engine** is very simple, just call `create_engine()` with a URL f
 //// tab | Python 3.7+
 
 ```Python hl_lines="3  16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-16]!}
+{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-18]!}
 
 # More code here later 👇
 ```
@@ -366,8 +366,8 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 
 //// tab | Python 3.10+
 
-```Python hl_lines="13-14 16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-19]!}
+```Python hl_lines="11-12 14"
+{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16]!}
 
 # More code here later 👇
 ```
@@ -377,7 +377,7 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 //// tab | Python 3.7+
 
 ```Python hl_lines="13-14 16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-19]!}
+{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-18]!}
 
 # More code here later 👇
 ```
@@ -416,7 +416,7 @@ It is particularly useful for **learning** and **debugging**:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="16"
+```Python hl_lines="14"
 {!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16]!}
 
 # More code here later 👇
@@ -427,7 +427,7 @@ It is particularly useful for **learning** and **debugging**:
 //// tab | Python 3.7+
 
 ```Python hl_lines="16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-16]!}
+{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-18]!}
 
 # More code here later 👇
 ```
@@ -480,7 +480,7 @@ Now everything is in place to finally create the database and table:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="18"
+```Python hl_lines="16"
 {!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
 ```
 
@@ -728,8 +728,8 @@ Let's put it in a function `create_db_and_tables()`:
 
 //// tab | Python 3.10+
 
-```Python  hl_lines="19-20"
-{!./docs_src/tutorial/create_db_and_table/tutorial002_py310.py[ln:1-20]!}
+```Python  hl_lines="17-18"
+{!./docs_src/tutorial/create_db_and_table/tutorial002_py310.py[ln:1-18]!}
 
 # More code here later 👇
 ```
@@ -796,7 +796,7 @@ For that we can use the special variable `__name__` in an `if` block:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="23-24"
+```Python hl_lines="21-22"
 {!./docs_src/tutorial/create_db_and_table/tutorial002_py310.py!}
 ```
 

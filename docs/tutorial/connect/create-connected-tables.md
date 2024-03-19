@@ -59,8 +59,8 @@ Import the things we need from `sqlmodel` and create a new `Team` model:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="6-9"
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:1-9]!}
+```Python hl_lines="4-7"
+{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:1-7]!}
 
 # Code below omitted 👇
 ```
@@ -116,8 +116,8 @@ This is the same model we have been using up to now, we are just adding the new 
 
 //// tab | Python 3.10+
 
-```Python hl_lines="18"
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:1-18]!}
+```Python hl_lines="16"
+{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:1-16]!}
 
 # Code below omitted 👇
 ```
@@ -191,7 +191,7 @@ Now we can add the same code as before to create the engine and the function to 
 ```Python hl_lines="3-4  6  9-10"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:21-28]!}
+{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:19-26]!}
 ```
 
 ////
@@ -233,7 +233,7 @@ And as before, we'll call this function from another function `main()`, and we'l
 ```Python hl_lines="3-4  7-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:31-36]!}
+{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:29-34]!}
 ```
 
 ////

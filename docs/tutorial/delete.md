@@ -79,7 +79,7 @@ We'll start by selecting the hero `"Spider-Youngster"` that we updated in the pr
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:72-77]!}
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-75]!}
 
 # Code below omitted 👇
 ```
@@ -125,7 +125,7 @@ As this is a new function `delete_heroes()`, we'll also add it to the `main()` f
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:92-100]!}
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:90-98]!}
 ```
 
 ////
@@ -191,7 +191,7 @@ Now, very similar to how we used `session.add()` to add or update new heroes, we
 ```Python hl_lines="10"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:72-79]!}
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-77]!}
 
 # Code below omitted 👇
 ```
@@ -241,7 +241,7 @@ This will save all the changes stored in the **session**, like the deleted hero:
 ```Python hl_lines="11"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:72-80]!}
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-78]!}
 
 # Code below omitted 👇
 ```
@@ -318,7 +318,7 @@ Because of that, the object still contains its attributes with the data in it, s
 ```Python hl_lines="13"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:72-82]!}
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-80]!}
 
 # Code below omitted 👇
 ```
@@ -383,7 +383,7 @@ To confirm if it was deleted, now let's query the database again, with the same 
 ```Python hl_lines="15-17"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:72-86]!}
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-84]!}
 
 # Code below omitted 👇
 ```
@@ -462,7 +462,7 @@ We'll do it by checking that the "first" item in the `results` is `None`:
 ```Python hl_lines="19-20"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:72-89]!}
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-87]!}
 
 # Code below omitted 👇
 ```
@@ -527,7 +527,7 @@ Now let's review all that code:
 
 //// tab | Python 3.10+
 
-```{ .python .annotate hl_lines="72-90" }
+```{ .python .annotate hl_lines="70-88" }
 {!./docs_src/tutorial/delete/tutorial002_py310.py!}
 ```
 

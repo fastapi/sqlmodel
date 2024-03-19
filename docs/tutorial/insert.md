@@ -27,12 +27,12 @@ This is the code we had to create the database and table, nothing new here:
 
 //// tab | Python 3.10+
 
-```{.python .annotate hl_lines="22" }
-{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:1-20]!}
+```{.python .annotate hl_lines="20" }
+{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:1-18]!}
 
 # More code here later 👈
 
-{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:23-24]!}
+{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:21-22]!}
 ```
 
 {!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
@@ -150,7 +150,7 @@ We'll create 3 right away, for the 3 heroes:
 ```Python
 # Code above omitted 👆
 
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:23-26]!}
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-24]!}
 
 # More code here later 👇
 ```
@@ -221,8 +221,8 @@ The first step is to import the `Session` class:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:1-3]!}
+```Python hl_lines="1"
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:1]!}
 
 # Code below omitted 👇
 ```
@@ -266,7 +266,7 @@ Then we can create a new session:
 ```Python hl_lines="8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:23-28]!}
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-26]!}
 
 # More code here later 👇
 ```
@@ -321,7 +321,7 @@ Now that we have some hero model instances (some objects in memory) and a **sess
 
 ```Python hl_lines="9-11"
 # Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:23-32]!}
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-30]!}
 
 # More code here later 👇
 ```
@@ -385,7 +385,7 @@ Now that we have the heroes in the **session** and that we are ready to save all
 
 ```Python hl_lines="13"
 # Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:23-34]!}
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-32]!}
 
 # More code here later 👇
 ```
@@ -452,7 +452,7 @@ But to keep things a bit more organized, let's instead create a new function `ma
 
 ```Python hl_lines="2  4"
 # Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:36-38]!}
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-36]!}
 
 # More code here later 👇
 ```
@@ -496,7 +496,7 @@ And then we can call that single `main()` function from that main block:
 
 ```Python hl_lines="8"
 # Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:36-42]!}
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-40]!}
 ```
 
 ////
@@ -588,7 +588,7 @@ So once we are done with the session, we should **close** it to make it release 
 ```Python hl_lines="16"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:23-36]!}
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-34]!}
 
 # More code here later 👇
 ```
@@ -643,7 +643,7 @@ But there's a better way to handle the session, using a `with` block:
 
 ```Python hl_lines="7-12"
 # Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:23-33]!}
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-31]!}
 ```
 
 ////

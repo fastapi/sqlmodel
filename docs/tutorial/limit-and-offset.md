@@ -19,7 +19,7 @@ Again, we will create several heroes to have some data to select from:
 ```Python hl_lines="4-10"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:23-41]!}
+{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:21-39]!}
 
 # Code below omitted 👇
 ```
@@ -67,7 +67,7 @@ This is the code we had to select all the heroes in the `select()` examples:
 ```Python hl_lines="3-8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/select/tutorial003_py310.py[ln:36-41]!}
+{!./docs_src/tutorial/select/tutorial003_py310.py[ln:34-39]!}
 
 # Code below omitted 👇
 ```
@@ -117,7 +117,7 @@ We currently have 7 heroes in the database. But we could as well have thousands,
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -222,7 +222,7 @@ We can use `.offset()`:
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/offset_and_limit/tutorial002_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/offset_and_limit/tutorial002_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -303,7 +303,7 @@ Then to get the next batch of 3 rows we would offset all the ones we already saw
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/offset_and_limit/tutorial003_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/offset_and_limit/tutorial003_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```
@@ -400,7 +400,7 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/offset_and_limit/tutorial004_py310.py[ln:44-49]!}
+{!./docs_src/tutorial/offset_and_limit/tutorial004_py310.py[ln:42-47]!}
 
 # Code below omitted 👇
 ```

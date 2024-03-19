@@ -80,7 +80,7 @@ Let's start by creating two teams:
 ```Python hl_lines="3-9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:31-37]!}
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-35]!}
 
 # Code below omitted 👇
 ```
@@ -138,7 +138,7 @@ Let's not forget to add this function `create_heroes()` to the `main()` function
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:63-65]!}
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:61-63]!}
 
 # Code below omitted 👇
 ```
@@ -213,7 +213,7 @@ As the `Hero` class model now has a field (column, attribute) `team_id`, we can 
 ```Python hl_lines="12"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:31-41]!}
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-39]!}
 
 # Code below omitted 👇
 ```
@@ -279,7 +279,7 @@ Let's now create two more heroes:
 ```Python hl_lines="14-20"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:31-52]!}
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-50]!}
 
 # Code below omitted 👇
 ```
@@ -349,10 +349,10 @@ Now let's refresh and print those new heroes to see their new ID pointing to the
 
 //// tab | Python 3.10+
 
-```Python hl_lines="26-28  30-32"
+```Python hl_lines="26-28 30-32"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:31-60]!}
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-58]!}
 
 # Code below omitted 👇
 ```
@@ -361,7 +361,7 @@ Now let's refresh and print those new heroes to see their new ID pointing to the
 
 //// tab | Python 3.7+
 
-```Python hl_lines="26-28  30-32"
+```Python hl_lines="26-28 30-32"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-60]!}
@@ -390,7 +390,6 @@ Now let's refresh and print those new heroes to see their new ID pointing to the
 ////
 
 ///
-
 
 If we execute that in the command line, it will output:
 

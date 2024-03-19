@@ -68,11 +68,11 @@ We can simply set the `team_id` to `None`, and now it doesn't have a connection 
 ```Python hl_lines="8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/connect/delete/tutorial001_py310.py[ln:31-32]!}
+{!./docs_src/tutorial/connect/delete/tutorial001_py310.py[ln:29-30]!}
 
         # Previous code here omitted 👈
 
-{!./docs_src/tutorial/connect/delete/tutorial001_py310.py[ln:68-72]!}
+{!./docs_src/tutorial/connect/delete/tutorial001_py310.py[ln:66-70]!}
 
 # Code below omitted 👇
 ```

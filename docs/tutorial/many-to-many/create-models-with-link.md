@@ -14,8 +14,8 @@ We can create it just as any other **SQLModel**:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="6-12"
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:1-12]!}
+```Python hl_lines="4-6"
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:1-6]!}
 
 # Code below omitted 👇
 ```
@@ -87,7 +87,7 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 ```Python hl_lines="8"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:15-20]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:9-14]!}
 
 # Code below omitted 👇
 ```
@@ -163,7 +163,7 @@ Let's see the other side, here's the `Hero` model:
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:23-29]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:17-23]!}
 
 # Code below omitted 👇
 ```
@@ -243,7 +243,7 @@ The same as before, we will have the rest of the code to create the **engine**, 
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:32-39]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:26-33]!}
 
 # Code below omitted 👇
 ```
@@ -310,10 +310,10 @@ And as in previous examples, we will add that function to a function `main()`, a
 ```Python hl_lines="4"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:78-79]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:72-73]!}
     # We will do more stuff here later 👈
 
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:83-84]!}
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:77-78]!}
 ```
 
 ////
