@@ -32,6 +32,32 @@ We will add a new field `is_training`.
 
 And we will also add two **relationship attributes**, for the linked `team` and `hero`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="6  8-9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:4-10]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="10  12-13"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:6-16]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="10  12-13"
 # Code above omitted 👆
 
@@ -40,11 +66,33 @@ And we will also add two **relationship attributes**, for the linked `team` and 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -67,6 +115,32 @@ Now let's update the `Team` model.
 
 We no longer have the `heroes` relationship attribute, and instead we have the new `hero_links` attribute:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:13-18]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:19-24]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="8"
 # Code above omitted 👆
 
@@ -75,11 +149,33 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -89,6 +185,32 @@ The same with the `Hero` model.
 
 We change the `teams` relationship attribute for `team_links`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:21-27]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:27-33]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="9"
 # Code above omitted 👆
 
@@ -97,11 +219,33 @@ We change the `teams` relationship attribute for `team_links`:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -111,6 +255,32 @@ Now the process to create relationships is very similar.
 
 But now we create the **explicit link models** manually, pointing to their hero and team instances, and specifying the additional link data (`is_training`):
 
+//// tab | Python 3.10+
+
+```Python hl_lines="21-30  32-35"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:40-79]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="21-30  32-35"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:46-85]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="21-30  32-35"
 # Code above omitted 👆
 
@@ -119,11 +289,33 @@ But now we create the **explicit link models** manually, pointing to their hero 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -223,6 +415,32 @@ Now, to add a new relationship, we have to create a new `HeroTeamLink` instance 
 
 Here we do that in the `update_heroes()` function:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="10-15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:82-97]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="10-15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:88-103]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="10-15"
 # Code above omitted 👆
 
@@ -231,11 +449,33 @@ Here we do that in the `update_heroes()` function:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -318,6 +558,40 @@ So now we want to update the status of `is_training` to `False`.
 
 We can do that by iterating on the links:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="8-10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:82-83]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py[ln:99-107]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="8-10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:88-89]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py[ln:105-113]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="8-10"
 # Code above omitted 👆
 
@@ -330,11 +604,33 @@ We can do that by iterating on the links:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial003_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial003.py!}
 ```
+
+////
 
 ///
 

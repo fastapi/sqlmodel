@@ -8,9 +8,21 @@ As before, we'll continue from where we left off with the previous code.
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/indexes/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -93,6 +105,20 @@ To get the same results, delete the `database.db` file before running the exampl
 
 We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -101,15 +127,41 @@ We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
 
+////
+
 ///
 
 Let's not forget to add that `update_heroes()` function to the `main()` function so that we call it when executing the program from the command line:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="6"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:56-63]!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="6"
 # Code above omitted 👆
@@ -117,11 +169,25 @@ Let's not forget to add that `update_heroes()` function to the `main()` function
 {!./docs_src/tutorial/update/tutorial001.py[ln:58-65]!}
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -158,6 +224,20 @@ Now that you have a `hero` object, you can simply set the value of the field (th
 
 In this case, we will set the `age` to `16`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-49]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="10"
 # Code above omitted 👆
 
@@ -166,11 +246,25 @@ In this case, we will set the `age` to `16`:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -180,6 +274,20 @@ Now that the hero object in memory has a change, in this case a new value for th
 
 This is the same we did when creating new hero instances:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-50]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11"
 # Code above omitted 👆
 
@@ -188,11 +296,25 @@ This is the same we did when creating new hero instances:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -202,6 +324,20 @@ To save the current changes in the session, **commit** it.
 
 This will save the updated hero in the database:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="12"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-51]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="12"
 # Code above omitted 👆
 
@@ -210,11 +346,25 @@ This will save the updated hero in the database:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -249,6 +399,20 @@ The data in the object would be automatically refreshed if we accessed an attrib
 
 But in this example we are not accessing any attribute, we will only print the object. And we also want to be explicit, so we will `.refresh()` the object directly:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="13"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-52]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="13"
 # Code above omitted 👆
 
@@ -257,11 +421,25 @@ But in this example we are not accessing any attribute, we will only print the o
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -289,6 +467,20 @@ INFO Engine [generated in 0.00018s] (2,)
 
 Now we can just print the hero:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="14"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial001_py310.py[ln:42-53]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="14"
 # Code above omitted 👆
 
@@ -297,11 +489,25 @@ Now we can just print the hero:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -328,11 +534,25 @@ Updated hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=16 id=2
 
 Now let's review all that code:
 
+//// tab | Python 3.10+
+
+```{ .python .annotate hl_lines="42-53" }
+{!./docs_src/tutorial/update/tutorial002_py310.py!}
+```
+
+{!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
+
+////
+
+//// tab | Python 3.7+
+
 ```{ .python .annotate hl_lines="44-55" }
 {!./docs_src/tutorial/update/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
+
+////
 
 /// tip
 
@@ -346,6 +566,22 @@ The update process with **SQLModel** is more or less the same as with creating n
 
 This also means that you can update several fields (attributes, columns) at once, and you can also update several objects (heroes) at once:
 
+//// tab | Python 3.10+
+
+```{ .python .annotate hl_lines="15-17  19-21  23" }
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial004_py310.py[ln:42-68]!}
+
+# Code below omitted 👇
+```
+
+{!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
+
+////
+
+//// tab | Python 3.7+
+
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
 # Code above omitted 👆
 
@@ -356,11 +592,25 @@ This also means that you can update several fields (attributes, columns) at once
 
 {!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial004_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial004.py!}
 ```
+
+////
 
 ///
 

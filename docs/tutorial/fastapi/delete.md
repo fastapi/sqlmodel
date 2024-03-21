@@ -12,6 +12,32 @@ We get a `hero_id` from the path parameter and verify if it exists, just as we d
 
 And if we actually find a hero, we just delete it with the **session**.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py[ln:89-97]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3-11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/delete/tutorial001_py39.py[ln:91-99]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-11"
 # Code above omitted 👆
 
@@ -20,11 +46,33 @@ And if we actually find a hero, we just delete it with the **session**.
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/delete/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/delete/tutorial001.py!}
 ```
+
+////
 
 ///
 

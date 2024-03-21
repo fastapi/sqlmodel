@@ -44,6 +44,56 @@ It's because we declared the `HeroRead` with only the same base fields of the `H
 
 And the same way, we declared the `TeamRead` with only the same base fields of the `TeamBase` plus the `id`. But it doesn't include a field `heroes` for the **relationship attribute**.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-5  9-10  14-19  23-24"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:5-7]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:20-21]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:29-34]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:43-44]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3-5  9-10  14-19  23-24"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:7-9]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:22-23]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:31-36]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:45-46]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-5  9-10  14-19  23-24"
 # Code above omitted 👆
 
@@ -64,17 +114,73 @@ And the same way, we declared the `TeamRead` with only the same base fields of t
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
+
+////
 
 ///
 
 Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI uses the `response_model` to validate and **filter** the response data</a>?
 
 In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="3  8  12  17"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:102-107]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:156-161]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3  8  12  17"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:104-109]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:158-163]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="3  8  12  17"
 # Code above omitted 👆
@@ -88,11 +194,33 @@ In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, s
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -176,6 +304,32 @@ Let's add the models `HeroReadWithTeam` and `TeamReadWithHeroes`.
 
 We'll add them **after** the other models so that we can easily reference the previous models.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-4  7-8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:59-64]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3-4  7-8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py[ln:61-66]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-4  7-8"
 # Code above omitted 👆
 
@@ -184,11 +338,33 @@ We'll add them **after** the other models so that we can easily reference the pr
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/relationships/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -224,6 +400,40 @@ This will tell **FastAPI** to take the object that we return from the *path oper
 
 In the case of the hero, this tells FastAPI to extract the `team` too. And in the case of the team, to extract the list of `heroes` too.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3  8  12  17"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:111-116]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py[ln:165-170]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3  8  12  17"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py[ln:113-118]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py[ln:167-172]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3  8  12  17"
 # Code above omitted 👆
 
@@ -236,11 +446,33 @@ In the case of the hero, this tells FastAPI to extract the `team` too. And in th
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/relationships/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/relationships/tutorial001.py!}
 ```
+
+////
 
 ///
 

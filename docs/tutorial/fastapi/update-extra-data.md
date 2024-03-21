@@ -38,6 +38,32 @@ The `Hero` table model will now store a new field `hashed_password`.
 
 And the data models for `HeroCreate` and `HeroUpdate` will also have a new field `password` that will contain the plain text password sent by clients.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="11  15  26"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:5-28]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="11  15  26"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:7-30]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11  15  26"
 # Code above omitted 👆
 
@@ -46,11 +72,33 @@ And the data models for `HeroCreate` and `HeroUpdate` will also have a new field
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -64,6 +112,40 @@ The app will receive the data from the client using the `HeroCreate` model.
 
 This contains the `password` field with the plain text password, and we cannot use that one. So we need to generate a hash from it.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:42-44]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:55-57]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:44-46]!}
+
+# Code here omitted 👈
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:57-59]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11"
 # Code above omitted 👆
 
@@ -76,11 +158,33 @@ This contains the `password` field with the plain text password, and we cannot u
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -138,6 +242,32 @@ So now, `db_user_dict` has the updated `age` field with `32` instead of `None` a
 
 Similar to how dictionaries have an `update` method, **SQLModel** models have a parameter `update` in `Hero.model_validate()` that takes a dictionary with extra data, or data that should take precedence:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:55-64]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:57-66]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="8"
 # Code above omitted 👆
 
@@ -146,11 +276,33 @@ Similar to how dictionaries have an `update` method, **SQLModel** models have a 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -166,6 +318,32 @@ Now let's say we want to **update a hero** that already exists in the database.
 
 The same way as before, to avoid removing existing data, we will use `exclude_unset=True` when calling `hero.model_dump()`, to get a dictionary with only the data sent by the client.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:83-89]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:85-91]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="9"
 # Code above omitted 👆
 
@@ -174,11 +352,33 @@ The same way as before, to avoid removing existing data, we will use `exclude_un
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -190,6 +390,32 @@ And then we can update the `db_hero` object using the method `db_hero.sqlmodel_u
 
 It takes a model object or dictionary with the data to update the object and also an **additional `update` argument** with extra data.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py[ln:83-99]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py[ln:85-101]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="15"
 # Code above omitted 👆
 
@@ -198,11 +424,33 @@ It takes a model object or dictionary with the data to update the object and als
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial002.py!}
 ```
+
+////
 
 ///
 

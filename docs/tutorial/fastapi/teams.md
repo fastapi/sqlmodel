@@ -18,17 +18,61 @@ Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamRead` **d
 
 And we also create a `TeamUpdate` **data model**.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5-7  10-13  16-17  20-21  24-26"
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:1-26]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="7-9  12-15  18-19  22-23  26-28"
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:1-28]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="7-9  12-15  18-19  22-23  26-28"
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:1-28]!}
 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -38,7 +82,33 @@ Let's now update the `Hero` models too.
 
 ## Update Hero Models
 
-```Python hl_lines="3-8  11-15  17-18  21-22  25-29"
+//// tab | Python 3.10+
+
+```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:29-55]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:31-57]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
+```Python hl_lines="3-8  11-14  17-18  21-22  25-29"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:31-57]!}
@@ -46,11 +116,33 @@ Let's now update the `Hero` models too.
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -64,6 +156,32 @@ And even though the `HeroBase` is *not* a **table model**, we can declare `team_
 
 Notice that the **relationship attributes**, the ones with `Relationship()`, are **only** in the **table models**, as those are the ones that are handled by **SQLModel** with SQLAlchemy and that can have the automatic fetching of data from the database when we access them.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="11  38"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:5-55]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="11  38"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:7-57]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11  38"
 # Code above omitted 👆
 
@@ -72,11 +190,33 @@ Notice that the **relationship attributes**, the ones with `Relationship()`, are
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -86,6 +226,32 @@ Let's now add the **path operations** for teams.
 
 These are equivalent and very similar to the **path operations** for the **heroes** we had before, so we don't have to go over the details for each one, let's check the code.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:136-190]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py[ln:138-192]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
 # Code above omitted 👆
 
@@ -94,11 +260,33 @@ These are equivalent and very similar to the **path operations** for the **heroe
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/teams/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
 ```
+
+////
 
 ///
 

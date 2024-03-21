@@ -25,9 +25,21 @@ Let's continue from the last code we used to create some data.
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -166,6 +178,20 @@ The first step is to create a **Session**, the same way we did when creating the
 
 We will start with that in a new function `select_heroes()`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-4"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-35]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-4"
 # Code above omitted 👆
 
@@ -174,11 +200,25 @@ We will start with that in a new function `select_heroes()`:
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -188,21 +228,63 @@ Next, pretty much the same way we wrote a SQL `SELECT` statement above, now we'l
 
 First we have to import `select` from `sqlmodel` at the top of the file:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="1"
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:1]!}
+
+# More code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3"
 {!./docs_src/tutorial/select/tutorial001.py[ln:1-3]!}
 
 # More code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
 
+////
+
 ///
 
 And then we will use it to create a `SELECT` statement in Python code:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="7"
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:1]!}
+
+# More code here omitted 👈
+
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-36]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="9"
 {!./docs_src/tutorial/select/tutorial001.py[ln:1-3]!}
@@ -214,11 +296,25 @@ And then we will use it to create a `SELECT` statement in Python code:
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -251,6 +347,20 @@ I'll tell you about that in the next chapters.
 
 Now that we have the `select` statement, we can execute it with the **session**:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="6"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-37]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="6"
 # Code above omitted 👆
 
@@ -259,11 +369,25 @@ Now that we have the `select` statement, we can execute it with the **session**:
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -303,6 +427,20 @@ The `results` object is an <abbr title="Something that can be used in a for loop
 
 Now we can put it in a `for` loop and print each one of the heroes:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="7-8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="7-8"
 # Code above omitted 👆
 
@@ -311,11 +449,25 @@ Now we can put it in a `for` loop and print each one of the heroes:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -331,6 +483,20 @@ id=3 name='Rusty-Man' age=48 secret_name='Tommy Sharp'
 
 Now include a call to `select_heroes()` in the `main()` function so that it is executed when we run the program from the command line:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="14"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-45]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="14"
 # Code above omitted 👆
 
@@ -339,11 +505,25 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -353,11 +533,25 @@ Great, you're now being able to read the data from the database! 🎉
 
 Let's review the code up to this point:
 
+//// tab | Python 3.10+
+
+```{ .python .annotate }
+{!./docs_src/tutorial/select/tutorial002_py310.py!}
+```
+
+{!./docs_src/tutorial/select/annotations/en/tutorial002.md!}
+
+////
+
+//// tab | Python 3.7+
+
 ```{ .python .annotate }
 {!./docs_src/tutorial/select/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/select/annotations/en/tutorial002.md!}
+
+////
 
 /// tip
 
@@ -391,6 +585,20 @@ But for different reasons you might want to have the full **list of `Hero`** obj
 
 The special `results` object also has a method `results.all()` that returns a list with all the objects:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="7"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/select/tutorial003_py310.py[ln:34-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="7"
 # Code above omitted 👆
 
@@ -399,11 +607,25 @@ The special `results` object also has a method `results.all()` that returns a li
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -431,6 +653,20 @@ I have been creating several variables to be able to explain to you what each th
 
 But knowing what is each object and what it is all doing, we can simplify it a bit and put it in a more compact form:
 
+//// tab | Python 3.10+
+
+```Python  hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/select/tutorial004_py310.py[ln:34-37]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python  hl_lines="5"
 # Code above omitted 👆
 
@@ -439,11 +675,25 @@ But knowing what is each object and what it is all doing, we can simplify it a b
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial004_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial004.py!}
 ```
+
+////
 
 ///
 
