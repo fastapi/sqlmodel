@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* ✨ Add source examples for Python 3.10 and 3.9 with updated syntax. PR [#842](https://github.com/tiangolo/sqlmodel/pull/842) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * 🔥 Remove Jina QA Bot as it has been discontinued. PR [#840](https://github.com/tiangolo/sqlmodel/pull/840) by [@tiangolo](https://github.com/tiangolo).
