@@ -18,6 +18,7 @@ from typing import (
     Union,
 )
 
+from annotated_types import MaxLen
 from pydantic import VERSION as PYDANTIC_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
@@ -201,6 +202,10 @@ if IS_PYDANTIC_V2:
         for meta in field.metadata:
             if isinstance(meta, PydanticMetadata):
                 return meta
+            elif isinstance(meta, MaxLen):
+                fake = FakeMetadata()
+                fake.max_length = meta.max_length
+                return fake
         return FakeMetadata()
 
     def post_init_field_info(field_info: FieldInfo) -> None:
