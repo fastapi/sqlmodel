@@ -386,7 +386,7 @@ Instead, here these are only **data models** that will tell FastAPI **which attr
 
 ### Reference to Other Models
 
-Also, notice that the field `team` is not declared with this new `TeamReadWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamRead` model.
+Also, notice that the field `team` is not declared with this new `HeroReadWithTeam`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamRead` model.
 
 And the same for `TeamReadWithHeroes`, the model used for the new field `heroes` uses `HeroRead` to get only each hero's data.
 
