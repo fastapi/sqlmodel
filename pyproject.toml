@@ -36,24 +36,6 @@ python = "^3.7"
 SQLAlchemy = ">=2.0.0,<2.1.0"
 pydantic = ">=1.10.13,<3.0.0"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.0.1"
-mypy = "1.4.1"
-# Needed by the code generator using templates
-black = ">=22.10,<24.0"
-mkdocs-material = "9.2.7"
-pillow = "^9.3.0"
-cairosvg = "^2.5.2"
-mdx-include = "^1.4.1"
-coverage = {extras = ["toml"], version = ">=6.2,<8.0"}
-fastapi = "^0.103.2"
-ruff = "0.2.0"
-# For FastAPI tests
-httpx = "0.24.1"
-# TODO: upgrade when deprecating Python 3.7
-dirty-equals = "^0.6.0"
-typer-cli = "^0.0.13"
-mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
 
 [build-system]
 requires = ["poetry-core"]
