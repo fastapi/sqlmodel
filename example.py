@@ -14,6 +14,7 @@ class HeroRepository(CrudRepository[int, Hero]):
     def get_hero_by_name(self, name: str) -> Hero:
         ...
 
+
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 engine = CrudRepository.create_all_tables(sqlite_url)
