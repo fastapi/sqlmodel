@@ -1,10 +1,9 @@
 from typing import Any, ClassVar, Coroutine, Dict, Tuple, Type
 
-from pydantic._internal._repr import Representation
 from sqlalchemy.util.concurrency import greenlet_spawn
 
 from ... import SQLModel
-from ..._compat import get_annotations
+from ..._compat import Representation, get_annotations
 from ...main import SQLModelMetaclass
 
 
