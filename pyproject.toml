@@ -54,6 +54,8 @@ httpx = "0.24.1"
 dirty-equals = "^0.6.0"
 typer-cli = "^0.0.13"
 mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
+pytest-asyncio = "0.21.1"
+aiosqlite = "0.19.0"
 
 [build-system]
 requires = ["poetry-core"]
