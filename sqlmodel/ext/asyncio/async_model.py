@@ -25,7 +25,7 @@ class AsyncSQLModelMetaclass(SQLModelMetaclass):
         name: str,
         bases: Tuple[Type[Any], ...],
         class_dict: Dict[str, Any],
-        **kwargs: Any
+        **kwargs: Any,
     ) -> Any:
         awaitable_fields: Dict[str, AwaitableFieldInfo] = {}
         dict_for_sqlmodel = {}

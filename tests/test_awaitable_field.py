@@ -4,7 +4,6 @@ import pytest
 from sqlalchemy.exc import MissingGreenlet
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.util.concurrency import greenlet_spawn
-
 from sqlmodel import Field, Relationship, SQLModel, select
 from sqlmodel.ext.asyncio.async_model import AsyncSQLModel, AwaitableField
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -31,7 +30,7 @@ async def test_awaitable_nomral_field(clear_sqlmodel):
 
         # loading expired attribute will raise MissingGreenlet error
         with pytest.raises(MissingGreenlet):
-            hero_deadpond.name
+            hero_deadpond.name  # noqa: B018
 
         name = await hero_deadpond.awt_name
         assert name == "Deadpond"
@@ -69,7 +68,7 @@ async def test_awaitable_relation_field(clear_sqlmodel):
 
         # loading lazy loading attribute will raise MissingGreenlet error
         with pytest.raises(MissingGreenlet):
-            hero.team
+            hero.team  # noqa: B018
 
         team = await hero.awt_team
         assert team
