@@ -8,6 +8,7 @@
 
 ### Internal
 
+* 👷 Add cron to run test once a week on monday. PR [#869](https://github.com/tiangolo/sqlmodel/pull/869) by [@estebanx64](https://github.com/estebanx64).
 * ⬆️ Upgrade Ruff version and configs. PR [#859](https://github.com/tiangolo/sqlmodel/pull/859) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove Jina QA Bot as it has been discontinued. PR [#840](https://github.com/tiangolo/sqlmodel/pull/840) by [@tiangolo](https://github.com/tiangolo).
 
