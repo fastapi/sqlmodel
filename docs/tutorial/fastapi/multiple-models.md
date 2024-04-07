@@ -98,7 +98,7 @@ But we also want to have a `HeroCreate` for the data we want to receive when **c
 * `secret_name`, required
 * `age`, optional
 
-And we want to have a `HeroRead` with the `id` field, but this time annotated with `id: int`, instead of `id: Optional[int]`, to make it clear that it is required in responses **read** from the clients:
+And we want to have a `HeroPublic` with the `id` field, but this time annotated with `id: int`, instead of `id: Optional[int]`, to make it clear that it is required in responses **read** from the clients:
 
 * `id`, required
 * `name`, required
@@ -183,9 +183,9 @@ Here's the important detail, and probably the most important feature of **SQLMod
 
 This means that the class `Hero` represents a **table** in the database. It is both a **Pydantic** model and a **SQLAlchemy** model.
 
-But `HeroCreate` and `HeroRead` don't have `table = True`. They are only **data models**, they are only **Pydantic** models. They won't be used with the database, but only to declare data schemas for the API (or for other uses).
+But `HeroCreate` and `HeroPublic` don't have `table = True`. They are only **data models**, they are only **Pydantic** models. They won't be used with the database, but only to declare data schemas for the API (or for other uses).
 
-This also means that `SQLModel.metadata.create_all()` won't create tables in the database for `HeroCreate` and `HeroRead`, because they don't have `table = True`, which is exactly what we want. 🚀
+This also means that `SQLModel.metadata.create_all()` won't create tables in the database for `HeroCreate` and `HeroPublic`, because they don't have `table = True`, which is exactly what we want. 🚀
 
 /// tip
 
@@ -355,7 +355,7 @@ Then we just `add` it to the **session**, `commit`, and `refresh` it, and finall
 
 Because it is just refreshed, it has the `id` field set with a new ID taken from the database.
 
-And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroRead`:
+And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroPublic`:
 
 //// tab | Python 3.10+
 
@@ -743,9 +743,9 @@ As an alternative, we could use `HeroBase` directly in the API code instead of `
 
 On top of that, we could easily decide in the future that we want to receive **more data** when creating a new hero apart from the data in `HeroBase` (for example, a password), and now we already have the class to put those extra fields.
 
-### The `HeroRead` **Data Model**
+### The `HeroPublic` **Data Model**
 
-Now let's check the `HeroRead` model.
+Now let's check the `HeroPublic` model.
 
 This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
 
@@ -815,7 +815,7 @@ This one just declares that the `id` field is required when reading a hero from 
 
 ## Review the Updated Docs UI
 
-The FastAPI code is still the same as above, we still use `Hero`, `HeroCreate`, and `HeroRead`. But now, we define them in a smarter way with inheritance.
+The FastAPI code is still the same as above, we still use `Hero`, `HeroCreate`, and `HeroPublic`. But now, we define them in a smarter way with inheritance.
 
 So, we can jump to the docs UI right away and see how they look with the updated data.
 
