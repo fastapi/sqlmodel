@@ -40,9 +40,9 @@ Let's update that. 🤓
 
 First, why is it that we are not getting the related data for each hero and for each team?
 
-It's because we declared the `HeroRead` with only the same base fields of the `HeroBase` plus the `id`. But it doesn't include a field `team` for the **relationship attribute**.
+It's because we declared the `HeroPublic` with only the same base fields of the `HeroBase` plus the `id`. But it doesn't include a field `team` for the **relationship attribute**.
 
-And the same way, we declared the `TeamRead` with only the same base fields of the `TeamBase` plus the `id`. But it doesn't include a field `heroes` for the **relationship attribute**.
+And the same way, we declared the `TeamPublic` with only the same base fields of the `TeamBase` plus the `id`. But it doesn't include a field `heroes` for the **relationship attribute**.
 
 //// tab | Python 3.10+
 
@@ -146,7 +146,7 @@ And the same way, we declared the `TeamRead` with only the same base fields of t
 
 Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI uses the `response_model` to validate and **filter** the response data</a>?
 
-In this case, we used `response_model=TeamRead` and `response_model=HeroRead`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
+In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
 
 //// tab | Python 3.10+
 
@@ -300,7 +300,7 @@ Let's add a couple more **data models** that declare that data so we can use the
 
 ## Models with Relationships
 
-Let's add the models `HeroReadWithTeam` and `TeamReadWithHeroes`.
+Let's add the models `HeroPublicWithTeam` and `TeamPublicWithHeroes`.
 
 We'll add them **after** the other models so that we can easily reference the previous models.
 
@@ -372,11 +372,11 @@ These two models are very **simple in code**, but there's a lot happening here. 
 
 ### Inheritance and Type Annotations
 
-The `HeroReadWithTeam` **inherits** from `HeroRead`, which means that it will have the **normal fields for reading**, including the required `id` that was declared in `HeroRead`.
+The `HeroPublicWithTeam` **inherits** from `HeroPublic`, which means that it will have the **normal fields for reading**, including the required `id` that was declared in `HeroPublic`.
 
-And then it adds the **new field** `team`, which could be `None`, and is declared with the type `TeamRead` with the base fields for reading a team.
+And then it adds the **new field** `team`, which could be `None`, and is declared with the type `TeamPublic` with the base fields for reading a team.
 
-Then we do the same for the `TeamReadWithHeroes`, it **inherits** from `TeamRead`, and declares the **new field** `heroes`, which is a list of `HeroRead`.
+Then we do the same for the `TeamPublicWithHeroes`, it **inherits** from `TeamPublic`, and declares the **new field** `heroes`, which is a list of `HeroPublic`.
 
 ### Data Models Without Relationship Attributes
 
@@ -386,11 +386,11 @@ Instead, here these are only **data models** that will tell FastAPI **which attr
 
 ### Reference to Other Models
 
-Also, notice that the field `team` is not declared with this new `TeamReadWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamRead` model.
+Also, notice that the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
 
-And the same for `TeamReadWithHeroes`, the model used for the new field `heroes` uses `HeroRead` to get only each hero's data.
+And the same for `TeamPublicWithHeroes`, the model used for the new field `heroes` uses `HeroPublic` to get only each hero's data.
 
-This also means that, even though we have these two new models, **we still need the previous ones**, `HeroRead` and `TeamRead`, because we need to reference them here (and we are also using them in the rest of the *path operations*).
+This also means that, even though we have these two new models, **we still need the previous ones**, `HeroPublic` and `TeamPublic`, because we need to reference them here (and we are also using them in the rest of the *path operations*).
 
 ## Update the Path Operations
 
