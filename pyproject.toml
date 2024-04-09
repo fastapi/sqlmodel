@@ -52,7 +52,7 @@ ruff = "0.2.0"
 httpx = "0.24.1"
 # TODO: upgrade when deprecating Python 3.7
 dirty-equals = "^0.6.0"
-typer-cli = "^0.0.13"
+typer-cli = ">=0.0.13,<0.12.4"
 mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
 
 [build-system]
