@@ -1,12 +1,14 @@
 import datetime
 from typing import Optional
 
+import pydantic
 from sqlalchemy import DateTime, func
 from sqlalchemy.orm import declared_attr, relationship
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
+from sqlmodel._compat import IS_PYDANTIC_V2
 
 
-def test_relationship_inheritance() -> None:
+def test_inherit_relationship(clear_sqlmodel) -> None:
     def now():
         return datetime.datetime.now(tz=datetime.timezone.utc)
 
@@ -90,3 +92,57 @@ def test_relationship_inheritance() -> None:
         doc = session.exec(select(Document)).one()
         assert doc.created_by.name == "Jane"
         assert doc.updated_by.name == "John"
+
+
+def test_inherit_relationship_model_validate(clear_sqlmodel) -> None:
+    class User(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+
+    class Mixin(SQLModel):
+        owner_id: Optional[int] = Field(default=None, foreign_key="user.id")
+        owner: Optional[User] = Relationship(
+            sa_relationship=declared_attr(
+                lambda cls: relationship(User, foreign_keys=cls.owner_id)
+            )
+        )
+
+    class Asset(Mixin, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+
+    class AssetCreate(pydantic.BaseModel):
+        pass
+
+    asset_create = AssetCreate()
+
+    engine = create_engine("sqlite://")
+
+    SQLModel.metadata.create_all(engine)
+
+    user = User()
+
+    # Owner must be optional
+    asset = Asset.model_validate(asset_create)
+    with Session(engine) as session:
+        session.add(asset)
+        session.commit()
+        session.refresh(asset)
+        assert asset.id is not None
+        assert asset.owner_id is None
+        assert asset.owner is None
+
+    # When set, owner must be saved
+    #
+    # Under Pydantic V2, relationship fields set it `model_validate` are not saved,
+    # with or without inheritance.  Consider it a known issue.
+    #
+    if IS_PYDANTIC_V2:
+        asset = Asset.model_validate(asset_create, update={"owner": user})
+        with Session(engine) as session:
+            session.add(asset)
+            session.commit()
+            session.refresh(asset)
+            session.refresh(user)
+            assert asset.id is not None
+            assert user.id is not None
+            assert asset.owner_id == user.id
+            assert asset.owner.id == user.id

@@ -503,8 +503,28 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         **kwargs: Any,
     ) -> Any:
         relationships: Dict[str, RelationshipInfo] = {}
+        backup_base_annotations: Dict[Type[Any], Dict[str, Any]] = {}
         for base in bases:
-            relationships.update(getattr(base, "__sqlmodel_relationships__", {}))
+            base_relationships = getattr(base, "__sqlmodel_relationships__", None)
+            if base_relationships:
+                relationships.update(base_relationships)
+                #
+                # Temporarily pluck out `__annotations__` corresponding to relationships from base classes, otherwise these annotations
+                # make their way into `cls.model_fields` as `FieldInfo(..., required=True)`, even when the relationships are declared
+                # optional.  When a model instance is then constructed using `model_validate` and an optional relationship field is not
+                # passed, this leads to an incorrect `pydantic.ValidationError`.
+                #
+                # We can't just clean up `new_cls.model_fields` after `new_cls` is constructed because by this time
+                # Pydantic has created model schema and validation rules, so this won't fix the problem.
+                #
+                base_annotations = getattr(base, "__annotations__", None)
+                if base_annotations:
+                    backup_base_annotations[base] = base_annotations
+                    base.__annotations__ = {
+                        name: typ
+                        for name, typ in base_annotations.items()
+                        if name not in base_relationships
+                    }
         dict_for_pydantic = {}
         original_annotations = get_annotations(class_dict)
         pydantic_annotations = {}
@@ -539,6 +559,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
         new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        # Restore base annotations
+        for base, annotations in backup_base_annotations.items():
+            base.__annotations__ = annotations
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
