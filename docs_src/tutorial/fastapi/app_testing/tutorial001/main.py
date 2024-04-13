@@ -18,7 +18,7 @@ class HeroCreate(HeroBase):
     pass
 
 
-class HeroRead(HeroBase):
+class HeroPublic(HeroBase):
     id: int
 
 
@@ -52,7 +52,7 @@ def on_startup():
     create_db_and_tables()
 
 
-@app.post("/heroes/", response_model=HeroRead)
+@app.post("/heroes/", response_model=HeroPublic)
 def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     db_hero = Hero.model_validate(hero)
     session.add(db_hero)
@@ -61,7 +61,7 @@ def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     return db_hero
 
 
-@app.get("/heroes/", response_model=List[HeroRead])
+@app.get("/heroes/", response_model=List[HeroPublic])
 def read_heroes(
     *,
     session: Session = Depends(get_session),
@@ -72,7 +72,7 @@ def read_heroes(
     return heroes
 
 
-@app.get("/heroes/{hero_id}", response_model=HeroRead)
+@app.get("/heroes/{hero_id}", response_model=HeroPublic)
 def read_hero(*, session: Session = Depends(get_session), hero_id: int):
     hero = session.get(Hero, hero_id)
     if not hero:
@@ -80,7 +80,7 @@ def read_hero(*, session: Session = Depends(get_session), hero_id: int):
     return hero
 
 
-@app.patch("/heroes/{hero_id}", response_model=HeroRead)
+@app.patch("/heroes/{hero_id}", response_model=HeroPublic)
 def update_hero(
     *, session: Session = Depends(get_session), hero_id: int, hero: HeroUpdate
 ):
