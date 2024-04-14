@@ -608,7 +608,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column | MappedColumn:  # type: ignore
+def get_column_from_field(field: Any) -> Union[Column, MappedColumn]:  # type: ignore
     if IS_PYDANTIC_V2:
         field_info = field
     else:
