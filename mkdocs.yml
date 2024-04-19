@@ -99,6 +99,7 @@ nav:
   - Advanced User Guide:
     - advanced/index.md
     - advanced/decimal.md
+    - advanced/migrations.md
   - alternatives.md
   - help.md
   - contributing.md
