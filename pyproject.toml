@@ -17,7 +17,6 @@ classifiers = [
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -32,7 +31,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 SQLAlchemy = ">=2.0.0,<2.1.0"
 pydantic = ">=1.10.13,<3.0.0"
 
@@ -46,14 +45,13 @@ pillow = "^9.3.0"
 cairosvg = "^2.5.2"
 mdx-include = "^1.4.1"
 coverage = {extras = ["toml"], version = ">=6.2,<8.0"}
-fastapi = "^0.103.2"
-ruff = "0.2.0"
+fastapi = "^0.110.2"
+ruff = "^0.4.0"
 # For FastAPI tests
 httpx = "0.24.1"
-# TODO: upgrade when deprecating Python 3.7
-dirty-equals = "^0.6.0"
-typer-cli = "^0.0.13"
-mkdocs-markdownextradata-plugin = ">=0.1.7,<0.3.0"
+dirty-equals = "^0.7.1.post0"
+typer = "^0.12.3"
+mkdocs-markdownextradata-plugin = "^0.2.5"
 
 [build-system]
 requires = ["poetry-core"]
