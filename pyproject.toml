@@ -39,7 +39,7 @@ pydantic = ">=1.10.13,<3.0.0"
 pytest = "^7.0.1"
 mypy = "1.4.1"
 # Needed by the code generator using templates
-black = ">=22.10,<24.0"
+black = "^24.4.0"
 mkdocs-material = "9.2.7"
 pillow = "^9.3.0"
 cairosvg = "^2.5.2"
