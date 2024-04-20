@@ -55,6 +55,7 @@ from typing_extensions import Literal, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
+    PYDANTIC_VERSION,
     BaseConfig,
     ModelField,
     ModelMetaclass,
@@ -764,14 +765,30 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         mode: Union[Literal["json", "python"], str] = "python",
         include: IncEx = None,
         exclude: IncEx = None,
+        context: Optional[Dict[str, Any]] = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
-        warnings: bool = True,
+        warnings: Union[bool, Literal['none', 'warn', 'error']] = True,
+        serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if IS_PYDANTIC_V2:
+            if PYDANTIC_VERSION >= '2.7':
+                return super().model_dump(
+                    mode=mode,
+                    include=include,
+                    exclude=exclude,
+                    context=context,
+                    by_alias=by_alias,
+                    exclude_unset=exclude_unset,
+                    exclude_defaults=exclude_defaults,
+                    exclude_none=exclude_none,
+                    round_trip=round_trip,
+                    warnings=warnings,
+                    serialize_as_any=serialize_as_any,
+                )
             return super().model_dump(
                 mode=mode,
                 include=include,
@@ -781,7 +798,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 exclude_defaults=exclude_defaults,
                 exclude_none=exclude_none,
                 round_trip=round_trip,
-                warnings=warnings,
+                warnings=(warnings is True or warnings != 'none'),
             )
         else:
             return super().dict(
