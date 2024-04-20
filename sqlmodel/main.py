@@ -771,11 +771,11 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
-        warnings: Union[bool, Literal['none', 'warn', 'error']] = True,
+        warnings: Union[bool, Literal["none", "warn", "error"]] = True,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if IS_PYDANTIC_V2:
-            if PYDANTIC_VERSION >= '2.7':
+            if PYDANTIC_VERSION >= "2.7":
                 return super().model_dump(
                     mode=mode,
                     include=include,
@@ -798,7 +798,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 exclude_defaults=exclude_defaults,
                 exclude_none=exclude_none,
                 round_trip=round_trip,
-                warnings=(warnings is True or warnings != 'none'),
+                warnings=(warnings is True or warnings != "none"),
             )
         else:
             return super().dict(
