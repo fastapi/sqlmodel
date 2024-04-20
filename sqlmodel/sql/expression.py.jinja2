@@ -273,13 +273,11 @@ _T{{ i }} = TypeVar("_T{{ i }}")
 # Generated TypeVars end
 
 @overload
-def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]:
-    ...
+def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]: ...
 
 
 @overload
-def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
-    ...
+def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]: ...  # type: ignore
 
 
 # Generated overloads start
@@ -289,8 +287,7 @@ def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
 @overload
 def select(  # type: ignore
     {% for arg in signature[0] %}{{ arg.name }}: {{ arg.annotation }}, {% endfor %}
-    ) -> Select[Tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]:
-    ...
+    ) -> Select[Tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]: ...
 
 {% endfor %}
 
