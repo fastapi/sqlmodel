@@ -6,6 +6,7 @@ from decimal import Decimal
 from enum import Enum
 from pathlib import Path
 from typing import (
+    TYPE_CHECKING,
     AbstractSet,
     Any,
     Callable,
@@ -55,6 +56,7 @@ from typing_extensions import Literal, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
+    PYDANTIC_VERSION,
     BaseConfig,
     ModelField,
     ModelMetaclass,
@@ -79,6 +81,12 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_validate,
 )
 from .sql.sqltypes import GUID, AutoString
+
+if TYPE_CHECKING:
+    from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
+    from pydantic._internal._repr import Representation as Representation
+    from pydantic_core import PydanticUndefined as Undefined
+    from pydantic_core import PydanticUndefinedType as UndefinedType
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
@@ -764,13 +772,22 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         mode: Union[Literal["json", "python"], str] = "python",
         include: IncEx = None,
         exclude: IncEx = None,
+        context: Union[Dict[str, Any], None] = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
-        warnings: bool = True,
+        warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
+        if PYDANTIC_VERSION >= "2.7.0":
+            extra_kwargs: Dict[str, Any] = {
+                "context": context,
+                "serialize_as_any": serialize_as_any,
+            }
+        else:
+            extra_kwargs = {}
         if IS_PYDANTIC_V2:
             return super().model_dump(
                 mode=mode,
@@ -782,6 +799,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 exclude_none=exclude_none,
                 round_trip=round_trip,
                 warnings=warnings,
+                **extra_kwargs,
             )
         else:
             return super().dict(
