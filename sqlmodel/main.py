@@ -6,6 +6,7 @@ from decimal import Decimal
 from enum import Enum
 from pathlib import Path
 from typing import (
+    TYPE_CHECKING,
     AbstractSet,
     Any,
     Callable,
@@ -55,6 +56,7 @@ from typing_extensions import Literal, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
+    PYDANTIC_VERSION,
     BaseConfig,
     ModelField,
     ModelMetaclass,
@@ -70,15 +72,21 @@ from ._compat import (  # type: ignore[attr-defined]
     get_model_fields,
     get_relationship_to,
     get_type_from_field,
+    init_pydantic_private_attrs,
     is_field_noneable,
     is_table_model_class,
     post_init_field_info,
     set_config_value,
-    set_fields_set,
     sqlmodel_init,
     sqlmodel_validate,
 )
 from .sql.sqltypes import GUID, AutoString
+
+if TYPE_CHECKING:
+    from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
+    from pydantic._internal._repr import Representation as Representation
+    from pydantic_core import PydanticUndefined as Undefined
+    from pydantic_core import PydanticUndefinedType as UndefinedType
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
@@ -686,12 +694,12 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Any:
         new_object = super().__new__(cls)
-        # SQLAlchemy doesn't call __init__ on the base class
+        # SQLAlchemy doesn't call __init__ on the base class when querying from DB
         # Ref: https://docs.sqlalchemy.org/en/14/orm/constructors.html
         # Set __fields_set__ here, that would have been set when calling __init__
         # in the Pydantic model so that when SQLAlchemy sets attributes that are
         # added (e.g. when querying from DB) to the __fields_set__, this already exists
-        set_fields_set(new_object, set())
+        init_pydantic_private_attrs(new_object)
         return new_object
 
     def __init__(__pydantic_self__, **data: Any) -> None:
@@ -758,20 +766,28 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             update=update,
         )
 
-    # TODO: remove when deprecating Pydantic v1, only for compatibility
     def model_dump(
         self,
         *,
         mode: Union[Literal["json", "python"], str] = "python",
         include: IncEx = None,
         exclude: IncEx = None,
+        context: Union[Dict[str, Any], None] = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
-        warnings: bool = True,
+        warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
+        if PYDANTIC_VERSION >= "2.7.0":
+            extra_kwargs: Dict[str, Any] = {
+                "context": context,
+                "serialize_as_any": serialize_as_any,
+            }
+        else:
+            extra_kwargs = {}
         if IS_PYDANTIC_V2:
             return super().model_dump(
                 mode=mode,
@@ -783,6 +799,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 exclude_none=exclude_none,
                 round_trip=round_trip,
                 warnings=warnings,
+                **extra_kwargs,
             )
         else:
             return super().dict(
@@ -869,3 +886,32 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             exclude_unset=exclude_unset,
             update=update,
         )
+
+    def sqlmodel_update(
+        self: _TSQLModel,
+        obj: Union[Dict[str, Any], BaseModel],
+        *,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        use_update = (update or {}).copy()
+        if isinstance(obj, dict):
+            for key, value in {**obj, **use_update}.items():
+                if key in get_model_fields(self):
+                    setattr(self, key, value)
+        elif isinstance(obj, BaseModel):
+            for key in get_model_fields(obj):
+                if key in use_update:
+                    value = use_update.pop(key)
+                else:
+                    value = getattr(obj, key)
+                setattr(self, key, value)
+            for remaining_key in use_update:
+                if remaining_key in get_model_fields(self):
+                    value = use_update.pop(remaining_key)
+                    setattr(self, remaining_key, value)
+        else:
+            raise ValueError(
+                "Can't use sqlmodel_update() with something that "
+                f"is not a dict or SQLModel or Pydantic model: {obj}"
+            )
+        return self

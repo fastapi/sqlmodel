@@ -33,9 +33,21 @@ And now we will update `select_heroes()` to filter the data.
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python hl_lines="36-41"
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="36-41"
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -189,6 +201,20 @@ Let's review some of the code we used to read data with **SQLModel**.
 
 We care specially about the **select** statement:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/select/tutorial001_py310.py[ln:34-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -197,17 +223,45 @@ We care specially about the **select** statement:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
 ## Filter Rows Using `WHERE` with **SQLModel**
 
 Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can add a `.where()` to a **SQLModel** `select()` statement to filter rows, which will filter the objects returned:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial001_py310.py[ln:34-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="5"
 # Code above omitted 👆
@@ -217,11 +271,25 @@ Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -469,6 +537,20 @@ Now that we know how `.where()` works, let's finish the code.
 
 It's actually the same as in previous chapters for selecting data:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="6-8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial001_py310.py[ln:34-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="6-8"
 # Code above omitted 👆
 
@@ -477,11 +559,25 @@ It's actually the same as in previous chapters for selecting data:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -532,6 +628,20 @@ But we can use other standard Python comparisons. ✨
 
 We could get the rows where a column is **not** equal to a value using `!=`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial002_py310.py[ln:34-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -540,11 +650,25 @@ We could get the rows where a column is **not** equal to a value using `!=`:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -559,6 +683,20 @@ secret_name='Tommy Sharp' age=48 id=3 name='Rusty-Man'
 
 Let's update the function `create_heroes()` and add some more rows to make the next comparison examples clearer:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="4-10  13-19"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial003_py310.py[ln:21-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="4-10  13-19"
 # Code above omitted 👆
 
@@ -567,11 +705,25 @@ Let's update the function `create_heroes()` and add some more rows to make the n
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -581,6 +733,20 @@ Now that we have several heroes with different ages, it's gonna be more obvious 
 
 Now let's use `>` to get the rows where a column is **more than** a value:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial003_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -589,11 +755,25 @@ Now let's use `>` to get the rows where a column is **more than** a value:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -615,6 +795,20 @@ Notice that it didn't select `Black Lion`, because the age is not *strictly* gre
 
 Let's do that again, but with `>=` to get the rows where a column is **more than or equal** to a value:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial004_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -623,11 +817,25 @@ Let's do that again, but with `>=` to get the rows where a column is **more than
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial004_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial004.py!}
 ```
+
+////
 
 ///
 
@@ -650,6 +858,20 @@ This time we got `Black Lion` too because although the age is not *strictly* gre
 
 Similarly, we can use `<` to get the rows where a column is **less than** a value:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial005_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -658,11 +880,25 @@ Similarly, we can use `<` to get the rows where a column is **less than** a valu
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial005_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial005.py!}
 ```
+
+////
 
 ///
 
@@ -682,6 +918,20 @@ We could imagine that **Spider-Boy** is even **younger**. But because we don't k
 
 Finally, we can use `<=` to get the rows where a column is **less than or equal** to a value:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial006_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -690,11 +940,25 @@ Finally, we can use `<=` to get the rows where a column is **less than or equal*
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial006_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial006.py!}
 ```
+
+////
 
 ///
 
@@ -721,6 +985,20 @@ We can use the same standard Python comparison operators like `<`, `<=`, `>`, `>
 
 Because `.where()` returns the same special select object back, we can add more `.where()` calls to it:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial007_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -729,11 +1007,25 @@ Because `.where()` returns the same special select object back, we can add more 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial007_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial007.py!}
 ```
+
+////
 
 ///
 
@@ -776,6 +1068,20 @@ age=36 id=6 name='Dr. Weird' secret_name='Steve Weird'
 
 As an alternative to using multiple `.where()` we can also pass several expressions to a single `.where()`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial008_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -784,11 +1090,25 @@ As an alternative to using multiple `.where()` we can also pass several expressi
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial008_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial008.py!}
 ```
+
+////
 
 ///
 
@@ -807,23 +1127,63 @@ But we can also combine expressions using `OR`. Which means that **any** (but no
 
 To do it, you can import `or_`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="1"
+{!./docs_src/tutorial/where/tutorial009_py310.py[ln:1]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3"
 {!./docs_src/tutorial/where/tutorial009.py[ln:1-3]!}
 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial009_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial009.py!}
 ```
+
+////
 
 ///
 
 And then pass both expressions to `or_()` and put it inside `.where()`.
 
 For example, here we select the heroes that are the youngest OR the oldest:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial009_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="5"
 # Code above omitted 👆
@@ -833,11 +1193,25 @@ For example, here we select the heroes that are the youngest OR the oldest:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial009_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial009.py!}
 ```
+
+////
 
 ///
 
@@ -890,21 +1264,61 @@ We can tell the editor that this class attribute is actually a special **SQLMode
 
 To do that, we can import `col()` (as short for "column"):
 
+//// tab | Python 3.10+
+
+```Python hl_lines="1"
+{!./docs_src/tutorial/where/tutorial011_py310.py[ln:1]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3"
 {!./docs_src/tutorial/where/tutorial011.py[ln:1-3]!}
 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial011_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial011.py!}
 ```
 
+////
+
 ///
 
 And then put the **class attribute** inside `col()` when using it in a `.where()`:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial011_py310.py[ln:42-47]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="5"
 # Code above omitted 👆
@@ -914,11 +1328,25 @@ And then put the **class attribute** inside `col()` when using it in a `.where()
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/where/tutorial011_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/where/tutorial011.py!}
 ```
+
+////
 
 ///
 
