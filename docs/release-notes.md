@@ -13,6 +13,7 @@
 
 ### Internal
 
+* 🔨 Update internal scripts and remove unused ones. PR [#914](https://github.com/tiangolo/sqlmodel/pull/914) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Migrate from Poetry to PDM for the internal build config. PR [#912](https://github.com/tiangolo/sqlmodel/pull/912) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update MkDocs, disable cards while I can upgrade to the latest MkDocs Material, that fixes an issue with social cards. PR [#888](https://github.com/tiangolo/sqlmodel/pull/888) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add cron to run test once a week on monday. PR [#869](https://github.com/tiangolo/sqlmodel/pull/869) by [@estebanx64](https://github.com/estebanx64).
