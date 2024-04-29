@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Refactors
+
+* ♻️ Refactor types to properly support Pydantic 2.7. PR [#913](https://github.com/tiangolo/sqlmodel/pull/913) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 📝 Update ModelRead to ModelPublic documentation and examples. PR [#885](https://github.com/tiangolo/sqlmodel/pull/885) by [@estebanx64](https://github.com/estebanx64).
