@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.18
+
 ### Internal
 
 * ✨ Add sqlmodel-slim setup. PR [#916](https://github.com/tiangolo/sqlmodel/pull/916) by [@tiangolo](https://github.com/tiangolo).
