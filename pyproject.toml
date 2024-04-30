@@ -60,11 +60,11 @@ source-includes = [
 [tool.tiangolo._internal-slim-build.packages.sqlmodel-slim.project]
 name = "sqlmodel-slim"
 
-# [tool.tiangolo._internal-slim-build.packages.sqlmodel]
+[tool.tiangolo._internal-slim-build.packages.sqlmodel]
 # include-optional-dependencies = ["standard"]
 
-# [tool.tiangolo._internal-slim-build.packages.sqlmodel.project]
-# optional-dependencies = {}
+[tool.tiangolo._internal-slim-build.packages.sqlmodel.project]
+optional-dependencies = {}
 
 # [tool.tiangolo._internal-slim-build.packages.sqlmodel.project.scripts]
 # sqlmodel = "sqlmodel.cli:main"
