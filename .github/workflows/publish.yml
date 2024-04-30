@@ -22,6 +22,7 @@ jobs:
       matrix:
         package:
           - sqlmodel
+          - sqlmodel-slim
     permissions:
       id-token: write
     steps:
