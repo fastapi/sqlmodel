@@ -147,7 +147,7 @@ def test_tutorial(clear_sqlmodel):
                                             "title": "Response Read Heroes Heroes  Get",
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/HeroRead"
+                                                "$ref": "#/components/schemas/HeroPublic"
                                             },
                                         }
                                     }
@@ -184,7 +184,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroRead"
+                                            "$ref": "#/components/schemas/HeroPublic"
                                         }
                                     }
                                 },
@@ -220,7 +220,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroReadWithTeam"
+                                            "$ref": "#/components/schemas/HeroPublicWithTeam"
                                         }
                                     }
                                 },
@@ -292,7 +292,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroRead"
+                                            "$ref": "#/components/schemas/HeroPublic"
                                         }
                                     }
                                 },
@@ -346,7 +346,7 @@ def test_tutorial(clear_sqlmodel):
                                             "title": "Response Read Teams Teams  Get",
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/TeamRead"
+                                                "$ref": "#/components/schemas/TeamPublic"
                                             },
                                         }
                                     }
@@ -383,7 +383,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/TeamRead"
+                                            "$ref": "#/components/schemas/TeamPublic"
                                         }
                                     }
                                 },
@@ -419,7 +419,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/TeamReadWithHeroes"
+                                            "$ref": "#/components/schemas/TeamPublicWithHeroes"
                                         }
                                     }
                                 },
@@ -491,7 +491,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/TeamRead"
+                                            "$ref": "#/components/schemas/TeamPublic"
                                         }
                                     }
                                 },
@@ -554,8 +554,8 @@ def test_tutorial(clear_sqlmodel):
                             ),
                         },
                     },
-                    "HeroRead": {
-                        "title": "HeroRead",
+                    "HeroPublic": {
+                        "title": "HeroPublic",
                         "required": ["name", "secret_name", "id"],
                         "type": "object",
                         "properties": {
@@ -584,8 +584,8 @@ def test_tutorial(clear_sqlmodel):
                             "id": {"title": "Id", "type": "integer"},
                         },
                     },
-                    "HeroReadWithTeam": {
-                        "title": "HeroReadWithTeam",
+                    "HeroPublicWithTeam": {
+                        "title": "HeroPublicWithTeam",
                         "required": ["name", "secret_name", "id"],
                         "type": "object",
                         "properties": {
@@ -615,14 +615,14 @@ def test_tutorial(clear_sqlmodel):
                             "team": IsDict(
                                 {
                                     "anyOf": [
-                                        {"$ref": "#/components/schemas/TeamRead"},
+                                        {"$ref": "#/components/schemas/TeamPublic"},
                                         {"type": "null"},
                                     ]
                                 }
                             )
                             | IsDict(
                                 # TODO: remove when deprecating Pydantic v1
-                                {"$ref": "#/components/schemas/TeamRead"}
+                                {"$ref": "#/components/schemas/TeamPublic"}
                             ),
                         },
                     },
@@ -681,8 +681,8 @@ def test_tutorial(clear_sqlmodel):
                             "headquarters": {"title": "Headquarters", "type": "string"},
                         },
                     },
-                    "TeamRead": {
-                        "title": "TeamRead",
+                    "TeamPublic": {
+                        "title": "TeamPublic",
                         "required": ["name", "headquarters", "id"],
                         "type": "object",
                         "properties": {
@@ -691,8 +691,8 @@ def test_tutorial(clear_sqlmodel):
                             "id": {"title": "Id", "type": "integer"},
                         },
                     },
-                    "TeamReadWithHeroes": {
-                        "title": "TeamReadWithHeroes",
+                    "TeamPublicWithHeroes": {
+                        "title": "TeamPublicWithHeroes",
                         "required": ["name", "headquarters", "id"],
                         "type": "object",
                         "properties": {
@@ -702,7 +702,7 @@ def test_tutorial(clear_sqlmodel):
                             "heroes": {
                                 "title": "Heroes",
                                 "type": "array",
-                                "items": {"$ref": "#/components/schemas/HeroRead"},
+                                "items": {"$ref": "#/components/schemas/HeroPublic"},
                                 "default": [],
                             },
                         },

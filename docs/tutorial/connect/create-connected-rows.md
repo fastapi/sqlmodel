@@ -47,9 +47,21 @@ We will continue with the code in the previous example and we will add more thin
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 {!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -63,6 +75,20 @@ And now we will also create the teams there. 🎉
 
 Let's start by creating two teams:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-35]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-9"
 # Code above omitted 👆
 
@@ -71,11 +97,25 @@ Let's start by creating two teams:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -93,6 +133,20 @@ And finally we **commit** the session to save the changes to the database.
 
 Let's not forget to add this function `create_heroes()` to the `main()` function so that we run it when calling the program from the command line:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:61-63]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -101,11 +155,25 @@ Let's not forget to add this function `create_heroes()` to the `main()` function
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -140,6 +208,20 @@ Now let's create one hero object to start.
 
 As the `Hero` class model now has a field (column, attribute) `team_id`, we can set it by using the ID field from the `Team` objects we just created before:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="12"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="12"
 # Code above omitted 👆
 
@@ -148,11 +230,25 @@ As the `Hero` class model now has a field (column, attribute) `team_id`, we can 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -178,6 +274,20 @@ INFO Engine [generated in 0.00025s] (2,)
 
 Let's now create two more heroes:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="14-20"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-50]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="14-20"
 # Code above omitted 👆
 
@@ -186,11 +296,25 @@ Let's now create two more heroes:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -223,7 +347,21 @@ INFO Engine COMMIT
 
 Now let's refresh and print those new heroes to see their new ID pointing to their teams:
 
-```Python hl_lines="26-28  30-32"
+//// tab | Python 3.10+
+
+```Python hl_lines="26-28 30-32"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-58]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
+```Python hl_lines="26-28 30-32"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-60]!}
@@ -231,14 +369,27 @@ Now let's refresh and print those new heroes to see their new ID pointing to the
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
 
-///
+////
 
+///
 
 If we execute that in the command line, it will output:
 
