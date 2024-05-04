@@ -6,6 +6,7 @@ from decimal import Decimal
 from enum import Enum
 from pathlib import Path
 from typing import (
+    TYPE_CHECKING,
     AbstractSet,
     Any,
     Callable,
@@ -80,6 +81,12 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_validate,
 )
 from .sql.sqltypes import GUID, AutoString
+
+if TYPE_CHECKING:
+    from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
+    from pydantic._internal._repr import Representation as Representation
+    from pydantic_core import PydanticUndefined as Undefined
+    from pydantic_core import PydanticUndefinedType as UndefinedType
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
@@ -761,7 +768,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         mode: Union[Literal["json", "python"], str] = "python",
         include: IncEx = None,
         exclude: IncEx = None,
-        context: Optional[Dict[str, Any]] = None,
+        context: Union[Dict[str, Any], None] = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
@@ -770,6 +777,13 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
+        if PYDANTIC_VERSION >= "2.7.0":
+            extra_kwargs: Dict[str, Any] = {
+                "context": context,
+                "serialize_as_any": serialize_as_any,
+            }
+        else:
+            extra_kwargs = {}
         if IS_PYDANTIC_V2:
             if PYDANTIC_VERSION >= "2.7":
                 return super().model_dump(
@@ -794,7 +808,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 exclude_defaults=exclude_defaults,
                 exclude_none=exclude_none,
                 round_trip=round_trip,
-                warnings=(warnings is True or warnings != "none"),
+                warnings=warnings,
+                **extra_kwargs,
             )
         else:
             return super().dict(

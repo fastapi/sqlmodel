@@ -2,6 +2,22 @@
 
 ## Latest Changes
 
+## 0.0.18
+
+### Internal
+
+* ✨ Add `sqlmodel-slim` setup. PR [#916](https://github.com/tiangolo/sqlmodel/pull/916) by [@tiangolo](https://github.com/tiangolo).
+
+In the future SQLModel will include the standard default recommended packages, and `sqlmodel-slim` will come without those recommended standard packages and with a group of optional dependencies `sqlmodel-slim[standard]`, equivalent to `sqlmodel`, for those that want to opt out of those packages.
+
+* 🔧 Re-enable MkDocs Material Social plugin. PR [#915](https://github.com/tiangolo/sqlmodel/pull/915) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.17
+
+### Refactors
+
+* ♻️ Refactor types to properly support Pydantic 2.7. PR [#913](https://github.com/tiangolo/sqlmodel/pull/913) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 📝 Update ModelRead to ModelPublic documentation and examples. PR [#885](https://github.com/tiangolo/sqlmodel/pull/885) by [@estebanx64](https://github.com/estebanx64).
@@ -9,6 +25,9 @@
 
 ### Internal
 
+* ⬆ Bump actions/setup-python from 4 to 5. PR [#733](https://github.com/tiangolo/sqlmodel/pull/733) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔨 Update internal scripts and remove unused ones. PR [#914](https://github.com/tiangolo/sqlmodel/pull/914) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Migrate from Poetry to PDM for the internal build config. PR [#912](https://github.com/tiangolo/sqlmodel/pull/912) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update MkDocs, disable cards while I can upgrade to the latest MkDocs Material, that fixes an issue with social cards. PR [#888](https://github.com/tiangolo/sqlmodel/pull/888) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add cron to run test once a week on monday. PR [#869](https://github.com/tiangolo/sqlmodel/pull/869) by [@estebanx64](https://github.com/estebanx64).
 * ⬆️ Upgrade Ruff version and configs. PR [#859](https://github.com/tiangolo/sqlmodel/pull/859) by [@tiangolo](https://github.com/tiangolo).
