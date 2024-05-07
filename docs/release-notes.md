@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Tweak CI for test-redistribute, add needed env vars for slim. PR [#929](https://github.com/tiangolo/sqlmodel/pull/929) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.18
 
 ### Internal
