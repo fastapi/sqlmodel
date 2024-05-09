@@ -17,7 +17,7 @@ class TeamCreate(TeamBase):
     pass
 
 
-class TeamRead(TeamBase):
+class TeamPublic(TeamBase):
     id: int
 
 
@@ -41,7 +41,7 @@ class Hero(HeroBase, table=True):
     team: Team | None = Relationship(back_populates="heroes")
 
 
-class HeroRead(HeroBase):
+class HeroPublic(HeroBase):
     id: int
 
 
@@ -56,12 +56,12 @@ class HeroUpdate(SQLModel):
     team_id: int | None = None
 
 
-class HeroReadWithTeam(HeroRead):
-    team: TeamRead | None = None
+class HeroPublicWithTeam(HeroPublic):
+    team: TeamPublic | None = None
 
 
-class TeamReadWithHeroes(TeamRead):
-    heroes: list[HeroRead] = []
+class TeamPublicWithHeroes(TeamPublic):
+    heroes: list[HeroPublic] = []
 
 
 sqlite_file_name = "database.db"
@@ -88,7 +88,7 @@ def on_startup():
     create_db_and_tables()
 
 
-@app.post("/heroes/", response_model=HeroRead)
+@app.post("/heroes/", response_model=HeroPublic)
 def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     db_hero = Hero.model_validate(hero)
     session.add(db_hero)
@@ -97,7 +97,7 @@ def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     return db_hero
 
 
-@app.get("/heroes/", response_model=list[HeroRead])
+@app.get("/heroes/", response_model=list[HeroPublic])
 def read_heroes(
     *,
     session: Session = Depends(get_session),
@@ -108,7 +108,7 @@ def read_heroes(
     return heroes
 
 
-@app.get("/heroes/{hero_id}", response_model=HeroReadWithTeam)
+@app.get("/heroes/{hero_id}", response_model=HeroPublicWithTeam)
 def read_hero(*, session: Session = Depends(get_session), hero_id: int):
     hero = session.get(Hero, hero_id)
     if not hero:
@@ -116,7 +116,7 @@ def read_hero(*, session: Session = Depends(get_session), hero_id: int):
     return hero
 
 
-@app.patch("/heroes/{hero_id}", response_model=HeroRead)
+@app.patch("/heroes/{hero_id}", response_model=HeroPublic)
 def update_hero(
     *, session: Session = Depends(get_session), hero_id: int, hero: HeroUpdate
 ):
@@ -142,7 +142,7 @@ def delete_hero(*, session: Session = Depends(get_session), hero_id: int):
     return {"ok": True}
 
 
-@app.post("/teams/", response_model=TeamRead)
+@app.post("/teams/", response_model=TeamPublic)
 def create_team(*, session: Session = Depends(get_session), team: TeamCreate):
     db_team = Team.model_validate(team)
     session.add(db_team)
@@ -151,7 +151,7 @@ def create_team(*, session: Session = Depends(get_session), team: TeamCreate):
     return db_team
 
 
-@app.get("/teams/", response_model=list[TeamRead])
+@app.get("/teams/", response_model=list[TeamPublic])
 def read_teams(
     *,
     session: Session = Depends(get_session),
@@ -162,7 +162,7 @@ def read_teams(
     return teams
 
 
-@app.get("/teams/{team_id}", response_model=TeamReadWithHeroes)
+@app.get("/teams/{team_id}", response_model=TeamPublicWithHeroes)
 def read_team(*, team_id: int, session: Session = Depends(get_session)):
     team = session.get(Team, team_id)
     if not team:
@@ -170,7 +170,7 @@ def read_team(*, team_id: int, session: Session = Depends(get_session)):
     return team
 
 
-@app.patch("/teams/{team_id}", response_model=TeamRead)
+@app.patch("/teams/{team_id}", response_model=TeamPublic)
 def update_team(
     *,
     session: Session = Depends(get_session),
