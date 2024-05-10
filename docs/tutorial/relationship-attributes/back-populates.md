@@ -20,17 +20,61 @@ Let's understand that better with an example.
 
 Let's see how that works by writing an **incomplete** version first, without `back_populates`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9  19"
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:1-19]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="11  21"
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:1-21]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py[ln:1-21]!}
 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -40,6 +84,32 @@ Now, we will get the **Spider-Boy** hero and, *independently*, the **Preventers*
 
 As you already know how this works, I won't separate that in a select `statement`, `results`, etc. Let's use the shorter form in a single call:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5-7  9-11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-111]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="5-7  9-11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-113]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5-7  9-11"
 # Code above omitted 👆
 
@@ -48,11 +118,33 @@ As you already know how this works, I won't separate that in a select `statement
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -66,6 +158,32 @@ When writing your own code, this is probably the style you will use most often, 
 
 Now, let's print the current **Spider-Boy**, the current **Preventers** team, and particularly, the current **Preventers** list of heroes:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="13-15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-115]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="13-15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-117]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="13-15"
 # Code above omitted 👆
 
@@ -74,11 +192,33 @@ Now, let's print the current **Spider-Boy**, the current **Preventers** team, an
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -102,6 +242,40 @@ Notice that we have **Spider-Boy** there.
 
 Now let's update **Spider-Boy**, removing him from the team by setting `hero_spider_boy.team = None` and then let's print this object again:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="8  12"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-104]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:117-121]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="8  12"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-106]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:119-123]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="8  12"
 # Code above omitted 👆
 
@@ -114,11 +288,33 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -160,6 +356,40 @@ Oh, no! 😱 **Spider-Boy** is still listed there!
 
 Now, if we commit it and print again:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="8-9  15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:103-104]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py[ln:123-130]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="8-9  15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:105-106]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py[ln:125-132]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="8-9  15"
 # Code above omitted 👆
 
@@ -172,11 +402,33 @@ Now, if we commit it and print again:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -210,21 +462,99 @@ That's what `back_populates` is for. ✨
 
 Let's add it back:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9  19"
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:1-19]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="11  21"
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:1-21]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:1-21]!}
 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
 
+////
+
 ///
 
 And we can keep the rest of the code the same:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="8  12"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:103-104]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:117-121]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="8  12"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:105-106]!}
+
+        # Code here omitted 👈
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:119-123]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="8  12"
 # Code above omitted 👆
@@ -238,11 +568,33 @@ And we can keep the rest of the code the same:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -277,17 +629,61 @@ Now that you know why `back_populates` is there, let's review the exact value ag
 
 It's quite simple code, it's just a string, but it might be confusing to think exactly *what* string should go there:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9  19"
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:1-19]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="11  21"
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:1-21]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11  21"
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py[ln:1-21]!}
 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -297,6 +693,32 @@ The string in `back_populates` is the name of the attribute *in the other* model
 
 So, in the class `Team`, we have an attribute `heroes` and we declare it with `Relationship(back_populates="team")`.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:4-9]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:6-11]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="8"
 # Code above omitted 👆
 
@@ -305,11 +727,33 @@ So, in the class `Team`, we have an attribute `heroes` and we declare it with `R
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -319,6 +763,32 @@ And, in the class `Hero`, we declare an attribute `team`, and we declare it with
 
 So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py[ln:12-19]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py[ln:14-21]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="10"
 # Code above omitted 👆
 
@@ -327,11 +797,33 @@ So, the string `"heroes"` refers to the attribute `heroes` in the class `Team`.
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -358,6 +850,32 @@ So, `back_populates` would most probably be something like `"hero"` or `"heroes"
 
 <img src="/img/tutorial/relationships/attributes/back-populates2.svg">
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3  10  13  15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003_py310.py[ln:27-39]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3  10  13  15"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003_py39.py[ln:29-41]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3  10  13  15"
 # Code above omitted 👆
 
@@ -366,10 +884,32 @@ So, `back_populates` would most probably be something like `"hero"` or `"heroes"
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/relationship_attributes/back_populates/tutorial003.py!}
 ```
+
+////
 
 ///
