@@ -72,9 +72,9 @@ jobs:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
       - name: Store coverage files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage
+          name: coverage-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage
   coverage-combine:
     needs:
@@ -89,10 +89,11 @@ jobs:
           python-version: '3.8'
 
       - name: Get coverage files
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: coverage
+          pattern: coverage-*
           path: coverage
+          merge-multiple: true
 
       - run: pip install coverage[toml]
 
@@ -102,7 +103,7 @@ jobs:
       - run: coverage html --show-contexts --title "Coverage for ${{ github.sha }}"
 
       - name: Store coverage HTML
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-html
           path: htmlcov
