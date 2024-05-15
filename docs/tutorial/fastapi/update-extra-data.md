@@ -1,6 +1,6 @@
 # Update with Extra Data (Hashed Passwords) with FastAPI
 
-In the previous chapter I explained to you how to update data in the database from input data coming from a **FastAPI** *path operation*.
+In the previous chapter I explained to you how to update data in the database from input data coming from a **FastAPI** *patch operation*.
 
 Now I'll explain to you how to add **extra data**, additional to the input data, when updating or creating a model object.
 
