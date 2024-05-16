@@ -37,6 +37,7 @@ from sqlalchemy import (
     Integer,
     Interval,
     Numeric,
+    Table,
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
@@ -234,8 +235,7 @@ def Field(
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 @overload
@@ -271,8 +271,7 @@ def Field(
     repr: bool = True,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 def Field(
@@ -364,8 +363,7 @@ def Relationship(
     link_model: Optional[Any] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 @overload
@@ -374,8 +372,7 @@ def Relationship(
     back_populates: Optional[str] = None,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 def Relationship(
@@ -404,6 +401,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     model_fields: Dict[str, FieldInfo]
     __config__: Type[SQLModelConfig]
     __fields__: Dict[str, ModelField]  # type: ignore[assignment]
+    __table__: Table
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
@@ -707,7 +705,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
 
     if IS_PYDANTIC_V2:
-        model_config = SQLModelConfig(from_attributes=True)
+        model_config = SQLModelConfig(from_attributes=True, use_enum_values=True)
     else:
 
         class Config:
@@ -799,7 +797,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
-        warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        warnings: bool = True,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if PYDANTIC_VERSION >= "2.7.0":
