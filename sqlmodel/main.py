@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     AbstractSet,
+    Annotated,
     Any,
     Callable,
     ClassVar,
@@ -22,6 +23,7 @@ from typing import (
     TypeVar,
     Union,
     cast,
+    get_args,
     overload,
 )
 
@@ -578,6 +580,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
+def is_annotated_type(type_: Any) -> bool:
+    return get_origin(type_) is Annotated
+
+
 def get_sqlalchemy_type(field: Any) -> Any:
     if IS_PYDANTIC_V2:
         field_info = field
@@ -591,6 +597,8 @@ def get_sqlalchemy_type(field: Any) -> Any:
     metadata = get_field_metadata(field)
 
     # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
+    if is_annotated_type(type_):
+        type_ = get_args(type_)[0]
     if issubclass(type_, Enum):
         return sa_Enum(type_)
     if issubclass(type_, str):
