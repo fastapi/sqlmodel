@@ -235,7 +235,8 @@ def Field(
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
 
 
 @overload
@@ -271,7 +272,8 @@ def Field(
     repr: bool = True,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
 
 
 def Field(
@@ -363,7 +365,8 @@ def Relationship(
     link_model: Optional[Any] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
 
 
 @overload
@@ -372,7 +375,8 @@ def Relationship(
     back_populates: Optional[str] = None,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
 
 
 def Relationship(
