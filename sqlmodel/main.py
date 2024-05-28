@@ -43,7 +43,7 @@ from sqlalchemy import (
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
-from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.ext.hybrid import hybrid_property, hybrid_method
 from sqlalchemy.orm import (
     ColumnProperty,
     Mapped,
@@ -96,7 +96,9 @@ if TYPE_CHECKING:
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx = Union[Set[int], Set[str], Dict[int, Any], Dict[str, Any], None]
-SQLAlchemyConstruct = Union[hybrid_property, ColumnProperty, declared_attr]
+SQLAlchemyConstruct = Union[
+    hybrid_property, hybrid_method, ColumnProperty, declared_attr
+]
 
 
 def __dataclass_transform__(
@@ -237,8 +239,7 @@ def Field(
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 @overload
@@ -274,8 +275,7 @@ def Field(
     repr: bool = True,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 def Field(
@@ -367,8 +367,7 @@ def Relationship(
     link_model: Optional[Any] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 @overload
@@ -377,8 +376,7 @@ def Relationship(
     back_populates: Optional[str] = None,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 def Relationship(
@@ -439,7 +437,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         for k, v in class_dict.items():
             if isinstance(v, RelationshipInfo):
                 relationships[k] = v
-            elif isinstance(v, (hybrid_property, ColumnProperty, declared_attr)):
+            elif isinstance(
+                v, (hybrid_property, hybrid_method, ColumnProperty, declared_attr)
+            ):
                 sqlalchemy_constructs[k] = v
             else:
                 dict_for_pydantic[k] = v
