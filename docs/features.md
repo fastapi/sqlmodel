@@ -36,7 +36,7 @@ You will get completion for everything while writing the **minimum** amount of c
 
 You won't need to keep guessing the types of different attributes in your models, if they could be `None`, etc. Your editor will be able to help you with everything because **SQLModel** is based on **standard Python type annotations**.
 
-**SQLModel** even adopts <a href="https://peps.python.org/pep-0681/" class="external-link" target="_blank">`@dataclass_transform`</a> for Python type annotations to ensure the **best developer experience**, so you will get inline errors and autocompletion even while creating new model instances.
+**SQLModel** adopts <a href="https://peps.python.org/pep-0681/" class="external-link" target="_blank">`PEP 681`</a> for Python type annotations to ensure the **best developer experience**, so you will get inline errors and autocompletion even while creating new model instances.
 
 <img class="shadow" src="/img/index/autocompletion01.png">
 
