@@ -10,15 +10,61 @@ We'll continue from where we left off with the previous code.
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
+
+////
 
 ///
 
 ## Create Heroes
 
 As we have done before, we'll create a function `create_heroes()` and we'll create some teams and heroes in it:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:36-54]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:42-60]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="11"
 # Code above omitted 👆
@@ -28,11 +74,33 @@ As we have done before, we'll create a function `create_heroes()` and we'll crea
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -48,6 +116,32 @@ See how **Deadpond** now belongs to the two teams?
 
 Now let's do as we have done before, `commit` the **session**, `refresh` the data, and print it:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="22-25  27-29  31-36"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:36-69]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="22-25  27-29  31-36"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:42-75]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="22-25  27-29  31-36"
 # Code above omitted 👆
 
@@ -56,11 +150,33 @@ Now let's do as we have done before, `commit` the **session**, `refresh` the dat
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -68,7 +184,33 @@ Now let's do as we have done before, `commit` the **session**, `refresh` the dat
 
 As before, add the `create_heroes()` function to the `main()` function to make sure it is called when running this program from the command line:
 
-```Python hl_lines="22-25  27-29  31-36"
+//// tab | Python 3.10+
+
+```Python
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:72-74]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+# Code above omitted 👆
+
+{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:78-80]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
+```Python
 # Code above omitted 👆
 
 {!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-80]!}
@@ -76,11 +218,33 @@ As before, add the `create_heroes()` function to the `main()` function to make s
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/many_to_many/tutorial001.py!}
 ```
+
+////
 
 ///
 
