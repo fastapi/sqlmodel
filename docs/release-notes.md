@@ -6,6 +6,10 @@
 
 * 🐛 Fix set varchar limit when `max_length` is set on Pydantic models using Pydantic v2. PR [#963](https://github.com/tiangolo/sqlmodel/pull/963) by [@estebanx64](https://github.com/estebanx64).
 
+### Refactors
+
+* ♻️ Refactor generate select template to isolate templated code to the minimum. PR [#967](https://github.com/tiangolo/sqlmodel/pull/967) by [@tiangolo](https://github.com/tiangolo).
+
 ### Upgrades
 
 * ⬆️ Update minimum SQLAlchemy version to 2.0.14 as that one includes `TryCast` used internally. PR [#964](https://github.com/tiangolo/sqlmodel/pull/964) by [@tiangolo](https://github.com/tiangolo).
