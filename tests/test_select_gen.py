@@ -1,6 +1,6 @@
+import os
 import subprocess
 import sys
-import os
 from pathlib import Path
 
 from .conftest import needs_py39
