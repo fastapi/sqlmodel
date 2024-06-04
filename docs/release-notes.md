@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* ✏️ Update pip installation command in tutorial. PR [#975](https://github.com/tiangolo/sqlmodel/pull/975) by [@alejsdev](https://github.com/alejsdev).
+
 ## 0.0.19
 
 ### Fixes
