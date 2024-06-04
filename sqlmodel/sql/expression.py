@@ -85,7 +85,7 @@ def between(
     upper_bound: Any,
     symmetric: bool = False,
 ) -> BinaryExpression[bool]:
-    return sqlalchemy.between(expr, lower_bound, upper_bound, symmetric=symmetric)  # type: ignore[arg-type]
+    return sqlalchemy.between(expr, lower_bound, upper_bound, symmetric=symmetric)
 
 
 def not_(clause: Union[_ColumnExpressionArgument[_T], _T]) -> ColumnElement[_T]:
@@ -106,14 +106,14 @@ def cast(
     expression: Union[_ColumnExpressionOrLiteralArgument[Any], Any],
     type_: "_TypeEngineArgument[_T]",
 ) -> Cast[_T]:
-    return sqlalchemy.cast(expression, type_)  # type: ignore[arg-type]
+    return sqlalchemy.cast(expression, type_)
 
 
 def try_cast(
     expression: Union[_ColumnExpressionOrLiteralArgument[Any], Any],
     type_: "_TypeEngineArgument[_T]",
 ) -> TryCast[_T]:
-    return sqlalchemy.try_cast(expression, type_)  # type: ignore[arg-type]
+    return sqlalchemy.try_cast(expression, type_)
 
 
 def desc(
@@ -131,7 +131,7 @@ def bitwise_not(expr: Union[_ColumnExpressionArgument[_T], _T]) -> UnaryExpressi
 
 
 def extract(field: str, expr: Union[_ColumnExpressionArgument[Any], Any]) -> Extract:
-    return sqlalchemy.extract(field, expr)  # type: ignore[arg-type]
+    return sqlalchemy.extract(field, expr)
 
 
 def funcfilter(
@@ -158,7 +158,7 @@ def nulls_last(column: Union[_ColumnExpressionArgument[_T], _T]) -> UnaryExpress
     return sqlalchemy.nulls_last(column)  # type: ignore[arg-type]
 
 
-def or_(  # type: ignore[empty-body]
+def or_(
     initial_clause: Union[Literal[False], _ColumnExpressionArgument[bool], bool],
     *clauses: Union[_ColumnExpressionArgument[bool], bool],
 ) -> ColumnElement[bool]:
@@ -186,7 +186,7 @@ def over(
 ) -> Over[_T]:
     return sqlalchemy.over(
         element, partition_by=partition_by, order_by=order_by, range_=range_, rows=rows
-    )  # type: ignore[arg-type]
+    )
 
 
 def tuple_(
@@ -200,13 +200,13 @@ def type_coerce(
     expression: Union[_ColumnExpressionOrLiteralArgument[Any], Any],
     type_: "_TypeEngineArgument[_T]",
 ) -> TypeCoerce[_T]:
-    return sqlalchemy.type_coerce(expression, type_)  # type: ignore[arg-type]
+    return sqlalchemy.type_coerce(expression, type_)
 
 
 def within_group(
     element: FunctionElement[_T], *order_by: Union[_ColumnExpressionArgument[Any], Any]
 ) -> WithinGroup[_T]:
-    return sqlalchemy.within_group(element, *order_by)  # type: ignore[arg-type]
+    return sqlalchemy.within_group(element, *order_by)
 
 
 def col(column_expression: _T) -> Mapped[_T]:
