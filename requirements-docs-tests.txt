@@ -1,2 +1,2 @@
-# For mkdocstrings and code generator using templates
-black >=22.10,<24.0
+# For mkdocstrings with Griffe and code generator using templates
+black ==24.4.2
