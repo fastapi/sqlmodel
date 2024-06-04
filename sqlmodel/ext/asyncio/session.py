@@ -43,7 +43,8 @@ class AsyncSession(_AsyncSession):
         bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
-    ) -> TupleResult[_TSelectParam]: ...
+    ) -> TupleResult[_TSelectParam]:
+        ...
 
     @overload
     async def exec(
@@ -55,7 +56,8 @@ class AsyncSession(_AsyncSession):
         bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
-    ) -> ScalarResult[_TSelectParam]: ...
+    ) -> ScalarResult[_TSelectParam]:
+        ...
 
     async def exec(
         self,
