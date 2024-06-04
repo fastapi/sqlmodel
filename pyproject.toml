@@ -90,7 +90,7 @@ exclude_lines = [
 strict = true
 
 [[tool.mypy.overrides]]
-module = "sqlmodel.sql.expression"
+module = "sqlmodel.sql._expression_select_gen"
 warn_unused_ignores = false
 
 [[tool.mypy.overrides]]
