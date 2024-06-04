@@ -6,6 +6,10 @@
 
 * 🐛 Fix set varchar limit when `max_length` is set on Pydantic models using Pydantic v2. PR [#963](https://github.com/tiangolo/sqlmodel/pull/963) by [@estebanx64](https://github.com/estebanx64).
 
+### Upgrades
+
+* ⬆️ Update minimum SQLAlchemy version to 2.0.14 as that one includes `TryCast` used internally. PR [#964](https://github.com/tiangolo/sqlmodel/pull/964) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * ✏️ Fix broken link to `@dataclass_transform` (now PEP 681) in `docs/features.md`. PR [#753](https://github.com/tiangolo/sqlmodel/pull/753) by [@soof-golan](https://github.com/soof-golan).
