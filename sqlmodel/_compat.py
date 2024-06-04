@@ -18,11 +18,13 @@ from typing import (
     Union,
 )
 
-from pydantic import VERSION as PYDANTIC_VERSION
+from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import get_args, get_origin
 
+# Reassign variable to make it reexported for mypy
+PYDANTIC_VERSION = P_VERSION
 IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
 
@@ -70,6 +72,7 @@ def partial_init() -> Generator[None, None, None]:
 
 
 if IS_PYDANTIC_V2:
+    from annotated_types import MaxLen
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
@@ -199,7 +202,7 @@ if IS_PYDANTIC_V2:
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
-            if isinstance(meta, PydanticMetadata):
+            if isinstance(meta, (PydanticMetadata, MaxLen)):
                 return meta
         return FakeMetadata()
 

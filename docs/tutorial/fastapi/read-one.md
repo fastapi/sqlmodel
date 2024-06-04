@@ -164,7 +164,7 @@ This will let the client know that they probably made a mistake on their side an
 
 Then, if the hero exists, we return it.
 
-And because we are using the `response_model` with `HeroRead`, it will be validated, documented, etc.
+And because we are using the `response_model` with `HeroPublic`, it will be validated, documented, etc.
 
 //// tab | Python 3.10+
 

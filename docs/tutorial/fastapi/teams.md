@@ -14,7 +14,7 @@ It's the same process we did for heroes, with a base model, a **table model**, a
 
 We have a `TeamBase` **data model**, and from it, we inherit with a `Team` **table model**.
 
-Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamRead` **data models**.
+Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamPublic` **data models**.
 
 And we also create a `TeamUpdate` **data model**.
 
