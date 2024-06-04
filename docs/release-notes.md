@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.19
+
 ### Fixes
 
 * 🐛 Fix pydantic `EmailStr` support and `max_length` in several String subclasses. PR [#966](https://github.com/tiangolo/sqlmodel/pull/966) by [@estebanx64](https://github.com/estebanx64).
