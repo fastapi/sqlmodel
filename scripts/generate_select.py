@@ -7,7 +7,9 @@ import black
 from jinja2 import Template
 from pydantic import BaseModel
 
-template_path = Path(__file__).parent.parent / "sqlmodel/sql/_expression_select_gen.py.jinja2"
+template_path = (
+    Path(__file__).parent.parent / "sqlmodel/sql/_expression_select_gen.py.jinja2"
+)
 destiny_path = Path(__file__).parent.parent / "sqlmodel/sql/_expression_select_gen.py"
 
 

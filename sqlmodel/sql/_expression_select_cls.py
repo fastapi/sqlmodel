@@ -15,7 +15,6 @@ from typing_extensions import Self
 _T = TypeVar("_T")
 
 
-
 # Separate this class in SelectBase, Select, and SelectOfScalar so that they can share
 # where and having without having type overlap incompatibility in session.exec().
 class SelectBase(_Select[Tuple[_T]]):
