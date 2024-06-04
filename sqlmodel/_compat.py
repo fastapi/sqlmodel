@@ -72,6 +72,7 @@ def partial_init() -> Generator[None, None, None]:
 
 
 if IS_PYDANTIC_V2:
+    from annotated_types import MaxLen
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
@@ -201,7 +202,7 @@ if IS_PYDANTIC_V2:
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
-            if isinstance(meta, PydanticMetadata):
+            if isinstance(meta, (PydanticMetadata, MaxLen)):
                 return meta
         return FakeMetadata()
 
