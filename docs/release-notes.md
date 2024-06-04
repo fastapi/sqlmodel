@@ -4,6 +4,7 @@
 
 ### Fixes
 
+* 🐛 Fix pydantic `EmailStr` support and `max_length` in several String subclasses. PR [#966](https://github.com/tiangolo/sqlmodel/pull/966) by [@estebanx64](https://github.com/estebanx64).
 * 🐛 Fix set varchar limit when `max_length` is set on Pydantic models using Pydantic v2. PR [#963](https://github.com/tiangolo/sqlmodel/pull/963) by [@estebanx64](https://github.com/estebanx64).
 
 ### Refactors
