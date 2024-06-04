@@ -194,7 +194,7 @@ if IS_PYDANTIC_V2:
             # Non optional unions are not allowed
             if bases[0] is not NoneType and bases[1] is not NoneType:
                 raise ValueError(
-                    "Cannot have a (non-optional) union as a SQLlchemy field"
+                    "Cannot have a (non-optional) union as a SQLAlchemy field"
                 )
             # Optional unions are allowed
             return bases[0] if bases[0] is not NoneType else bases[1]
