@@ -134,7 +134,7 @@ class FieldInfo(PydanticFieldInfo):
                 )
             if nullable is not Undefined:
                 raise RuntimeError(
-                    "Passing nullable is not supported when " "also passing a sa_column"
+                    "Passing nullable is not supported when also passing a sa_column"
                 )
             if foreign_key is not Undefined:
                 raise RuntimeError(
@@ -143,7 +143,7 @@ class FieldInfo(PydanticFieldInfo):
                 )
             if ondelete is not Undefined:
                 raise RuntimeError(
-                    "Passing ondelete is not supported when " "also passing a sa_column"
+                    "Passing ondelete is not supported when also passing a sa_column"
                 )
             if unique is not Undefined:
                 raise RuntimeError(
