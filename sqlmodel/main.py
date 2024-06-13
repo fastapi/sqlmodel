@@ -707,7 +707,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         ondelete = getattr(field_info, "ondelete", Undefined)
         if ondelete is Undefined:
             ondelete = None
-        assert isinstance(ondelete, (str, type(None))) # for typing
+        assert isinstance(ondelete, (str, type(None)))  # for typing
         args.append(ForeignKey(foreign_key, ondelete=ondelete))
     kwargs = {
         "primary_key": primary_key,
