@@ -704,11 +704,11 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         unique = False
     if foreign_key:
         assert isinstance(foreign_key, str)
-        foreign_key_obj = ForeignKey(foreign_key)
         ondelete = getattr(field_info, "ondelete", Undefined)
-        if isinstance(ondelete, str):
-            foreign_key_obj.ondelete = ondelete
-        args.append(foreign_key_obj)
+        if ondelete is Undefined:
+            ondelete = None
+        assert isinstance(ondelete, (str, type(None))) # for typing
+        args.append(ForeignKey(foreign_key, ondelete=ondelete))
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
