@@ -81,6 +81,7 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_validate,
 )
 from .sql.sqltypes import GUID, AutoString
+from .sql._relationship_types import OnDeleteType
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -108,6 +109,7 @@ class FieldInfo(PydanticFieldInfo):
         primary_key = kwargs.pop("primary_key", False)
         nullable = kwargs.pop("nullable", Undefined)
         foreign_key = kwargs.pop("foreign_key", Undefined)
+        ondelete = kwargs.pop("ondelete", Undefined)
         unique = kwargs.pop("unique", False)
         index = kwargs.pop("index", Undefined)
         sa_type = kwargs.pop("sa_type", Undefined)
@@ -139,6 +141,10 @@ class FieldInfo(PydanticFieldInfo):
                     "Passing foreign_key is not supported when "
                     "also passing a sa_column"
                 )
+            if ondelete is not Undefined:
+                raise RuntimeError(
+                    "Passing ondelete is not supported when " "also passing a sa_column"
+                )
             if unique is not Undefined:
                 raise RuntimeError(
                     "Passing unique is not supported when also passing a sa_column"
@@ -155,6 +161,7 @@ class FieldInfo(PydanticFieldInfo):
         self.primary_key = primary_key
         self.nullable = nullable
         self.foreign_key = foreign_key
+        self.ondelete = ondelete
         self.unique = unique
         self.index = index
         self.sa_type = sa_type
@@ -168,6 +175,7 @@ class RelationshipInfo(Representation):
         self,
         *,
         back_populates: Optional[str] = None,
+        cascade_delete: Optional[bool] = False,
         link_model: Optional[Any] = None,
         sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
         sa_relationship_args: Optional[Sequence[Any]] = None,
@@ -185,6 +193,7 @@ class RelationshipInfo(Representation):
                     "also passing a sa_relationship"
                 )
         self.back_populates = back_populates
+        self.cascade_delete = cascade_delete
         self.link_model = link_model
         self.sa_relationship = sa_relationship
         self.sa_relationship_args = sa_relationship_args
@@ -231,7 +240,53 @@ def Field(
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
+
+
+@overload
+def Field(
+    default: Any = Undefined,
+    *,
+    default_factory: Optional[NoArgAnyCallable] = None,
+    alias: Optional[str] = None,
+    title: Optional[str] = None,
+    description: Optional[str] = None,
+    exclude: Union[
+        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
+    ] = None,
+    include: Union[
+        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
+    ] = None,
+    const: Optional[bool] = None,
+    gt: Optional[float] = None,
+    ge: Optional[float] = None,
+    lt: Optional[float] = None,
+    le: Optional[float] = None,
+    multiple_of: Optional[float] = None,
+    max_digits: Optional[int] = None,
+    decimal_places: Optional[int] = None,
+    min_items: Optional[int] = None,
+    max_items: Optional[int] = None,
+    unique_items: Optional[bool] = None,
+    min_length: Optional[int] = None,
+    max_length: Optional[int] = None,
+    allow_mutation: bool = True,
+    regex: Optional[str] = None,
+    discriminator: Optional[str] = None,
+    repr: bool = True,
+    primary_key: Union[bool, UndefinedType] = Undefined,
+    foreign_key: str,
+    ondelete: Optional[OnDeleteType] = None,
+    unique: Union[bool, UndefinedType] = Undefined,
+    nullable: Union[bool, UndefinedType] = Undefined,
+    index: Union[bool, UndefinedType] = Undefined,
+    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
+    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
+    schema_extra: Optional[Dict[str, Any]] = None,
+) -> Any:
+    ...
 
 
 @overload
@@ -267,7 +322,8 @@ def Field(
     repr: bool = True,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
 
 
 def Field(
@@ -302,6 +358,7 @@ def Field(
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
     foreign_key: Any = Undefined,
+    ondelete: Optional[OnDeleteType] = None,
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
@@ -339,6 +396,7 @@ def Field(
         repr=repr,
         primary_key=primary_key,
         foreign_key=foreign_key,
+        ondelete=ondelete,
         unique=unique,
         nullable=nullable,
         index=index,
@@ -356,24 +414,29 @@ def Field(
 def Relationship(
     *,
     back_populates: Optional[str] = None,
+    cascade_delete: Optional[bool] = False,
     link_model: Optional[Any] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
 
 
 @overload
 def Relationship(
     *,
     back_populates: Optional[str] = None,
+    cascade_delete: Optional[bool] = False,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
-) -> Any: ...
+) -> Any:
+    ...
 
 
 def Relationship(
     *,
     back_populates: Optional[str] = None,
+    cascade_delete: Optional[bool] = False,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
@@ -381,6 +444,7 @@ def Relationship(
 ) -> Any:
     relationship_info = RelationshipInfo(
         back_populates=back_populates,
+        cascade_delete=cascade_delete,
         link_model=link_model,
         sa_relationship=sa_relationship,
         sa_relationship_args=sa_relationship_args,
@@ -531,6 +595,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 rel_kwargs: Dict[str, Any] = {}
                 if rel_info.back_populates:
                     rel_kwargs["back_populates"] = rel_info.back_populates
+                if rel_info.cascade_delete:
+                    rel_kwargs["cascade"] = "all, delete-orphan"
                 if rel_info.link_model:
                     ins = inspect(rel_info.link_model)
                     local_table = getattr(ins, "local_table")  # noqa: B009
@@ -643,7 +709,11 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         unique = False
     if foreign_key:
         assert isinstance(foreign_key, str)
-        args.append(ForeignKey(foreign_key))
+        foreign_key_obj = ForeignKey(foreign_key)
+        ondelete = getattr(field_info, "ondelete", None)
+        if ondelete is not None:
+            foreign_key_obj.ondelete = ondelete
+        args.append(foreign_key_obj)
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
