@@ -276,7 +276,7 @@ def Field(
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
     foreign_key: str,
-    ondelete: Optional[OnDeleteType] = None,
+    ondelete: Union[OnDeleteType, UndefinedType] = Undefined,
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
@@ -355,7 +355,7 @@ def Field(
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
     foreign_key: Any = Undefined,
-    ondelete: Optional[OnDeleteType] = None,
+    ondelete: Union[OnDeleteType, UndefinedType] = Undefined,
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
@@ -705,8 +705,8 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     if foreign_key:
         assert isinstance(foreign_key, str)
         foreign_key_obj = ForeignKey(foreign_key)
-        ondelete = getattr(field_info, "ondelete", None)
-        if ondelete is not None:
+        ondelete = getattr(field_info, "ondelete", Undefined)
+        if isinstance(ondelete, str):
             foreign_key_obj.ondelete = ondelete
         args.append(foreign_key_obj)
     kwargs = {
