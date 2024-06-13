@@ -80,8 +80,8 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import GUID, AutoString
 from .sql._relationship_types import OnDeleteType
+from .sql.sqltypes import GUID, AutoString
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -240,8 +240,7 @@ def Field(
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 @overload
@@ -285,8 +284,7 @@ def Field(
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 @overload
@@ -322,8 +320,7 @@ def Field(
     repr: bool = True,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     schema_extra: Optional[Dict[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 def Field(
@@ -418,8 +415,7 @@ def Relationship(
     link_model: Optional[Any] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 @overload
@@ -429,8 +425,7 @@ def Relationship(
     cascade_delete: Optional[bool] = False,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
-) -> Any:
-    ...
+) -> Any: ...
 
 
 def Relationship(
