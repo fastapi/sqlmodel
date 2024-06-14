@@ -157,6 +157,9 @@ class FieldInfo(PydanticFieldInfo):
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
+        if foreign_key is not Undefined:
+            if ondelete == "SET NULL" and (nullable is False or nullable is Undefined):
+                raise RuntimeError("ondelete='SET NULL' requires nullable=True")
         super().__init__(default=default, **kwargs)
         self.primary_key = primary_key
         self.nullable = nullable
