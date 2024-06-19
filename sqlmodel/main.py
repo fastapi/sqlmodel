@@ -40,6 +40,8 @@ from sqlalchemy import (
     Interval,
     Numeric,
     Table,
+    JSON,
+    ARRAY,
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
@@ -588,21 +590,7 @@ def is_annotated_type(type_: Any) -> bool:
     return get_origin(type_) is Annotated
 
 
-def get_sqlalchemy_type(field: Any) -> Any:
-    if IS_PYDANTIC_V2:
-        field_info = field
-    else:
-        field_info = field.field_info
-    sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
-    if sa_type is not Undefined:
-        return sa_type
-
-    type_ = get_type_from_field(field)
-    metadata = get_field_metadata(field)
-
-    # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
-    if is_annotated_type(type_):
-        type_ = get_args(type_)[0]
+def base_type_to_sa_type(type_: Any, metadata: MetaData) -> Any:
     if issubclass(type_, Enum):
         return sa_Enum(type_)
     if issubclass(
@@ -644,7 +632,43 @@ def get_sqlalchemy_type(field: Any) -> Any:
         )
     if issubclass(type_, uuid.UUID):
         return GUID
+    if issubclass(
+        type_,
+        (
+            dict,
+            BaseModel,
+        ),
+    ):
+        return JSON
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
+
+
+def get_sqlalchemy_type(field: Any) -> Any:
+    if IS_PYDANTIC_V2:
+        field_info = field
+    else:
+        field_info = field.field_info
+    sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
+    if sa_type is not Undefined:
+        return sa_type
+
+    type_ = get_type_from_field(field)
+    metadata = get_field_metadata(field)
+
+    # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
+    if is_annotated_type(type_):
+        type_ = get_args(type_)[0]
+
+    if issubclass(type_, list):
+        type_ = get_args(field.annotation)[0]
+        sa_type_ = base_type_to_sa_type(type_, metadata)
+
+        if issubclass(sa_type_, JSON):
+            return sa_type_
+
+        return ARRAY(sa_type_)
+
+    return base_type_to_sa_type(type_, metadata)
 
 
 def get_column_from_field(field: Any) -> Column:  # type: ignore
