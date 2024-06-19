@@ -51,7 +51,7 @@ jobs:
         id: cache
         with:
           path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements-tests.txt') }}
+          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements-tests.txt') }}-v01
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: pip install -r requirements-tests.txt
@@ -60,7 +60,7 @@ jobs:
         run: pip install --upgrade "pydantic>=1.10.0,<2.0.0"
       - name: Install Pydantic v2
         if: matrix.pydantic-version == 'pydantic-v2'
-        run: pip install --upgrade "pydantic>=2.0.2,<3.0.0"
+        run: pip install --upgrade "pydantic>=2.0.2,<3.0.0" "typing-extensions==4.6.1"
       - name: Lint
         # Do not run on Python 3.7 as mypy behaves differently
         if: matrix.python-version != '3.7' && matrix.pydantic-version == 'pydantic-v2'
