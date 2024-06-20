@@ -586,6 +586,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
+def is_optional_type(type_: Any) -> bool:
+    return get_origin(type_) is Union and type(None) in get_args(type_)
+
+
 def is_annotated_type(type_: Any) -> bool:
     return get_origin(type_) is Annotated
 
@@ -659,8 +663,15 @@ def get_sqlalchemy_type(field: Any) -> Any:
     if is_annotated_type(type_):
         type_ = get_args(type_)[0]
 
-    if issubclass(type_, list):
-        type_ = get_args(field.annotation)[0]
+    origin_type = get_origin(type_)
+    if issubclass(type_, list) or origin_type is list:
+        type_args = get_args(type_)
+        if not type_args:
+            type_args = get_args(field.annotation)
+        if not type_args:
+            raise ValueError(f"List type {type_} has no inner type")
+
+        type_ = type_args[0]
         sa_type_ = base_type_to_sa_type(type_, metadata)
 
         if issubclass(sa_type_, JSON):
