@@ -30,6 +30,8 @@ from typing import (
 from pydantic import BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
+    ARRAY,
+    JSON,
     Boolean,
     Column,
     Date,
@@ -40,8 +42,6 @@ from sqlalchemy import (
     Interval,
     Numeric,
     Table,
-    JSON,
-    ARRAY,
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
