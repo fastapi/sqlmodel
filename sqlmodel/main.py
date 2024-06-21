@@ -179,6 +179,7 @@ class RelationshipInfo(Representation):
         *,
         back_populates: Optional[str] = None,
         cascade_delete: Optional[bool] = False,
+        passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
         link_model: Optional[Any] = None,
         sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
         sa_relationship_args: Optional[Sequence[Any]] = None,
@@ -197,6 +198,7 @@ class RelationshipInfo(Representation):
                 )
         self.back_populates = back_populates
         self.cascade_delete = cascade_delete
+        self.passive_deletes = passive_deletes
         self.link_model = link_model
         self.sa_relationship = sa_relationship
         self.sa_relationship_args = sa_relationship_args
@@ -415,6 +417,7 @@ def Relationship(
     *,
     back_populates: Optional[str] = None,
     cascade_delete: Optional[bool] = False,
+    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
     link_model: Optional[Any] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
     sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
@@ -426,6 +429,7 @@ def Relationship(
     *,
     back_populates: Optional[str] = None,
     cascade_delete: Optional[bool] = False,
+    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
 ) -> Any: ...
@@ -435,6 +439,7 @@ def Relationship(
     *,
     back_populates: Optional[str] = None,
     cascade_delete: Optional[bool] = False,
+    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
     link_model: Optional[Any] = None,
     sa_relationship: Optional[RelationshipProperty[Any]] = None,
     sa_relationship_args: Optional[Sequence[Any]] = None,
@@ -443,6 +448,7 @@ def Relationship(
     relationship_info = RelationshipInfo(
         back_populates=back_populates,
         cascade_delete=cascade_delete,
+        passive_deletes=passive_deletes,
         link_model=link_model,
         sa_relationship=sa_relationship,
         sa_relationship_args=sa_relationship_args,
@@ -595,6 +601,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_kwargs["back_populates"] = rel_info.back_populates
                 if rel_info.cascade_delete:
                     rel_kwargs["cascade"] = "all, delete-orphan"
+                if rel_info.passive_deletes:
+                    rel_kwargs["passive_deletes"] = rel_info.passive_deletes
                 if rel_info.link_model:
                     ins = inspect(rel_info.link_model)
                     local_table = getattr(ins, "local_table")  # noqa: B009
