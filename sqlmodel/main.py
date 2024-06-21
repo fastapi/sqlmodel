@@ -91,7 +91,7 @@ if TYPE_CHECKING:
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx = Union[Set[int], Set[str], Dict[int, Any], Dict[str, Any], None]
-OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT", "NO ACTION"]
+OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 
 def __dataclass_transform__(
