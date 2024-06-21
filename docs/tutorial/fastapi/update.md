@@ -22,6 +22,32 @@ Because each field is **actually different** (we just change it to `Optional`, b
 
 So, let's create this new `HeroUpdate` model:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="21-24"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:5-26]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="21-24"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:7-28]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="21-24"
 # Code above omitted 👆
 
@@ -30,11 +56,33 @@ So, let's create this new `HeroUpdate` model:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -46,6 +94,32 @@ Now let's use this model in the *path operation* to update a hero.
 
 We will use a `PATCH` HTTP operation. This is used to **partially update data**, which is what we are doing.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="3-4"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="3-4"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3-4"
 # Code above omitted 👆
 
@@ -54,11 +128,33 @@ We will use a `PATCH` HTTP operation. This is used to **partially update data**,
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -70,6 +166,32 @@ We take a `hero_id` with the **ID** of the hero **we want to update**.
 
 So, we need to read the hero from the database, with the **same logic** we used to **read a single hero**, checking if it exists, possibly raising an error for the client if it doesn't exist, etc.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="6-8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="6-8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="6-8"
 # Code above omitted 👆
 
@@ -78,11 +200,33 @@ So, we need to read the hero from the database, with the **same logic** we used 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -136,6 +280,32 @@ Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=
 
 Then we use that to get the data that was actually sent by the client:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="9"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="9"
 # Code above omitted 👆
 
@@ -144,24 +314,73 @@ Then we use that to get the data that was actually sent by the client:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
 
+////
+
 ///
 
 /// tip
 Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
+///
 
 ///
 
 ## Update the Hero in the Database
 
-Now that we have a **dictionary with the data sent by the client**, we can iterate for each one of the keys and the values, and then we set them in the database hero model `db_hero` using `setattr()`.
+Now that we have a **dictionary with the data sent by the client**, we can use the method `db_hero.sqlmodel_update()` to update the object `db_hero`.
 
-```Python hl_lines="10-11"
+//// tab | Python 3.10+
+
+```Python hl_lines="10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python hl_lines="10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
+```Python hl_lines="10"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
@@ -169,27 +388,47 @@ Now that we have a **dictionary with the data sent by the client**, we can itera
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.9+
+
+```Python
+{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/fastapi/update/tutorial001.py!}
 ```
 
+////
+
 ///
 
-If you are not familiar with that `setattr()`, it takes an object, like the `db_hero`, then an attribute name (`key`), that in our case could be `"name"`, and a value (`value`). And then it **sets the attribute with that name to the value**.
+/// tip
 
-So, if `key` was `"name"` and `value` was `"Deadpuddle"`, then this code:
+The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.16. 🤓
 
-```Python
-setattr(db_hero, key, value)
-```
+Before that, you would need to manually get the values and set them using `setattr()`.
 
-...would be more or less equivalent to:
+///
 
-```Python
-db_hero.name = "Deadpuddle"
-```
+The method `db_hero.sqlmodel_update()` takes an argument with another model object or a dictionary.
+
+For each of the fields in the **original** model object (`db_hero` in this example), it checks if the field is available in the **argument** (`hero_data` in this example) and then updates it with the provided value.
 
 ## Remove Fields
 

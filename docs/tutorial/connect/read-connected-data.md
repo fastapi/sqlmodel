@@ -37,9 +37,21 @@ We will continue with the code in the previous example and we will add more thin
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -123,6 +135,20 @@ Remember SQLModel's `select()` function? It can take more than one argument.
 
 So, we can pass the `Hero` and `Team` model classes. And we can also use both their columns in the `.where()` part:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:61-63]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -131,11 +157,25 @@ So, we can pass the `Hero` and `Team` model classes. And we can also use both th
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -147,6 +187,20 @@ Now we can execute it and get the `results` object.
 
 And as we used `select` with two models, we will receive tuples of instances of those two models, so we can iterate over them naturally in a `for` loop:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="7"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:61-66]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="7"
 # Code above omitted 👆
 
@@ -155,11 +209,25 @@ And as we used `select` with two models, we will receive tuples of instances of 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -179,6 +247,20 @@ And you should get autocompletion and inline errors in your editor for both `her
 
 As always, we must remember to add this new `select_heroes()` function to the `main()` function to make sure it is executed when we call this program from the command line.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="6"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py[ln:69-72]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="6"
 # Code above omitted 👆
 
@@ -187,11 +269,25 @@ As always, we must remember to add this new `select_heroes()` function to the `m
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/select/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -300,6 +396,20 @@ The same way there's a `.where()` available when using `select()`, there's also 
 
 And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we already declared what is the `foreign_key` when creating the models, we don't have to pass an `ON` part, it is inferred automatically:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/select/tutorial002_py310.py[ln:61-66]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -308,11 +418,25 @@ And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we alre
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/select/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -441,6 +565,20 @@ Now let's replicate the same query in **SQLModel**.
 
 `.join()` has a parameter we can use `isouter=True` to make the `JOIN` be a `LEFT OUTER JOIN`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/select/tutorial003_py310.py[ln:61-66]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -449,11 +587,25 @@ Now let's replicate the same query in **SQLModel**.
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/select/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -502,6 +654,20 @@ But we would still be able to **filter** the rows with it. 🤓
 
 We could even add some additional `.where()` after `.join()` to filter the data more, for example to return only the heroes from one team:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/select/tutorial004_py310.py[ln:61-66]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -510,11 +676,25 @@ We could even add some additional `.where()` after `.join()` to filter the data 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/select/tutorial004_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial004.py!}
 ```
+
+////
 
 ///
 
@@ -547,6 +727,20 @@ Preventer Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48
 
 By putting the `Team` in `select()` we tell **SQLModel** and the database that we want the team data too.
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/select/tutorial005_py310.py[ln:61-66]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -555,11 +749,25 @@ By putting the `Team` in `select()` we tell **SQLModel** and the database that w
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/select/tutorial005_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/select/tutorial005.py!}
 ```
+
+////
 
 ///
 
