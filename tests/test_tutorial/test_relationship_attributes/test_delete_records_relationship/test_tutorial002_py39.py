@@ -52,36 +52,6 @@ expected_calls = [
         {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
     ],
     [
-        "Preventers new hero:",
-        {
-            "age": 32,
-            "id": 6,
-            "secret_name": "Natalia Roman-on",
-            "team_id": 2,
-            "name": "Tarantula",
-        },
-    ],
-    [
-        "Preventers new hero:",
-        {
-            "age": 36,
-            "id": 7,
-            "secret_name": "Steve Weird",
-            "team_id": 2,
-            "name": "Dr. Weird",
-        },
-    ],
-    [
-        "Preventers new hero:",
-        {
-            "age": 93,
-            "id": 8,
-            "secret_name": "Esteban Rogelios",
-            "team_id": 2,
-            "name": "Captain North America",
-        },
-    ],
-    [
         "Deleted team:",
         {
             "id": 3,
