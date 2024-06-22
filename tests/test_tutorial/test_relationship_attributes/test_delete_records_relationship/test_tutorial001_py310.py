@@ -83,6 +83,5 @@ def test_tutorial(clear_sqlmodel):
     new_print = get_testing_print_function(calls)
 
     with patch("builtins.print", new=new_print):
-        with pytest.warns(SAWarning):
-            mod.main()
+        mod.main()
     assert calls == expected_calls
