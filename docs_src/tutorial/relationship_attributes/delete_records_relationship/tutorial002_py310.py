@@ -6,7 +6,7 @@ class Team(SQLModel, table=True):
     name: str = Field(index=True)
     headquarters: str
 
-    heroes: list["Hero"] = Relationship()
+    heroes: list["Hero"] = Relationship(back_populates="team")
 
 
 class Hero(SQLModel, table=True):
@@ -18,7 +18,7 @@ class Hero(SQLModel, table=True):
     team_id: int | None = Field(
         default=None, foreign_key="team.id", nullable=True, ondelete="SET NULL"
     )
-    team: Team | None = Relationship()
+    team: Team | None = Relationship(back_populates="heroes")
 
 
 sqlite_file_name = "database.db"
@@ -90,12 +90,12 @@ def select_deleted_heroes():
         statement = select(Hero).where(Hero.name == "Black Lion")
         result = session.exec(statement)
         hero = result.one_or_none()
-        print("Black Lion hero:", hero)
+        print("Black Lion hero:", hero)  # None
 
         statement = select(Hero).where(Hero.name == "Princess Sure-E")
         result = session.exec(statement)
         hero = result.one_or_none()
-        print("Princess Sure-E hero:", hero)
+        print("Princess Sure-E hero:", hero)  # None
 
 
 def main():

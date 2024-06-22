@@ -7,7 +7,7 @@ class Team(SQLModel, table=True):
     name: str = Field(index=True)
     headquarters: str
 
-    heroes: list["Hero"] = Relationship(passive_deletes="all")
+    heroes: list["Hero"] = Relationship(back_populates="team", passive_deletes="all")
 
 
 class Hero(SQLModel, table=True):
@@ -17,7 +17,7 @@ class Hero(SQLModel, table=True):
     age: int | None = Field(default=None, index=True)
 
     team_id: int = Field(foreign_key="team.id", nullable=False, ondelete="RESTRICT")
-    team: Team = Relationship()
+    team: Team = Relationship(back_populates="heroes")
 
 
 sqlite_file_name = "database.db"
@@ -29,7 +29,7 @@ engine = create_engine(sqlite_url, echo=True)
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
     with engine.connect() as connection:
-        connection.execute(text("PRAGMA foreign_keys=ON"))
+        connection.execute(text("PRAGMA foreign_keys=ON"))  # for SQLite only
 
 
 def create_heroes():
@@ -93,12 +93,12 @@ def select_deleted_heroes():
         statement = select(Hero).where(Hero.name == "Black Lion")
         result = session.exec(statement)
         hero = result.one_or_none()
-        print("Black Lion hero:", hero)
+        print("Black Lion hero:", hero)  # None
 
         statement = select(Hero).where(Hero.name == "Princess Sure-E")
         result = session.exec(statement)
         hero = result.one_or_none()
-        print("Princess Sure-E hero:", hero)
+        print("Princess Sure-E hero:", hero)  # None
 
 
 def main():
