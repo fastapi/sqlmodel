@@ -115,7 +115,7 @@ The `ondelete` option allows you to specify what should happen to dependent reco
 - `CASCADE`: Automatically deletes the dependent records.
 - `SET NULL`: Sets the foreign key field to `NULL`.
 - `RESTRICT`: Prevents the deletion if there are dependent records.
-  
+
 #### CASCADE Example
 
 //// tab | Python 3.10+
