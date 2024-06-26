@@ -2,7 +2,7 @@
 
 ### Introduction
 
-This guide demonstrates how to implement UUID (Universally Unique Identifier) support in SQLModel, providing a robust method for creating unique identifiers across your database tables. You can read more about UUID in the official <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python docs for UUID</a>. 
+This guide demonstrates how to implement UUID (Universally Unique Identifier) support in SQLModel, providing a robust method for creating unique identifiers across your database tables. You can read more about UUID in the official <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python docs for UUID</a>.
 
 ### Prerequisites
 
