@@ -6,10 +6,8 @@ This guide demonstrates how to implement UUID (Universally Unique Identifier) su
 
 ### Prerequisites
 
-Ensure you have the following installed:
+Ensure you have the correct version of SQLModel:
 
-- Python 3.7+
-- SQLAlchemy 2.0+
 - SQLModel 0.0.20+
 
 ### Adding UUID Support
