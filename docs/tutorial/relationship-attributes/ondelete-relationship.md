@@ -4,6 +4,12 @@
 
 When working with relational databases, managing the deletion behavior of related records is crucial to maintaining data integrity. SQLModel provides robust support for handling these scenarios through the `ondelete`, `cascade`, and `passive_deletes` options. This guide will walk you through the usage and benefits of these features.
 
+### Prerequisites
+
+Ensure you have the correct version of SQLModel:
+
+- SQLModel 0.0.21+
+
 ### First, let's declare our models and create some teams with their heroes
 
 
@@ -177,11 +183,11 @@ The `ondelete` option allows you to specify what should happen to dependent reco
 
 ///
 
-The configuration above is setting the table `Team` with a relationship with the flag `cascade_delete=True`, which means all objects in memory from the parent will be marked for delete. We are also setting `Hero` table in `team_id` column as a foreign key with the clause `ON DELETE CASCADE` at the database level, which means the database will delete any record when its parent in `Team` is deleted.
+The configuration above is setting the table `Team` with a relationship with the flag `cascade_delete=True`, which means all objects in memory from the parent will be marked for delete. We are also setting the `Hero` table in the `team_id` column as a foreign key with the clause `ON DELETE CASCADE` at the database level, which means the database will delete any record when its parent in `Team` is deleted.
 
 /// tip
 
-The `ON DELETE CASCADE` setup at the database level is useful because if any other application or service has access to the database and delete a record, the database will be in charge to handle the situation to delete any possible child.
+The `ON DELETE CASCADE` setup at the database level is useful because if any other application or service has access to the database and delete a record, the database will be in charge to handle the situation to deletes any possible child.
 
 ///
 
@@ -331,7 +337,7 @@ The team was deleted and all of its heroes! 🤓
 
 ///
 
-The configuration above is setting `team_id` column from `Hero` table to `ON DELETE SET NULL` in all the child that belongs to the deleted parent.
+The configuration above is setting the `team_id` column from the `Hero` table to `ON DELETE SET NULL` in all the children that belong to the deleted parent.
 
 /// tip
 
@@ -487,11 +493,11 @@ The team `Wakaland` was deleted and all of its heroes were left without a team, 
 
 ///
 
-The configuration above is setting `team_id` column from `Hero` table to `ON DELETE RESTRICT`, which means if a parent has a dependant child, the database is going to check this before to proceed with any other task/transaction.
+The configuration above is setting the `team_id` column from `Hero` table to `ON DELETE RESTRICT`, which means if a parent has a dependent child, the database is going to check this before proceeding with any other task/transaction.
 
 /// tip
 
-* The default behavior of SQLAlchemy before to delete any object with a relationship in the database, it's disassociate them changing their relationship to set `NULL`. In this case since we are using the `RESTRICT` option we don't want that behavior, passing the argument `passive_deletes="all"` SQLAlchemy will not load the child objects to emit the delete, relying on the database to handle the constraint.
+* The default behavior of SQLAlchemy before to delete any object with a relationship in the database, it disassociates them by changing their relationship to set `NULL`. In this case since we are using the `RESTRICT` option we don't want that behavior, passing the argument `passive_deletes="all"` SQLAlchemy will not load the child objects to emit the delete, relying on the database to handle the constraint.
 
 * The only difference of using `RESTRICT` instead on relying in the database Integrity Error here when we try to delete a parent record that has child, It's `RESTRICT` first, validate if there are existing records dependant on each other before to proceed with any delete and raise the error immediately, whereas the default behavior of the database is to execute the transactions and raise the error at the end of it.
 
