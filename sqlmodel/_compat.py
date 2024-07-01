@@ -219,6 +219,33 @@ if IS_PYDANTIC_V2:
     ) -> Optional[AbstractSet[str]]:  # pragma: no cover
         return None
 
+    def validate_access_primary_key_autotype(
+        self: InstanceOrType["SQLModel"], name: str, value: Any
+    ) -> None:
+        """
+        Pydantic v2
+        Validates if the attribute being accessed is a primary key with an auto type and has not been set.
+
+        Args:
+            self (InstanceOrType["SQLModel"]): The instance or type of SQLModel.
+            name (str): The name of the attribute being accessed.
+            value (Any): The value of the attribute being accessed.
+
+        Raises:
+            ValueError: If the attribute is a primary key with an auto type and has not been set.
+
+        Returns:
+            None
+        """
+        if name != "model_fields":
+            model_fields = object.__getattribute__(self, "model_fields")
+            field = model_fields.get(name)
+            if field is not None and isinstance(field, FieldInfo):
+                if field.primary_key and field.annotation is int and value is None:
+                    raise ValueError(
+                        f"Primary key attribute '{name}' has not been set, please commit() it first."
+                    )
+
     def sqlmodel_table_construct(
         *,
         self_instance: _TSQLModel,
@@ -498,6 +525,37 @@ else:
             keys -= {k for k, v in exclude.items() if ValueItems.is_true(v)}
 
         return keys
+
+    def validate_access_primary_key_autotype(
+        self: InstanceOrType["SQLModel"], name: str, value: Any
+    ) -> None:
+        """
+        Pydantic v1
+        Validates if the attribute being accessed is a primary key with an auto type and has not been set.
+
+        Args:
+            self (InstanceOrType["SQLModel"]): The instance or type of SQLModel.
+            name (str): The name of the attribute being accessed.
+            value (Any): The value of the attribute being accessed.
+
+        Raises:
+            ValueError: If the attribute is a primary key with an auto type and has not been set.
+
+        Returns:
+            None
+        """
+        if name != "__fields__":
+            fields = object.__getattribute__(self, "__fields__")
+            field = fields.get(name)
+            if field is not None and isinstance(field.field_info, FieldInfo):
+                if (
+                    field.field_info.primary_key
+                    and field.annotation is int
+                    and value is None
+                ):
+                    raise ValueError(
+                        f"Primary key attribute '{name}' has not been set, please commit() it first."
+                    )
 
     def sqlmodel_validate(
         cls: Type[_TSQLModel],
