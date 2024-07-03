@@ -417,7 +417,7 @@ else:
     def get_config_value(
         *, model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
     ) -> Any:
-        return getattr(model.__config__, parameter, default)  # type: ignore[union-attr]
+        return getattr(model.__config__, parameter, default)
 
     def set_config_value(
         *,
@@ -425,7 +425,7 @@ else:
         parameter: str,
         value: Any,
     ) -> None:
-        setattr(model.__config__, parameter, value)  # type: ignore
+        setattr(model.__config__, parameter, value)
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
@@ -608,7 +608,7 @@ else:
                 setattr(m, key, value)
         # Continue with standard Pydantic logic
         object.__setattr__(m, "__fields_set__", fields_set)
-        m._init_private_attributes()  # type: ignore[attr-defined] # noqa
+        m._init_private_attributes()
         return m
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
