@@ -240,7 +240,11 @@ if IS_PYDANTIC_V2:
         if name != "model_fields":
             model_fields = object.__getattribute__(self, "model_fields")
             field = model_fields.get(name)
-            if field is not None and isinstance(field, FieldInfo):
+            if (
+                field is not None
+                and isinstance(field, FieldInfo)
+                and hasattr(field, "primary_key")
+            ):
                 if field.primary_key and field.annotation is int and value is None:
                     raise ValueError(
                         f"Primary key attribute '{name}' has not been set, please commit() it first."
@@ -547,7 +551,11 @@ else:
         if name != "__fields__":
             fields = object.__getattribute__(self, "__fields__")
             field = fields.get(name)
-            if field is not None and isinstance(field.field_info, FieldInfo):
+            if (
+                field is not None
+                and isinstance(field.field_info, FieldInfo)
+                and hasattr(field.field_info, "primary_key")
+            ):
                 if (
                     field.field_info.primary_key
                     and field.annotation is int
