@@ -8,9 +8,21 @@ As before, we'll continue from where we left off with the previous code.
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial003_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 {!./docs_src/tutorial/update/tutorial003.py!}
 ```
+
+////
 
 ///
 
@@ -62,6 +74,20 @@ To get the same results, delete the `database.db` file before running the exampl
 
 We'll start by selecting the hero `"Spider-Youngster"` that we updated in the previous chapter, this is the one we will delete:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-75]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="5"
 # Code above omitted 👆
 
@@ -70,15 +96,41 @@ We'll start by selecting the hero `"Spider-Youngster"` that we updated in the pr
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
 
+////
+
 ///
 
 As this is a new function `delete_heroes()`, we'll also add it to the `main()` function so that we call it when executing the program from the command line:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="7"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:90-98]!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="7"
 # Code above omitted 👆
@@ -86,11 +138,25 @@ As this is a new function `delete_heroes()`, we'll also add it to the `main()` f
 {!./docs_src/tutorial/delete/tutorial001.py[ln:92-100]!}
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -120,6 +186,20 @@ Hero:  name='Spider-Youngster' secret_name='Pedro Parqueador' age=16 id=2
 
 Now, very similar to how we used `session.add()` to add or update new heroes, we can use `session.delete()` to delete the hero from the session:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="10"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-77]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="10"
 # Code above omitted 👆
 
@@ -128,11 +208,25 @@ Now, very similar to how we used `session.add()` to add or update new heroes, we
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -142,6 +236,20 @@ To save the current changes in the session, **commit** it.
 
 This will save all the changes stored in the **session**, like the deleted hero:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="11"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-78]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="11"
 # Code above omitted 👆
 
@@ -150,11 +258,25 @@ This will save all the changes stored in the **session**, like the deleted hero:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -191,6 +313,20 @@ As the object is not connected to the session, it is not marked as "expired", th
 
 Because of that, the object still contains its attributes with the data in it, so we can print it:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="13"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-80]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="13"
 # Code above omitted 👆
 
@@ -199,11 +335,25 @@ Because of that, the object still contains its attributes with the data in it, s
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -228,6 +378,20 @@ Deleted hero: name='Spider-Youngster' secret_name='Pedro Parqueador' age=16 id=2
 
 To confirm if it was deleted, now let's query the database again, with the same `"Spider-Youngster"` name:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="15-17"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-84]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="15-17"
 # Code above omitted 👆
 
@@ -236,11 +400,25 @@ To confirm if it was deleted, now let's query the database again, with the same 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -279,6 +457,20 @@ Now let's just confirm that, indeed, no hero was found in the database with that
 
 We'll do it by checking that the "first" item in the `results` is `None`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="19-20"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/delete/tutorial001_py310.py[ln:70-87]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="19-20"
 # Code above omitted 👆
 
@@ -287,11 +479,25 @@ We'll do it by checking that the "first" item in the `results` is `None`:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/delete/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/delete/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -319,11 +525,25 @@ INFO Engine ROLLBACK
 
 Now let's review all that code:
 
+//// tab | Python 3.10+
+
+```{ .python .annotate hl_lines="70-88" }
+{!./docs_src/tutorial/delete/tutorial002_py310.py!}
+```
+
+{!./docs_src/tutorial/delete/annotations/en/tutorial002.md!}
+
+////
+
+//// tab | Python 3.7+
+
 ```{ .python .annotate hl_lines="72-90" }
 {!./docs_src/tutorial/delete/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/delete/annotations/en/tutorial002.md!}
+
+////
 
 /// tip
 

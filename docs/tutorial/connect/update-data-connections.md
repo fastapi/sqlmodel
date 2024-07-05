@@ -39,9 +39,21 @@ We will continue with the code we used to create some heroes, and we'll update t
 
 /// details | 👀 Full file preview
 
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 {!./docs_src/tutorial/connect/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -50,6 +62,24 @@ We will continue with the code we used to create some heroes, and we'll update t
 Let's say that **Tommy Sharp** uses his "rich uncle" charms to recruit **Spider-Boy** to join the team of the **Preventers**, now we need to update our Spider-Boy hero object to connect it to the Preventers team.
 
 Doing it is just like updating any other field:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/connect/update/tutorial001_py310.py[ln:29-30]!}
+
+        # Previous code here omitted 👈
+
+{!./docs_src/tutorial/connect/update/tutorial001_py310.py[ln:60-64]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="8"
 # Code above omitted 👆
@@ -63,11 +93,25 @@ Doing it is just like updating any other field:
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/connect/update/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/connect/update/tutorial001.py!}
 ```
+
+////
 
 ///
 

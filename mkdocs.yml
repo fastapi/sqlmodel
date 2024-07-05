@@ -90,6 +90,7 @@ nav:
       - tutorial/fastapi/read-one.md
       - tutorial/fastapi/limit-and-offset.md
       - tutorial/fastapi/update.md
+      - tutorial/fastapi/update-extra-data.md
       - tutorial/fastapi/delete.md
       - tutorial/fastapi/session-with-dependency.md
       - tutorial/fastapi/teams.md

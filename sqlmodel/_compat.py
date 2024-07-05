@@ -6,6 +6,7 @@ from typing import (
     TYPE_CHECKING,
     AbstractSet,
     Any,
+    Callable,
     Dict,
     ForwardRef,
     Generator,
@@ -17,10 +18,13 @@ from typing import (
     Union,
 )
 
-from pydantic import VERSION as PYDANTIC_VERSION
+from pydantic import VERSION as P_VERSION
+from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import get_args, get_origin
 
+# Reassign variable to make it reexported for mypy
+PYDANTIC_VERSION = P_VERSION
 IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
 
@@ -46,9 +50,11 @@ class ObjectWithUpdateWrapper:
     update: Dict[str, Any]
 
     def __getattribute__(self, __name: str) -> Any:
-        if __name in self.update:
-            return self.update[__name]
-        return getattr(self.obj, __name)
+        update = super().__getattribute__("update")
+        obj = super().__getattribute__("obj")
+        if __name in update:
+            return update[__name]
+        return getattr(obj, __name)
 
 
 def _is_union_type(t: Any) -> bool:
@@ -66,6 +72,7 @@ def partial_init() -> Generator[None, None, None]:
 
 
 if IS_PYDANTIC_V2:
+    from annotated_types import MaxLen
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
@@ -94,13 +101,18 @@ if IS_PYDANTIC_V2:
     ) -> None:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
-    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.model_fields
 
-    def set_fields_set(
-        new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
-    ) -> None:
-        object.__setattr__(new_object, "__pydantic_fields_set__", fields)
+    def get_fields_set(
+        object: InstanceOrType["SQLModel"],
+    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
+        return object.model_fields_set
+
+    def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
+        object.__setattr__(new_object, "__pydantic_fields_set__", set())
+        object.__setattr__(new_object, "__pydantic_extra__", None)
+        object.__setattr__(new_object, "__pydantic_private__", None)
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
         return class_dict.get("__annotations__", {})
@@ -182,7 +194,7 @@ if IS_PYDANTIC_V2:
             # Non optional unions are not allowed
             if bases[0] is not NoneType and bases[1] is not NoneType:
                 raise ValueError(
-                    "Cannot have a (non-optional) union as a SQLlchemy field"
+                    "Cannot have a (non-optional) union as a SQLAlchemy field"
                 )
             # Optional unions are allowed
             return bases[0] if bases[0] is not NoneType else bases[1]
@@ -190,7 +202,7 @@ if IS_PYDANTIC_V2:
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
-            if isinstance(meta, PydanticMetadata):
+            if isinstance(meta, (PydanticMetadata, MaxLen)):
                 return meta
         return FakeMetadata()
 
@@ -384,13 +396,16 @@ else:
     ) -> None:
         setattr(model.__config__, parameter, value)  # type: ignore
 
-    def get_model_fields(model: InstanceOrType["SQLModel"]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
 
-    def set_fields_set(
-        new_object: InstanceOrType["SQLModel"], fields: Set["FieldInfo"]
-    ) -> None:
-        object.__setattr__(new_object, "__fields_set__", fields)
+    def get_fields_set(
+        object: InstanceOrType["SQLModel"],
+    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
+        return object.__fields_set__
+
+    def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
+        object.__setattr__(new_object, "__fields_set__", set())
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
         return resolve_annotations(  # type: ignore[no-any-return]
