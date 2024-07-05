@@ -145,7 +145,7 @@ Let's now see with more detail these field/column declarations.
 
 ### Optional Fields, Nullable Columns
 
-Let's start with `age`, notice that it has a type of `Optional[int]`.
+Let's start with `age`, notice that it has a type of `int | None (or Optional[int])`.
 
 And we import that `Optional` from the `typing` standard module.
 
