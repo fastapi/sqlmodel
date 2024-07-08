@@ -119,7 +119,7 @@ Let's start by creating two teams:
 
 ///
 
-This would hopefully look already familiar.
+This would hopefully looks already familiar.
 
 We start a **session** in a `with` block using the same **engine** we created above.
 
