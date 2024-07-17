@@ -134,7 +134,7 @@ Now let's do all that, but this time using the new, shiny `Relationship` attribu
 
 Now we can create the `Team` instances and pass them directly to the new `team` argument when creating the `Hero` instances, as `team=team_preventers` instead of `team_id=team_preventers.id`.
 
-And thanks to SQLAlchemy and how it works underneath, these teams don't even have to have an ID yet, but because we are assigning the whole object to each hero, those teams **will be automatically created** in the database, the automatic ID will be generated, and will be set in the `team_id` column for each of the corresponding hero rows.
+And thanks to SQLAlchemy and how it works underneath, these teams don't even need to have an ID yet, but because we are assigning the whole object to each hero, those teams **will be automatically created** in the database, the automatic ID will be generated, and will be set in the `team_id` column for each of the corresponding hero rows.
 
 In fact, now we don't even have to put the teams explicitly in the session with `session.add(team)`, because these `Team` instances are **already associated** with heroes that **we do** `add` to the session.
 

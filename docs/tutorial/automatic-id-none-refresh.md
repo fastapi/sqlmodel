@@ -4,7 +4,7 @@ In the previous chapter, we saw how to add rows to the database using **SQLModel
 
 Now let's talk a bit about why the `id` field **can't be `NULL`** on the database because it's a **primary key**, and we declare it using `Field(primary_key=True)`.
 
-But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `Optional[int]`, and set the default value to `Field(default=None)`:
+But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `int | None (or Optional[int])`, and set the default value to `Field(default=None)`:
 
 //// tab | Python 3.10+
 
