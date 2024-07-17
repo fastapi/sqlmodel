@@ -298,10 +298,10 @@ $ python app.py
 // In SQLite, the UUID will be stored as a string
 // other DBs like Postgres have a specific UUID type
 CREATE TABLE hero (
-        id CHAR(32) NOT NULL, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id CHAR(32) NOT NULL,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 

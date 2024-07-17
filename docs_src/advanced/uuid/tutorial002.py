@@ -1,7 +1,7 @@
 import uuid
 from typing import Union
 
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 class Hero(SQLModel, table=True):

@@ -1,6 +1,6 @@
 import uuid
 
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 class Hero(SQLModel, table=True):
