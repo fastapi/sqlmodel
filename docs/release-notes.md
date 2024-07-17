@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.20
+
 ### Features
 
 * ✨ Add official UUID support, docs and tests, internally using new SQLAlchemy 2.0 types. Initial PR [#992](https://github.com/tiangolo/sqlmodel/pull/992) by [@estebanx64](https://github.com/estebanx64).
