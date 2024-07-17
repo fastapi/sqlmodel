@@ -23,16 +23,16 @@ def create_db_and_tables():
 
 def create_hero():
     with Session(engine) as session:
-        hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
+        hero = Hero(name="Deadpond", secret_name="Dive Wilson")
         print("The hero before saving in the DB")
-        print(hero_1)
+        print(hero)
         print("The hero ID was already set")
-        print(hero_1.id)
-        session.add(hero_1)
+        print(hero.id)
+        session.add(hero)
         session.commit()
-        session.refresh(hero_1)
+        session.refresh(hero)
         print("After saving in the DB")
-        print(hero_1)
+        print(hero)
 
 
 def select_hero():
