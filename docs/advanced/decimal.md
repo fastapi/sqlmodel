@@ -33,17 +33,43 @@ For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/
 
 Let's say that each hero in the database will have an amount of money. We could make that field a `Decimal` type using the `condecimal()` function:
 
-```{.python .annotate hl_lines="12" }
+//// tab | Python 3.10+
+
+```python hl_lines="11"
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:1-11]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
+```python hl_lines="12"
 {!./docs_src/advanced/decimal/tutorial001.py[ln:1-12]!}
 
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/advanced/decimal/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -63,11 +89,11 @@ We are also saying that the number of decimal places (to the right of the decima
 🚫 But these are all invalid numbers for that `money` field:
 
 * `1.2345`
-    * This number has more than 3 decimal places.
+  * This number has more than 3 decimal places.
 * `123.234`
-    * This number has more than 5 digits in total (integer and decimal part).
+  * This number has more than 5 digits in total (integer and decimal part).
 * `123`
-    * Even though this number doesn't have any decimals, we still have 3 places saved for them, which means that we can **only use 2 places** for the **integer part**, and this number has 3 integer digits. So, the allowed number of integer digits is `max_digits` - `decimal_places` = 2.
+  * Even though this number doesn't have any decimals, we still have 3 places saved for them, which means that we can **only use 2 places** for the **integer part**, and this number has 3 integer digits. So, the allowed number of integer digits is `max_digits` - `decimal_places` = 2.
 
 /// tip
 
@@ -79,6 +105,20 @@ Make sure you adjust the number of digits and decimal places for your own needs,
 
 When creating new models you can actually pass normal (`float`) numbers, Pydantic will automatically convert them to `Decimal` types, and **SQLModel** will store them as `Decimal` types in the database (using SQLAlchemy).
 
+//// tab | Python 3.10+
+
+```Python hl_lines="4-6"
+# Code above omitted 👆
+
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:24-34]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="4-6"
 # Code above omitted 👆
 
@@ -87,17 +127,45 @@ When creating new models you can actually pass normal (`float`) numbers, Pydanti
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/advanced/decimal/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
+
+////
 
 ///
 
 ## Select Decimal data
 
 Then, when working with Decimal types, you can confirm that they indeed avoid those rounding errors from floats:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="15-16"
+# Code above omitted 👆
+
+{!./docs_src/advanced/decimal/tutorial001_py310.py[ln:37-50]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="15-16"
 # Code above omitted 👆
@@ -107,11 +175,25 @@ Then, when working with Decimal types, you can confirm that they indeed avoid th
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/advanced/decimal/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/advanced/decimal/tutorial001.py!}
 ```
+
+////
 
 ///
 

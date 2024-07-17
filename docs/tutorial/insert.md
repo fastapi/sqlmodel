@@ -25,6 +25,22 @@ We will continue from where we left of in the last chapter.
 
 This is the code we had to create the database and table, nothing new here:
 
+//// tab | Python 3.10+
+
+```{.python .annotate hl_lines="20" }
+{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:1-18]!}
+
+# More code here later 👈
+
+{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py[ln:21-22]!}
+```
+
+{!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
+
+////
+
+//// tab | Python 3.7+
+
 ```{.python .annotate hl_lines="22" }
 {!./docs_src/tutorial/create_db_and_table/tutorial003.py[ln:1-20]!}
 
@@ -34,6 +50,8 @@ This is the code we had to create the database and table, nothing new here:
 ```
 
 {!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
+
+////
 
 Now that we can create the database and the table, we will continue from this point and add more code on the same file to create the data.
 
@@ -127,6 +145,20 @@ So, the first step is to simply create an instance of `Hero`.
 
 We'll create 3 right away, for the 3 heroes:
 
+//// tab | Python 3.10+
+
+```Python
+# Code above omitted 👆
+
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-24]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python
 # Code above omitted 👆
 
@@ -135,11 +167,25 @@ We'll create 3 right away, for the 3 heroes:
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -173,21 +219,61 @@ We would re-use the same **engine** in all the code, everywhere in the applicati
 
 The first step is to import the `Session` class:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="1"
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:1]!}
+
+# Code below omitted 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="3"
 {!./docs_src/tutorial/insert/tutorial001.py[ln:1-3]!}
 
 # Code below omitted 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
 
+////
+
 ///
 
 Then we can create a new session:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-26]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="8"
 # Code above omitted 👆
@@ -197,11 +283,25 @@ Then we can create a new session:
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -217,6 +317,19 @@ We will see a better way to create a **session** using a `with` block later.
 
 Now that we have some hero model instances (some objects in memory) and a **session**, the next step is to add them to the session:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="9-11"
+# Code above omitted 👆
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-30]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="9-11"
 # Code above omitted 👆
 {!./docs_src/tutorial/insert/tutorial001.py[ln:23-32]!}
@@ -224,11 +337,25 @@ Now that we have some hero model instances (some objects in memory) and a **sess
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -254,6 +381,19 @@ This ensures that the data is saved in a single batch, and that it will all succ
 
 Now that we have the heroes in the **session** and that we are ready to save all that to the database, we can **commit** the changes:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="13"
+# Code above omitted 👆
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-32]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="13"
 # Code above omitted 👆
 {!./docs_src/tutorial/insert/tutorial001.py[ln:23-34]!}
@@ -261,11 +401,25 @@ Now that we have the heroes in the **session** and that we are ready to save all
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -294,6 +448,19 @@ if __name__ == "__main__":
 
 But to keep things a bit more organized, let's instead create a new function `main()` that will contain all the code that should be executed when called as an independent script, and we can put there the previous function `create_db_and_tables()`, and add the new function `create_heroes()`:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="2  4"
+# Code above omitted 👆
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-36]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="2  4"
 # Code above omitted 👆
 {!./docs_src/tutorial/insert/tutorial002.py[ln:36-38]!}
@@ -301,26 +468,65 @@ But to keep things a bit more organized, let's instead create a new function `ma
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
 
+////
+
 ///
 
 And then we can call that single `main()` function from that main block:
+
+//// tab | Python 3.10+
+
+```Python hl_lines="8"
+# Code above omitted 👆
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-40]!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python hl_lines="8"
 # Code above omitted 👆
 {!./docs_src/tutorial/insert/tutorial002.py[ln:36-42]!}
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -377,6 +583,20 @@ The **session** holds some resources, like connections from the engine.
 
 So once we are done with the session, we should **close** it to make it release those resources and finish its cleanup:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="16"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-34]!}
+
+# More code here later 👇
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="16"
 # Code above omitted 👆
 
@@ -385,11 +605,25 @@ So once we are done with the session, we should **close** it to make it release 
 # More code here later 👇
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial001_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial001.py!}
 ```
+
+////
 
 ///
 
@@ -405,16 +639,41 @@ It's good to know how the `Session` works and how to create and close it manuall
 
 But there's a better way to handle the session, using a `with` block:
 
+//// tab | Python 3.10+
+
+```Python hl_lines="7-12"
+# Code above omitted 👆
+{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-31]!}
+```
+
+////
+
+//// tab | Python 3.7+
+
 ```Python hl_lines="7-12"
 # Code above omitted 👆
 {!./docs_src/tutorial/insert/tutorial002.py[ln:23-33]!}
 ```
 
+////
+
 /// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/insert/tutorial002_py310.py!}
+```
+
+////
+
+//// tab | Python 3.7+
 
 ```Python
 {!./docs_src/tutorial/insert/tutorial002.py!}
 ```
+
+////
 
 ///
 
@@ -430,11 +689,25 @@ You already know all the first part creating the `Hero` model class, the **engin
 
 Let's focus on the new code:
 
+//// tab | Python 3.10+
+
+```{.python .annotate }
+{!./docs_src/tutorial/insert/tutorial003_py310.py!}
+```
+
+{!./docs_src/tutorial/insert/annotations/en/tutorial003.md!}
+
+////
+
+//// tab | Python 3.7+
+
 ```{.python .annotate }
 {!./docs_src/tutorial/insert/tutorial003.py!}
 ```
 
 {!./docs_src/tutorial/insert/annotations/en/tutorial003.md!}
+
+////
 
 /// tip
 
