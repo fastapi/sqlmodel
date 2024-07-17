@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/cache from 3 to 4. PR [#783](https://github.com/tiangolo/sqlmodel/pull/783) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump cairosvg from 2.7.0 to 2.7.1. PR [#919](https://github.com/tiangolo/sqlmodel/pull/919) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump jinja2 from 3.1.3 to 3.1.4. PR [#974](https://github.com/tiangolo/sqlmodel/pull/974) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.8.11 to 1.9.0. PR [#987](https://github.com/tiangolo/sqlmodel/pull/987) by [@dependabot[bot]](https://github.com/apps/dependabot).
