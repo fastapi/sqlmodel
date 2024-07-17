@@ -51,7 +51,7 @@ from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
-from sqlalchemy.sql.sqltypes import LargeBinary, Time
+from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from typing_extensions import Literal, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
@@ -80,7 +80,7 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import GUID, AutoString
+from .sql.sqltypes import AutoString
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -608,7 +608,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
             scale=getattr(metadata, "decimal_places", None),
         )
     if issubclass(type_, uuid.UUID):
-        return GUID
+        return Uuid
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
