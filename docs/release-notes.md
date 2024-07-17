@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Update docs . PR [#1003](https://github.com/tiangolo/sqlmodel/pull/1003) by [@alejsdev](https://github.com/alejsdev).
+
 ## 0.0.20
 
 ### Features
