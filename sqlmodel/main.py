@@ -157,9 +157,6 @@ class FieldInfo(PydanticFieldInfo):
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
-        if foreign_key is not Undefined:
-            if ondelete == "SET NULL" and (nullable is False or nullable is Undefined):
-                raise RuntimeError('ondelete="SET NULL" requires nullable=True')
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
@@ -717,6 +714,8 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     if unique is Undefined:
         unique = False
     if foreign_key:
+        if field_info.ondelete == "SET NULL" and not nullable:
+            raise RuntimeError('ondelete="SET NULL" requires nullable=True')
         assert isinstance(foreign_key, str)
         ondelete = getattr(field_info, "ondelete", Undefined)
         if ondelete is Undefined:
