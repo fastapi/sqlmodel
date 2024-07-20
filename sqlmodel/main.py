@@ -205,6 +205,7 @@ class RelationshipInfo(Representation):
         self.sa_relationship_kwargs = sa_relationship_kwargs
 
 
+# include sa_type, sa_column_args, sa_column_kwargs
 @overload
 def Field(
     default: Any = Undefined,
@@ -248,6 +249,8 @@ def Field(
 ) -> Any: ...
 
 
+# When foreign_key is str, include ondelete
+# include sa_type, sa_column_args, sa_column_kwargs
 @overload
 def Field(
     default: Any = Undefined,
@@ -292,6 +295,16 @@ def Field(
 ) -> Any: ...
 
 
+# Include sa_column, don't include
+# primary_key
+# foreign_key
+# ondelete
+# unique
+# nullable
+# index
+# sa_type
+# sa_column_args
+# sa_column_kwargs
 @overload
 def Field(
     default: Any = Undefined,
