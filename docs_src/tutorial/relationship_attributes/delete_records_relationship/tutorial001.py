@@ -80,8 +80,7 @@ def create_heroes():
 def delete_team():
     with Session(engine) as session:
         statement = select(Team).where(Team.name == "Wakaland")
-        result = session.exec(statement)
-        team = result.one()
+        team = session.exec(statement).one()
         session.delete(team)
         session.commit()
         print("Deleted team:", team)
@@ -91,13 +90,13 @@ def select_deleted_heroes():
     with Session(engine) as session:
         statement = select(Hero).where(Hero.name == "Black Lion")
         result = session.exec(statement)
-        hero = result.one_or_none()
-        print("Deleted hero:", hero)  # None
+        hero = result.first()
+        print("Black Lion not found:", hero)
 
         statement = select(Hero).where(Hero.name == "Princess Sure-E")
         result = session.exec(statement)
-        hero = result.one_or_none()
-        print("Deleted hero:", hero)  # None
+        hero = result.first()
+        print("Princess Sure-E not found:", hero)
 
 
 def main():

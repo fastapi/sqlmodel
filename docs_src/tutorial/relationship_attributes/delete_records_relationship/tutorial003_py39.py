@@ -1,7 +1,6 @@
 from typing import Optional
 
-from sqlalchemy import text
-from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
+from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select, text
 
 
 class Team(SQLModel, table=True):
@@ -19,7 +18,7 @@ class Hero(SQLModel, table=True):
     age: Optional[int] = Field(default=None, index=True)
 
     team_id: Optional[int] = Field(
-        default=None, foreign_key="team.id", nullable=True, ondelete="RESTRICT"
+        default=None, foreign_key="team.id", ondelete="SET NULL"
     )
     team: Optional[Team] = Relationship(back_populates="heroes")
 
@@ -83,8 +82,7 @@ def create_heroes():
 def delete_team():
     with Session(engine) as session:
         statement = select(Team).where(Team.name == "Wakaland")
-        result = session.exec(statement)
-        team = result.one()
+        team = session.exec(statement).one()
         session.delete(team)
         session.commit()
         print("Deleted team:", team)
@@ -94,13 +92,13 @@ def select_deleted_heroes():
     with Session(engine) as session:
         statement = select(Hero).where(Hero.name == "Black Lion")
         result = session.exec(statement)
-        hero = result.one_or_none()
-        print("Black Lion hero:", hero)  # None
+        hero = result.first()
+        print("Black Lion has no team:", hero)
 
         statement = select(Hero).where(Hero.name == "Princess Sure-E")
         result = session.exec(statement)
-        hero = result.one_or_none()
-        print("Princess Sure-E hero:", hero)  # None
+        hero = result.first()
+        print("Princess Sure-E has no team:", hero)
 
 
 def main():
