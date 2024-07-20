@@ -1,14 +1,16 @@
 from unittest.mock import patch
 
-from sqlmodel import create_engine
+import pytest
+from sqlalchemy.exc import IntegrityError
+from sqlmodel import Session, create_engine, select
 
-from ....conftest import get_testing_print_function, needs_py310
+from tests.conftest import get_testing_print_function, needs_py310
 
 
 @needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.relationship_attributes.delete_records_relationship import (
-        tutorial003_py310 as mod,
+        tutorial004_py310 as mod,
     )
 
     mod.sqlite_url = "sqlite://"
@@ -18,7 +20,17 @@ def test_tutorial(clear_sqlmodel):
     new_print = get_testing_print_function(calls)
 
     with patch("builtins.print", new=new_print):
-        mod.main()
+        mod.create_db_and_tables()
+        mod.create_heroes()
+        mod.select_deleted_heroes()
+        with Session(mod.engine) as session:
+            team = session.exec(
+                select(mod.Team).where(mod.Team.name == "Wakaland")
+            ).one()
+            team.heroes.clear()
+            session.add(team)
+            session.commit()
+        mod.delete_team()
     assert calls == [
         [
             "Created hero:",
@@ -62,11 +74,7 @@ def test_tutorial(clear_sqlmodel):
         ],
         [
             "Team Wakaland:",
-            {"id": 3, "headquarters": "Wakaland Capital City", "name": "Wakaland"},
-        ],
-        [
-            "Deleted team:",
-            {"id": 3, "headquarters": "Wakaland Capital City", "name": "Wakaland"},
+            {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
         ],
         [
             "Black Lion has no team:",
@@ -75,7 +83,7 @@ def test_tutorial(clear_sqlmodel):
                 "id": 4,
                 "name": "Black Lion",
                 "secret_name": "Trevor Challa",
-                "team_id": None,
+                "team_id": 3,
             },
         ],
         [
@@ -85,7 +93,15 @@ def test_tutorial(clear_sqlmodel):
                 "id": 5,
                 "name": "Princess Sure-E",
                 "secret_name": "Sure-E",
-                "team_id": None,
+                "team_id": 3,
             },
         ],
+        [
+            "Deleted team:",
+            {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
+        ],
     ]
+
+    with pytest.raises(IntegrityError) as exc:
+        mod.main()
+    assert "FOREIGN KEY constraint failed" in str(exc.value)

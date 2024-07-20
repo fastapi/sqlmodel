@@ -4,81 +4,6 @@ from sqlmodel import create_engine
 
 from ....conftest import get_testing_print_function, needs_py39
 
-expected_calls = [
-    [
-        "Created hero:",
-        {
-            "age": None,
-            "id": 1,
-            "secret_name": "Dive Wilson",
-            "team_id": 1,
-            "name": "Deadpond",
-        },
-    ],
-    [
-        "Created hero:",
-        {
-            "age": 48,
-            "id": 2,
-            "secret_name": "Tommy Sharp",
-            "team_id": 2,
-            "name": "Rusty-Man",
-        },
-    ],
-    [
-        "Created hero:",
-        {
-            "age": None,
-            "id": 3,
-            "secret_name": "Pedro Parqueador",
-            "team_id": None,
-            "name": "Spider-Boy",
-        },
-    ],
-    [
-        "Updated hero:",
-        {
-            "age": None,
-            "id": 3,
-            "secret_name": "Pedro Parqueador",
-            "team_id": 2,
-            "name": "Spider-Boy",
-        },
-    ],
-    [
-        "Team Wakaland:",
-        {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
-    ],
-    [
-        "Deleted team:",
-        {
-            "id": 3,
-            "name": "Wakaland",
-            "headquarters": "Wakaland Capital City",
-        },
-    ],
-    [
-        "Black Lion hero:",
-        {
-            "age": 35,
-            "id": 4,
-            "secret_name": "Trevor Challa",
-            "team_id": None,
-            "name": "Black Lion",
-        },
-    ],
-    [
-        "Princess Sure-E hero:",
-        {
-            "age": None,
-            "id": 5,
-            "secret_name": "Sure-E",
-            "team_id": None,
-            "name": "Princess Sure-E",
-        },
-    ],
-]
-
 
 @needs_py39
 def test_tutorial(clear_sqlmodel):
@@ -94,4 +19,73 @@ def test_tutorial(clear_sqlmodel):
 
     with patch("builtins.print", new=new_print):
         mod.main()
-    assert calls == expected_calls
+    assert calls == [
+        [
+            "Created hero:",
+            {
+                "age": None,
+                "id": 1,
+                "name": "Deadpond",
+                "secret_name": "Dive Wilson",
+                "team_id": 1,
+            },
+        ],
+        [
+            "Created hero:",
+            {
+                "age": 48,
+                "id": 2,
+                "name": "Rusty-Man",
+                "secret_name": "Tommy Sharp",
+                "team_id": 2,
+            },
+        ],
+        [
+            "Created hero:",
+            {
+                "age": None,
+                "id": 3,
+                "name": "Spider-Boy",
+                "secret_name": "Pedro Parqueador",
+                "team_id": None,
+            },
+        ],
+        [
+            "Updated hero:",
+            {
+                "age": None,
+                "id": 3,
+                "name": "Spider-Boy",
+                "secret_name": "Pedro Parqueador",
+                "team_id": 2,
+            },
+        ],
+        [
+            "Team Wakaland:",
+            {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
+        ],
+        [
+            "Deleted team:",
+            {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
+        ],
+        [
+            "Black Lion has no team:",
+            {
+                "age": 35,
+                "id": 4,
+                "name": "Black Lion",
+                "secret_name": "Trevor Challa",
+                "team_id": None,
+            },
+        ],
+        [
+            "Princess Sure-E has no team:",
+            {
+                "age": None,
+                "id": 5,
+                "name": "Princess Sure-E",
+                "secret_name": "Sure-E",
+                "team_id": None,
+            },
+        ],
+    ]

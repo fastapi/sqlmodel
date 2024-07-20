@@ -4,69 +4,6 @@ from sqlmodel import create_engine
 
 from ....conftest import get_testing_print_function, needs_py310
 
-expected_calls = [
-    [
-        "Created hero:",
-        {
-            "age": None,
-            "id": 1,
-            "secret_name": "Dive Wilson",
-            "team_id": 1,
-            "name": "Deadpond",
-        },
-    ],
-    [
-        "Created hero:",
-        {
-            "age": 48,
-            "id": 2,
-            "secret_name": "Tommy Sharp",
-            "team_id": 2,
-            "name": "Rusty-Man",
-        },
-    ],
-    [
-        "Created hero:",
-        {
-            "age": None,
-            "id": 3,
-            "secret_name": "Pedro Parqueador",
-            "team_id": None,
-            "name": "Spider-Boy",
-        },
-    ],
-    [
-        "Updated hero:",
-        {
-            "age": None,
-            "id": 3,
-            "secret_name": "Pedro Parqueador",
-            "team_id": 2,
-            "name": "Spider-Boy",
-        },
-    ],
-    [
-        "Team Wakaland:",
-        {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
-    ],
-    [
-        "Deleted team:",
-        {
-            "id": 3,
-            "name": "Wakaland",
-            "headquarters": "Wakaland Capital City",
-        },
-    ],
-    [
-        "Deleted hero:",
-        None,
-    ],
-    [
-        "Deleted hero:",
-        None,
-    ],
-]
-
 
 @needs_py310
 def test_tutorial(clear_sqlmodel):
@@ -82,4 +19,55 @@ def test_tutorial(clear_sqlmodel):
 
     with patch("builtins.print", new=new_print):
         mod.main()
-    assert calls == expected_calls
+    assert calls == [
+        [
+            "Created hero:",
+            {
+                "name": "Deadpond",
+                "secret_name": "Dive Wilson",
+                "team_id": 1,
+                "id": 1,
+                "age": None,
+            },
+        ],
+        [
+            "Created hero:",
+            {
+                "name": "Rusty-Man",
+                "secret_name": "Tommy Sharp",
+                "team_id": 2,
+                "id": 2,
+                "age": 48,
+            },
+        ],
+        [
+            "Created hero:",
+            {
+                "name": "Spider-Boy",
+                "secret_name": "Pedro Parqueador",
+                "team_id": None,
+                "id": 3,
+                "age": None,
+            },
+        ],
+        [
+            "Updated hero:",
+            {
+                "name": "Spider-Boy",
+                "secret_name": "Pedro Parqueador",
+                "team_id": 2,
+                "id": 3,
+                "age": None,
+            },
+        ],
+        [
+            "Team Wakaland:",
+            {"name": "Wakaland", "id": 3, "headquarters": "Wakaland Capital City"},
+        ],
+        [
+            "Deleted team:",
+            {"name": "Wakaland", "id": 3, "headquarters": "Wakaland Capital City"},
+        ],
+        ["Black Lion not found:", None],
+        ["Princess Sure-E not found:", None],
+    ]

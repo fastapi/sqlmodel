@@ -2,13 +2,12 @@ from unittest.mock import patch
 
 from sqlmodel import create_engine
 
-from ....conftest import get_testing_print_function, needs_py310
+from ....conftest import get_testing_print_function
 
 
-@needs_py310
 def test_tutorial(clear_sqlmodel):
     from docs_src.tutorial.relationship_attributes.delete_records_relationship import (
-        tutorial003_py310 as mod,
+        tutorial002 as mod,
     )
 
     mod.sqlite_url = "sqlite://"
@@ -62,11 +61,11 @@ def test_tutorial(clear_sqlmodel):
         ],
         [
             "Team Wakaland:",
-            {"id": 3, "headquarters": "Wakaland Capital City", "name": "Wakaland"},
+            {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
         ],
         [
             "Deleted team:",
-            {"id": 3, "headquarters": "Wakaland Capital City", "name": "Wakaland"},
+            {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
         ],
         [
             "Black Lion has no team:",
