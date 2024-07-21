@@ -6,7 +6,7 @@
 
 ### Features
 
-* ✨ Add support for cascade delete relationships: `cascade_delete`, `ondelete`, and `passive_deletes`. PR [#983](https://github.com/tiangolo/sqlmodel/pull/983) by [@estebanx64](https://github.com/estebanx64).
+* ✨ Add support for cascade delete relationships: `cascade_delete`, `ondelete`, and `passive_deletes`. Initial PR [#983](https://github.com/tiangolo/sqlmodel/pull/983) by [@estebanx64](https://github.com/estebanx64).
   * New docs at: [Cascade Delete Relationships](https://sqlmodel.tiangolo.com/tutorial/relationship-attributes/cascade-delete-relationships/).
 
 ### Docs
