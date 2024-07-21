@@ -478,9 +478,9 @@ $ python app.py
 
 // The team table is created as before
 CREATE TABLE team (
-        id INTEGER NOT NULL, 
-        name VARCHAR NOT NULL, 
-        headquarters VARCHAR NOT NULL, 
+        id INTEGER NOT NULL,
+        name VARCHAR NOT NULL,
+        headquarters VARCHAR NOT NULL,
         PRIMARY KEY (id)
 )
 
@@ -488,24 +488,24 @@ CREATE TABLE team (
 // In SQLite, it also includes REFERENCES team (id), this is needed by SQLite to work with the ON DELETE CASCADE properly.
 // SQLAlchemy takes care of setting it up for us to make sure it works 🤓
 CREATE TABLE hero (
-        id INTEGER NOT NULL, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
-        team_id INTEGER, 
-        PRIMARY KEY (id), 
+        id INTEGER NOT NULL,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
+        team_id INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE CASCADE
 )
 
 // We select the team Wakaland
-INFO Engine SELECT team.id, team.name, team.headquarters 
-FROM team 
+INFO Engine SELECT team.id, team.name, team.headquarters
+FROM team
 WHERE team.name = ?
 INFO Engine [generated in 0.00014s] ('Wakaland',)
 
 // Then, because of delete_cascade, right before deleting Wakaland, SQLAlchemy loads the heroes
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
+FROM hero
 WHERE ? = hero.team_id
 INFO Engine [generated in 0.00020s] (3,)
 
@@ -741,25 +741,25 @@ $ python app.py
 // In SQLite, it also includes: REFERENCES team (id). This REFERENCES is needed by SQLite to work with the ON DELETE CASCADE properly.
 // SQLModel with SQLAlchemy takes care of setting it up for us to make sure it works 🤓
 CREATE TABLE hero (
-        id INTEGER NOT NULL, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
-        team_id INTEGER, 
-        PRIMARY KEY (id), 
+        id INTEGER NOT NULL,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
+        team_id INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE SET NULL
 )
 
 // We select the team Wakaland
-INFO Engine SELECT team.id, team.name, team.headquarters 
-FROM team 
+INFO Engine SELECT team.id, team.name, team.headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00010s] (3,)
 Team Wakaland: id=3 name='Wakaland' headquarters='Wakaland Capital City'
 
 // Then, right before deleting Wakaland, the heroes are loaded automatically
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
+FROM hero
 WHERE ? = hero.team_id
 INFO Engine [generated in 0.00020s] (3,)
 
@@ -940,12 +940,12 @@ $ python app.py
 
 // The hero table is created with the ON DELETE SET NULL as before
 CREATE TABLE hero (
-        id INTEGER NOT NULL, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
-        team_id INTEGER, 
-        PRIMARY KEY (id), 
+        id INTEGER NOT NULL,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
+        team_id INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE SET NULL
 )
 
@@ -1136,12 +1136,12 @@ $ python app.py
 
 // The hero table is created with the ON DELETE RESTRICT
 CREATE TABLE hero (
-        id INTEGER NOT NULL, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
-        team_id INTEGER, 
-        PRIMARY KEY (id), 
+        id INTEGER NOT NULL,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
+        team_id INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE RESTRICT
 )
 
@@ -1261,12 +1261,12 @@ $ python app.py
 
 // The hero table is created with the ON DELETE RESTRICT
 CREATE TABLE hero (
-        id INTEGER NOT NULL, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
-        team_id INTEGER, 
-        PRIMARY KEY (id), 
+        id INTEGER NOT NULL,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
+        team_id INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY(team_id) REFERENCES team (id) ON DELETE RESTRICT
 )
 
