@@ -6,7 +6,7 @@ from ....conftest import get_testing_print_function
 
 
 def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.relationship_attributes.delete_records_relationship import (
+    from docs_src.tutorial.relationship_attributes.cascade_delete_relationships import (
         tutorial001 as mod,
     )
 
