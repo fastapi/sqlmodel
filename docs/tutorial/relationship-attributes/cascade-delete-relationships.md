@@ -503,7 +503,7 @@ FROM team
 WHERE team.name = ?
 INFO Engine [generated in 0.00014s] ('Wakaland',)
 
-// Then, because of delete_cascade, right before deleting Wakaland, SQLAlchemy loads the heroes
+// Then, because of cascade_delete, right before deleting Wakaland, SQLAlchemy loads the heroes
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
 FROM hero
 WHERE ? = hero.team_id
@@ -531,7 +531,7 @@ Princess Sure-E not found: None
 
 We can configure the database to **set the foreign key** (the `team_id` in the `hero` table) to **`NULL`** when the related record (in the `team` table) is deleted.
 
-In this case, the side with `Relationship()` won't have `delete_cascade`, but the side with `Field()` and a `foreign_key` will have `ondelete="SET NULL"`.
+In this case, the side with `Relationship()` won't have `cascade_delete`, but the side with `Field()` and a `foreign_key` will have `ondelete="SET NULL"`.
 
 //// tab | Python 3.10+
 
