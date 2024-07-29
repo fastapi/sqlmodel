@@ -192,7 +192,7 @@ Now, after making sure we are inside of a virtual environment in some way, we ca
 <div class="termy">
 
 ```console
-# (env) $$ python -m pip install sqlmodel
+# (env) $$ pip install sqlmodel
 ---> 100%
 Successfully installed sqlmodel pydantic sqlalchemy
 ```

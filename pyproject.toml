@@ -35,7 +35,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "SQLAlchemy >=2.0.0,<2.1.0",
+    "SQLAlchemy >=2.0.14,<2.1.0",
     "pydantic >=1.10.13,<3.0.0",
 ]
 
@@ -90,7 +90,7 @@ exclude_lines = [
 strict = true
 
 [[tool.mypy.overrides]]
-module = "sqlmodel.sql.expression"
+module = "sqlmodel.sql._expression_select_gen"
 warn_unused_ignores = false
 
 [[tool.mypy.overrides]]

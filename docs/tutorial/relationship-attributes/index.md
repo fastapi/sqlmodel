@@ -4,7 +4,7 @@ In the previous chapters we discussed how to manage databases with tables that h
 
 And then we read the data together with `select()` and using `.where()` or `.join()` to connect it.
 
-Now we will see how to use **Relationship Attributes**, an extra feature of **SQLModel** (and SQLAlchemy) to work with the data in the database in way much more familiar way, and closer to normal Python code.
+Now we will see how to use **Relationship Attributes**, an extra feature of **SQLModel** (and SQLAlchemy), to work with the data in the database in a much more familiar way, and closer to normal Python code.
 
 /// info
 
