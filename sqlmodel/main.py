@@ -51,7 +51,7 @@ from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
-from sqlalchemy.sql.sqltypes import JSON, LargeBinary, Time
+from sqlalchemy.sql.sqltypes import JSON, LargeBinary, Time, Uuid
 from typing_extensions import Literal, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
@@ -693,7 +693,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
             scale=getattr(metadata, "decimal_places", None),
         )
     if issubclass(type_, uuid.UUID):
-        return GUID
+        return Uuid
     if issubclass(type_, JSON):
         return JSON
 
