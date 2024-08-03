@@ -8,6 +8,7 @@
 
 ### Internal
 
+* 👷 Update issue-manager. PR [#1045](https://github.com/tiangolo/sqlmodel/pull/1045) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue-manager.yml GitHub Action permissions. PR [#1040](https://github.com/tiangolo/sqlmodel/pull/1040) by [@tiangolo](https://github.com/tiangolo).
 * ♻️ Refactor Deploy Docs GitHub Action to be a script and update token preparing for org. PR [#1039](https://github.com/tiangolo/sqlmodel/pull/1039) by [@tiangolo](https://github.com/tiangolo).
 
