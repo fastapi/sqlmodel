@@ -6,18 +6,24 @@ theme:
   name: material
   custom_dir: docs/overrides
   palette:
-  - scheme: default
+  - media: "(prefers-color-scheme)"
+    toggle:
+      icon: material/lightbulb-auto
+      name: Switch to light mode
+  - media: '(prefers-color-scheme: light)'
+    scheme: default
     primary: deep purple
     accent: amber
     toggle:
       icon: material/lightbulb
       name: Switch to dark mode
-  - scheme: slate
+  - media: '(prefers-color-scheme: dark)'
+    scheme: slate
     primary: deep purple
     accent: amber
     toggle:
       icon: material/lightbulb-outline
-      name: Switch to light mode
+      name: Switch to system preference
   features:
   - search.suggest
   - search.highlight
