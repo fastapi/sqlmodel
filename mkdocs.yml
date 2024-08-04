@@ -45,8 +45,9 @@ repo_url: https://github.com/tiangolo/sqlmodel
 edit_uri: ''
 plugins:
   search: null
-  markdownextradata:
-    data: ./data
+  macros:
+    include_yaml:
+    - sponsors: data/sponsors.yml
 
 nav:
   - SQLModel: index.md
