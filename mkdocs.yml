@@ -189,7 +189,7 @@ extra:
         - icon: material/emoticon-sad-outline
           name: This page could be improved
           data: 0
-          note: >- 
+          note: >-
             Thanks for your feedback!
   social:
   - icon: fontawesome/brands/github-alt
