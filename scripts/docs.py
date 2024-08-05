@@ -115,7 +115,6 @@ def live() -> None:
     en.
     """
     # Enable line numbers during local development to make it easier to highlight
-    os.environ["LINENUMS"] = "true"
     subprocess.run(
         ["mkdocs", "serve", "--dev-addr", "127.0.0.1:8008", "--dirty"],
         env={**os.environ, "LINENUMS": "true"},
