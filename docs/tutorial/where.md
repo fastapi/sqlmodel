@@ -1250,7 +1250,7 @@ It would be an error telling you that
 
 > `Hero.age` is potentially `None`, and you cannot compare `None` with `>`
 
-This is because as we are using pure and plain Python annotations for the fields, `age` is indeed annotated as `Optional[int]`, which means `int` or `None`.
+This is because as we are using pure and plain Python annotations for the fields, `age` is indeed annotated as `int | None (or Optional[int])`.
 
 By using this simple and standard Python type annotations we get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
 

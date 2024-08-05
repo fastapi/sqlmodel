@@ -36,19 +36,9 @@ You will get completion for everything while writing the **minimum** amount of c
 
 You won't need to keep guessing the types of different attributes in your models, if they could be `None`, etc. Your editor will be able to help you with everything because **SQLModel** is based on **standard Python type annotations**.
 
-**SQLModel** even adopts currently <a href="https://github.com/microsoft/pyright/blob/main/specs/dataclass_transforms.md" class="external-link" target="_blank">in development standards</a> for Python type annotations to ensure the **best developer experience**, so you will get inline errors and autocompletion even while creating new model instances.
+**SQLModel** adopts <a href="https://peps.python.org/pep-0681/" class="external-link" target="_blank">PEP 681</a> for Python type annotations to ensure the **best developer experience**, so you will get inline errors and autocompletion even while creating new model instances.
 
 <img class="shadow" src="/img/index/autocompletion01.png">
-
-/// info
-
-Don't worry, adopting this in-development standard only affects/improves editor support.
-
-It doesn't affect performance or correctness. And if the in-progress standard was deprecated your code won't be affected.
-
-Meanwhile, you will get inline errors (like type checks) and autocompletion on places you wouldn't get with any other library. 🎉
-
-///
 
 ## Short
 
