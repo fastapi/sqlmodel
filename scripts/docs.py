@@ -7,9 +7,6 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from importlib import metadata
 from pathlib import Path
 
-import mkdocs.commands.build
-import mkdocs.commands.serve
-import mkdocs.config
 import mkdocs.utils
 import typer
 from jinja2 import Template
