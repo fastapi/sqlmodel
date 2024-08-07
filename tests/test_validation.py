@@ -125,10 +125,8 @@ def test_validation_related_object_not_in_session_pydantic_v2(clear_sqlmodel):
 
     with Session(engine) as session:
         hero = session.get(Hero, 1)
-        assert not session.dirty
-        assert not session.new
+        assert session._is_clean()
 
         Hero.model_validate(hero)
 
-        assert not session.dirty
-        assert not session.new
+        assert session._is_clean()
