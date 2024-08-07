@@ -1,8 +1,9 @@
-from typing import Optional
+from typing import List, Optional
 
 import pytest
 from pydantic.error_wrappers import ValidationError
-from sqlmodel import SQLModel
+from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel.main import Field, Relationship
 
 from .conftest import needs_pydanticv1, needs_pydanticv2
 
@@ -63,3 +64,71 @@ def test_validation_pydantic_v2(clear_sqlmodel):
 
     with pytest.raises(ValidationError):
         Hero.model_validate({"name": None, "age": 25})
+
+
+@needs_pydanticv1
+def test_validation_related_object_not_in_session_pydantic_v1(clear_sqlmodel):
+    class Team(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str
+        heroes: List["Hero"] = Relationship(back_populates="team")
+
+    class Hero(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str
+
+        team_id: Optional[int] = Field(default=None, foreign_key="team.id")
+        team: Optional[Team] = Relationship(back_populates="heroes")
+
+    engine = create_engine("sqlite://")
+    SQLModel.metadata.create_all(engine)
+    team = Team(name="team")
+    hero = Hero(name="hero", team=team)
+    with Session(engine) as session:
+        session.add(team)
+        session.add(hero)
+        session.commit()
+
+    with Session(engine) as session:
+        hero = session.get(Hero, 1)
+        assert not session.dirty
+        assert not session.new
+
+        Hero.validate(hero)
+
+        assert not session.dirty
+        assert not session.new
+
+
+@needs_pydanticv2
+def test_validation_related_object_not_in_session_pydantic_v2(clear_sqlmodel):
+    class Team(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str
+        heroes: List["Hero"] = Relationship(back_populates="team")
+
+    class Hero(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str
+
+        team_id: Optional[int] = Field(default=None, foreign_key="team.id")
+        team: Optional[Team] = Relationship(back_populates="heroes")
+
+    engine = create_engine("sqlite://")
+    SQLModel.metadata.create_all(engine)
+    team = Team(name="team")
+    hero = Hero(name="hero", team=team)
+    with Session(engine) as session:
+        session.add(team)
+        session.add(hero)
+        session.commit()
+
+    with Session(engine) as session:
+        hero = session.get(Hero, 1)
+        assert not session.dirty
+        assert not session.new
+
+        Hero.model_validate(hero)
+
+        assert not session.dirty
+        assert not session.new
