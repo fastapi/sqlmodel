@@ -91,12 +91,13 @@ During local development, there is a script that builds the site and checks for 
 <div class="termy">
 
 ```console
-$ bash scripts/docs-live.sh
+$ python scripts/docs.py live
 
-<span style="color: green;">[INFO]</span>    -  Building documentation...
-<span style="color: green;">[INFO]</span>    -  Cleaning site directory
-<span style="color: green;">[INFO]</span>    -  Documentation built in 2.74 seconds
-<span style="color: green;">[INFO]</span>    -  Serving on http://127.0.0.1:8008
+INFO:mkdocs.commands.serve:Building documentation...
+INFO:mkdocs.commands.build:Cleaning site directory
+INFO:mkdocs.commands.build:Documentation built in 19.31 seconds
+INFO:mkdocs.livereload:[00:00:00] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO:mkdocs.livereload:[00:00:01] Serving on http://127.0.0.1:8008/
 ```
 
 </div>
