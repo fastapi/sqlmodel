@@ -91,13 +91,14 @@ def test_validation_related_object_not_in_session_pydantic_v1(clear_sqlmodel):
 
     with Session(engine) as session:
         hero = session.get(Hero, 1)
-        assert not session.dirty
-        assert not session.new
+        assert session._is_clean()
 
-        Hero.validate(hero)
+        new_hero = Hero.validate(hero)
 
-        assert not session.dirty
-        assert not session.new
+        assert session._is_clean()
+        # The new hero is a different instance, but the team is the same
+        assert id(new_hero) != id(hero)
+        assert id(new_hero.team) == id(hero.team)
 
 
 @needs_pydanticv2
@@ -127,6 +128,9 @@ def test_validation_related_object_not_in_session_pydantic_v2(clear_sqlmodel):
         hero = session.get(Hero, 1)
         assert session._is_clean()
 
-        Hero.model_validate(hero)
+        new_hero = Hero.model_validate(hero)
 
         assert session._is_clean()
+        # The new hero is a different instance, but the team is the same
+        assert id(new_hero) != id(hero)
+        assert id(new_hero.team) == id(hero.team)
