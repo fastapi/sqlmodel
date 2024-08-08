@@ -62,7 +62,7 @@ def main():
         link = f"{deploy_url}/{path}"
         links.append(link)
     links.sort()
-    
+
     message = f"📝 Docs preview for commit {settings.commit_sha} at: {deploy_url}"
 
     if links:
