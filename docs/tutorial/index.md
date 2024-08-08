@@ -1,5 +1,7 @@
 # Intro, Installation, and First Steps
 
+🚀
+
 ## Type hints
 
 If you need a refresher about how to use Python type hints (type annotations), check <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">FastAPI's Python types intro</a>.
