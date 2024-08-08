@@ -1,7 +1,5 @@
 # Read One Row
 
-🚀
-
 You already know how to filter rows to select using `.where()`.
 
 And you saw how when executing a `select()` it normally returns an **iterable** object.
