@@ -20,8 +20,6 @@
 
 ---
 
-🚀
-
 **Documentation**: <a href="https://sqlmodel.tiangolo.com" target="_blank">https://sqlmodel.tiangolo.com</a>
 
 **Source Code**: <a href="https://github.com/tiangolo/sqlmodel" target="_blank">https://github.com/tiangolo/sqlmodel</a>
