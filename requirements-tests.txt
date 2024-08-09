@@ -6,7 +6,7 @@ mypy ==1.4.1
 ruff ==0.4.7
 # For FastAPI tests
 fastapi >=0.103.2
-httpx ==0.24.1
+httpx ==0.27.0
 # TODO: upgrade when deprecating Python 3.7
 dirty-equals ==0.6.0
 jinja2 ==3.1.4
