@@ -1,5 +1,6 @@
 <p align="center">
-  <a href="https://sqlmodel.tiangolo.com"><img src="https://sqlmodel.tiangolo.com/img/logo-margin/logo-margin-vector.svg" alt="SQLModel"></a>
+  <a href="https://sqlmodel.tiangolo.com"><img src="https://sqlmodel.tiangolo.com/img/logo-margin/logo-margin-vector.svg#only-light" alt="SQLModel"></a>
+
 </p>
 <p align="center">
     <em>SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.</em>
