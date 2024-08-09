@@ -1,5 +1,7 @@
 # Intro, Installation, and First Steps
 
+Before we start playing with **SQLModel**, let's prepare everything else we need. A bit of type annotations, setting up the environment to install everything, and installing DB Browser for SQLite. 🤓
+
 ## Type hints
 
 If you need a refresher about how to use Python type hints (type annotations), check <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">FastAPI's Python types intro</a>.
