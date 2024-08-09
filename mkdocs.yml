@@ -67,65 +67,73 @@ plugins:
 nav:
   - SQLModel: index.md
   - features.md
-  - databases.md
-  - db-to-code.md
-  - Tutorial - User Guide:
-    - tutorial/index.md
-    - tutorial/create-db-and-table-with-db-browser.md
-    - tutorial/create-db-and-table.md
-    - tutorial/insert.md
-    - tutorial/automatic-id-none-refresh.md
-    - tutorial/select.md
-    - tutorial/where.md
-    - tutorial/indexes.md
-    - tutorial/one.md
-    - tutorial/limit-and-offset.md
-    - tutorial/update.md
-    - tutorial/delete.md
-    - Connect Tables - JOIN:
-      - tutorial/connect/index.md
-      - tutorial/connect/create-connected-tables.md
-      - tutorial/connect/create-connected-rows.md
-      - tutorial/connect/read-connected-data.md
-      - tutorial/connect/update-data-connections.md
-      - tutorial/connect/remove-data-connections.md
-    - Relationship Attributes:
-      - tutorial/relationship-attributes/index.md
-      - tutorial/relationship-attributes/define-relationships-attributes.md
-      - tutorial/relationship-attributes/create-and-update-relationships.md
-      - tutorial/relationship-attributes/read-relationships.md
-      - tutorial/relationship-attributes/remove-relationships.md
-      - tutorial/relationship-attributes/back-populates.md
-      - tutorial/relationship-attributes/cascade-delete-relationships.md
-      - tutorial/relationship-attributes/type-annotation-strings.md
-    - Many to Many:
-      - tutorial/many-to-many/index.md
-      - tutorial/many-to-many/create-models-with-link.md
-      - tutorial/many-to-many/create-data.md
-      - tutorial/many-to-many/update-remove-relationships.md
-      - tutorial/many-to-many/link-with-extra-fields.md
-    - tutorial/code-structure.md
-    - FastAPI and Pydantic:
-      - tutorial/fastapi/index.md
-      - tutorial/fastapi/simple-hero-api.md
-      - tutorial/fastapi/response-model.md
-      - tutorial/fastapi/multiple-models.md
-      - tutorial/fastapi/read-one.md
-      - tutorial/fastapi/limit-and-offset.md
-      - tutorial/fastapi/update.md
-      - tutorial/fastapi/update-extra-data.md
-      - tutorial/fastapi/delete.md
-      - tutorial/fastapi/session-with-dependency.md
-      - tutorial/fastapi/teams.md
-      - tutorial/fastapi/relationships.md
-      - tutorial/fastapi/tests.md
-  - Advanced User Guide:
-    - advanced/index.md
-    - advanced/decimal.md
-    - advanced/uuid.md
-  - alternatives.md
-  - help.md
-  - contributing.md
+  - Learn:
+    - learn/index.md
+    - databases.md
+    - db-to-code.md
+    - Tutorial - User Guide:
+      - tutorial/index.md
+      - tutorial/create-db-and-table-with-db-browser.md
+      - tutorial/create-db-and-table.md
+      - tutorial/insert.md
+      - tutorial/automatic-id-none-refresh.md
+      - tutorial/select.md
+      - tutorial/where.md
+      - tutorial/indexes.md
+      - tutorial/one.md
+      - tutorial/limit-and-offset.md
+      - tutorial/update.md
+      - tutorial/delete.md
+      - Connect Tables - JOIN:
+        - tutorial/connect/index.md
+        - tutorial/connect/create-connected-tables.md
+        - tutorial/connect/create-connected-rows.md
+        - tutorial/connect/read-connected-data.md
+        - tutorial/connect/update-data-connections.md
+        - tutorial/connect/remove-data-connections.md
+      - Relationship Attributes:
+        - tutorial/relationship-attributes/index.md
+        - tutorial/relationship-attributes/define-relationships-attributes.md
+        - tutorial/relationship-attributes/create-and-update-relationships.md
+        - tutorial/relationship-attributes/read-relationships.md
+        - tutorial/relationship-attributes/remove-relationships.md
+        - tutorial/relationship-attributes/back-populates.md
+        - tutorial/relationship-attributes/cascade-delete-relationships.md
+        - tutorial/relationship-attributes/type-annotation-strings.md
+      - Many to Many:
+        - tutorial/many-to-many/index.md
+        - tutorial/many-to-many/create-models-with-link.md
+        - tutorial/many-to-many/create-data.md
+        - tutorial/many-to-many/update-remove-relationships.md
+        - tutorial/many-to-many/link-with-extra-fields.md
+      - tutorial/code-structure.md
+      - FastAPI and Pydantic:
+        - tutorial/fastapi/index.md
+        - tutorial/fastapi/simple-hero-api.md
+        - tutorial/fastapi/response-model.md
+        - tutorial/fastapi/multiple-models.md
+        - tutorial/fastapi/read-one.md
+        - tutorial/fastapi/limit-and-offset.md
+        - tutorial/fastapi/update.md
+        - tutorial/fastapi/update-extra-data.md
+        - tutorial/fastapi/delete.md
+        - tutorial/fastapi/session-with-dependency.md
+        - tutorial/fastapi/teams.md
+        - tutorial/fastapi/relationships.md
+        - tutorial/fastapi/tests.md
+    - Advanced User Guide:
+      - advanced/index.md
+      - advanced/decimal.md
+      - advanced/uuid.md
+  - Resources:
+    - resources/index.md
+    - help.md
+    - contributing.md
+    - management-tasks.md
+  - About:
+    - about/index.md
+    - alternatives.md
+    - management.md
   - release-notes.md
 
 markdown_extensions:
