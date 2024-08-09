@@ -1,6 +1,8 @@
-# Intro, Installation, and First Steps
+# Tutorial - User Guide
 
-Before we start playing with **SQLModel**, let's prepare everything else we need. A bit of type annotations, setting up the environment to install everything, and installing DB Browser for SQLite. 🤓
+In this tutorial you will learn how to use **SQLModel**.
+
+But before we start playing with SQLModel, let's prepare everything else we need. A bit of type annotations, setting up the environment to install everything, and installing DB Browser for SQLite. 🤓
 
 ## Type hints
 
