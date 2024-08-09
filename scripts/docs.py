@@ -7,9 +7,6 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from importlib import metadata
 from pathlib import Path
 
-import mkdocs.commands.build
-import mkdocs.commands.serve
-import mkdocs.config
 import mkdocs.utils
 import typer
 from jinja2 import Template
@@ -68,6 +65,13 @@ def generate_readme_content() -> str:
     pre_content = content[frontmatter_end:pre_end]
     post_content = content[post_start:]
     new_content = pre_content + message + post_content
+    # Remove content between <!-- only-mkdocs --> and <!-- /only-mkdocs -->
+    new_content = re.sub(
+        r"<!-- only-mkdocs -->.*?<!-- /only-mkdocs -->",
+        "",
+        new_content,
+        flags=re.DOTALL,
+    )
     return new_content
 
 
@@ -111,8 +115,11 @@ def live() -> None:
     en.
     """
     # Enable line numbers during local development to make it easier to highlight
-    os.environ["LINENUMS"] = "true"
-    mkdocs.commands.serve.serve(dev_addr="127.0.0.1:8008")
+    subprocess.run(
+        ["mkdocs", "serve", "--dev-addr", "127.0.0.1:8008", "--dirty"],
+        env={**os.environ, "LINENUMS": "true"},
+        check=True,
+    )
 
 
 @app.command()
