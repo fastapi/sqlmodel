@@ -62,6 +62,7 @@ plugins:
   macros:
     include_yaml:
     - sponsors: data/sponsors.yml
+    - members: data/members.yml
 
 nav:
   - SQLModel: index.md
