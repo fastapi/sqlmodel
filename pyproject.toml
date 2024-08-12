@@ -40,9 +40,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/tiangolo/sqlmodel"
+Homepage = "https://github.com/fastapi/sqlmodel"
 Documentation = "https://sqlmodel.tiangolo.com"
-Repository = "https://github.com/tiangolo/sqlmodel"
+Repository = "https://github.com/fastapi/sqlmodel"
 
 [tool.pdm]
 version = { source = "file", path = "sqlmodel/__init__.py" }

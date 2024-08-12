@@ -12,14 +12,14 @@
     <em>SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.</em>
 </p>
 <p align="center">
-<a href="https://github.com/tiangolo/sqlmodel/actions?query=workflow%3ATest" target="_blank">
-    <img src="https://github.com/tiangolo/sqlmodel/workflows/Test/badge.svg" alt="Test">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest" target="_blank">
+    <img src="https://github.com/fastapi/sqlmodel/workflows/Test/badge.svg" alt="Test">
 </a>
-<a href="https://github.com/tiangolo/sqlmodel/actions?query=workflow%3APublish" target="_blank">
-    <img src="https://github.com/tiangolo/sqlmodel/workflows/Publish/badge.svg" alt="Publish">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3APublish" target="_blank">
+    <img src="https://github.com/fastapi/sqlmodel/workflows/Publish/badge.svg" alt="Publish">
 </a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/tiangolo/sqlmodel" target="_blank">
-    <img src="https://coverage-badge.samuelcolvin.workers.dev/tiangolo/sqlmodel.svg" alt="Coverage">
+<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/sqlmodel" target="_blank">
+    <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/sqlmodel.svg" alt="Coverage">
 <a href="https://pypi.org/project/sqlmodel" target="_blank">
     <img src="https://img.shields.io/pypi/v/sqlmodel?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
@@ -29,7 +29,7 @@
 
 **Documentation**: <a href="https://sqlmodel.tiangolo.com" target="_blank">https://sqlmodel.tiangolo.com</a>
 
-**Source Code**: <a href="https://github.com/tiangolo/sqlmodel" target="_blank">https://github.com/tiangolo/sqlmodel</a>
+**Source Code**: <a href="https://github.com/fastapi/sqlmodel" target="_blank">https://github.com/fastapi/sqlmodel</a>
 
 ---
 
@@ -233,4 +233,4 @@ And at the same time, ✨ it is also a **Pydantic** model ✨. You can use inher
 
 ## License
 
-This project is licensed under the terms of the [MIT license](https://github.com/tiangolo/sqlmodel/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/fastapi/sqlmodel/blob/main/LICENSE).

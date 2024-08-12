@@ -52,8 +52,8 @@ theme:
   logo: img/icon-white.svg
   favicon: img/favicon.png
   language: en
-repo_name: tiangolo/sqlmodel
-repo_url: https://github.com/tiangolo/sqlmodel
+repo_name: fastapi/sqlmodel
+repo_url: https://github.com/fastapi/sqlmodel
 plugins:
   # Material for MkDocs
   search:
@@ -201,7 +201,7 @@ extra:
             Thanks for your feedback!
   social:
   - icon: fontawesome/brands/github-alt
-    link: https://github.com/tiangolo/sqlmodel
+    link: https://github.com/fastapi/sqlmodel
   - icon: fontawesome/brands/twitter
     link: https://twitter.com/tiangolo
   - icon: fontawesome/brands/linkedin
