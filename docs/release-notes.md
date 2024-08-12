@@ -9,6 +9,7 @@
 
 ### Internal
 
+* 👷 Add GitHub Action add-to-project. PR [#1066](https://github.com/fastapi/sqlmodel/pull/1066) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update admonitions in annotations. PR [#1065](https://github.com/fastapi/sqlmodel/pull/1065) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update links from github.com/tiangolo/sqlmodel to github.com/fastapi/sqlmodel. PR [#1064](https://github.com/fastapi/sqlmodel/pull/1064) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update members. PR [#1063](https://github.com/tiangolo/sqlmodel/pull/1063) by [@tiangolo](https://github.com/tiangolo).
