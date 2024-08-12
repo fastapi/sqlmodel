@@ -307,8 +307,11 @@
 
 33. Print the `hero_1`.
 
-    !!! info
-        Even if the `hero_1` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+    /// info
+
+    Even if the `hero_1` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+
+    ///
 
     Because the `hero_1` is fresh it has all it's data available.
 
@@ -320,8 +323,11 @@
 
 34. Print the `hero_2`.
 
-    !!! info
-        Even if the `hero_2` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+    /// info
+
+    Even if the `hero_2` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+
+    ///
 
     Because the `hero_2` is fresh it has all it's data available.
 
@@ -333,8 +339,11 @@
 
 35. Print the `hero_3`.
 
-    !!! info
-        Even if the `hero_3` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+    /// info
+
+    Even if the `hero_3` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+
+    ///
 
     Because the `hero_3` is fresh it has all it's data available.
 
