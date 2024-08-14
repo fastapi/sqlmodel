@@ -9,6 +9,7 @@
 
 ### Internal
 
+* 👷 Update labeler GitHub Actions permissions and dependencies. PR [#1071](https://github.com/fastapi/sqlmodel/pull/1071) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add GitHub Action label-checker. PR [#1069](https://github.com/fastapi/sqlmodel/pull/1069) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add GitHub Action labeler. PR [#1068](https://github.com/fastapi/sqlmodel/pull/1068) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update GitHub Action add-to-project. PR [#1067](https://github.com/fastapi/sqlmodel/pull/1067) by [@tiangolo](https://github.com/tiangolo).
