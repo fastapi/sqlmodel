@@ -43,6 +43,8 @@ dependencies = [
 Homepage = "https://github.com/fastapi/sqlmodel"
 Documentation = "https://sqlmodel.tiangolo.com"
 Repository = "https://github.com/fastapi/sqlmodel"
+Issues = "https://github.com/fastapi/sqlmodel/issues"
+Changelog = "https://sqlmodel.tiangolo.com/release-notes/"
 
 [tool.pdm]
 version = { source = "file", path = "sqlmodel/__init__.py" }
