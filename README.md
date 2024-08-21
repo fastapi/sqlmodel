@@ -183,7 +183,7 @@ That will save a **SQLite** database with the 3 heroes.
 
 Then you could write queries to select from that same database, for example with:
 
-```Python hl_lines="15-18"
+```Python hl_lines="3  15-18"
 from typing import Optional
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
