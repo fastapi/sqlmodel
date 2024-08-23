@@ -42,12 +42,12 @@ If you haven't done testing in FastAPI applications, first check the <a href="ht
 
 Then, we can continue here, the first step is to install the dependencies, `requests` and `pytest`.
 
-Make sure you do it in the same [Python environment](../index.md#create-a-python-virtual-environment){.internal-link target=_blank}.
+Make sure you create a [virtual environment](../../virtual-environments.md){.internal-link target=_blank}, activate it, and then install them, for example with:
 
 <div class="termy">
 
 ```console
-$ python -m pip install requests pytest
+$ pip install requests pytest
 
 ---> 100%
 ```
