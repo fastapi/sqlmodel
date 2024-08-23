@@ -4,7 +4,7 @@
 
 Are you a seasoned developer and already know everything about databases? 🤓
 
-Then you can skip to the [Tutorial - User Guide: First Steps](tutorial/index.md){.internal-link target=_blank} right away.
+Then you can skip to the next sections right away.
 
 ///
 
