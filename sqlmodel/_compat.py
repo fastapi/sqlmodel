@@ -177,17 +177,17 @@ if IS_PYDANTIC_V2:
             return False
         return False
 
-    def get_sa_type_from_type_annotation(annotations: Any) -> Any:
+    def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         # Resolve Optional fields
-        if annotations is None:
+        if annotation is None:
             raise ValueError("Missing field type")
-        origin = get_origin(annotations)
+        origin = get_origin(annotation)
         if origin is None:
-            return annotations
+            return annotation
         elif origin is Annotated:
-            return get_sa_type_from_type_annotation(get_args(annotations)[0])
+            return get_sa_type_from_type_annotation(get_args(annotation)[0])
         if _is_union_type(origin):
-            bases = get_args(annotations)
+            bases = get_args(annotation)
             if len(bases) > 2:
                 raise ValueError(
                     "Cannot have a (non-optional) union as a SQLAlchemy field"
