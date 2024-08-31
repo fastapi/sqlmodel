@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.22
+
 ### Fixes
 
 * 🐛 Fix support for types with `Optional[Annoated[x, f()]]`, e.g. `id: Optional[pydantic.UUID4]`. PR [#1093](https://github.com/fastapi/sqlmodel/pull/1093) by [@tiangolo](https://github.com/tiangolo).
