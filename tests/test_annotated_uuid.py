@@ -7,7 +7,7 @@ from tests.conftest import needs_pydanticv2
 
 
 @needs_pydanticv2
-def test_annotated_optional_types(clear_sqlmodel, caplog) -> None:
+def test_annotated_optional_types(clear_sqlmodel) -> None:
     from pydantic import UUID4
 
     class Hero(SQLModel, table=True):
@@ -24,4 +24,3 @@ def test_annotated_optional_types(clear_sqlmodel, caplog) -> None:
         result = db.exec(statement).all()
     assert len(result) == 1
     assert isinstance(hero.id, uuid.UUID)
-    SQLModel.metadata.clear()
