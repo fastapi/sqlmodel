@@ -11,6 +11,7 @@
 
 ### Internal
 
+* ✅ Refactor test_enums to make them independent of previous imports. PR [#1095](https://github.com/fastapi/sqlmodel/pull/1095) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update `latest-changes` GitHub Action. PR [#1087](https://github.com/fastapi/sqlmodel/pull/1087) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1028](https://github.com/fastapi/sqlmodel/pull/1028) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.4.7 to 0.6.2. PR [#1081](https://github.com/fastapi/sqlmodel/pull/1081) by [@dependabot[bot]](https://github.com/apps/dependabot).
