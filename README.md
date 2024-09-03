@@ -65,6 +65,8 @@ As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. T
 
 ## Installation
 
+Make sure you create a <a href="https://sqlmodel.tiangolo.com/virtual-environments/" class="external-link" target="_blank">virtual environment</a>, activate it, and then install SQLModel, for example with:
+
 <div class="termy">
 
 ```console

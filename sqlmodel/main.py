@@ -71,7 +71,7 @@ from ._compat import (  # type: ignore[attr-defined]
     get_field_metadata,
     get_model_fields,
     get_relationship_to,
-    get_type_from_field,
+    get_sa_type_from_field,
     init_pydantic_private_attrs,
     is_field_noneable,
     is_table_model_class,
@@ -649,7 +649,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     if sa_type is not Undefined:
         return sa_type
 
-    type_ = get_type_from_field(field)
+    type_ = get_sa_type_from_field(field)
     metadata = get_field_metadata(field)
 
     # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
