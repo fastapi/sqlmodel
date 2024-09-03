@@ -24,7 +24,7 @@ Fine, in that case, you can **sneak peek** the final code to create indexes here
 
 //// tab | Python 3.10+
 
-```Python hl_lines="8  10"
+```Python
 {!./docs_src/tutorial/indexes/tutorial002_py310.py!}
 ```
 
@@ -32,7 +32,7 @@ Fine, in that case, you can **sneak peek** the final code to create indexes here
 
 //// tab | Python 3.7+
 
-```Python hl_lines="8  10"
+```Python
 {!./docs_src/tutorial/indexes/tutorial002.py!}
 ```
 
