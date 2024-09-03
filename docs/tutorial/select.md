@@ -713,7 +713,7 @@ In this chapter we are touching some of them.
 
 When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`.
 
-SQLAchemy also has it's own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
+SQLAchemy also has its own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
 
 But SQLModel's version does a lot of **tricks** with type annotations to make sure you get the best **editor support** possible, no matter if you use **VS Code**, **PyCharm**, or something else. ✨
 

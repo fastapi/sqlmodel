@@ -59,7 +59,7 @@ def test_tutorial(clear_sqlmodel):
                                             "title": "Response Read Heroes Heroes  Get",
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/HeroRead"
+                                                "$ref": "#/components/schemas/HeroPublic"
                                             },
                                         }
                                     }
@@ -86,7 +86,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroRead"
+                                            "$ref": "#/components/schemas/HeroPublic"
                                         }
                                     }
                                 },
@@ -122,7 +122,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroRead"
+                                            "$ref": "#/components/schemas/HeroPublic"
                                         }
                                     }
                                 },
@@ -175,8 +175,8 @@ def test_tutorial(clear_sqlmodel):
                             ),
                         },
                     },
-                    "HeroRead": {
-                        "title": "HeroRead",
+                    "HeroPublic": {
+                        "title": "HeroPublic",
                         "required": ["name", "secret_name", "id"],
                         "type": "object",
                         "properties": {

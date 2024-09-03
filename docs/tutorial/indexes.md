@@ -90,7 +90,7 @@ Do you like **fancy words**? Cool! Programmers tend to like fancy words. 😅
 
 That <abbr title="a recipe, a sequence of predefined steps that achieve a result">algorithm</abbr> I showed you above is called **Binary Search**.
 
-It's called like that because you **search** something by splitting the dictionary (or any ordered list of things) in **two** ("binary" means "two") parts. And you do that process multiple times until you find what you want.
+It's called that because you **search** something by splitting the dictionary (or any ordered list of things) in **two** ("binary" means "two") parts. And you do that process multiple times until you find what you want.
 
 ///
 

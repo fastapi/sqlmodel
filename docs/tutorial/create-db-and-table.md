@@ -354,7 +354,7 @@ But we will talk about it later.
 
 ### Engine Database URL
 
-Each supported database has it's own URL type. For example, for **SQLite** it is `sqlite:///` followed by the file path. For example:
+Each supported database has its own URL type. For example, for **SQLite** it is `sqlite:///` followed by the file path. For example:
 
 * `sqlite:///database.db`
 * `sqlite:///databases/local/application.db`
@@ -470,7 +470,7 @@ If you didn't know about SQLAlchemy before and are just learning **SQLModel**, y
 
 You can read a lot more about the engine in the <a href="https://docs.sqlalchemy.org/en/14/tutorial/engine.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
 
-**SQLModel** defines it's own `create_engine()` function. It is the same as SQLAlchemy's `create_engine()`, but with the difference that it defaults to use `future=True` (which means that it uses the style of the latest SQLAlchemy, 1.4, and the future 2.0).
+**SQLModel** defines its own `create_engine()` function. It is the same as SQLAlchemy's `create_engine()`, but with the difference that it defaults to use `future=True` (which means that it uses the style of the latest SQLAlchemy, 1.4, and the future 2.0).
 
 And SQLModel's version of `create_engine()` is type annotated internally, so your editor will be able to help you with autocompletion and inline errors.
 
@@ -688,7 +688,7 @@ In the example in the previous chapter we created the table using `TEXT` for som
 
 But in this output SQLAlchemy is using `VARCHAR` instead. Let's see what's going on.
 
-Remember that [each SQL Database has some different variations in what they support?](../databases/#sql-the-language){.internal-link target=_blank}
+Remember that [each SQL Database has some different variations in what they support?](../databases.md#sql-the-language){.internal-link target=_blank}
 
 This is one of the differences. Each database supports some particular **data types**, like `INTEGER` and `TEXT`.
 
