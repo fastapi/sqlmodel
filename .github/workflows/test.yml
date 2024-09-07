@@ -71,6 +71,10 @@ jobs:
         env:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
+      # Combine coverage early to check if there was any error with this specific test run
+      - run: coverage combine coverage
+      - run: coverage report
+      - run: mv coverage/.coverage coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}
       - name: Store coverage files
         uses: actions/upload-artifact@v4
         with:
