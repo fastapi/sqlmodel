@@ -8,6 +8,7 @@
 
 ### Internal
 
+* 👷 Fix coverage processing in CI, one name per matrix run. PR [#1104](https://github.com/fastapi/sqlmodel/pull/1104) by [@tiangolo](https://github.com/tiangolo).
 * 💚 Set `include-hidden-files` to `True` when using the `upload-artifact` GH action. PR [#1098](https://github.com/fastapi/sqlmodel/pull/1098) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1088](https://github.com/fastapi/sqlmodel/pull/1088) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 
