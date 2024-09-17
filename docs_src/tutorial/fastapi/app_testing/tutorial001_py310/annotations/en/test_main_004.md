@@ -22,5 +22,8 @@
 
     We tell it that with the `poolclass=StaticPool` parameter.
 
-    !!! info
-        You can read more details in the <a href="https://docs.sqlalchemy.org/en/14/dialects/sqlite.html#using-a-memory-database-in-multiple-threads" class="external-link" target="_blank">SQLAlchemy documentation about Using a Memory Database in Multiple Threads</a>
+    /// info
+
+    You can read more details in the <a href="https://docs.sqlalchemy.org/en/14/dialects/sqlite.html#using-a-memory-database-in-multiple-threads" class="external-link" target="_blank">SQLAlchemy documentation about Using a Memory Database in Multiple Threads</a>
+
+    ///
