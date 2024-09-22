@@ -66,7 +66,7 @@ There are many databases of many types.
 
 ### A single file database
 
-A database could be a single file called `heroes.db`, managed with code in a very efficient way. An example would be SQLite, more about that on a bit.
+A database could be a single file called `heroes.db`, managed with code in a very efficient way. An example would be SQLite, more about that in a bit.
 
 ![database as a single file](/img/databases/single-file.svg)
 
