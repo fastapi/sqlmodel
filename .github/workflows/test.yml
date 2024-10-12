@@ -18,6 +18,9 @@ on:
     # cron every week on monday
     - cron: "0 0 * * 1"
 
+env:
+  UV_SYSTEM_PYTHON: 1
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -34,33 +37,34 @@ jobs:
           - pydantic-v1
           - pydantic-v2
       fail-fast: false
-
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.4.15"
+          enable-cache: true
+          cache-dependency-glob: |
+            requirements**.txt
+            pyproject.toml
       # Allow debugging with tmate
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled == 'true' }}
         with:
           limit-access-to-actor: true
-      - uses: actions/cache@v4
-        id: cache
-        with:
-          path: ${{ env.pythonLocation }}
-          key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('pyproject.toml', 'requirements-tests.txt') }}-v01
       - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: pip install -r requirements-tests.txt
+        run: uv pip install -r requirements-tests.txt
       - name: Install Pydantic v1
         if: matrix.pydantic-version == 'pydantic-v1'
-        run: pip install --upgrade "pydantic>=1.10.0,<2.0.0"
+        run: uv pip install --upgrade "pydantic>=1.10.0,<2.0.0"
       - name: Install Pydantic v2
         if: matrix.pydantic-version == 'pydantic-v2'
-        run: pip install --upgrade "pydantic>=2.0.2,<3.0.0" "typing-extensions==4.6.1"
+        run: uv pip install --upgrade "pydantic>=2.0.2,<3.0.0" "typing-extensions==4.6.1"
       - name: Lint
         # Do not run on Python 3.7 as mypy behaves differently
         if: matrix.python-version != '3.7' && matrix.pydantic-version == 'pydantic-v2'
@@ -82,28 +86,31 @@ jobs:
     needs:
       - test
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.4.15"
+          enable-cache: true
+          cache-dependency-glob: |
+            requirements**.txt
+            pyproject.toml
       - name: Get coverage files
         uses: actions/download-artifact@v4
         with:
           pattern: coverage-*
           path: coverage
           merge-multiple: true
-
-      - run: pip install coverage[toml]
-
+      - name: Install Dependencies
+        run: uv pip install -r requirements-tests.txt
       - run: ls -la coverage
       - run: coverage combine coverage
       - run: coverage report
       - run: coverage html --title "Coverage for ${{ github.sha }}"
-
       - name: Store coverage HTML
         uses: actions/upload-artifact@v4
         with:
