@@ -710,4 +710,4 @@ Hero: None
 
 ## Recap
 
-As querying the SQL database for a single row is a common operation, you know have several tools to do it in a short and simple way. 🎉
+As querying the SQL database for a single row is a common operation, you now have several tools to do it in a short and simple way. 🎉
