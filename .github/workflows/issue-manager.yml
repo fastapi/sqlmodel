@@ -38,5 +38,9 @@ jobs:
               "changes-requested": {
                 "delay": 2628000,
                 "message": "As this PR had requested changes to be applied but has been inactive for a while, it's now going to be closed. But if there's anyone interested, feel free to create a new PR."
-              }
+              },
+              "invalid": {
+                "delay": 0,
+                "message": "This was marked as invalid and will be closed now. If this is an error, please provide additional details."
+              },
             }
