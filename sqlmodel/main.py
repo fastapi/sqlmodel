@@ -836,6 +836,21 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             if not (isinstance(k, str) and k.startswith("_sa_"))
         ]
 
+    def __hash__(self) -> int:
+        # If there's a primary key, use that to hash the object
+        to_hash = ""
+
+        for field in self.__fields__:
+            is_primary_key = getattr(
+                self.__fields__[field].field_info, "primary_key", False
+            )
+            if is_primary_key:
+                to_hash += str(getattr(self, field))
+        if not to_hash:
+            # Can't call super().__hash__ because BaseModel.__hash__ is a NoneType
+            raise TypeError(f"unhashable type: '{self.__class__.__name__}'")
+        return hash(to_hash)
+
     @declared_attr  # type: ignore
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
