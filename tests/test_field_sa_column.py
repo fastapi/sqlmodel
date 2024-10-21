@@ -5,7 +5,7 @@ from sqlalchemy import Column, Integer, String
 from sqlmodel import Field, SQLModel
 
 
-def test_sa_column_takes_precedence() -> None:
+def test_sa_column_takes_precedence(clear_sqlmodel) -> None:
     class Item(SQLModel, table=True):
         id: Optional[int] = Field(
             default=None,
