@@ -16,4 +16,4 @@ cairosvg==2.7.1
 # For griffe, it formats with black
 typer == 0.12.3
 mkdocs-macros-plugin==1.0.5
-markdown-include-variants==0.0.1
+markdown-include-variants==0.0.3
