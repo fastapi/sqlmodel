@@ -150,7 +150,7 @@ If you have a server database (for example PostgreSQL or MySQL), the **engine** 
 
 Creating the **engine** is very simple, just call `create_engine()` with a URL for the database to use:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16] ln[1:16] hl[1,14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[1,14] *}
 
 You should normally have a single **engine** object for your whole application and re-use it everywhere.
 
@@ -174,7 +174,7 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 
 * `sqlite://`
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16] ln[1:16] hl[11:12,14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[11:12,14] *}
 
 You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the <a href="https://docs.sqlalchemy.org/en/14/core/engines.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
 
