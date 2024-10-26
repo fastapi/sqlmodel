@@ -107,7 +107,7 @@ So, we need to mark `id` as the **primary key**.
 
 To do that, we use the special `Field` function from `sqlmodel` and set the argument `primary_key=True`:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1:5] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5] *}
 
 That way, we tell **SQLModel** that this `id` field/column is the primary key of the table.
 
@@ -428,7 +428,7 @@ In this example it's just the `SQLModel.metadata.create_all(engine)`.
 
 Let's put it in a function `create_db_and_tables()`:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py ln[1:8] hl[17:18] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py ln[1:18] hl[17:18] *}
 
 If `SQLModel.metadata.create_all(engine)` was not in a function and we tried to import something from this module (from this file) in another, it would try to create the database and table **every time** we executed that other file that imported this module.
 
