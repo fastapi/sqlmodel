@@ -68,7 +68,7 @@ There are many databases of many types.
 
 A database could be a single file called `heroes.db`, managed with code in a very efficient way. An example would be SQLite, more about that on a bit.
 
-![database as a single file](/img/databases/single-file.svg)
+![database as a single file](img/databases/single-file.svg)
 
 ### A server database
 
@@ -80,11 +80,11 @@ In this case, your code would talk to this server application instead of reading
 
 The database could be located in a different server/machine:
 
-![database in an external server](/img/databases/external-server.svg)
+![database in an external server](img/databases/external-server.svg)
 
 Or the database could be located in the same server/machine:
 
-![database in the same server](/img/databases/same-server.svg)
+![database in the same server](img/databases/same-server.svg)
 
 The most important aspect of these types of databases is that **your code doesn't read or modify** the files containing the data directly.
 
@@ -98,7 +98,7 @@ In some cases, the database could even be a group of server applications running
 
 In this case, your code would talk to one or more of these server applications running on different machines.
 
-![distributed database in multiple servers](/img/databases/multiple-servers.svg)
+![distributed database in multiple servers](img/databases/multiple-servers.svg)
 
 Most of the databases that work as server applications also support multiple servers in one way or another.
 
@@ -257,7 +257,7 @@ For example, the table for the teams has the ID `1` for the team `Preventers` an
 
 As these **primary key** IDs can uniquely identify each row on the table for teams, we can now go to the table for heroes and refer to those IDs in the table for teams.
 
-<img alt="table relationships" src="/img/databases/relationships.svg">
+![table relationships](img/databases/relationships.svg)
 
 So, in the table for heroes, we use the `team_id` column to define a relationship to the *foreign* table for teams. Each value in the `team_id` column on the table with heroes will be the same value as the `id` column of one row in the table with teams.
 
