@@ -260,7 +260,7 @@ And those inherited fields will also be in the **autocompletion** and **inline e
 
 Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5-12] hl[4,6,9] *}
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[4,6,9] *}
 
 ////
 
@@ -278,67 +278,12 @@ Now let's see the `HeroCreate` model that will be used to define the data that w
 
 This is a fun one:
 
-//// tab | Python 3.10+
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:16] hl[13:14] *}
 
-```Python hl_lines="13-14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-16]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="13-14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-18]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="13-14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-18]!}
-
-# Code below omitted 👇
-```
-
-////
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
 ///
 
@@ -361,9 +306,6 @@ Now let's check the `HeroPublic` model.
 This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
 
 {*./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[17:18] *}
-
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-22]!}
 
 /// details | 👀 Full file preview
 
