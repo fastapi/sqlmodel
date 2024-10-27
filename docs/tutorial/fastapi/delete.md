@@ -12,8 +12,6 @@ We get a `hero_id` from the path parameter and verify if it exists, just as we d
 
 And if we actually find a hero, we just delete it with the **session**.
 
-
-
 {* ./docs_src/tutorial/fastapi/delete/tutorial001_py310.py[ln:89-97] hl[3:11] *}
 
 After deleting it successfully, we just return a response of:
