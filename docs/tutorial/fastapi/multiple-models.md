@@ -109,7 +109,7 @@ And we want to have a `HeroPublic` with the `id` field, but this time annotated 
 
 The simplest way to solve it could be to create **multiple models**, each one with all the corresponding fields:
 
-{*./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9,12:15,18:22] *}
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9,12:15,18:22] *}
 
 /// details | 👀 Full file preview
 
@@ -305,7 +305,7 @@ Now let's check the `HeroPublic` model.
 
 This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
 
-{*./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[17:18] *}
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[17:18] *}
 
 /// details | 👀 Full file preview
 
