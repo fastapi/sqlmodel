@@ -20,6 +20,10 @@ If you need to refresh how *path parameters* work, including their data validati
 
 For example, to get the hero with ID `2` we would send a `GET` request to:
 
+```
+/heroes/2
+```
+
 ## Handling Errors
 
 Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `Hero.get()` to try and get one hero by that ID.
