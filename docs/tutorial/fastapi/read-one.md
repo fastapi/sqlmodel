@@ -14,6 +14,8 @@ If you need to refresh how *path parameters* work, including their data validati
 
 {* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2] hl=[6] *}
 
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[59:65] *}
+
 /// details | 👀 Full file preview
 
 {* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py *}
@@ -54,7 +56,7 @@ And because we are using the `response_model` with `HeroPublic`, it will be vali
 
 {* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2] hl[6:12] *}
 
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65] hl[6:12] *}
 
 /// details | 👀 Full file preview
 
