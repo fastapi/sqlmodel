@@ -108,17 +108,12 @@ And we want to have a `HeroPublic` with the `id` field, but this time annotated 
 ## Multiple Models with Duplicated Fields
 
 The simplest way to solve it could be to create **multiple models**, each one with all the corresponding fields:
-////
 
 {*./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9,12:15,18:22] *}
-
-////
 
 /// details | 👀 Full file preview
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py *}
-
-///
 
 Here's the important detail, and probably the most important feature of **SQLModel**: only `Hero` is declared with `table = True`.
 
@@ -140,15 +135,11 @@ Let's now see how to use these new models in the FastAPI application.
 
 Let's first check how is the process to create a hero now:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44:51] hl[3:4, 6] *}
-
-////
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44:51] hl[3:4,6] *}
 
 /// details | 👀 Full file preview
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py *}
-
-////
 
 ///
 
@@ -172,41 +163,7 @@ In versions of **SQLModel** before `0.0.14` you would use the method `.from_orm(
 
 We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:49]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47] hl[3] *}
 
 Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally, we return the same `db_hero` variable that has the just refreshed `Hero` instance.
 
@@ -214,41 +171,7 @@ Because it is just refreshed, it has the `id` field set with a new ID taken from
 
 And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroPublic`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:44]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:46]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:46]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44] hl[3] *}
 
 This will validate that all the data that we promised is there and will remove any data we didn't declare.
 
@@ -300,67 +223,12 @@ We can see from above that they all share some **base** fields:
 
 So let's create a **base** model `HeroBase` that the others can inherit from:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-8]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3-6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-10]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-10]!}
-
-# Code below omitted 👇
-```
-
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:8] hl[3:6] *}
 ////
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
 ///
 
@@ -372,69 +240,11 @@ But now we can create the **other models inheriting from it**, they will all sha
 
 Let's start with the only **table model**, the `Hero`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-12]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-14]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-14]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[9:10] *}
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
 Notice that `Hero` now doesn't inherit from `SQLModel`, but from `HeroBase`.
 
@@ -450,69 +260,13 @@ And those inherited fields will also be in the **autocompletion** and **inline e
 
 Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="4  6  9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-12]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="4  6  9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-14]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="4  6  9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-14]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5-12] hl[4,6,9] *}
 
 ////
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
 This won't affect this parent **data model** `HeroBase`.
 
@@ -606,69 +360,14 @@ Now let's check the `HeroPublic` model.
 
 This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
 
-//// tab | Python 3.10+
+{*./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[17:18] *}
 
-```Python hl_lines="17-18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py[ln:5-20]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="17-18"
-# Code above omitted 👆
 
 {!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py[ln:7-22]!}
 
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="17-18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py[ln:7-22]!}
-
-# Code below omitted 👇
-```
-
-////
-
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
 ## Review the Updated Docs UI
 
