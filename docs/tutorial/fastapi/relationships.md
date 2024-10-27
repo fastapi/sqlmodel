@@ -148,7 +148,7 @@ Let's add the models `HeroPublicWithTeam` and `TeamPublicWithHeroes`.
 
 We'll add them **after** the other models so that we can easily reference the previous models.
 
-{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[59-64] hl[3:4,7:8] *}
+{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[59:64] hl[3:4,7:8] *}
 
 /// details | 👀 Full file preview
 
