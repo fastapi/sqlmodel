@@ -22,7 +22,7 @@ If you already executed the previous examples and have a database with data, **r
 
 We have been iterating over the rows in a `result` object like:
 
-{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[42:47] hl[7-8] *}
+{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[42:47] hl[7:8] *}
 
 But let's say that we are not interested in all the rows, just the **first** one.
 
