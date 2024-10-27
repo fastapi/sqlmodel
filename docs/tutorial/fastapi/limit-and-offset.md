@@ -24,8 +24,6 @@ And by default, we will return a maximum of `100` heroes, so `limit` will have a
 
 {* ./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py ln[52:56] hl[1,7,9] *}
 
-{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py39.py!}
-
 We want to allow clients to set different `offset` and `limit` values.
 
 But we don't want them to be able to set a `limit` of something like `9999`, that's over `9000`! 😱
