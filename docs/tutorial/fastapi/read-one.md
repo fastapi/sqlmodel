@@ -38,7 +38,7 @@ This will let the client know that they probably made a mistake on their side an
 
 {* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2] hl[1,9:11] *}
 
-{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[59:65] *}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[59:65] hl[1,9:11] *}
 
 /// details | 👀 Full file preview
 
