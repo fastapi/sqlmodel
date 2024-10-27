@@ -48,9 +48,9 @@ And the same way, we declared the `TeamPublic` with only the same base fields of
 
 {* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[20:21] hl[3:5,9:10,23-24] *}
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:29-34] hl[3:5,9:10,23-24] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[29:34] hl[3:5,9:10,23-24] *}
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py[ln:43-44] hl[3:5,9:10,23-24] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[43:44] hl[3:5,9:10,23-24] *}
 
 /// details | 👀 Full file preview
 
@@ -60,9 +60,9 @@ Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model
 
 In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[102:107] hl=[3,8,12,17] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[102:107] hl[3,8,12,17] *}
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[156:161] hl=[3,8,12,17] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[156:161] hl[3,8,12,17] *}
 
 /// details | 👀 Full file preview
 
