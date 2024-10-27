@@ -505,7 +505,7 @@ Now that we have several heroes with different ages, it's gonna be more obvious 
 
 Now let's use `>` to get the rows where a column is **more than** a value:
 
-{* ./docs_src/tutorial/where/tutorial003_py310.py ln[42-47] hl[5] *}
+{* ./docs_src/tutorial/where/tutorial003_py310.py ln[42:47] hl[5] *}
 
 That would output:
 
