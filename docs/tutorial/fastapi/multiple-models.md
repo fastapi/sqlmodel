@@ -108,74 +108,15 @@ And we want to have a `HeroPublic` with the `id` field, but this time annotated 
 ## Multiple Models with Duplicated Fields
 
 The simplest way to solve it could be to create **multiple models**, each one with all the corresponding fields:
-
-//// tab | Python 3.10+
-
-```Python hl_lines="5-9  12-15  18-22"
-# This would work, but there's a better option below 🚨
-
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:5-22]!}
-
-# Code below omitted 👇
-```
-
 ////
 
-//// tab | Python 3.9+
-
-```Python hl_lines="5-9  12-15  18-22"
-# This would work, but there's a better option below 🚨
-
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:7-24]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5-9  12-15  18-22"
-# This would work, but there's a better option below 🚨
-
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:7-24]!}
-
-# Code below omitted 👇
-```
+{*./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9, 12:15, 18:22] *}
 
 ////
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py *}
 
 ///
 
