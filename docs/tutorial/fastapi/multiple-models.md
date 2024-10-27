@@ -110,7 +110,7 @@ And we want to have a `HeroPublic` with the `id` field, but this time annotated 
 The simplest way to solve it could be to create **multiple models**, each one with all the corresponding fields:
 ////
 
-{*./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9, 12:15, 18:22] *}
+{*./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9,12:15,18:22] *}
 
 ////
 
@@ -140,65 +140,13 @@ Let's now see how to use these new models in the FastAPI application.
 
 Let's first check how is the process to create a hero now:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-4  6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:44-51]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3-4  6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:46-53]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-4  6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:46-53]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44:51] hl[3:4, 6] *}
 
 ////
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py!}
-```
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py *}
 
 ////
 
@@ -208,39 +156,7 @@ Let's check that in detail.
 
 Now we use the type annotation `HeroCreate` for the request JSON data in the `hero` parameter of the **path operation function**.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py[ln:45]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001_py39.py[ln:47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/multiple_models/tutorial001.py[ln:47]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[45] *}
 
 ////
 
