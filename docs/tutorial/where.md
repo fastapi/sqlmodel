@@ -497,7 +497,7 @@ secret_name='Tommy Sharp' age=48 id=3 name='Rusty-Man'
 
 Let's update the function `create_heroes()` and add some more rows to make the next comparison examples clearer:
 
-{* ./docs_src/tutorial/where/tutorial003_py310.py ln[21-39] hl[4:10,13:19] *}
+{* ./docs_src/tutorial/where/tutorial003_py310.py ln[21:39] hl[4:10,13:19] *}
 
 Now that we have several heroes with different ages, it's gonna be more obvious what the next comparisons do.
 
