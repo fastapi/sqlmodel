@@ -189,7 +189,7 @@ We care specially about the **select** statement:
 
 Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can add a `.where()` to a **SQLModel** `select()` statement to filter rows, which will filter the objects returned:
 
-{* ./docs_src/tutorial/where/tutorial001_py310.py ln[34:39] hl[5]*}
+{* ./docs_src/tutorial/where/tutorial001_py310.py ln[34:39] hl[5] *}
 
 It's a very small change, but it's packed of details. Let's explore them.
 
@@ -497,7 +497,7 @@ secret_name='Tommy Sharp' age=48 id=3 name='Rusty-Man'
 
 Let's update the function `create_heroes()` and add some more rows to make the next comparison examples clearer:
 
-{* ./docs_src/tutorial/where/tutorial003_py310.py ln[21-39] hl[4:10,13:19]*}
+{* ./docs_src/tutorial/where/tutorial003_py310.py ln[21-39] hl[4:10,13:19] *}
 
 Now that we have several heroes with different ages, it's gonna be more obvious what the next comparisons do.
 
@@ -704,7 +704,7 @@ We can tell the editor that this class attribute is actually a special **SQLMode
 
 To do that, we can import `col()` (as short for "column"):
 
-{* ./docs_src/tutorial/where/tutorial011_py310.py ln[1] hl[1]*}
+{* ./docs_src/tutorial/where/tutorial011_py310.py ln[1] hl[1] *}
 
 And then put the **class attribute** inside `col()` when using it in a `.where()`:
 
