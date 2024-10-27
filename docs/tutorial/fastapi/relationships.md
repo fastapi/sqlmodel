@@ -44,13 +44,13 @@ It's because we declared the `HeroPublic` with only the same base fields of the 
 
 And the same way, we declared the `TeamPublic` with only the same base fields of the `TeamBase` plus the `id`. But it doesn't include a field `heroes` for the **relationship attribute**.
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[5:7] hl[3:5,9:10,23-24] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[5:7] hl[3:5,9:10,23:24] *}
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[20:21] hl[3:5,9:10,23-24] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[20:21] hl[3:5,9:10,23:24] *}
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[29:34] hl[3:5,9:10,23-24] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[29:34] hl[3:5,9:10,23:24] *}
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[43:44] hl[3:5,9:10,23-24] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[43:44] hl[3:5,9:10,23:24] *}
 
 /// details | 👀 Full file preview
 
