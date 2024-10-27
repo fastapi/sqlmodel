@@ -16,25 +16,13 @@ Again, we will create several heroes to have some data to select from:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="4-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:21-39]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[21:39] hl[4:10] *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python hl_lines="4-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py[ln:23-41]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001.py ln[23:41] hl[4:10] *}
 
 ////
 
@@ -42,17 +30,13 @@ Again, we will create several heroes to have some data to select from:
 
 //// tab | Python 3.10+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001.py *}
 
 ////
 
@@ -64,25 +48,13 @@ This is the code we had to select all the heroes in the `select()` examples:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="3-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/select/tutorial003_py310.py[ln:34-39]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/select/tutorial003_py310.py ln[34:39] hl[3:8] *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python hl_lines="3-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/select/tutorial003.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/select/tutorial003.py ln[36:41] hl[3:8] *}
 
 ////
 
@@ -90,17 +62,13 @@ This is the code we had to select all the heroes in the `select()` examples:
 
 //// tab | Python 3.10+
 
-```Python
-{!./docs_src/tutorial/select/tutorial003_py310.py!}
-```
+{* ./docs_src/tutorial/select/tutorial003_py310.py *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python
-{!./docs_src/tutorial/select/tutorial003.py!}
-```
+{* ./docs_src/tutorial/select/tutorial003.py *}
 
 ////
 
@@ -114,25 +82,13 @@ We currently have 7 heroes in the database. But we could as well have thousands,
 
 //// tab | Python 3.10+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[42:47] hl[5] *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001.py ln[44:49] *}
 
 ////
 
@@ -140,17 +96,13 @@ We currently have 7 heroes in the database. But we could as well have thousands,
 
 //// tab | Python 3.10+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial001.py *}
 
 ////
 
@@ -219,25 +171,13 @@ We can use `.offset()`:
 
 //// tab | Python 3.10+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial002_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial002_py310.py ln[42:47] hl[5] *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial002.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial002.py ln[44:49] hl[5] *}
 
 ////
 
@@ -245,17 +185,13 @@ We can use `.offset()`:
 
 //// tab | Python 3.10+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial002_py310.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial002_py310.py *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial002.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial002.py *}
 
 ////
 
@@ -300,25 +236,13 @@ Then to get the next batch of 3 rows we would offset all the ones we already saw
 
 //// tab | Python 3.10+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial003_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial003_py310.py ln[42:47] hl[5] *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial003.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial003.py ln[44:49] hl[5] *}
 
 ////
 
@@ -326,17 +250,13 @@ Then to get the next batch of 3 rows we would offset all the ones we already saw
 
 //// tab | Python 3.10+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial003_py310.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial003_py310.py *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial003.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial003.py *}
 
 ////
 
@@ -397,25 +317,13 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 
 //// tab | Python 3.10+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial004_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial004_py310.py ln[42:47] hl[5] *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial004.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial004.py ln[44:49] hl[5] *}
 
 ////
 
@@ -423,17 +331,13 @@ Of course, you can also combine `.limit()` and `.offset()` with `.where()` and o
 
 //// tab | Python 3.10+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial004_py310.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial004_py310.py *}
 
 ////
 
 //// tab | Python 3.7+
 
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial004.py!}
-```
+{* ./docs_src/tutorial/offset_and_limit/tutorial004.py *}
 
 ////
 
