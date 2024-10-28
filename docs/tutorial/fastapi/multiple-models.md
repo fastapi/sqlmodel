@@ -319,7 +319,6 @@ On top of that, we could easily decide in the future that we want to receive **m
 Now let's check the `HeroPublic` model.
 
 This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
-///
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[17:18] *}
 
