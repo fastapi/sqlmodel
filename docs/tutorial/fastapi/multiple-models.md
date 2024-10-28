@@ -115,6 +115,8 @@ The simplest way to solve it could be to create **multiple models**, each one wi
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py *}
 
+///
+
 Here's the important detail, and probably the most important feature of **SQLModel**: only `Hero` is declared with `table = True`.
 
 This means that the class `Hero` represents a **table** in the database. It is both a **Pydantic** model and a **SQLAlchemy** model.
@@ -163,7 +165,11 @@ In versions of **SQLModel** before `0.0.14` you would use the method `.from_orm(
 
 We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
 
+///
+
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47] hl[3] *}
+
+///
 
 Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally, we return the same `db_hero` variable that has the just refreshed `Hero` instance.
 
@@ -171,7 +177,11 @@ Because it is just refreshed, it has the `id` field set with a new ID taken from
 
 And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroPublic`:
 
+///
+
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44] hl[3] *}
+
+///
 
 This will validate that all the data that we promised is there and will remove any data we didn't declare.
 
@@ -222,8 +232,10 @@ We can see from above that they all share some **base** fields:
 * `age`, optional
 
 So let's create a **base** model `HeroBase` that the others can inherit from:
+///
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:8] hl[3:6] *}
+
 ////
 
 /// details | 👀 Full file preview
@@ -240,11 +252,15 @@ But now we can create the **other models inheriting from it**, they will all sha
 
 Let's start with the only **table model**, the `Hero`:
 
+///
+
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[9:10] *}
 
 /// details | 👀 Full file preview
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
+
+///
 
 Notice that `Hero` now doesn't inherit from `SQLModel`, but from `HeroBase`.
 
@@ -259,6 +275,8 @@ And those inherited fields will also be in the **autocompletion** and **inline e
 ### Columns and Inheritance with Multiple Models
 
 Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
+
+///
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[4,6,9] *}
 
@@ -277,9 +295,11 @@ But once the child model `Hero` (the actual **table model**) inherits those fiel
 Now let's see the `HeroCreate` model that will be used to define the data that we want to receive in the API when creating a new hero.
 
 This is a fun one:
+///
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:16] hl[13:14] *}
 
+///
 
 /// details | 👀 Full file preview
 
@@ -304,12 +324,17 @@ On top of that, we could easily decide in the future that we want to receive **m
 Now let's check the `HeroPublic` model.
 
 This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
+///
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[17:18] *}
+
+///
 
 /// details | 👀 Full file preview
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
+
+///
 
 ## Review the Updated Docs UI
 
