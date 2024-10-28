@@ -165,8 +165,6 @@ In versions of **SQLModel** before `0.0.14` you would use the method `.from_orm(
 
 We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
 
-///
-
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47] hl[3] *}
 
 ////
@@ -252,7 +250,7 @@ But now we can create the **other models inheriting from it**, they will all sha
 
 Let's start with the only **table model**, the `Hero`:
 
-///
+////
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[9:10] *}
 
@@ -276,8 +274,6 @@ And those inherited fields will also be in the **autocompletion** and **inline e
 
 Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
 
-///
-
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[4,6,9] *}
 
 ////
@@ -295,11 +291,10 @@ But once the child model `Hero` (the actual **table model**) inherits those fiel
 Now let's see the `HeroCreate` model that will be used to define the data that we want to receive in the API when creating a new hero.
 
 This is a fun one:
-///
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:16] hl[13:14] *}
 
-///
+////
 
 /// details | 👀 Full file preview
 
@@ -328,7 +323,7 @@ This one just declares that the `id` field is required when reading a hero from 
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[17:18] *}
 
-///
+////
 
 /// details | 👀 Full file preview
 
