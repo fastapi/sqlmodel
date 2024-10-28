@@ -115,7 +115,7 @@ The simplest way to solve it could be to create **multiple models**, each one wi
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py *}
 
-///
+////
 
 Here's the important detail, and probably the most important feature of **SQLModel**: only `Hero` is declared with `table = True`.
 
@@ -169,7 +169,7 @@ We can now create a new `Hero` instance (the one for the database) and put it in
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47] hl[3] *}
 
-///
+////
 
 Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally, we return the same `db_hero` variable that has the just refreshed `Hero` instance.
 
@@ -177,11 +177,11 @@ Because it is just refreshed, it has the `id` field set with a new ID taken from
 
 And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroPublic`:
 
-///
+////
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44] hl[3] *}
 
-///
+////
 
 This will validate that all the data that we promised is there and will remove any data we didn't declare.
 
@@ -232,7 +232,7 @@ We can see from above that they all share some **base** fields:
 * `age`, optional
 
 So let's create a **base** model `HeroBase` that the others can inherit from:
-///
+////
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:8] hl[3:6] *}
 
@@ -242,7 +242,7 @@ So let's create a **base** model `HeroBase` that the others can inherit from:
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
-///
+////
 
 As you can see, this is *not* a **table model**, it doesn't have the `table = True` config.
 
@@ -260,7 +260,7 @@ Let's start with the only **table model**, the `Hero`:
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
-///
+////
 
 Notice that `Hero` now doesn't inherit from `SQLModel`, but from `HeroBase`.
 
@@ -305,7 +305,7 @@ This is a fun one:
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
-///
+////
 
 What's happening here?
 
@@ -334,7 +334,7 @@ This one just declares that the `id` field is required when reading a hero from 
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py *}
 
-///
+////
 
 ## Review the Updated Docs UI
 
