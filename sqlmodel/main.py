@@ -482,7 +482,7 @@ def Relationship(
     return relationship_info
 
 
-def get_annotated_relationshipinfo(t: Type) -> Optional[RelationshipInfo]:
+def get_annotated_relationshipinfo(t: type[Any]) -> Optional[RelationshipInfo]:
     """Get the first RelationshipInfo from Annotated or None if not Annotated with RelationshipInfo."""
     if get_origin(t) is not Annotated:
         return None
