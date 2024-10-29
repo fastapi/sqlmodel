@@ -709,7 +709,7 @@ def get_column_from_field(field: Any) -> Union[Column, MappedColumn]:  # type: i
     else:
         field_info = field.field_info
     sa_column = getattr(field_info, "sa_column", Undefined)
-    if isinstance(sa_column, Column) or isinstance(sa_column, MappedColumn):
+    if isinstance(sa_column, (Column, MappedColumn)):
         return sa_column
     sa_type = get_sqlalchemy_type(field)
     primary_key = getattr(field_info, "primary_key", Undefined)
