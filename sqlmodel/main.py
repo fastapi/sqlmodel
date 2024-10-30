@@ -647,7 +647,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 class SchemaEnum(sa_Enum):
     def __init__(self, *args, **kwargs):
-        kwargs['inherit_schema'] = True
+        kwargs["inherit_schema"] = True
         super().__init__(*args, **kwargs)
 
 
