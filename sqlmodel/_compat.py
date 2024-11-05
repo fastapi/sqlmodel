@@ -243,9 +243,9 @@ if IS_PYDANTIC_V2:
         # End SQLModel override
 
         fields_values: Dict[str, Any] = {}
-        defaults: Dict[str, Any] = (
-            {}
-        )  # keeping this separate from `fields_values` helps us compute `_fields_set`
+        defaults: Dict[
+            str, Any
+        ] = {}  # keeping this separate from `fields_values` helps us compute `_fields_set`
         for name, field in cls.model_fields.items():
             if field.alias and field.alias in values:
                 fields_values[name] = values.pop(field.alias)
