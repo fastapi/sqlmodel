@@ -243,9 +243,9 @@ if IS_PYDANTIC_V2:
         # End SQLModel override
 
         fields_values: Dict[str, Any] = {}
-        defaults: Dict[
-            str, Any
-        ] = {}  # keeping this separate from `fields_values` helps us compute `_fields_set`
+        defaults: Dict[str, Any] = (
+            {}
+        )  # keeping this separate from `fields_values` helps us compute `_fields_set`
         for name, field in cls.model_fields.items():
             if field.alias and field.alias in values:
                 fields_values[name] = values.pop(field.alias)
@@ -286,6 +286,10 @@ if IS_PYDANTIC_V2:
         # SQLModel override, set relationships
         # Get and set any relationship objects
         for key in self_instance.__sqlmodel_relationships__:
+            value = values.get(key, Undefined)
+            if value is not Undefined:
+                setattr(self_instance, key, value)
+        for key in self_instance.__sqlalchemy_association_proxies__:
             value = values.get(key, Undefined)
             if value is not Undefined:
                 setattr(self_instance, key, value)
