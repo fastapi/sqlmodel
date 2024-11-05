@@ -78,7 +78,6 @@ from ._compat import (  # type: ignore[attr-defined]
     get_field_metadata,
     get_model_fields,
     get_relationship_to,
-    get_sa_type_from_field,
     init_pydantic_private_attrs,
     is_field_noneable,
     is_table_model_class,
