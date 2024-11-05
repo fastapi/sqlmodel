@@ -2,14 +2,122 @@
 
 ## Latest Changes
 
-* ✏️ Fix typo in `docs/tutorial/relationship-attributes/index.md`. PR [#880](https://github.com/tiangolo/sqlmodel/pull/880) by [@UncleGoogle](https://github.com/UncleGoogle).
+### Refactors
+
+* 🚨 Fix types for new Pydantic. PR [#1131](https://github.com/fastapi/sqlmodel/pull/1131) by [@tiangolo](https://github.com/tiangolo).
 
 ### Docs
 
+* 📝 Update includes for `docs/advanced/uuid.md`. PR [#1151](https://github.com/fastapi/sqlmodel/pull/1151) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update includes for `docs/tutorial/create-db-and-table.md`. PR [#1149](https://github.com/fastapi/sqlmodel/pull/1149) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Fix internal links in docs. PR [#1148](https://github.com/fastapi/sqlmodel/pull/1148) by [@tiangolo](https://github.com/tiangolo).
+* ✏️ Fix typo in documentation. PR [#1106](https://github.com/fastapi/sqlmodel/pull/1106) by [@Solipsistmonkey](https://github.com/Solipsistmonkey).
+* 📝 Remove highlights in `indexes.md` . PR [#1100](https://github.com/fastapi/sqlmodel/pull/1100) by [@alejsdev](https://github.com/alejsdev).
+
+### Internal
+
+* ⬆️ Upgrade markdown-include-variants to version 0.0.3. PR [#1152](https://github.com/fastapi/sqlmodel/pull/1152) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update issue manager workflow. PR [#1137](https://github.com/fastapi/sqlmodel/pull/1137) by [@alejsdev](https://github.com/alejsdev).
+* 👷 Fix smokeshow, checkout files on CI. PR [#1136](https://github.com/fastapi/sqlmodel/pull/1136) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Use uv in CI. PR [#1135](https://github.com/fastapi/sqlmodel/pull/1135) by [@tiangolo](https://github.com/tiangolo).
+* ➕ Add docs dependency markdown-include-variants. PR [#1129](https://github.com/fastapi/sqlmodel/pull/1129) by [@tiangolo](https://github.com/tiangolo).
+* 🔨 Update script to standardize format. PR [#1130](https://github.com/fastapi/sqlmodel/pull/1130) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update `labeler.yml`. PR [#1128](https://github.com/fastapi/sqlmodel/pull/1128) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update worfkow deploy-docs-notify URL. PR [#1126](https://github.com/fastapi/sqlmodel/pull/1126) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Upgrade Cloudflare GitHub Action. PR [#1124](https://github.com/fastapi/sqlmodel/pull/1124) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1097](https://github.com/fastapi/sqlmodel/pull/1097) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump tiangolo/issue-manager from 0.5.0 to 0.5.1. PR [#1107](https://github.com/fastapi/sqlmodel/pull/1107) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Update `issue-manager.yml`. PR [#1103](https://github.com/fastapi/sqlmodel/pull/1103) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Fix coverage processing in CI, one name per matrix run. PR [#1104](https://github.com/fastapi/sqlmodel/pull/1104) by [@tiangolo](https://github.com/tiangolo).
+* 💚 Set `include-hidden-files` to `True` when using the `upload-artifact` GH action. PR [#1098](https://github.com/fastapi/sqlmodel/pull/1098) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1088](https://github.com/fastapi/sqlmodel/pull/1088) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+
+## 0.0.22
+
+### Fixes
+
+* 🐛 Fix support for types with `Optional[Annoated[x, f()]]`, e.g. `id: Optional[pydantic.UUID4]`. PR [#1093](https://github.com/fastapi/sqlmodel/pull/1093) by [@tiangolo](https://github.com/tiangolo).
+
+### Docs
+
+* ✏️ Fix a typo in `docs/virtual-environments.md`. PR [#1085](https://github.com/fastapi/sqlmodel/pull/1085) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Add docs for virtual environments and environment variables, update contributing. PR [#1082](https://github.com/fastapi/sqlmodel/pull/1082) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Add docs about repo management and team. PR [#1059](https://github.com/tiangolo/sqlmodel/pull/1059) by [@tiangolo](https://github.com/tiangolo).
+* ✏️ Fix typo in `cascade_delete` docs. PR [#1030](https://github.com/tiangolo/sqlmodel/pull/1030) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ✅ Refactor test_enums to make them independent of previous imports. PR [#1095](https://github.com/fastapi/sqlmodel/pull/1095) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update `latest-changes` GitHub Action. PR [#1087](https://github.com/fastapi/sqlmodel/pull/1087) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1028](https://github.com/fastapi/sqlmodel/pull/1028) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.4.7 to 0.6.2. PR [#1081](https://github.com/fastapi/sqlmodel/pull/1081) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔧 Update lint script. PR [#1084](https://github.com/fastapi/sqlmodel/pull/1084) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update Python version for coverage. PR [#1083](https://github.com/fastapi/sqlmodel/pull/1083) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update coverage config files. PR [#1077](https://github.com/fastapi/sqlmodel/pull/1077) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Add URLs to `pyproject.toml`, show up in PyPI. PR [#1074](https://github.com/fastapi/sqlmodel/pull/1074) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Do not sync labels as it overrides manually added labels. PR [#1073](https://github.com/fastapi/sqlmodel/pull/1073) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update configs for GitHub Action labeler, to add only one label. PR [#1072](https://github.com/fastapi/sqlmodel/pull/1072) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update labeler GitHub Actions permissions and dependencies. PR [#1071](https://github.com/fastapi/sqlmodel/pull/1071) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action label-checker. PR [#1069](https://github.com/fastapi/sqlmodel/pull/1069) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action labeler. PR [#1068](https://github.com/fastapi/sqlmodel/pull/1068) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update GitHub Action add-to-project. PR [#1067](https://github.com/fastapi/sqlmodel/pull/1067) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add GitHub Action add-to-project. PR [#1066](https://github.com/fastapi/sqlmodel/pull/1066) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update admonitions in annotations. PR [#1065](https://github.com/fastapi/sqlmodel/pull/1065) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update links from github.com/tiangolo/sqlmodel to github.com/fastapi/sqlmodel. PR [#1064](https://github.com/fastapi/sqlmodel/pull/1064) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update members. PR [#1063](https://github.com/tiangolo/sqlmodel/pull/1063) by [@tiangolo](https://github.com/tiangolo).
+* 💄 Add dark-mode logo. PR [#1061](https://github.com/tiangolo/sqlmodel/pull/1061) by [@tiangolo](https://github.com/tiangolo).
+* 🔨 Update docs.py script to enable dirty reload conditionally. PR [#1060](https://github.com/tiangolo/sqlmodel/pull/1060) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update MkDocs previews. PR [#1058](https://github.com/tiangolo/sqlmodel/pull/1058) by [@tiangolo](https://github.com/tiangolo).
+* 💄 Update Termynal line-height. PR [#1057](https://github.com/tiangolo/sqlmodel/pull/1057) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Upgrade build docs configs. PR [#1047](https://github.com/tiangolo/sqlmodel/pull/1047) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add alls-green for test-redistribute. PR [#1055](https://github.com/tiangolo/sqlmodel/pull/1055) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update docs-previews to handle no docs changes. PR [#1056](https://github.com/tiangolo/sqlmodel/pull/1056) by [@tiangolo](https://github.com/tiangolo).
+* 👷🏻 Show docs deployment status and preview URLs in comment. PR [#1054](https://github.com/tiangolo/sqlmodel/pull/1054) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Enable auto dark mode. PR [#1046](https://github.com/tiangolo/sqlmodel/pull/1046) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update issue-manager. PR [#1045](https://github.com/tiangolo/sqlmodel/pull/1045) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Update issue-manager.yml GitHub Action permissions. PR [#1040](https://github.com/tiangolo/sqlmodel/pull/1040) by [@tiangolo](https://github.com/tiangolo).
+* ♻️ Refactor Deploy Docs GitHub Action to be a script and update token preparing for org. PR [#1039](https://github.com/tiangolo/sqlmodel/pull/1039) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.21
+
+### Features
+
+* ✨ Add support for cascade delete relationships: `cascade_delete`, `ondelete`, and `passive_deletes`. Initial PR [#983](https://github.com/tiangolo/sqlmodel/pull/983) by [@estebanx64](https://github.com/estebanx64).
+  * New docs at: [Cascade Delete Relationships](https://sqlmodel.tiangolo.com/tutorial/relationship-attributes/cascade-delete-relationships/).
+
+### Docs
+
+* 📝 Update docs . PR [#1003](https://github.com/tiangolo/sqlmodel/pull/1003) by [@alejsdev](https://github.com/alejsdev).
+
+### Internal
+
+* ⬆ Bump actions/cache from 3 to 4. PR [#783](https://github.com/tiangolo/sqlmodel/pull/783) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump cairosvg from 2.7.0 to 2.7.1. PR [#919](https://github.com/tiangolo/sqlmodel/pull/919) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump jinja2 from 3.1.3 to 3.1.4. PR [#974](https://github.com/tiangolo/sqlmodel/pull/974) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.8.11 to 1.9.0. PR [#987](https://github.com/tiangolo/sqlmodel/pull/987) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocstrings[python] from 0.23.0 to 0.25.1. PR [#927](https://github.com/tiangolo/sqlmodel/pull/927) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump dorny/paths-filter from 2 to 3. PR [#972](https://github.com/tiangolo/sqlmodel/pull/972) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.20
+
+### Features
+
+* ✨ Add official UUID support, docs and tests, internally using new SQLAlchemy 2.0 types. Initial PR [#992](https://github.com/tiangolo/sqlmodel/pull/992) by [@estebanx64](https://github.com/estebanx64).
+  * New docs in the [Advanced User Guide: UUID (Universally Unique Identifiers)](https://sqlmodel.tiangolo.com/advanced/uuid/).
+
+### Docs
+
+* ✏️ Fix internal link in `docs/tutorial/create-db-and-table.md`. PR [#911](https://github.com/tiangolo/sqlmodel/pull/911) by [@tfpgh](https://github.com/tfpgh).
 * ✏️ Add missing step in `create-db-and-table-with-db-browser.md`. PR [#976](https://github.com/tiangolo/sqlmodel/pull/976) by [@alejsdev](https://github.com/alejsdev).
 * ✏️ Fix typo in `docs/tutorial`. PR [#943](https://github.com/tiangolo/sqlmodel/pull/943) by [@luco17](https://github.com/luco17).
 * ✏️ Fix typo in `sqlmodel/_compat.py`. PR [#950](https://github.com/tiangolo/sqlmodel/pull/950) by [@Highfire1](https://github.com/Highfire1).
 * ✏️ Update pip installation command in tutorial. PR [#975](https://github.com/tiangolo/sqlmodel/pull/975) by [@alejsdev](https://github.com/alejsdev).
+* ✏️ Fix typo in `docs/tutorial/relationship-attributes/index.md`. PR [#880](https://github.com/tiangolo/sqlmodel/pull/880) by [@UncleGoogle](https://github.com/UncleGoogle).
+
+### Internal
+
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#979](https://github.com/tiangolo/sqlmodel/pull/979) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* 🔨 Update docs Termynal scripts to not include line nums for local dev. PR [#1018](https://github.com/tiangolo/sqlmodel/pull/1018) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.19
 

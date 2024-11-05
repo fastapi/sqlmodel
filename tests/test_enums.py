@@ -1,10 +1,11 @@
-import enum
-import uuid
+import importlib
 
+import pytest
 from sqlalchemy import create_mock_engine
 from sqlalchemy.sql.type_api import TypeEngine
-from sqlmodel import Field, SQLModel
+from sqlmodel import SQLModel
 
+from . import test_enums_models
 from .conftest import needs_pydanticv1, needs_pydanticv2
 
 """
@@ -14,30 +15,6 @@ Associated issues:
 * https://github.com/tiangolo/sqlmodel/issues/96
 * https://github.com/tiangolo/sqlmodel/issues/164
 """
-
-
-class MyEnum1(str, enum.Enum):
-    A = "A"
-    B = "B"
-
-
-class MyEnum2(str, enum.Enum):
-    C = "C"
-    D = "D"
-
-
-class BaseModel(SQLModel):
-    id: uuid.UUID = Field(primary_key=True)
-    enum_field: MyEnum2
-
-
-class FlatModel(SQLModel, table=True):
-    id: uuid.UUID = Field(primary_key=True)
-    enum_field: MyEnum1
-
-
-class InheritModel(BaseModel, table=True):
-    pass
 
 
 def pg_dump(sql: TypeEngine, *args, **kwargs):
@@ -69,8 +46,9 @@ def _reset_metadata():
         pass
 
 
-def test_postgres_ddl_sql(capsys):
-    _reset_metadata()
+def test_postgres_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
+    assert test_enums_models, "Ensure the models are imported and registered"
+    importlib.reload(test_enums_models)
     SQLModel.metadata.create_all(bind=postgres_engine, checkfirst=False)
 
     captured = capsys.readouterr()
@@ -78,18 +56,19 @@ def test_postgres_ddl_sql(capsys):
     assert "CREATE TYPE myenum2 AS ENUM ('C', 'D');" in captured.out
 
 
-def test_sqlite_ddl_sql(capsys):
-    _reset_metadata()
+def test_sqlite_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
+    assert test_enums_models, "Ensure the models are imported and registered"
+    importlib.reload(test_enums_models)
     SQLModel.metadata.create_all(bind=sqlite_engine, checkfirst=False)
 
     captured = capsys.readouterr()
-    assert "enum_field VARCHAR(1) NOT NULL" in captured.out
+    assert "enum_field VARCHAR(1) NOT NULL" in captured.out, captured
     assert "CREATE TYPE" not in captured.out
 
 
 @needs_pydanticv1
 def test_json_schema_flat_model_pydantic_v1():
-    assert FlatModel.schema() == {
+    assert test_enums_models.FlatModel.schema() == {
         "title": "FlatModel",
         "type": "object",
         "properties": {
@@ -110,7 +89,7 @@ def test_json_schema_flat_model_pydantic_v1():
 
 @needs_pydanticv1
 def test_json_schema_inherit_model_pydantic_v1():
-    assert InheritModel.schema() == {
+    assert test_enums_models.InheritModel.schema() == {
         "title": "InheritModel",
         "type": "object",
         "properties": {
@@ -131,7 +110,7 @@ def test_json_schema_inherit_model_pydantic_v1():
 
 @needs_pydanticv2
 def test_json_schema_flat_model_pydantic_v2():
-    assert FlatModel.model_json_schema() == {
+    assert test_enums_models.FlatModel.model_json_schema() == {
         "title": "FlatModel",
         "type": "object",
         "properties": {
@@ -147,7 +126,7 @@ def test_json_schema_flat_model_pydantic_v2():
 
 @needs_pydanticv2
 def test_json_schema_inherit_model_pydantic_v2():
-    assert InheritModel.model_json_schema() == {
+    assert test_enums_models.InheritModel.model_json_schema() == {
         "title": "InheritModel",
         "type": "object",
         "properties": {
