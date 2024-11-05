@@ -45,6 +45,7 @@ from sqlalchemy import (
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
+from sqlalchemy.ext.associationproxy import AssociationProxy
 from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import (
     ColumnProperty,
@@ -527,7 +528,14 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             if isinstance(v, RelationshipInfo):
                 relationships[k] = v
             elif isinstance(
-                v, (hybrid_property, hybrid_method, ColumnProperty, declared_attr)
+                v,
+                (
+                    hybrid_property,
+                    hybrid_method,
+                    ColumnProperty,
+                    declared_attr,
+                    AssociationProxy,
+                ),
             ):
                 sqlalchemy_constructs[k] = v
             else:
