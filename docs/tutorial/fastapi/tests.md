@@ -16,9 +16,7 @@ Now we will see how useful it is to have this session dependency. ✨
 
 /// details | 👀 Full file preview
 
-```Python
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/main.py!}
-```
+{* ./docs_src//tutorial/fastapi/app_testing/tutorial001/main.py *}
 
 ///
 
@@ -304,21 +302,7 @@ But normally we will create **lots of other test functions**. And now all the bo
 
 Let's add some more tests:
 
-```Python hl_lines="3  22"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:30-58]!}
-
-# Code below omitted 👇
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
-```
-
-///
+{* ./docs_src//tutorial/fastapi/app_testing/tutorial001/test_main.py ln[30:58] hl[2,23] *}
 
 /// tip
 
@@ -338,21 +322,11 @@ For these examples, **that would have been simpler**, there's no need to separat
 
 But for the next test function, we will require **both fixtures**, the **client** and the **session**.
 
-```Python hl_lines="6  10"
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:1-6]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:61-81]!}
-
-# Code below omitted 👇
-```
+{* ./docs_src//tutorial/fastapi/app_testing/tutorial001/test_main.py ln[1:6] hl[6,10] *}
 
 /// details | 👀 Full file preview
 
-```Python
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
-```
+{* ./docs_src//tutorial/fastapi/app_testing/tutorial001/test_main.py *}
 
 ///
 
@@ -380,17 +354,11 @@ The function for the **client fixture** and the actual testing function will **b
 
 Using the same ideas, requiring the fixtures, creating data that we need for the tests, etc., we can now add the rest of the tests. They look quite similar to what we have done up to now.
 
-```Python hl_lines="3  18  33"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py[ln:84-125]!}
-```
+{* ./docs_src//tutorial/fastapi/app_testing/tutorial001/test_main.py ln[84:125] hl[3,18,33] *}
 
 /// details | 👀 Full file preview
 
-```Python
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py!}
-```
+{* ./docs_src//tutorial/fastapi/app_testing/tutorial001/test_main.py *}
 
 ///
 
