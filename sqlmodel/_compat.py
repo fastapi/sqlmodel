@@ -252,7 +252,8 @@ if IS_PYDANTIC_V2:
             elif name in values:
                 fields_values[name] = values.pop(name)
             elif not field.is_required():
-                defaults[name] = field.get_default(call_default_factory=True)
+                defaults[name] = field.get_default(call_default_factory=True,
+                                                   validated_data=fields_values)
         if _fields_set is None:
             _fields_set = set(fields_values.keys())
         fields_values.update(defaults)
