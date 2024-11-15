@@ -72,6 +72,8 @@ def partial_init() -> Generator[None, None, None]:
 
 
 if IS_PYDANTIC_V2:
+    import inspect
+
     from annotated_types import MaxLen
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
@@ -79,6 +81,10 @@ if IS_PYDANTIC_V2:
     from pydantic._internal._repr import Representation as Representation
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
+
+    PYDANCTIC_FIELD_GET_DEFAULT_REQUIRES_VALIDATED_DATA = (
+        "validated_data" in inspect.signature(FieldInfo.get_default).parameters
+    )
 
     # Dummy for types, to make it importable
     class ModelField:
@@ -252,8 +258,13 @@ if IS_PYDANTIC_V2:
             elif name in values:
                 fields_values[name] = values.pop(name)
             elif not field.is_required():
-                defaults[name] = field.get_default(call_default_factory=True,
-                                                   validated_data=fields_values)
+                defaults[name] = (
+                    field.get_default(
+                        call_default_factory=True, validated_data=fields_values
+                    )
+                    if PYDANCTIC_FIELD_GET_DEFAULT_REQUIRES_VALIDATED_DATA
+                    else field.get_default(call_default_factory=True)
+                )
         if _fields_set is None:
             _fields_set = set(fields_values.keys())
         fields_values.update(defaults)
