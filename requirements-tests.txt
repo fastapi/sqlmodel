@@ -8,7 +8,7 @@ ruff ==0.6.2
 fastapi >=0.103.2
 httpx ==0.24.1
 # TODO: upgrade when deprecating Python 3.7
-dirty-equals ==0.6.0
+dirty-equals ==0.8.0
 jinja2 ==3.1.4
 # Pin typing-extensions until Python 3.8 is deprecated or the issue with dirty-equals
 # is fixed, maybe fixed after dropping Python 3.7 and upgrading dirty-equals
