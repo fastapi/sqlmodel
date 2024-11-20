@@ -159,7 +159,7 @@ And then create an `app` object that is an instance of that `FastAPI` class:
 
 We want to make sure that once the app starts running, the function `create_tables` is called. To create the database and tables.
 
-This should be called only once at startup, not before every request, so we put it in the function to handle the `"startup"` event:
+This should be called only once at startup, not before every request. We define this startup logic using the lifespan parameter of the FastAPI app. The input for this parameter is an async function lifespan() which yields after calling `create_db_and_tables`.
 
 //// tab | Python 3.10+
 
