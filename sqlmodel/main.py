@@ -568,6 +568,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
         config_table = get_config("table")
         if config_table is True:
+            # sqlalchemy mark a class as table by check if it has __tablename__ attribute
+            # or if __tablename__ is in __annotations__. Only set __tablename__ if it's
+            # a table model
             if new_cls.__name__ != "SQLModel" and not hasattr(new_cls, "__tablename__"):
                 new_cls.__tablename__ = new_cls.__name__.lower()
             # If it was passed by kwargs, ensure it's also set in config
@@ -667,16 +670,6 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # Ref: https://github.com/sqlalchemy/sqlalchemy/commit/428ea01f00a9cc7f85e435018565eb6da7af1b77
             # Tag: 1.4.36
             DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
-            # # patch sqlmodel field's default value to polymorphic_identity
-            # if has_polymorphic:
-            #     mapper = inspect(cls)
-            #     polymorphic_on = mapper.polymorphic_on
-            #     polymorphic_property = mapper.get_property_by_column(polymorphic_on)
-            #     field = cls.model_fields.get(polymorphic_property.key)
-            #     def get__polymorphic_identity__(kw):
-            #         return polymorphic_identity
-            #     if field:
-            #         field.default_factory = get__polymorphic_identity__
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
