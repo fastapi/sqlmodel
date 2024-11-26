@@ -294,7 +294,7 @@ if IS_PYDANTIC_V2:
         # Override polymorphic_on default value
         mapper = inspect(cls)
         polymorphic_on = mapper.polymorphic_on
-        if polymorphic_on:
+        if polymorphic_on is not None:
             polymorphic_property = mapper.get_property_by_column(polymorphic_on)
             field_info = cls.model_fields.get(polymorphic_property.key)
             if field_info:
