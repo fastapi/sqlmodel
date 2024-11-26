@@ -550,7 +550,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         base_fields = {}
         for base in bases[::-1]:
             if issubclass(base, BaseModel):
-                base_fields.update(base.model_fields)
+                base_fields.update(get_model_fields(base))
         fields = get_model_fields(new_cls)
         for k, v in fields.items():
             if isinstance(v.default, InstrumentedAttribute):
