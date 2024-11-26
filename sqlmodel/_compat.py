@@ -21,6 +21,7 @@ from typing import (
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
+from sqlalchemy import inspect
 from typing_extensions import Annotated, get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
@@ -290,6 +291,19 @@ if IS_PYDANTIC_V2:
             if value is not Undefined:
                 setattr(self_instance, key, value)
         # End SQLModel override
+        # Override polymorphic_on default value
+        mapper = inspect(cls)
+        polymorphic_on = mapper.polymorphic_on
+        polymorphic_property = mapper.get_property_by_column(polymorphic_on)
+        field_info = cls.model_fields.get(polymorphic_property.key)
+        if field_info:
+            v = values.get(polymorphic_property.key)
+            # if model is inherited or polymorphic_on is not explicitly set
+            # set the polymorphic_on by default
+            if mapper.inherits or v is None:
+                setattr(
+                    self_instance, polymorphic_property.key, mapper.polymorphic_identity
+                )
         return self_instance
 
     def sqlmodel_validate(
