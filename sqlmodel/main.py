@@ -383,7 +383,7 @@ def Field(
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
     sa_type: Union[Type[Any], UndefinedType] = Undefined,
-    sa_column: Union[Column[Any], UndefinedType] = Undefined,  # type: ignore
+    sa_column: Union[Column[Any], UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
