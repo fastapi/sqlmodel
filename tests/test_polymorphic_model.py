@@ -4,7 +4,10 @@ from sqlalchemy import ForeignKey
 from sqlalchemy.orm import mapped_column
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
+from tests.conftest import needs_pydanticv2
 
+
+@needs_pydanticv2
 def test_polymorphic_joined_table(clear_sqlmodel) -> None:
     class Hero(SQLModel, table=True):
         __tablename__ = "hero"
@@ -47,6 +50,7 @@ def test_polymorphic_joined_table(clear_sqlmodel) -> None:
     assert isinstance(result[0].dark_power, str)
 
 
+@needs_pydanticv2
 def test_polymorphic_joined_table_sm_field(clear_sqlmodel) -> None:
     class Hero(SQLModel, table=True):
         __tablename__ = "hero"
@@ -90,6 +94,7 @@ def test_polymorphic_joined_table_sm_field(clear_sqlmodel) -> None:
     assert isinstance(result[0].dark_power, str)
 
 
+@needs_pydanticv2
 def test_polymorphic_single_table(clear_sqlmodel) -> None:
     class Hero(SQLModel, table=True):
         __tablename__ = "hero"
