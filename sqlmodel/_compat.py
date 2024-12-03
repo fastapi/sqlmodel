@@ -606,5 +606,3 @@ else:
             for key in non_pydantic_keys:
                 if key in self.__sqlmodel_relationships__:
                     setattr(self, key, data[key])
-        # Override polymorphic_on default value
-        set_polymorphic_default_value(self, values)
