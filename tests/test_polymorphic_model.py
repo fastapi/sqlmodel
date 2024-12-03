@@ -51,7 +51,7 @@ def test_polymorphic_joined_table(clear_sqlmodel) -> None:
 
 
 @needs_pydanticv2
-def test_polymorphic_joined_table_sm_field(clear_sqlmodel) -> None:
+def test_polymorphic_joined_table_with_sqlmodel_field(clear_sqlmodel) -> None:
     class Hero(SQLModel, table=True):
         __tablename__ = "hero"
         id: Optional[int] = Field(default=None, primary_key=True)
@@ -123,7 +123,7 @@ def test_polymorphic_single_table(clear_sqlmodel) -> None:
     with Session(engine) as db:
         hero = Hero()
         db.add(hero)
-        dark_hero = DarkHero()
+        dark_hero = DarkHero(dark_power="pokey")
         db.add(dark_hero)
         db.commit()
         statement = select(DarkHero)
