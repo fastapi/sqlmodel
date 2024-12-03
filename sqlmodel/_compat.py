@@ -66,12 +66,16 @@ def _is_union_type(t: Any) -> bool:
 finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
 
 
-def set_polymorphic_default_value(self_instance, values):
+def set_polymorphic_default_value(
+    self_instance: _TSQLModel,
+    values: Dict[str, Any],
+) -> bool:
     """By defalut, when init a model, pydantic will set the polymorphic_on
     value to field default value. But when inherit a model, the polymorphic_on
     should be set to polymorphic_identity value by default."""
     cls = type(self_instance)
     mapper = inspect(cls)
+    ret = False
     if isinstance(mapper, Mapper):
         polymorphic_on = mapper.polymorphic_on
         if polymorphic_on is not None:
@@ -87,6 +91,8 @@ def set_polymorphic_default_value(self_instance, values):
                         polymorphic_property.key,
                         mapper.polymorphic_identity,
                     )
+                    ret = True
+    return ret
 
 
 @contextmanager
