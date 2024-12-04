@@ -17,6 +17,7 @@
 
 ### Internal
 
+* 🔧 Update build-docs filter paths. PR [#1235](https://github.com/fastapi/sqlmodel/pull/1235) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Update team members. PR [#1234](https://github.com/fastapi/sqlmodel/pull/1234) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Upgrade markdown-include-variants to version 0.0.3. PR [#1152](https://github.com/fastapi/sqlmodel/pull/1152) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue manager workflow. PR [#1137](https://github.com/fastapi/sqlmodel/pull/1137) by [@alejsdev](https://github.com/alejsdev).
