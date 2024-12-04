@@ -12,3 +12,4 @@ site
 *.db
 .cache
 .venv*
+uv.lock
