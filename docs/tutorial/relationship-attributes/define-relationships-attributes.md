@@ -220,7 +220,7 @@ if hero.team:
 
 ## Optional Relationship Attributes
 
-Notice that in the `Hero` class, the type annotation for `team` is `Optional[Team]`.
+Notice that in the `Hero` class, the type annotation for `team` is `Team | None` (which is equivalent to `Optional[Team]` in both Python 3.7+ and 3.9+).
 
 This means that this attribute could be `None`, or it could be a full `Team` object.
 
