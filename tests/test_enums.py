@@ -35,6 +35,17 @@ postgres_engine = create_mock_engine("postgresql://", pg_dump)
 sqlite_engine = create_mock_engine("sqlite://", sqlite_dump)
 
 
+def _reset_metadata():
+    SQLModel.metadata.clear()
+
+    class FlatModel(SQLModel, table=True):
+        id: uuid.UUID = Field(primary_key=True)
+        enum_field: MyEnum1
+
+    class InheritModel(BaseModel, table=True):
+        pass
+
+
 def test_postgres_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
     assert test_enums_models, "Ensure the models are imported and registered"
     importlib.reload(test_enums_models)
