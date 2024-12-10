@@ -341,7 +341,7 @@ if IS_PYDANTIC_V2:
             for key in new_obj.__sqlmodel_relationships__:
                 value = getattr(use_obj, key, Undefined)
                 if value is not Undefined:
-                    setattr(new_obj, key, value)
+                    new_obj.__dict__[key] = value
         return new_obj
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
