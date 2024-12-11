@@ -17,6 +17,12 @@
 
 ### Internal
 
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.9.0 to 1.12.3. PR [#1240](https://github.com/fastapi/sqlmodel/pull/1240) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump astral-sh/setup-uv from 3 to 4. PR [#1225](https://github.com/fastapi/sqlmodel/pull/1225) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump tiangolo/latest-changes from 0.3.1 to 0.3.2. PR [#1207](https://github.com/fastapi/sqlmodel/pull/1207) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔨 Update docs previews script. PR [#1236](https://github.com/fastapi/sqlmodel/pull/1236) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update build-docs filter paths. PR [#1235](https://github.com/fastapi/sqlmodel/pull/1235) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update team members. PR [#1234](https://github.com/fastapi/sqlmodel/pull/1234) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Upgrade markdown-include-variants to version 0.0.3. PR [#1152](https://github.com/fastapi/sqlmodel/pull/1152) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue manager workflow. PR [#1137](https://github.com/fastapi/sqlmodel/pull/1137) by [@alejsdev](https://github.com/alejsdev).
 * 👷 Fix smokeshow, checkout files on CI. PR [#1136](https://github.com/fastapi/sqlmodel/pull/1136) by [@tiangolo](https://github.com/tiangolo).
