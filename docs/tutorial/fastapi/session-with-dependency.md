@@ -6,67 +6,11 @@ Before we keep adding things, let's change a bit how we get the session for each
 
 Up to now, we have been creating a session in each *path operation*, in a `with` block.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py[ln:48-55]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/delete/tutorial001_py39.py[ln:50-57]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/delete/tutorial001.py[ln:50-57]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/delete/tutorial001_py310.py ln[48:55] hl[5] *}
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/delete/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/delete/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/delete/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/delete/tutorial001_py310.py *}
 
 ///
 
@@ -82,67 +26,13 @@ A **FastAPI** dependency is very simple, it's just a function that returns a val
 
 It could use `yield` instead of `return`, and in that case **FastAPI** will make sure it executes all the code **after** the `yield`, once it is done with the request.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3-5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[40:42] hl[3:5] *}
 
 /// details | 👀 Full file preview
 
 //// tab | Python 3.10+
 
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py *}
 
 ///
 
@@ -152,85 +42,11 @@ Now let's make FastAPI execute a dependency and get its value in the *path opera
 
 We import `Depends()` from `fastapi`. Then we use it in the *path operation function* in a **parameter**, the same way we declared parameters to get JSON bodies, path parameters, etc.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  13"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-59]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3  15"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-61]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3  15"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-61]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:59] hl[1,13] *}
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py *}
 
 ///
 
@@ -262,83 +78,11 @@ This means that in the main code of the *path operation function*, it will work 
 
 //// tab | Python 3.10+
 
-```Python hl_lines="14-18"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-59]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="16-20"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-61]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="16-20"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-61]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:59] hl[14:18] *}
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py *}
 
 ///
 
@@ -346,85 +90,11 @@ In fact, you could think that all that block of code inside of the `create_hero(
 
 But now, the `with` block is not explicitly in the function, but in the dependency above:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="7-8"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-59]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9-10"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-61]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9-10"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-61]!}
-
-# Code below omitted 👇
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:59] hl[7:8] *}
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py *}
 
 ///
 
@@ -442,79 +112,11 @@ session: Session = Depends(get_session)
 
 And then we remove the previous `with` block with the old **session**.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="13  24  33  42  57"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:1-2]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:40-42]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py[ln:53-104]!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="15  26  35  44  59"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py[ln:55-106]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="15  26  35  44  59"
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:42-44]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py[ln:55-106]!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:104] hl[13,24,33,42,57] *}
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py *}
 
 ///
 
