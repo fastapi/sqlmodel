@@ -47,21 +47,7 @@ We will continue with the code in the previous example and we will add more thin
 
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py *}
 
 ///
 
@@ -75,49 +61,7 @@ And now we will also create the teams there. 🎉
 
 Let's start by creating two teams:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-35]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-37]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:35] hl[29:35] *}
 
 This would hopefully look already familiar.
 
@@ -133,49 +77,7 @@ And finally we **commit** the session to save the changes to the database.
 
 Let's not forget to add this function `create_heroes()` to the `main()` function so that we run it when calling the program from the command line:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:61-63]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:63-65]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[61:63] hl[63] *}
 
 ## Run it
 
@@ -208,49 +110,7 @@ Now let's create one hero object to start.
 
 As the `Hero` class model now has a field (column, attribute) `team_id`, we can set it by using the ID field from the `Team` objects we just created before:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-39]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-41]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:39] hl[38] *}
 
 We haven't committed this hero to the database yet, but there are already a couple of things to pay **attention** to.
 
@@ -274,49 +134,7 @@ INFO Engine [generated in 0.00025s] (2,)
 
 Let's now create two more heroes:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="14-20"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-50]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="14-20"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-52]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:50] hl[40:46] *}
 
 When creating `hero_rusty_man`, we are accessing `team_preventers.id`, so that will also trigger a refresh of its data, generating an output of:
 
@@ -347,49 +165,7 @@ INFO Engine COMMIT
 
 Now let's refresh and print those new heroes to see their new ID pointing to their teams:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="26-28 30-32"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-58]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="26-28 30-32"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-60]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:58] hl[52:54,56:58] *}
 
 If we execute that in the command line, it will output:
 
