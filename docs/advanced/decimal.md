@@ -35,7 +35,7 @@ Let's say that each hero in the database will have an amount of money. We could 
 
 //// tab | Python 3.10+
 
-```python hl_lines="11"
+```Python hl_lines="11"
 {!./docs_src/advanced/decimal/tutorial001_py310.py[ln:1-11]!}
 
 # More code here later 👇
@@ -45,7 +45,7 @@ Let's say that each hero in the database will have an amount of money. We could 
 
 //// tab | Python 3.7+
 
-```python hl_lines="12"
+```Python hl_lines="12"
 {!./docs_src/advanced/decimal/tutorial001.py[ln:1-12]!}
 
 # More code here later 👇
