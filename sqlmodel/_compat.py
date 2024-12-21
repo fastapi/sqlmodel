@@ -352,6 +352,16 @@ if IS_PYDANTIC_V2:
                 self_instance=self,
             )
         else:
+            raw_self = self.model_copy()
+            pydantic_validated_model = self.__pydantic_validator__.validate_python(
+                data,
+                self_instance=raw_self,
+            )
+            pydantic_dict = pydantic_validated_model.model_dump()
+            for k in pydantic_dict.keys():
+                if k not in data.keys():
+                    continue
+                data[k] = pydantic_dict[k]
             sqlmodel_table_construct(
                 self_instance=self,
                 values=data,
