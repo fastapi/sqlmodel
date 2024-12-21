@@ -115,8 +115,7 @@ def update_hero(
     if not db_hero:
         raise HTTPException(status_code=404, detail="Hero not found")
     hero_data = hero.model_dump(exclude_unset=True)
-    for key, value in hero_data.items():
-        setattr(db_hero, key, value)
+    db_hero.sqlmodel_update(hero_data)
     session.add(db_hero)
     session.commit()
     session.refresh(db_hero)
@@ -172,8 +171,7 @@ def update_team(
     if not db_team:
         raise HTTPException(status_code=404, detail="Team not found")
     team_data = team.model_dump(exclude_unset=True)
-    for key, value in team_data.items():
-        setattr(db_team, key, value)
+    db_team.sqlmodel_update(team_data)
     session.add(db_team)
     session.commit()
     session.refresh(db_team)
