@@ -32,7 +32,7 @@ We will start with the **simplest version**, with just heroes (no teams yet).
 
 This is almost the same code we have seen up to now in previous examples:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[2,2:2,5:20] hl[18:19] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[2,5:20] hl[18:19] *}
 
 There's only one change here from the code we have used before, the `check_same_thread` in the `connect_args`.
 
@@ -60,7 +60,7 @@ We will import the `FastAPI` class from `fastapi`.
 
 And then create an `app` object that is an instance of that `FastAPI` class:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[1:2,23,23:23] hl[1,23] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[1:2,23] hl[1,23] *}
 
 ## Create Database and Tables on `startup`
 

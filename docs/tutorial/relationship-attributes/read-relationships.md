@@ -22,7 +22,7 @@ But now that we have the **relationship attributes**, we can just access them, a
 
 So, the highlighted block above, has the same results as the block below:
 
-{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,105,105:105] hl[105] *}
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,105] hl[105] *}
 
 /// tip
 

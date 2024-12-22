@@ -137,7 +137,7 @@ Let's check that in detail.
 
 Now we use the type annotation `HeroCreate` for the request JSON data in the `hero` parameter of the **path operation function**.
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[45,45:45] hl[45] *}
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[45] hl[45] *}
 
 Then we create a new `Hero` (this is the actual **table** model that saves things to the database) using `Hero.model_validate()`.
 
@@ -151,7 +151,7 @@ In versions of **SQLModel** before `0.0.14` you would use the method `.from_orm(
 
 We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47,47:47] hl[47] *}
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47] hl[47] *}
 
 Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally, we return the same `db_hero` variable that has the just refreshed `Hero` instance.
 
@@ -159,7 +159,7 @@ Because it is just refreshed, it has the `id` field set with a new ID taken from
 
 And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroPublic`:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44,44:44] hl[44] *}
+{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44] hl[44] *}
 
 This will validate that all the data that we promised is there and will remove any data we didn't declare.
 
