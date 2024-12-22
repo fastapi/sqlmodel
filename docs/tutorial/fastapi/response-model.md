@@ -40,7 +40,7 @@ We can also use other type annotations, the same way we can use with Pydantic fi
 
 First, we import `List` from `typing` and then we declare the `response_model` with `List[Hero]`:
 
-{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[40:44] *}
+{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[40:44] hl[40] *}
 
 ## FastAPI and Response Model
 

@@ -32,7 +32,7 @@ We will start with the **simplest version**, with just heroes (no teams yet).
 
 This is almost the same code we have seen up to now in previous examples:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[2,5:20] hl[18:19] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[2,5:20] hl[19:20] *}
 
 There's only one change here from the code we have used before, the `check_same_thread` in the `connect_args`.
 
