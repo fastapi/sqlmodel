@@ -145,49 +145,7 @@ So, the first step is to simply create an instance of `Hero`.
 
 We'll create 3 right away, for the 3 heroes:
 
-//// tab | Python 3.10+
-
-```Python
-# Code above omitted 👆
-
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-24]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-# Code above omitted 👆
-
-{!./docs_src/tutorial/insert/tutorial002.py[ln:23-26]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial002_py310.py ln[21:24] *}
 
 /// tip
 
@@ -219,91 +177,11 @@ We would re-use the same **engine** in all the code, everywhere in the applicati
 
 The first step is to import the `Session` class:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1"
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:1]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3"
-{!./docs_src/tutorial/insert/tutorial001.py[ln:1-3]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial001_py310.py ln[1] hl[1] *}
 
 Then we can create a new session:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-26]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/insert/tutorial001.py[ln:23-28]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial001_py310.py ln[21:26] hl[26] *}
 
 The new `Session` takes an `engine` as a parameter. And it will use the **engine** underneath.
 
@@ -317,47 +195,7 @@ We will see a better way to create a **session** using a `with` block later.
 
 Now that we have some hero model instances (some objects in memory) and a **session**, the next step is to add them to the session:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9-11"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-30]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9-11"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial001.py[ln:23-32]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial001_py310.py ln[21:30] hl[28:30] *}
 
 By this point, our heroes are *not* stored in the database yet.
 
@@ -381,47 +219,7 @@ This ensures that the data is saved in a single batch, and that it will all succ
 
 Now that we have the heroes in the **session** and that we are ready to save all that to the database, we can **commit** the changes:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="13"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-32]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="13"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial001.py[ln:23-34]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial001_py310.py ln[21:32] hl[32] *}
 
 Once this line is executed, the **session** will use the **engine** to save all the data in the database by sending the corresponding SQL.
 
@@ -448,87 +246,11 @@ if __name__ == "__main__":
 
 But to keep things a bit more organized, let's instead create a new function `main()` that will contain all the code that should be executed when called as an independent script, and we can put there the previous function `create_db_and_tables()`, and add the new function `create_heroes()`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="2  4"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-36]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="2  4"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002.py[ln:36-38]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial002_py310.py ln[34:36] hl[34,36] *}
 
 And then we can call that single `main()` function from that main block:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:34-40]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002.py[ln:36-42]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial002_py310.py ln[34:40] hl[40] *}
 
 By having everything that should happen when called as a script in a single function, we can easily add more code later on.
 
@@ -583,49 +305,7 @@ The **session** holds some resources, like connections from the engine.
 
 So once we are done with the session, we should **close** it to make it release those resources and finish its cleanup:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="16"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/insert/tutorial001_py310.py[ln:21-34]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="16"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/insert/tutorial001.py[ln:23-36]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial001_py310.py ln[21:34] hl[34] *}
 
 But what happens if we forget to close the session?
 
@@ -639,43 +319,7 @@ It's good to know how the `Session` works and how to create and close it manuall
 
 But there's a better way to handle the session, using a `with` block:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="7-12"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002_py310.py[ln:21-31]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="7-12"
-# Code above omitted 👆
-{!./docs_src/tutorial/insert/tutorial002.py[ln:23-33]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/insert/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/insert/tutorial002_py310.py ln[21:31] hl[26:31] *}
 
 This is the same as creating the session manually and then manually closing it. But here, using a `with` block, it will be automatically created when **starting** the `with` block and assigned to the variable `session`, and it will be automatically closed after the `with` block is **finished**.
 

@@ -14,69 +14,7 @@ If you need to refresh how *path parameters* work, including their data validati
 
 ///
 
-//// tab | Python 3.10+
-
-```Python hl_lines="6"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="8"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:61-67]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59] *}
 
 For example, to get the hero with ID `2` we would send a `GET` request to:
 
@@ -96,69 +34,7 @@ And to use it, we first import `HTTPException` from `fastapi`.
 
 This will let the client know that they probably made a mistake on their side and requested a hero that doesn't exist in the database.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  9-11"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3  11-13"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:61-67]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3  11-13"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[1,62:64] *}
 
 ## Return the Hero
 
@@ -166,69 +42,7 @@ Then, if the hero exists, we return it.
 
 And because we are using the `response_model` with `HeroPublic`, it will be validated, documented, etc.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="6  12"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:1-2]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py[ln:59-65]!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="8  14"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py[ln:61-67]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8  14"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59,65] *}
 
 ## Check the Docs UI
 
