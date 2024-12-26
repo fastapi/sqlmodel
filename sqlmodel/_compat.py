@@ -292,14 +292,12 @@ if IS_PYDANTIC_V2:
         # End SQLModel override
         return self_instance
 
-    def sqlmodel_validate(
+    def _sqlmodel_validate(
         cls: Type[_TSQLModel],
         obj: Any,
         *,
-        strict: Union[bool, None] = None,
-        from_attributes: Union[bool, None] = None,
-        context: Union[Dict[str, Any], None] = None,
         update: Union[Dict[str, Any], None] = None,
+        validator: Callable[[Any, _TSQLModel], None],
     ) -> _TSQLModel:
         if not is_table_model_class(cls):
             new_obj: _TSQLModel = cls.__new__(cls)
@@ -317,13 +315,7 @@ if IS_PYDANTIC_V2:
             use_obj = {**obj, **update}
         elif update:
             use_obj = ObjectWithUpdateWrapper(obj=obj, update=update)
-        cls.__pydantic_validator__.validate_python(
-            use_obj,
-            strict=strict,
-            from_attributes=from_attributes,
-            context=context,
-            self_instance=new_obj,
-        )
+        validator(use_obj, new_obj)
         # Capture fields set to restore it later
         fields_set = new_obj.__pydantic_fields_set__.copy()
         if not is_table_model_class(cls):
@@ -343,6 +335,46 @@ if IS_PYDANTIC_V2:
                 if value is not Undefined:
                     setattr(new_obj, key, value)
         return new_obj
+
+    def sqlmodel_validate_python(
+        cls: Type[_TSQLModel],
+        obj: Any,
+        *,
+        strict: Union[bool, None] = None,
+        from_attributes: Union[bool, None] = None,
+        context: Union[Dict[str, Any], None] = None,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        def validate(use_obj: Any, new_obj: _TSQLModel) -> None:
+            cls.__pydantic_validator__.validate_python(
+                use_obj,
+                strict=strict,
+                from_attributes=from_attributes,
+                context=context,
+                self_instance=new_obj,
+            )
+
+        return _sqlmodel_validate(cls, obj, update=update, validator=validate)
+
+    def sqlmodel_validate_json(
+        cls: Type[_TSQLModel],
+        json_data: Union[str, bytes, bytearray],
+        *,
+        strict: Union[bool, None] = None,
+        context: Union[Dict[str, Any], None] = None,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        def validate(use_obj: Any, new_obj: _TSQLModel) -> None:
+            cls.__pydantic_validator__.validate_json(
+                use_obj,
+                strict=strict,
+                context=context,
+                self_instance=new_obj,
+            )
+
+        return _sqlmodel_validate(
+            cls=cls, obj=json_data, update=update, validator=validate
+        )
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
         old_dict = self.__dict__.copy()
@@ -505,7 +537,7 @@ else:
 
         return keys
 
-    def sqlmodel_validate(
+    def sqlmodel_validate_python(
         cls: Type[_TSQLModel],
         obj: Any,
         *,
@@ -550,6 +582,19 @@ else:
         object.__setattr__(m, "__fields_set__", fields_set)
         m._init_private_attributes()  # type: ignore[attr-defined] # noqa
         return m
+
+    def sqlmodel_validate_json(
+        cls: Type[_TSQLModel],
+        json_data: Union[str, bytes, bytearray],
+        *,
+        strict: Union[bool, None] = None,
+        context: Union[Dict[str, Any], None] = None,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        # We're not doing any real json validation for pydantic v1.
+        return sqlmodel_validate_python(
+            cls=cls, obj=json_data, strict=strict, context=context, update=update
+        )
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
         values, fields_set, validation_error = validate_model(self.__class__, data)

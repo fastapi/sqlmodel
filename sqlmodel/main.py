@@ -78,7 +78,8 @@ from ._compat import (  # type: ignore[attr-defined]
     post_init_field_info,
     set_config_value,
     sqlmodel_init,
-    sqlmodel_validate,
+    sqlmodel_validate_json,
+    sqlmodel_validate_python,
 )
 from .sql.sqltypes import AutoString
 
@@ -850,11 +851,28 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         context: Union[Dict[str, Any], None] = None,
         update: Union[Dict[str, Any], None] = None,
     ) -> _TSQLModel:
-        return sqlmodel_validate(
+        return sqlmodel_validate_python(
             cls=cls,
             obj=obj,
             strict=strict,
             from_attributes=from_attributes,
+            context=context,
+            update=update,
+        )
+
+    @classmethod
+    def model_validate_json(
+        cls: Type[_TSQLModel],
+        json_data: Union[str, bytes, bytearray],
+        *,
+        strict: Union[bool, None] = None,
+        context: Union[Dict[str, Any], None] = None,
+        update: Union[Dict[str, Any], None] = None,
+    ) -> _TSQLModel:
+        return sqlmodel_validate_json(
+            cls=cls,
+            json_data=json_data,
+            strict=strict,
             context=context,
             update=update,
         )
