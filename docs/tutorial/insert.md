@@ -21,7 +21,7 @@ Here's a reminder of how the table would look like, this is the data we want to 
 
 ## Create Table and Database
 
-We will continue from where we left of in the last chapter.
+We will continue from where we left off in the last chapter.
 
 This is the code we had to create the database and table, nothing new here:
 
