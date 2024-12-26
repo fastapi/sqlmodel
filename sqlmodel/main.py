@@ -998,9 +998,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 else:
                     value = getattr(obj, key)
                 setattr(self, key, value)
-            for remaining_key in use_update:
+            for remaining_key, value in use_update.items():
                 if remaining_key in get_model_fields(self):
-                    value = use_update.pop(remaining_key)
                     setattr(self, remaining_key, value)
         else:
             raise ValueError(
