@@ -12,7 +12,7 @@ authors:
     family-names: Ramírez
     email: tiangolo@gmail.com
 identifiers:
-repository-code: 'https://github.com/tiangolo/sqlmodel'
+repository-code: 'https://github.com/fastapi/sqlmodel'
 url: 'https://sqlmodel.tiangolo.com'
 abstract: >-
   SQLModel, SQL databases in Python, designed for

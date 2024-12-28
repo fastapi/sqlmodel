@@ -6,81 +6,7 @@ Now that we know how to connect data using **relationship Attributes**, let's se
 
 First, add a function `select_heroes()` where we get a hero to start working with, and add that function to the `main()` function:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-7  14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-98]!}
-
-# Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:108-111]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3-7  14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:96-100]!}
-
-# Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:110-113]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-7  14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-100]!}
-
-# Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:110-113]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,108:111] hl[94:98,111] *}
 
 ## Select the Related Team - Old Way
 
@@ -88,69 +14,7 @@ Now that we have a hero, we can get the team this hero belongs to.
 
 With what we have learned **up to now**, we could use a `select()` statement, then execute it with `session.exec()`, and then get the `.first()` result, for example:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9-12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-103]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9-12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:96-105]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9-12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-105]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:103] hl[100:103] *}
 
 ## Get Relationship Team - New Way
 
@@ -158,81 +22,7 @@ But now that we have the **relationship attributes**, we can just access them, a
 
 So, the highlighted block above, has the same results as the block below:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="11"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:94-98]!}
-
-        # Code from the previous example omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py[ln:105]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="11"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:96-100]!}
-
-        # Code from the previous example omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py[ln:107]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="11"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-100]!}
-
-        # Code from the previous example omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:107]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,105] hl[105] *}
 
 /// tip
 
@@ -246,69 +36,7 @@ For example, here, **inside** a `with` block with a `Session` object.
 
 And the same way, when we are working on the **many** side of the **one-to-many** relationship, we can get a list of of the related objects just by accessing the relationship attribute:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py[ln:94-100]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py39.py[ln:96-102]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py[ln:96-102]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py ln[94:100] hl[100] *}
 
 That would print a list with all the heroes in the Preventers team:
 

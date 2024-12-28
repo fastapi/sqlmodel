@@ -1,5 +1,4 @@
 *.pyc
-env*
 .mypy_cache
 .vscode
 .idea
@@ -12,3 +11,4 @@ coverage.xml
 site
 *.db
 .cache
+.venv*

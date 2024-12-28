@@ -21,7 +21,7 @@ from typing import (
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
-from typing_extensions import get_args, get_origin
+from typing_extensions import Annotated, get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
@@ -177,16 +177,17 @@ if IS_PYDANTIC_V2:
             return False
         return False
 
-    def get_type_from_field(field: Any) -> Any:
-        type_: Any = field.annotation
+    def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         # Resolve Optional fields
-        if type_ is None:
+        if annotation is None:
             raise ValueError("Missing field type")
-        origin = get_origin(type_)
+        origin = get_origin(annotation)
         if origin is None:
-            return type_
+            return annotation
+        elif origin is Annotated:
+            return get_sa_type_from_type_annotation(get_args(annotation)[0])
         if _is_union_type(origin):
-            bases = get_args(type_)
+            bases = get_args(annotation)
             if len(bases) > 2:
                 raise ValueError(
                     "Cannot have a (non-optional) union as a SQLAlchemy field"
@@ -197,8 +198,13 @@ if IS_PYDANTIC_V2:
                     "Cannot have a (non-optional) union as a SQLAlchemy field"
                 )
             # Optional unions are allowed
-            return bases[0] if bases[0] is not NoneType else bases[1]
+            use_type = bases[0] if bases[0] is not NoneType else bases[1]
+            return get_sa_type_from_type_annotation(use_type)
         return origin
+
+    def get_sa_type_from_field(field: Any) -> Any:
+        type_: Any = field.annotation
+        return get_sa_type_from_type_annotation(type_)
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
@@ -444,7 +450,7 @@ else:
             )
         return field.allow_none  # type: ignore[no-any-return, attr-defined]
 
-    def get_type_from_field(field: Any) -> Any:
+    def get_sa_type_from_field(field: Any) -> Any:
         if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
             return field.type_
         raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
