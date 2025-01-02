@@ -8,6 +8,7 @@
 
 ### Docs
 
+* ✏️ Fix typo in `docs/tutorial/create-db-and-table.md`. PR [#1252](https://github.com/fastapi/sqlmodel/pull/1252) by [@ArianHamdi](https://github.com/ArianHamdi).
 * ✏️ Fix typo in `insert.md`. PR [#1256](https://github.com/fastapi/sqlmodel/pull/1256) by [@Noushadaliam](https://github.com/Noushadaliam).
 * 📝 Update markdown includes format. PR [#1254](https://github.com/fastapi/sqlmodel/pull/1254) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update fenced code in Decimal docs for consistency. PR [#1251](https://github.com/fastapi/sqlmodel/pull/1251) by [@tiangolo](https://github.com/tiangolo).
