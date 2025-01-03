@@ -225,6 +225,37 @@ if IS_PYDANTIC_V2:
     ) -> Optional[AbstractSet[str]]:  # pragma: no cover
         return None
 
+    def validate_access_primary_key_autotype(
+        self: InstanceOrType["SQLModel"], name: str, value: Any
+    ) -> None:
+        """
+        Pydantic v2
+        Validates if the attribute being accessed is a primary key with an auto type and has not been set.
+
+        Args:
+            self (InstanceOrType["SQLModel"]): The instance or type of SQLModel.
+            name (str): The name of the attribute being accessed.
+            value (Any): The value of the attribute being accessed.
+
+        Raises:
+            ValueError: If the attribute is a primary key with an auto type and has not been set.
+
+        Returns:
+            None
+        """
+        if name != "model_fields":
+            model_fields = object.__getattribute__(self, "model_fields")
+            field = model_fields.get(name)
+            if (
+                field is not None
+                and isinstance(field, FieldInfo)
+                and hasattr(field, "primary_key")
+            ):
+                if field.primary_key and field.annotation is int and value is None:
+                    raise ValueError(
+                        f"Primary key attribute '{name}' has not been set, please commit() it first."
+                    )
+
     def sqlmodel_table_construct(
         *,
         self_instance: _TSQLModel,
@@ -392,7 +423,7 @@ else:
     def get_config_value(
         *, model: InstanceOrType["SQLModel"], parameter: str, default: Any = None
     ) -> Any:
-        return getattr(model.__config__, parameter, default)  # type: ignore[union-attr]
+        return getattr(model.__config__, parameter, default)
 
     def set_config_value(
         *,
@@ -400,7 +431,7 @@ else:
         parameter: str,
         value: Any,
     ) -> None:
-        setattr(model.__config__, parameter, value)  # type: ignore
+        setattr(model.__config__, parameter, value)
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
@@ -505,6 +536,41 @@ else:
 
         return keys
 
+    def validate_access_primary_key_autotype(
+        self: InstanceOrType["SQLModel"], name: str, value: Any
+    ) -> None:
+        """
+        Pydantic v1
+        Validates if the attribute being accessed is a primary key with an auto type and has not been set.
+
+        Args:
+            self (InstanceOrType["SQLModel"]): The instance or type of SQLModel.
+            name (str): The name of the attribute being accessed.
+            value (Any): The value of the attribute being accessed.
+
+        Raises:
+            ValueError: If the attribute is a primary key with an auto type and has not been set.
+
+        Returns:
+            None
+        """
+        if name != "__fields__":
+            fields = object.__getattribute__(self, "__fields__")
+            field = fields.get(name)
+            if (
+                field is not None
+                and isinstance(field.field_info, FieldInfo)
+                and hasattr(field.field_info, "primary_key")
+            ):
+                if (
+                    field.field_info.primary_key
+                    and field.annotation is int
+                    and value is None
+                ):
+                    raise ValueError(
+                        f"Primary key attribute '{name}' has not been set, please commit() it first."
+                    )
+
     def sqlmodel_validate(
         cls: Type[_TSQLModel],
         obj: Any,
@@ -548,7 +614,7 @@ else:
                 setattr(m, key, value)
         # Continue with standard Pydantic logic
         object.__setattr__(m, "__fields_set__", fields_set)
-        m._init_private_attributes()  # type: ignore[attr-defined] # noqa
+        m._init_private_attributes()
         return m
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:

@@ -79,6 +79,7 @@ from ._compat import (  # type: ignore[attr-defined]
     set_config_value,
     sqlmodel_init,
     sqlmodel_validate,
+    validate_access_primary_key_autotype,
 )
 from .sql.sqltypes import AutoString
 
@@ -827,6 +828,12 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             # non relationship values
             if name not in self.__sqlmodel_relationships__:
                 super().__setattr__(name, value)
+
+    def __getattribute__(self, name: str) -> Any:
+        # Access attributes safely using object.__getattribute__ to avoid recursion
+        value = object.__getattribute__(self, name)
+        validate_access_primary_key_autotype(self, name, value)
+        return value
 
     def __repr_args__(self) -> Sequence[Tuple[Optional[str], Any]]:
         # Don't show SQLAlchemy private attributes
