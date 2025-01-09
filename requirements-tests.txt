@@ -1,6 +1,6 @@
 -e .
 -r requirements-docs-tests.txt
-pytest >=7.0.1,<8.0.0
+pytest >=7.0.1,<9.0.0
 coverage[toml] >=6.2,<8.0
 mypy ==1.4.1
 ruff ==0.6.2
