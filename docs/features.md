@@ -76,7 +76,7 @@ Underneath, ✨ a **SQLModel** model is also a **SQLAlchemy** model. ✨
 
 There was **a lot** of research and effort dedicated to make it that way. In particular, there was a lot of effort and experimentation in making a single model be **both a SQLAlchemy model and a Pydantic** model at the same time.
 
-That means that you get all the power, robustness, and certainty of SQLAlchemy, the <a href="https://www.jetbrains.com/lp/python-developers-survey-2020/" class="external-link" target="_blank">most widely used database library in Python</a>.
+That means that you get all the power, robustness, and certainty of SQLAlchemy, the <a href="https://lp.jetbrains.com/python-developers-survey-2022/" class="external-link" target="_blank">most widely used database library in Python</a>.
 
 **SQLModel** provides its own utilities to <abbr title="with type completion, type checks, etc.">improve the developer experience</abbr>, but underneath, it uses all of SQLAlchemy.
 
