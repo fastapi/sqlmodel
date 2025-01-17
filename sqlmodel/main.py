@@ -591,6 +591,14 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         return cls.__do_init__(bases, dict_, kw)
 
     def sqlmodel_rebuild(cls) -> None:
+        reg = cls._sa_registry
+        # clear any exisiting mappers for the cls
+        manager = [m for m in reg._managers if m.class_ == cls]
+        if len(manager) > 0:
+            for m in manager:
+                reg._dispose_manager_and_mapper(m)
+            del reg._managers[m]
+
         return cls.__do_init__(cls.__bases__, cls.__dict__, {})
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
