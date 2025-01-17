@@ -585,8 +585,16 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             setattr(new_cls, "__abstract__", True)  # noqa: B010
         return new_cls
 
-    # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
     def __init__(
+        cls, classname: str, bases: Tuple[type, ...], dict_: Dict[str, Any], **kw: Any
+    ) -> None:
+        return cls.__do_init__(bases, dict_, kw)
+
+    def sqlmodel_rebuild(cls) -> None:
+        return cls.__do_init__(cls.__bases__, cls.__dict__, {})
+
+    # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
+    def __do_init__(
         cls, classname: str, bases: Tuple[type, ...], dict_: Dict[str, Any], **kw: Any
     ) -> None:
         # Only one of the base classes (or the current one) should be a table model
