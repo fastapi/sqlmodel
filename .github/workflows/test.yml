@@ -23,7 +23,8 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # 'ubuntu-latest' does not support 3.7. Pin to 22.04 until we drop support for 3.7
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         python-version:
