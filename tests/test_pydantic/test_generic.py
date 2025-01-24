@@ -72,3 +72,11 @@ def test_invalid_generics(data_type, data_value, error_loc, error_type):
     [error_dict] = raised.value.errors()
     assert error_dict["loc"] == error_loc
     assert error_dict["type"] == error_type
+
+
+def test_generic_json_schema():
+    schema = Response[DataModel].model_json_schema()
+    # Should have referenced the schema in $defs
+    assert schema["properties"]["data"]["anyOf"][0] == {"$ref": "#/$defs/DataModel"}
+    # Schema in $defs should match DataModel's schema.
+    assert schema["$defs"]["DataModel"] == DataModel.model_json_schema()
