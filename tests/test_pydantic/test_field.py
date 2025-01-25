@@ -1,9 +1,12 @@
+import datetime
 from decimal import Decimal
-from typing import Optional, Union
+from typing import Annotated, Optional, Union
 
 import pytest
+import sqlalchemy as sa
 from pydantic import ValidationError
 from sqlmodel import Field, SQLModel
+from sqlmodel.main import FieldInfo
 from typing_extensions import Literal
 
 
@@ -55,3 +58,55 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_field_merging():
+    sa_type = sa.DATETIME
+
+    MyDateTime = Annotated[
+        datetime.datetime,
+        Field(sa_type=sa_type),
+    ]
+
+    class Model(SQLModel):
+        value: Annotated[
+            MyDateTime,
+            Field(default_factory=datetime.datetime.now),
+            Field(description="some-description", title="some-title"),
+            Field(index=True),
+        ] = Field(nullable=False)
+
+    assert Model.model_json_schema() == {
+        "properties": {
+            "value": {
+                "description": "some-description",
+                "format": "date-time",
+                "title": "some-title",
+                "type": "string",
+            }
+        },
+        "title": "Model",
+        "type": "object",
+    }
+    expected_field = Field(
+        sa_type=sa.DATETIME,
+        default_factory=datetime.datetime.now,
+        description="some-description",
+        title="some-title",
+        index=True,
+        nullable=False,
+    )
+    actual_field = Model.model_fields["value"]
+    assert isinstance(actual_field, FieldInfo)
+
+    comp_attrs = [
+        "sa_type",
+        "default_factory",
+        "description",
+        "title",
+        "index",
+        "nullable",
+    ]
+    for attr in comp_attrs:
+        assert getattr(actual_field, attr) == getattr(expected_field, attr)
+        assert getattr(actual_field, attr) is not None
