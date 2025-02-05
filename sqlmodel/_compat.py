@@ -70,7 +70,7 @@ def set_polymorphic_default_value(
     self_instance: _TSQLModel,
     values: Dict[str, Any],
 ) -> bool:
-    """By defalut, when init a model, pydantic will set the polymorphic_on
+    """By default, when init a model, pydantic will set the polymorphic_on
     value to field default value. But when inherit a model, the polymorphic_on
     should be set to polymorphic_identity value by default."""
     cls = type(self_instance)
