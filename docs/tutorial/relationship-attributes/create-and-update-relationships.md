@@ -6,49 +6,7 @@ Let's see now how to create data with relationships using these new **relationsh
 
 Let's check the old code we used to create some heroes and teams:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9  12  18  24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:29-58]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9  12  18  24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-60]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:58] hl[35,38,44,50] *}
 
 There are several things to **notice** here.
 
@@ -68,69 +26,7 @@ This is the first area where these **relationship attributes** can help. 🤓
 
 Now let's do all that, but this time using the new, shiny `Relationship` attributes:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9  12  18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:32-55]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9  12  18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py[ln:34-57]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9  12  18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py[ln:34-57]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[32:55] hl[38,41,47] *}
 
 Now we can create the `Team` instances and pass them directly to the new `team` argument when creating the `Hero` instances, as `team=team_preventers` instead of `team_id=team_preventers.id`.
 
@@ -146,81 +42,7 @@ And then, as you can see, we only have to do one `commit()`.
 
 The same way we could assign an integer with a `team.id` to a `hero.team_id`, we can also assign the `Team` instance to the `hero.team`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:32-33]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:57-61]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py[ln:34-35]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py[ln:59-63]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py[ln:34-35]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py[ln:59-63]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py ln[32:33,57:61] hl[57] *}
 
 ## Create a Team with Heroes
 
@@ -228,81 +50,7 @@ Before, we created some `Team` instances and passed them in the `team=` argument
 
 We could also create the `Hero` instances first, and then pass them in the `heroes=` argument that takes a list, when creating a `Team` instance:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="13  15-16"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:32-33]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:63-73]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="13  15-16"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py[ln:34-35]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py[ln:65-75]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="13  15-16"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py[ln:34-35]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py[ln:65-75]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py ln[32:33,63:73] hl[68,70:71] *}
 
 Here we create two heroes first, **Black Lion** and **Princess Sure-E**, and then we pass them in the `heroes` argument.
 
@@ -318,81 +66,7 @@ As the attribute `team.heroes` behaves like a list, we can simply append to it.
 
 Let's create some more heroes and add them to the `team_preventers.heroes` list attribute:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="14-18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:32-33]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py[ln:75-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="14-18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py[ln:34-35]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py[ln:77-93]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="14-18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py[ln:34-35]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py[ln:77-93]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/create_and_update_relationships/tutorial001_py310.py ln[32:33,75:91] hl[81:85] *}
 
 The attribute `team_preventers.heroes` behaves like a list. But it's a special type of list, because when we modify it adding heroes to it, **SQLModel** (actually SQLAlchemy) **keeps track of the necessary changes** to be done in the database.
 
