@@ -539,21 +539,21 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        base_fields = {}
-        base_annotations = {}
-        for base in bases[::-1]:
-            if issubclass(base, BaseModel):
-                base_fields.update(get_model_fields(base))
-                base_annotations.update(base.__annotations__)
-        # use base_fields overwriting the ones from the class for inherit
-        # if base is a sqlalchemy model, it's attributes will be an InstrumentedAttribute
-        # thus pydantic will use the value of the attribute as the default value
-        base_annotations.update(dict_used["__annotations__"])
-        dict_used["__annotations__"] = base_annotations
-        base_fields.update(dict_used)
-        new_cls = super().__new__(
-            cls, name, bases, base_fields, **config_kwargs
-        )
+        if IS_PYDANTIC_V2:
+            base_fields = {}
+            base_annotations = {}
+            for base in bases[::-1]:
+                if issubclass(base, BaseModel):
+                    base_fields.update(get_model_fields(base))
+                    base_annotations.update(base.__annotations__)
+            # use base_fields overwriting the ones from the class for inherit
+            # if base is a sqlalchemy model, it's attributes will be an InstrumentedAttribute
+            # thus pydantic will use the value of the attribute as the default value
+            base_annotations.update(dict_used["__annotations__"])
+            dict_used["__annotations__"] = base_annotations
+            base_fields.update(dict_used)
+            dict_used = base_fields
+        new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
