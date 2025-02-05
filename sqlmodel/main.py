@@ -550,8 +550,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # thus pydantic will use the value of the attribute as the default value
         base_annotations.update(dict_used["__annotations__"])
         dict_used["__annotations__"] = base_annotations
+        base_fields.update(dict_used)
         new_cls = super().__new__(
-            cls, name, bases, base_fields | dict_used, **config_kwargs
+            cls, name, bases, base_fields, **config_kwargs
         )
         new_cls.__annotations__ = {
             **relationship_annotations,
