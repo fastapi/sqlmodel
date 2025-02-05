@@ -539,22 +539,24 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        base_fields = {}
+        base_annotations = {}
+        for base in bases[::-1]:
+            if issubclass(base, BaseModel):
+                base_fields.update(get_model_fields(base))
+                base_annotations.update(base.__annotations__)
+        # use base_fields overwriting the ones from the class for inherit
+        # if base is a sqlalchemy model, it's attributes will be an InstrumentedAttribute
+        # thus pydantic will use the value of the attribute as the default value
+        dict_used["__annotations__"].update(base_annotations)
+        new_cls = super().__new__(
+            cls, name, bases, dict_used | base_fields, **config_kwargs
+        )
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
             **new_cls.__annotations__,
         }
-        # pydantic will set class attribute value inherited from parent as field
-        # default value, reset it back
-        base_fields = {}
-        for base in bases[::-1]:
-            if issubclass(base, BaseModel):
-                base_fields.update(get_model_fields(base))
-        fields = get_model_fields(new_cls)
-        for k, v in fields.items():
-            if isinstance(v.default, InstrumentedAttribute):
-                fields[k] = base_fields.get(k, FieldInfo())
 
         def get_config(name: str) -> Any:
             config_class_value = get_config_value(
