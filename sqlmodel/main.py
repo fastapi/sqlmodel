@@ -548,9 +548,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # use base_fields overwriting the ones from the class for inherit
         # if base is a sqlalchemy model, it's attributes will be an InstrumentedAttribute
         # thus pydantic will use the value of the attribute as the default value
-        dict_used["__annotations__"].update(base_annotations)
+        base_annotations.update(dict_used["__annotations__"])
+        dict_used["__annotations__"] = base_annotations
         new_cls = super().__new__(
-            cls, name, bases, dict_used | base_fields, **config_kwargs
+            cls, name, bases, base_fields | dict_used, **config_kwargs
         )
         new_cls.__annotations__ = {
             **relationship_annotations,
