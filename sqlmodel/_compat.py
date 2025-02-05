@@ -149,6 +149,9 @@ def get_relationship_to(
     # If a list, then also get the real field
     elif origin is list:
         use_annotation = get_args(annotation)[0]
+    # If a list, then use the value type
+    elif origin is dict:
+        use_annotation = get_args(annotation)[1]
 
     return get_relationship_to(name=name, rel_info=rel_info, annotation=use_annotation)
 
