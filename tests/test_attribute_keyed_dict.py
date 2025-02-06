@@ -1,11 +1,11 @@
-from enum import StrEnum
+from enum import Enum
 
 from sqlalchemy.orm.collections import attribute_keyed_dict
 from sqlmodel import Field, Index, Relationship, Session, SQLModel, create_engine
 
 
 def test_attribute_keyed_dict_works(clear_sqlmodel):
-    class Color(StrEnum):
+    class Color(str, Enum):
         Orange = "Orange"
         Blue = "Blue"
 
