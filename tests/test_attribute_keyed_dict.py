@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Optional
 
 from sqlalchemy.orm.collections import attribute_keyed_dict
 from sqlmodel import Field, Index, Relationship, Session, SQLModel, create_engine
@@ -15,7 +16,7 @@ def test_attribute_keyed_dict_works(clear_sqlmodel):
             Index("ix_children_parent_id_color", "parent_id", "color", unique=True),
         )
 
-        id: int | None = Field(primary_key=True, default=None)
+        id: Optional[int] = Field(primary_key=True, default=None)
         parent_id: int = Field(foreign_key="parents.id")
         color: Color
         value: int
@@ -23,7 +24,7 @@ def test_attribute_keyed_dict_works(clear_sqlmodel):
     class Parent(SQLModel, table=True):
         __tablename__ = "parents"
 
-        id: int | None = Field(primary_key=True, default=None)
+        id: Optional[int] = Field(primary_key=True, default=None)
         children_by_color: dict[Color, Child] = Relationship(
             sa_relationship_kwargs={"collection_class": attribute_keyed_dict("color")}
         )
