@@ -43,6 +43,9 @@ jobs:
           - os: windows-latest
             python-version: "3.9"
             pydantic-version: pydantic-v2
+          - os: macos-latest
+            python-version: "3.9"
+            pydantic-version: pydantic-v2
           - os: ubuntu-latest
             python-version: "3.10"
             pydantic-version: pydantic-v1
