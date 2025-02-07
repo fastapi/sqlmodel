@@ -23,7 +23,6 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
@@ -51,6 +50,7 @@ jobs:
             python-version: "3.11"
             pydantic-version: pydantic-v2
       fail-fast: false
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -92,7 +92,7 @@ jobs:
       - name: Store coverage files
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
+          name: coverage-${{ matrix.os }}-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage
           include-hidden-files: true
 
