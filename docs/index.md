@@ -12,8 +12,8 @@
     <em>SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.</em>
 </p>
 <p align="center">
-<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest" target="_blank">
-    <img src="https://github.com/fastapi/sqlmodel/workflows/Test/badge.svg" alt="Test">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest+event%3Apush+branch%3Amain" target="_blank">
+    <img src="https://github.com/fastapi/sqlmodel/workflows/Test/badge.svg?event=push&branch=main" alt="Test">
 </a>
 <a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3APublish" target="_blank">
     <img src="https://github.com/fastapi/sqlmodel/workflows/Publish/badge.svg" alt="Publish">
