@@ -576,6 +576,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # TODO: remove this in the future
             set_config_value(model=new_cls, parameter="read_with_orm_mode", value=True)
 
+            # enables field-level docstrings on the pydanatic `description` field, which we then copy into
+            # sa_args, which is persisted to sql table comments
+            set_config_value(
+                model=new_cls, parameter="use_attribute_docstrings", value=True
+            )
+
         config_registry = get_config("registry")
         if config_registry is not Undefined:
             config_registry = cast(registry, config_registry)
