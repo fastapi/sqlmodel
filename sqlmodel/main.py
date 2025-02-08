@@ -561,6 +561,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
+                # convert FieldInfo definitions into sqlalchemy columns
                 col = get_column_from_field(v)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
@@ -702,21 +703,32 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column:  # type: ignore
+def get_column_from_field(field: PydanticFieldInfo | FieldInfo) -> Column:  # type: ignore
+    """
+    Takes a field definition, which can either come from the sqlmodel FieldInfo class or the pydantic variant of that class,
+    and converts it into a sqlalchemy Column object.
+    """
     if IS_PYDANTIC_V2:
         field_info = field
     else:
         field_info = field.field_info
+
     sa_column = getattr(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
+        # if a db field comment is not already defined, and a description exists on the field, add it to the column definition
+        if not sa_column.comment and (field_comment := field_info.description):
+            sa_column.comment = field_comment
+
         return sa_column
-    sa_type = get_sqlalchemy_type(field)
+
     primary_key = getattr(field_info, "primary_key", Undefined)
     if primary_key is Undefined:
         primary_key = False
+
     index = getattr(field_info, "index", Undefined)
     if index is Undefined:
         index = False
+
     nullable = not primary_key and is_field_noneable(field)
     # Override derived nullability if the nullable property is set explicitly
     # on the field
@@ -746,6 +758,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         "index": index,
         "unique": unique,
     }
+
     sa_default = Undefined
     if field_info.default_factory:
         sa_default = field_info.default_factory
@@ -753,12 +766,29 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         sa_default = field_info.default
     if sa_default is not Undefined:
         kwargs["default"] = sa_default
+
     sa_column_args = getattr(field_info, "sa_column_args", Undefined)
     if sa_column_args is not Undefined:
         args.extend(list(cast(Sequence[Any], sa_column_args)))
+
     sa_column_kwargs = getattr(field_info, "sa_column_kwargs", Undefined)
+
+    if field_info.description:
+        if sa_column_kwargs is Undefined:
+            sa_column_kwargs = {}
+
+        assert isinstance(sa_column_kwargs, dict)
+
+        # only update comments if not already set
+        if "comment" not in sa_column_kwargs:
+            sa_column_kwargs["comment"] = field_info.description
+
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
+
+    sa_type = get_sqlalchemy_type(field)
+
+    # if sa_column is not specified, then the column is constructed here
     return Column(sa_type, *args, **kwargs)  # type: ignore
 
 
