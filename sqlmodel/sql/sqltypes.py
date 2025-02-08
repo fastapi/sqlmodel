@@ -5,6 +5,12 @@ from sqlalchemy.engine.interfaces import Dialect
 
 
 class AutoString(types.TypeDecorator):  # type: ignore
+    """
+    Determines the best sqlalchemy string type based on the database dialect.
+
+    For example, when using Postgres this will return sqlalchemy's String()
+    """
+
     impl = types.String
     cache_ok = True
     mysql_default_length = 255
