@@ -91,7 +91,6 @@ exclude_lines = [
     'if __name__ == "__main__":',
     "if TYPE_CHECKING:",
 ]
-skip_empty = true
 
 [tool.coverage.html]
 show_contexts = true
