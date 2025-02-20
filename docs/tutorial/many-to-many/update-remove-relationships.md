@@ -4,33 +4,7 @@ Now we'll see how to update and remove these **many-to-many** relationships.
 
 We'll continue from where we left off with the previous code.
 
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[0] *}
 
 ## Get Data to Update
 
@@ -42,135 +16,11 @@ As you already know how these goes, I'll use the **short version** and get the d
 
 And because we are now using `select()`, we also have to import it.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  5-10"
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:1]!}
-
-# Some code here omitted 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-77]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3  7-12"
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:1-3]!}
-
-# Some code here omitted 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:78-83]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3  7-12"
-{!./docs_src/tutorial/many_to_many/tutorial002.py[ln:1-3]!}
-
-# Some code here omitted 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial002.py[ln:78-83]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[1,72:77] hl[1,72:77] *}
 
 And of course, we have to add `update_heroes()` to our `main()` function:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:94-101]!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:100-107]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002.py[ln:100-107]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[94:101] hl[97] *}
 
 ## Add Many-to-Many Relationships
 
@@ -178,69 +28,7 @@ Now let's imagine that **Spider-Boy** thinks that the **Z-Force** team is super 
 
 We can use the same **relationship attributes** to include `hero_spider_boy` in the `team_z_force.heroes`.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="10-12  14-15"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-84]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="10-12  14-15"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:78-90]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="10-12  14-15"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002.py[ln:78-90]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[72:84] hl[79:81,83:84] *}
 
 /// tip
 
@@ -325,69 +113,7 @@ Because `hero_spider_boy.teams` is just a list (a special list managed by SQLAlc
 
 In this case, we use the method `.remove()`, that takes an item and removes it from the list.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="17-19  21-22"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py[ln:72-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="17-19  21-22"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py[ln:78-97]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="17-19  21-22"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial002.py[ln:78-97]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[72:91] hl[86:88,90:91] *}
 
 And this time, just to show again that by using `back_populates` **SQLModel** (actually SQLAlchemy) takes care of connecting the models by their relationships, even though we performed the operation from the `hero_spider_boy` object (modifying `hero_spider_boy.teams`), we are adding `team_z_force` to the **session**. And we commit that, without even add `hero_spider_boy`.
 

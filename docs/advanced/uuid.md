@@ -80,45 +80,7 @@ We don't call `uuid.uuid4()` ourselves in the code (we don't put the parenthesis
 
 This means that the UUID will be generated in the Python code, **before sending the data to the database**.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  7"
-{!./docs_src/advanced/uuid/tutorial001_py310.py[ln:1-10]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="1  8"
-{!./docs_src/advanced/uuid/tutorial001.py[ln:1-11]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[1:10] hl[1,7] *}
 
 Pydantic has support for <a href="https://docs.pydantic.dev/latest/api/standard_library_types/#uuid" class="external-link" target="_blank">`UUID` types</a>.
 
@@ -132,49 +94,7 @@ As `uuid.uuid4` will be called when creating the model instance, even before sen
 
 And that **same ID (a UUID)** will be saved in the database.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5  7  9  14"
-# Code above omitted 👆
-
-{!./docs_src/advanced/uuid/tutorial001_py310.py[ln:23-34]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5  7  9  14"
-# Code above omitted 👆
-
-{!./docs_src/advanced/uuid/tutorial001.py[ln:24-35]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[23:34] hl[25,27,29,34] *}
 
 ### Select a Hero
 
@@ -182,49 +102,7 @@ We can do the same operations we could do with other fields.
 
 For example we can **select a hero by ID**:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="15"
-# Code above omitted 👆
-
-{!./docs_src/advanced/uuid/tutorial001_py310.py[ln:37-54]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="15"
-# Code above omitted 👆
-
-{!./docs_src/advanced/uuid/tutorial001.py[ln:38-55]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[37:54] hl[49] *}
 
 /// tip
 
@@ -238,49 +116,7 @@ SQLModel (actually SQLAlchemy) will take care of making it work. ✨
 
 We could also select by ID with `session.get()`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="15"
-# Code above omitted 👆
-
-{!./docs_src/advanced/uuid/tutorial002_py310.py[ln:37-54]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="15"
-# Code above omitted 👆
-
-{!./docs_src/advanced/uuid/tutorial002.py[ln:38-55]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/advanced/uuid/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/advanced/uuid/tutorial002_py310.py ln[37:53] hl[49] *}
 
 The same way as with other fields, we could update, delete, etc. 🚀
 

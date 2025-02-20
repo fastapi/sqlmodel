@@ -22,69 +22,7 @@ Because each field is **actually different** (we just change it to `Optional`, b
 
 So, let's create this new `HeroUpdate` model:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="21-24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:5-26]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="21-24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:7-28]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="21-24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:7-28]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[5:26] hl[23:26] *}
 
 This is almost the same as `HeroBase`, but all the fields are optional, so we can't simply inherit from `HeroBase`.
 
@@ -94,69 +32,7 @@ Now let's use this model in the *path operation* to update a hero.
 
 We will use a `PATCH` HTTP operation. This is used to **partially update data**, which is what we are doing.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3-4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[74:75] *}
 
 We also read the `hero_id` from the *path parameter* and the request body, a `HeroUpdate`.
 
@@ -166,69 +42,7 @@ We take a `hero_id` with the **ID** of the hero **we want to update**.
 
 So, we need to read the hero from the database, with the **same logic** we used to **read a single hero**, checking if it exists, possibly raising an error for the client if it doesn't exist, etc.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[77:79] *}
 
 ### Get the New Data
 
@@ -280,69 +94,7 @@ Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=
 
 Then we use that to get the data that was actually sent by the client:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[80] *}
 
 /// tip
 Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
@@ -352,69 +104,7 @@ Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, b
 
 Now that we have a **dictionary with the data sent by the client**, we can use the method `db_hero.sqlmodel_update()` to update the object `db_hero`.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py[ln:74-89]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[81] *}
 
 /// tip
 

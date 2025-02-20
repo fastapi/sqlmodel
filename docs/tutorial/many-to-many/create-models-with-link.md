@@ -12,63 +12,7 @@ As we want to support a **many-to-many** relationship, now we need a **link tabl
 
 We can create it just as any other **SQLModel**:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="4-6"
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:1-6]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="6-12"
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:1-12]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="6-12"
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:1-12]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[1:6] hl[4:6] *}
 
 This is a **SQLModel** class model table like any other.
 
@@ -82,69 +26,7 @@ And **both fields are primary keys**. We hadn't used this before. 🤓
 
 Let's see the `Team` model, it's almost identical as before, but with a little change:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:9-14]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:15-20]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:15-20]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[9:14] hl[14] *}
 
 The **relationship attribute `heroes`** is still a list of heroes, annotated as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
 
@@ -158,69 +40,7 @@ And here's the important part to allow the **many-to-many** relationship, we use
 
 Let's see the other side, here's the `Hero` model:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:17-23]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:23-29]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:23-29]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[17:23] hl[23] *}
 
 We **removed** the previous `team_id` field (column) because now the relationship is done via the link table. 🔥
 
@@ -238,140 +58,11 @@ And now we have a **`link_model=HeroTeamLink`**. ✨
 
 The same as before, we will have the rest of the code to create the **engine**, and a function to create all the tables `create_db_and_tables()`.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:26-33]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:32-39]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:32-39]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-////
-
-///
-
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[26:33] hl[32] *}
 
 And as in previous examples, we will add that function to a function `main()`, and we will call that `main()` function in the main block:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:72-73]!}
-    # We will do more stuff here later 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py[ln:77-78]!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:78-79]!}
-    # We will do more stuff here later 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py[ln:83-84]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-79]!}
-    # We will do more stuff here later 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:83-84]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-////
-
-///
-
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[72:73,77:78] hl[73] *}
 
 ## Run the Code
 

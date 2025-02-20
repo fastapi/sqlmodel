@@ -20,25 +20,7 @@ Are you already a **SQL expert** and don't have time for all my explanations?
 
 Fine, in that case, you can **sneak peek** the final code to create indexes here.
 
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[0] *}
 
 ..but if you are not an expert, **continue reading**, this will probably be useful. 🤓
 
@@ -275,87 +257,11 @@ The change in code is underwhelming, it's very simple. 😆
 
 Here's the `Hero` model we had before:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="6"
-{!./docs_src/tutorial/where/tutorial001_py310.py[ln:1-8]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8"
-{!./docs_src/tutorial/where/tutorial001.py[ln:1-10]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/where/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/where/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/where/tutorial001_py310.py ln[1:8] hl[6] *}
 
 Let's now update it to tell **SQLModel** to create an index for the `name` field when creating the table:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="6"
-{!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:1-8]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="8"
-{!./docs_src/tutorial/indexes/tutorial001.py[ln:1-10]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/indexes/tutorial001_py310.py ln[1:8] hl[6] *}
 
 We use the same `Field()` again as we did before, and set `index=True`. That's it! 🚀
 
@@ -377,49 +283,7 @@ The SQL database will figure it out **automatically**. ✨
 
 This is great because it means that indexes are very **simple to use**. But it might also feel counterintuitive at first, as you are **not doing anything** explicitly in the code to make it obvious that the index is useful, it all happens in the database behind the scenes.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/indexes/tutorial001_py310.py[ln:34-39]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/indexes/tutorial001.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/indexes/tutorial001_py310.py ln[34:39] hl[36] *}
 
 This is exactly the same code as we had before, but now the database will **use the index** underneath.
 
@@ -462,45 +326,7 @@ secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 
 We are going to query the `hero` table doing comparisons on the `age` field too, so we should **define an index** for that one as well:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="8"
-{!./docs_src/tutorial/indexes/tutorial002_py310.py[ln:1-8]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="10"
-{!./docs_src/tutorial/indexes/tutorial002.py[ln:1-10]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[1:8] hl[8] *}
 
 In this case, we want the default value of `age` to continue being `None`, so we set `default=None` when using `Field()`.
 

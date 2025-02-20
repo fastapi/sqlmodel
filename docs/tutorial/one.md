@@ -14,25 +14,7 @@ Let's see the utilities to read a single row.
 
 We'll continue with the same examples we have been using in the previous chapters to create and select data and we'll keep updating them.
 
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[0] *}
 
 If you already executed the previous examples and have a database with data, **remove the database file** before running each example, that way you won't have duplicate data and you will be able to get the same results.
 
@@ -40,97 +22,13 @@ If you already executed the previous examples and have a database with data, **r
 
 We have been iterating over the rows in a `result` object like:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="7-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/indexes/tutorial002_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="7-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/indexes/tutorial002.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[42:47] hl[46:47] *}
 
 But let's say that we are not interested in all the rows, just the **first** one.
 
 We can call the `.first()` method on the `results` object to get the first row:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial001_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial001.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial001_py310.py ln[42:47] hl[46] *}
 
 This will return the first object in the `results` (if there was any).
 
@@ -171,49 +69,7 @@ It would be possible that the SQL query doesn't find any row.
 
 In that case, `.first()` will return `None`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial002_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial002.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial002_py310.py ln[42:47] hl[44,46] *}
 
 In this case, as there's no hero with an age less than 25, `.first()` will return `None`.
 
@@ -246,49 +102,7 @@ And if there was more than one, it would mean that there's an error in the syste
 
 In that case, instead of `.first()` we can use `.one()`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial003_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial003.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial003_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial003.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial003_py310.py ln[42:47] hl[46] *}
 
 Here we know that there's only one `"Deadpond"`, and there shouldn't be any more than one.
 
@@ -344,49 +158,7 @@ sqlalchemy.exc.MultipleResultsFound: Multiple rows were found when exactly one w
 
 Of course, even if we don't duplicate the data, we could get the same error if we send a query that finds more than one row and expect exactly one with `.one()`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial004_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial004.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial004_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial004.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial004_py310.py ln[42:47] hl[44,46] *}
 
 That would find 2 rows, and would end up with the same error.
 
@@ -394,49 +166,7 @@ That would find 2 rows, and would end up with the same error.
 
 And also, if we get no rows at all with `.one()`, it will also raise an error:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial005_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial005.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial005_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial005.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial005_py310.py ln[42:47] hl[44,46] *}
 
 In this case, as there are no heroes with an age less than 25, `.one()` will raise an error.
 
@@ -469,49 +199,7 @@ sqlalchemy.exc.NoResultFound: No row was found when one was required
 
 Of course, with `.first()` and `.one()` you would also probably write all that in a more compact form most of the time, all in a single line (or at least a single Python statement):
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial006_py310.py[ln:42-45]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial006.py[ln:44-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial006_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial006.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial006_py310.py ln[42:45] hl[44] *}
 
 That would result in the same as some examples above.
 
@@ -521,49 +209,7 @@ In many cases you might want to select a single row by its Id column with the **
 
 You could do it the same way we have been doing with a `.where()` and then getting the first item with `.first()`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial007_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5  7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial007.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial007_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial007.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial007_py310.py ln[42:47] hl[44,46] *}
 
 That would work correctly, as expected. But there's a shorter version. 👇
 
@@ -571,49 +217,7 @@ That would work correctly, as expected. But there's a shorter version. 👇
 
 As selecting a single row by its Id column with the **primary key** is a common operation, there's a shortcut for it:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial008_py310.py[ln:42-45]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial008.py[ln:44-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial008_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial008.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial008_py310.py ln[42:45] hl[44] *}
 
 `session.get(Hero, 1)` is an equivalent to creating a `select()`, then filtering by Id using `.where()`, and then getting the first item with `.first()`.
 
@@ -642,49 +246,7 @@ Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 
 `.get()` behaves similar to `.first()`, if there's no data it will simply return `None` (instead of raising an error):
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial009_py310.py[ln:42-45]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/one/tutorial009.py[ln:44-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/one/tutorial009_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/one/tutorial009.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/one/tutorial009_py310.py ln[42:45] hl[44] *}
 
 Running that will output:
 
