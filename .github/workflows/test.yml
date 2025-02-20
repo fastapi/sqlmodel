@@ -23,6 +23,7 @@ env:
 
 jobs:
   test:
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         os: ubuntu-latest
@@ -50,7 +51,7 @@ jobs:
 #            python-version: "3.11"
 #            pydantic-version: pydantic-v2
       fail-fast: false
-    runs-on: ${{ matrix.os }}
+#    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
