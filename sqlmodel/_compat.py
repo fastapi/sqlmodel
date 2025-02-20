@@ -210,7 +210,9 @@ if IS_PYDANTIC_V2:
         for meta in field.metadata:
             if isinstance(meta, (PydanticMetadata, MaxLen)):
                 return meta
-        return FakeMetadata()
+            fake = FakeMetadata()
+            fake.max_length = getattr(meta, "max_length", None)
+            return fake
 
     def post_init_field_info(field_info: FieldInfo) -> None:
         return None
