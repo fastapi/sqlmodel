@@ -1,4 +1,6 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+
+set -e
 set -x
 
 ruff check sqlmodel tests docs_src scripts --fix
