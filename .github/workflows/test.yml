@@ -94,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
-          path: coverage
+          path: coverage/*
           include-hidden-files: true
 
   # TODO: if removing Smokeshow, and moving only to Codecov, remove this
