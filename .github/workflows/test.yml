@@ -83,23 +83,13 @@ jobs:
         env:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
-      # TODO: if removing Smokeshow, and moving only to Codecov, remove this
-      # Upload files before running Codecov, as it generates an extra file coverage/coverage.xml, and that breaks coverage-combine
       - name: Store coverage files
         uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.os }}-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage
           include-hidden-files: true
-      - uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          files: ./coverage.xml
-          name: codecov-umbrella
-          token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
 
-  # TODO: if removing Smokeshow, and moving only to Codecov, remove this
   coverage-combine:
     needs:
       - test

@@ -22,6 +22,7 @@
 
 ### Internal
 
+* 👷 Revert "Add Codecov to CI, Smokeshow/Cloudflare has been flaky lately (#1303)". PR [#1306](https://github.com/fastapi/sqlmodel/pull/1306) by [@svlandeg](https://github.com/svlandeg).
 *  👷 Add Codecov to CI, Smokeshow/Cloudflare has been flaky lately. PR [#1303](https://github.com/fastapi/sqlmodel/pull/1303) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Add retries to Smokeshow. PR [#1302](https://github.com/fastapi/sqlmodel/pull/1302) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump astral-sh/setup-uv from 4 to 5. PR [#1249](https://github.com/fastapi/sqlmodel/pull/1249) by [@dependabot[bot]](https://github.com/apps/dependabot).
