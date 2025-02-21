@@ -82,13 +82,6 @@ jobs:
         env:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
-      - uses: codecov/codecov-action@v5
-        with:
-          fail_ci_if_error: true
-          files: ./coverage.xml
-          name: codecov-umbrella
-          token: ${{ secrets.CODECOV_TOKEN }}
-          verbose: true
       - run: ls -la coverage
       # TODO: if removing Smokeshow, and moving only to Codecov, remove this
       - name: Store coverage files
@@ -97,6 +90,13 @@ jobs:
           name: coverage-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage/*
           include-hidden-files: true
+      - uses: codecov/codecov-action@v5
+        with:
+          fail_ci_if_error: true
+          files: ./coverage.xml
+          name: codecov-umbrella
+          token: ${{ secrets.CODECOV_TOKEN }}
+          verbose: true
 
   # TODO: if removing Smokeshow, and moving only to Codecov, remove this
   coverage-combine:
