@@ -82,7 +82,7 @@ jobs:
           name: coverage-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage
           include-hidden-files: true
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
           files: ./coverage.xml
