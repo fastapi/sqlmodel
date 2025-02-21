@@ -70,13 +70,13 @@ jobs:
         run: bash scripts/lint.sh
       - run: mkdir coverage
       # TODO: remove this
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true
-        env:
-          COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
-          CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
+      # - name: Setup tmate session
+      #   uses: mxschmitt/action-tmate@v3
+      #   with:
+      #     limit-access-to-actor: true
+      #   env:
+      #     COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
+      #     CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
       - name: Test
         run: bash scripts/test.sh
         env:
