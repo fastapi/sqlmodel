@@ -25,13 +25,8 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
-        python-version:
-          - "3.8"
-          - "3.9"
-          - "3.10"
-          - "3.11"
-          - "3.12"
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        python-version: [ "3.12" ]
         pydantic-version:
           - pydantic-v1
           - pydantic-v2
