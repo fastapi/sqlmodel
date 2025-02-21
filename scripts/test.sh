@@ -7,3 +7,4 @@ coverage run -m pytest tests
 coverage combine
 coverage report
 coverage html
+coverage xml
