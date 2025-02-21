@@ -69,14 +69,6 @@ jobs:
         if: matrix.python-version != '3.7' && matrix.pydantic-version == 'pydantic-v2'
         run: bash scripts/lint.sh
       - run: mkdir coverage
-      # TODO: remove this
-      # - name: Setup tmate session
-      #   uses: mxschmitt/action-tmate@v3
-      #   with:
-      #     limit-access-to-actor: true
-      #   env:
-      #     COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
-      #     CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
       - name: Test
         run: bash scripts/test.sh
         env:
@@ -84,6 +76,7 @@ jobs:
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
       - run: ls -la coverage
       # TODO: if removing Smokeshow, and moving only to Codecov, remove this
+      # Upload files before running Codecov, as it generates an extra file coverage/coverage.xml, and that breaks coverage-combine
       - name: Store coverage files
         uses: actions/upload-artifact@v4
         with:
