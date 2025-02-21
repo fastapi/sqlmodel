@@ -89,6 +89,7 @@ jobs:
           name: codecov-umbrella
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
+      - run: ls -la coverage
       # TODO: if removing Smokeshow, and moving only to Codecov, remove this
       - name: Store coverage files
         uses: actions/upload-artifact@v4
