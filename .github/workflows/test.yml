@@ -139,7 +139,7 @@ jobs:
   alls-green:  # This job does nothing and is only used for the branch protection
     if: always()
     needs:
-      - test
+      - coverage-combine
     runs-on: ubuntu-latest
     steps:
       - name: Decide whether the needed jobs succeeded or failed
