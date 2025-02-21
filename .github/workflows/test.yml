@@ -74,7 +74,6 @@ jobs:
         env:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
-      - run: ls -la coverage
       # TODO: if removing Smokeshow, and moving only to Codecov, remove this
       # Upload files before running Codecov, as it generates an extra file coverage/coverage.xml, and that breaks coverage-combine
       - name: Store coverage files
