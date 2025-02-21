@@ -1,3 +1,3 @@
 # About
 
-About **SQLModel**, its design, inspiration, and more. 🤓
+About **SQLModel**, its design, inspiration, and more... 🤓
