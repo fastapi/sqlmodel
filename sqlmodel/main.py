@@ -341,7 +341,7 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    sa_column: Union[Column[Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
