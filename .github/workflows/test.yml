@@ -23,11 +23,10 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ ubuntu-latest ]
         python-version:
-          - "3.7"
           - "3.8"
           - "3.9"
           - "3.10"
@@ -36,7 +35,15 @@ jobs:
         pydantic-version:
           - pydantic-v1
           - pydantic-v2
+        include:
+          - os: ubuntu-22.04
+            python-version: "3.7"
+            pydantic-version: pydantic-v1
+          - os: ubuntu-22.04
+            python-version: "3.7"
+            pydantic-version: pydantic-v2
       fail-fast: false
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
@@ -44,7 +51,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Setup uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v5
         with:
           version: "0.4.15"
           enable-cache: true
@@ -92,7 +99,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Setup uv
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v5
         with:
           version: "0.4.15"
           enable-cache: true

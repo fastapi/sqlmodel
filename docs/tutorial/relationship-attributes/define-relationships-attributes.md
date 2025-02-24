@@ -41,45 +41,7 @@ Now that you know how these tables work underneath and how the model classes rep
 
 Up to now, we have only used the `team_id` column to connect the tables when querying with `select()`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="16"
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py[ln:1-16]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="18"
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:1-18]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[1:16] hl[16] *}
 
 This is a **plain field** like all the others, all representing a **column in the table**.
 
@@ -87,123 +49,11 @@ But now let's add a couple of new special attributes to these model classes, let
 
 First, import `Relationship` from `sqlmodel`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="3"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py[ln:1-3]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py[ln:1-3]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1] hl[1] *}
 
 Next, use that `Relationship` to declare a new attribute in the model classes:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9  19"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1-19]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="11  21"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py[ln:1-21]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="11  21"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py[ln:1-21]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1:19] hl[9,19] *}
 
 ## What Are These Relationship Attributes
 
