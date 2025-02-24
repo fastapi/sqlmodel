@@ -183,7 +183,7 @@ And this ends up *requiring* the same **circular imports** that are not supporte
 
 But these **type annotations** we want to declare are not needed at *runtime*.
 
-In fact, remember that we used `List["Hero"]`, with a `"Hero"` in a string?
+In fact, remember that we used `list["Hero"]`, with a `"Hero"` in a string?
 
 For Python, at runtime, that is **just a string**.
 

@@ -38,7 +38,7 @@ For example, we can pass the same `Hero` **SQLModel** class (because it is also 
 
 We can also use other type annotations, the same way we can use with Pydantic fields. For example, we can pass a list of `Hero`s.
 
-First, we import `List` from `typing` and then we declare the `response_model` with `List[Hero]`:
+To do so, we declare the `response_model` with `list[Hero]`:
 
 {* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[40:44] hl[40] *}
 
