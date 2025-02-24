@@ -2,63 +2,7 @@
 
 In the first Relationship attribute, we declare it with `List["Hero"]`, putting the `Hero` in quotes instead of just normally there:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="9"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py[ln:1-19]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python hl_lines="11"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py[ln:1-21]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="11"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py[ln:1-21]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py39.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1:19] hl[9] *}
 
 What's that about? Can't we just write it normally as `List[Hero]`?
 

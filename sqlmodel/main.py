@@ -52,7 +52,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import Literal, deprecated, get_origin
+from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
@@ -71,7 +71,7 @@ from ._compat import (  # type: ignore[attr-defined]
     get_field_metadata,
     get_model_fields,
     get_relationship_to,
-    get_type_from_field,
+    get_sa_type_from_field,
     init_pydantic_private_attrs,
     is_field_noneable,
     is_table_model_class,
@@ -90,7 +90,12 @@ if TYPE_CHECKING:
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
-IncEx = Union[Set[int], Set[str], Dict[int, Any], Dict[str, Any], None]
+IncEx: TypeAlias = Union[
+    Set[int],
+    Set[str],
+    Mapping[int, Union["IncEx", Literal[True]]],
+    Mapping[str, Union["IncEx", Literal[True]]],
+]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 
@@ -649,7 +654,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     if sa_type is not Undefined:
         return sa_type
 
-    type_ = get_type_from_field(field)
+    type_ = get_sa_type_from_field(field)
     metadata = get_field_metadata(field)
 
     # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
@@ -858,8 +863,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         self,
         *,
         mode: Union[Literal["json", "python"], str] = "python",
-        include: IncEx = None,
-        exclude: IncEx = None,
+        include: Union[IncEx, None] = None,
+        exclude: Union[IncEx, None] = None,
         context: Union[Dict[str, Any], None] = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
@@ -908,8 +913,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def dict(
         self,
         *,
-        include: IncEx = None,
-        exclude: IncEx = None,
+        include: Union[IncEx, None] = None,
+        exclude: Union[IncEx, None] = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,

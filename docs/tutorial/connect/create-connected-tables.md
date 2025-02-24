@@ -57,45 +57,7 @@ Let's start by creating the tables in code.
 
 Import the things we need from `sqlmodel` and create a new `Team` model:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="4-7"
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:1-7]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="6-9"
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:1-9]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[1:7] hl[4:7] *}
 
 This is very similar to what we have been doing with the `Hero` model.
 
@@ -114,45 +76,7 @@ Now let's create the `hero` table.
 
 This is the same model we have been using up to now, we are just adding the new column `team_id`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="16"
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:1-16]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="18"
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:1-18]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[1:16] hl[16] *}
 
 Most of that should look familiar:
 
@@ -186,87 +110,11 @@ You can learn about setting a custom table name for a model in the Advanced User
 
 Now we can add the same code as before to create the engine and the function to create the tables:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-4  6  9-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:19-26]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-4  6  9-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:21-28]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[19:26] hl[19:20,22,25:26] *}
 
 And as before, we'll call this function from another function `main()`, and we'll add that function `main()` to the main block of the file:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-4  7-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py[ln:29-34]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-4  7-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:31-36]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[29:34] hl[29:30,33:34] *}
 
 ## Run the Code
 
