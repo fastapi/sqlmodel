@@ -642,6 +642,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     rel_args.extend(rel_info.sa_relationship_args)
                 if rel_info.sa_relationship_kwargs:
                     rel_kwargs.update(rel_info.sa_relationship_kwargs)
+                # this where RelationshipInfo objects are converted to lazy column evaluators
                 rel_value = relationship(relationship_to, *rel_args, **rel_kwargs)
                 setattr(cls, rel_name, rel_value)  # Fix #315
             # SQLAlchemy no longer uses dict_
@@ -722,8 +723,8 @@ def get_column_from_field(field: PydanticFieldInfo | FieldInfo) -> Column:  # ty
     sa_column = getattr(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         # if a db field comment is not already defined, and a description exists on the field, add it to the column definition
-        if not sa_column.comment and (field_comment := field_info.description):
-            sa_column.comment = field_comment
+        if not sa_column.comment and field_info.description:
+            sa_column.comment = field_info.description
 
         return sa_column
 
