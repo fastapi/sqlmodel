@@ -588,7 +588,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     def __init__(
         cls, classname: str, bases: Tuple[type, ...], dict_: Dict[str, Any], **kw: Any
     ) -> None:
-        return cls.__do_init__(bases, dict_, kw)
+        return cls.__do_init__(bases, dict_, kw)  # type: ignore
 
     def sqlmodel_rebuild(cls) -> None:
         reg = cls._sa_registry
@@ -598,7 +598,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             reg._dispose_manager_and_mapper(m)
             del reg._managers[m]
 
-        return cls.__do_init__(cls.__bases__, cls.__dict__, {})
+        return cls.__do_init__(cls.__bases__, cls.__dict__, {})  # type: ignore
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
     def __do_init__(
