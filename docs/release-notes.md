@@ -4,6 +4,7 @@
 
 ### Fixes
 
+* 🐛 Fix type annotation in `Field` constructor. PR [#1304](https://github.com/fastapi/sqlmodel/pull/1304) by [@AlanBogarin](https://github.com/AlanBogarin).
 * 🐛 Fix Pydantic version check for version 2.10.x onwards. PR [#1255](https://github.com/fastapi/sqlmodel/pull/1255) by [@asiunov](https://github.com/asiunov).
 
 ### Refactors
