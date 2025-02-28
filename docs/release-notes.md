@@ -8,6 +8,7 @@
 
 ### Docs
 
+* 📝 Update documentation to refer to `list` instead of `List`. PR [#1147](https://github.com/fastapi/sqlmodel/pull/1147) by [@bubbletroubles](https://github.com/bubbletroubles).
 * ✏️ Fix typo in `databases.md`. PR [#1113](https://github.com/fastapi/sqlmodel/pull/1113) by [@radi-dev](https://github.com/radi-dev).
 * ✏️ Fix typo in `docs/tutorial/create-db-and-table.md`. PR [#1252](https://github.com/fastapi/sqlmodel/pull/1252) by [@ArianHamdi](https://github.com/ArianHamdi).
 * ✏️ Fix typo in `insert.md`. PR [#1256](https://github.com/fastapi/sqlmodel/pull/1256) by [@Noushadaliam](https://github.com/Noushadaliam).
