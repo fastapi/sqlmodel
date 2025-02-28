@@ -585,23 +585,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             setattr(new_cls, "__abstract__", True)  # noqa: B010
         return new_cls
 
-    def __init__(
-        cls, classname: str, bases: Tuple[type, ...], dict_: Dict[str, Any], **kw: Any
-    ) -> None:
-        return cls.__do_init__(bases, dict_, kw)  # type: ignore
-
-    def sqlmodel_rebuild(cls) -> None:
-        reg = cls._sa_registry
-        # clear any exisiting mappers for the cls
-        managers = [m for m in reg._managers if m.class_ == cls]
-        for m in managers:
-            reg._dispose_manager_and_mapper(m)
-            del reg._managers[m]
-
-        return cls.__do_init__(cls.__bases__, cls.__dict__, {})  # type: ignore
-
+    # Temporarily revert changes to verify that the tests pass
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
-    def __do_init__(
+    def __init__(
         cls, classname: str, bases: Tuple[type, ...], dict_: Dict[str, Any], **kw: Any
     ) -> None:
         # Only one of the base classes (or the current one) should be a table model
