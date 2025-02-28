@@ -2,12 +2,21 @@
 
 ## Latest Changes
 
+## 0.0.23
+
+### Fixes
+
+* 🐛 Fix type annotation in `Field` constructor. PR [#1304](https://github.com/fastapi/sqlmodel/pull/1304) by [@AlanBogarin](https://github.com/AlanBogarin).
+* 🐛 Fix Pydantic version check for version 2.10.x onwards. PR [#1255](https://github.com/fastapi/sqlmodel/pull/1255) by [@asiunov](https://github.com/asiunov).
+
 ### Refactors
 
 * 🚨 Fix types for new Pydantic. PR [#1131](https://github.com/fastapi/sqlmodel/pull/1131) by [@tiangolo](https://github.com/tiangolo).
 
 ### Docs
 
+* 🩺 Take the GH badge only from pushes to the `main` branch. PR [#1291](https://github.com/fastapi/sqlmodel/pull/1291) by [@svlandeg](https://github.com/svlandeg).
+* 📝 Update documentation to refer to `list` instead of `List`. PR [#1147](https://github.com/fastapi/sqlmodel/pull/1147) by [@bubbletroubles](https://github.com/bubbletroubles).
 * ✏️ Fix typo in `databases.md`. PR [#1113](https://github.com/fastapi/sqlmodel/pull/1113) by [@radi-dev](https://github.com/radi-dev).
 * ✏️ Fix typo in `docs/tutorial/create-db-and-table.md`. PR [#1252](https://github.com/fastapi/sqlmodel/pull/1252) by [@ArianHamdi](https://github.com/ArianHamdi).
 * ✏️ Fix typo in `insert.md`. PR [#1256](https://github.com/fastapi/sqlmodel/pull/1256) by [@Noushadaliam](https://github.com/Noushadaliam).
