@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.23
+
 ### Fixes
 
 * 🐛 Fix type annotation in `Field` constructor. PR [#1304](https://github.com/fastapi/sqlmodel/pull/1304) by [@AlanBogarin](https://github.com/AlanBogarin).
