@@ -598,7 +598,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             reg._dispose_manager_and_mapper(m)
             del reg._managers[m]
 
-        return cls.__do_init__(cls.__name__, cls.__bases__, cls.__dict__)  # type: ignore (Dict vs Mapping)
+        return cls.__do_init__(cls.__name__, cls.__bases__, cls.__dict__)  # type: ignore  # Dict vs Mapping
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
     def __do_init__(
