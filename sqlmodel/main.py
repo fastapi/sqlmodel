@@ -602,7 +602,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
     def __do_init__(
-        cls, classname: str, bases: Tuple[type, ...], dict_: Mapping[str, Any], **kw: Any
+        cls,
+        classname: str,
+        bases: Tuple[type, ...],
+        dict_: Mapping[str, Any],
+        **kw: Any,
     ) -> None:
         # Only one of the base classes (or the current one) should be a table model
         # this allows FastAPI cloning a SQLModel for the response_model without
