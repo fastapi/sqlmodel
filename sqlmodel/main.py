@@ -598,15 +598,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             reg._dispose_manager_and_mapper(m)
             del reg._managers[m]
 
-        return cls.__do_init__(cls.__name__, cls.__bases__, cls.__dict__)
+        return cls.__do_init__(cls.__name__, cls.__bases__, cls.__dict__)  # type: ignore (Dict vs Mapping)
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
     def __do_init__(
-        cls,
-        classname: str,
-        bases: Tuple[type, ...],
-        dict_: Mapping[str, Any],
-        **kw: Any,
+        cls, classname: str, bases: Tuple[type, ...], dict_: Dict[str, Any], **kw: Any
     ) -> None:
         # Only one of the base classes (or the current one) should be a table model
         # this allows FastAPI cloning a SQLModel for the response_model without
