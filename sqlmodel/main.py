@@ -56,7 +56,7 @@ from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
-    PYDANTIC_VERSION,
+    PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelField,
     ModelMetaclass,
@@ -341,7 +341,7 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    sa_column: Union[Column[Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
@@ -874,7 +874,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
-        if PYDANTIC_VERSION >= "2.7.0":
+        if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
                 "serialize_as_any": serialize_as_any,
