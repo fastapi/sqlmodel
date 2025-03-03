@@ -25,7 +25,8 @@ from typing_extensions import Annotated, get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
-IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
+PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
+IS_PYDANTIC_V2 = PYDANTIC_MINOR_VERSION[0] == 2
 
 
 if TYPE_CHECKING:
