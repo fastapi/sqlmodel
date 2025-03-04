@@ -479,6 +479,7 @@ def Relationship(
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
     model_config: SQLModelConfig
+    model_fields: Dict[str, FieldInfo]  # type: ignore[assignment]
     __config__: Type[SQLModelConfig]
     __fields__: Dict[str, ModelField]  # type: ignore[assignment]
 
