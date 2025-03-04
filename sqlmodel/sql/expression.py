@@ -22,7 +22,7 @@ from sqlalchemy import (
     TypeCoerce,
     WithinGroup,
 )
-from sqlalchemy.orm import InstrumentedAttribute, Mapped
+from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.sql._typing import (
     _ColumnExpressionArgument,
     _ColumnExpressionOrLiteralArgument,
