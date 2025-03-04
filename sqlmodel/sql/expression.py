@@ -209,7 +209,7 @@ def within_group(
     return sqlalchemy.within_group(element, *order_by)
 
 
-def col(column_expression: _T) -> Mapped[_T]:
+def col(column_expression: _T) -> Column[_T]:
     if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
     return column_expression  # type: ignore
