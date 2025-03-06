@@ -93,8 +93,8 @@ NoArgAnyCallable = Callable[[], Any]
 IncEx: TypeAlias = Union[
     Set[int],
     Set[str],
-    Mapping[int, Union["IncEx", Literal[True]]],
-    Mapping[str, Union["IncEx", Literal[True]]],
+    Mapping[int, Union["IncEx", bool]],
+    Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
@@ -479,7 +479,7 @@ def Relationship(
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
     model_config: SQLModelConfig
-    model_fields: Dict[str, FieldInfo]
+    model_fields: Dict[str, FieldInfo]  # type: ignore[assignment]
     __config__: Type[SQLModelConfig]
     __fields__: Dict[str, ModelField]  # type: ignore[assignment]
 
