@@ -290,6 +290,10 @@ if IS_PYDANTIC_V2:
             value = values.get(key, Undefined)
             if value is not Undefined:
                 setattr(self_instance, key, value)
+        for key in self_instance.__sqlalchemy_association_proxies__:
+            value = values.get(key, Undefined)
+            if value is not Undefined:
+                setattr(self_instance, key, value)
         # End SQLModel override
         return self_instance
 
@@ -386,7 +390,7 @@ else:
         Representation as Representation,
     )
 
-    class SQLModelConfig(BaseConfig):  # type: ignore[no-redef]
+    class SQLModelConfig(ConfigDict):  # type: ignore[no-redef]
         table: Optional[bool] = None  # type: ignore[misc]
         registry: Optional[Any] = None  # type: ignore[misc]
 
@@ -404,12 +408,12 @@ else:
         setattr(model.__config__, parameter, value)  # type: ignore
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
-        return model.__fields__  # type: ignore
+        return model.model_fields
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
-    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
-        return object.__fields_set__
+    ) -> Union[Set[str], property]:
+        return object.model_fields_set
 
     def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
         object.__setattr__(new_object, "__fields_set__", set())
@@ -480,7 +484,7 @@ else:
             # Do not include relationships as that would easily lead to infinite
             # recursion, or traversing the whole database
             return (
-                self.__fields__.keys()  # noqa
+                self.model_fields.keys()  # noqa
             )  # | self.__sqlmodel_relationships__.keys()
 
         keys: AbstractSet[str]
@@ -493,7 +497,7 @@ else:
             # Do not include relationships as that would easily lead to infinite
             # recursion, or traversing the whole database
             keys = (
-                self.__fields__.keys()  # noqa
+                self.model_fields.keys()  # noqa
             )  # | self.__sqlmodel_relationships__.keys()
         if include is not None:
             keys &= include.keys()
@@ -555,10 +559,7 @@ else:
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
         values, fields_set, validation_error = validate_model(self.__class__, data)
         # Only raise errors if not a SQLModel model
-        if (
-            not is_table_model_class(self.__class__)  # noqa
-            and validation_error
-        ):
+        if not is_table_model_class(self.__class__) and validation_error:  # noqa
             raise validation_error
         if not is_table_model_class(self.__class__):
             object.__setattr__(self, "__dict__", values)

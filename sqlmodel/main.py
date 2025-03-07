@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     AbstractSet,
+    Annotated,
     Any,
     Callable,
     ClassVar,
@@ -22,12 +23,15 @@ from typing import (
     TypeVar,
     Union,
     cast,
+    get_args,
     overload,
 )
 
 from pydantic import BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
+    ARRAY,
+    JSON,
     Boolean,
     Column,
     Date,
@@ -37,10 +41,14 @@ from sqlalchemy import (
     Integer,
     Interval,
     Numeric,
+    Table,
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
+from sqlalchemy.ext.associationproxy import AssociationProxy
+from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import (
+    ColumnProperty,
     Mapped,
     RelationshipProperty,
     declared_attr,
@@ -97,6 +105,12 @@ IncEx: TypeAlias = Union[
     Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+SQLAlchemyConstruct = Union[
+    hybrid_property,
+    hybrid_method,
+    ColumnProperty,
+    declared_attr,
+]
 
 
 def __dataclass_transform__(
@@ -215,6 +229,7 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -314,6 +329,7 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -349,6 +365,7 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -391,6 +408,7 @@ def Field(
         default,
         default_factory=default_factory,
         alias=alias,
+        validation_alias=validation_alias,
         title=title,
         description=description,
         exclude=exclude,
@@ -476,10 +494,13 @@ def Relationship(
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
+    __sqlalchemy_constructs__: Dict[str, SQLAlchemyConstruct]
+    __sqlalchemy_association_proxies__: Dict[str, AssociationProxy]
     model_config: SQLModelConfig
     model_fields: Dict[str, FieldInfo]  # type: ignore[assignment]
     __config__: Type[SQLModelConfig]
     __fields__: Dict[str, ModelField]  # type: ignore[assignment]
+    __table__: Table
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
@@ -503,13 +524,28 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         **kwargs: Any,
     ) -> Any:
         relationships: Dict[str, RelationshipInfo] = {}
+        sqlalchemy_constructs: Dict[str, SQLAlchemyConstruct] = {}
+        sqlalchemy_association_proxies: Dict[str, AssociationProxy] = {}
         dict_for_pydantic = {}
         original_annotations = get_annotations(class_dict)
         pydantic_annotations = {}
         relationship_annotations = {}
         for k, v in class_dict.items():
+            if isinstance(v, AssociationProxy):
+                sqlalchemy_association_proxies[k] = v
             if isinstance(v, RelationshipInfo):
                 relationships[k] = v
+            elif isinstance(
+                v,
+                (
+                    hybrid_property,
+                    hybrid_method,
+                    ColumnProperty,
+                    declared_attr,
+                    AssociationProxy,
+                ),
+            ):
+                sqlalchemy_constructs[k] = v
             else:
                 dict_for_pydantic[k] = v
         for k, v in original_annotations.items():
@@ -522,6 +558,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             "__weakref__": None,
             "__sqlmodel_relationships__": relationships,
             "__annotations__": pydantic_annotations,
+            "__sqlalchemy_constructs__": sqlalchemy_constructs,
+            "__sqlalchemy_association_proxies__": sqlalchemy_association_proxies,
         }
         # Duplicate logic from Pydantic to filter config kwargs because if they are
         # passed directly including the registry Pydantic will pass them over to the
@@ -543,6 +581,14 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             **new_cls.__annotations__,
         }
 
+        # We did not provide the sqlalchemy constructs to Pydantic's new function above
+        # so that they wouldn't be modified. Instead we set them directly to the class below:
+        for k, v in sqlalchemy_constructs.items():
+            setattr(new_cls, k, v)
+
+        for k, v in sqlalchemy_association_proxies.items():
+            setattr(new_cls, k, v)
+
         def get_config(name: str) -> Any:
             config_class_value = get_config_value(
                 model=new_cls, parameter=name, default=Undefined
@@ -559,6 +605,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
+                if k in sqlalchemy_constructs:
+                    continue
                 col = get_column_from_field(v)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
@@ -581,6 +629,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
             setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
             setattr(new_cls, "__abstract__", True)  # noqa: B010
+            setattr(new_cls, "__pydantic_private__", {})  # noqa: B010
+            setattr(new_cls, "__pydantic_extra__", {})  # noqa: B010
+
         return new_cls
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
@@ -593,6 +644,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # triggers an error
         base_is_table = any(is_table_model_class(base) for base in bases)
         if is_table_model_class(cls) and not base_is_table:
+            for (
+                association_proxy_name,
+                association_proxy,
+            ) in cls.__sqlalchemy_association_proxies__.items():
+                setattr(cls, association_proxy_name, association_proxy)
+
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
                     # There's a SQLAlchemy relationship declared, that takes precedence
@@ -643,19 +700,15 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
-def get_sqlalchemy_type(field: Any) -> Any:
-    if IS_PYDANTIC_V2:
-        field_info = field
-    else:
-        field_info = field.field_info
-    sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
-    if sa_type is not Undefined:
-        return sa_type
+def is_optional_type(type_: Any) -> bool:
+    return get_origin(type_) is Union and type(None) in get_args(type_)
 
-    type_ = get_sa_type_from_field(field)
-    metadata = get_field_metadata(field)
 
-    # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
+def is_annotated_type(type_: Any) -> bool:
+    return get_origin(type_) is Annotated
+
+
+def base_type_to_sa_type(type_: Any, metadata: MetaData) -> Any:
     if issubclass(type_, Enum):
         return sa_Enum(type_)
     if issubclass(
@@ -697,7 +750,50 @@ def get_sqlalchemy_type(field: Any) -> Any:
         )
     if issubclass(type_, uuid.UUID):
         return Uuid
+    if issubclass(
+        type_,
+        (
+            dict,
+            BaseModel,
+        ),
+    ):
+        return JSON
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
+
+
+def get_sqlalchemy_type(field: Any) -> Any:
+    if IS_PYDANTIC_V2:
+        field_info = field
+    else:
+        field_info = field.field_info
+    sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
+    if sa_type is not Undefined:
+        return sa_type
+
+    type_ = get_sa_type_from_field(field)
+    metadata = get_field_metadata(field)
+
+    # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
+    if is_annotated_type(type_):
+        type_ = get_args(type_)[0]
+
+    origin_type = get_origin(type_)
+    if issubclass(type_, list) or origin_type is list:
+        type_args = get_args(type_)
+        if not type_args:
+            type_args = get_args(field.annotation)
+        if not type_args:
+            raise ValueError(f"List type {type_} has no inner type")
+
+        type_ = type_args[0]
+        sa_type_ = base_type_to_sa_type(type_, metadata)
+
+        if issubclass(sa_type_, JSON):
+            return sa_type_
+
+        return ARRAY(sa_type_)
+
+    return base_type_to_sa_type(type_, metadata)
 
 
 def get_column_from_field(field: Any) -> Column:  # type: ignore
@@ -772,12 +868,13 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[Union[str, Callable[..., str]]]
     __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty[Any]]]
+    __sqlalchemy_association_proxies__: ClassVar[Dict[str, AssociationProxy]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
 
     if IS_PYDANTIC_V2:
-        model_config = SQLModelConfig(from_attributes=True)
+        model_config = SQLModelConfig(from_attributes=True, use_enum_values=True)
     else:
 
         class Config:
@@ -821,9 +918,19 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
             if is_table_model_class(self.__class__) and is_instrumented(self, name):  # type: ignore[no-untyped-call]
                 set_attribute(self, name, value)
+            # Set in SQLAlchemy association proxies
+            if (
+                is_table_model_class(self.__class__)
+                and name in self.__sqlalchemy_association_proxies__
+            ):
+                association_proxy = self.__sqlalchemy_association_proxies__[name]
+                association_proxy.__set__(self, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
-            if name not in self.__sqlmodel_relationships__:
+            if (
+                name not in self.__sqlmodel_relationships__
+                and name not in self.__sqlalchemy_association_proxies__
+            ):
                 super().__setattr__(name, value)
 
     def __repr_args__(self) -> Sequence[Tuple[Optional[str], Any]]:
@@ -869,7 +976,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
-        warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        warnings: bool = True,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if PYDANTIC_MINOR_VERSION >= (2, 7):
