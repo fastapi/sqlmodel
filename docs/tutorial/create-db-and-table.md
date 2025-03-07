@@ -562,7 +562,7 @@ Now, let's give the code a final look:
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{.python .annotate}
 {!./docs_src/tutorial/create_db_and_table/tutorial003.py!}
