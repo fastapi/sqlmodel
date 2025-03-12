@@ -1,5 +1,6 @@
 import ipaddress
 import uuid
+import warnings
 import weakref
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
@@ -539,6 +540,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
+        is_polymorphic = False
         if IS_PYDANTIC_V2:
             base_fields = {}
             base_annotations = {}
@@ -546,6 +548,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 if issubclass(base, BaseModel):
                     base_fields.update(get_model_fields(base))
                     base_annotations.update(base.__annotations__)
+                    if hasattr(base, "__tablename__"):
+                        is_polymorphic = True
             # use base_fields overwriting the ones from the class for inherit
             # if base is a sqlalchemy model, it's attributes will be an InstrumentedAttribute
             # thus pydantic will use the value of the attribute as the default value
@@ -553,7 +557,16 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             dict_used["__annotations__"] = base_annotations
             base_fields.update(dict_used)
             dict_used = base_fields
-        new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        # if is_polymorphic, disable pydantic `shadows an attribute` warning
+        if is_polymorphic:
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    message="Field name .+ shadows an attribute in parent.+",
+                )
+                new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        else:
+            new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
