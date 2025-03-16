@@ -236,7 +236,7 @@ Now let's review all that code:
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{ .python .annotate hl_lines="44-55" }
 {!./docs_src/tutorial/update/tutorial002.py!}
@@ -272,7 +272,7 @@ This also means that you can update several fields (attributes, columns) at once
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
 # Code above omitted 👆
@@ -296,7 +296,7 @@ This also means that you can update several fields (attributes, columns) at once
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial004.py!}
