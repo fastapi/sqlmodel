@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* ⬆️ Drop support for Python 3.7, require Python 3.8 or above. PR [#1316](https://github.com/fastapi/sqlmodel/pull/1316) by [@svlandeg](https://github.com/svlandeg).
+
 ## 0.0.24
 
 ### Upgrades
