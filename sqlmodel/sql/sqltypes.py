@@ -60,11 +60,25 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
         if value is None:
             return None
         if isinstance(value, dict):
-            # If model_class is dict, handle key-value pairs
-            if isinstance(self.model_class, dict):
-                return {k: self.model_class.model_validate(v) for k, v in value.items()}
+            # If model_class is a Dict type hint, handle key-value pairs
+            if (
+                hasattr(self.model_class, "__origin__")
+                and self.model_class.__origin__ is dict
+            ):
+                model_class = get_args(self.model_class)[
+                    1
+                ]  # Get the value type (the model)
+                return {k: model_class.model_validate(v) for k, v in value.items()}
             # Regular case: the whole dict represents a single model
             return self.model_class.model_validate(value)  # type: ignore
         if isinstance(value, list):
-            return [get_args(self.model_class)[0].model_validate(v) for v in value]  # type: ignore
+            # If model_class is a List type hint
+            if (
+                hasattr(self.model_class, "__origin__")
+                and self.model_class.__origin__ is list
+            ):
+                model_class = get_args(self.model_class)[0]
+                return [model_class.model_validate(v) for v in value]
+            # Fallback case (though this shouldn't happen given our __init__ types)
+            return [self.model_class.model_validate(v) for v in value]  # type: ignore
         return value
