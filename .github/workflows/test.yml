@@ -32,16 +32,10 @@ jobs:
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
         pydantic-version:
           - pydantic-v1
           - pydantic-v2
-        include:
-          - os: ubuntu-22.04
-            python-version: "3.7"
-            pydantic-version: pydantic-v1
-          - os: ubuntu-22.04
-            python-version: "3.7"
-            pydantic-version: pydantic-v2
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -71,10 +65,9 @@ jobs:
         run: uv pip install --upgrade "pydantic>=1.10.0,<2.0.0"
       - name: Install Pydantic v2
         if: matrix.pydantic-version == 'pydantic-v2'
-        run: uv pip install --upgrade "pydantic>=2.0.2,<3.0.0" "typing-extensions==4.6.1"
+        run: uv pip install --upgrade "pydantic>=2.0.2,<3.0.0"
       - name: Lint
-        # Do not run on Python 3.7 as mypy behaves differently
-        if: matrix.python-version != '3.7' && matrix.pydantic-version == 'pydantic-v2'
+        if: matrix.pydantic-version == 'pydantic-v2'
         run: bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
@@ -97,7 +90,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.13'
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
         with:

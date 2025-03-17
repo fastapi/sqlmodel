@@ -39,7 +39,7 @@ This is the code we had to create the database and table, nothing new here:
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{.python .annotate hl_lines="22" }
 {!./docs_src/tutorial/create_db_and_table/tutorial003.py[ln:1-20]!}
@@ -343,7 +343,7 @@ Let's focus on the new code:
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{.python .annotate }
 {!./docs_src/tutorial/insert/tutorial003.py!}
