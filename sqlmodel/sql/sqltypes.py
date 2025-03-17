@@ -2,8 +2,8 @@ from typing import Any, cast
 
 from pydantic import BaseModel
 from sqlalchemy import types
-from sqlalchemy.engine.interfaces import Dialect
 from sqlalchemy.dialects.postgresql import JSONB  # for Postgres JSONB
+from sqlalchemy.engine.interfaces import Dialect
 
 
 class AutoString(types.TypeDecorator):  # type: ignore
