@@ -117,6 +117,7 @@ from sqlalchemy.types import Uuid as Uuid
 from .main import Field as Field
 from .main import Relationship as Relationship
 from .main import SQLModel as SQLModel
+from .main import SQLModelConfig as SQLModelConfig
 from .orm.session import Session as Session
 from .sql.expression import all_ as all_
 from .sql.expression import and_ as and_
