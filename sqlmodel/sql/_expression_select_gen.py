@@ -107,6 +107,78 @@ _TScalar_3 = TypeVar(
 _T3 = TypeVar("_T3")
 
 
+_TScalar_4 = TypeVar(
+    "_TScalar_4",
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
+    UUID,
+    datetime,
+    float,
+    int,
+    bool,
+    bytes,
+    str,
+    None,
+)
+
+_T4 = TypeVar("_T4")
+
+
+_TScalar_5 = TypeVar(
+    "_TScalar_5",
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
+    UUID,
+    datetime,
+    float,
+    int,
+    bool,
+    bytes,
+    str,
+    None,
+)
+
+_T5 = TypeVar("_T5")
+
+
+_TScalar_6 = TypeVar(
+    "_TScalar_6",
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
+    UUID,
+    datetime,
+    float,
+    int,
+    bool,
+    bytes,
+    str,
+    None,
+)
+
+_T6 = TypeVar("_T6")
+
+
+_TScalar_7 = TypeVar(
+    "_TScalar_7",
+    Column,  # type: ignore
+    Sequence,  # type: ignore
+    Mapping,  # type: ignore
+    UUID,
+    datetime,
+    float,
+    int,
+    bool,
+    bytes,
+    str,
+    None,
+)
+
+_T7 = TypeVar("_T7")
+
+
 # Generated TypeVars end
 
 
@@ -356,6 +428,6425 @@ def select(  # type: ignore
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
 ) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _TScalar_6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _T6]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _TScalar_2,
+        _TScalar_3,
+        _TScalar_4,
+        _TScalar_5,
+        _TScalar_6,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _T0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _T0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _T0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _T0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _T0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _T7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    __ent0: _TCCA[_T0],
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _T0,
+        _TScalar_1,
+        _TScalar_2,
+        _TScalar_3,
+        _TScalar_4,
+        _TScalar_5,
+        _TScalar_6,
+        _TScalar_7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _T1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _T1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _T1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _TScalar_0, _T1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _T7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    __ent1: _TCCA[_T1],
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _T1,
+        _TScalar_2,
+        _TScalar_3,
+        _TScalar_4,
+        _TScalar_5,
+        _TScalar_6,
+        _TScalar_7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _T5, _T6, _TScalar_7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _T5, _TScalar_6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _T2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _T2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _T2, _TScalar_3, _TScalar_4, _TScalar_5, _TScalar_6, _T7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    __ent2: _TCCA[_T2],
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _T2,
+        _TScalar_3,
+        _TScalar_4,
+        _TScalar_5,
+        _TScalar_6,
+        _TScalar_7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _T6, _T7]]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _T5, _TScalar_6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _T3, _T4, _TScalar_5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _T5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _T6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _T3, _TScalar_4, _TScalar_5, _TScalar_6, _T7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    __ent3: _TCCA[_T3],
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _TScalar_2,
+        _T3,
+        _TScalar_4,
+        _TScalar_5,
+        _TScalar_6,
+        _TScalar_7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _T6, _TScalar_7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _T5, _TScalar_6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _T6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _T4, _TScalar_5, _TScalar_6, _T7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    __ent4: _TCCA[_T4],
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _TScalar_2,
+        _TScalar_3,
+        _T4,
+        _TScalar_5,
+        _TScalar_6,
+        _TScalar_7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _T7]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _T6, _TScalar_7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _T5, _TScalar_6, _T7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    __ent5: _TCCA[_T5],
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _TScalar_2,
+        _TScalar_3,
+        _TScalar_4,
+        _T5,
+        _TScalar_6,
+        _TScalar_7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3, _TScalar_4, _TScalar_5, _T6, _T7
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    __ent6: _TCCA[_T6],
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _TScalar_2,
+        _TScalar_3,
+        _TScalar_4,
+        _TScalar_5,
+        _T6,
+        _TScalar_7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    __ent7: _TCCA[_T7],
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _TScalar_2,
+        _TScalar_3,
+        _TScalar_4,
+        _TScalar_5,
+        _TScalar_6,
+        _T7,
+    ]
+]: ...
+
+
+@overload
+def select(  # type: ignore
+    entity_0: _TScalar_0,
+    entity_1: _TScalar_1,
+    entity_2: _TScalar_2,
+    entity_3: _TScalar_3,
+    entity_4: _TScalar_4,
+    entity_5: _TScalar_5,
+    entity_6: _TScalar_6,
+    entity_7: _TScalar_7,
+) -> Select[
+    Tuple[
+        _TScalar_0,
+        _TScalar_1,
+        _TScalar_2,
+        _TScalar_3,
+        _TScalar_4,
+        _TScalar_5,
+        _TScalar_6,
+        _TScalar_7,
+    ]
+]: ...
 
 
 # Generated overloads end
