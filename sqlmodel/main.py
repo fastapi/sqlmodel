@@ -55,6 +55,7 @@ from sqlalchemy.orm import (
     registry,
     relationship,
 )
+from sqlalchemy.orm.properties import MappedSQLExpression
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
@@ -357,7 +358,7 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    sa_column: Union[Column, UndefinedType, MappedSQLExpression[Any]] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
@@ -400,7 +401,7 @@ def Field(
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
     sa_type: Union[Type[Any], UndefinedType] = Undefined,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    sa_column: Union[Column, UndefinedType, MappedSQLExpression[Any]] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
