@@ -1,4 +1,15 @@
-from typing import Any, Dict, List, Optional, Type, TypeVar, Union, cast, get_args
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Type,
+    TypeVar,
+    Union,
+    cast,
+    get_args,
+    get_origin,
+)
 
 from pydantic import BaseModel
 from sqlalchemy import types
@@ -56,7 +67,10 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
                 k: v.model_dump(mode="json") if isinstance(v, BaseModel) else v
                 for k, v in value.items()
             }
-        return value
+
+        raise TypeError(
+            f"Unsupported type for PydanticJSONB: {type(value)}. Expected a Pydantic model, a list of Pydantic models, or a dictionary of Pydantic models."
+        )
 
     def process_result_value(
         self, value: Any, dialect: Any
@@ -65,10 +79,8 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
             return None
         if isinstance(value, dict):
             # If model_class is a Dict type hint, handle key-value pairs
-            if (
-                hasattr(self.model_class, "__origin__")
-                and self.model_class.__origin__ is dict
-            ):
+            origin = get_origin(self.model_class)
+            if origin is dict:
                 model_class = get_args(self.model_class)[
                     1
                 ]  # Get the value type (the model)
@@ -77,12 +89,13 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
             return self.model_class.model_validate(value)  # type: ignore
         if isinstance(value, list):
             # If model_class is a List type hint
-            if (
-                hasattr(self.model_class, "__origin__")
-                and self.model_class.__origin__ is list
-            ):
+            origin = get_origin(self.model_class)
+            if origin is list:
                 model_class = get_args(self.model_class)[0]
                 return [model_class.model_validate(v) for v in value]
             # Fallback case (though this shouldn't happen given our __init__ types)
             return [self.model_class.model_validate(v) for v in value]  # type: ignore
-        return value
+
+        raise TypeError(
+            f"Unsupported type for PydanticJSONB from database: {type(value)}. Expected a dictionary or list."
+        )
