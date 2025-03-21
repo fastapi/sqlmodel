@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Type, TypeVar, cast, get_args
+from typing import Any, Dict, List, Optional, Type, TypeVar, Union, cast, get_args
 
 from pydantic import BaseModel
 from sqlalchemy import types
@@ -13,7 +13,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
     cache_ok = True
     mysql_default_length = 255
 
-    def load_dialect_impl(self, dialect: Dialect) -> "types.TypeEngine[Any]":
+    def load_dialect_impl(self, dialect: Dialect) -> types.TypeEngine[Any]:
         impl = cast(types.String, self.impl)
         if impl.length is None and dialect.name == "mysql":
             return dialect.type_descriptor(types.String(self.mysql_default_length))
@@ -28,16 +28,20 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
 
     def __init__(
         self,
-        model_class: Type[BaseModelType]
-        | Type[list[BaseModelType]]
-        | Type[Dict[str, BaseModelType]],
-        *args,
-        **kwargs,
+        model_class: Union[
+            Type[BaseModelType],
+            Type[List[BaseModelType]],
+            Type[Dict[str, BaseModelType]],
+        ],
+        *args: Any,
+        **kwargs: Any,
     ):
         super().__init__(*args, **kwargs)
         self.model_class = model_class  # Pydantic model class to use
 
-    def process_bind_param(self, value: Any, dialect) -> dict | list[dict] | None:  # noqa: ANN401, ARG002, ANN001
+    def process_bind_param(
+        self, value: Any, dialect: Any
+    ) -> Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]:  # noqa: ANN401, ARG002, ANN001
         if value is None:
             return None
         if isinstance(value, BaseModel):
@@ -55,8 +59,8 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
         return value
 
     def process_result_value(
-        self, value: Any, dialect
-    ) -> BaseModelType | List[BaseModelType] | Dict[str, BaseModelType] | None:  # noqa: ANN401, ARG002, ANN001
+        self, value: Any, dialect: Any
+    ) -> Optional[Union[BaseModelType, List[BaseModelType], Dict[str, BaseModelType]]]:  # noqa: ANN401, ARG002, ANN001
         if value is None:
             return None
         if isinstance(value, dict):
