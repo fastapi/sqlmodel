@@ -74,7 +74,8 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
                 for k, v in value.items()
             }
 
-        return to_jsonable_python(value)
+        # We know to_jsonable_python returns a JSON-serializable value, but mypy sees it as Any
+        return to_jsonable_python(value)  # type: ignore[no-any-return]
 
     def process_result_value(
         self, value: Any, dialect: Any
