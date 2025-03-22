@@ -19,6 +19,9 @@ from sqlalchemy.engine.interfaces import Dialect
 
 BaseModelType = TypeVar("BaseModelType", bound=BaseModel)
 
+# Define a type alias for JSON-serializable values
+JSONValue = Union[Dict[str, Any], List[Any], str, int, float, bool, None]
+
 
 class AutoString(types.TypeDecorator):  # type: ignore
     impl = types.String
@@ -51,9 +54,7 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
         super().__init__(*args, **kwargs)
         self.model_class = model_class  # Pydantic model class to use
 
-    def process_bind_param(
-        self, value: Any, dialect: Any
-    ) -> Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]:  # noqa: ANN401, ARG002, ANN001
+    def process_bind_param(self, value: Any, dialect: Any) -> JSONValue:  # noqa: ANN401, ARG002, ANN001
         if value is None:
             return None
         if isinstance(value, BaseModel):
