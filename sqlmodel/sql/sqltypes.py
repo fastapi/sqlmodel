@@ -12,6 +12,7 @@ from typing import (
 )
 
 from pydantic import BaseModel
+from pydantic_core import to_jsonable_python
 from sqlalchemy import types
 from sqlalchemy.dialects.postgresql import JSONB  # for Postgres JSONB
 from sqlalchemy.engine.interfaces import Dialect
@@ -59,18 +60,20 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
             return value.model_dump(mode="json")
         if isinstance(value, list):
             return [
-                m.model_dump(mode="json") if isinstance(m, BaseModel) else m
+                m.model_dump(mode="json")
+                if isinstance(m, BaseModel)
+                else to_jsonable_python(m)
                 for m in value
             ]
         if isinstance(value, dict):
             return {
-                k: v.model_dump(mode="json") if isinstance(v, BaseModel) else v
+                k: v.model_dump(mode="json")
+                if isinstance(v, BaseModel)
+                else to_jsonable_python(v)
                 for k, v in value.items()
             }
 
-        raise TypeError(
-            f"Unsupported type for PydanticJSONB: {type(value)}. Expected a Pydantic model, a list of Pydantic models, or a dictionary of Pydantic models."
-        )
+        return to_jsonable_python(value)
 
     def process_result_value(
         self, value: Any, dialect: Any
