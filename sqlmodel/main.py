@@ -56,7 +56,7 @@ from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
-    PYDANTIC_VERSION,
+    PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelField,
     ModelMetaclass,
@@ -93,8 +93,8 @@ NoArgAnyCallable = Callable[[], Any]
 IncEx: TypeAlias = Union[
     Set[int],
     Set[str],
-    Mapping[int, Union["IncEx", Literal[True]]],
-    Mapping[str, Union["IncEx", Literal[True]]],
+    Mapping[int, Union["IncEx", bool]],
+    Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
@@ -134,8 +134,7 @@ class FieldInfo(PydanticFieldInfo):
                 )
             if primary_key is not Undefined:
                 raise RuntimeError(
-                    "Passing primary_key is not supported when "
-                    "also passing a sa_column"
+                    "Passing primary_key is not supported when also passing a sa_column"
                 )
             if nullable is not Undefined:
                 raise RuntimeError(
@@ -143,8 +142,7 @@ class FieldInfo(PydanticFieldInfo):
                 )
             if foreign_key is not Undefined:
                 raise RuntimeError(
-                    "Passing foreign_key is not supported when "
-                    "also passing a sa_column"
+                    "Passing foreign_key is not supported when also passing a sa_column"
                 )
             if ondelete is not Undefined:
                 raise RuntimeError(
@@ -341,7 +339,7 @@ def Field(
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    sa_column: Union[Column[Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
@@ -479,7 +477,7 @@ def Relationship(
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
     model_config: SQLModelConfig
-    model_fields: Dict[str, FieldInfo]
+    model_fields: Dict[str, FieldInfo]  # type: ignore[assignment]
     __config__: Type[SQLModelConfig]
     __fields__: Dict[str, ModelField]  # type: ignore[assignment]
 
@@ -874,7 +872,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
-        if PYDANTIC_VERSION >= "2.7.0":
+        if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
                 "serialize_as_any": serialize_as_any,

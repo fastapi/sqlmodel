@@ -86,7 +86,7 @@ And in the `Team` class, the `heroes` attribute is annotated as a list of `Hero`
 
 /// tip
 
-There's a couple of things we'll check again in some of the next chapters, about the `List["Hero"]` and the `back_populates`.
+There's a couple of things we'll check again in some of the next chapters, about the `list["Hero"]` and the `back_populates`.
 
 But for now, let's first see how to use these relationship attributes.
 
