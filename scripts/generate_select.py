@@ -13,7 +13,7 @@ template_path = (
 destiny_path = Path(__file__).parent.parent / "sqlmodel/sql/_expression_select_gen.py"
 
 
-number_of_types = 4
+number_of_types = 5
 
 
 class Arg(BaseModel):
