@@ -116,7 +116,8 @@ _T3 = TypeVar("_T3")
 
 
 @overload
-def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]: ...
+def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]:  # type: ignore
+    ...
 
 
 @overload
