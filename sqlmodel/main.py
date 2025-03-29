@@ -744,6 +744,9 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         "index": index,
         "unique": unique,
     }
+    description = getattr(field_info, "description", Undefined)
+    if description is not Undefined:
+        kwargs["comment"] = description
     sa_default = Undefined
     if field_info.default_factory:
         sa_default = field_info.default_factory
