@@ -42,6 +42,7 @@ from sqlalchemy import (
 from sqlalchemy import Enum as sa_Enum
 from sqlalchemy.orm import (
     Mapped,
+    MappedColumn,
     RelationshipProperty,
     declared_attr,
     registry,
@@ -700,13 +701,13 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column:  # type: ignore
+def get_column_from_field(field: Any) -> Union[Column, MappedColumn]:  # type: ignore
     if IS_PYDANTIC_V2:
         field_info = field
     else:
         field_info = field.field_info
     sa_column = getattr(field_info, "sa_column", Undefined)
-    if isinstance(sa_column, Column):
+    if isinstance(sa_column, (Column, MappedColumn)):
         return sa_column
     sa_type = get_sqlalchemy_type(field)
     primary_key = getattr(field_info, "primary_key", Undefined)
