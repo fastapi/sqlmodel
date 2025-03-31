@@ -12,6 +12,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1327](https://github.com/fastapi/sqlmodel/pull/1327) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump jinja2 from 3.1.4 to 3.1.6. PR [#1317](https://github.com/fastapi/sqlmodel/pull/1317) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1319](https://github.com/fastapi/sqlmodel/pull/1319) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 
