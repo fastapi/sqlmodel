@@ -103,7 +103,7 @@ def test_json_schema_inherit_model_pydantic_v1():
             },
             "MyEnum3": {
                 "title": "MyEnum3",
-                "description": "An int enumeration.",
+                "description": "An enumeration.",
                 "enum": [1, 2],
                 "type": "integer",
             },
