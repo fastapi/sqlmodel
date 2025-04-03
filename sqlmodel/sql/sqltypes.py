@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from enum import IntEnum as _IntEnum
-from typing import Any, Optional, TypeVar, Type, cast, Any
+from typing import Any, Optional, Type, TypeVar, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
@@ -106,7 +106,6 @@ class IntEnum(types.TypeDecorator):  # type: ignore
         value: Optional[int],
         dialect: Dialect,
     ) -> Optional[_TIntEnum]:
-
         if value is None:
             return None
 
@@ -118,7 +117,6 @@ class IntEnum(types.TypeDecorator):  # type: ignore
         value: Optional[_TIntEnum],
         dialect: Dialect,
     ) -> Optional[int]:
-
         if value is None:
             return None
 
