@@ -76,8 +76,8 @@ def test_json_schema_flat_model_pydantic_v1():
             "MyEnum3": {
                 "title": "MyEnum3",
                 "description": "An enumeration.",
-                "enum": [1, 3],
-                "type": "int",
+                "enum": [1, 2],
+                "type": "integer",
             },
         },
     }
@@ -104,8 +104,8 @@ def test_json_schema_inherit_model_pydantic_v1():
             "MyEnum3": {
                 "title": "MyEnum3",
                 "description": "An int enumeration.",
-                "enum": [1, 3],
-                "type": "int",
+                "enum": [1, 2],
+                "type": "integer",
             },
         },
     }
