@@ -17,9 +17,10 @@ from sqlalchemy.orm import Session as _Session
 from sqlalchemy.orm._typing import OrmExecuteOptionsParameter
 from sqlalchemy.sql._typing import _ColumnsClauseArgument
 from sqlalchemy.sql.base import Executable as _Executable
-from sqlmodel.sql.base import Executable
-from sqlmodel.sql.expression import Select, SelectOfScalar
 from typing_extensions import deprecated
+
+from ..sql.base import Executable
+from ..sql.expression import Select, SelectOfScalar
 
 _TSelectParam = TypeVar("_TSelectParam", bound=Any)
 
