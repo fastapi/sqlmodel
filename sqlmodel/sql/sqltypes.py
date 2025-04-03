@@ -1,11 +1,10 @@
-from typing import Any, cast, Optional, TypeVar
 from enum import IntEnum as _IntEnum
+from typing import Any, Optional, TypeVar, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
 
-
-_TIntEnum = TypeVar('_TIntEnum', bound="_IntEnum")
+_TIntEnum = TypeVar("_TIntEnum", bound="_IntEnum")
 
 
 class AutoString(types.TypeDecorator):  # type: ignore
@@ -56,16 +55,18 @@ class IntEnum(types.TypeDecorator):  # type: ignore
 
         self.enum_type = enum_type
 
-    def process_result_value(self, value: Optional[int], dialect: Dialect) -> Optional[_TIntEnum]:
-
+    def process_result_value(
+        self, value: Optional[int], dialect: Dialect
+    ) -> Optional[_TIntEnum]:
         if value is None:
             return None
 
         result = self.enum_type(value)
         return result
 
-    def process_bind_param(self, value: Optional[_TIntEnum], dialect: Dialect) -> Optional[int]:
-
+    def process_bind_param(
+        self, value: Optional[_TIntEnum], dialect: Dialect
+    ) -> Optional[int]:
         if value is None:
             return None
 
