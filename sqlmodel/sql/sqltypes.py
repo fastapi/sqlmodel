@@ -19,6 +19,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
             return dialect.type_descriptor(types.String(self.mysql_default_length))
         return super().load_dialect_impl(dialect)
 
+
 class IntEnum(types.TypeDecorator):  # type: ignore
     """TypeDecorator for Integer-enum conversion.
 
@@ -30,7 +31,7 @@ class IntEnum(types.TypeDecorator):  # type: ignore
     Example:
         >>> class HeroStatus(enum.IntEnum):
         ...     ACTIVE = 1
-        ...     DISABLE = 2    
+        ...     DISABLE = 2
         >>>>
         >>> from sqlmodel import IntEnum
         >>> class Hero(SQLModel):
@@ -51,9 +52,7 @@ class IntEnum(types.TypeDecorator):  # type: ignore
 
         # validate the input enum type
         if not issubclass(enum_type, _IntEnum):
-            raise TypeError(
-                f"Input must be enum.IntEnum"
-            )
+            raise TypeError("Input must be enum.IntEnum")
 
         self.enum_type = enum_type
 
