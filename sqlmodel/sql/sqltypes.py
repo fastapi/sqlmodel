@@ -97,7 +97,7 @@ class IntEnum(types.TypeDecorator):  # type: ignore
 
         # validate the input enum type
         if not issubclass(enum_type, _IntEnum):
-            raise TypeError(f"Input must be enum.IntEnum")
+            raise TypeError("Input must be enum.IntEnum")
 
         self.enum_type = enum_type
 
