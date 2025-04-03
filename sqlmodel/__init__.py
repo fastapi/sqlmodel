@@ -141,3 +141,4 @@ from .sql.expression import tuple_ as tuple_
 from .sql.expression import type_coerce as type_coerce
 from .sql.expression import within_group as within_group
 from .sql.sqltypes import AutoString as AutoString
+from .sql.sqltypes import IntEnum as IntEnum

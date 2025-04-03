@@ -63,14 +63,21 @@ def test_json_schema_flat_model_pydantic_v1():
         "properties": {
             "id": {"title": "Id", "type": "string", "format": "uuid"},
             "enum_field": {"$ref": "#/definitions/MyEnum1"},
+            "int_enum_field": {"$ref": "#/definitions/MyEnum3"},
         },
-        "required": ["id", "enum_field"],
+        "required": ["id", "enum_field", "int_enum_field"],
         "definitions": {
             "MyEnum1": {
                 "title": "MyEnum1",
                 "description": "An enumeration.",
                 "enum": ["A", "B"],
                 "type": "string",
+            },
+            "MyEnum3": {
+                "title": "MyEnum3",
+                "description": "An enumeration.",
+                "enum": [1, 3],
+                "type": "int",
             }
         },
     }
@@ -84,14 +91,21 @@ def test_json_schema_inherit_model_pydantic_v1():
         "properties": {
             "id": {"title": "Id", "type": "string", "format": "uuid"},
             "enum_field": {"$ref": "#/definitions/MyEnum2"},
+            "int_enum_field": {"$ref": "#/definitions/MyEnum3"},
         },
-        "required": ["id", "enum_field"],
+        "required": ["id", "enum_field", "int_enum_field"],
         "definitions": {
             "MyEnum2": {
                 "title": "MyEnum2",
                 "description": "An enumeration.",
                 "enum": ["C", "D"],
                 "type": "string",
+            },
+            "MyEnum3": {
+                "title": "MyEnum3",
+                "description": "An int enumeration.",
+                "enum": [1, 3],
+                "type": "int",
             }
         },
     }
@@ -105,10 +119,12 @@ def test_json_schema_flat_model_pydantic_v2():
         "properties": {
             "id": {"title": "Id", "type": "string", "format": "uuid"},
             "enum_field": {"$ref": "#/$defs/MyEnum1"},
+            "int_enum_field": {"$ref": "#/$defs/MyEnum3"},
         },
-        "required": ["id", "enum_field"],
+        "required": ["id", "enum_field", "int_enum_field"],
         "$defs": {
-            "MyEnum1": {"enum": ["A", "B"], "title": "MyEnum1", "type": "string"}
+            "MyEnum1": {"enum": ["A", "B"], "title": "MyEnum1", "type": "string"},
+            "MyEnum3": {"enum": [1, 2], "title": "MyEnum3", "type": "integer"},
         },
     }
 
@@ -121,9 +137,11 @@ def test_json_schema_inherit_model_pydantic_v2():
         "properties": {
             "id": {"title": "Id", "type": "string", "format": "uuid"},
             "enum_field": {"$ref": "#/$defs/MyEnum2"},
+            "int_enum_field": {"$ref": "#/$defs/MyEnum3"},
         },
-        "required": ["id", "enum_field"],
+        "required": ["id", "enum_field", "int_enum_field"],
         "$defs": {
-            "MyEnum2": {"enum": ["C", "D"], "title": "MyEnum2", "type": "string"}
+            "MyEnum2": {"enum": ["C", "D"], "title": "MyEnum2", "type": "string"},
+            "MyEnum3": {"enum": [1, 2], "title": "MyEnum3", "type": "integer"},
         },
     }
