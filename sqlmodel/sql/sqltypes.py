@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from enum import IntEnum as _IntEnum
-from typing import Any, Optional, cast
+from typing import Any, Optional, TypeVar, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
@@ -50,7 +50,7 @@ class UTCDateTime(types.TypeDecorator[datetime]):
         return value.astimezone(timezone.utc)
 
 
-class AutoString(types.TypeDecorator):
+class AutoString(types.TypeDecorator):  # type: ignore
     impl = types.String
     cache_ok = True
     mysql_default_length = 255
@@ -60,6 +60,9 @@ class AutoString(types.TypeDecorator):
         if impl.length is None and dialect.name == "mysql":
             return dialect.type_descriptor(types.String(self.mysql_default_length))
         return super().load_dialect_impl(dialect)
+
+
+_TIntEnum = TypeVar("_TIntEnum", bound="_IntEnum")
 
 
 class IntEnum(types.TypeDecorator):  # type: ignore
@@ -89,7 +92,7 @@ class IntEnum(types.TypeDecorator):  # type: ignore
 
     impl = types.Integer
 
-    def __init__(self, enum_type: _IntEnum, *args, **kwargs):
+    def __init__(self, enum_type: _TIntEnum, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         # validate the input enum type
@@ -98,7 +101,9 @@ class IntEnum(types.TypeDecorator):  # type: ignore
 
         self.enum_type = enum_type
 
-    def process_result_value(self, value: Optional[int], dialect) -> Optional[_IntEnum]:
+    def process_result_value(
+        self, value: Optional[int], dialect: Dialect
+    ) -> Optional[_TIntEnum]:
 
         if value is None:
             return None
@@ -106,7 +111,9 @@ class IntEnum(types.TypeDecorator):  # type: ignore
         result = self.enum_type(value)
         return result
 
-    def process_bind_param(self, value: Optional[_IntEnum], dialect) -> Optional[int]:
+    def process_bind_param(
+        self, value: Optional[_TIntEnum], dialect: Dialect
+    ) -> Optional[int]:
 
         if value is None:
             return None
