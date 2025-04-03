@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 from enum import IntEnum as _IntEnum
-from typing import Any, Optional, TypeVar, cast
+from typing import Any, Optional, TypeVar, Type, cast, Any
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
@@ -92,7 +92,7 @@ class IntEnum(types.TypeDecorator):  # type: ignore
 
     impl = types.Integer
 
-    def __init__(self, enum_type: _TIntEnum, *args, **kwargs):
+    def __init__(self, enum_type: Type[_TIntEnum], *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
 
         # validate the input enum type
@@ -101,8 +101,10 @@ class IntEnum(types.TypeDecorator):  # type: ignore
 
         self.enum_type = enum_type
 
-    def process_result_value(
-        self, value: Optional[int], dialect: Dialect
+    def process_result_value(  # type: ignore[override]
+        self,
+        value: Optional[int],
+        dialect: Dialect,
     ) -> Optional[_TIntEnum]:
 
         if value is None:
@@ -112,7 +114,9 @@ class IntEnum(types.TypeDecorator):  # type: ignore
         return result
 
     def process_bind_param(
-        self, value: Optional[_TIntEnum], dialect: Dialect
+        self,
+        value: Optional[_TIntEnum],
+        dialect: Dialect,
     ) -> Optional[int]:
 
         if value is None:
