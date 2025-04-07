@@ -477,7 +477,7 @@ def Relationship(
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
     model_config: SQLModelConfig
-    model_fields: Dict[str, FieldInfo]  # type: ignore[assignment]
+    model_fields: Dict[str, FieldInfo]
     __config__: Type[SQLModelConfig]
     __fields__: Dict[str, ModelField]  # type: ignore[assignment]
 
@@ -839,7 +839,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(
+    def model_validate(   # type: ignore[override]
         cls: Type[_TSQLModel],
         obj: Any,
         *,
@@ -857,7 +857,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             update=update,
         )
 
-    def model_dump(
+    def model_dump(  # type: ignore[override]
         self,
         *,
         mode: Union[Literal["json", "python"], str] = "python",
