@@ -839,15 +839,16 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(  # type: ignore[override]
+    def model_validate(
         cls: Type[_TSQLModel],
         obj: Any,
         *,
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
         context: Union[Dict[str, Any], None] = None,
-        update: Union[Dict[str, Any], None] = None,
+        **kwargs: Any,
     ) -> _TSQLModel:
+        update = kwargs.get("update", None)
         return sqlmodel_validate(
             cls=cls,
             obj=obj,
@@ -857,25 +858,28 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             update=update,
         )
 
-    def model_dump(  # type: ignore[override]
+    def model_dump(
         self,
         *,
         mode: Union[Literal["json", "python"], str] = "python",
         include: Union[IncEx, None] = None,
         exclude: Union[IncEx, None] = None,
-        context: Union[Dict[str, Any], None] = None,
-        by_alias: bool = False,
+        context: Union[Any, None] = None,
+        by_alias: Union[bool, None] = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        fallback: Callable[[Any], Any] | None = ...,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if PYDANTIC_MINOR_VERSION >= (2, 7):
+            assert isinstance(context, Dict)
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
                 "serialize_as_any": serialize_as_any,
+                "fallback": fallback,
             }
         else:
             extra_kwargs = {}
@@ -893,6 +897,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 **extra_kwargs,
             )
         else:
+            assert by_alias is not None
             return super().dict(
                 include=include,
                 exclude=exclude,
