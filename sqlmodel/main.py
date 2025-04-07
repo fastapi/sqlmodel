@@ -871,7 +871,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_none: bool = False,
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
-        fallback: Callable[[Any], Any] | None = ...,
+        fallback: Callable[[Any], Any] | None = None,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if PYDANTIC_MINOR_VERSION >= (2, 7):
