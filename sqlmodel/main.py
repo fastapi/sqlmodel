@@ -839,7 +839,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(   # type: ignore[override]
+    def model_validate(  # type: ignore[override]
         cls: Type[_TSQLModel],
         obj: Any,
         *,
