@@ -875,7 +875,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if PYDANTIC_MINOR_VERSION >= (2, 7):
-            assert isinstance(context, Dict)
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
                 "serialize_as_any": serialize_as_any,
