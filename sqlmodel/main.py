@@ -871,15 +871,18 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_none: bool = False,
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
-        fallback: Union[Callable[[Any], Any], None] = None,
         serialize_as_any: bool = False,
+        **kwargs: Any,
     ) -> Dict[str, Any]:
+        fallback = kwargs.get("fallback", None)
         if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
                 "serialize_as_any": serialize_as_any,
-                "fallback": fallback,
             }
+        if PYDANTIC_MINOR_VERSION >= (2, 11):
+            extra_kwargs["fallback"] = fallback
+
         else:
             extra_kwargs = {}
         if IS_PYDANTIC_V2:
