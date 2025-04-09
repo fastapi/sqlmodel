@@ -67,7 +67,7 @@ jobs:
         if: matrix.pydantic-version == 'pydantic-v2'
         run: uv pip install --upgrade "pydantic>=2.0.2,<3.0.0"
       - name: Lint
-        if: matrix.pydantic-version == 'pydantic-v2'
+        if: matrix.pydantic-version == 'pydantic-v2' && matrix.python-version != '3.8'
         run: bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
