@@ -864,19 +864,21 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         mode: Union[Literal["json", "python"], str] = "python",
         include: Union[IncEx, None] = None,
         exclude: Union[IncEx, None] = None,
-        context: Union[Dict[str, Any], None] = None,
-        by_alias: bool = False,
+        context: Union[Any, None] = None,
+        by_alias: Union[bool, None] = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        fallback: Union[Callable[[Any], Any], None] = None,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
         if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
                 "serialize_as_any": serialize_as_any,
+                "fallback": fallback,
             }
         else:
             extra_kwargs = {}
@@ -894,6 +896,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 **extra_kwargs,
             )
         else:
+            assert by_alias is not None
             return super().dict(
                 include=include,
                 exclude=exclude,
