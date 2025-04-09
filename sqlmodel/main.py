@@ -846,8 +846,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
         context: Union[Dict[str, Any], None] = None,
-        update: Union[Dict[str, Any], None] = None,
+        **kwargs: Any,
     ) -> _TSQLModel:
+        update = kwargs.get("update", None)
         return sqlmodel_validate(
             cls=cls,
             obj=obj,
