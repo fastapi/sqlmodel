@@ -57,12 +57,25 @@ class AsyncSession(_AsyncSession):
         _add_event: Optional[Any] = None,
     ) -> ScalarResult[_TSelectParam]: ...
 
+    @overload
+    async def exec(
+        self,
+        statement: _Executable,
+        *,
+        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        execution_options: Mapping[str, Any] = util.EMPTY_DICT,
+        bind_arguments: Optional[Dict[str, Any]] = None,
+        _parent_execute_state: Optional[Any] = None,
+        _add_event: Optional[Any] = None,
+    ) -> Result[Any]: ...
+
     async def exec(
         self,
         statement: Union[
             Select[_TSelectParam],
             SelectOfScalar[_TSelectParam],
             Executable[_TSelectParam],
+            _Executable,
         ],
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
@@ -70,7 +83,7 @@ class AsyncSession(_AsyncSession):
         bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
-    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam]]:
+    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam], Result[Any]]:
         if execution_options:
             execution_options = util.immutabledict(execution_options).union(
                 _EXECUTE_OPTIONS
