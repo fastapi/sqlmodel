@@ -10,6 +10,7 @@ from typing import (
 )
 
 from sqlalchemy import util
+from sqlalchemy.engine.cursor import CursorResult
 from sqlalchemy.engine.interfaces import _CoreAnyExecuteParams
 from sqlalchemy.engine.result import Result, ScalarResult, TupleResult
 from sqlalchemy.orm import Query as _Query
@@ -17,6 +18,7 @@ from sqlalchemy.orm import Session as _Session
 from sqlalchemy.orm._typing import OrmExecuteOptionsParameter
 from sqlalchemy.sql._typing import _ColumnsClauseArgument
 from sqlalchemy.sql.base import Executable as _Executable
+from sqlalchemy.sql.dml import UpdateBase
 from sqlmodel.sql.base import Executable
 from sqlmodel.sql.expression import Select, SelectOfScalar
 from typing_extensions import deprecated
@@ -52,14 +54,14 @@ class Session(_Session):
     @overload
     def exec(
         self,
-        statement: _Executable,
+        statement: UpdateBase,
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
         bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
-    ) -> Result[Any]: ...
+    ) -> CursorResult[Any]: ...
 
     def exec(
         self,
@@ -67,7 +69,7 @@ class Session(_Session):
             Select[_TSelectParam],
             SelectOfScalar[_TSelectParam],
             Executable[_TSelectParam],
-            _Executable,
+            UpdateBase,
         ],
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
@@ -75,7 +77,7 @@ class Session(_Session):
         bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
-    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam], Result[Any]]:
+    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam], CursorResult[Any]]:
         results = super().execute(
             statement,
             params=params,
