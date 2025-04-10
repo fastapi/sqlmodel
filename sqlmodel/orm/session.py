@@ -77,7 +77,9 @@ class Session(_Session):
         bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
-    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam], CursorResult[Any]]:
+    ) -> Union[
+        TupleResult[_TSelectParam], ScalarResult[_TSelectParam], CursorResult[Any]
+    ]:
         results = super().execute(
             statement,
             params=params,
