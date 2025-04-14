@@ -63,7 +63,7 @@ There is a script that you can run locally to test all the code and generate cov
 <div class="termy">
 
 ```console
-$ bash scripts/test-cov-html.sh
+$ bash scripts/test.sh
 ```
 
 </div>
