@@ -21,6 +21,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
 
 class IntEnum(types.TypeDecorator):  # type: ignore
     impl = types.Integer
+    cache_ok = True
 
     def __init__(self, enum_type: Type[_TIntEnum], *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
