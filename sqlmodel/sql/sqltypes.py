@@ -66,30 +66,6 @@ _TIntEnum = TypeVar("_TIntEnum", bound="_IntEnum")
 
 
 class IntEnum(types.TypeDecorator):  # type: ignore
-    """TypeDecorator for Integer-enum conversion.
-
-    Automatically converts Python enum.IntEnum <-> database integers.
-
-    Args:
-        enum_type (enum.IntEnum): Integer enum class (subclass of enum.IntEnum)
-
-    Example:
-        >>> class HeroStatus(enum.IntEnum):
-        ...     ACTIVE = 1
-        ...     DISABLE = 2
-        >>>>
-        >>> from sqlmodel import IntEnum
-        >>> class Hero(SQLModel):
-        ...     hero_status: HeroStatus = Field(sa_type=sqlmodel.IntEnum(HeroStatus))
-        >>> user.hero_status == Status.ACTIVE      # Loads back as enum
-
-    Returns:
-        Optional[enum.IntEnum]: Converted enum instance (None if database value is NULL)
-
-    Raises:
-        TypeError: For invalid enum types
-    """
-
     impl = types.Integer
 
     def __init__(self, enum_type: Type[_TIntEnum], *args: Any, **kwargs: Any):
