@@ -873,6 +873,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         fallback: Union[Callable[[Any], Any], None] = None,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
+        if PYDANTIC_MINOR_VERSION < (2, 11):
+            by_alias = by_alias or False
         if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
@@ -880,7 +882,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             }
         if PYDANTIC_MINOR_VERSION >= (2, 11):
             extra_kwargs["fallback"] = fallback
-
         else:
             extra_kwargs = {}
         if IS_PYDANTIC_V2:
