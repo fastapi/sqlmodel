@@ -839,16 +839,15 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(
+    def model_validate(  # type: ignore[override]
         cls: Type[_TSQLModel],
         obj: Any,
         *,
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
         context: Union[Dict[str, Any], None] = None,
-        **kwargs: Any,
+        update: Union[Dict[str, Any], None] = None,
     ) -> _TSQLModel:
-        update = kwargs.get("update", None)
         return sqlmodel_validate(
             cls=cls,
             obj=obj,
@@ -865,16 +864,15 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         include: Union[IncEx, None] = None,
         exclude: Union[IncEx, None] = None,
         context: Union[Any, None] = None,
-        by_alias: Union[bool, None] = False,
+        by_alias: Union[bool, None] = None,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        fallback: Callable[[Any], Any] | None = None,
         serialize_as_any: bool = False,
-        **kwargs: Any,
     ) -> Dict[str, Any]:
-        fallback = kwargs.get("fallback", None)
         if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
@@ -899,11 +897,10 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 **extra_kwargs,
             )
         else:
-            assert by_alias is not None
             return super().dict(
                 include=include,
                 exclude=exclude,
-                by_alias=by_alias,
+                by_alias=by_alias or False,
                 exclude_unset=exclude_unset,
                 exclude_defaults=exclude_defaults,
                 exclude_none=exclude_none,
