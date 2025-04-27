@@ -446,7 +446,7 @@ Now we would be able to, for example, import the `Hero` class in some other file
 
 We prevented the side effects when importing something from your `app.py` file.
 
-But we still want it to **create the database and table** when we call it with Python directly as an independent script from the terminal, just as as above.
+But we still want it to **create the database and table** when we call it with Python directly as an independent script from the terminal, just as above.
 
 /// tip
 
@@ -562,7 +562,7 @@ Now, let's give the code a final look:
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{.python .annotate}
 {!./docs_src/tutorial/create_db_and_table/tutorial003.py!}

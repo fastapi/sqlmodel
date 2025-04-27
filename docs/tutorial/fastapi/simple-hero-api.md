@@ -32,54 +32,7 @@ We will start with the **simplest version**, with just heroes (no teams yet).
 
 This is almost the same code we have seen up to now in previous examples:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="18-19"
-
-# One line of FastAPI imports here later 👈
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:2]!}
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:5-20]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="20-21"
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:1]!}
-
-# One line of FastAPI imports here later 👈
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:4]!}
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:7-22]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[2,5:20] hl[19:20] *}
 
 There's only one change here from the code we have used before, the `check_same_thread` in the `connect_args`.
 
@@ -107,53 +60,7 @@ We will import the `FastAPI` class from `fastapi`.
 
 And then create an `app` object that is an instance of that `FastAPI` class:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  6"
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:1-2]!}
-
-# SQLModel code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3  8"
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:1-4]!}
-
-# SQLModel code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[1:2,23] hl[1,23] *}
 
 ## Create Database and Tables on `startup`
 
@@ -161,49 +68,7 @@ We want to make sure that once the app starts running, the function `create_tabl
 
 This should be called only once at startup, not before every request, so we put it in the function to handle the `"startup"` event:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23-28]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-30]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:28] hl[26:28] *}
 
 ## Create Heroes *Path Operation*
 
@@ -217,49 +82,7 @@ Let's create the **path operation** code to create a new hero.
 
 It will be called when a user sends a request with a `POST` **operation** to the `/heroes/` **path**:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="11-12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23-37]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="11-12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-39]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:37] hl[31:32] *}
 
 /// info
 
@@ -293,45 +116,7 @@ We will improve this further later, but for now, it already shows the power of h
 
 Now let's add another **path operation** to read all the heroes:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="20-24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py[ln:23-44]!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="20-24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-46]!}
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:44] hl[40:44] *}
 
 This is pretty straightforward.
 
