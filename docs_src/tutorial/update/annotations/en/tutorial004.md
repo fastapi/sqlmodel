@@ -35,12 +35,15 @@
     INFO Engine [no key 0.00020s] ('Captain North America',)
     ```
 
-    !!! tip
-        See the `BEGIN` at the top?
+    /// tip
 
-        This is SQLAlchemy automatically starting a transaction for us.
+    See the `BEGIN` at the top?
 
-        This way, we could revert the last changes (if there were some) if we wanted to, even if the SQL to create them was already sent to the database.
+    This is SQLAlchemy automatically starting a transaction for us.
+
+    This way, we could revert the last changes (if there were some) if we wanted to, even if the SQL to create them was already sent to the database.
+
+    ///
 
 7. Get one hero object for this new query.
 
@@ -98,10 +101,13 @@
     INFO Engine COMMIT
     ```
 
-    !!! tip
-        See how SQLAlchemy (that powers SQLModel) optimizes the SQL to do as much work as possible in a single batch.
+    /// tip
 
-        Here it updates both heroes in a single SQL query.
+    See how SQLAlchemy (that powers SQLModel) optimizes the SQL to do as much work as possible in a single batch.
+
+    Here it updates both heroes in a single SQL query.
+
+    ///
 
 16. Refresh the first hero.
 
@@ -115,8 +121,11 @@
     INFO Engine [generated in 0.00023s] (2,)
     ```
 
-    !!! tip
-        Because we just committed a SQL transaction with `COMMIT`, SQLAlchemy will automatically start a new transaction with `BEGIN`.
+    /// tip
+
+    Because we just committed a SQL transaction with `COMMIT`, SQLAlchemy will automatically start a new transaction with `BEGIN`.
+
+    ///
 
 17. Refresh the second hero.
 
@@ -129,8 +138,11 @@
     INFO Engine [cached since 0.001709s ago] (7,)
     ```
 
-    !!! tip
-        SQLAlchemy is still using the previous transaction, so it doesn't have to create a new one.
+    /// tip
+
+    SQLAlchemy is still using the previous transaction, so it doesn't have to create a new one.
+
+    ///
 
 18. Print the first hero, now updated.
 

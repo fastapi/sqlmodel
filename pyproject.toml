@@ -7,7 +7,7 @@ name = "sqlmodel"
 dynamic = ["version"]
 description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 authors = [
     { name = "Sebastián Ramírez", email = "tiangolo@gmail.com" },
 ]
@@ -20,12 +20,12 @@ classifiers = [
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Database",
     "Topic :: Database :: Database Engines/Servers",
     "Topic :: Internet",
@@ -40,9 +40,11 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/tiangolo/sqlmodel"
+Homepage = "https://github.com/fastapi/sqlmodel"
 Documentation = "https://sqlmodel.tiangolo.com"
-Repository = "https://github.com/tiangolo/sqlmodel"
+Repository = "https://github.com/fastapi/sqlmodel"
+Issues = "https://github.com/fastapi/sqlmodel/issues"
+Changelog = "https://sqlmodel.tiangolo.com/release-notes/"
 
 [tool.pdm]
 version = { source = "file", path = "sqlmodel/__init__.py" }
@@ -71,20 +73,27 @@ optional-dependencies = {}
 
 [tool.coverage.run]
 parallel = true
+data_file = "coverage/.coverage"
 source = [
     "docs_src",
     "tests",
     "sqlmodel"
 ]
 context = '${CONTEXT}'
+dynamic_context = "test_function"
 
 [tool.coverage.report]
+show_missing = true
+sort = "-Cover"
 exclude_lines = [
     "pragma: no cover",
     "@overload",
     'if __name__ == "__main__":',
     "if TYPE_CHECKING:",
 ]
+
+[tool.coverage.html]
+show_contexts = true
 
 [tool.mypy]
 strict = true
