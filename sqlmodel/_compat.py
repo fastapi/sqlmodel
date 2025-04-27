@@ -25,7 +25,8 @@ from typing_extensions import Annotated, get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
-IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
+PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
+IS_PYDANTIC_V2 = PYDANTIC_MINOR_VERSION[0] == 2
 
 
 if TYPE_CHECKING:
@@ -102,7 +103,14 @@ if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
-        return model.model_fields
+        # TODO: refactor the usage of this function to always pass the class
+        # not the instance, and then remove this extra check
+        # this is for compatibility with Pydantic v3
+        if isinstance(model, type):
+            use_model = model
+        else:
+            use_model = model.__class__
+        return use_model.model_fields
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],

@@ -1,10 +1,10 @@
-## About the String in `List["Hero"]`
+## About the String in `list["Hero"]`
 
-In the first Relationship attribute, we declare it with `List["Hero"]`, putting the `Hero` in quotes instead of just normally there:
+In the first Relationship attribute, we declare it with `list["Hero"]`, putting the `Hero` in quotes instead of just normally there:
 
 {* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1:19] hl[9] *}
 
-What's that about? Can't we just write it normally as `List[Hero]`?
+What's that about? Can't we just write it normally as `list[Hero]`?
 
 By that point, in that line in the code, the Python interpreter **doesn't know of any class `Hero`**, and if we put it just there, it would try to find it unsuccessfully, and then fail. 😭
 

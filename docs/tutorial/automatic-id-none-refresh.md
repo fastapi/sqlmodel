@@ -342,7 +342,7 @@ And as we created the **engine** with `echo=True`, we can see the SQL statements
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}
