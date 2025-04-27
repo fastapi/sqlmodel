@@ -85,7 +85,7 @@ body:
             session.add(hero_1)
             session.commit()
             session.refresh(hero_1)
-            print(hero_1)\
+            print(hero_1)
       render: python
     validations:
       required: true
