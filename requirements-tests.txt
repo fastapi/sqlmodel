@@ -6,7 +6,7 @@ mypy ==1.4.1
 ruff ==0.9.6
 # For FastAPI tests
 fastapi >=0.103.2
-httpx ==0.24.1
+httpx ==0.28.1
 dirty-equals ==0.9.0
 jinja2 ==3.1.6
 typing-extensions ==4.12.2

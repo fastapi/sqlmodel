@@ -8,10 +8,15 @@
 
 ### Docs
 
+* 📝 Update all docs references to `Optional` to use the new syntax in Python 3.10, e.g. `int | None`. PR [#1351](https://github.com/fastapi/sqlmodel/pull/1351) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update install and usage with FastAPI CLI in FastAPI tutorial. PR [#1350](https://github.com/fastapi/sqlmodel/pull/1350) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update FastAPI tutorial docs to use the new `model.sqlmodel_update()` instead of old `setattr()`. PR [#1117](https://github.com/fastapi/sqlmodel/pull/1117) by [@jpizquierdo](https://github.com/jpizquierdo).
 * ✏️ Update `docs/virtual-environments.md`. PR [#1321](https://github.com/fastapi/sqlmodel/pull/1321) by [@sylvainHellin](https://github.com/sylvainHellin).
 
 ### Internal
 
+* ⬆ Bump httpx from 0.24.1 to 0.28.1. PR [#1238](https://github.com/fastapi/sqlmodel/pull/1238) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump astral-sh/setup-uv from 5 to 6. PR [#1348](https://github.com/fastapi/sqlmodel/pull/1348) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Update pytest requirement from <8.0.0,>=7.0.1 to >=7.0.1,<9.0.0. PR [#1022](https://github.com/fastapi/sqlmodel/pull/1022) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ♻️ Update `tests/test_select_gen.py`, pass environment variables, needed for NixOS nixpkgs. PR [#969](https://github.com/fastapi/sqlmodel/pull/969) by [@pbsds](https://github.com/pbsds).
 * 💚 Fix linting in CI. PR [#1340](https://github.com/fastapi/sqlmodel/pull/1340) by [@svlandeg](https://github.com/svlandeg).
