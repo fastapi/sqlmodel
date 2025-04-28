@@ -8,15 +8,15 @@ We want clients to be able to update the `name`, the `secret_name`, and the `age
 
 But we don't want them to have to include all the data again just to **update a single field**.
 
-So, we need to have all those fields **marked as optional**.
+So, we need to make all those fields **optional**.
 
-And because the `HeroBase` has some of them as *required* and not optional, we will need to **create a new model**.
+And because the `HeroBase` has some of them *required* (without a default value), we will need to **create a new model**.
 
 /// tip
 
 Here is one of those cases where it probably makes sense to use an **independent model** instead of trying to come up with a complex tree of models inheriting from each other.
 
-Because each field is **actually different** (we just change it to `Optional`, but that's already making it different), it makes sense to have them in their own model.
+Because each field is **actually different** (we just set a default value of `None`, but that's already making it different), it makes sense to have them in their own model.
 
 ///
 

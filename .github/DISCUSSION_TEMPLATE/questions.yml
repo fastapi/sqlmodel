@@ -64,16 +64,14 @@ body:
         If I (or someone) can copy it, run it, and see it right away, there's a much higher chance I (or someone) will be able to help you.
 
       placeholder: |
-        from typing import Optional
-
         from sqlmodel import Field, Session, SQLModel, create_engine
 
 
         class Hero(SQLModel, table=True):
-            id: Optional[int] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
             name: str
             secret_name: str
-            age: Optional[int] = None
+            age: int | None = None
 
 
         hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
