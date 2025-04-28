@@ -68,15 +68,15 @@ if hero.team:
     print(hero.team.name)
 ```
 
-## Optional Relationship Attributes
+## Relationship Attributes or `None`
 
-Notice that in the `Hero` class, the type annotation for `team` is `Optional[Team]`.
+Notice that in the `Hero` class, the type annotation for `team` is `Team | None`.
 
 This means that this attribute could be `None`, or it could be a full `Team` object.
 
 This is because the related **`team_id` could also be `None`** (or `NULL` in the database).
 
-If it was required for a `Hero` instance to belong to a `Team`, then the `team_id` would be `int` instead of `Optional[int]`, its `Field` would be `Field(foreign_key="team.id")` instead of `Field(default=None, foreign_key="team.id")` and the `team` attribute would be a `Team` instead of `Optional[Team]`.
+If it was required for a `Hero` instance to belong to a `Team`, then the `team_id` would be `int` instead of `int | None`, its `Field` would be `Field(foreign_key="team.id")` instead of `Field(default=None, foreign_key="team.id")` and the `team` attribute would be a `Team` instead of `Team | None`.
 
 ## Relationship Attributes With Lists
 
