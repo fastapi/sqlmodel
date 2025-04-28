@@ -273,7 +273,7 @@ Let's review the code up to this point:
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{ .python .annotate }
 {!./docs_src/tutorial/select/tutorial002.py!}
