@@ -103,7 +103,14 @@ if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
-        return model.model_fields
+        # TODO: refactor the usage of this function to always pass the class
+        # not the instance, and then remove this extra check
+        # this is for compatibility with Pydantic v3
+        if isinstance(model, type):
+            use_model = model
+        else:
+            use_model = model.__class__
+        return use_model.model_fields
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
