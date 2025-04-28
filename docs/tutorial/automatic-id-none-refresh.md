@@ -4,7 +4,7 @@ In the previous chapter, we saw how to add rows to the database using **SQLModel
 
 Now let's talk a bit about why the `id` field **can't be `NULL`** on the database because it's a **primary key**, and we declare it using `Field(primary_key=True)`.
 
-But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `int | None (or Optional[int])`, and set the default value to `Field(default=None)`:
+But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `int | None`, and set the default value to `Field(default=None)`:
 
 {* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[4:8] hl[5] *}
 
@@ -18,15 +18,15 @@ When we create a new `Hero` instance, we don't set the `id`:
 
 {* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[21:24] hl[21:24] *}
 
-### How `Optional` Helps
+### How `int | None` Helps
 
 Because we don't set the `id`, it takes the Python's default value of `None` that we set in `Field(default=None)`.
 
-This is the only reason why we define it with `Optional` and with a default value of `None`.
+This is the only reason why we define it with `int | None` and with a default value of `None`.
 
 Because at this point in the code, **before interacting with the database**, the Python value could actually be `None`.
 
-If we assumed that the `id` was *always* an `int` and added the type annotation without `Optional`, we could end up writing broken code, like:
+If we assumed that the `id` was *always* an `int` and added the type annotation without `int | None`, we could end up writing broken code, like:
 
 ```Python
 next_hero_id = hero_1.id + 1
@@ -38,7 +38,7 @@ If we ran this code before saving the hero to the database and the `hero_1.id` w
 TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
 ```
 
-But by declaring it with `Optional[int]`, the editor will help us to avoid writing broken code by showing us a warning telling us that the code could be invalid if `hero_1.id` is `None`. 🔍
+But by declaring it with `int | None`, the editor will help us to avoid writing broken code by showing us a warning telling us that the code could be invalid if `hero_1.id` is `None`. 🔍
 
 ## Print the Default `id` Values
 

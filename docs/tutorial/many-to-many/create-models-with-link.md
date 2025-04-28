@@ -46,7 +46,7 @@ We **removed** the previous `team_id` field (column) because now the relationshi
 
 The relationship attribute is now named **`teams`** instead of `team`, as now we support multiple teams.
 
-It is no longer an `Optional[Team]` but a list of teams, annotated as **`list[Team]`**.
+It no longer has a type of `Team | None` but a list of teams, the type is now declared as **`list[Team]`**.
 
 We are using the **`Relationship()`** here too.
 

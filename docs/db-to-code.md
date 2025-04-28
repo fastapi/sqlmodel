@@ -252,10 +252,10 @@ For example this class is part of that **Object** Oriented Programming:
 
 ```Python
 class Hero(SQLModel):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 ```
 
 * **Relational**: refers to the **SQL Databases**. Remember that they are also called **Relational Databases**, because each of those tables is also called a "**relation**"? That's where the "**Relational**" comes from.

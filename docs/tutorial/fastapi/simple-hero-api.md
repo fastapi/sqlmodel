@@ -8,10 +8,6 @@ The first step is to install FastAPI.
 
 FastAPI is the framework to create the **web API**.
 
-But we also need another type of program to run it, it is called a "**server**". We will use **Uvicorn** for that. And we will install Uvicorn with its *standard* dependencies.
-
-Then install FastAPI.
-
 Make sure you create a [virtual environment](../../virtual-environments.md){.internal-link target=_blank}, activate it, and then install them, for example with:
 
 <div class="termy">
@@ -138,59 +134,47 @@ In this simple example, we just create the new sessions manually in the **path o
 
 In future examples later we will use a <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI Dependency</a> to get the **session**, being able to share it with other dependencies and being able to replace it during testing. 🤓
 
-## Run the **FastAPI** Application
+## Run the **FastAPI** Server in Development Mode
 
 Now we are ready to run the FastAPI application.
 
 Put all that code in a file called `main.py`.
 
-Then run it with **Uvicorn**:
+Then run it with the `fastapi` <abbr title="Command Line Interface">CLI</abbr>, in development mode:
 
 <div class="termy">
 
 ```console
-$ uvicorn main:app
+$ fastapi dev main.py
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-<span style="color: green;">INFO</span>:     Started reloader process [28720]
-<span style="color: green;">INFO</span>:     Started server process [28722]
-<span style="color: green;">INFO</span>:     Waiting for application startup.
-<span style="color: green;">INFO</span>:     Application startup complete.
 ```
 
 </div>
 
 /// info
 
-The command `uvicorn main:app` refers to:
-
-* `main`: the file `main.py` (the Python "module").
-* `app`: the object created inside of `main.py` with the line `app = FastAPI()`.
+The `fastapi` command uses <a href="https://www.uvicorn.org/" class="external-link" target="_blank">Uvicorn</a> underneath.
 
 ///
 
-### Uvicorn `--reload`
+When you use `fastapi dev` it starts Uvicorn with the option to reload automatically every time you make a change to the code, this way you will be able to develop faster. 🤓
 
-During development (and only during development), you can also add the option `--reload` to Uvicorn.
+## Run the **FastAPI** Server in Production Mode
 
-It will restart the server every time you make a change to the code, this way you will be able to develop faster. 🤓
+The development mode should not be used in production, as it includes automatic reload by default it consumes much more resources than necessary, and it would be more error prone, etc.
+
+For production, use `fastapi run` instead of `fastapi dev`:
 
 <div class="termy">
 
 ```console
-$ uvicorn main:app --reload
+$ fastapi run main.py
 
-<span style="color: green;">INFO</span>:     Will watch for changes in these directories: ['/home/user/code/sqlmodel-tutorial']
-<span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-<span style="color: green;">INFO</span>:     Started reloader process [28720]
-<span style="color: green;">INFO</span>:     Started server process [28722]
-<span style="color: green;">INFO</span>:     Waiting for application startup.
-<span style="color: green;">INFO</span>:     Application startup complete.
+<span style="color: green;">INFO</span>:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
 
 </div>
-
-Just remember to never use `--reload` in production, as it consumes much more resources than necessary, would be more error prone, etc.
 
 ## Check the API docs UI
 
@@ -212,7 +196,7 @@ And then you can get them back with the **Read Heroes** *path operation*:
 
 ## Check the Database
 
-Now you can terminate that Uvicorn server by going back to the terminal and pressing <kbd>Ctrl+C</kbd>.
+Now you can terminate that server program by going back to the terminal and pressing <kbd>Ctrl+C</kbd>.
 
 And then, you can open **DB Browser for SQLite** and check the database, to explore the data and confirm that it indeed saved the heroes. 🎉
 

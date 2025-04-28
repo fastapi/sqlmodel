@@ -46,7 +46,7 @@ Let's now add the **path operations** for teams.
 
 These are equivalent and very similar to the **path operations** for the **heroes** we had before, so we don't have to go over the details for each one, let's check the code.
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[136:190] hl[136:142,145:153,156:161,164:180,183:190] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[135:188] hl[135:141,144:152,155:160,163:178,181:188] *}
 
 ## Using Relationships Attributes
 
