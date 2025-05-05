@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+from contextlib import asynccontextmanager
 
 
 class Hero(SQLModel, table=True):
@@ -20,12 +21,13 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     create_db_and_tables()
+    yield
 
 
 @app.post("/heroes/")

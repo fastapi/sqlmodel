@@ -64,7 +64,7 @@ We want to make sure that once the app starts running, the function `create_tabl
 
 This should be called only once at startup, not before every request, so we put it in the function to handle the `"startup"` event:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:28] hl[26:28] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[24:30] hl[27:30] *}
 
 ## Create Heroes *Path Operation*
 
