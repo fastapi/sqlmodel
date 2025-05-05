@@ -166,7 +166,7 @@ This will tell **FastAPI** to take the object that we return from the *path oper
 
 In the case of the hero, this tells FastAPI to extract the `team` too. And in the case of the team, to extract the list of `heroes` too.
 
-{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[111:116,165:170] hl[111,116,165,170] *}
+{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[111:116,165:170] hl[111,116,164,169] *}
 
 ## Check It Out in the Docs UI
 
