@@ -8,6 +8,7 @@
 
 ### Docs
 
+* 📝 Grammar tweak in `docs/tutorial/insert.md`. PR [#1368](https://github.com/fastapi/sqlmodel/pull/1368) by [@brettcannon](https://github.com/brettcannon).
 * 📝 Update `docs/tutorial/fastapi/relationships.md`. PR [#1365](https://github.com/fastapi/sqlmodel/pull/1365) by [@Foxerine](https://github.com/Foxerine).
 * ✏️ Tweak the grammar in `docs/learn/index.md`. PR [#1363](https://github.com/fastapi/sqlmodel/pull/1363) by [@brettcannon](https://github.com/brettcannon).
 * 📝 Update all docs references to `Optional` to use the new syntax in Python 3.10, e.g. `int | None`. PR [#1351](https://github.com/fastapi/sqlmodel/pull/1351) by [@tiangolo](https://github.com/tiangolo).
