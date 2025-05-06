@@ -22,7 +22,7 @@ from sqlalchemy.orm import Session as _Session
 from sqlalchemy.orm._typing import OrmExecuteOptionsParameter
 from sqlalchemy.sql.base import Executable as _Executable
 from sqlalchemy.util.concurrency import greenlet_spawn
-from typing_extensions import deprecated, Concatenate, ParamSpec
+from typing_extensions import Concatenate, ParamSpec, deprecated
 
 from ...orm.session import Session
 from ...sql.base import Executable
