@@ -16,6 +16,7 @@
 
 ### Internal
 
+* ⬆ Bump mkdocs-macros-plugin from 1.0.5 to 1.3.7. PR [#1354](https://github.com/fastapi/sqlmodel/pull/1354) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump griffe-typingdoc from 0.2.5 to 0.2.8. PR [#1359](https://github.com/fastapi/sqlmodel/pull/1359) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Update pre-commit requirement from <4.0.0,>=2.17.0 to >=2.17.0,<5.0.0. PR [#1360](https://github.com/fastapi/sqlmodel/pull/1360) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pillow from 11.0.0 to 11.2.1. PR [#1361](https://github.com/fastapi/sqlmodel/pull/1361) by [@dependabot[bot]](https://github.com/apps/dependabot).
