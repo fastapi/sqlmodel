@@ -16,6 +16,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1367](https://github.com/fastapi/sqlmodel/pull/1367) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.9.6 to 0.11.7. PR [#1355](https://github.com/fastapi/sqlmodel/pull/1355) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1353](https://github.com/fastapi/sqlmodel/pull/1353) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump typing-extensions from 4.12.2 to 4.13.2. PR [#1356](https://github.com/fastapi/sqlmodel/pull/1356) by [@dependabot[bot]](https://github.com/apps/dependabot).
