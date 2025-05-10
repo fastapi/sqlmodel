@@ -8,6 +8,9 @@
 
 ### Docs
 
+* 📝 Grammar tweak in `docs/tutorial/insert.md`. PR [#1368](https://github.com/fastapi/sqlmodel/pull/1368) by [@brettcannon](https://github.com/brettcannon).
+* 📝 Update `docs/tutorial/fastapi/relationships.md`. PR [#1365](https://github.com/fastapi/sqlmodel/pull/1365) by [@Foxerine](https://github.com/Foxerine).
+* ✏️ Tweak the grammar in `docs/learn/index.md`. PR [#1363](https://github.com/fastapi/sqlmodel/pull/1363) by [@brettcannon](https://github.com/brettcannon).
 * 📝 Update all docs references to `Optional` to use the new syntax in Python 3.10, e.g. `int | None`. PR [#1351](https://github.com/fastapi/sqlmodel/pull/1351) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update install and usage with FastAPI CLI in FastAPI tutorial. PR [#1350](https://github.com/fastapi/sqlmodel/pull/1350) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update FastAPI tutorial docs to use the new `model.sqlmodel_update()` instead of old `setattr()`. PR [#1117](https://github.com/fastapi/sqlmodel/pull/1117) by [@jpizquierdo](https://github.com/jpizquierdo).
@@ -15,6 +18,11 @@
 
 ### Internal
 
+* ⬆ Bump mkdocs-macros-plugin from 1.0.5 to 1.3.7. PR [#1354](https://github.com/fastapi/sqlmodel/pull/1354) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump griffe-typingdoc from 0.2.5 to 0.2.8. PR [#1359](https://github.com/fastapi/sqlmodel/pull/1359) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Update pre-commit requirement from <4.0.0,>=2.17.0 to >=2.17.0,<5.0.0. PR [#1360](https://github.com/fastapi/sqlmodel/pull/1360) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pillow from 11.0.0 to 11.2.1. PR [#1361](https://github.com/fastapi/sqlmodel/pull/1361) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1367](https://github.com/fastapi/sqlmodel/pull/1367) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.9.6 to 0.11.7. PR [#1355](https://github.com/fastapi/sqlmodel/pull/1355) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1353](https://github.com/fastapi/sqlmodel/pull/1353) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump typing-extensions from 4.12.2 to 4.13.2. PR [#1356](https://github.com/fastapi/sqlmodel/pull/1356) by [@dependabot[bot]](https://github.com/apps/dependabot).
