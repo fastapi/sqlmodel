@@ -992,17 +992,17 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         use_update = (update or {}).copy()
         if isinstance(obj, dict):
             for key, value in {**obj, **use_update}.items():
-                if key in get_model_fields(self):
+                if key in get_model_fields(self.__class__):
                     setattr(self, key, value)
         elif isinstance(obj, BaseModel):
-            for key in get_model_fields(obj):
+            for key in get_model_fields(obj.__class__):
                 if key in use_update:
                     value = use_update.pop(key)
                 else:
                     value = getattr(obj, key)
                 setattr(self, key, value)
             for remaining_key in use_update:
-                if remaining_key in get_model_fields(self):
+                if remaining_key in get_model_fields(self.__class__):
                     value = use_update.pop(remaining_key)
                     setattr(self, remaining_key, value)
         else:
