@@ -387,6 +387,11 @@ def Field(
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if alias:
+        current_schema_extra['validation_alias'] = alias
+        current_schema_extra['serialization_alias'] = alias
+        
     field_info = FieldInfo(
         default,
         default_factory=default_factory,
