@@ -548,6 +548,14 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 if issubclass(base, BaseModel):
                     base_fields.update(get_model_fields(base))
                     base_annotations.update(base.__annotations__)
+                    if hasattr(base, "__sqlmodel_relationships__"):
+                        for k in base.__sqlmodel_relationships__:
+                            # create a dummy attribute to avoid inherit
+                            # pydantic will treat it as class variables, and will not become fields on model instances
+                            anno = base_annotations.get(k, Any)
+                            dummy_anno = ClassVar[anno]
+                            dict_used["__annotations__"][k] = dummy_anno
+
                     if hasattr(base, "__tablename__"):
                         is_polymorphic = True
             # use base_fields overwriting the ones from the class for inherit
