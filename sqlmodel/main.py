@@ -553,8 +553,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                             # create a dummy attribute to avoid inherit
                             # pydantic will treat it as class variables, and will not become fields on model instances
                             anno = base_annotations.get(k, Any)
-                            dummy_anno = ClassVar[anno]
-                            dict_used["__annotations__"][k] = dummy_anno
+                            if get_origin(anno) is not ClassVar:
+                                dummy_anno = ClassVar[anno]
+                                dict_used["__annotations__"][k] = dummy_anno
 
                     if hasattr(base, "__tablename__"):
                         is_polymorphic = True
