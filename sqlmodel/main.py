@@ -644,10 +644,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # trying to create a new SQLAlchemy, for a new table, with the same name, that
         # triggers an error
         base_is_table = any(is_table_model_class(base) for base in bases)
-        polymorphic_identity = dict_.get("__mapper_args__", {}).get(
-            "polymorphic_identity"
+        _mapper_args = dict_.get("__mapper_args__", {})
+        polymorphic_identity = _mapper_args.get("polymorphic_identity")
+        polymorphic_abstract = _mapper_args.get("polymorphic_abstract")
+        has_polymorphic = (
+            polymorphic_identity is not None or polymorphic_abstract is not None
         )
-        has_polymorphic = polymorphic_identity is not None
 
         # allow polymorphic models inherit from table models
         if is_table_model_class(cls) and (not base_is_table or has_polymorphic):

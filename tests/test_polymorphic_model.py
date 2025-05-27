@@ -175,3 +175,110 @@ def test_polymorphic_relationship(clear_sqlmodel) -> None:
         result = db.exec(statement).all()
         assert len(result) == 1
         assert isinstance(result[0].tool, Tool)
+
+
+@needs_pydanticv2
+def test_polymorphic_deeper(clear_sqlmodel) -> None:
+    class Employee(SQLModel, table=True):
+        __tablename__ = "employee"
+
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str
+        type: str = Field(default="employee")
+
+        __mapper_args__ = {
+            "polymorphic_identity": "employee",
+            "polymorphic_on": "type",
+        }
+
+    class Executive(Employee):
+        """An executive of the company"""
+
+        executive_background: Optional[str] = Field(
+            sa_column=mapped_column(nullable=True), default=None
+        )
+
+        __mapper_args__ = {"polymorphic_abstract": True}
+
+    class Technologist(Employee):
+        """An employee who works with technology"""
+
+        competencies: Optional[str] = Field(
+            sa_column=mapped_column(nullable=True), default=None
+        )
+
+        __mapper_args__ = {"polymorphic_abstract": True}
+
+    class Manager(Executive):
+        """A manager"""
+
+        __mapper_args__ = {"polymorphic_identity": "manager"}
+
+    class Principal(Executive):
+        """A principal of the company"""
+
+        __mapper_args__ = {"polymorphic_identity": "principal"}
+
+    class Engineer(Technologist):
+        """An engineer"""
+
+        __mapper_args__ = {"polymorphic_identity": "engineer"}
+
+    class SysAdmin(Technologist):
+        """A systems administrator"""
+
+        __mapper_args__ = {"polymorphic_identity": "sysadmin"}
+
+    # Create database and session
+    engine = create_engine("sqlite:///:memory:", echo=True)
+    SQLModel.metadata.create_all(engine)
+
+    with Session(engine) as db:
+        # Add different employee types
+        manager = Manager(name="Alice", executive_background="MBA")
+        principal = Principal(name="Bob", executive_background="Founder")
+        engineer = Engineer(name="Charlie", competencies="Python, SQL")
+        sysadmin = SysAdmin(name="Diana", competencies="Linux, Networking")
+
+        db.add(manager)
+        db.add(principal)
+        db.add(engineer)
+        db.add(sysadmin)
+        db.commit()
+
+        # Query each type to verify they persist correctly
+        managers = db.exec(select(Manager)).all()
+        principals = db.exec(select(Principal)).all()
+        engineers = db.exec(select(Engineer)).all()
+        sysadmins = db.exec(select(SysAdmin)).all()
+
+        # Query abstract classes to verify they return appropriate concrete classes
+        executives = db.exec(select(Executive)).all()
+        technologists = db.exec(select(Technologist)).all()
+
+        # All employees
+        all_employees = db.exec(select(Employee)).all()
+
+    # Assert individual type counts
+    assert len(managers) == 1
+    assert len(principals) == 1
+    assert len(engineers) == 1
+    assert len(sysadmins) == 1
+
+    # Check that abstract classes can't be instantiated directly
+    # but their subclasses are correctly returned when querying
+    assert len(executives) == 2
+    assert len(technologists) == 2
+    assert len(all_employees) == 4
+
+    # Check that properties of abstract classes are accessible from concrete instances
+    assert managers[0].executive_background == "MBA"
+    assert principals[0].executive_background == "Founder"
+    assert engineers[0].competencies == "Python, SQL"
+    assert sysadmins[0].competencies == "Linux, Networking"
+
+    # Check polymorphic identities
+    assert managers[0].type == "manager"
+    assert principals[0].type == "principal"
+    assert engineers[0].type == "engineer"
+    assert sysadmins[0].type == "sysadmin"
