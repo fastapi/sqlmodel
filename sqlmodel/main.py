@@ -1221,44 +1221,45 @@ def _convert_single_pydantic_to_table_model(item: Any, target_type: Any) -> Any:
     if item is None:
         return item
 
-    # If target_type is a string (forward reference), try to resolve it
+    resolved_target_type = target_type
     if isinstance(target_type, str):
         try:
-            resolved_type = default_registry._class_registry.get(target_type)
-            if resolved_type is not None:
-                target_type = resolved_type
+            # Attempt to resolve forward reference from the default registry
+            # This was part of the original logic and should be kept
+            resolved_type_from_registry = default_registry._class_registry.get(target_type)
+            if resolved_type_from_registry is not None:
+                resolved_target_type = resolved_type_from_registry
         except Exception:
-            pass
+            # If resolution fails, and it's still a string, we might not be able to convert
+            # However, the original issue implies 'relationship_to' in the caller
+            # `_convert_pydantic_to_table_model` should provide a resolved type.
+            # For safety, if it's still a string here, and item is a simple Pydantic model,
+            # it's best to return item to avoid errors if no concrete type is found.
+            if isinstance(resolved_target_type, str) and isinstance(item, BaseModel) and hasattr(item, "__class__") and not is_table_model_class(item.__class__):
+                 return item # Fallback if no concrete type can be determined
+            pass # Continue if resolved_target_type is now a class or item is not a simple Pydantic model
 
-    # If target_type is still a string after resolution attempt,
-    # we can't perform type checks or conversions
-    if isinstance(target_type, str):
-        # If item is a BaseModel but not a table model, try conversion
-        if (
-            isinstance(item, BaseModel)
-            and hasattr(item, "__class__")
-            and not is_table_model_class(item.__class__)
-        ):
-            # Can't convert without knowing the actual target type
-            return item
-        else:
-            return item
-
-    # If item is already the correct type, return as-is
-    if isinstance(item, target_type):
+    # If resolved_target_type is still a string and not a class, we cannot proceed with conversion.
+    # This can happen if the forward reference cannot be resolved.
+    if isinstance(resolved_target_type, str):
         return item
 
-    # Check if target_type is a SQLModel table class
+    # If item is already the correct type, return as-is
+    if isinstance(item, resolved_target_type):
+        return item
+
+    # Check if resolved_target_type is a SQLModel table class
+    # This check should be on resolved_target_type, not target_type
     if not (
-        hasattr(target_type, "__mro__")
+        hasattr(resolved_target_type, "__mro__")
         and any(
-            hasattr(cls, "__sqlmodel_relationships__") for cls in target_type.__mro__
+            hasattr(cls, "__sqlmodel_relationships__") for cls in resolved_target_type.__mro__
         )
     ):
         return item
 
-    # Check if target is a table model
-    if not is_table_model_class(target_type):
+    # Check if target is a table model using resolved_target_type
+    if not is_table_model_class(resolved_target_type):
         return item
 
     # Check if item is a BaseModel (Pydantic model) but not a table model
@@ -1277,8 +1278,8 @@ def _convert_single_pydantic_to_table_model(item: Any, target_type: Any) -> Any:
                 # Pydantic v1
                 data = item.dict()
 
-            # Create new table model instance
-            return target_type(**data)
+            # Create new table model instance using resolved_target_type
+            return resolved_target_type(**data)
         except Exception:
             # If conversion fails, return original item
             return item
