@@ -13,3 +13,4 @@ site
 .cache
 .venv*
 uv.lock
+.timetracker

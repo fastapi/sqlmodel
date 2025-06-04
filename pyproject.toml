@@ -134,3 +134,12 @@ known-third-party = ["sqlmodel", "sqlalchemy", "pydantic", "fastapi"]
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[dependency-groups]
+dev = [
+    "coverage>=7.2.7",
+    "dirty-equals>=0.7.1.post0",
+    "fastapi>=0.103.2",
+    "httpx>=0.24.1",
+    "pytest>=7.4.4",
+]

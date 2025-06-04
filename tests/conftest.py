@@ -78,3 +78,16 @@ needs_py39 = pytest.mark.skipif(sys.version_info < (3, 9), reason="requires pyth
 needs_py310 = pytest.mark.skipif(
     sys.version_info < (3, 10), reason="requires python3.10+"
 )
+
+
+def pytest_sessionstart(session):
+    """Clear SQLModel registry at the start of the test session."""
+    SQLModel.metadata.clear()
+    default_registry.dispose()
+
+
+def pytest_runtest_setup(item):
+    """Clear SQLModel registry before each test if it's in docs_src."""
+    if "docs_src" in str(item.fspath):
+        SQLModel.metadata.clear()
+        default_registry.dispose()
