@@ -80,14 +80,17 @@ needs_py310 = pytest.mark.skipif(
 )
 
 
+@pytest.fixture(autouse=True)
+def clear_registry_before_each_test():
+    """Clear SQLModel metadata and registry before each test."""
+    SQLModel.metadata.clear()
+    default_registry.dispose()
+    # No yield needed if only running before test, not after.
+    # If cleanup after test is also needed, add yield and post-test cleanup.
+
+# pytest_runtest_setup is now replaced by the autouse fixture clear_registry_before_each_test
+
 def pytest_sessionstart(session):
     """Clear SQLModel registry at the start of the test session."""
     SQLModel.metadata.clear()
     default_registry.dispose()
-
-
-def pytest_runtest_setup(item):
-    """Clear SQLModel registry before each test if it's in docs_src."""
-    if "docs_src" in str(item.fspath):
-        SQLModel.metadata.clear()
-        default_registry.dispose()
