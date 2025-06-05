@@ -13,7 +13,7 @@ from pydantic import BaseModel
 import pytest
 
 
-def test_relationships_update():
+def test_relationships_update_pydantic():
     """Test conversion of single Pydantic model to SQLModel with forward reference."""
 
     class IBookUpdate(BaseModel):
@@ -56,7 +56,7 @@ def test_relationships_update():
 
         # Prepare the update data Pydantic model
         author_update_dto = IAuthorUpdate(
-            id=author_id, # This ID in DTO is informational
+            id=author_id,  # This ID in DTO is informational
             name="Updated Author",
             books=[IBookUpdate(id=book_id, title="Updated Book")],
         )
@@ -73,7 +73,7 @@ def test_relationships_update():
                 book_to_update = session.get(Book, book_update_data.id)
 
                 if book_to_update:
-                    if book_update_data.title is not None: # Check if title is provided
+                    if book_update_data.title is not None:  # Check if title is provided
                         book_to_update.title = book_update_data.title
                     processed_books_list.append(book_to_update)
                 # else:
@@ -82,9 +82,76 @@ def test_relationships_update():
             # Assign the list of (potentially updated) persistent Book SQLModel objects
             db_author.books = processed_books_list
 
-        session.add(db_author) # Add the updated instance to the session (marks it as dirty)
+        session.add(
+            db_author
+        )  # Add the updated instance to the session (marks it as dirty)
         session.commit()
-        session.refresh(db_author) # Refresh to get the latest state from DB
+        session.refresh(db_author)  # Refresh to get the latest state from DB
+
+        # Assertions on the original IDs and updated content
+        assert db_author.id == author_id
+        assert db_author.name == "Updated Author"
+        assert len(db_author.books) == 1
+        assert db_author.books[0].id == book_id
+        assert db_author.books[0].title == "Updated Book"
+
+
+def test_relationships_update_dict():
+    """Test conversion of single Pydantic model to SQLModel with forward reference."""
+
+    class IBookUpdate(BaseModel):
+        id: int
+        title: str | None = None
+
+    class IAuthorUpdate(BaseModel):
+        id: int
+        name: str | None = None
+        books: list[IBookUpdate] | None = None
+
+    class Author(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str
+        books: List["Book"] = Relationship(back_populates="author")
+
+    class Book(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        title: str
+        author_id: Optional[int] = Field(default=None, foreign_key="author.id")
+        author: Optional["Author"] = Relationship(back_populates="books")
+
+    engine = create_engine("sqlite://", echo=False)
+    SQLModel.metadata.create_all(engine)
+
+    with Session(engine) as session:
+        book = Book(title="Test Book")
+        author = Author(name="Test Author", books=[book])
+        session.add(author)
+        session.commit()
+        session.refresh(author)
+
+        author_id = author.id
+        book_id = book.id
+
+    with Session(engine) as session:
+        # Fetch the existing author
+        db_author = session.get(Author, author_id)
+        assert db_author is not None, "Author to update was not found in the database."
+
+        # Prepare the update data Pydantic model
+        author_update_dto = IAuthorUpdate(
+            id=author_id,  # This ID in DTO is informational
+            name="Updated Author",
+            books=[IBookUpdate(id=book_id, title="Updated Book")],
+        )
+
+        update_data = author_update_dto.model_dump()
+
+        for field in update_data:
+            setattr(db_author, field, update_data[field])
+
+        session.add(db_author)
+        session.commit()
+        session.refresh(db_author)
 
         # Assertions on the original IDs and updated content
         assert db_author.id == author_id

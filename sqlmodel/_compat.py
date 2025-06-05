@@ -343,7 +343,11 @@ if IS_PYDANTIC_V2:
         # Get and set any relationship objects
         if is_table_model_class(cls):
             for key in new_obj.__sqlmodel_relationships__:
-                value = getattr(use_obj, key, Undefined)
+                # Handle both dict and object access
+                if isinstance(use_obj, dict):
+                    value = use_obj.get(key, Undefined)
+                else:
+                    value = getattr(use_obj, key, Undefined)
                 if value is not Undefined:
                     setattr(new_obj, key, value)
         return new_obj

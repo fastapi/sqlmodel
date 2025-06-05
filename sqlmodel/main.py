@@ -924,7 +924,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 and name in self.__sqlmodel_relationships__
                 and value is not None
             ):
-                value = _convert_pydantic_to_table_model(value, name, self.__class__)
+                value = _convert_pydantic_to_table_model(
+                    value, name, self.__class__, self
+                )
 
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
             if is_table_model_class(self.__class__) and is_instrumented(self, name):  # type: ignore[no-untyped-call]
@@ -1127,7 +1129,10 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
 
 def _convert_pydantic_to_table_model(
-    value: Any, relationship_name: str, owner_class: Type["SQLModel"]
+    value: Any,
+    relationship_name: str,
+    owner_class: Type["SQLModel"],
+    instance: Optional["SQLModel"] = None,
 ) -> Any:
     """
     Convert Pydantic objects to table models for relationship assignments.
@@ -1136,6 +1141,7 @@ def _convert_pydantic_to_table_model(
         value: The value being assigned to the relationship
         relationship_name: Name of the relationship attribute
         owner_class: The class that owns the relationship
+        instance: The SQLModel instance (for session context)
 
     Returns:
         Converted value(s) - table model instances instead of Pydantic objects
@@ -1185,7 +1191,7 @@ def _convert_pydantic_to_table_model(
             converted_items = []
             for item in value:
                 converted_item = _convert_single_pydantic_to_table_model(
-                    item, target_type
+                    item, target_type, instance
                 )
                 converted_items.append(converted_item)
             return converted_items
@@ -1198,21 +1204,24 @@ def _convert_pydantic_to_table_model(
                 resolved_type = default_registry._class_registry.get(target_type)
                 if resolved_type is not None:
                     target_type = resolved_type
-            except:
+            except Exception:
                 pass
 
-        return _convert_single_pydantic_to_table_model(value, target_type)
+        return _convert_single_pydantic_to_table_model(value, target_type, instance)
 
     return value
 
 
-def _convert_single_pydantic_to_table_model(item: Any, target_type: Any) -> Any:
+def _convert_single_pydantic_to_table_model(
+    item: Any, target_type: Any, instance: Optional["SQLModel"] = None
+) -> Any:
     """
     Convert a single Pydantic object to a table model.
 
     Args:
         item: The Pydantic object to convert
         target_type: The target table model type
+        instance: The SQLModel instance (for session context)
 
     Returns:
         Converted table model instance or original item if no conversion needed
@@ -1226,7 +1235,9 @@ def _convert_single_pydantic_to_table_model(item: Any, target_type: Any) -> Any:
         try:
             # Attempt to resolve forward reference from the default registry
             # This was part of the original logic and should be kept
-            resolved_type_from_registry = default_registry._class_registry.get(target_type)
+            resolved_type_from_registry = default_registry._class_registry.get(
+                target_type
+            )
             if resolved_type_from_registry is not None:
                 resolved_target_type = resolved_type_from_registry
         except Exception:
@@ -1235,9 +1246,14 @@ def _convert_single_pydantic_to_table_model(item: Any, target_type: Any) -> Any:
             # `_convert_pydantic_to_table_model` should provide a resolved type.
             # For safety, if it's still a string here, and item is a simple Pydantic model,
             # it's best to return item to avoid errors if no concrete type is found.
-            if isinstance(resolved_target_type, str) and isinstance(item, BaseModel) and hasattr(item, "__class__") and not is_table_model_class(item.__class__):
-                 return item # Fallback if no concrete type can be determined
-            pass # Continue if resolved_target_type is now a class or item is not a simple Pydantic model
+            if (
+                isinstance(resolved_target_type, str)
+                and isinstance(item, BaseModel)
+                and hasattr(item, "__class__")
+                and not is_table_model_class(item.__class__)
+            ):
+                return item  # Fallback if no concrete type can be determined
+            pass  # Continue if resolved_target_type is now a class or item is not a simple Pydantic model
 
     # If resolved_target_type is still a string and not a class, we cannot proceed with conversion.
     # This can happen if the forward reference cannot be resolved.
@@ -1253,7 +1269,8 @@ def _convert_single_pydantic_to_table_model(item: Any, target_type: Any) -> Any:
     if not (
         hasattr(resolved_target_type, "__mro__")
         and any(
-            hasattr(cls, "__sqlmodel_relationships__") for cls in resolved_target_type.__mro__
+            hasattr(cls, "__sqlmodel_relationships__")
+            for cls in resolved_target_type.__mro__
         )
     ):
         return item
@@ -1278,8 +1295,47 @@ def _convert_single_pydantic_to_table_model(item: Any, target_type: Any) -> Any:
                 # Pydantic v1
                 data = item.dict()
 
+            # If instance is available and item has an ID, try to find existing record
+            if instance is not None and "id" in data and data["id"] is not None:
+                from sqlalchemy.orm import object_session
+
+                session = object_session(instance)
+                if session is not None:
+                    # Try to find existing record by ID
+                    existing_record = session.get(resolved_target_type, data["id"])
+                    if existing_record is not None:
+                        # Update existing record with new data
+                        for key, value in data.items():
+                            if key != "id" and hasattr(existing_record, key):
+                                setattr(existing_record, key, value)
+                        return existing_record
+
             # Create new table model instance using resolved_target_type
             return resolved_target_type(**data)
+        except Exception:
+            # If conversion fails, return original item
+            return item
+
+    # Check if item is a dictionary that should be converted to table model
+    elif isinstance(item, dict):
+        try:
+            # If instance is available and item has an ID, try to find existing record
+            if instance is not None and "id" in item and item["id"] is not None:
+                from sqlalchemy.orm import object_session
+
+                session = object_session(instance)
+                if session is not None:
+                    # Try to find existing record by ID
+                    existing_record = session.get(resolved_target_type, item["id"])
+                    if existing_record is not None:
+                        # Update existing record with new data
+                        for key, value in item.items():
+                            if key != "id" and hasattr(existing_record, key):
+                                setattr(existing_record, key, value)
+                        return existing_record
+
+            # Create new table model instance from dictionary
+            return resolved_target_type(**item)
         except Exception:
             # If conversion fails, return original item
             return item
