@@ -37,6 +37,43 @@ Field(sa_column=Column(PydanticJSONB(List[SomeModel])))
 Field(sa_column=Column(PydanticJSONB(Dict[str, SomeModel])))
 ```
 
+## Create & Store Data
+
+Here's how to create and store data with Pydantic models in JSONB columns:
+
+```python
+from sqlmodel import Session, create_engine
+
+engine = create_engine("postgresql://user:password@localhost/db")
+
+# Insert a User with an Address
+with Session(engine) as session:
+    user = User(
+        name="John Doe",
+        address=Address(street="123 Main St", city="New York")
+    )
+    session.add(user)
+    session.commit()
+```
+
+## Retrieve & Use Data
+
+When you retrieve the data, it's automatically converted back to a Pydantic model:
+
+```python
+with Session(engine) as session:
+    user = session.query(User).first()
+    print(user.address.street)  # "123 Main St"
+    print(user.address.city)    # "New York"
+    print(type(user.address))   # <class '__main__.Address'>
+```
+
+Result:
+✅ No need for `Address(**user.address)` – it's already an `Address` instance!
+✅ Automatic conversion between JSONB and Pydantic models.
+
+This simplifies handling structured data in SQLModel, making JSONB storage seamless and ergonomic. 🚀
+
 ## Requirements
 
 * PostgreSQL (for full `JSONB` support).
