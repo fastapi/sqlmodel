@@ -128,6 +128,7 @@ nav:
       - advanced/index.md
       - advanced/decimal.md
       - advanced/uuid.md
+      - advanced/pydantic-jsonb.md
   - Resources:
     - resources/index.md
     - help.md
@@ -187,22 +188,6 @@ markdown_extensions:
   markdown_include_variants:
 
 extra:
-  analytics:
-    provider: google
-    property: G-J8HVTT936W
-    feedback:
-      title: Was this page helpful?
-      ratings:
-        - icon: material/emoticon-happy-outline
-          name: This page was helpful
-          data: 1
-          note: >-
-            Thanks for your feedback!
-        - icon: material/emoticon-sad-outline
-          name: This page could be improved
-          data: 0
-          note: >-
-            Thanks for your feedback!
   social:
   - icon: fontawesome/brands/github-alt
     link: https://github.com/fastapi/sqlmodel
