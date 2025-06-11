@@ -19,6 +19,7 @@
 
 ### Internal
 
+* ⬆ Bump cairosvg from 2.7.1 to 2.8.2. PR [#1383](https://github.com/fastapi/sqlmodel/pull/1383) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.11.7 to 0.11.13. PR [#1397](https://github.com/fastapi/sqlmodel/pull/1397) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Remove Google Analytics. PR [#1386](https://github.com/fastapi/sqlmodel/pull/1386) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump mkdocs-macros-plugin from 1.0.5 to 1.3.7. PR [#1354](https://github.com/fastapi/sqlmodel/pull/1354) by [@dependabot[bot]](https://github.com/apps/dependabot).
