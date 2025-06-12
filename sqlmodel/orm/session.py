@@ -15,6 +15,7 @@ from sqlalchemy.engine.result import Result, ScalarResult, TupleResult
 from sqlalchemy.orm import Query as _Query
 from sqlalchemy.orm import Session as _Session
 from sqlalchemy.orm._typing import OrmExecuteOptionsParameter
+from sqlalchemy.sql import Delete
 from sqlalchemy.sql._typing import _ColumnsClauseArgument
 from sqlalchemy.sql.base import Executable as _Executable
 from sqlmodel.sql.base import Executable
@@ -49,12 +50,25 @@ class Session(_Session):
         _add_event: Optional[Any] = None,
     ) -> ScalarResult[_TSelectParam]: ...
 
+    @overload
+    def exec(
+        self,
+        statement: Delete,
+        *,
+        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        execution_options: Mapping[str, Any] = util.EMPTY_DICT,
+        bind_arguments: Optional[Dict[str, Any]] = None,
+        _parent_execute_state: Optional[Any] = None,
+        _add_event: Optional[Any] = None,
+    ) -> None: ...
+
     def exec(
         self,
         statement: Union[
             Select[_TSelectParam],
             SelectOfScalar[_TSelectParam],
             Executable[_TSelectParam],
+            Delete,
         ],
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
@@ -62,7 +76,7 @@ class Session(_Session):
         bind_arguments: Optional[Dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
-    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam]]:
+    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam], None]:
         results = super().execute(
             statement,
             params=params,
