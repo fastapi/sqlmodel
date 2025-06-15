@@ -1,6 +1,6 @@
 # Advanced User Guide
 
-The **Advanced User Guide** covers advanced topics and features of SQLModel.
+The **Advanced User Guide** is gradually growing, you can already read about some advanced topics
 
 Current topics include:
 
