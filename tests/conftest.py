@@ -56,7 +56,7 @@ def get_testing_print_function(
     calls: List[List[Union[str, Dict[str, Any]]]],
 ) -> Callable[..., Any]:
     def new_print(*args: Any) -> None:
-        data: list[Any] = []
+        data: List[Any] = []
         for arg in args:
             if isinstance(arg, BaseModel):
                 data.append(arg.model_dump())
@@ -75,7 +75,7 @@ def get_testing_print_function(
 
 @dataclass
 class PrintMock:
-    calls: list[Any] = field(default_factory=list)
+    calls: List[Any] = field(default_factory=list)
 
 
 @pytest.fixture(name="print_mock")
