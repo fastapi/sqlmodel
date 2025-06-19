@@ -14,8 +14,8 @@ top_level_path = Path(__file__).resolve().parent.parent
 docs_src_path = top_level_path / "docs_src"
 
 
-@pytest.fixture()
-def clear_sqlmodel():
+@pytest.fixture(autouse=True)
+def clear_sqlmodel() -> Any:
     # Clear the tables in the metadata for the default base model
     SQLModel.metadata.clear()
     # Clear the Models associated with the registry, to avoid warnings
