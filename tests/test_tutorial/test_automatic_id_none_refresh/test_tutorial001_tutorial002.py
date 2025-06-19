@@ -133,7 +133,7 @@ def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
     ]
 
 
-def test_tutorial_001(clear_sqlmodel):
+def test_tutorial_001():
     from docs_src.tutorial.automatic_id_none_refresh import tutorial001 as mod
 
     mod.sqlite_url = "sqlite://"
@@ -147,7 +147,7 @@ def test_tutorial_001(clear_sqlmodel):
     check_calls(calls)
 
 
-def test_tutorial_002(clear_sqlmodel):
+def test_tutorial_002():
     from docs_src.tutorial.automatic_id_none_refresh import tutorial002 as mod
 
     mod.sqlite_url = "sqlite://"
