@@ -1,23 +1,60 @@
+import importlib
+import sys
+import types
+from typing import Any
+
+import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 from sqlmodel.pool import StaticPool
 
+# Adjust the import path based on the file's new location or structure
+# Assuming conftest.py is located at tests/conftest.py
+from ....conftest import needs_py310 # This needs to be relative to this file's location
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.fastapi.simple_hero_api import tutorial001 as mod
+
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial001",
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
+    module_name = request.param
+    full_module_name = (
+        f"docs_src.tutorial.fastapi.simple_hero_api.{module_name}"
+    )
+
+    if full_module_name in sys.modules:
+        mod = importlib.reload(sys.modules[full_module_name])
+    else:
+        mod = importlib.import_module(full_module_name)
+
+    if not hasattr(mod, "connect_args"):
+        mod.connect_args = {"check_same_thread": False}
 
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(
         mod.sqlite_url, connect_args=mod.connect_args, poolclass=StaticPool
     )
 
-    with TestClient(mod.app) as client:
+    # This tutorial (simple_hero_api) also uses an app startup event to create tables.
+    # So, explicit table creation here is not strictly needed if TestClient(mod.app) is used,
+    # as it will trigger startup events.
+    # SQLModel.metadata.create_all(mod.engine) # Or rely on app startup event
+
+    return mod
+
+
+def test_tutorial(module: types.ModuleType): # clear_sqlmodel is implicitly used by get_module
+    with TestClient(module.app) as client:
         hero1_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
         hero2_data = {
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
-            "id": 9000,
+            "id": 9000, # This ID is part of the test logic for this tutorial specifically
         }
         response = client.post("/heroes/", json=hero1_data)
         data = response.json()
@@ -28,6 +65,8 @@ def test_tutorial(clear_sqlmodel):
         assert data["id"] is not None
         assert data["age"] is None
 
+        # For hero2, this tutorial expects the ID to be settable from the request
+        # This is specific to this tutorial version, later tutorials might change this behavior
         response = client.post("/heroes/", json=hero2_data)
         data = response.json()
 
@@ -52,9 +91,8 @@ def test_tutorial(clear_sqlmodel):
         assert data[1]["id"] == hero2_data["id"]
 
         response = client.get("/openapi.json")
-
         assert response.status_code == 200, response.text
-
+        # The OpenAPI schema is expected to be consistent for both module versions
         assert response.json() == {
             "openapi": "3.1.0",
             "info": {"title": "FastAPI", "version": "0.1.0"},
@@ -66,6 +104,10 @@ def test_tutorial(clear_sqlmodel):
                         "responses": {
                             "200": {
                                 "description": "Successful Response",
+                                # For this tutorial, the response model for GET /heroes/ is not explicitly defined,
+                                # so FastAPI/SQLModel might return a list of objects (dict).
+                                # The original test had {"application/json": {"schema": {}}} which means any JSON.
+                                # We'll keep it like that to match.
                                 "content": {"application/json": {"schema": {}}},
                             }
                         },
@@ -84,6 +126,7 @@ def test_tutorial(clear_sqlmodel):
                         "responses": {
                             "200": {
                                 "description": "Successful Response",
+                                # Similarly, POST /heroes/ response model is not explicitly defined in this tutorial.
                                 "content": {"application/json": {"schema": {}}},
                             },
                             "422": {

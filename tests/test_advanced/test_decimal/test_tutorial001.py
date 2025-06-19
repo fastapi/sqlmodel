@@ -1,9 +1,12 @@
+import importlib
+import types # Add import for types
 from decimal import Decimal
-from unittest.mock import patch
+from unittest.mock import MagicMock # Keep MagicMock for type hint, though not strictly necessary for runtime
 
+import pytest
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import needs_py310, PrintMock # Import PrintMock for type hint
 
 expected_calls = [
     [
@@ -30,15 +33,20 @@ expected_calls = [
 ]
 
 
-def test_tutorial():
-    from docs_src.advanced.decimal import tutorial001 as mod
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial001",
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest):
+    module_name = request.param
+    return importlib.import_module(f"docs_src.advanced.decimal.{module_name}")
 
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
 
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    assert calls == expected_calls
+def test_tutorial(print_mock: PrintMock, module: types.ModuleType): # Use PrintMock for type hint and types.ModuleType
+    module.sqlite_url = "sqlite://"
+    module.engine = create_engine(module.sqlite_url)
+    module.main()
+    assert print_mock.calls == expected_calls # Use .calls instead of .mock_calls
