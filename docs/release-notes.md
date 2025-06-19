@@ -19,6 +19,7 @@
 
 ### Internal
 
+* ✅ Simplify tests for `tests/test_tutorial/test_code_structure/test_tutorial001.py`, one test file for multiple variants. PR [#1408](https://github.com/fastapi/sqlmodel/pull/1408) by [@tiangolo](https://github.com/tiangolo).
 * ✅ Simplify tests setup, one test file for multiple source variants. PR [#1407](https://github.com/fastapi/sqlmodel/pull/1407) by [@tiangolo](https://github.com/tiangolo).
 * ✅ Refactor tests to use autouse `clear_sqlmodel`. PR [#1406](https://github.com/fastapi/sqlmodel/pull/1406) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump mkdocs-material from 9.5.18 to 9.6.14. PR [#1378](https://github.com/fastapi/sqlmodel/pull/1378) by [@dependabot[bot]](https://github.com/apps/dependabot).
