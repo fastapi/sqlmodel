@@ -5,11 +5,12 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 
-from ...conftest import PrintMock, get_testing_print_function, needs_py39, needs_py310
+from ...conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
 
-expected_calls_tutorial003 = [  # Renamed for specificity
+
+expected_calls_tutorial003 = [ # Renamed for specificity
     [
         "Z-Force hero:",
         {"name": "Deadpond", "secret_name": "Dive Wilson", "id": 1, "age": None},
@@ -86,7 +87,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-        mod.SQLModel.metadata.create_all(mod.engine)
+         mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

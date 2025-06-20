@@ -4,8 +4,9 @@ import types
 from typing import Any
 
 import pytest
+from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import SQLModel, create_engine
+from sqlmodel import create_engine, SQLModel
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -88,7 +89,7 @@ def test_tutorial(module: types.ModuleType):
         hero2_data = {
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
-            "id": 9000,  # This ID might be problematic if the DB auto-increments differently or if this ID is expected to be user-settable and unique
+            "id": 9000, # This ID might be problematic if the DB auto-increments differently or if this ID is expected to be user-settable and unique
         }
         hero3_data = {
             "name": "Rusty-Man",
@@ -106,10 +107,8 @@ def test_tutorial(module: types.ModuleType):
         hero2_id = hero2["id"]
         response = client.post("/heroes/", json=hero3_data)
         assert response.status_code == 200, response.text
-        response = client.get("/heroes/9000")  # This might fail if hero2_id is not 9000
-        assert response.status_code == 404, (
-            response.text
-        )  # Original test expects 404, this implies ID 9000 is not found after creation. This needs to align with how IDs are handled.
+        response = client.get("/heroes/9000") # This might fail if hero2_id is not 9000
+        assert response.status_code == 404, response.text # Original test expects 404, this implies ID 9000 is not found after creation. This needs to align with how IDs are handled.
 
         response = client.get("/heroes/")
         assert response.status_code == 200, response.text
@@ -121,25 +120,18 @@ def test_tutorial(module: types.ModuleType):
         data = response.json()
         assert data["name"] == hero1_data["name"]
         # Ensure team is loaded and correct
-        if (
-            "team" in data and data["team"] is not None
-        ):  # Team might not be present if not correctly loaded by the endpoint
+        if "team" in data and data["team"] is not None: # Team might not be present if not correctly loaded by the endpoint
             assert data["team"]["name"] == team_z_force["name"]
-        elif (
-            short_module_name != "tutorial001_py310"
-        ):  # tutorial001_py310.py doesn't include team in HeroPublic
-            # If team is expected, this is a failure. For tutorial001 and tutorial001_py39, team should be present.
-            assert "team" in data and data["team"] is not None, (
-                "Team data missing in hero response"
-            )
+        elif short_module_name != "tutorial001_py310": # tutorial001_py310.py doesn't include team in HeroPublic
+             # If team is expected, this is a failure. For tutorial001 and tutorial001_py39, team should be present.
+            assert "team" in data and data["team"] is not None, "Team data missing in hero response"
+
 
         response = client.patch(
             f"/heroes/{hero2_id}", json={"secret_name": "Spider-Youngster"}
         )
         assert response.status_code == 200, response.text
-        response = client.patch(
-            "/heroes/9001", json={"name": "Dragon Cube X"}
-        )  # Test patching non-existent hero
+        response = client.patch("/heroes/9001", json={"name": "Dragon Cube X"}) # Test patching non-existent hero
         assert response.status_code == 404, response.text
 
         response = client.delete(f"/heroes/{hero2_id}")
@@ -148,24 +140,24 @@ def test_tutorial(module: types.ModuleType):
         assert response.status_code == 200, response.text
         data = response.json()
         assert len(data) == 2
-        response = client.delete("/heroes/9000")  # Test deleting non-existent hero
+        response = client.delete("/heroes/9000") # Test deleting non-existent hero
         assert response.status_code == 404, response.text
 
         response = client.get(f"/teams/{team_preventers_id}")
         data = response.json()
         assert response.status_code == 200, response.text
         assert data["name"] == team_preventers_data["name"]
-        assert len(data["heroes"]) > 0  # Ensure heroes are loaded
+        assert len(data["heroes"]) > 0 # Ensure heroes are loaded
         assert data["heroes"][0]["name"] == hero3_data["name"]
 
         response = client.delete(f"/teams/{team_preventers_id}")
         assert response.status_code == 200, response.text
-        response = client.delete("/teams/9000")  # Test deleting non-existent team
+        response = client.delete("/teams/9000") # Test deleting non-existent team
         assert response.status_code == 404, response.text
         response = client.get("/teams/")
         assert response.status_code == 200, response.text
         data = response.json()
-        assert len(data) == 1  # Only Z-Force should remain
+        assert len(data) == 1 # Only Z-Force should remain
 
         # OpenAPI schema check - this is a long part, keeping it as is from the original.
         # Small modification to handle potential differences in Pydantic v1 vs v2 for optional fields in schema
@@ -185,17 +177,10 @@ def test_tutorial(module: types.ModuleType):
 
         # short_module_name is already defined at the start of the 'with TestClient' block
         # All versions (base, py39, py310) use HeroPublicWithTeam for this endpoint based on previous test run.
-        assert (
-            get_hero_path["responses"]["200"]["content"]["application/json"]["schema"][
-                "$ref"
-            ]
-            == "#/components/schemas/HeroPublicWithTeam"
-        )
+        assert get_hero_path["responses"]["200"]["content"]["application/json"]["schema"]["$ref"] == "#/components/schemas/HeroPublicWithTeam"
 
         # Check HeroCreate schema for age and team_id nullability based on IsDict usage in original
-        hero_create_props = openapi_schema["components"]["schemas"]["HeroCreate"][
-            "properties"
-        ]
+        hero_create_props = openapi_schema["components"]["schemas"]["HeroCreate"]["properties"]
         # For Pydantic v2 style (anyOf with type and null) vs Pydantic v1 (just type, optionality by not being in required)
         # This test was written with IsDict which complicates exact schema matching without knowing SQLModel version's Pydantic interaction
         # For simplicity, we check if 'age' and 'team_id' are present. Detailed check would need to adapt to SQLModel's Pydantic version.
@@ -218,19 +203,11 @@ def test_tutorial(module: types.ModuleType):
         # It's better to check for key components and structures.
 
         # Check if TeamPublicWithHeroes has heroes list
-        team_public_with_heroes_props = openapi_schema["components"]["schemas"][
-            "TeamPublicWithHeroes"
-        ]["properties"]
+        team_public_with_heroes_props = openapi_schema["components"]["schemas"]["TeamPublicWithHeroes"]["properties"]
         assert "heroes" in team_public_with_heroes_props
         assert team_public_with_heroes_props["heroes"]["type"] == "array"
         # short_module_name is already defined
         if short_module_name == "tutorial001_py310":
-            assert (
-                team_public_with_heroes_props["heroes"]["items"]["$ref"]
-                == "#/components/schemas/HeroPublic"
-            )  # tutorial001_py310 uses HeroPublic for heroes list
+            assert team_public_with_heroes_props["heroes"]["items"]["$ref"] == "#/components/schemas/HeroPublic" # tutorial001_py310 uses HeroPublic for heroes list
         else:
-            assert (
-                team_public_with_heroes_props["heroes"]["items"]["$ref"]
-                == "#/components/schemas/HeroPublic"
-            )  # Original tutorial001.py seems to imply HeroPublic as well.
+            assert team_public_with_heroes_props["heroes"]["items"]["$ref"] == "#/components/schemas/HeroPublic" # Original tutorial001.py seems to imply HeroPublic as well.

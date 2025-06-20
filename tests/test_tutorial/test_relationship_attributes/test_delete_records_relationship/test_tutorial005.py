@@ -5,9 +5,10 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 
-from ....conftest import PrintMock, get_testing_print_function, needs_py39, needs_py310
+from ....conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
+
 
 expected_calls_tutorial005 = [
     [
@@ -55,7 +56,7 @@ expected_calls_tutorial005 = [
         {"id": 3, "headquarters": "Wakaland Capital City", "name": "Wakaland"},
     ],
     [
-        "Team with removed heroes:",  # This print is specific to tutorial005.py's main()
+        "Team with removed heroes:", # This print is specific to tutorial005.py's main()
         {"id": 3, "headquarters": "Wakaland Capital City", "name": "Wakaland"},
     ],
     [
@@ -108,7 +109,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-        mod.SQLModel.metadata.create_all(mod.engine)
+         mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

@@ -4,13 +4,9 @@ import types
 from typing import Any
 
 import pytest
-from sqlmodel import (  # Ensure all necessary SQLModel parts are imported
-    Session,
-    create_engine,
-    select,
-)
+from sqlmodel import create_engine, SQLModel, Session, select # Ensure all necessary SQLModel parts are imported
 
-from ...conftest import needs_py310  # Adjusted for typical conftest location
+from ...conftest import needs_py310 # Adjusted for typical conftest location
 
 
 @pytest.fixture(
@@ -29,28 +25,26 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     else:
         mod = importlib.import_module(full_module_name)
 
-    mod.sqlite_url = "sqlite://"  # Ensure this is consistent
-    mod.engine = create_engine(mod.sqlite_url)  # Standard engine setup
+    mod.sqlite_url = "sqlite://" # Ensure this is consistent
+    mod.engine = create_engine(mod.sqlite_url) # Standard engine setup
 
     # Table creation is usually in main() for these examples or implicitly by SQLModel.metadata.create_all
     # If main() creates tables, calling it here might be redundant if test_tutorial also calls it.
     # For safety, ensure tables are created if Hero model is defined directly in the module.
     if hasattr(mod, "Hero") and hasattr(mod.Hero, "metadata"):
-        mod.Hero.metadata.create_all(mod.engine)
+         mod.Hero.metadata.create_all(mod.engine)
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-        mod.SQLModel.metadata.create_all(mod.engine)
+         mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 
 
-def test_tutorial(
-    module: types.ModuleType, clear_sqlmodel: Any
-):  # clear_sqlmodel still useful for DB state
+def test_tutorial(module: types.ModuleType, clear_sqlmodel: Any): # clear_sqlmodel still useful for DB state
     # If module.main() is responsible for creating data and potentially tables, call it.
     # The fixture get_module now ensures the engine is set and tables are created if models are defined.
     # If main() also sets up engine/tables, ensure it's idempotent or adjust.
     # Typically, main() in these tutorials contains the primary logic to be tested (e.g., data insertion).
-    module.main()  # This should execute the tutorial's data insertion logic
+    module.main() # This should execute the tutorial's data insertion logic
 
     with Session(module.engine) as session:
         heroes = session.exec(select(module.Hero)).all()

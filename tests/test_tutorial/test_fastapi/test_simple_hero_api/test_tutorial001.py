@@ -6,12 +6,10 @@ from typing import Any
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 from sqlmodel.pool import StaticPool
 
-from ....conftest import (
-    needs_py310,  # This needs to be relative to this file's location
-)
+from ....conftest import needs_py310 # This needs to be relative to this file's location
 
 
 @pytest.fixture(
@@ -23,7 +21,9 @@ from ....conftest import (
 )
 def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     module_name = request.param
-    full_module_name = f"docs_src.tutorial.fastapi.simple_hero_api.{module_name}"
+    full_module_name = (
+        f"docs_src.tutorial.fastapi.simple_hero_api.{module_name}"
+    )
 
     if full_module_name in sys.modules:
         mod = importlib.reload(sys.modules[full_module_name])
@@ -46,15 +46,13 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     return mod
 
 
-def test_tutorial(
-    module: types.ModuleType,
-):  # clear_sqlmodel is implicitly used by get_module
+def test_tutorial(module: types.ModuleType): # clear_sqlmodel is implicitly used by get_module
     with TestClient(module.app) as client:
         hero1_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
         hero2_data = {
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
-            "id": 9000,  # This ID is part of the test logic for this tutorial specifically
+            "id": 9000, # This ID is part of the test logic for this tutorial specifically
         }
         response = client.post("/heroes/", json=hero1_data)
         data = response.json()

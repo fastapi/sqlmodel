@@ -4,13 +4,13 @@ import types
 from typing import Any
 
 import pytest
-from sqlmodel import Session, SQLModel, create_engine, select
+from sqlmodel import create_engine, SQLModel, Session, select
 
-from ...conftest import needs_py310  # Use aliased import
+from ...conftest import needs_py310, clear_sqlmodel as clear_sqlmodel_fixture # Use aliased import
 
 
 @pytest.fixture(
-    name="module",  # Fixture provides the main module to be tested (tutorial002 variant)
+    name="module", # Fixture provides the main module to be tested (tutorial002 variant)
     params=[
         "tutorial002",
         pytest.param("tutorial002_py310", marks=needs_py310),
@@ -76,10 +76,8 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel_fixture: Any):
     return mod_tut002
 
 
-def test_tutorial(
-    module: types.ModuleType, clear_sqlmodel_fixture: Any
-):  # `module` is tutorial002 with .Team attached
-    module.main()  # Executes the tutorial002's data insertion logic
+def test_tutorial(module: types.ModuleType, clear_sqlmodel_fixture: Any): # `module` is tutorial002 with .Team attached
+    module.main() # Executes the tutorial002's data insertion logic
 
     with Session(module.engine) as session:
         hero_spider_boy = session.exec(
@@ -90,9 +88,7 @@ def test_tutorial(
             select(module.Team).where(module.Team.name == "Preventers")
         ).one()
         assert hero_spider_boy.team_id == team_preventers.id
-        assert (
-            hero_spider_boy.team == team_preventers
-        )  # This checks the relationship resolves
+        assert hero_spider_boy.team == team_preventers # This checks the relationship resolves
 
         heroes = session.exec(select(module.Hero)).all()
 

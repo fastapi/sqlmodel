@@ -1,12 +1,12 @@
 import importlib
 import sys
 from types import ModuleType
-from typing import Any  # For clear_sqlmodel type hint
+from typing import Any # For clear_sqlmodel type hint
 
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import SQLModel, create_engine  # Import SQLModel for metadata operations
+from sqlmodel import SQLModel, create_engine # Import SQLModel for metadata operations
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -22,9 +22,7 @@ from ....conftest import needs_py39, needs_py310
     ],
 )
 def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleType:
-    module_name = (
-        f"docs_src.tutorial.fastapi.limit_and_offset.{request.param}"  # No .main
-    )
+    module_name = f"docs_src.tutorial.fastapi.limit_and_offset.{request.param}" # No .main
     if module_name in sys.modules:
         module = importlib.reload(sys.modules[module_name])
     else:
@@ -33,10 +31,8 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleTyp
     module.sqlite_url = "sqlite://"
     module.engine = create_engine(
         module.sqlite_url,
-        connect_args={
-            "check_same_thread": False
-        },  # Assuming connect_args was in original mod or default
-        poolclass=StaticPool,
+        connect_args={"check_same_thread": False}, # Assuming connect_args was in original mod or default
+        poolclass=StaticPool
     )
     if hasattr(module, "create_db_and_tables"):
         module.create_db_and_tables()
@@ -70,7 +66,7 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         response = client.post("/heroes/", json=hero2_data)
         assert response.status_code == 200, response.text
         hero2 = response.json()
-        hero2_id = hero2["id"]  # Use the actual ID from response
+        hero2_id = hero2["id"] # Use the actual ID from response
 
         # Create hero 3
         response = client.post("/heroes/", json=hero3_data)
@@ -96,9 +92,7 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         assert response.status_code == 200, response.text
         data_limit2 = response.json()
         assert len(data_limit2) == 2
-        assert (
-            data_limit2[0]["name"] == hero1["name"]
-        )  # Compare with actual created hero data
+        assert data_limit2[0]["name"] == hero1["name"] # Compare with actual created hero data
         assert data_limit2[1]["name"] == hero2["name"]
 
         response = client.get("/heroes/", params={"offset": 1})
