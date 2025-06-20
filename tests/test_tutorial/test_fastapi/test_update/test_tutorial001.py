@@ -6,7 +6,7 @@ from typing import Any
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import create_engine, SQLModel
+from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -65,7 +65,7 @@ def test_tutorial(module: types.ModuleType):
         response = client.post("/heroes/", json=hero2_input_data)
         assert response.status_code == 200, response.text
         hero2_created = response.json()
-        hero2_id = hero2_created["id"] # This is the ID to use for hero2
+        hero2_id = hero2_created["id"]  # This is the ID to use for hero2
 
         response = client.post("/heroes/", json=hero3_data)
         assert response.status_code == 200, response.text
@@ -93,7 +93,9 @@ def test_tutorial(module: types.ModuleType):
         )
         data = response.json()
         assert response.status_code == 200, response.text
-        assert data["name"] == hero2_created["name"] # Name should not change from created state
+        assert (
+            data["name"] == hero2_created["name"]
+        )  # Name should not change from created state
         assert data["secret_name"] == "Spider-Youngster"
 
         response = client.patch(f"/heroes/{hero3_id}", json={"age": None})
@@ -102,7 +104,9 @@ def test_tutorial(module: types.ModuleType):
         assert data["name"] == hero3_created["name"]
         assert data["age"] is None
 
-        response = client.patch("/heroes/9001", json={"name": "Dragon Cube X"}) # Non-existent ID
+        response = client.patch(
+            "/heroes/9001", json={"name": "Dragon Cube X"}
+        )  # Non-existent ID
         assert response.status_code == 404, response.text
 
         response = client.get("/openapi.json")
@@ -313,7 +317,7 @@ def test_tutorial(module: types.ModuleType):
                                 }
                             )
                             | IsDict(
-                                {"title": "Age", "type": "integer"} # Pydantic v1
+                                {"title": "Age", "type": "integer"}  # Pydantic v1
                             ),
                         },
                     },
@@ -331,7 +335,7 @@ def test_tutorial(module: types.ModuleType):
                                 }
                             )
                             | IsDict(
-                                {"title": "Age", "type": "integer"} # Pydantic v1
+                                {"title": "Age", "type": "integer"}  # Pydantic v1
                             ),
                             "id": {"title": "Id", "type": "integer"},
                         },
@@ -347,7 +351,7 @@ def test_tutorial(module: types.ModuleType):
                                 }
                             )
                             | IsDict(
-                                {"title": "Name", "type": "string"} # Pydantic v1
+                                {"title": "Name", "type": "string"}  # Pydantic v1
                             ),
                             "secret_name": IsDict(
                                 {
@@ -356,7 +360,10 @@ def test_tutorial(module: types.ModuleType):
                                 }
                             )
                             | IsDict(
-                                {"title": "Secret Name", "type": "string"} # Pydantic v1
+                                {
+                                    "title": "Secret Name",
+                                    "type": "string",
+                                }  # Pydantic v1
                             ),
                             "age": IsDict(
                                 {
@@ -365,7 +372,7 @@ def test_tutorial(module: types.ModuleType):
                                 }
                             )
                             | IsDict(
-                                {"title": "Age", "type": "integer"} # Pydantic v1
+                                {"title": "Age", "type": "integer"}  # Pydantic v1
                             ),
                         },
                     },

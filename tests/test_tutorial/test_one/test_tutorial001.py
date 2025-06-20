@@ -5,10 +5,9 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine, SQLModel # Added SQLModel
+from sqlmodel import create_engine  # Added SQLModel
 
-from ...conftest import get_testing_print_function, needs_py310, PrintMock
-
+from ...conftest import PrintMock, get_testing_print_function, needs_py310
 
 expected_calls_tutorial001 = [
     [
@@ -48,7 +47,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
         # or even lead to issues if not idempotent. Let main() handle it.
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-         mod.SQLModel.metadata.create_all(mod.engine)
+        mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

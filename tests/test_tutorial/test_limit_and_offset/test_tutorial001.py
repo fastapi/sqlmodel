@@ -5,12 +5,11 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine, SQLModel # Added SQLModel for table creation
+from sqlmodel import create_engine  # Added SQLModel for table creation
 
-from ...conftest import get_testing_print_function, needs_py310, PrintMock
+from ...conftest import PrintMock, get_testing_print_function, needs_py310
 
-
-expected_calls_tutorial001 = [ # Renamed to be specific
+expected_calls_tutorial001 = [  # Renamed to be specific
     [
         [
             {"id": 1, "name": "Deadpond", "secret_name": "Dive Wilson", "age": None},
@@ -33,7 +32,9 @@ expected_calls_tutorial001 = [ # Renamed to be specific
         pytest.param("tutorial001_py310", marks=needs_py310),
     ],
 )
-def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any): # Changed name for clarity
+def module_fixture(
+    request: pytest.FixtureRequest, clear_sqlmodel: Any
+):  # Changed name for clarity
     module_name = request.param
     # Corrected module path
     full_module_name = f"docs_src.tutorial.offset_and_limit.{module_name}"
@@ -50,9 +51,9 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any): # Chang
     # If not, this is a safeguard.
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
         # This function should ideally call SQLModel.metadata.create_all(engine)
-        pass # Assuming main() will call it or tables are created before select
+        pass  # Assuming main() will call it or tables are created before select
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-         mod.SQLModel.metadata.create_all(mod.engine)
+        mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

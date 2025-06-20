@@ -1,14 +1,14 @@
 import importlib
 import sys
 from types import ModuleType
-from typing import Any # For clear_sqlmodel type hint
+from typing import Any  # For clear_sqlmodel type hint
 
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
-from sqlmodel import SQLModel, create_engine # Import SQLModel
+from sqlmodel import SQLModel, create_engine  # Import SQLModel
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -24,7 +24,9 @@ from ....conftest import needs_py39, needs_py310
     ],
 )
 def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleType:
-    module_name = f"docs_src.tutorial.fastapi.multiple_models.{request.param}" # No .main
+    module_name = (
+        f"docs_src.tutorial.fastapi.multiple_models.{request.param}"  # No .main
+    )
     if module_name in sys.modules:
         module = importlib.reload(sys.modules[module_name])
     else:
@@ -34,13 +36,11 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleTyp
     # Ensure connect_args is available in module, default if not.
     # Some tutorial files might not define it if they don't use on_event("startup") for engine creation.
     connect_args = getattr(module, "connect_args", {"check_same_thread": False})
-    if "check_same_thread" not in connect_args: # Ensure this specific arg for SQLite
+    if "check_same_thread" not in connect_args:  # Ensure this specific arg for SQLite
         connect_args["check_same_thread"] = False
 
     module.engine = create_engine(
-        module.sqlite_url,
-        connect_args=connect_args,
-        poolclass=StaticPool
+        module.sqlite_url, connect_args=connect_args, poolclass=StaticPool
     )
     if hasattr(module, "create_db_and_tables"):
         module.create_db_and_tables()
@@ -66,7 +66,7 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         assert data["secret_name"] == hero1_data["secret_name"]
         assert data["id"] is not None
         assert data["age"] is None
-        hero1_id = data["id"] # Store actual ID
+        hero1_id = data["id"]  # Store actual ID
 
         response = client.post("/heroes/", json=hero2_data)
         data = response.json()
@@ -78,8 +78,7 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         # This is true if ID is auto-generated and not 9000.
         assert data["id"] is not None
         assert data["age"] is None
-        hero2_id = data["id"] # Store actual ID
-
+        hero2_id = data["id"]  # Store actual ID
 
         response = client.get("/heroes/")
         data = response.json()
@@ -94,7 +93,6 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         assert data[1]["id"] == hero2_id
         assert data[1]["name"] == hero2_data["name"]
         assert data[1]["secret_name"] == hero2_data["secret_name"]
-
 
         response = client.get("/openapi.json")
         assert response.status_code == 200, response.text
@@ -237,8 +235,8 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         }
 
     # Test inherited indexes
-    insp: Inspector = inspect(module.engine) # Use module.engine
-    indexes = insp.get_indexes(str(module.Hero.__tablename__)) # Use module.Hero
+    insp: Inspector = inspect(module.engine)  # Use module.engine
+    indexes = insp.get_indexes(str(module.Hero.__tablename__))  # Use module.Hero
     expected_indexes = [
         {
             "name": "ix_hero_name",
@@ -255,10 +253,16 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
     ]
     # Convert list of dicts to list of tuples of sorted items for order-agnostic comparison
     indexes_for_comparison = [tuple(sorted(d.items())) for d in indexes]
-    expected_indexes_for_comparison = [tuple(sorted(d.items())) for d in expected_indexes]
+    expected_indexes_for_comparison = [
+        tuple(sorted(d.items())) for d in expected_indexes
+    ]
 
     for index_data_tuple in expected_indexes_for_comparison:
-        assert index_data_tuple in indexes_for_comparison, f"Expected index {index_data_tuple} not found in DB indexes {indexes_for_comparison}"
+        assert index_data_tuple in indexes_for_comparison, (
+            f"Expected index {index_data_tuple} not found in DB indexes {indexes_for_comparison}"
+        )
         indexes_for_comparison.remove(index_data_tuple)
 
-    assert len(indexes_for_comparison) == 0, f"Unexpected extra indexes found in DB: {indexes_for_comparison}"
+    assert len(indexes_for_comparison) == 0, (
+        f"Unexpected extra indexes found in DB: {indexes_for_comparison}"
+    )

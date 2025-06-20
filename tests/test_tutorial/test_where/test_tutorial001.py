@@ -5,10 +5,9 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine, SQLModel
+from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function, needs_py310, PrintMock
-
+from ...conftest import PrintMock, get_testing_print_function, needs_py310
 
 expected_calls_tutorial001 = [
     [
@@ -42,9 +41,9 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     mod.engine = create_engine(mod.sqlite_url)
 
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
-        pass # Assuming main() calls it or it's handled if needed by the tutorial's main logic
+        pass  # Assuming main() calls it or it's handled if needed by the tutorial's main logic
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-         mod.SQLModel.metadata.create_all(mod.engine)
+        mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

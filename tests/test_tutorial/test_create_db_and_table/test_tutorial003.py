@@ -1,6 +1,6 @@
 import importlib
 from types import ModuleType
-from typing import Any # For clear_sqlmodel type hint
+from typing import Any  # For clear_sqlmodel type hint
 
 import pytest
 from sqlalchemy import inspect

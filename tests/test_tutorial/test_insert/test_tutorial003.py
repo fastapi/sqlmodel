@@ -4,7 +4,7 @@ import types
 from typing import Any
 
 import pytest
-from sqlmodel import create_engine, SQLModel, Session, select
+from sqlmodel import Session, create_engine, select
 
 from ...conftest import needs_py310
 
@@ -30,12 +30,16 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
 
     # Create tables. Tutorial003.py in insert focuses on refresh, so tables and initial data are key.
     # It's likely main() handles this. If not, direct creation is a fallback.
-    if hasattr(mod, "create_db_and_tables"): # Some tutorials use this helper
+    if hasattr(mod, "create_db_and_tables"):  # Some tutorials use this helper
         mod.create_db_and_tables()
-    elif hasattr(mod, "Hero") and hasattr(mod.Hero, "metadata"): # Check for Hero model metadata
-         mod.Hero.metadata.create_all(mod.engine)
-    elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"): # Generic fallback
-         mod.SQLModel.metadata.create_all(mod.engine)
+    elif hasattr(mod, "Hero") and hasattr(
+        mod.Hero, "metadata"
+    ):  # Check for Hero model metadata
+        mod.Hero.metadata.create_all(mod.engine)
+    elif hasattr(mod, "SQLModel") and hasattr(
+        mod.SQLModel, "metadata"
+    ):  # Generic fallback
+        mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

@@ -1,14 +1,15 @@
 import importlib
-import sys # Add sys import
+import sys  # Add sys import
 from types import ModuleType
 from typing import Any, Generator
 
 import pytest
 from fastapi.testclient import TestClient
-from sqlmodel import Session, SQLModel, create_engine # Keep this for session_fixture
-from sqlmodel.pool import StaticPool # Keep this for session_fixture
+from sqlmodel import Session, SQLModel, create_engine  # Keep this for session_fixture
+from sqlmodel.pool import StaticPool  # Keep this for session_fixture
 
 from ....conftest import needs_py39, needs_py310
+
 
 # This will be our parametrized fixture providing the versioned 'main' module
 @pytest.fixture(
@@ -20,7 +21,9 @@ from ....conftest import needs_py39, needs_py310
         pytest.param("tutorial001_py310", marks=needs_py310),
     ],
 )
-def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleType: # clear_sqlmodel is autouse
+def get_module(
+    request: pytest.FixtureRequest, clear_sqlmodel: Any
+) -> ModuleType:  # clear_sqlmodel is autouse
     module_name = f"docs_src.tutorial.fastapi.app_testing.{request.param}.main"
 
     # Forcing reload to try to get a fresh state for models
@@ -29,6 +32,7 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleTyp
     else:
         module = importlib.import_module(module_name)
     return module
+
 
 @pytest.fixture(name="session", scope="function")
 def session_fixture(module: ModuleType) -> Generator[Session, None, None]:
@@ -39,13 +43,13 @@ def session_fixture(module: ModuleType) -> Generator[Session, None, None]:
 
     # Force module to use a fresh in-memory SQLite DB for this test run
     module.sqlite_url = "sqlite://"
-    module.connect_args = {"check_same_thread": False} # Crucial for FastAPI + SQLite
+    module.connect_args = {"check_same_thread": False}  # Crucial for FastAPI + SQLite
 
     # Re-create the engine in the module to use these new settings
     test_engine = create_engine(
         module.sqlite_url,
         connect_args=module.connect_args,
-        poolclass=StaticPool  # Recommended for tests
+        poolclass=StaticPool,  # Recommended for tests
     )
     module.engine = test_engine
 
@@ -55,7 +59,9 @@ def session_fixture(module: ModuleType) -> Generator[Session, None, None]:
         # Fallback if the function isn't named create_db_and_tables
         SQLModel.metadata.create_all(module.engine)
 
-    with Session(module.engine) as session: # Use the module's (now test-configured) engine
+    with Session(
+        module.engine
+    ) as session:  # Use the module's (now test-configured) engine
         yield session
 
     # Teardown: drop tables from the module's engine
@@ -68,14 +74,16 @@ def session_fixture(module: ModuleType) -> Generator[Session, None, None]:
         module.connect_args = original_connect_args
     if original_engine is not None:
         module.engine = original_engine
-    else: # If engine didn't exist, remove the one we created
+    else:  # If engine didn't exist, remove the one we created
         if hasattr(module, "engine"):
             del module.engine
 
 
 @pytest.fixture(name="client", scope="function")
-def client_fixture(session: Session, module: ModuleType) -> Generator[TestClient, None, None]:
-    def get_session_override() -> Generator[Session, None, None]: # Must be a generator
+def client_fixture(
+    session: Session, module: ModuleType
+) -> Generator[TestClient, None, None]:
+    def get_session_override() -> Generator[Session, None, None]:  # Must be a generator
         yield session
 
     module.app.dependency_overrides[module.get_session] = get_session_override
@@ -140,7 +148,7 @@ def test_read_heroes(session: Session, client: TestClient, module: ModuleType):
 
 
 def test_read_hero(session: Session, client: TestClient, module: ModuleType):
-    hero_1 = module.Hero(name="Deadpond", secret_name="Dive Wilson") # Use module.Hero
+    hero_1 = module.Hero(name="Deadpond", secret_name="Dive Wilson")  # Use module.Hero
     session.add(hero_1)
     session.commit()
 
@@ -155,7 +163,7 @@ def test_read_hero(session: Session, client: TestClient, module: ModuleType):
 
 
 def test_update_hero(session: Session, client: TestClient, module: ModuleType):
-    hero_1 = module.Hero(name="Deadpond", secret_name="Dive Wilson") # Use module.Hero
+    hero_1 = module.Hero(name="Deadpond", secret_name="Dive Wilson")  # Use module.Hero
     session.add(hero_1)
     session.commit()
 
@@ -170,13 +178,13 @@ def test_update_hero(session: Session, client: TestClient, module: ModuleType):
 
 
 def test_delete_hero(session: Session, client: TestClient, module: ModuleType):
-    hero_1 = module.Hero(name="Deadpond", secret_name="Dive Wilson") # Use module.Hero
+    hero_1 = module.Hero(name="Deadpond", secret_name="Dive Wilson")  # Use module.Hero
     session.add(hero_1)
     session.commit()
 
     response = client.delete(f"/heroes/{hero_1.id}")
 
-    hero_in_db = session.get(module.Hero, hero_1.id) # Use module.Hero
+    hero_in_db = session.get(module.Hero, hero_1.id)  # Use module.Hero
 
     assert response.status_code == 200
     assert hero_in_db is None
