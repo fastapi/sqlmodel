@@ -1,12 +1,17 @@
+import importlib
+import sys
+import types
+from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlalchemy.exc import SAWarning
-from sqlmodel import create_engine
+from sqlalchemy.exc import SAWarning # Keep this import
+from sqlmodel import create_engine, SQLModel
 
-from ....conftest import get_testing_print_function
+from ....conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
 
-expected_calls = [
+
+expected_calls_tutorial001 = [
     [
         "Created hero:",
         {
@@ -181,12 +186,12 @@ expected_calls = [
             "age": None,
             "id": 3,
             "secret_name": "Pedro Parqueador",
-            "team_id": 2,
+            "team_id": 2, # Still has team_id locally until committed and refreshed
             "name": "Spider-Boy",
         },
     ],
     [
-        "Preventers Team Heroes again:",
+        "Preventers Team Heroes again:", # Before commit, team still has Spider-Boy
         [
             {
                 "age": 48,
@@ -227,7 +232,7 @@ expected_calls = [
     ],
     ["After committing"],
     [
-        "Spider-Boy after commit:",
+        "Spider-Boy after commit:", # team_id is None after commit and refresh
         {
             "age": None,
             "id": 3,
@@ -237,7 +242,7 @@ expected_calls = [
         },
     ],
     [
-        "Preventers Team Heroes after commit:",
+        "Preventers Team Heroes after commit:", # Spider-Boy is removed
         [
             {
                 "age": 48,
@@ -272,18 +277,39 @@ expected_calls = [
 ]
 
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.relationship_attributes.back_populates import (
-        tutorial001 as mod,
-    )
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial001",
+        pytest.param("tutorial001_py39", marks=needs_py39),
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
+    module_name = request.param
+    full_module_name = f"docs_src.tutorial.relationship_attributes.back_populates.{module_name}"
+
+    if full_module_name in sys.modules:
+        mod = importlib.reload(sys.modules[full_module_name])
+    else:
+        mod = importlib.import_module(full_module_name)
 
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
-    calls = []
 
-    new_print = get_testing_print_function(calls)
+    if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
+        pass
+    elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
+         mod.SQLModel.metadata.create_all(mod.engine)
 
-    with patch("builtins.print", new=new_print):
+    return mod
+
+
+def test_tutorial(module: types.ModuleType, print_mock: PrintMock, clear_sqlmodel: Any):
+    with patch("builtins.print", new=get_testing_print_function(print_mock.calls)):
+        # The SAWarning is expected due to how relationship changes are handled before commit
+        # in some of these back_populates examples.
         with pytest.warns(SAWarning):
-            mod.main()
-    assert calls == expected_calls
+            module.main()
+
+    assert print_mock.calls == expected_calls_tutorial001

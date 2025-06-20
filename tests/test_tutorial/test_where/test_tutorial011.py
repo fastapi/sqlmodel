@@ -1,21 +1,49 @@
+import importlib
+import sys
+import types
+from typing import Any
 from unittest.mock import patch
 
-from sqlmodel import create_engine
+import pytest
+from sqlmodel import create_engine, SQLModel
 
-from ...conftest import get_testing_print_function
+from ...conftest import get_testing_print_function, needs_py310, PrintMock
 
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.where import tutorial011 as mod
+# expected_calls is defined within the test_tutorial function in the original test
+
+
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial011",
+        pytest.param("tutorial011_py310", marks=needs_py310),
+    ],
+)
+def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
+    module_name = request.param
+    full_module_name = f"docs_src.tutorial.where.{module_name}"
+
+    if full_module_name in sys.modules:
+        mod = importlib.reload(sys.modules[full_module_name])
+    else:
+        mod = importlib.import_module(full_module_name)
 
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
-    calls = []
 
-    new_print = get_testing_print_function(calls)
+    if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
+        pass
+    elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
+         mod.SQLModel.metadata.create_all(mod.engine)
 
-    with patch("builtins.print", new=new_print):
-        mod.main()
+    return mod
+
+
+def test_tutorial(module: types.ModuleType, print_mock: PrintMock, clear_sqlmodel: Any):
+    with patch("builtins.print", new=get_testing_print_function(print_mock.calls)):
+        module.main()
+
     expected_calls = [
         [{"id": 5, "name": "Black Lion", "secret_name": "Trevor Challa", "age": 35}],
         [{"id": 6, "name": "Dr. Weird", "secret_name": "Steve Weird", "age": 36}],
@@ -29,8 +57,8 @@ def test_tutorial(clear_sqlmodel):
             }
         ],
     ]
-    for call in expected_calls:
-        assert call in calls, "This expected item should be in the list"
-        # Now that this item was checked, remove it from the list
-        calls.pop(calls.index(call))
-    assert len(calls) == 0, "The list should only have the expected items"
+    # Preserve the original assertion logic
+    for call_item in expected_calls:
+        assert call_item in print_mock.calls, "This expected item should be in the list"
+        print_mock.calls.pop(print_mock.calls.index(call_item))
+    assert len(print_mock.calls) == 0, "The list should only have the expected items"

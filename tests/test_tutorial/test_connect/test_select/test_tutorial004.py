@@ -59,7 +59,9 @@ expected_calls = [
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:
     module_name = request.param
-    mod = importlib.import_module(f"docs_src.tutorial.connect.select.{module_name}")
+    mod = importlib.import_module(
+        f"docs_src.tutorial.connect.select.{module_name}"
+    )
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
     return mod

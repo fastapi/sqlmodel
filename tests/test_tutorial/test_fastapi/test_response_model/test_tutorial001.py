@@ -6,7 +6,7 @@ from typing import Any
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import SQLModel, create_engine
+from sqlmodel import create_engine, SQLModel
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -67,7 +67,7 @@ def test_tutorial(module: types.ModuleType):
         assert data[0]["secret_name"] == hero_data["secret_name"]
         # Ensure other fields are present as per the model Hero (which is used as response_model)
         assert "id" in data[0]
-        assert "age" in data[0]  # Even if None, it should be in the response
+        assert "age" in data[0] # Even if None, it should be in the response
 
         response = client.get("/openapi.json")
         assert response.status_code == 200, response.text

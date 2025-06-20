@@ -1,30 +1,58 @@
+import importlib
+import sys
+import types
+from typing import Any
 from unittest.mock import patch
 
-from sqlmodel import create_engine
+import pytest
+from sqlmodel import create_engine, SQLModel
 
-from ...conftest import get_testing_print_function
+from ...conftest import get_testing_print_function, needs_py310, PrintMock
 
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.where import tutorial010 as mod
+expected_calls_tutorial010 = [
+    [{"name": "Tarantula", "secret_name": "Natalia Roman-on", "age": 32, "id": 4}],
+    [{"name": "Black Lion", "secret_name": "Trevor Challa", "age": 35, "id": 5}],
+    [
+        {
+            "name": "Captain North America",
+            "secret_name": "Esteban Rogelios",
+            "age": 93,
+            "id": 7,
+        }
+    ],
+]
+
+
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial010",
+        pytest.param("tutorial010_py310", marks=needs_py310),
+    ],
+)
+def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
+    module_name = request.param
+    full_module_name = f"docs_src.tutorial.where.{module_name}"
+
+    if full_module_name in sys.modules:
+        mod = importlib.reload(sys.modules[full_module_name])
+    else:
+        mod = importlib.import_module(full_module_name)
 
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
-    calls = []
 
-    new_print = get_testing_print_function(calls)
+    if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
+        pass
+    elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
+         mod.SQLModel.metadata.create_all(mod.engine)
 
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    assert calls == [
-        [{"name": "Tarantula", "secret_name": "Natalia Roman-on", "age": 32, "id": 4}],
-        [{"name": "Black Lion", "secret_name": "Trevor Challa", "age": 35, "id": 5}],
-        [
-            {
-                "name": "Captain North America",
-                "secret_name": "Esteban Rogelios",
-                "age": 93,
-                "id": 7,
-            }
-        ],
-    ]
+    return mod
+
+
+def test_tutorial(module: types.ModuleType, print_mock: PrintMock, clear_sqlmodel: Any):
+    with patch("builtins.print", new=get_testing_print_function(print_mock.calls)):
+        module.main()
+
+    assert print_mock.calls == expected_calls_tutorial010
