@@ -6,7 +6,7 @@ from typing import Any
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import create_engine, SQLModel
+from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -52,10 +52,10 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     # Let's rely on the app's startup event as per the tutorial's design.
     # If `create_db_and_tables` exists as a global function in the module (outside app event), then call it.
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
-         # Check if it's the function that FastAPI would call, or a standalone one.
-         # This tutorial series usually has `create_db_and_tables` called by `app.on_event("startup")`.
-         # If the tests run TestClient(mod.app), startup events will run.
-         pass # Assuming startup event handles it.
+        # Check if it's the function that FastAPI would call, or a standalone one.
+        # This tutorial series usually has `create_db_and_tables` called by `app.on_event("startup")`.
+        # If the tests run TestClient(mod.app), startup events will run.
+        pass  # Assuming startup event handles it.
 
     return mod
 
@@ -67,7 +67,7 @@ def test_tutorial(module: types.ModuleType):
         hero2_data = {
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
-            "id": 9000, # This ID might be ignored by DB if it's auto-incrementing primary key
+            "id": 9000,  # This ID might be ignored by DB if it's auto-incrementing primary key
         }
         hero3_data = {
             "name": "Rusty-Man",
@@ -79,13 +79,13 @@ def test_tutorial(module: types.ModuleType):
 
         response = client.post("/heroes/", json=hero2_data)
         assert response.status_code == 200, response.text
-        hero2_created = response.json() # Use the ID from the created hero
+        hero2_created = response.json()  # Use the ID from the created hero
         hero2_id = hero2_created["id"]
 
         response = client.post("/heroes/", json=hero3_data)
         assert response.status_code == 200, response.text
 
-        response = client.get(f"/heroes/{hero2_id}") # Use the actual ID from DB
+        response = client.get(f"/heroes/{hero2_id}")  # Use the actual ID from DB
         assert response.status_code == 200, response.text
 
         # If hero ID 9000 was intended to be a specific test case for a non-existent ID
@@ -93,8 +93,10 @@ def test_tutorial(module: types.ModuleType):
         # Otherwise, if hero2 was expected to have ID 9000, this needs adjustment.
         # Given typical auto-increment, ID 9000 for hero2 is unlikely unless DB is reset and hero2 is first entry.
         # The original test implies hero2_data's ID is not necessarily the created ID.
-        response = client.get("/heroes/9000") # Check for a potentially non-existent ID
-        assert response.status_code == 404, response.text # Expect 404 if 9000 is not hero2_id and not another hero's ID
+        response = client.get("/heroes/9000")  # Check for a potentially non-existent ID
+        assert response.status_code == 404, (
+            response.text
+        )  # Expect 404 if 9000 is not hero2_id and not another hero's ID
 
         response = client.get("/heroes/")
         assert response.status_code == 200, response.text
@@ -106,7 +108,9 @@ def test_tutorial(module: types.ModuleType):
         )
         assert response.status_code == 200, response.text
 
-        response = client.patch("/heroes/9001", json={"name": "Dragon Cube X"}) # Non-existent ID
+        response = client.patch(
+            "/heroes/9001", json={"name": "Dragon Cube X"}
+        )  # Non-existent ID
         assert response.status_code == 404, response.text
 
         response = client.delete(f"/heroes/{hero2_id}")
@@ -117,7 +121,9 @@ def test_tutorial(module: types.ModuleType):
         data = response.json()
         assert len(data) == 2
 
-        response = client.delete("/heroes/9000") # Non-existent ID (same as the GET check)
+        response = client.delete(
+            "/heroes/9000"
+        )  # Non-existent ID (same as the GET check)
         assert response.status_code == 404, response.text
 
         response = client.get("/openapi.json")
