@@ -1,4 +1,5 @@
 import importlib
+import types
 
 import pytest
 from dirty_equals import IsUUID
@@ -19,7 +20,7 @@ def get_module(request: pytest.FixtureRequest):
     return importlib.import_module(f"docs_src.advanced.uuid.{module_name}")
 
 
-def test_tutorial(print_mock: PrintMock, module: type) -> None:
+def test_tutorial(print_mock: PrintMock, module: types.ModuleType) -> None:
     module.sqlite_url = "sqlite://"
     module.engine = create_engine(module.sqlite_url)
 

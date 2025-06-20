@@ -6,7 +6,7 @@ from typing import Any
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -44,13 +44,11 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     return mod
 
 
-def test_tutorial(
-    module: types.ModuleType,
-):  # clear_sqlmodel is implicitly used by get_module
+def test_tutorial(module: types.ModuleType): # clear_sqlmodel is implicitly used by get_module
     with TestClient(module.app) as client:
         # Hero Operations
         hero1_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
-        hero2_data = {  # This hero's ID might be overridden by DB if not specified or if ID is auto-incrementing
+        hero2_data = { # This hero's ID might be overridden by DB if not specified or if ID is auto-incrementing
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
             "id": 9000,
@@ -63,35 +61,29 @@ def test_tutorial(
         response = client.post("/heroes/", json=hero2_data)
         assert response.status_code == 200, response.text
         hero2_created = response.json()
-        hero2_id = hero2_created["id"]  # Use the actual ID returned by the DB
+        hero2_id = hero2_created["id"] # Use the actual ID returned by the DB
 
         response = client.post("/heroes/", json=hero3_data)
         assert response.status_code == 200, response.text
 
-        response = client.get(f"/heroes/{hero2_id}")  # Use DB generated ID
+        response = client.get(f"/heroes/{hero2_id}") # Use DB generated ID
         assert response.status_code == 200, response.text
 
-        response = client.get(
-            "/heroes/9000"
-        )  # Check for ID 9000 specifically (could be hero2_id or not)
-        if hero2_id == 9000:  # If hero2 got ID 9000
-            assert response.status_code == 200, response.text
-        else:  # If hero2 got a different ID, then 9000 should not exist
-            assert response.status_code == 404, response.text
+        response = client.get("/heroes/9000") # Check for ID 9000 specifically (could be hero2_id or not)
+        if hero2_id == 9000 : # If hero2 got ID 9000
+             assert response.status_code == 200, response.text
+        else: # If hero2 got a different ID, then 9000 should not exist
+             assert response.status_code == 404, response.text
 
         response = client.get("/heroes/")
         assert response.status_code == 200, response.text
         data = response.json()
         assert len(data) == 3
 
-        response = client.patch(
-            f"/heroes/{hero2_id}", json={"secret_name": "Spider-Youngster"}
-        )
+        response = client.patch(f"/heroes/{hero2_id}", json={"secret_name": "Spider-Youngster"})
         assert response.status_code == 200, response.text
 
-        response = client.patch(
-            "/heroes/9001", json={"name": "Dragon Cube X"}
-        )  # Non-existent ID
+        response = client.patch("/heroes/9001", json={"name": "Dragon Cube X"}) # Non-existent ID
         assert response.status_code == 404, response.text
 
         response = client.delete(f"/heroes/{hero2_id}")
@@ -102,19 +94,13 @@ def test_tutorial(
         data = response.json()
         assert len(data) == 2
 
-        response = client.delete("/heroes/9000")  # Try deleting ID 9000
-        if hero2_id == 9000 and hero2_id not in [
-            h["id"] for h in data
-        ]:  # If it was hero2's ID and hero2 was deleted
-            assert response.status_code == 404  # Already deleted
-        elif hero2_id != 9000 and 9000 not in [
-            h["id"] for h in data
-        ]:  # If 9000 was never a valid ID among current heroes
+        response = client.delete("/heroes/9000") # Try deleting ID 9000
+        if hero2_id == 9000 and hero2_id not in [h["id"] for h in data]: # If it was hero2's ID and hero2 was deleted
+            assert response.status_code == 404 # Already deleted
+        elif hero2_id != 9000 and 9000 not in [h["id"] for h in data]: # If 9000 was never a valid ID among current heroes
             assert response.status_code == 404
-        else:  # If 9000 was a valid ID of another hero still present (should not happen with current data)
-            assert (
-                response.status_code == 200
-            )  # This case is unlikely with current test data
+        else: # If 9000 was a valid ID of another hero still present (should not happen with current data)
+            assert response.status_code == 200 # This case is unlikely with current test data
 
         # Team Operations
         team_preventers_data = {"name": "Preventers", "headquarters": "Sharp Tower"}
@@ -128,7 +114,6 @@ def test_tutorial(
         response = client.post("/teams/", json=team_z_force_data)
         assert response.status_code == 200, response.text
         team_z_force_created = response.json()
-        # team_z_force_id = team_z_force_created["id"] # ID not used later, but good practice
 
         response = client.get("/teams/")
         data = response.json()
@@ -142,7 +127,7 @@ def test_tutorial(
         assert data["headquarters"] == team_preventers_created["headquarters"]
         assert data["id"] == team_preventers_created["id"]
 
-        response = client.get("/teams/9000")  # Non-existent team ID
+        response = client.get("/teams/9000") # Non-existent team ID
         assert response.status_code == 404, response.text
 
         response = client.patch(
@@ -150,18 +135,16 @@ def test_tutorial(
         )
         data = response.json()
         assert response.status_code == 200, response.text
-        assert data["name"] == team_preventers_data["name"]  # Name should be unchanged
+        assert data["name"] == team_preventers_data["name"] # Name should be unchanged
         assert data["headquarters"] == "Preventers Tower"
 
-        response = client.patch(
-            "/teams/9000", json={"name": "Freedom League"}
-        )  # Non-existent
+        response = client.patch("/teams/9000", json={"name": "Freedom League"}) # Non-existent
         assert response.status_code == 404, response.text
 
         response = client.delete(f"/teams/{team_preventers_id}")
         assert response.status_code == 200, response.text
 
-        response = client.delete("/teams/9000")  # Non-existent
+        response = client.delete("/teams/9000") # Non-existent
         assert response.status_code == 404, response.text
 
         response = client.get("/teams/")

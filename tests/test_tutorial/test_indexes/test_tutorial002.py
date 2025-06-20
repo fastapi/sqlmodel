@@ -7,9 +7,9 @@ from unittest.mock import patch
 import pytest
 from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
-from sqlmodel import create_engine  # Added SQLModel
+from sqlmodel import create_engine, SQLModel # Added SQLModel
 
-from ...conftest import PrintMock, get_testing_print_function, needs_py310
+from ...conftest import get_testing_print_function, needs_py310, PrintMock
 
 
 @pytest.fixture(
@@ -32,9 +32,9 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     mod.engine = create_engine(mod.sqlite_url)
 
     if hasattr(mod, "Hero") and hasattr(mod.Hero, "metadata"):
-        mod.Hero.metadata.create_all(mod.engine)
+         mod.Hero.metadata.create_all(mod.engine)
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-        mod.SQLModel.metadata.create_all(mod.engine)
+         mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 
@@ -55,7 +55,7 @@ def test_tutorial(print_mock: PrintMock, module: types.ModuleType):
     expected_indexes = [
         {
             "name": "ix_hero_name",
-            "dialect_options": {},  # Included for completeness but not strictly compared below
+            "dialect_options": {}, # Included for completeness but not strictly compared below
             "column_names": ["name"],
             "unique": 0,
         },
@@ -69,29 +69,22 @@ def test_tutorial(print_mock: PrintMock, module: types.ModuleType):
 
     found_indexes_simplified = []
     for index in indexes:
-        found_indexes_simplified.append(
-            {
-                "name": index["name"],
-                "column_names": sorted(index["column_names"]),
-                "unique": index["unique"],
-            }
-        )
+        found_indexes_simplified.append({
+            "name": index["name"],
+            "column_names": sorted(index["column_names"]),
+            "unique": index["unique"],
+        })
 
     expected_indexes_simplified = []
     for index in expected_indexes:
-        expected_indexes_simplified.append(
-            {
-                "name": index["name"],
-                "column_names": sorted(index["column_names"]),
-                "unique": index["unique"],
-            }
-        )
+        expected_indexes_simplified.append({
+            "name": index["name"],
+            "column_names": sorted(index["column_names"]),
+            "unique": index["unique"],
+        })
 
     for expected_index in expected_indexes_simplified:
-        assert expected_index in found_indexes_simplified, (
-            f"Expected index {expected_index['name']} not found or mismatch."
-        )
+        assert expected_index in found_indexes_simplified, f"Expected index {expected_index['name']} not found or mismatch."
 
-    assert len(found_indexes_simplified) == len(expected_indexes_simplified), (
+    assert len(found_indexes_simplified) == len(expected_indexes_simplified), \
         f"Mismatch in number of indexes. Found: {len(found_indexes_simplified)}, Expected: {len(expected_indexes_simplified)}"
-    )

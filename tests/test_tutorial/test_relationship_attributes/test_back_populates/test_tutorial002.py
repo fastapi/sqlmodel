@@ -5,11 +5,11 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-
 # SAWarning is not expected in this tutorial's test, so not importing it from sqlalchemy.exc
-from sqlmodel import create_engine
+from sqlmodel import create_engine, SQLModel
 
-from ....conftest import PrintMock, get_testing_print_function, needs_py39, needs_py310
+from ....conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
+
 
 expected_calls_tutorial002 = [
     [
@@ -280,9 +280,7 @@ expected_calls_tutorial002 = [
 )
 def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     module_name = request.param
-    full_module_name = (
-        f"docs_src.tutorial.relationship_attributes.back_populates.{module_name}"
-    )
+    full_module_name = f"docs_src.tutorial.relationship_attributes.back_populates.{module_name}"
 
     if full_module_name in sys.modules:
         mod = importlib.reload(sys.modules[full_module_name])
@@ -295,7 +293,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-        mod.SQLModel.metadata.create_all(mod.engine)
+         mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

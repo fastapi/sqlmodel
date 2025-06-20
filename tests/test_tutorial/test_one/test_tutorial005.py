@@ -5,14 +5,11 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlalchemy.exc import NoResultFound  # Keep this import
-from sqlmodel import (  # Ensure Session and delete
-    Session,
-    create_engine,
-    delete,
-)
+from sqlalchemy.exc import NoResultFound # Keep this import
+from sqlmodel import create_engine, SQLModel, Session, delete # Ensure Session and delete
 
-from ...conftest import PrintMock, get_testing_print_function, needs_py310
+from ...conftest import get_testing_print_function, needs_py310, PrintMock
+
 
 expected_calls_tutorial005 = [
     [
@@ -52,7 +49,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     # The create_db_and_tables() is called inside main() *after* the select that fails.
     # So, the fixture should create tables.
     if hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-        mod.SQLModel.metadata.create_all(mod.engine)  # Create tables
+         mod.SQLModel.metadata.create_all(mod.engine) # Create tables
 
     return mod
 
@@ -72,20 +69,16 @@ def test_tutorial(module: types.ModuleType, print_mock: PrintMock, clear_sqlmode
     # The `clear_sqlmodel` fixture ensures the DB is clean (tables might be recreated by module_fixture).
 
     with pytest.raises(NoResultFound):
-        module.main()  # This should execute the part of main() that expects no results
+        module.main() # This should execute the part of main() that expects no results
 
     # Phase 2: Test select_heroes() after manually adding a hero
     # This part matches the original test's logic after the expected exception.
     with Session(module.engine) as session:
-        session.exec(
-            delete(module.Hero)
-        )  # Clear any heroes if main() somehow added them
-        session.add(
-            module.Hero(name="Test Hero", secret_name="Secret Test Hero", age=24)
-        )
+        session.exec(delete(module.Hero)) # Clear any heroes if main() somehow added them
+        session.add(module.Hero(name="Test Hero", secret_name="Secret Test Hero", age=24))
         session.commit()
 
     with patch("builtins.print", new=get_testing_print_function(print_mock.calls)):
-        module.select_heroes()  # This function is defined in the tutorial module
+        module.select_heroes() # This function is defined in the tutorial module
 
     assert print_mock.calls == expected_calls_tutorial005

@@ -1,12 +1,12 @@
 import importlib
 import sys
 from types import ModuleType
-from typing import Any  # For clear_sqlmodel type hint
+from typing import Any # For clear_sqlmodel type hint
 
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
-from sqlmodel import SQLModel, create_engine  # Import SQLModel for metadata operations
+from sqlmodel import SQLModel, create_engine # Import SQLModel for metadata operations
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -22,7 +22,7 @@ from ....conftest import needs_py39, needs_py310
     ],
 )
 def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleType:
-    module_name = f"docs_src.tutorial.fastapi.delete.{request.param}"  # No .main here
+    module_name = f"docs_src.tutorial.fastapi.delete.{request.param}" # No .main here
     if module_name in sys.modules:
         module = importlib.reload(sys.modules[module_name])
     else:
@@ -34,23 +34,19 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleTyp
     module.sqlite_url = "sqlite://"
     module.engine = create_engine(
         module.sqlite_url,
-        connect_args={"check_same_thread": False},  # connect_args from original main.py
-        poolclass=StaticPool,
+        connect_args={"check_same_thread": False}, # connect_args from original main.py
+        poolclass=StaticPool
     )
     # Assuming the module has a create_db_and_tables or similar, or uses SQLModel.metadata directly
     if hasattr(module, "create_db_and_tables"):
         module.create_db_and_tables()
     else:
-        SQLModel.metadata.create_all(
-            module.engine
-        )  # Fallback, ensure tables are created
+        SQLModel.metadata.create_all(module.engine) # Fallback, ensure tables are created
 
     return module
 
 
-def test_tutorial(
-    clear_sqlmodel: Any, module: ModuleType
-):  # clear_sqlmodel is autouse but explicit for safety
+def test_tutorial(clear_sqlmodel: Any, module: ModuleType): # clear_sqlmodel is autouse but explicit for safety
     # The engine and tables are now set up by the 'module' fixture
     # The app's dependency overrides for get_session will use module.engine
 
@@ -60,7 +56,7 @@ def test_tutorial(
         hero2_data = {
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
-            "id": 9000,  # Note: ID is part of creation data here
+            "id": 9000, # Note: ID is part of creation data here
         }
         hero3_data = {
             "name": "Rusty-Man",
@@ -69,15 +65,13 @@ def test_tutorial(
         }
         response = client.post("/heroes/", json=hero1_data)
         assert response.status_code == 200, response.text
-        hero1 = response.json()  # Get actual ID of hero1
+        hero1 = response.json() # Get actual ID of hero1
         hero1_id = hero1["id"]
 
         response = client.post("/heroes/", json=hero2_data)
         assert response.status_code == 200, response.text
         hero2 = response.json()
-        hero2_id = hero2[
-            "id"
-        ]  # This will be the ID assigned by DB, not 9000 if 9000 is not allowed on POST
+        hero2_id = hero2["id"] # This will be the ID assigned by DB, not 9000 if 9000 is not allowed on POST
 
         response = client.post("/heroes/", json=hero3_data)
         assert response.status_code == 200, response.text
@@ -92,8 +86,8 @@ def test_tutorial(
         # For robustness, let's check for a non-existent ID based on actual data.
         # If hero2_id is 1, check for 9000. If it's 9000, check for 1 (assuming hero1_id is 1).
         non_existent_id_check = 9000
-        if hero2_id == non_existent_id_check:  # if DB somehow used 9000
-            non_existent_id_check = hero1_id + hero2_id + 100  # just some other ID
+        if hero2_id == non_existent_id_check: # if DB somehow used 9000
+            non_existent_id_check = hero1_id + hero2_id + 100 # just some other ID
 
         response = client.get(f"/heroes/{non_existent_id_check}")
         assert response.status_code == 404, response.text
@@ -108,9 +102,7 @@ def test_tutorial(
         )
         assert response.status_code == 200, response.text
 
-        response = client.patch(
-            f"/heroes/{non_existent_id_check}", json={"name": "Dragon Cube X"}
-        )
+        response = client.patch(f"/heroes/{non_existent_id_check}", json={"name": "Dragon Cube X"})
         assert response.status_code == 404, response.text
 
         response = client.delete(f"/heroes/{hero2_id}")
@@ -119,7 +111,7 @@ def test_tutorial(
         response = client.get("/heroes/")
         assert response.status_code == 200, response.text
         data = response.json()
-        assert len(data) == 2  # After deleting one hero
+        assert len(data) == 2 # After deleting one hero
 
         response = client.delete(f"/heroes/{non_existent_id_check}")
         assert response.status_code == 404, response.text

@@ -1,14 +1,14 @@
 import importlib
 import sys
 from types import ModuleType
-from typing import Any  # For clear_sqlmodel type hint
+from typing import Any # For clear_sqlmodel type hint
 
 import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
-from sqlmodel import SQLModel, create_engine  # Import SQLModel
+from sqlmodel import SQLModel, create_engine # Import SQLModel
 from sqlmodel.pool import StaticPool
 
 from ....conftest import needs_py39, needs_py310
@@ -18,13 +18,9 @@ from ....conftest import needs_py39, needs_py310
     name="module",
     scope="function",
     params=[
-        "tutorial002",  # Changed to tutorial002
-        pytest.param(
-            "tutorial002_py39", marks=needs_py39
-        ),  # Changed to tutorial002_py39
-        pytest.param(
-            "tutorial002_py310", marks=needs_py310
-        ),  # Changed to tutorial002_py310
+        "tutorial002", # Changed to tutorial002
+        pytest.param("tutorial002_py39", marks=needs_py39), # Changed to tutorial002_py39
+        pytest.param("tutorial002_py310", marks=needs_py310), # Changed to tutorial002_py310
     ],
 )
 def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleType:
@@ -40,7 +36,9 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleTyp
         connect_args["check_same_thread"] = False
 
     module.engine = create_engine(
-        module.sqlite_url, connect_args=connect_args, poolclass=StaticPool
+        module.sqlite_url,
+        connect_args=connect_args,
+        poolclass=StaticPool
     )
     if hasattr(module, "create_db_and_tables"):
         module.create_db_and_tables()
@@ -77,6 +75,7 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         assert data["age"] is None
         hero2_id = data["id"]
 
+
         response = client.get("/heroes/")
         data = response.json()
 
@@ -88,6 +87,7 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         assert data[1]["id"] == hero2_id
         assert data[1]["name"] == hero2_data["name"]
         assert data[1]["secret_name"] == hero2_data["secret_name"]
+
 
         response = client.get("/openapi.json")
         assert response.status_code == 200, response.text
@@ -233,7 +233,7 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
     indexes = insp.get_indexes(str(module.Hero.__tablename__))
     expected_indexes = [
         {
-            "name": "ix_hero_age",  # For tutorial002, order of expected indexes is different
+            "name": "ix_hero_age", # For tutorial002, order of expected indexes is different
             "dialect_options": {},
             "column_names": ["age"],
             "unique": 0,
@@ -246,16 +246,10 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         },
     ]
     indexes_for_comparison = [tuple(sorted(d.items())) for d in indexes]
-    expected_indexes_for_comparison = [
-        tuple(sorted(d.items())) for d in expected_indexes
-    ]
+    expected_indexes_for_comparison = [tuple(sorted(d.items())) for d in expected_indexes]
 
     for index_data_tuple in expected_indexes_for_comparison:
-        assert index_data_tuple in indexes_for_comparison, (
-            f"Expected index {index_data_tuple} not found in DB indexes {indexes_for_comparison}"
-        )
+        assert index_data_tuple in indexes_for_comparison, f"Expected index {index_data_tuple} not found in DB indexes {indexes_for_comparison}"
         indexes_for_comparison.remove(index_data_tuple)
 
-    assert len(indexes_for_comparison) == 0, (
-        f"Unexpected extra indexes found in DB: {indexes_for_comparison}"
-    )
+    assert len(indexes_for_comparison) == 0, f"Unexpected extra indexes found in DB: {indexes_for_comparison}"

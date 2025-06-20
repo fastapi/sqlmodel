@@ -5,10 +5,11 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlalchemy.exc import SAWarning  # Keep this import
-from sqlmodel import create_engine
+from sqlalchemy.exc import SAWarning # Keep this import
+from sqlmodel import create_engine, SQLModel
 
-from ....conftest import PrintMock, get_testing_print_function, needs_py39, needs_py310
+from ....conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
+
 
 expected_calls_tutorial001 = [
     [
@@ -185,12 +186,12 @@ expected_calls_tutorial001 = [
             "age": None,
             "id": 3,
             "secret_name": "Pedro Parqueador",
-            "team_id": 2,  # Still has team_id locally until committed and refreshed
+            "team_id": 2, # Still has team_id locally until committed and refreshed
             "name": "Spider-Boy",
         },
     ],
     [
-        "Preventers Team Heroes again:",  # Before commit, team still has Spider-Boy
+        "Preventers Team Heroes again:", # Before commit, team still has Spider-Boy
         [
             {
                 "age": 48,
@@ -231,7 +232,7 @@ expected_calls_tutorial001 = [
     ],
     ["After committing"],
     [
-        "Spider-Boy after commit:",  # team_id is None after commit and refresh
+        "Spider-Boy after commit:", # team_id is None after commit and refresh
         {
             "age": None,
             "id": 3,
@@ -241,7 +242,7 @@ expected_calls_tutorial001 = [
         },
     ],
     [
-        "Preventers Team Heroes after commit:",  # Spider-Boy is removed
+        "Preventers Team Heroes after commit:", # Spider-Boy is removed
         [
             {
                 "age": 48,
@@ -286,9 +287,7 @@ expected_calls_tutorial001 = [
 )
 def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     module_name = request.param
-    full_module_name = (
-        f"docs_src.tutorial.relationship_attributes.back_populates.{module_name}"
-    )
+    full_module_name = f"docs_src.tutorial.relationship_attributes.back_populates.{module_name}"
 
     if full_module_name in sys.modules:
         mod = importlib.reload(sys.modules[full_module_name])
@@ -301,7 +300,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-        mod.SQLModel.metadata.create_all(mod.engine)
+         mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 
