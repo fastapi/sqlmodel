@@ -5,12 +5,11 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine, SQLModel
+from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
+from ...conftest import PrintMock, get_testing_print_function, needs_py39, needs_py310
 
-
-expected_calls_tutorial001 = [ # Renamed for specificity
+expected_calls_tutorial001 = [  # Renamed for specificity
     [
         "Deadpond:",
         {"id": 1, "secret_name": "Dive Wilson", "age": None, "name": "Deadpond"},
@@ -68,7 +67,9 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
         # We assume it's called by main() or the test setup is fine if it's not explicitly called here.
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-         mod.SQLModel.metadata.create_all(mod.engine) # Create all tables known to this module's metadata
+        mod.SQLModel.metadata.create_all(
+            mod.engine
+        )  # Create all tables known to this module's metadata
 
     return mod
 

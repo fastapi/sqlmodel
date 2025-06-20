@@ -1,6 +1,6 @@
 import importlib
 from types import ModuleType
-from typing import Any # For clear_sqlmodel type hint
+from typing import Any  # For clear_sqlmodel type hint
 
 import pytest
 from sqlmodel import create_engine
@@ -60,14 +60,14 @@ expected_calls = [
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:
     module_name = request.param
-    mod = importlib.import_module(
-        f"docs_src.tutorial.connect.update.{module_name}"
-    )
+    mod = importlib.import_module(f"docs_src.tutorial.connect.update.{module_name}")
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
     return mod
 
 
-def test_tutorial(clear_sqlmodel: Any, print_mock: PrintMock, module: ModuleType) -> None:
+def test_tutorial(
+    clear_sqlmodel: Any, print_mock: PrintMock, module: ModuleType
+) -> None:
     module.main()
     assert print_mock.calls == expected_calls

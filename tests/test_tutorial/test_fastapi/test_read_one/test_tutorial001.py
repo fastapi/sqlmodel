@@ -22,7 +22,7 @@ from ....conftest import needs_py39, needs_py310
     ],
 )
 def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleType:
-    module_name = f"docs_src.tutorial.fastapi.read_one.{request.param}" # No .main
+    module_name = f"docs_src.tutorial.fastapi.read_one.{request.param}"  # No .main
     if module_name in sys.modules:
         module = importlib.reload(sys.modules[module_name])
     else:
@@ -34,9 +34,7 @@ def get_module(request: pytest.FixtureRequest, clear_sqlmodel: Any) -> ModuleTyp
         connect_args["check_same_thread"] = False
 
     module.engine = create_engine(
-        module.sqlite_url,
-        connect_args=connect_args,
-        poolclass=StaticPool
+        module.sqlite_url, connect_args=connect_args, poolclass=StaticPool
     )
     if hasattr(module, "create_db_and_tables"):
         module.create_db_and_tables()
@@ -56,18 +54,18 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         }
         response = client.post("/heroes/", json=hero1_data)
         assert response.status_code == 200, response.text
-        hero1 = response.json() # Store created hero1 data
+        hero1 = response.json()  # Store created hero1 data
 
         response = client.post("/heroes/", json=hero2_data)
         assert response.status_code == 200, response.text
-        hero2 = response.json() # Store created hero2 data
+        hero2 = response.json()  # Store created hero2 data
 
         response_get_all = client.get("/heroes/")
         assert response_get_all.status_code == 200, response_get_all.text
         data_all = response_get_all.json()
         assert len(data_all) == 2
 
-        hero_id_to_get = hero2["id"] # Use actual ID from created hero2
+        hero_id_to_get = hero2["id"]  # Use actual ID from created hero2
         response_get_one = client.get(f"/heroes/{hero_id_to_get}")
         assert response_get_one.status_code == 200, response_get_one.text
         data_one = response_get_one.json()
@@ -77,9 +75,11 @@ def test_tutorial(clear_sqlmodel: Any, module: ModuleType):
         assert data_one["id"] == hero2["id"]
 
         # Check for a non-existent ID
-        non_existent_id = hero1["id"] + hero2["id"] + 100 # A likely non-existent ID
+        non_existent_id = hero1["id"] + hero2["id"] + 100  # A likely non-existent ID
         response_get_non_existent = client.get(f"/heroes/{non_existent_id}")
-        assert response_get_non_existent.status_code == 404, response_get_non_existent.text
+        assert response_get_non_existent.status_code == 404, (
+            response_get_non_existent.text
+        )
 
         response_openapi = client.get("/openapi.json")
         assert response_openapi.status_code == 200, response_openapi.text

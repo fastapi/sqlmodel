@@ -5,10 +5,9 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine, SQLModel
+from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function, needs_py310, PrintMock
-
+from ...conftest import PrintMock, get_testing_print_function, needs_py310
 
 # expected_calls is defined within the test_tutorial function in the original test
 # This is fine as it's used only there.
@@ -36,7 +35,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     if hasattr(mod, "create_db_and_tables") and callable(mod.create_db_and_tables):
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-         mod.SQLModel.metadata.create_all(mod.engine)
+        mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 
@@ -58,7 +57,9 @@ def test_tutorial(module: types.ModuleType, print_mock: PrintMock, clear_sqlmode
         ],
     ]
     # Preserve the original assertion logic
-    for call_item in expected_calls: # Renamed to avoid conflict with outer scope 'calls' if any
+    for (
+        call_item
+    ) in expected_calls:  # Renamed to avoid conflict with outer scope 'calls' if any
         assert call_item in print_mock.calls, "This expected item should be in the list"
         print_mock.calls.pop(print_mock.calls.index(call_item))
     assert len(print_mock.calls) == 0, "The list should only have the expected items"

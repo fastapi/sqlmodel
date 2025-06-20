@@ -5,11 +5,10 @@ from typing import Any
 from unittest.mock import patch
 
 import pytest
-from sqlmodel import create_engine, SQLModel
+from sqlmodel import create_engine
 
 # Assuming conftest.py is at tests/conftest.py, the path should be ....conftest
-from ....conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
-
+from ....conftest import PrintMock, get_testing_print_function, needs_py39, needs_py310
 
 expected_calls_tutorial001 = [
     [
@@ -113,7 +112,7 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
         # Assuming main() or create_db_and_tables() handles table creation
         pass
     elif hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-         mod.SQLModel.metadata.create_all(mod.engine)
+        mod.SQLModel.metadata.create_all(mod.engine)
 
     return mod
 

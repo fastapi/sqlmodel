@@ -6,14 +6,15 @@ from unittest.mock import patch
 
 import pytest
 from sqlalchemy.exc import IntegrityError
-from sqlmodel import create_engine, SQLModel, Session, select, delete # Added Session, select, delete just in case module uses them
+from sqlmodel import (  # Added Session, select, delete just in case module uses them
+    create_engine,
+)
 
-from ....conftest import get_testing_print_function, needs_py39, needs_py310, PrintMock
-
+from ....conftest import PrintMock, get_testing_print_function, needs_py39, needs_py310
 
 expected_calls_tutorial004 = [
     [
-        "Created hero:", # From create_heroes() called by main()
+        "Created hero:",  # From create_heroes() called by main()
         {
             "age": None,
             "id": 1,
@@ -39,11 +40,11 @@ expected_calls_tutorial004 = [
             "id": 3,
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
-            "team_id": None, # Initially no team
+            "team_id": None,  # Initially no team
         },
     ],
     [
-        "Updated hero:", # Spider-Boy gets a team
+        "Updated hero:",  # Spider-Boy gets a team
         {
             "age": None,
             "id": 3,
@@ -53,7 +54,7 @@ expected_calls_tutorial004 = [
         },
     ],
     [
-        "Team Wakaland:", # Team Wakaland is created
+        "Team Wakaland:",  # Team Wakaland is created
         {"headquarters": "Wakaland Capital City", "id": 3, "name": "Wakaland"},
     ],
     # The main() in tutorial004.py (cascade_delete) is try_to_delete_team_preventers_alternative.
@@ -84,10 +85,10 @@ expected_calls_tutorial004_corrected = [
         "Created hero:",
         {
             "age": None,
-            "id": 1, # Assuming IDs start from 1 after clear_sqlmodel
+            "id": 1,  # Assuming IDs start from 1 after clear_sqlmodel
             "name": "Deadpond",
             "secret_name": "Dive Wilson",
-            "team_id": 1, # Assuming Preventers team gets ID 1
+            "team_id": 1,  # Assuming Preventers team gets ID 1
         },
     ],
     [
@@ -97,7 +98,7 @@ expected_calls_tutorial004_corrected = [
             "id": 2,
             "name": "Rusty-Man",
             "secret_name": "Tommy Sharp",
-            "team_id": 1, # Also Preventers
+            "team_id": 1,  # Also Preventers
         },
     ],
     [
@@ -107,7 +108,7 @@ expected_calls_tutorial004_corrected = [
             "id": 3,
             "name": "Spider-Boy",
             "secret_name": "Pedro Parqueador",
-            "team_id": 1, # Also Preventers
+            "team_id": 1,  # Also Preventers
         },
     ],
 ]
@@ -138,7 +139,9 @@ def module_fixture(request: pytest.FixtureRequest, clear_sqlmodel: Any):
     # However, if other functions from module were tested independently, tables would need to exist.
     # For safety and consistency with other fixtures:
     if hasattr(mod, "SQLModel") and hasattr(mod.SQLModel, "metadata"):
-         mod.SQLModel.metadata.create_all(mod.engine) # Ensure tables are there before main might use them.
+        mod.SQLModel.metadata.create_all(
+            mod.engine
+        )  # Ensure tables are there before main might use them.
 
     return mod
 
@@ -153,7 +156,7 @@ def test_tutorial(module: types.ModuleType, print_mock: PrintMock, clear_sqlmode
 
     with pytest.raises(IntegrityError) as excinfo:
         with patch("builtins.print", new=get_testing_print_function(print_mock.calls)):
-            module.main() # This is try_to_delete_team_preventers_alternative
+            module.main()  # This is try_to_delete_team_preventers_alternative
 
     # Check the prints that occurred *before* the exception was raised
     assert print_mock.calls == expected_calls_tutorial004_corrected
