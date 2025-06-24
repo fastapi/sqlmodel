@@ -19,6 +19,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.11.13 to 0.12.0. PR [#1403](https://github.com/fastapi/sqlmodel/pull/1403) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Simplify tests for `tests/test_tutorial/test_code_structure/test_tutorial001.py`, one test file for multiple variants. PR [#1408](https://github.com/fastapi/sqlmodel/pull/1408) by [@tiangolo](https://github.com/tiangolo).
 * ✅ Simplify tests setup, one test file for multiple source variants. PR [#1407](https://github.com/fastapi/sqlmodel/pull/1407) by [@tiangolo](https://github.com/tiangolo).
 * ✅ Refactor tests to use autouse `clear_sqlmodel`. PR [#1406](https://github.com/fastapi/sqlmodel/pull/1406) by [@tiangolo](https://github.com/tiangolo).
