@@ -13,7 +13,7 @@ from typing import (
 
 from pydantic import BaseModel
 from pydantic_core import to_jsonable_python
-from sqlalchemy import types
+from sqlalchemy import JSON, types
 from sqlalchemy.dialects.postgresql import JSONB  # for Postgres JSONB
 from sqlalchemy.engine.interfaces import Dialect
 
@@ -21,6 +21,7 @@ BaseModelType = TypeVar("BaseModelType", bound=BaseModel)
 
 # Define a type alias for JSON-serializable values
 JSONValue = Union[Dict[str, Any], List[Any], str, int, float, bool, None]
+JSON_VARIANT = JSON().with_variant(JSONB, "postgresql")
 
 
 class AutoString(types.TypeDecorator):  # type: ignore
@@ -38,7 +39,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
 class PydanticJSONB(types.TypeDecorator):  # type: ignore
     """Custom type to automatically handle Pydantic model serialization."""
 
-    impl = JSONB  # use JSONB type in Postgres (fallback to JSON for others)
+    impl = JSON_VARIANT
     cache_ok = True  # allow SQLAlchemy to cache results
 
     def __init__(
