@@ -14,3 +14,5 @@ site
 .venv*
 uv.lock
 .timetracker
+pdm.lock
+.pdm-python
