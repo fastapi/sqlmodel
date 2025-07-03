@@ -19,7 +19,7 @@ from typing import (
 )
 
 from pydantic import VERSION as P_VERSION
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from pydantic.fields import FieldInfo
 from typing_extensions import Annotated, get_args, get_origin
 
@@ -350,6 +350,15 @@ if IS_PYDANTIC_V2:
                     value = getattr(use_obj, key, Undefined)
                 if value is not Undefined:
                     setattr(new_obj, key, value)
+            # Get and set any association proxy objects
+            for key in new_obj.__sqlalchemy_association_proxies__:
+                # Handle both dict and object access
+                if isinstance(use_obj, dict):
+                    value = use_obj.get(key, Undefined)
+                else:
+                    value = getattr(use_obj, key, Undefined)
+                if value is not Undefined:
+                    setattr(new_obj, key, value)
         return new_obj
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
@@ -556,6 +565,20 @@ else:
                 setattr(m, key, value)
         # Continue with standard Pydantic logic
         object.__setattr__(m, "__fields_set__", fields_set)
+        # Handle non-Pydantic fields like relationships and association proxies
+        if getattr(cls.__config__, "table", False):  # noqa
+            non_pydantic_keys = set(obj.keys()) - set(values.keys())
+            for key in non_pydantic_keys:
+                if (
+                    hasattr(m, "__sqlmodel_relationships__")
+                    and key in m.__sqlmodel_relationships__
+                ):
+                    setattr(m, key, obj[key])
+                elif (
+                    hasattr(m, "__sqlalchemy_association_proxies__")
+                    and key in m.__sqlalchemy_association_proxies__
+                ):
+                    setattr(m, key, obj[key])
         m._init_private_attributes()  # type: ignore[attr-defined] # noqa
         return m
 
@@ -577,4 +600,6 @@ else:
         if is_table_model_class(self.__class__):
             for key in non_pydantic_keys:
                 if key in self.__sqlmodel_relationships__:
+                    setattr(self, key, data[key])
+                elif key in self.__sqlalchemy_association_proxies__:
                     setattr(self, key, data[key])
