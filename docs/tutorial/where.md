@@ -562,7 +562,7 @@ We could imagine that **Spider-Boy** is even **younger**. But because we don't k
 
 ### Less Than or Equal
 
-Finally, we can use `<=` to get the rows where a column is **less than or equal** to a value:
+We can also use `<=` to get the rows where a column is **less than or equal** to a value:
 
 {* ./docs_src/tutorial/where/tutorial006_py310.py ln[42:47] hl[44] *}
 
@@ -578,6 +578,34 @@ age=35 id=5 name='Black Lion' secret_name='Trevor Challa'
 We get `Black Lion` here too because although the age is not *strictly* less than `35` it is *equal* to `35`.
 
 ///
+
+### In
+
+Finally, we can use `in_ to get the rows where a column is a member of a collection of values:
+
+```Python hl_lines="5"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/where/tutorial0066.py[ln:44-49]!}
+
+# Code below omitted 👇
+```
+
+<details>
+<summary>👀 Full file preview</summary>
+
+```Python
+{!./docs_src/tutorial/where/tutorial0065.py!}
+```
+
+</details>
+
+In this case, we match `Deadpond` since it's part of the collections of names.
+We don't have any hero called `Ratman`, so it does not match any hero.
+
+!!! tip
+    You need to wrap your attribute with `col()` to use `in_`.
+    You can read more about it in the (Type annotations and errors)[#type-annotations-and-errors] section.
 
 ### Benefits of Expressions
 
