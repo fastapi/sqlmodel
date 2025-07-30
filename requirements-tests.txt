@@ -3,7 +3,7 @@
 pytest >=7.0.1,<9.0.0
 coverage[toml] >=6.2,<8.0
 mypy ==1.4.1
-ruff ==0.12.4
+ruff ==0.12.7
 # For FastAPI tests
 fastapi >=0.103.2
 httpx ==0.28.1
