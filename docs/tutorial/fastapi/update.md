@@ -8,35 +8,21 @@ We want clients to be able to update the `name`, the `secret_name`, and the `age
 
 But we don't want them to have to include all the data again just to **update a single field**.
 
-So, we need to have all those fields **marked as optional**.
+So, we need to make all those fields **optional**.
 
-And because the `HeroBase` has some of them as *required* and not optional, we will need to **create a new model**.
+And because the `HeroBase` has some of them *required* (without a default value), we will need to **create a new model**.
 
 /// tip
 
 Here is one of those cases where it probably makes sense to use an **independent model** instead of trying to come up with a complex tree of models inheriting from each other.
 
-Because each field is **actually different** (we just change it to `Optional`, but that's already making it different), it makes sense to have them in their own model.
+Because each field is **actually different** (we just set a default value of `None`, but that's already making it different), it makes sense to have them in their own model.
 
 ///
 
 So, let's create this new `HeroUpdate` model:
 
-```Python hl_lines="21-24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:7-28]!}
-
-# Code below omitted 👇
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[5:26] hl[23:26] *}
 
 This is almost the same as `HeroBase`, but all the fields are optional, so we can't simply inherit from `HeroBase`.
 
@@ -46,21 +32,7 @@ Now let's use this model in the *path operation* to update a hero.
 
 We will use a `PATCH` HTTP operation. This is used to **partially update data**, which is what we are doing.
 
-```Python hl_lines="3-4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[74:75] *}
 
 We also read the `hero_id` from the *path parameter* and the request body, a `HeroUpdate`.
 
@@ -70,21 +42,7 @@ We take a `hero_id` with the **ID** of the hero **we want to update**.
 
 So, we need to read the hero from the database, with the **same logic** we used to **read a single hero**, checking if it exists, possibly raising an error for the client if it doesn't exist, etc.
 
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[77:79] *}
 
 ### Get the New Data
 
@@ -136,58 +94,29 @@ Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=
 
 Then we use that to get the data that was actually sent by the client:
 
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
-
-# Code below omitted 👇
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[80] *}
 
 /// tip
 Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
+///
 
 ## Update the Hero in the Database
 
-Now that we have a **dictionary with the data sent by the client**, we can iterate for each one of the keys and the values, and then we set them in the database hero model `db_hero` using `setattr()`.
+Now that we have a **dictionary with the data sent by the client**, we can use the method `db_hero.sqlmodel_update()` to update the object `db_hero`.
 
-```Python hl_lines="10-11"
-# Code above omitted 👆
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[81] *}
 
-{!./docs_src/tutorial/fastapi/update/tutorial001.py[ln:76-91]!}
+/// tip
 
-# Code below omitted 👇
-```
+The method `db_hero.sqlmodel_update()` was added in SQLModel 0.0.16. 🤓
 
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/update/tutorial001.py!}
-```
+Before that, you would need to manually get the values and set them using `setattr()`.
 
 ///
 
-If you are not familiar with that `setattr()`, it takes an object, like the `db_hero`, then an attribute name (`key`), that in our case could be `"name"`, and a value (`value`). And then it **sets the attribute with that name to the value**.
+The method `db_hero.sqlmodel_update()` takes an argument with another model object or a dictionary.
 
-So, if `key` was `"name"` and `value` was `"Deadpuddle"`, then this code:
-
-```Python
-setattr(db_hero, key, value)
-```
-
-...would be more or less equivalent to:
-
-```Python
-db_hero.name = "Deadpuddle"
-```
+For each of the fields in the **original** model object (`db_hero` in this example), it checks if the field is available in the **argument** (`hero_data` in this example) and then updates it with the provided value.
 
 ## Remove Fields
 

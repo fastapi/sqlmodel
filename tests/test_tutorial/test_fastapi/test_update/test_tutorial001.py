@@ -49,16 +49,16 @@ def test_tutorial(clear_sqlmodel):
         data = response.json()
         assert response.status_code == 200, response.text
         assert data["name"] == hero2_data["name"], "The name should not be set to none"
-        assert (
-            data["secret_name"] == "Spider-Youngster"
-        ), "The secret name should be updated"
+        assert data["secret_name"] == "Spider-Youngster", (
+            "The secret name should be updated"
+        )
 
         response = client.patch(f"/heroes/{hero3_id}", json={"age": None})
         data = response.json()
         assert response.status_code == 200, response.text
         assert data["name"] == hero3_data["name"]
         assert data["age"] is None, (
-            "A field should be updatable to None, even if " "that's the default"
+            "A field should be updatable to None, even if that's the default"
         )
 
         response = client.patch("/heroes/9001", json={"name": "Dragon Cube X"})
@@ -106,7 +106,7 @@ def test_tutorial(clear_sqlmodel):
                                             "title": "Response Read Heroes Heroes  Get",
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/HeroRead"
+                                                "$ref": "#/components/schemas/HeroPublic"
                                             },
                                         }
                                     }
@@ -143,7 +143,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroRead"
+                                            "$ref": "#/components/schemas/HeroPublic"
                                         }
                                     }
                                 },
@@ -179,7 +179,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroRead"
+                                            "$ref": "#/components/schemas/HeroPublic"
                                         }
                                     }
                                 },
@@ -223,7 +223,7 @@ def test_tutorial(clear_sqlmodel):
                                 "content": {
                                     "application/json": {
                                         "schema": {
-                                            "$ref": "#/components/schemas/HeroRead"
+                                            "$ref": "#/components/schemas/HeroPublic"
                                         }
                                     }
                                 },
@@ -276,8 +276,8 @@ def test_tutorial(clear_sqlmodel):
                             ),
                         },
                     },
-                    "HeroRead": {
-                        "title": "HeroRead",
+                    "HeroPublic": {
+                        "title": "HeroPublic",
                         "required": ["name", "secret_name", "id"],
                         "type": "object",
                         "properties": {
