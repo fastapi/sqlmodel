@@ -57,7 +57,7 @@ We have a column in the `hero` table for the `team_id` that points to the ID of 
 
 This is how we connect each `hero` with a `team`:
 
-<img alt="table relationships" src="/img/databases/relationships.svg">
+<img alt="table relationships" src="/img/databases/relationships.drawio.svg">
 
 Notice that each hero can only have **one** connection. But each team can receive **many** connections. In particular, the team **Preventers** has two heroes.
 
@@ -83,7 +83,7 @@ As this will represent the **hero-team-link**, let's call the table `heroteamlin
 
 It would look like this:
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.drawio.svg">
 
 Notice that now the table `hero` **doesn't have a `team_id`** column anymore, it is replaced by this link table.
 
