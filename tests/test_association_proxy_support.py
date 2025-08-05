@@ -42,11 +42,7 @@ def test_association_proxy_with_model_validate(clear_sqlmodel):
     skill1 = UserSkill(user_id=1, skill_name="Python", level=5)
     skill2 = UserSkill(user_id=1, skill_name="JavaScript", level=3)
 
-    test_data = {
-        "id": 1,
-        "name": "John Updated",
-        "user_skills": [skill1, skill2]
-    }
+    test_data = {"id": 1, "name": "John Updated", "user_skills": [skill1, skill2]}
 
     validated_user = User.model_validate(test_data)
 
@@ -129,7 +125,7 @@ def test_association_proxy_in_setattr(clear_sqlmodel):
         role_names = association_proxy(
             "user_roles",
             "role_name",
-            creator=lambda role_name: UserRole(user_id=0, role_name=role_name)
+            creator=lambda role_name: UserRole(user_id=0, role_name=role_name),
         )
 
     engine = create_engine("sqlite://")
@@ -153,7 +149,7 @@ def test_association_proxy_in_setattr(clear_sqlmodel):
             "id": user.id,
             "name": "Updated User",
             "user_roles": [role1, role2],
-            "role_names": ["admin", "user"]  # This should trigger association proxy
+            "role_names": ["admin", "user"],  # This should trigger association proxy
         }
 
         # Test model_validate with association proxy data

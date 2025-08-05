@@ -64,7 +64,7 @@ def test_hybrid_property_setter_with_model_validate(clear_sqlmodel):
     test_data = {
         "id": 1,
         "name": "Jane Doe",
-        "display_name": "Custom Display Name"  # Through hybrid property
+        "display_name": "Custom Display Name",  # Through hybrid property
     }
 
     validated_user = User.model_validate(test_data)

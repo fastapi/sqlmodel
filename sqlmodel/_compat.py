@@ -360,9 +360,9 @@ if IS_PYDANTIC_V2:
                 if value is not Undefined:
                     setattr(new_obj, key, value)
             # Get and set any hybrid property values with setters
-            for key, value in cls.__dict__.items():
-                if hasattr(value, '__set__') and hasattr(value, 'fget'):
-                    # This is likely a hybrid property with a setter
+            if hasattr(new_obj, "__sqlalchemy_hybrid_property_setters__"):
+                for key in new_obj.__sqlalchemy_hybrid_property_setters__:
+                    # Handle both dict and object access
                     if isinstance(use_obj, dict):
                         hybrid_value = use_obj.get(key, Undefined)
                     else:
@@ -590,7 +590,10 @@ else:
                 ):
                     setattr(m, key, obj[key])
                 # Check for hybrid properties with setters
-                elif key in cls.__dict__ and hasattr(cls.__dict__[key], '__set__') and hasattr(cls.__dict__[key], 'fget'):
+                elif (
+                    hasattr(m, "__sqlalchemy_hybrid_property_setters__")
+                    and key in m.__sqlalchemy_hybrid_property_setters__
+                ):
                     setattr(m, key, obj[key])
         m._init_private_attributes()  # type: ignore[attr-defined] # noqa
         return m
@@ -617,5 +620,8 @@ else:
                 elif key in self.__sqlalchemy_association_proxies__:
                     setattr(self, key, data[key])
                 # Check for hybrid properties with setters
-                elif key in self.__class__.__dict__ and hasattr(self.__class__.__dict__[key], '__set__') and hasattr(self.__class__.__dict__[key], 'fget'):
+                elif (
+                    hasattr(self, "__sqlalchemy_hybrid_property_setters__")
+                    and key in self.__sqlalchemy_hybrid_property_setters__
+                ):
                     setattr(self, key, data[key])

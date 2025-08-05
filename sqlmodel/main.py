@@ -499,6 +499,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
     __sqlalchemy_constructs__: Dict[str, SQLAlchemyConstruct]
     __sqlalchemy_association_proxies__: Dict[str, AssociationProxy]
+    __sqlalchemy_hybrid_property_setters__: Dict[str, hybrid_property]
     model_config: SQLModelConfig
     model_fields: Dict[str, FieldInfo]
     __config__: Type[SQLModelConfig]
@@ -529,14 +530,37 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         relationships: Dict[str, RelationshipInfo] = {}
         sqlalchemy_constructs: Dict[str, SQLAlchemyConstruct] = {}
         sqlalchemy_association_proxies: Dict[str, AssociationProxy] = {}
+        sqlalchemy_hybrid_property_setters: Dict[str, hybrid_property] = {}
         dict_for_pydantic = {}
         original_annotations = get_annotations(class_dict)
         pydantic_annotations = {}
         relationship_annotations = {}
+        # First pass - collect all hybrid properties
+        hybrid_properties_with_setters = {}
+        for k, v in class_dict.items():
+            if (
+                isinstance(v, hybrid_property)
+                and hasattr(v, "fset")
+                and v.fset is not None
+            ):
+                # Store by the hybrid_property object itself to avoid duplicates
+                hybrid_properties_with_setters[v] = k
+
+        # Find the main property name (shortest name for each hybrid_property object)
+        for hybrid_prop_obj, _prop_name in hybrid_properties_with_setters.items():
+            # Find all names that point to this same hybrid_property object
+            all_names_for_this_prop = [
+                name for name, obj in class_dict.items() if obj is hybrid_prop_obj
+            ]
+            # Choose the shortest name (main property, not setter function)
+            main_name = min(all_names_for_this_prop, key=len)
+            sqlalchemy_hybrid_property_setters[main_name] = hybrid_prop_obj
+
+        # Second pass - process all items
         for k, v in class_dict.items():
             if isinstance(v, AssociationProxy):
                 sqlalchemy_association_proxies[k] = v
-            if isinstance(v, RelationshipInfo):
+            elif isinstance(v, RelationshipInfo):
                 relationships[k] = v
             elif isinstance(
                 v,
@@ -563,6 +587,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             "__annotations__": pydantic_annotations,
             "__sqlalchemy_constructs__": sqlalchemy_constructs,
             "__sqlalchemy_association_proxies__": sqlalchemy_association_proxies,
+            "__sqlalchemy_hybrid_property_setters__": sqlalchemy_hybrid_property_setters,
         }
         # Duplicate logic from Pydantic to filter config kwargs because if they are
         # passed directly including the registry Pydantic will pass them over to the
@@ -872,6 +897,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __tablename__: ClassVar[Union[str, Callable[..., str]]]
     __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty[Any]]]
     __sqlalchemy_association_proxies__: ClassVar[Dict[str, AssociationProxy]]
+    __sqlalchemy_hybrid_property_setters__: ClassVar[Dict[str, hybrid_property]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
@@ -941,23 +967,19 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             # Set in SQLAlchemy hybrid properties with setters
             if (
                 is_table_model_class(self.__class__)
-                and name in self.__class__.__dict__
+                and name in self.__sqlalchemy_hybrid_property_setters__
             ):
-                class_attr = self.__class__.__dict__[name]
-                # Check if this is a hybrid property with a setter
-                if hasattr(class_attr, '__set__'):
-                    try:
-                        # Try to use the hybrid property setter
-                        class_attr.__set__(self, value)
-                        return
-                    except AttributeError:
-                        # No setter available, continue with normal flow
-                        pass
+                hybrid_property_setter = self.__sqlalchemy_hybrid_property_setters__[
+                    name
+                ]
+                hybrid_property_setter.__set__(self, value)
+                return
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
             if (
                 name not in self.__sqlmodel_relationships__
                 and name not in self.__sqlalchemy_association_proxies__
+                and name not in self.__sqlalchemy_hybrid_property_setters__
             ):
                 super().__setattr__(name, value)
 
