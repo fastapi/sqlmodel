@@ -938,6 +938,21 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             ):
                 association_proxy = self.__sqlalchemy_association_proxies__[name]
                 association_proxy.__set__(self, value)
+            # Set in SQLAlchemy hybrid properties with setters
+            if (
+                is_table_model_class(self.__class__)
+                and name in self.__class__.__dict__
+            ):
+                class_attr = self.__class__.__dict__[name]
+                # Check if this is a hybrid property with a setter
+                if hasattr(class_attr, '__set__'):
+                    try:
+                        # Try to use the hybrid property setter
+                        class_attr.__set__(self, value)
+                        return
+                    except AttributeError:
+                        # No setter available, continue with normal flow
+                        pass
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
             if (

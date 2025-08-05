@@ -359,6 +359,16 @@ if IS_PYDANTIC_V2:
                     value = getattr(use_obj, key, Undefined)
                 if value is not Undefined:
                     setattr(new_obj, key, value)
+            # Get and set any hybrid property values with setters
+            for key, value in cls.__dict__.items():
+                if hasattr(value, '__set__') and hasattr(value, 'fget'):
+                    # This is likely a hybrid property with a setter
+                    if isinstance(use_obj, dict):
+                        hybrid_value = use_obj.get(key, Undefined)
+                    else:
+                        hybrid_value = getattr(use_obj, key, Undefined)
+                    if hybrid_value is not Undefined:
+                        setattr(new_obj, key, hybrid_value)
         return new_obj
 
     def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
@@ -579,6 +589,9 @@ else:
                     and key in m.__sqlalchemy_association_proxies__
                 ):
                     setattr(m, key, obj[key])
+                # Check for hybrid properties with setters
+                elif key in cls.__dict__ and hasattr(cls.__dict__[key], '__set__') and hasattr(cls.__dict__[key], 'fget'):
+                    setattr(m, key, obj[key])
         m._init_private_attributes()  # type: ignore[attr-defined] # noqa
         return m
 
@@ -602,4 +615,7 @@ else:
                 if key in self.__sqlmodel_relationships__:
                     setattr(self, key, data[key])
                 elif key in self.__sqlalchemy_association_proxies__:
+                    setattr(self, key, data[key])
+                # Check for hybrid properties with setters
+                elif key in self.__class__.__dict__ and hasattr(self.__class__.__dict__[key], '__set__') and hasattr(self.__class__.__dict__[key], 'fget'):
                     setattr(self, key, data[key])
