@@ -6,7 +6,7 @@ And you also know how to get multiple rows while filtering them using `.where()`
 
 Now let's see how to get only a **range of results**.
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.drawio.svg">
 
 ## Create Data
 
@@ -14,97 +14,13 @@ We will continue with the same code as before, but we'll modify it a little the 
 
 Again, we will create several heroes to have some data to select from:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="4-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:21-39]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="4-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py[ln:23-41]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[21:39] hl[22:28] *}
 
 ## Review Select All
 
 This is the code we had to select all the heroes in the `select()` examples:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="3-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/select/tutorial003_py310.py[ln:34-39]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/select/tutorial003.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/select/tutorial003_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/select/tutorial003.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/select/tutorial003_py310.py ln[34:39] hl[34:39] *}
 
 But this would get us **all** the heroes at the same time, in a database that could have thousands, that could be problematic.
 
@@ -112,55 +28,13 @@ But this would get us **all** the heroes at the same time, in a database that co
 
 We currently have 7 heroes in the database. But we could as well have thousands, so let's limit the results to get only the first 3:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[42:47] hl[44] *}
 
 The special **select** object we get from `select()` also has a method `.limit()` that we can use to limit the results to a certain number.
 
 In this case, instead of getting all the 7 rows, we are limiting them to only get the first 3.
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.drawio.svg">
 
 ## Run the Program on the Command Line
 
@@ -213,53 +87,11 @@ And then you can interact with the user interface to get the next page, and so o
 
 How do we get the next 3?
 
-<img class="shadow" alt="table with next rows selected, from 4 to 6" src="/img/tutorial/offset-and-limit/limit2.svg">
+<img class="shadow" alt="table with next rows selected, from 4 to 6" src="/img/tutorial/offset-and-limit/limit2.drawio.svg">
 
 We can use `.offset()`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial002_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial002.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/offset_and_limit/tutorial002_py310.py ln[42:47] hl[44] *}
 
 The way this works is that the special **select** object we get from `select()` has methods like `.where()`, `.offset()` and `.limit()`.
 
@@ -298,53 +130,11 @@ INFO Engine [no key 0.00020s] (3, 3)
 
 Then to get the next batch of 3 rows we would offset all the ones we already saw, the first 6:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial003_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial003.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial003_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial003.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/offset_and_limit/tutorial003_py310.py ln[42:47] hl[44] *}
 
 The database right now has **only 7 rows**, so this query can only get 1 row.
 
-<img class="shadow" alt="table with the last row (7th) selected" src="/img/tutorial/offset-and-limit/limit3.svg">
+<img class="shadow" alt="table with the last row (7th) selected" src="/img/tutorial/offset-and-limit/limit3.drawio.svg">
 
 But don't worry, the database won't throw an error trying to get 3 rows when there's only one (as would happen with a Python list).
 
@@ -395,49 +185,7 @@ If you try that in **DB Browser for SQLite**, you will get the same result:
 
 Of course, you can also combine `.limit()` and `.offset()` with `.where()` and other methods you will learn about later:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial004_py310.py[ln:42-47]!}
-
-# Code below omitted 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial004.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial004_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial004.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/offset_and_limit/tutorial004_py310.py ln[42:47] hl[44] *}
 
 ## Run the Program with Limit, Offset, and Where on the Command Line
 

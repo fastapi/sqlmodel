@@ -62,7 +62,7 @@ expected_calls = [
 ]
 
 
-def test_tutorial001(clear_sqlmodel):
+def test_tutorial001():
     from docs_src.tutorial.connect.select import tutorial001 as mod
 
     mod.sqlite_url = "sqlite://"
@@ -76,7 +76,7 @@ def test_tutorial001(clear_sqlmodel):
     assert calls == expected_calls
 
 
-def test_tutorial002(clear_sqlmodel):
+def test_tutorial002():
     from docs_src.tutorial.connect.select import tutorial002 as mod
 
     mod.sqlite_url = "sqlite://"
