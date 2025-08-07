@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Literal
 
 import pytest
 from sqlalchemy.exc import IntegrityError
@@ -125,3 +125,26 @@ def test_sa_relationship_property(clear_sqlmodel):
         # The next statement should not raise an AttributeError
         assert hero_rusty_man.team
         assert hero_rusty_man.team.name == "Preventers"
+
+
+def test_literal_typehints_are_treated_as_strings(clear_sqlmodel):
+    """Test https://github.com/fastapi/sqlmodel/issues/57"""
+
+    class Hero(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str = Field(unique=True)
+        weakness: Literal["Kryptonite", "Dehydration", "Munchies"]
+
+
+    superman = Hero(name="Superman", weakness="Kryptonite")
+
+    engine = create_engine("sqlite://", echo=True)
+
+    SQLModel.metadata.create_all(engine)
+
+    with Session(engine) as session:
+        session.add(superman)
+        session.commit()
+        session.refresh(superman)
+        assert superman.weakness == "Kryptonite"
+        assert isinstance(superman.weakness, str)
