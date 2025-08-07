@@ -24,9 +24,10 @@ class SafeDeferredColumnLoader(DeferredColumnLoader):
     def _load_for_state(self, state, passive):
         """
         Override the default behavior to return fallback value instead of raising
-        DetachedInstanceError when session is None.
+        DetachedInstanceError or MissingGreenlet when session is None or async context is missing.
         """
         from sqlalchemy.orm import LoaderCallableStatus
+        from sqlalchemy.orm.attributes import set_committed_value
 
         if not state.key:
             return LoaderCallableStatus.ATTR_EMPTY
@@ -37,13 +38,54 @@ class SafeDeferredColumnLoader(DeferredColumnLoader):
         if not passive & PassiveFlag.SQL_OK:
             return LoaderCallableStatus.PASSIVE_NO_RESULT
 
+        # Check if the attribute is already loaded
+        if self.key not in state.unloaded:
+            # Attribute is already loaded, use parent implementation
+            return super()._load_for_state(state, passive)
+
         # Check if we have a session before attempting to load
         session = _state_session(state)
         if session is None:
-            # No session available, return fallback value directly
+            # No session available, set fallback value directly on the instance
+            instance = state.obj()
+            if instance is not None:
+                set_committed_value(instance, self.key, self.fallback_value)
+                return LoaderCallableStatus.ATTR_WAS_SET
             return self.fallback_value
 
-        # We have a session, use the parent implementation
+        # Check if this is an async session context that might cause MissingGreenlet
+        try:
+            # Try to access session._connection_for_bind to check if we're in async context
+            # without proper greenlet
+            if hasattr(session, "get_bind") and hasattr(
+                session, "_connection_for_bind"
+            ):
+                # This is a more elegant way to detect async context issues
+                # If we're in async session without greenlet context, this will fail
+                session.get_bind()
+        except Exception as e:
+            # Handle async-related errors (MissingGreenlet, etc.)
+            error_msg = str(e).lower()
+            if any(
+                keyword in error_msg
+                for keyword in [
+                    "greenlet",
+                    "await_only",
+                    "asyncio",
+                    "async",
+                    "missinggreenlet",
+                ]
+            ):
+                # This is an async-related error, set fallback value directly
+                instance = state.obj()
+                if instance is not None:
+                    set_committed_value(instance, self.key, self.fallback_value)
+                    return LoaderCallableStatus.ATTR_WAS_SET
+                return self.fallback_value
+            # For other exceptions, re-raise them
+            raise
+
+        # We have a proper session, use the parent implementation
         return super()._load_for_state(state, passive)
 
 
