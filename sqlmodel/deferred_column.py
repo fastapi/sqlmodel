@@ -7,118 +7,16 @@ with safe deferred loading - returning fallback values instead of raising Detach
 
 from typing import Any
 
+from sqlalchemy import event
 from sqlalchemy.orm import ColumnProperty
-from sqlalchemy.orm.attributes import InstrumentedAttribute
+from sqlalchemy.orm.attributes import set_committed_value
 from sqlalchemy.orm.strategies import DeferredColumnLoader, _state_session
-
-
-class SafeAttributeWrapper:
-    """
-    A simple wrapper around InstrumentedAttribute that checks session validity
-    on every access and returns fallback values when needed.
-    """
-
-    def __init__(self, original_attr, fallback_value):
-        self.original_attr = original_attr
-        self.fallback_value = fallback_value
-        # Copy important attributes from original
-        self.__name__ = getattr(original_attr, "__name__", None)
-        self.__doc__ = getattr(original_attr, "__doc__", None)
-
-    def __get__(self, instance, owner):
-        """Intercept attribute access to check session validity"""
-        if instance is None:
-            return self
-
-        # Check session state before accessing
-        try:
-            state = instance._sa_instance_state
-            session = _state_session(state)
-
-            # First check for invalid async context - regardless of session state
-            if self._is_invalid_async_context(state):
-                return self.fallback_value
-
-            # If no session, check if attribute is already loaded
-            if session is None:
-                if (
-                    hasattr(instance, "__dict__")
-                    and self.original_attr.key in instance.__dict__
-                ):
-                    # Attribute was loaded previously but session is now invalid
-                    # However, if we detect we SHOULD be in async context but aren't,
-                    # return fallback instead of cached value
-                    return instance.__dict__[self.original_attr.key]
-                else:
-                    # Not loaded and no session - return fallback
-                    return self.fallback_value
-
-            # Session is valid, proceed with normal access through original attribute
-            return self.original_attr.__get__(instance, owner)
-
-        except Exception as e:
-            # If any error occurs during access, check if it's async-related
-            error_msg = str(e).lower()
-            if any(
-                keyword in error_msg
-                for keyword in [
-                    "greenlet",
-                    "await_only",
-                    "asyncio",
-                    "async",
-                    "missinggreenlet",
-                ]
-            ):
-                return self.fallback_value
-            # For other errors, re-raise
-            raise
-
-    def __set__(self, instance, value):
-        """Delegate setting to original attribute"""
-        return self.original_attr.__set__(instance, value)
-
-    def __delete__(self, instance):
-        """Delegate deletion to original attribute"""
-        return self.original_attr.__delete__(instance)
-
-    def _is_invalid_async_context(self, state):
-        """Check if we're in an invalid async context that would cause MissingGreenlet"""
-        try:
-            # Check if we have async session
-            if hasattr(state, "async_session") and state.async_session is not None:
-                # We have async session, need to check greenlet context
-                try:
-                    import greenlet
-
-                    current = greenlet.getcurrent()
-                    # If we're not in a greenlet context but have async session,
-                    # accessing deferred attributes will fail
-                    if current is None or current.parent is None:
-                        return True
-                except ImportError:
-                    # No greenlet support, assume we're in invalid context if async_session exists
-                    return True
-            return False
-        except Exception:
-            # If any check fails, assume we're in invalid context
-            return True
-
-    # Make wrapper transparent to SQLAlchemy inspection system
-    def __getattr__(self, name):
-        """Proxy all other attributes to the original InstrumentedAttribute"""
-        return getattr(self.original_attr, name)
-
-    def _sa_inspect_type(self):
-        """Support SQLAlchemy inspection by delegating to original attribute"""
-        if hasattr(self.original_attr, "_sa_inspect_type"):
-            return self.original_attr._sa_inspect_type()
-        return None
 
 
 class SafeDeferredColumnLoader(DeferredColumnLoader):
     """
-    A custom deferred column loader that returns a fallback value instead of
-    raising DetachedInstanceError when the session is detached.
+    A simplified deferred column loader that works with event-based fallback setting.
+    The main fallback logic is now handled by event listeners in SafeColumnProperty.
     """
 
     def __init__(self, parent, strategy_key, fallback_value=None):
@@ -127,11 +25,10 @@ class SafeDeferredColumnLoader(DeferredColumnLoader):
 
     def _load_for_state(self, state, passive):
         """
-        Override the default behavior to return fallback value instead of raising
-        DetachedInstanceError or MissingGreenlet when session is None or async context is missing.
+        Override to handle session-related errors gracefully.
+        Fallback values are pre-set by event listeners, so we mainly handle exceptions here.
         """
         from sqlalchemy.orm import LoaderCallableStatus
-        from sqlalchemy.orm.attributes import set_committed_value
 
         if not state.key:
             return LoaderCallableStatus.ATTR_EMPTY
@@ -142,51 +39,14 @@ class SafeDeferredColumnLoader(DeferredColumnLoader):
         if not passive & PassiveFlag.SQL_OK:
             return LoaderCallableStatus.PASSIVE_NO_RESULT
 
-        # Check if the attribute is already loaded
-        if self.key not in state.unloaded:
-            # Attribute is already loaded, use parent implementation
-            return super()._load_for_state(state, passive)
-
         # Check if we have a session before attempting to load
         session = _state_session(state)
         if session is None:
-            # No session available, set fallback value directly on the instance
-            instance = state.obj()
-            if instance is not None:
-                set_committed_value(instance, self.key, self.fallback_value)
-                return LoaderCallableStatus.ATTR_WAS_SET
-            return self.fallback_value
+            # No session - return the fallback that should be already set by event listener
+            # If for some reason it's not set, the fallback value will be used
+            return LoaderCallableStatus.PASSIVE_NO_RESULT
 
-        # Check if this is an AsyncSession that might cause MissingGreenlet
-        async_session = state.async_session
-        if async_session is not None:
-            # We have an async session, check if we're in proper async context
-            try:
-                # Try to import greenlet to check context
-                import greenlet
-
-                current_greenlet = greenlet.getcurrent()
-                # If we're in the main thread without proper async context,
-                # the greenlet will not have a proper parent or spawn context
-                if current_greenlet.parent is None and not hasattr(
-                    current_greenlet, "_spawning_greenlet"
-                ):
-                    # We're likely in sync code trying to access async session attributes
-                    instance = state.obj()
-                    if instance is not None:
-                        set_committed_value(instance, self.key, self.fallback_value)
-                        return LoaderCallableStatus.ATTR_WAS_SET
-                    return self.fallback_value
-            except (ImportError, AttributeError):
-                # greenlet not available, but we know it's an async session
-                # in sync context - return fallback
-                instance = state.obj()
-                if instance is not None:
-                    set_committed_value(instance, self.key, self.fallback_value)
-                    return LoaderCallableStatus.ATTR_WAS_SET
-                return self.fallback_value
-
-        # Final attempt with error handling for any remaining async issues
+        # Try normal loading with error handling for async issues
         try:
             return super()._load_for_state(state, passive)
         except Exception as e:
@@ -202,42 +62,49 @@ class SafeDeferredColumnLoader(DeferredColumnLoader):
                     "missinggreenlet",
                 ]
             ):
-                # This is an async-related error, set fallback value
-                instance = state.obj()
-                if instance is not None:
-                    set_committed_value(instance, self.key, self.fallback_value)
-                    return LoaderCallableStatus.ATTR_WAS_SET
-                return self.fallback_value
-            # For other exceptions, re-raise them
-            raise
-            if any(
-                keyword in error_msg
-                for keyword in [
-                    "greenlet",
-                    "await_only",
-                    "asyncio",
-                    "async",
-                    "missinggreenlet",
-                ]
-            ):
-                # This is an async-related error, set fallback value directly
-                instance = state.obj()
-                if instance is not None:
-                    set_committed_value(instance, self.key, self.fallback_value)
-                    return LoaderCallableStatus.ATTR_WAS_SET
-                return self.fallback_value
+                # This is an async-related error
+                # The fallback value should already be set by event listener
+                return LoaderCallableStatus.PASSIVE_NO_RESULT
             # For other exceptions, re-raise them
             raise
 
 
 class SafeColumnProperty(ColumnProperty):
     """
-    Custom ColumnProperty that uses SafeDeferredColumnLoader for deferred loading.
+    Custom ColumnProperty that automatically sets fallback values on load events.
+    This ensures deferred properties always have a safe fallback value available.
     """
 
     def __init__(self, *args, fallback_value=None, **kwargs):
         self.fallback_value = fallback_value
         super().__init__(*args, **kwargs)
+
+    def instrument_class(self, mapper):
+        """Override to set up event listeners for automatic fallback value setting"""
+        result = super().instrument_class(mapper)
+
+        # Set up event listeners to automatically set fallback values
+        self._setup_fallback_listeners(mapper)
+
+        return result
+
+    def _setup_fallback_listeners(self, mapper):
+        """Set up event listeners to automatically set fallback values on load/refresh"""
+        class_type = mapper.class_
+        key = self.key
+        fallback_value = self.fallback_value
+
+        @event.listens_for(class_type, "load")
+        def _set_deferred_fallback_on_load(target, context):
+            """Set fallback value when object is loaded from database"""
+            if key not in target.__dict__:
+                set_committed_value(target, key, fallback_value)
+
+        @event.listens_for(class_type, "refresh")
+        def _set_deferred_fallback_on_refresh(target, context, attrs):
+            """Set fallback value when object is refreshed"""
+            if key not in target.__dict__ or attrs is None or key in attrs:
+                set_committed_value(target, key, fallback_value)
 
     def do_init(self):
         """Override to set our custom strategy after parent initialization."""
