@@ -23,7 +23,6 @@ def test_async_fallback_value():
             cls.computed_value = deferred_column_property(
                 cls.__table__.c.value * 2,
                 fallback_value=-999,
-                deferred=True,
             )
 
     # Create regular engine first to set up data
