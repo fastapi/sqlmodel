@@ -114,6 +114,7 @@ from sqlalchemy.types import UnicodeText as UnicodeText
 from sqlalchemy.types import Uuid as Uuid
 
 # From SQLModel, modifications of SQLAlchemy or equivalents of Pydantic
+from .deferred_column import deferred_column_property as deferred_column_property
 from .main import Field as Field
 from .main import Relationship as Relationship
 from .main import SQLModel as SQLModel
