@@ -135,15 +135,15 @@ def test_literal_typehints_are_treated_as_strings(clear_sqlmodel):
         name: str = Field(unique=True)
         weakness: Literal["Kryptonite", "Dehydration", "Munchies"]
 
-    superman = Hero(name="Superman", weakness="Kryptonite")
+    superguy = Hero(name="Superguy", weakness="Kryptonite")
 
     engine = create_engine("sqlite://", echo=True)
 
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
-        session.add(superman)
+        session.add(superguy)
         session.commit()
-        session.refresh(superman)
-        assert superman.weakness == "Kryptonite"
-        assert isinstance(superman.weakness, str)
+        session.refresh(superguy)
+        assert superguy.weakness == "Kryptonite"
+        assert isinstance(superguy.weakness, str)

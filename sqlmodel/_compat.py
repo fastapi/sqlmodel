@@ -10,6 +10,7 @@ from typing import (
     Dict,
     ForwardRef,
     Generator,
+    Literal,
     Mapping,
     Optional,
     Set,
@@ -22,6 +23,7 @@ from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import Annotated, get_args, get_origin
+from .sql.sqltypes import AutoString
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
@@ -458,10 +460,12 @@ else:
             )
         return field.allow_none  # type: ignore[no-any-return, attr-defined]
 
-    def get_sa_type_from_field(field: Any) -> Any:
-        if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
-            return field.type_
-        raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
+    # def get_sa_type_from_field(field: Any) -> Any:
+    #     if field is Literal:
+    #         return AutoString
+    #     elif isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
+    #         return field.type_
+    #     raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
     def get_field_metadata(field: Any) -> Any:
         metadata = FakeMetadata()
