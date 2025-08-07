@@ -1,4 +1,4 @@
-from typing import List, Optional, Literal
+from typing import List, Literal, Optional
 
 import pytest
 from sqlalchemy.exc import IntegrityError
@@ -134,7 +134,6 @@ def test_literal_typehints_are_treated_as_strings(clear_sqlmodel):
         id: Optional[int] = Field(default=None, primary_key=True)
         name: str = Field(unique=True)
         weakness: Literal["Kryptonite", "Dehydration", "Munchies"]
-
 
     superman = Hero(name="Superman", weakness="Kryptonite")
 
