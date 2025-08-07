@@ -460,12 +460,12 @@ else:
             )
         return field.allow_none  # type: ignore[no-any-return, attr-defined]
 
-    # def get_sa_type_from_field(field: Any) -> Any:
-    #     if field is Literal:
-    #         return AutoString
-    #     elif isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
-    #         return field.type_
-    #     raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
+    def get_sa_type_from_field(field: Any) -> Any:
+        if get_origin(field.type_) is Literal:
+            return AutoString
+        elif isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
+            return field.type_
+        raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
     def get_field_metadata(field: Any) -> Any:
         metadata = FakeMetadata()
