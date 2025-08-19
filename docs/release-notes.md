@@ -19,6 +19,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/checkout from 4 to 5. PR [#1488](https://github.com/fastapi/sqlmodel/pull/1488) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1479](https://github.com/fastapi/sqlmodel/pull/1479) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump mkdocs-macros-plugin from 1.3.7 to 1.3.9. PR [#1507](https://github.com/fastapi/sqlmodel/pull/1507) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.12.7 to 0.12.9. PR [#1521](https://github.com/fastapi/sqlmodel/pull/1521) by [@dependabot[bot]](https://github.com/apps/dependabot).
