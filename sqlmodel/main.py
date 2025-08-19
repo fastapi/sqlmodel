@@ -238,6 +238,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    pattern: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -283,6 +284,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    pattern: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -337,6 +339,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    pattern: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     sa_column: Union[Column[Any], UndefinedType] = Undefined,
@@ -372,6 +375,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    pattern: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -387,6 +391,12 @@ def Field(
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if IS_PYDANTIC_V2:
+        current_schema_extra.update(pattern=pattern or regex)
+    else:
+        current_schema_extra.update(regex=regex or pattern)
+
     field_info = FieldInfo(
         default,
         default_factory=default_factory,
@@ -409,7 +419,6 @@ def Field(
         min_length=min_length,
         max_length=max_length,
         allow_mutation=allow_mutation,
-        regex=regex,
         discriminator=discriminator,
         repr=repr,
         primary_key=primary_key,
