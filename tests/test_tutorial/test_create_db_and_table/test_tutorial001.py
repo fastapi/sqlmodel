@@ -1,11 +1,26 @@
 from pathlib import Path
 
-from ...conftest import coverage_run
+import pytest
+
+from ...conftest import coverage_run, needs_py310
 
 
-def test_create_db_and_table(cov_tmp_path: Path):
-    module = "docs_src.tutorial.create_db_and_table.tutorial001"
-    result = coverage_run(module=module, cwd=cov_tmp_path)
+@pytest.fixture(
+    name="module_name",
+    params=[
+        "docs_src.tutorial.create_db_and_table.tutorial001",
+        pytest.param(
+            "docs_src.tutorial.create_db_and_table.tutorial001_py310",
+            marks=needs_py310,
+        ),
+    ],
+)
+def get_module_name(request: pytest.FixtureRequest) -> str:
+    return request.param
+
+
+def test_create_db_and_table(cov_tmp_path: Path, module_name: str):
+    result = coverage_run(module=module_name, cwd=cov_tmp_path)
     assert "BEGIN" in result.stdout
     assert 'PRAGMA main.table_info("hero")' in result.stdout
     assert "CREATE TABLE hero (" in result.stdout
