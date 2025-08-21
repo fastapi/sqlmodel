@@ -1,4 +1,4 @@
-from sqlmodel import Field, SQLModel, create_engine
+from sqlmodel import Field, SQLModel
 
 
 def test_sqlmodel_update():
@@ -9,9 +9,6 @@ def test_sqlmodel_update():
 
     class OrganizationUpdate(SQLModel):
         name: str
-
-    engine = create_engine("sqlite:///", echo=True)
-    SQLModel.metadata.create_all(engine)
 
     org = Organization(name="Example Org", city="New York", headquarters="NYC HQ")
     org_in = OrganizationUpdate(name="Updated org")
