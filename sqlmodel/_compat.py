@@ -24,6 +24,8 @@ from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import Annotated, get_args, get_origin
 
+from . import AutoString
+
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
 PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
