@@ -581,7 +581,7 @@ We get `Black Lion` here too because although the age is not *strictly* less tha
 
 ### In
 
-Finally, we can use `in_ to get the rows where a column is a member of a collection of values:
+Finally, we can use `in_` to get the rows where a column is a member of a collection of values:
 
 {* ./docs_src/tutorial/where/tutorial0065.py ln[44:49] hl[46] *}
 
