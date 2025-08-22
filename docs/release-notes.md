@@ -19,6 +19,13 @@
 
 ### Internal
 
+* ⬆ Bump typer from 0.16.0 to 0.16.1. PR [#1531](https://github.com/fastapi/sqlmodel/pull/1531) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/download-artifact from 4 to 5. PR [#1451](https://github.com/fastapi/sqlmodel/pull/1451) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/checkout from 4 to 5. PR [#1488](https://github.com/fastapi/sqlmodel/pull/1488) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1479](https://github.com/fastapi/sqlmodel/pull/1479) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump mkdocs-macros-plugin from 1.3.7 to 1.3.9. PR [#1507](https://github.com/fastapi/sqlmodel/pull/1507) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.12.7 to 0.12.9. PR [#1521](https://github.com/fastapi/sqlmodel/pull/1521) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.6.16 to 9.6.17. PR [#1528](https://github.com/fastapi/sqlmodel/pull/1528) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1444](https://github.com/fastapi/sqlmodel/pull/1444) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump mkdocs-material from 9.6.15 to 9.6.16. PR [#1446](https://github.com/fastapi/sqlmodel/pull/1446) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.12.4 to 0.12.7. PR [#1447](https://github.com/fastapi/sqlmodel/pull/1447) by [@dependabot[bot]](https://github.com/apps/dependabot).
