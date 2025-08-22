@@ -24,7 +24,7 @@ from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import Annotated, get_args, get_origin
 
-from . import AutoString
+from .sql.sqltypes import AutoString
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
