@@ -591,7 +591,7 @@ We don't have any hero called `Ratman`, so it does not match any hero.
 /// tip
 
 You need to wrap your attribute with `col()` to use `in_`.
-You can read more about it in the (Type annotations and errors)[#type-annotations-and-errors] section.
+You can read more about it in the [Type annotations and errors](#type-annotations-and-errors){.internal-link target=_blank} section.
 
 ///
 
