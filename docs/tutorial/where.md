@@ -583,29 +583,17 @@ We get `Black Lion` here too because although the age is not *strictly* less tha
 
 Finally, we can use `in_ to get the rows where a column is a member of a collection of values:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial0066.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial0065.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial0065.py ln[44:49] hl[46] *}
 
 In this case, we match `Deadpond` since it's part of the collections of names.
 We don't have any hero called `Ratman`, so it does not match any hero.
 
-!!! tip
-    You need to wrap your attribute with `col()` to use `in_`.
-    You can read more about it in the (Type annotations and errors)[#type-annotations-and-errors] section.
+/// tip
+
+You need to wrap your attribute with `col()` to use `in_`.
+You can read more about it in the (Type annotations and errors)[#type-annotations-and-errors] section.
+
+///
 
 ### Benefits of Expressions
 
