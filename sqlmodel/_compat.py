@@ -1,3 +1,4 @@
+import sys
 import types
 from contextlib import contextmanager
 from contextvars import ContextVar
@@ -60,6 +61,12 @@ class ObjectWithUpdateWrapper:
 
 def _is_union_type(t: Any) -> bool:
     return t is UnionType or t is Union
+
+
+if sys.version_info >= (3, 9):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 
 finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
