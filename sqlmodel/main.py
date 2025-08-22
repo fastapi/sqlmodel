@@ -52,7 +52,13 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import Literal, TypeAlias, _AnnotatedAlias, deprecated, get_origin
+from typing_extensions import (
+    Literal,
+    TypeAlias,
+    _AnnotatedAlias,
+    deprecated,
+    get_origin,
+)
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
