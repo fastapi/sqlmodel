@@ -52,12 +52,13 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import Literal, TypeAlias, deprecated, get_origin
+from typing_extensions import TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
+    Literal,
     ModelField,
     ModelMetaclass,
     Representation,
@@ -655,6 +656,9 @@ def get_sqlalchemy_type(field: Any) -> Any:
     type_ = get_sa_type_from_field(field)
     metadata = get_field_metadata(field)
 
+    # Checks for `Literal` type annotation
+    if type_ is Literal:
+        return AutoString
     # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
     if issubclass(type_, Enum):
         return sa_Enum(type_)

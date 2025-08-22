@@ -1,3 +1,4 @@
+import sys
 import types
 from contextlib import contextmanager
 from contextvars import ContextVar
@@ -22,6 +23,8 @@ from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import Annotated, get_args, get_origin
+
+from .sql.sqltypes import AutoString
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
@@ -60,6 +63,12 @@ class ObjectWithUpdateWrapper:
 
 def _is_union_type(t: Any) -> bool:
     return t is UnionType or t is Union
+
+
+if sys.version_info >= (3, 9):
+    from typing import Literal
+else:
+    from typing_extensions import Literal
 
 
 finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
@@ -459,7 +468,9 @@ else:
         return field.allow_none  # type: ignore[no-any-return, attr-defined]
 
     def get_sa_type_from_field(field: Any) -> Any:
-        if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
+        if get_origin(field.type_) is Literal:
+            return AutoString
+        elif isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
             return field.type_
         raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
