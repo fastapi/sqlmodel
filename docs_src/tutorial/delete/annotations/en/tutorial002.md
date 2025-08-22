@@ -14,10 +14,13 @@
 
 3. Get one hero object, expecting exactly one.
 
-    !!! tip
-        This ensures there's no more than one, and that there's exactly one, not `None`.
+    /// tip
 
-        This would never return `None`, instead it would raise an exception.
+    This ensures there's no more than one, and that there's exactly one, not `None`.
+
+    This would never return `None`, instead it would raise an exception.
+
+    ///
 
 4. Print the hero object.
 

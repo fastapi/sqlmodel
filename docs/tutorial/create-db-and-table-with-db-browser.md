@@ -125,6 +125,8 @@ And delete that `./database.db` file in your project directory.
 
 And click again on <kbd>New Database</kbd>.
 
+Save the file with the name `database.db` again.
+
 This time, if you see the dialog to create a new table, just close it by clicking the <kbd>Cancel</kbd> button.
 
 And now, go to the tab <kbd>Execute SQL</kbd>.

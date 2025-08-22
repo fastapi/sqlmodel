@@ -3,20 +3,23 @@
 </style>
 
 <p align="center">
-  <a href="https://sqlmodel.tiangolo.com"><img src="https://sqlmodel.tiangolo.com/img/logo-margin/logo-margin-vector.svg" alt="SQLModel"></a>
+  <a href="https://sqlmodel.tiangolo.com"><img src="https://sqlmodel.tiangolo.com/img/logo-margin/logo-margin-vector.svg#only-light" alt="SQLModel"></a>
+<!-- only-mkdocs -->
+  <a href="https://sqlmodel.tiangolo.com"><img src="img/logo-margin/logo-margin-white-vector.svg#only-dark" alt="SQLModel"></a>
+<!-- /only-mkdocs -->
 </p>
 <p align="center">
     <em>SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.</em>
 </p>
 <p align="center">
-<a href="https://github.com/tiangolo/sqlmodel/actions?query=workflow%3ATest" target="_blank">
-    <img src="https://github.com/tiangolo/sqlmodel/workflows/Test/badge.svg" alt="Test">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest+event%3Apush+branch%3Amain" target="_blank">
+    <img src="https://github.com/fastapi/sqlmodel/actions/workflows/test.yml/badge.svg?event=push&branch=main" alt="Test">
 </a>
-<a href="https://github.com/tiangolo/sqlmodel/actions?query=workflow%3APublish" target="_blank">
-    <img src="https://github.com/tiangolo/sqlmodel/workflows/Publish/badge.svg" alt="Publish">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3APublish" target="_blank">
+    <img src="https://github.com/fastapi/sqlmodel/actions/workflows/publish.yml/badge.svg" alt="Publish">
 </a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/tiangolo/sqlmodel" target="_blank">
-    <img src="https://coverage-badge.samuelcolvin.workers.dev/tiangolo/sqlmodel.svg" alt="Coverage">
+<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/sqlmodel" target="_blank">
+    <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/sqlmodel.svg" alt="Coverage">
 <a href="https://pypi.org/project/sqlmodel" target="_blank">
     <img src="https://img.shields.io/pypi/v/sqlmodel?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
@@ -26,7 +29,7 @@
 
 **Documentation**: <a href="https://sqlmodel.tiangolo.com" target="_blank">https://sqlmodel.tiangolo.com</a>
 
-**Source Code**: <a href="https://github.com/tiangolo/sqlmodel" target="_blank">https://github.com/tiangolo/sqlmodel</a>
+**Source Code**: <a href="https://github.com/fastapi/sqlmodel" target="_blank">https://github.com/fastapi/sqlmodel</a>
 
 ---
 
@@ -75,6 +78,8 @@ As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. T
 
 ## Installation
 
+Make sure you create a <a href="https://sqlmodel.tiangolo.com/virtual-environments/" class="external-link" target="_blank">virtual environment</a>, activate it, and then install SQLModel, for example with:
+
 <div class="termy">
 
 ```console
@@ -113,16 +118,14 @@ And you want it to have this data:
 Then you could create a **SQLModel** model like this:
 
 ```Python
-from typing import Optional
-
 from sqlmodel import Field, SQLModel
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 ```
 
 That class `Hero` is a **SQLModel** model, the equivalent of a SQL table in Python code.
@@ -157,17 +160,15 @@ And **inline errors**:
 
 You can learn a lot more about **SQLModel** by quickly following the **tutorial**, but if you need a taste right now of how to put all that together and save to the database, you can do this:
 
-```Python hl_lines="18  21  23-27"
-from typing import Optional
-
+```Python hl_lines="16  19  21-25"
 from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 
 
 hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
@@ -193,17 +194,15 @@ That will save a **SQLite** database with the 3 heroes.
 
 Then you could write queries to select from that same database, for example with:
 
-```Python hl_lines="15-18"
-from typing import Optional
-
+```Python hl_lines="13-17"
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 
 
 engine = create_engine("sqlite:///database.db")
@@ -230,4 +229,4 @@ And at the same time, ✨ it is also a **Pydantic** model ✨. You can use inher
 
 ## License
 
-This project is licensed under the terms of the [MIT license](https://github.com/tiangolo/sqlmodel/blob/main/LICENSE).
+This project is licensed under the terms of the [MIT license](https://github.com/fastapi/sqlmodel/blob/main/LICENSE).
