@@ -21,11 +21,12 @@ from typing import (
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
-from typing_extensions import get_args, get_origin
+from typing_extensions import Annotated, get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
-IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
+PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
+IS_PYDANTIC_V2 = PYDANTIC_MINOR_VERSION[0] == 2
 
 
 if TYPE_CHECKING:
@@ -72,6 +73,7 @@ def partial_init() -> Generator[None, None, None]:
 
 
 if IS_PYDANTIC_V2:
+    from annotated_types import MaxLen
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
     from pydantic._internal._model_construction import ModelMetaclass
@@ -101,7 +103,14 @@ if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
-        return model.model_fields
+        # TODO: refactor the usage of this function to always pass the class
+        # not the instance, and then remove this extra check
+        # this is for compatibility with Pydantic v3
+        if isinstance(model, type):
+            use_model = model
+        else:
+            use_model = model.__class__
+        return use_model.model_fields
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
@@ -176,16 +185,17 @@ if IS_PYDANTIC_V2:
             return False
         return False
 
-    def get_type_from_field(field: Any) -> Any:
-        type_: Any = field.annotation
+    def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         # Resolve Optional fields
-        if type_ is None:
+        if annotation is None:
             raise ValueError("Missing field type")
-        origin = get_origin(type_)
+        origin = get_origin(annotation)
         if origin is None:
-            return type_
+            return annotation
+        elif origin is Annotated:
+            return get_sa_type_from_type_annotation(get_args(annotation)[0])
         if _is_union_type(origin):
-            bases = get_args(type_)
+            bases = get_args(annotation)
             if len(bases) > 2:
                 raise ValueError(
                     "Cannot have a (non-optional) union as a SQLAlchemy field"
@@ -193,15 +203,20 @@ if IS_PYDANTIC_V2:
             # Non optional unions are not allowed
             if bases[0] is not NoneType and bases[1] is not NoneType:
                 raise ValueError(
-                    "Cannot have a (non-optional) union as a SQLlchemy field"
+                    "Cannot have a (non-optional) union as a SQLAlchemy field"
                 )
             # Optional unions are allowed
-            return bases[0] if bases[0] is not NoneType else bases[1]
+            use_type = bases[0] if bases[0] is not NoneType else bases[1]
+            return get_sa_type_from_type_annotation(use_type)
         return origin
+
+    def get_sa_type_from_field(field: Any) -> Any:
+        type_: Any = field.annotation
+        return get_sa_type_from_type_annotation(type_)
 
     def get_field_metadata(field: Any) -> Any:
         for meta in field.metadata:
-            if isinstance(meta, PydanticMetadata):
+            if isinstance(meta, (PydanticMetadata, MaxLen)):
                 return meta
             fake = FakeMetadata()
             fake.max_length = getattr(meta, "max_length", None)
@@ -445,7 +460,7 @@ else:
             )
         return field.allow_none  # type: ignore[no-any-return, attr-defined]
 
-    def get_type_from_field(field: Any) -> Any:
+    def get_sa_type_from_field(field: Any) -> Any:
         if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
             return field.type_
         raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")

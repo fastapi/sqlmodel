@@ -59,7 +59,7 @@ expected_calls = [
 
 
 @needs_py310
-def test_tutorial(clear_sqlmodel):
+def test_tutorial():
     from docs_src.tutorial.connect.delete import tutorial001_py310 as mod
 
     mod.sqlite_url = "sqlite://"
