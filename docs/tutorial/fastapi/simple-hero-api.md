@@ -8,16 +8,12 @@ The first step is to install FastAPI.
 
 FastAPI is the framework to create the **web API**.
 
-But we also need another type of program to run it, it is called a "**server**". We will use **Uvicorn** for that. And we will install Uvicorn with its *standard* dependencies.
-
-Make sure you [have a virtual environment activated](../index.md#create-a-python-virtual-environment){.internal-link target=_blank}.
-
-Then install FastAPI and Uvicorn:
+Make sure you create a [virtual environment](../../virtual-environments.md){.internal-link target=_blank}, activate it, and then install them, for example with:
 
 <div class="termy">
 
 ```console
-$ python -m pip install fastapi "uvicorn[standard]"
+$ pip install fastapi "uvicorn[standard]"
 
 ---> 100%
 ```
@@ -32,25 +28,7 @@ We will start with the **simplest version**, with just heroes (no teams yet).
 
 This is almost the same code we have seen up to now in previous examples:
 
-```Python hl_lines="20-21"
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:1]!}
-
-# One line of FastAPI imports here later 👈
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:4]!}
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:7-22]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[2,5:20] hl[19:20] *}
 
 There's only one change here from the code we have used before, the `check_same_thread` in the `connect_args`.
 
@@ -62,10 +40,13 @@ But here we will make sure we don't share the same **session** in more than one 
 
 And we also need to disable it because in **FastAPI** each request could be handled by multiple interacting threads.
 
-!!! info
-    That's enough information for now, you can read more about it in the <a href="https://fastapi.tiangolo.com/async/" class="external-link" target="_blank">FastAPI docs for `async` and `await`</a>.
+/// info
 
-    The main point is, by ensuring you **don't share** the same **session** with more than one request, the code is already safe.
+That's enough information for now, you can read more about it in the <a href="https://fastapi.tiangolo.com/async/" class="external-link" target="_blank">FastAPI docs for `async` and `await`</a>.
+
+The main point is, by ensuring you **don't share** the same **session** with more than one request, the code is already safe.
+
+///
 
 ## **FastAPI** App
 
@@ -75,24 +56,7 @@ We will import the `FastAPI` class from `fastapi`.
 
 And then create an `app` object that is an instance of that `FastAPI` class:
 
-```Python hl_lines="3  8"
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:1-4]!}
-
-# SQLModel code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[1:2,23] hl[1,23] *}
 
 ## Create Database and Tables on `startup`
 
@@ -100,55 +64,31 @@ We want to make sure that once the app starts running, the function `create_tabl
 
 This should be called only once at startup, not before every request, so we put it in the function to handle the `"startup"` event:
 
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-30]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:28] hl[26:28] *}
 
 ## Create Heroes *Path Operation*
 
-!!! info
-    If you need a refresher on what a **Path Operation** is (an endpoint with a specific HTTP Operation) and how to work with it in FastAPI, check out the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">FastAPI First Steps docs</a>.
+/// info
+
+If you need a refresher on what a **Path Operation** is (an endpoint with a specific HTTP Operation) and how to work with it in FastAPI, check out the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">FastAPI First Steps docs</a>.
+
+///
 
 Let's create the **path operation** code to create a new hero.
 
 It will be called when a user sends a request with a `POST` **operation** to the `/heroes/` **path**:
 
-```Python hl_lines="11-12"
-# Code above omitted 👆
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:37] hl[31:32] *}
 
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-39]!}
+/// info
 
-# Code below omitted 👇
-```
+If you need a refresher on some of those concepts, checkout the FastAPI documentation:
 
-<details>
-<summary>👀 Full file preview</summary>
+* <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">First Steps</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">Path Parameters - Data Validation and Data Conversion</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/body/" class="external-link" target="_blank">Request Body</a>
 
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-</details>
-
-!!! info
-    If you need a refresher on some of those concepts, checkout the FastAPI documentation:
-
-    * <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">First Steps</a>
-    * <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">Path Parameters - Data Validation and Data Conversion</a>
-    * <a href="https://fastapi.tiangolo.com/tutorial/body/" class="external-link" target="_blank">Request Body</a>
+///
 
 ## The **SQLModel** Advantage
 
@@ -162,27 +102,17 @@ And then, because this same **SQLModel** object is not only a **Pydantic** model
 
 So we can use intuitive standard Python **type annotations**, and we don't have to duplicate a lot of the code for the database models and the API data models. 🎉
 
-!!! tip
-    We will improve this further later, but for now, it already shows the power of having **SQLModel** classes be both **SQLAlchemy** models and **Pydantic** models at the same time.
+/// tip
+
+We will improve this further later, but for now, it already shows the power of having **SQLModel** classes be both **SQLAlchemy** models and **Pydantic** models at the same time.
+
+///
 
 ## Read Heroes *Path Operation*
 
 Now let's add another **path operation** to read all the heroes:
 
-```Python hl_lines="20-24"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py[ln:25-46]!}
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/simple_hero_api/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:44] hl[40:44] *}
 
 This is pretty straightforward.
 
@@ -204,56 +134,47 @@ In this simple example, we just create the new sessions manually in the **path o
 
 In future examples later we will use a <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI Dependency</a> to get the **session**, being able to share it with other dependencies and being able to replace it during testing. 🤓
 
-## Run the **FastAPI** Application
+## Run the **FastAPI** Server in Development Mode
 
 Now we are ready to run the FastAPI application.
 
 Put all that code in a file called `main.py`.
 
-Then run it with **Uvicorn**:
+Then run it with the `fastapi` <abbr title="Command Line Interface">CLI</abbr>, in development mode:
 
 <div class="termy">
 
 ```console
-$ uvicorn main:app
+$ fastapi dev main.py
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-<span style="color: green;">INFO</span>:     Started reloader process [28720]
-<span style="color: green;">INFO</span>:     Started server process [28722]
-<span style="color: green;">INFO</span>:     Waiting for application startup.
-<span style="color: green;">INFO</span>:     Application startup complete.
 ```
 
 </div>
 
-!!! info
-    The command `uvicorn main:app` refers to:
+/// info
 
-    * `main`: the file `main.py` (the Python "module").
-    * `app`: the object created inside of `main.py` with the line `app = FastAPI()`.
+The `fastapi` command uses <a href="https://www.uvicorn.org/" class="external-link" target="_blank">Uvicorn</a> underneath.
 
-### Uvicorn `--reload`
+///
 
-During development (and only during development), you can also add the option `--reload` to Uvicorn.
+When you use `fastapi dev` it starts Uvicorn with the option to reload automatically every time you make a change to the code, this way you will be able to develop faster. 🤓
 
-It will restart the server every time you make a change to the code, this way you will be able to develop faster. 🤓
+## Run the **FastAPI** Server in Production Mode
+
+The development mode should not be used in production, as it includes automatic reload by default it consumes much more resources than necessary, and it would be more error prone, etc.
+
+For production, use `fastapi run` instead of `fastapi dev`:
 
 <div class="termy">
 
 ```console
-$ uvicorn main:app --reload
+$ fastapi run main.py
 
-<span style="color: green;">INFO</span>:     Will watch for changes in these directories: ['/home/user/code/sqlmodel-tutorial']
-<span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-<span style="color: green;">INFO</span>:     Started reloader process [28720]
-<span style="color: green;">INFO</span>:     Started server process [28722]
-<span style="color: green;">INFO</span>:     Waiting for application startup.
-<span style="color: green;">INFO</span>:     Application startup complete.
+<span style="color: green;">INFO</span>:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
 
 </div>
-
-Just remember to never use `--reload` in production, as it consumes much more resources than necessary, would be more error prone, etc.
 
 ## Check the API docs UI
 
@@ -275,7 +196,7 @@ And then you can get them back with the **Read Heroes** *path operation*:
 
 ## Check the Database
 
-Now you can terminate that Uvicorn server by going back to the terminal and pressing <kbd>Ctrl+C</kbd>.
+Now you can terminate that server program by going back to the terminal and pressing <kbd>Ctrl+C</kbd>.
 
 And then, you can open **DB Browser for SQLite** and check the database, to explore the data and confirm that it indeed saved the heroes. 🎉
 

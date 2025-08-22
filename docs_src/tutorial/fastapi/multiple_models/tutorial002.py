@@ -18,7 +18,7 @@ class HeroCreate(HeroBase):
     pass
 
 
-class HeroRead(HeroBase):
+class HeroPublic(HeroBase):
     id: int
 
 
@@ -41,17 +41,17 @@ def on_startup():
     create_db_and_tables()
 
 
-@app.post("/heroes/", response_model=HeroRead)
+@app.post("/heroes/", response_model=HeroPublic)
 def create_hero(hero: HeroCreate):
     with Session(engine) as session:
-        db_hero = Hero.from_orm(hero)
+        db_hero = Hero.model_validate(hero)
         session.add(db_hero)
         session.commit()
         session.refresh(db_hero)
         return db_hero
 
 
-@app.get("/heroes/", response_model=List[HeroRead])
+@app.get("/heroes/", response_model=List[HeroPublic])
 def read_heroes():
     with Session(engine) as session:
         heroes = session.exec(select(Hero)).all()

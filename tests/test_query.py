@@ -1,5 +1,6 @@
 from typing import Optional
 
+import pytest
 from sqlmodel import Field, Session, SQLModel, create_engine
 
 
@@ -21,6 +22,7 @@ def test_query(clear_sqlmodel):
         session.refresh(hero_1)
 
     with Session(engine) as session:
-        query_hero = session.query(Hero).first()
+        with pytest.warns(DeprecationWarning):
+            query_hero = session.query(Hero).first()
         assert query_hero
         assert query_hero.name == hero_1.name

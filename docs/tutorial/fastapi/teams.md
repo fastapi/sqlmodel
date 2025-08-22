@@ -14,24 +14,11 @@ It's the same process we did for heroes, with a base model, a **table model**, a
 
 We have a `TeamBase` **data model**, and from it, we inherit with a `Team` **table model**.
 
-Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamRead` **data models**.
+Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamPublic` **data models**.
 
 And we also create a `TeamUpdate` **data model**.
 
-```Python hl_lines="7-9  12-15  18-19  22-23  26-28"
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:1-28]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[1:26] hl[5:7,10:13,16:17,20:21,24:26] *}
 
 We now also have **relationship attributes**. 🎉
 
@@ -39,22 +26,7 @@ Let's now update the `Hero` models too.
 
 ## Update Hero Models
 
-```Python hl_lines="3-8  11-15  17-18  21-22  25-29"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:31-57]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[29:55] hl[29:34,37:40,43:44,47:48,51:55] *}
 
 We now have a `team_id` in the hero models.
 
@@ -66,22 +38,7 @@ And even though the `HeroBase` is *not* a **table model**, we can declare `team_
 
 Notice that the **relationship attributes**, the ones with `Relationship()`, are **only** in the **table models**, as those are the ones that are handled by **SQLModel** with SQLAlchemy and that can have the automatic fetching of data from the database when we access them.
 
-```Python hl_lines="11  38"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:7-57]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[5:55] hl[13,40] *}
 
 ## Path Operations for Teams
 
@@ -89,22 +46,7 @@ Let's now add the **path operations** for teams.
 
 These are equivalent and very similar to the **path operations** for the **heroes** we had before, so we don't have to go over the details for each one, let's check the code.
 
-```Python hl_lines="3-9  12-20  23-28  31-47  50-57"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py[ln:139-193]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/teams/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[135:188] hl[135:141,144:152,155:160,163:178,181:188] *}
 
 ## Using Relationships Attributes
 
