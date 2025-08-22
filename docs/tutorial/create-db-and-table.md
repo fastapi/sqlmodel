@@ -41,45 +41,7 @@ That's why this package is called `SQLModel`. Because it's mainly used to create
 
 For that, we will import `SQLModel` (plus other things we will also use) and create a class `Hero` that inherits from `SQLModel` and represents the **table model** for our heroes:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  4"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3  6"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-10]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,4] *}
 
 This class `Hero` **represents the table** for our heroes. And each instance we create later will **represent a row** in the table.
 
@@ -101,115 +63,39 @@ The name of each of these variables will be the name of the column in the table.
 
 And the type of each of them will also be the type of table column:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1 5-8"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="1  3  7-10"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-10]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5:8] *}
 
 Let's now see with more detail these field/column declarations.
 
-### Optional Fields, Nullable Columns
+### `None` Fields, Nullable Columns
 
-Let's start with `age`, notice that it has a type of `Optional[int]`.
-
-And we import that `Optional` from the `typing` standard module.
+Let's start with `age`, notice that it has a type of `int | None`.
 
 That is the standard way to declare that something "could be an `int` or `None`" in Python.
 
 And we also set the default value of `age` to `None`.
 
-//// tab | Python 3.10+
-
-```Python hl_lines="8"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="1  10"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-10]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[8] *}
 
 /// tip
 
-We also define `id` with `Optional`. But we will talk about `id` below.
+We also define `id` with `int | None`. But we will talk about `id` below.
 
 ///
 
-This way, we tell **SQLModel** that `age` is not required when validating data and that it has a default value of `None`.
+Because the type is `int | None`:
 
-And we also tell it that, in the SQL database, the default value of `age` is `NULL` (the SQL equivalent to Python's `None`).
+* When validating data, `None` will be an allowed value for `age`.
+* In the database, the column for `age` will be allowed to have `NULL` (the SQL equivalent to Python's `None`).
 
-So, this column is "nullable" (can be set to `NULL`).
+And because there's a default value `= None`:
 
-/// info
+* When validating data, this `age` field won't be required, it will be `None` by default.
+* When saving to the database, the `age` column will have a `NULL` value by default.
 
-In terms of **Pydantic**, `age` is an **optional field**.
+/// tip
 
-In terms of **SQLAlchemy**, `age` is a **nullable column**.
+The default value could have been something else, like `= 42`.
 
 ///
 
@@ -221,49 +107,11 @@ So, we need to mark `id` as the **primary key**.
 
 To do that, we use the special `Field` function from `sqlmodel` and set the argument `primary_key=True`:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  5"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-8]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3  7"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-10]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5] *}
 
 That way, we tell **SQLModel** that this `id` field/column is the primary key of the table.
 
-But inside the SQL database, it is **always required** and can't be `NULL`. Why should we declare it with `Optional`?
+But inside the SQL database, it is **always required** and can't be `NULL`. Why should we declare it with `int | None`?
 
 The `id` will be required in the database, but it will be *generated by the database*, not by our code.
 
@@ -280,7 +128,7 @@ somehow_save_in_db(my_hero)
 do_something(my_hero.id)  # Now my_hero.id has a value generated in DB 🎉
 ```
 
-So, because in *our code* (not in the database) the value of `id` *could be* `None`, we use `Optional`. This way **the editor will be able to help us**, for example, if we try to access the `id` of an object that we haven't saved in the database yet and would still be `None`.
+So, because in *our code* (not in the database) the value of `id` *could be* `None`, we use `int | None`. This way **the editor will be able to help us**, for example, if we try to access the `id` of an object that we haven't saved in the database yet and would still be `None`.
 
 <img class="shadow" src="/img/create-db-and-table/inline-errors01.png">
 
@@ -302,45 +150,7 @@ If you have a server database (for example PostgreSQL or MySQL), the **engine** 
 
 Creating the **engine** is very simple, just call `create_engine()` with a URL for the database to use:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="1  14"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="3  16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-18]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[1,14] *}
 
 You should normally have a single **engine** object for your whole application and re-use it everywhere.
 
@@ -354,7 +164,7 @@ But we will talk about it later.
 
 ### Engine Database URL
 
-Each supported database has it's own URL type. For example, for **SQLite** it is `sqlite:///` followed by the file path. For example:
+Each supported database has its own URL type. For example, for **SQLite** it is `sqlite:///` followed by the file path. For example:
 
 * `sqlite:///database.db`
 * `sqlite:///databases/local/application.db`
@@ -364,45 +174,7 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 
 * `sqlite://`
 
-//// tab | Python 3.10+
-
-```Python hl_lines="11-12 14"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="13-14 16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-18]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[11:12,14] *}
 
 You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the <a href="https://docs.sqlalchemy.org/en/14/core/engines.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
 
@@ -414,45 +186,7 @@ It will make the engine print all the SQL statements it executes, which can help
 
 It is particularly useful for **learning** and **debugging**:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="14"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py[ln:1-16]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py[ln:1-18]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[14] *}
 
 But in production, you would probably want to remove `echo=True`:
 
@@ -470,7 +204,7 @@ If you didn't know about SQLAlchemy before and are just learning **SQLModel**, y
 
 You can read a lot more about the engine in the <a href="https://docs.sqlalchemy.org/en/14/tutorial/engine.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
 
-**SQLModel** defines it's own `create_engine()` function. It is the same as SQLAlchemy's `create_engine()`, but with the difference that it defaults to use `future=True` (which means that it uses the style of the latest SQLAlchemy, 1.4, and the future 2.0).
+**SQLModel** defines its own `create_engine()` function. It is the same as SQLAlchemy's `create_engine()`, but with the difference that it defaults to use `future=True` (which means that it uses the style of the latest SQLAlchemy, 1.4, and the future 2.0).
 
 And SQLModel's version of `create_engine()` is type annotated internally, so your editor will be able to help you with autocompletion and inline errors.
 
@@ -478,21 +212,7 @@ And SQLModel's version of `create_engine()` is type annotated internally, so you
 
 Now everything is in place to finally create the database and table:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="16"
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="18"
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py hl[16] *}
 
 /// tip
 
@@ -603,25 +323,7 @@ Let's run the program to see it all working.
 
 Put the code it in a file `app.py` if you haven't already.
 
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial001.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py *}
 
 /// tip
 
@@ -688,7 +390,7 @@ In the example in the previous chapter we created the table using `TEXT` for som
 
 But in this output SQLAlchemy is using `VARCHAR` instead. Let's see what's going on.
 
-Remember that [each SQL Database has some different variations in what they support?](../databases/#sql-the-language){.internal-link target=_blank}
+Remember that [each SQL Database has some different variations in what they support?](../databases.md#sql-the-language){.internal-link target=_blank}
 
 This is one of the differences. Each database supports some particular **data types**, like `INTEGER` and `TEXT`.
 
@@ -726,45 +428,7 @@ In this example it's just the `SQLModel.metadata.create_all(engine)`.
 
 Let's put it in a function `create_db_and_tables()`:
 
-//// tab | Python 3.10+
-
-```Python  hl_lines="17-18"
-{!./docs_src/tutorial/create_db_and_table/tutorial002_py310.py[ln:1-18]!}
-
-# More code here later 👇
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python  hl_lines="19-20"
-{!./docs_src/tutorial/create_db_and_table/tutorial002.py[ln:1-20]!}
-
-# More code here later 👇
-```
-
-////
-
-/// details | 👀 Full file preview
-
-//// tab | Python 3.10+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python
-{!./docs_src/tutorial/create_db_and_table/tutorial002.py!}
-```
-
-////
-
-///
+{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py ln[1:18] hl[17:18] *}
 
 If `SQLModel.metadata.create_all(engine)` was not in a function and we tried to import something from this module (from this file) in another, it would try to create the database and table **every time** we executed that other file that imported this module.
 
@@ -782,7 +446,7 @@ Now we would be able to, for example, import the `Hero` class in some other file
 
 We prevented the side effects when importing something from your `app.py` file.
 
-But we still want it to **create the database and table** when we call it with Python directly as an independent script from the terminal, just as as above.
+But we still want it to **create the database and table** when we call it with Python directly as an independent script from the terminal, just as above.
 
 /// tip
 
@@ -794,21 +458,7 @@ The word **script** often implies that the code could be run independently and e
 
 For that we can use the special variable `__name__` in an `if` block:
 
-//// tab | Python 3.10+
-
-```Python hl_lines="21-22"
-{!./docs_src/tutorial/create_db_and_table/tutorial002_py310.py!}
-```
-
-////
-
-//// tab | Python 3.7+
-
-```Python hl_lines="23-24"
-{!./docs_src/tutorial/create_db_and_table/tutorial002.py!}
-```
-
-////
+{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py hl[21:22] *}
 
 ### About `__name__ == "__main__"`
 
@@ -912,7 +562,7 @@ Now, let's give the code a final look:
 
 ////
 
-//// tab | Python 3.7+
+//// tab | Python 3.8+
 
 ```{.python .annotate}
 {!./docs_src/tutorial/create_db_and_table/tutorial003.py!}
