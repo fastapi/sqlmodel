@@ -1,9 +1,12 @@
-import enum
-import uuid
+import importlib
 
+import pytest
 from sqlalchemy import create_mock_engine
 from sqlalchemy.sql.type_api import TypeEngine
-from sqlmodel import Field, SQLModel
+from sqlmodel import SQLModel
+
+from . import test_enums_models
+from .conftest import needs_pydanticv1, needs_pydanticv2
 
 """
 Tests related to Enums
@@ -12,30 +15,6 @@ Associated issues:
 * https://github.com/tiangolo/sqlmodel/issues/96
 * https://github.com/tiangolo/sqlmodel/issues/164
 """
-
-
-class MyEnum1(enum.Enum):
-    A = "A"
-    B = "B"
-
-
-class MyEnum2(enum.Enum):
-    C = "C"
-    D = "D"
-
-
-class BaseModel(SQLModel):
-    id: uuid.UUID = Field(primary_key=True)
-    enum_field: MyEnum2
-
-
-class FlatModel(SQLModel, table=True):
-    id: uuid.UUID = Field(primary_key=True)
-    enum_field: MyEnum1
-
-
-class InheritModel(BaseModel, table=True):
-    pass
 
 
 def pg_dump(sql: TypeEngine, *args, **kwargs):
@@ -56,7 +35,9 @@ postgres_engine = create_mock_engine("postgresql://", pg_dump)
 sqlite_engine = create_mock_engine("sqlite://", sqlite_dump)
 
 
-def test_postgres_ddl_sql(capsys):
+def test_postgres_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
+    assert test_enums_models, "Ensure the models are imported and registered"
+    importlib.reload(test_enums_models)
     SQLModel.metadata.create_all(bind=postgres_engine, checkfirst=False)
 
     captured = capsys.readouterr()
@@ -64,9 +45,85 @@ def test_postgres_ddl_sql(capsys):
     assert "CREATE TYPE myenum2 AS ENUM ('C', 'D');" in captured.out
 
 
-def test_sqlite_ddl_sql(capsys):
+def test_sqlite_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
+    assert test_enums_models, "Ensure the models are imported and registered"
+    importlib.reload(test_enums_models)
     SQLModel.metadata.create_all(bind=sqlite_engine, checkfirst=False)
 
     captured = capsys.readouterr()
-    assert "enum_field VARCHAR(1) NOT NULL" in captured.out
+    assert "enum_field VARCHAR(1) NOT NULL" in captured.out, captured
     assert "CREATE TYPE" not in captured.out
+
+
+@needs_pydanticv1
+def test_json_schema_flat_model_pydantic_v1():
+    assert test_enums_models.FlatModel.schema() == {
+        "title": "FlatModel",
+        "type": "object",
+        "properties": {
+            "id": {"title": "Id", "type": "string", "format": "uuid"},
+            "enum_field": {"$ref": "#/definitions/MyEnum1"},
+        },
+        "required": ["id", "enum_field"],
+        "definitions": {
+            "MyEnum1": {
+                "title": "MyEnum1",
+                "description": "An enumeration.",
+                "enum": ["A", "B"],
+                "type": "string",
+            }
+        },
+    }
+
+
+@needs_pydanticv1
+def test_json_schema_inherit_model_pydantic_v1():
+    assert test_enums_models.InheritModel.schema() == {
+        "title": "InheritModel",
+        "type": "object",
+        "properties": {
+            "id": {"title": "Id", "type": "string", "format": "uuid"},
+            "enum_field": {"$ref": "#/definitions/MyEnum2"},
+        },
+        "required": ["id", "enum_field"],
+        "definitions": {
+            "MyEnum2": {
+                "title": "MyEnum2",
+                "description": "An enumeration.",
+                "enum": ["C", "D"],
+                "type": "string",
+            }
+        },
+    }
+
+
+@needs_pydanticv2
+def test_json_schema_flat_model_pydantic_v2():
+    assert test_enums_models.FlatModel.model_json_schema() == {
+        "title": "FlatModel",
+        "type": "object",
+        "properties": {
+            "id": {"title": "Id", "type": "string", "format": "uuid"},
+            "enum_field": {"$ref": "#/$defs/MyEnum1"},
+        },
+        "required": ["id", "enum_field"],
+        "$defs": {
+            "MyEnum1": {"enum": ["A", "B"], "title": "MyEnum1", "type": "string"}
+        },
+    }
+
+
+@needs_pydanticv2
+def test_json_schema_inherit_model_pydantic_v2():
+    assert test_enums_models.InheritModel.model_json_schema() == {
+        "title": "InheritModel",
+        "type": "object",
+        "properties": {
+            "id": {"title": "Id", "type": "string", "format": "uuid"},
+            "enum_field": {"$ref": "#/$defs/MyEnum2"},
+        },
+        "required": ["id", "enum_field"],
+        "$defs": {
+            "MyEnum2": {"enum": ["C", "D"], "title": "MyEnum2", "type": "string"}
+        },
+    }

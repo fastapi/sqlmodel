@@ -2,7 +2,7 @@
 
 We'll now support **many-to-many** relationships using a **link table** like this:
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.drawio.svg">
 
 Let's start by defining the class models, including the **link table** model.
 
@@ -12,20 +12,7 @@ As we want to support a **many-to-many** relationship, now we need a **link tabl
 
 We can create it just as any other **SQLModel**:
 
-```Python hl_lines="6-12"
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:1-12]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[1:6] hl[4:6] *}
 
 This is a **SQLModel** class model table like any other.
 
@@ -39,24 +26,9 @@ And **both fields are primary keys**. We hadn't used this before. 🤓
 
 Let's see the `Team` model, it's almost identical as before, but with a little change:
 
-```Python hl_lines="8"
-# Code above omitted 👆
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[9:14] hl[14] *}
 
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:15-20]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
-
-The **relationship attribute `heroes`** is still a list of heroes, annotated as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
+The **relationship attribute `heroes`** is still a list of heroes, annotated as `list["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
 
 We use the same **`Relationship()`** function.
 
@@ -68,28 +40,13 @@ And here's the important part to allow the **many-to-many** relationship, we use
 
 Let's see the other side, here's the `Hero` model:
 
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:23-29]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[17:23] hl[23] *}
 
 We **removed** the previous `team_id` field (column) because now the relationship is done via the link table. 🔥
 
 The relationship attribute is now named **`teams`** instead of `team`, as now we support multiple teams.
 
-It is no longer an `Optional[Team]` but a list of teams, annotated as **`List[Team]`**.
+It no longer has a type of `Team | None` but a list of teams, the type is now declared as **`list[Team]`**.
 
 We are using the **`Relationship()`** here too.
 
@@ -101,44 +58,11 @@ And now we have a **`link_model=HeroTeamLink`**. ✨
 
 The same as before, we will have the rest of the code to create the **engine**, and a function to create all the tables `create_db_and_tables()`.
 
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:32-39]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
-
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[26:33] hl[32] *}
 
 And as in previous examples, we will add that function to a function `main()`, and we will call that `main()` function in the main block:
 
-```Python hl_lines="4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-79]!}
-    # We will do more stuff here later 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:83-84]!}
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
-
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[72:73,77:78] hl[73] *}
 
 ## Run the Code
 
@@ -151,35 +75,35 @@ $ python app.py
 
 // Boilerplate omitted 😉
 
-INFO Engine 
+INFO Engine
 CREATE TABLE team (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        headquarters VARCHAR NOT NULL, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        headquarters VARCHAR NOT NULL,
         PRIMARY KEY (id)
 )
 
 
 INFO Engine [no key 0.00033s] ()
-INFO Engine 
+INFO Engine
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 
 
 INFO Engine [no key 0.00016s] ()
-INFO Engine 
+INFO Engine
 
 // Our shinny new link table ✨
 CREATE TABLE heroteamlink (
-        team_id INTEGER, 
-        hero_id INTEGER, 
-        PRIMARY KEY (team_id, hero_id), 
-        FOREIGN KEY(team_id) REFERENCES team (id), 
+        team_id INTEGER,
+        hero_id INTEGER,
+        PRIMARY KEY (team_id, hero_id),
+        FOREIGN KEY(team_id) REFERENCES team (id),
         FOREIGN KEY(hero_id) REFERENCES hero (id)
 )
 

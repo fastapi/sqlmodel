@@ -4,24 +4,9 @@ In the previous chapter, we saw how to add rows to the database using **SQLModel
 
 Now let's talk a bit about why the `id` field **can't be `NULL`** on the database because it's a **primary key**, and we declare it using `Field(primary_key=True)`.
 
-But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `Optional[int]`, and set the default value to `Field(default=None)`:
+But the same `id` field actually **can be `None`** in the Python code, so we declare the type with `int | None`, and set the default value to `Field(default=None)`:
 
-```Python hl_lines="4"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:6-10]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[4:8] hl[5] *}
 
 Next, I'll show you a bit more about the synchronization of data between the database and the Python code.
 
@@ -31,32 +16,17 @@ When do we get an actual `int` from the database in that `id` field? Let's see a
 
 When we create a new `Hero` instance, we don't set the `id`:
 
-```Python hl_lines="3-6"
-# Code above omitted 👆
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[21:24] hl[21:24] *}
 
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-26]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
-
-### How `Optional` Helps
+### How `int | None` Helps
 
 Because we don't set the `id`, it takes the Python's default value of `None` that we set in `Field(default=None)`.
 
-This is the only reason why we define it with `Optional` and with a default value of `None`.
+This is the only reason why we define it with `int | None` and with a default value of `None`.
 
 Because at this point in the code, **before interacting with the database**, the Python value could actually be `None`.
 
-If we assumed that the `id` was *always* an `int` and added the type annotation without `Optional`, we could end up writing broken code, like:
+If we assumed that the `id` was *always* an `int` and added the type annotation without `int | None`, we could end up writing broken code, like:
 
 ```Python
 next_hero_id = hero_1.id + 1
@@ -68,28 +38,13 @@ If we ran this code before saving the hero to the database and the `hero_1.id` w
 TypeError: unsupported operand type(s) for +: 'NoneType' and 'int'
 ```
 
-But by declaring it with `Optional[int]`, the editor will help us to avoid writing broken code by showing us a warning telling us that the code could be invalid if `hero_1.id` is `None`. 🔍
+But by declaring it with `int | None`, the editor will help us to avoid writing broken code by showing us a warning telling us that the code could be invalid if `hero_1.id` is `None`. 🔍
 
 ## Print the Default `id` Values
 
 We can confirm that by printing our heroes before adding them to the database:
 
-```Python hl_lines="9-11"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-31]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[21:29] hl[27:29] *}
 
 That will output:
 
@@ -120,22 +75,7 @@ After we add the `Hero` instance objects to the **session**, the IDs are *still*
 
 We can verify by creating a session using a `with` block and adding the objects. And then printing them again:
 
-```Python hl_lines="19-21"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:23-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[21:39] hl[37:39] *}
 
 This will, again, output the `id`s of the objects as `None`:
 
@@ -160,22 +100,7 @@ As we saw before, the **session** is smart and doesn't talk to the database ever
 
 Then we can `commit` the changes in the session, and print again:
 
-```Python hl_lines="13  16-18"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-48]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[31:46] hl[41,44:46] *}
 
 And now, something unexpected happens, look at the output, it seems as if the `Hero` instance objects had no data at all:
 
@@ -198,9 +123,9 @@ INFO Engine COMMIT
 
 // And now our prints
 After committing the session
-Hero 1: 
-Hero 2: 
-Hero 3: 
+Hero 1:
+Hero 2:
+Hero 3:
 
 // What is happening here? 😱
 ```
@@ -233,22 +158,7 @@ We didn't access the object's attributes, like `hero.name`. We only accessed the
 
 To confirm and understand how this **automatic expiration and refresh** of data when accessing attributes work, we can print some individual fields (instance attributes):
 
-```Python hl_lines="21-23  26-28"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-58]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[31:56] hl[49:51,54:56] *}
 
 Now we are actually accessing the attributes, because instead of printing the whole object `hero_1`:
 
@@ -275,17 +185,17 @@ $ python app.py
 
 // After committing, the objects are expired and have no values
 After committing the session
-Hero 1: 
-Hero 2: 
-Hero 3: 
+Hero 1:
+Hero 2:
+Hero 3:
 
 // Now we will access an attribute like the ID, this is the first print
 After committing the session, show IDs
 
 // Notice that before printing the first ID, the Session makes the Engine go to the database to refresh the data 🤓
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00017s] (1,)
 
@@ -293,8 +203,8 @@ INFO Engine [generated in 0.00017s] (1,)
 Hero 1 ID: 1
 
 // Before the next print, refresh the data for the second object
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001245s ago] (2,)
 
@@ -302,8 +212,8 @@ INFO Engine [cached since 0.001245s ago] (2,)
 Hero 2 ID: 2
 
 // Before the third print, refresh its data
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002215s ago] (3,)
 
@@ -317,7 +227,6 @@ Hero 2 name: Spider-Boy
 Hero 3 name: Rusty-Man
 
 // Because the Session already refreshed these objects with all their data and the session knows they are not expired, it doesn't have to go again to the database for the names 🤓
-
 ```
 
 </div>
@@ -330,22 +239,7 @@ But what if you want to **explicitly refresh** the data?
 
 You can do that too with `session.refresh(object)`:
 
-```Python hl_lines="30-32  35-37"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-67]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[31:65] hl[58:60,63:65] *}
 
 When Python executes this code:
 
@@ -365,20 +259,20 @@ $ python app.py
 // Output above omitted 👆
 
 // The first refresh
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00024s] (1,)
 
 // The second refresh
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001487s ago] (2,)
 
 // The third refresh
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002377s ago] (3,)
 
@@ -403,22 +297,7 @@ Now, as a final experiment, we can also print data after the **session** is clos
 
 There are no surprises here, it still works:
 
-```Python hl_lines="40-42"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py[ln:33-72]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/automatic_id_none_refresh/tutorial001_py310.py ln[31:70] hl[68:70] *}
 
 And the output shows again the same data:
 
@@ -445,16 +324,33 @@ Hero 3: age=48 id=3 name='Rusty-Man' secret_name='Tommy Sharp'
 
 Now let's review all this code once again.
 
-!!! tip
-    Each one of the numbered bubbles shows what each line will print in the output.
+/// tip
 
-    And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
+Each one of the numbered bubbles shows what each line will print in the output.
 
-```{ .python .annotate }
+And as we created the **engine** with `echo=True`, we can see the SQL statements being executed at each step.
+
+///
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial002_py310.py!}
+```
+
+{!./docs_src/tutorial/automatic_id_none_refresh/annotations/en/tutorial002.md!}
+
+////
+
+//// tab | Python 3.8+
+
+```Python
 {!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/automatic_id_none_refresh/annotations/en/tutorial002.md!}
+
+////
 
 And here's all the output generated by running this program, all together:
 
@@ -468,12 +364,12 @@ INFO Engine PRAGMA main.table_info("hero")
 INFO Engine [raw sql] ()
 INFO Engine PRAGMA temp.table_info("hero")
 INFO Engine [raw sql] ()
-INFO Engine 
+INFO Engine
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
         PRIMARY KEY (id)
 )
 
@@ -497,23 +393,23 @@ INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.001483s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 INFO Engine COMMIT
 After committing the session
-Hero 1: 
-Hero 2: 
-Hero 3: 
+Hero 1:
+Hero 2:
+Hero 3:
 After committing the session, show IDs
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00029s] (1,)
 Hero 1 ID: 1
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002132s ago] (2,)
 Hero 2 ID: 2
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.003367s ago] (3,)
 Hero 3 ID: 3
@@ -521,16 +417,16 @@ After committing the session, show names
 Hero 1 name: Deadpond
 Hero 2 name: Spider-Boy
 Hero 3 name: Rusty-Man
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00025s] (1,)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001583s ago] (2,)
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002722s ago] (3,)
 After refreshing the heroes

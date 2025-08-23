@@ -16,7 +16,7 @@ The team table will look like this:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -39,7 +39,7 @@ To connect them, we will add another column to the hero table to point to each t
 
 This way each row in the table `hero` can point to a row in the table `team`:
 
-<img alt="table relationships" src="/img/databases/relationships.svg">
+<img alt="table relationships" src="/img/databases/relationships.drawio.svg">
 
 ## One-to-Many and Many-to-One
 
@@ -57,20 +57,7 @@ Let's start by creating the tables in code.
 
 Import the things we need from `sqlmodel` and create a new `Team` model:
 
-```Python hl_lines="6-9"
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:1-9]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[1:7] hl[4:7] *}
 
 This is very similar to what we have been doing with the `Hero` model.
 
@@ -89,20 +76,7 @@ Now let's create the `hero` table.
 
 This is the same model we have been using up to now, we are just adding the new column `team_id`:
 
-```Python hl_lines="18"
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:1-18]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[1:16] hl[16] *}
 
 Most of that should look familiar:
 
@@ -126,49 +100,29 @@ This is the name of the **table** in the database, so it is `"team"`, not the na
 
 If you had a custom table name, you would use that custom table name.
 
-!!! info
-    You can learn about setting a custom table name for a model in the Advanced User Guide.
+/// info
+
+You can learn about setting a custom table name for a model in the Advanced User Guide.
+
+///
 
 ### Create the Tables
 
 Now we can add the same code as before to create the engine and the function to create the tables:
 
-```Python hl_lines="3-4  6  9-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:21-28]!}
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[19:26] hl[19:20,22,25:26] *}
 
 And as before, we'll call this function from another function `main()`, and we'll add that function `main()` to the main block of the file:
 
-```Python hl_lines="3-4  7-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py[ln:31-36]!}
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[29:34] hl[29:30,33:34] *}
 
 ## Run the Code
 
-!!! tip
-    Before running the code, make sure you delete the file `database.db` to make sure you start from scratch.
+/// tip
+
+Before running the code, make sure you delete the file `database.db` to make sure you start from scratch.
+
+///
 
 If we run the code we have up to now, it will go and create the database file `database.db` and the tables in it we just defined, `team` and `hero`:
 
@@ -191,24 +145,24 @@ INFO Engine PRAGMA temp.table_info("hero")
 INFO Engine [raw sql] ()
 
 // Create the tables
-INFO Engine 
+INFO Engine
 CREATE TABLE team (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        headquarters VARCHAR NOT NULL, 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        headquarters VARCHAR NOT NULL,
         PRIMARY KEY (id)
 )
 
 
 INFO Engine [no key 0.00010s] ()
-INFO Engine 
+INFO Engine
 CREATE TABLE hero (
-        id INTEGER, 
-        name VARCHAR NOT NULL, 
-        secret_name VARCHAR NOT NULL, 
-        age INTEGER, 
-        team_id INTEGER, 
-        PRIMARY KEY (id), 
+        id INTEGER,
+        name VARCHAR NOT NULL,
+        secret_name VARCHAR NOT NULL,
+        age INTEGER,
+        team_id INTEGER,
+        PRIMARY KEY (id),
         FOREIGN KEY(team_id) REFERENCES team (id)
 )
 
@@ -229,9 +183,9 @@ So, the first SQL could also be written as:
 
 ```SQL
 CREATE TABLE team (
-    id INTEGER, 
-    name TEXT NOT NULL, 
-    headquarters TEXT NOT NULL, 
+    id INTEGER,
+    name TEXT NOT NULL,
+    headquarters TEXT NOT NULL,
     PRIMARY KEY (id)
 )
 ```
@@ -240,12 +194,12 @@ And the second table could be written as:
 
 ```SQL hl_lines="8"
 CREATE TABLE hero (
-    id INTEGER, 
-    name TEXT NOT NULL, 
-    secret_name TEXT NOT NULL, 
-    age INTEGER, 
-    team_id INTEGER, 
-    PRIMARY KEY (id), 
+    id INTEGER,
+    name TEXT NOT NULL,
+    secret_name TEXT NOT NULL,
+    age INTEGER,
+    team_id INTEGER,
+    PRIMARY KEY (id),
     FOREIGN KEY(team_id) REFERENCES team (id)
 )
 ```

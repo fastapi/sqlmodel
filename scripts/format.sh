@@ -1,6 +1,7 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+
+set -e
 set -x
 
-autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place sqlmodel docs_src tests --exclude=__init__.py
-black sqlmodel tests docs_src
-isort sqlmodel tests docs_src
+ruff check sqlmodel tests docs_src scripts --fix
+ruff format sqlmodel tests docs_src scripts

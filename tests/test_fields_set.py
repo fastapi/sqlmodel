@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from sqlmodel import Field, SQLModel
+from sqlmodel._compat import get_fields_set
 
 
 def test_fields_set():
@@ -10,12 +11,12 @@ def test_fields_set():
         last_updated: datetime = Field(default_factory=datetime.now)
 
     user = User(username="bob")
-    assert user.__fields_set__ == {"username"}
+    assert get_fields_set(user) == {"username"}
     user = User(username="bob", email="bob@test.com")
-    assert user.__fields_set__ == {"username", "email"}
+    assert get_fields_set(user) == {"username", "email"}
     user = User(
         username="bob",
         email="bob@test.com",
         last_updated=datetime.now() - timedelta(days=1),
     )
-    assert user.__fields_set__ == {"username", "email", "last_updated"}
+    assert get_fields_set(user) == {"username", "email", "last_updated"}

@@ -5,18 +5,21 @@
     This generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.name = ?
     INFO Engine [no key 0.00017s] ('Spider-Boy',)
     ```
 
 3. Get one hero object, expecting exactly one.
 
-    !!! tip
-        This ensures there's no more than one, and that there's exactly one, not `None`.
+    /// tip
 
-        This would never return `None`, instead it would raise an exception.
+    This ensures there's no more than one, and that there's exactly one, not `None`.
+
+    This would never return `None`, instead it would raise an exception.
+
+    ///
 
 4. Print the hero object.
 
@@ -53,8 +56,8 @@
     This generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [generated in 0.00018s] (2,)
     ```

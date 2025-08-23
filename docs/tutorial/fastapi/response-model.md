@@ -32,47 +32,15 @@ We can use `response_model` to tell FastAPI the schema of the data we want to se
 
 For example, we can pass the same `Hero` **SQLModel** class (because it is also a Pydantic model):
 
-```Python hl_lines="3"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/response_model/tutorial001.py[ln:33-39]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/response_model/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[31:37] hl[31] *}
 
 ## List of Heroes in `response_model`
 
 We can also use other type annotations, the same way we can use with Pydantic fields. For example, we can pass a list of `Hero`s.
 
-First, we import `List` from `typing` and then we declare the `response_model` with `List[Hero]`:
+To do so, we declare the `response_model` with `list[Hero]`:
 
-```Python hl_lines="1  5"
-{!./docs_src/tutorial/fastapi/response_model/tutorial001.py[ln:1]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/response_model/tutorial001.py[ln:42-46]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/response_model/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[40:44] hl[40] *}
 
 ## FastAPI and Response Model
 
@@ -100,10 +68,13 @@ Additionally, because the schemas are defined in using a standard, there are man
 
 For example, client generators, that can automatically create the code necessary to talk to your API in many languages.
 
-!!! info
-    If you are curious about the standards, FastAPI generates OpenAPI, that internally uses JSON Schema.
+/// info
 
-    You can read about all that in the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/#openapi" class="external-link" target="_blank">FastAPI docs - First Steps</a>.
+If you are curious about the standards, FastAPI generates OpenAPI, that internally uses JSON Schema.
+
+You can read about all that in the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/#openapi" class="external-link" target="_blank">FastAPI docs - First Steps</a>.
+
+///
 
 ## Recap
 

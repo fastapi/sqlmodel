@@ -6,14 +6,7 @@ Now let's see how to update data using **SQLModel**.
 
 As before, we'll continue from where we left off with the previous code.
 
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/indexes/tutorial002.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[0] *}
 
 Remember to remove the `database.db` file before running the examples to get the same results.
 
@@ -41,12 +34,15 @@ And the second part, with the `WHERE`, defines to which rows it should apply tha
 
 In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
 
-!!! info
-    Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
+/// info
 
-    And in the `WHERE` the same single equals sign (`=`) is used for **comparison** between two values, to find rows that match.
+Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
 
-    This is in contrast to Python and most programming languages, where a single equals sign (`=`) is used for assignment, and two equal signs (`==`) are used for comparisons.
+And in the `WHERE` the same single equals sign (`=`) is used for **comparison** between two values, to find rows that match.
+
+This is in contrast to Python and most programming languages, where a single equals sign (`=`) is used for assignment, and two equal signs (`==`) are used for comparisons.
+
+///
 
 You can try that in **DB Browser for SQLite**:
 
@@ -69,16 +65,19 @@ After that update, the data in the table will look like this, with the new age f
 </tr>
 </table>
 
-!!! tip
-    It will probably be more common to find the row to update by `id`, for example:
+/// tip
 
-    ```SQL
-    UPDATE hero
-    SET age=16
-    WHERE id = 2
-    ```
+It will probably be more common to find the row to update by `id`, for example:
 
-    But in the example above I used `name` to make it more intuitive.
+```SQL
+UPDATE hero
+SET age=16
+WHERE id = 2
+```
+
+But in the example above I used `name` to make it more intuitive.
+
+///
 
 Now let's do the same update in code, with **SQLModel**.
 
@@ -88,39 +87,11 @@ To get the same results, delete the `database.db` file before running the exampl
 
 We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial001.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:47] hl[44] *}
 
 Let's not forget to add that `update_heroes()` function to the `main()` function so that we call it when executing the program from the command line:
 
-```Python hl_lines="6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial001.py[ln:58-65]!}
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/update/tutorial001_py310.py ln[56:63] hl[59] *}
 
 Up to that point, running that in the command line will output:
 
@@ -132,8 +103,8 @@ $ python app.py
 // Some boilerplate and previous output omitted 😉
 
 // The SELECT with WHERE
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.name = ?
 INFO Engine [no key 0.00017s] ('Spider-Boy',)
 
@@ -143,8 +114,11 @@ Hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=None id=2
 
 </div>
 
-!!! tip
-    Notice that by this point, the hero still doesn't have an age.
+/// tip
+
+Notice that by this point, the hero still doesn't have an age.
+
+///
 
 ## Set a Field Value
 
@@ -152,22 +126,7 @@ Now that you have a `hero` object, you can simply set the value of the field (th
 
 In this case, we will set the `age` to `16`:
 
-```Python hl_lines="10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial001.py[ln:44-51]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:49] hl[49] *}
 
 ## Add the Hero to the Session
 
@@ -175,22 +134,7 @@ Now that the hero object in memory has a change, in this case a new value for th
 
 This is the same we did when creating new hero instances:
 
-```Python hl_lines="11"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial001.py[ln:44-52]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:50] hl[50] *}
 
 ## Commit the Session
 
@@ -198,22 +142,7 @@ To save the current changes in the session, **commit** it.
 
 This will save the updated hero in the database:
 
-```Python hl_lines="12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial001.py[ln:44-53]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:51] hl[51] *}
 
 It will also save anything else that was added to the session.
 
@@ -246,22 +175,7 @@ The data in the object would be automatically refreshed if we accessed an attrib
 
 But in this example we are not accessing any attribute, we will only print the object. And we also want to be explicit, so we will `.refresh()` the object directly:
 
-```Python hl_lines="13"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial001.py[ln:44-54]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:52] hl[52] *}
 
 This refresh will trigger the same SQL query that would be automatically triggered by accessing an attribute. So it will generate this output:
 
@@ -275,8 +189,8 @@ $ python app.py
 // Previous output omitted 🙈
 
 // The SQL to SELECT the fresh hero data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00018s] (2,)
 ```
@@ -287,22 +201,7 @@ INFO Engine [generated in 0.00018s] (2,)
 
 Now we can just print the hero:
 
-```Python hl_lines="14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial001.py[ln:44-55]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:53] hl[53] *}
 
 Because we refreshed it right after updating it, it has fresh data, including the new `age` we just updated.
 
@@ -327,20 +226,53 @@ Updated hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=16 id=2
 
 Now let's review all that code:
 
+//// tab | Python 3.10+
+
+```{ .python .annotate hl_lines="42-53" }
+{!./docs_src/tutorial/update/tutorial002_py310.py!}
+```
+
+{!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
+
+////
+
+//// tab | Python 3.8+
+
 ```{ .python .annotate hl_lines="44-55" }
 {!./docs_src/tutorial/update/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
 
-!!! tip
-    Check out the number bubbles to see what is done by each line of code.
+////
+
+/// tip
+
+Check out the number bubbles to see what is done by each line of code.
+
+///
 
 ## Multiple Updates
 
 The update process with **SQLModel** is more or less the same as with creating new objects, you add them to the session, and then commit them.
 
 This also means that you can update several fields (attributes, columns) at once, and you can also update several objects (heroes) at once:
+
+//// tab | Python 3.10+
+
+```{ .python .annotate hl_lines="15-17  19-21  23" }
+# Code above omitted 👆
+
+{!./docs_src/tutorial/update/tutorial004_py310.py[ln:42-68]!}
+
+# Code below omitted 👇
+```
+
+{!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
+
+////
+
+//// tab | Python 3.8+
 
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
 # Code above omitted 👆
@@ -352,17 +284,33 @@ This also means that you can update several fields (attributes, columns) at once
 
 {!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
 
-<details>
-<summary>👀 Full file preview</summary>
+////
+
+/// details | 👀 Full file preview
+
+//// tab | Python 3.10+
+
+```Python
+{!./docs_src/tutorial/update/tutorial004_py310.py!}
+```
+
+////
+
+//// tab | Python 3.8+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial004.py!}
 ```
 
-</details>
+////
 
-!!! tip
-    Review what each line does by clicking each number bubble in the code. 👆
+///
+
+/// tip
+
+Review what each line does by clicking each number bubble in the code. 👆
+
+///
 
 ## Recap
 
