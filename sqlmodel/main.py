@@ -391,10 +391,9 @@ def Field(
     schema_extra: Optional[Dict[str, Any]] = None,
     json_schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
+    current_schema_extra = schema_extra or {}
     if json_schema_extra:
-        current_schema_extra = {"json_schema_extra": json_schema_extra}
-    else:
-        current_schema_extra = schema_extra or {}
+        current_schema_extra["json_schema_extra"] = json_schema_extra
     field_info = FieldInfo(
         default,
         default_factory=default_factory,
