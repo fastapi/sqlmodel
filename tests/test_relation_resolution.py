@@ -1,5 +1,7 @@
 from typing import List, Optional
 
+from sqlalchemy import StaticPool
+
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
 
@@ -157,7 +159,11 @@ def test_relation_resolution_if_lazy_selectin_not_set_with_fastapi(clear_sqlmode
     hero_2 = Hero(name="PhD Strange", powers=[power_hero_2])
     team = Team(name="Marble", heroes=[hero_1, hero_2])
 
-    engine = create_engine("sqlite://", connect_args={"check_same_thread": False})
+    engine = create_engine(
+        "sqlite://",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool
+    )
 
     SQLModel.metadata.create_all(engine)
 
@@ -174,7 +180,7 @@ def test_relation_resolution_if_lazy_selectin_not_set_with_fastapi(clear_sqlmode
     @app.get("/")
     async def read_main(response_model=List[Team]):
         with Session(engine) as session:
-            teams = session.execute(select(Team)).all()
+            teams = session.exec(select(Team)).all()
         return teams
 
     client = TestClient(app)
@@ -224,7 +230,11 @@ def test_relation_resolution_if_lazy_selectin_is_set_with_fastapi(clear_sqlmodel
     hero_2 = Hero(name="PhD Strange", powers=[power_hero_2])
     team = Team(name="Marble", heroes=[hero_1, hero_2])
 
-    engine = create_engine("sqlite://", connect_args={"check_same_thread": False})
+    engine = create_engine(
+        "sqlite://",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool
+    )
 
     SQLModel.metadata.create_all(engine)
 
@@ -241,7 +251,7 @@ def test_relation_resolution_if_lazy_selectin_is_set_with_fastapi(clear_sqlmodel
     @app.get("/")
     async def read_main(response_model=List[Team]):
         with Session(engine) as session:
-            teams = session.execute(select(Team)).all()
+            teams = session.exec(select(Team)).all()
         return teams
 
     client = TestClient(app)
