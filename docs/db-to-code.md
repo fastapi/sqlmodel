@@ -172,8 +172,11 @@ The difference in the final SQL statement is subtle, but it changes the meaning 
 SELECT * FROM hero WHERE id = "2; DROP TABLE hero;";
 ```
 
-!!! tip
-    Notice the double quotes (`"`) making it a string instead of more raw SQL.
+/// tip
+
+Notice the double quotes (`"`) making it a string instead of more raw SQL.
+
+///
 
 The database will not find any record with that ID:
 
@@ -187,8 +190,11 @@ Then your code will continue to execute and calmly tell the user that it couldn'
 
 But we never deleted the `hero` table. 🎉
 
-!!! info
-    Of course, there are also other ways to do SQL data sanitization without using a tool like **SQLModel**, but it's still a nice feature you get by default.
+/// info
+
+Of course, there are also other ways to do SQL data sanitization without using a tool like **SQLModel**, but it's still a nice feature you get by default.
+
+///
 
 ### Editor Support
 
@@ -230,8 +236,7 @@ database.execute(
 ).all()
 ```
 
-<img class="shadow" src="/img/db-to-code/autocompletion01.png">
-
+![](img/db-to-code/autocompletion01.png){class="shadow"}
 
 ## ORMs and SQL
 
@@ -247,10 +252,10 @@ For example this class is part of that **Object** Oriented Programming:
 
 ```Python
 class Hero(SQLModel):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 ```
 
 * **Relational**: refers to the **SQL Databases**. Remember that they are also called **Relational Databases**, because each of those tables is also called a "**relation**"? That's where the "**Relational**" comes from.
@@ -274,7 +279,7 @@ For example this **Relation** or table:
 
 * **Mapper**: this comes from Math, when there's something that can convert from some set of things to another, that's called a "**mapping function**". That's where the **Mapper** comes from.
 
-![Squares to Triangles Mapper](/img/db-to-code/mapper.svg)
+![Squares to Triangles Mapper](img/db-to-code/mapper.drawio.svg)
 
 We could also write a **mapping function** in Python that converts from the *set of lowercase letters* to the *set of uppercase letters*, like this:
 
@@ -291,8 +296,11 @@ There are many ORMs available apart from **SQLModel**, you can read more about s
 
 ## SQL Table Names
 
-!!! info "Technical Background"
-    This is a bit of boring background for SQL purists. Feel free to skip this section. 😉
+/// info  | Technical Background
+
+This is a bit of boring background for SQL purists. Feel free to skip this section. 😉
+
+///
 
 When working with pure SQL, it's common to name the tables in plural. So, the table would be named `heroes` instead of `hero`, because it could contain multiple rows, each with one hero.
 
@@ -304,5 +312,8 @@ You will see **your own code** a lot more than the internal table names, so it's
 
 So, to keep things consistent, I'll keep using the same table names that **SQLModel** would have generated.
 
-!!! tip
-    You can also override the table name. You can read about it in the Advanced User Guide.
+/// tip
+
+You can also override the table name. You can read about it in the Advanced User Guide.
+
+///

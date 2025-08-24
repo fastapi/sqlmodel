@@ -3,7 +3,7 @@ from typing import List, Optional
 import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import RelationshipProperty
-from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
+from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
 
 def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sqlmodel):
@@ -31,7 +31,7 @@ def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sql
         session.refresh(hero_2)
 
     with Session(engine) as session:
-        heroes = session.query(Hero).all()
+        heroes = session.exec(select(Hero)).all()
         assert len(heroes) == 2
         assert heroes[0].name == heroes[1].name
 
@@ -61,7 +61,7 @@ def test_should_allow_duplicate_row_if_unique_constraint_is_false(clear_sqlmodel
         session.refresh(hero_2)
 
     with Session(engine) as session:
-        heroes = session.query(Hero).all()
+        heroes = session.exec(select(Hero)).all()
         assert len(heroes) == 2
         assert heroes[0].name == heroes[1].name
 
@@ -91,7 +91,6 @@ def test_should_raise_exception_when_try_to_duplicate_row_if_unique_constraint_i
         with Session(engine) as session:
             session.add(hero_2)
             session.commit()
-            session.refresh(hero_2)
 
 
 def test_sa_relationship_property(clear_sqlmodel):

@@ -18,8 +18,11 @@ A row in the table `heroteamlink` points to **one** particular hero, but a singl
 
 And also, the same row in the table `heroteamlink` points to **one** team, but a single team can be connected to **many** hero-team links, so it's also **one-to-many**.
 
-!!! tip
-    The previous many-to-many relationship was also just two one-to-many relationships combined, but now it's going to be much more explicit.
+/// tip
+
+The previous many-to-many relationship was also just two one-to-many relationships combined, but now it's going to be much more explicit.
+
+///
 
 ## Update Link Model
 
@@ -29,32 +32,20 @@ We will add a new field `is_training`.
 
 And we will also add two **relationship attributes**, for the linked `team` and `hero`:
 
-```Python hl_lines="10  12-13"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial003.py[ln:6-16]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[4:10] hl[7,9:10] *}
 
 The new **relationship attributes** have their own `back_populates` pointing to new relationship attributes we will create in the `Hero` and `Team` models:
 
 * `team`: has `back_populates="hero_links"`, because in the `Team` model, the attribute will contain the links to the **team's heroes**.
 * `hero`: has `back_populates="team_links"`, because in the `Hero` model, the attribute will contain the links to the **hero's teams**.
 
-!!! info
-    In SQLAlchemy this is called an Association Object or Association Model.
+/// info
 
-    I'm calling it **Link Model** just because that's easier to write avoiding typos. But you are also free to call it however you want. 😉
+In SQLAlchemy this is called an Association Object or Association Model.
+
+I'm calling it **Link Model** just because that's easier to write avoiding typos. But you are also free to call it however you want. 😉
+
+///
 
 ## Update Team Model
 
@@ -62,22 +53,7 @@ Now let's update the `Team` model.
 
 We no longer have the `heroes` relationship attribute, and instead we have the new `hero_links` attribute:
 
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial003.py[ln:19-24]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[13:18] hl[18] *}
 
 ## Update Hero Model
 
@@ -85,22 +61,7 @@ The same with the `Hero` model.
 
 We change the `teams` relationship attribute for `team_links`:
 
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial003.py[ln:27-33]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[21:27] hl[27] *}
 
 ## Create Relationships
 
@@ -108,22 +69,7 @@ Now the process to create relationships is very similar.
 
 But now we create the **explicit link models** manually, pointing to their hero and team instances, and specifying the additional link data (`is_training`):
 
-```Python hl_lines="21-30  32-35"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial003.py[ln:46-85]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[40:79] hl[58:67,69:72] *}
 
 We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will be also automatically included in the session when we commit.
 
@@ -151,7 +97,7 @@ INFO Engine [cached since 0.001858s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 
 // Insert the teams
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
-INFO Engine [generated in 0.00019s] ('Z-Force', 'Sister Margaret’s Bar')
+INFO Engine [generated in 0.00019s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.0007985s ago] ('Preventers', 'Sharp Tower')
 
@@ -221,22 +167,7 @@ Now, to add a new relationship, we have to create a new `HeroTeamLink` instance 
 
 Here we do that in the `update_heroes()` function:
 
-```Python hl_lines="10-15"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial003.py[ln:88-103]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[82:97] hl[89:94] *}
 
 ## Run the Program with the New Relationship
 
@@ -317,26 +248,7 @@ So now we want to update the status of `is_training` to `False`.
 
 We can do that by iterating on the links:
 
-```Python hl_lines="8-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial003.py[ln:88-89]!}
-
-        # Code here omitted 👈
-
-{!./docs_src/tutorial/many_to_many/tutorial003.py[ln:105-113]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[82:83,99:107] hl[99:101] *}
 
 ## Run the Program with the Updated Relationships
 
@@ -389,7 +301,7 @@ WHERE team.id = ?
 INFO Engine [cached since 0.2097s ago] (1,)
 
 // Print Spider-Boy team, including link data, if is training
-Spider-Boy team: headquarters='Sister Margaret’s Bar' id=1 name='Z-Force' is training: True
+Spider-Boy team: headquarters='Sister Margaret's Bar' id=1 name='Z-Force' is training: True
 INFO Engine ROLLBACK
 ```
 

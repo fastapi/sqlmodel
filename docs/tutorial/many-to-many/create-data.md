@@ -4,39 +4,17 @@ Let's continue from where we left and create some data.
 
 We'll create data for this same **many-to-many** relationship with a link table:
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.drawio.svg">
 
 We'll continue from where we left off with the previous code.
 
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[0] *}
 
 ## Create Heroes
 
 As we have done before, we'll create a function `create_heroes()` and we'll create some teams and heroes in it:
 
-```Python hl_lines="11"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:42-60]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[36:54] hl[44] *}
 
 This is very similar to what we have done before.
 
@@ -50,43 +28,13 @@ See how **Deadpond** now belongs to the two teams?
 
 Now let's do as we have done before, `commit` the **session**, `refresh` the data, and print it:
 
-```Python hl_lines="22-25  27-29  31-36"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:42-75]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[36:69] hl[55:58,60:62,64:69] *}
 
 ## Add to Main
 
 As before, add the `create_heroes()` function to the `main()` function to make sure it is called when running this program from the command line:
 
-```Python hl_lines="22-25  27-29  31-36"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/many_to_many/tutorial001.py[ln:78-80]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/many_to_many/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[72:74] *}
 
 ## Run the Program
 
@@ -110,7 +58,7 @@ INFO Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO Engine [cached since 0.002541s ago] ('Spider-Boy', 'Pedro Parqueador', None)
 // Insert the team data second
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
-INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret’s Bar')
+INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.001239s ago] ('Preventers', 'Sharp Tower')
 // Insert the link data last, to be able to re-use the created IDs
@@ -145,7 +93,7 @@ WHERE ? = heroteamlink.hero_id AND team.id = heroteamlink.team_id
 INFO Engine [generated in 0.00025s] (1,)
 
 // Print Deadpond's teams, 2 teams! 🎉
-Deadpond teams: [Team(id=1, name='Z-Force', headquarters='Sister Margaret’s Bar'), Team(id=2, name='Preventers', headquarters='Sharp Tower')]
+Deadpond teams: [Team(id=1, name='Z-Force', headquarters='Sister Margaret's Bar'), Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
 // Print Rusty-Man
 Rusty-Man: name='Rusty-Man' age=48 id=2 secret_name='Tommy Sharp'

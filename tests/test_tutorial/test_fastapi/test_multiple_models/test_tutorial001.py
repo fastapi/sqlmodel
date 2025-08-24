@@ -1,117 +1,9 @@
+from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
-
-openapi_schema = {
-    "openapi": "3.0.2",
-    "info": {"title": "FastAPI", "version": "0.1.0"},
-    "paths": {
-        "/heroes/": {
-            "get": {
-                "summary": "Read Heroes",
-                "operationId": "read_heroes_heroes__get",
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "title": "Response Read Heroes Heroes  Get",
-                                    "type": "array",
-                                    "items": {"$ref": "#/components/schemas/HeroRead"},
-                                }
-                            }
-                        },
-                    }
-                },
-            },
-            "post": {
-                "summary": "Create Hero",
-                "operationId": "create_hero_heroes__post",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {"$ref": "#/components/schemas/HeroCreate"}
-                        }
-                    },
-                    "required": True,
-                },
-                "responses": {
-                    "200": {
-                        "description": "Successful Response",
-                        "content": {
-                            "application/json": {
-                                "schema": {"$ref": "#/components/schemas/HeroRead"}
-                            }
-                        },
-                    },
-                    "422": {
-                        "description": "Validation Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/HTTPValidationError"
-                                }
-                            }
-                        },
-                    },
-                },
-            },
-        }
-    },
-    "components": {
-        "schemas": {
-            "HTTPValidationError": {
-                "title": "HTTPValidationError",
-                "type": "object",
-                "properties": {
-                    "detail": {
-                        "title": "Detail",
-                        "type": "array",
-                        "items": {"$ref": "#/components/schemas/ValidationError"},
-                    }
-                },
-            },
-            "HeroCreate": {
-                "title": "HeroCreate",
-                "required": ["name", "secret_name"],
-                "type": "object",
-                "properties": {
-                    "name": {"title": "Name", "type": "string"},
-                    "secret_name": {"title": "Secret Name", "type": "string"},
-                    "age": {"title": "Age", "type": "integer"},
-                },
-            },
-            "HeroRead": {
-                "title": "HeroRead",
-                "required": ["id", "name", "secret_name"],
-                "type": "object",
-                "properties": {
-                    "id": {"title": "Id", "type": "integer"},
-                    "name": {"title": "Name", "type": "string"},
-                    "secret_name": {"title": "Secret Name", "type": "string"},
-                    "age": {"title": "Age", "type": "integer"},
-                },
-            },
-            "ValidationError": {
-                "title": "ValidationError",
-                "required": ["loc", "msg", "type"],
-                "type": "object",
-                "properties": {
-                    "loc": {
-                        "title": "Location",
-                        "type": "array",
-                        "items": {"type": "string"},
-                    },
-                    "msg": {"title": "Message", "type": "string"},
-                    "type": {"title": "Error Type", "type": "string"},
-                },
-            },
-        }
-    },
-}
 
 
 def test_tutorial(clear_sqlmodel):
@@ -162,11 +54,145 @@ def test_tutorial(clear_sqlmodel):
         assert data[1]["id"] != hero2_data["id"]
 
         response = client.get("/openapi.json")
-        data = response.json()
 
         assert response.status_code == 200, response.text
 
-        assert data == openapi_schema
+        assert response.json() == {
+            "openapi": "3.1.0",
+            "info": {"title": "FastAPI", "version": "0.1.0"},
+            "paths": {
+                "/heroes/": {
+                    "get": {
+                        "summary": "Read Heroes",
+                        "operationId": "read_heroes_heroes__get",
+                        "responses": {
+                            "200": {
+                                "description": "Successful Response",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "title": "Response Read Heroes Heroes  Get",
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/HeroPublic"
+                                            },
+                                        }
+                                    }
+                                },
+                            }
+                        },
+                    },
+                    "post": {
+                        "summary": "Create Hero",
+                        "operationId": "create_hero_heroes__post",
+                        "requestBody": {
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "$ref": "#/components/schemas/HeroCreate"
+                                    }
+                                }
+                            },
+                            "required": True,
+                        },
+                        "responses": {
+                            "200": {
+                                "description": "Successful Response",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/HeroPublic"
+                                        }
+                                    }
+                                },
+                            },
+                            "422": {
+                                "description": "Validation Error",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "$ref": "#/components/schemas/HTTPValidationError"
+                                        }
+                                    }
+                                },
+                            },
+                        },
+                    },
+                }
+            },
+            "components": {
+                "schemas": {
+                    "HTTPValidationError": {
+                        "title": "HTTPValidationError",
+                        "type": "object",
+                        "properties": {
+                            "detail": {
+                                "title": "Detail",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ValidationError"
+                                },
+                            }
+                        },
+                    },
+                    "HeroCreate": {
+                        "title": "HeroCreate",
+                        "required": ["name", "secret_name"],
+                        "type": "object",
+                        "properties": {
+                            "name": {"title": "Name", "type": "string"},
+                            "secret_name": {"title": "Secret Name", "type": "string"},
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
+                        },
+                    },
+                    "HeroPublic": {
+                        "title": "HeroPublic",
+                        "required": ["id", "name", "secret_name"],
+                        "type": "object",
+                        "properties": {
+                            "id": {"title": "Id", "type": "integer"},
+                            "name": {"title": "Name", "type": "string"},
+                            "secret_name": {"title": "Secret Name", "type": "string"},
+                            "age": IsDict(
+                                {
+                                    "title": "Age",
+                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                }
+                            )
+                            | IsDict(
+                                # TODO: remove when deprecating Pydantic v1
+                                {"title": "Age", "type": "integer"}
+                            ),
+                        },
+                    },
+                    "ValidationError": {
+                        "title": "ValidationError",
+                        "required": ["loc", "msg", "type"],
+                        "type": "object",
+                        "properties": {
+                            "loc": {
+                                "title": "Location",
+                                "type": "array",
+                                "items": {
+                                    "anyOf": [{"type": "string"}, {"type": "integer"}]
+                                },
+                            },
+                            "msg": {"title": "Message", "type": "string"},
+                            "type": {"title": "Error Type", "type": "string"},
+                        },
+                    },
+                }
+            },
+        }
 
     # Test inherited indexes
     insp: Inspector = inspect(mod.engine)

@@ -58,7 +58,7 @@ def test_nullable_fields(clear_sqlmodel, caplog):
     ][0]
     assert "primary_key INTEGER NOT NULL," in create_table_log
     assert "required_value VARCHAR NOT NULL," in create_table_log
-    assert "optional_default_ellipsis VARCHAR NOT NULL," in create_table_log
+    assert "optional_default_ellipsis VARCHAR," in create_table_log
     assert "optional_default_none VARCHAR," in create_table_log
     assert "optional_non_nullable VARCHAR NOT NULL," in create_table_log
     assert "optional_nullable VARCHAR," in create_table_log

@@ -12,7 +12,7 @@ expected_calls = [
     [
         "Deadpond teams:",
         [
-            {"id": 1, "name": "Z-Force", "headquarters": "Sister Margaret’s Bar"},
+            {"id": 1, "name": "Z-Force", "headquarters": "Sister Margaret's Bar"},
             {"id": 2, "name": "Preventers", "headquarters": "Sharp Tower"},
         ],
     ],
@@ -36,7 +36,7 @@ expected_calls = [
         "Updated Spider-Boy's Teams:",
         [
             {"id": 2, "name": "Preventers", "headquarters": "Sharp Tower"},
-            {"id": 1, "name": "Z-Force", "headquarters": "Sister Margaret’s Bar"},
+            {"id": 1, "name": "Z-Force", "headquarters": "Sister Margaret's Bar"},
         ],
     ],
     [

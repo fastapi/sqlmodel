@@ -1,5 +1,7 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+
+set -e
 set -x
 
-ruff sqlmodel tests docs_src scripts --fix
+ruff check sqlmodel tests docs_src scripts --fix
 ruff format sqlmodel tests docs_src scripts

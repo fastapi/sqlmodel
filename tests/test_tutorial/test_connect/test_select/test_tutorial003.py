@@ -45,7 +45,7 @@ expected_calls = [
             "name": "Deadpond",
         },
         "Team:",
-        {"id": 2, "name": "Z-Force", "headquarters": "Sister Margaret’s Bar"},
+        {"id": 2, "name": "Z-Force", "headquarters": "Sister Margaret's Bar"},
     ],
     [
         "Hero:",
@@ -74,7 +74,7 @@ expected_calls = [
 ]
 
 
-def test_tutorial(clear_sqlmodel):
+def test_tutorial():
     from docs_src.tutorial.connect.select import tutorial003 as mod
 
     mod.sqlite_url = "sqlite://"

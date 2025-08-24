@@ -14,7 +14,7 @@ We currently have a `team` table:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -41,20 +41,7 @@ Now that you know how these tables work underneath and how the model classes rep
 
 Up to now, we have only used the `team_id` column to connect the tables when querying with `select()`:
 
-```Python hl_lines="18"
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:1-18]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[1:16] hl[16] *}
 
 This is a **plain field** like all the others, all representing a **column in the table**.
 
@@ -62,37 +49,11 @@ But now let's add a couple of new special attributes to these model classes, let
 
 First, import `Relationship` from `sqlmodel`:
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py[ln:1-3]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1] hl[1] *}
 
 Next, use that `Relationship` to declare a new attribute in the model classes:
 
-```Python hl_lines="11  21"
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py[ln:1-21]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1:19] hl[9,19] *}
 
 ## What Are These Relationship Attributes
 
@@ -107,15 +68,15 @@ if hero.team:
     print(hero.team.name)
 ```
 
-## Optional Relationship Attributes
+## Relationship Attributes or `None`
 
-Notice that in the `Hero` class, the type annotation for `team` is `Optional[Team]`.
+Notice that in the `Hero` class, the type annotation for `team` is `Team | None`.
 
 This means that this attribute could be `None`, or it could be a full `Team` object.
 
 This is because the related **`team_id` could also be `None`** (or `NULL` in the database).
 
-If it was required for a `Hero` instance to belong to a `Team`, then the `team_id` would be `int` instead of `Optional[int]`, its `Field` would be `Field(foreign_key="team.id")` instead of `Field(default=None, foreign_key="team.id")` and the `team` attribute would be a `Team` instead of `Optional[Team]`.
+If it was required for a `Hero` instance to belong to a `Team`, then the `team_id` would be `int` instead of `int | None`, its `Field` would be `Field(foreign_key="team.id")` instead of `Field(default=None, foreign_key="team.id")` and the `team` attribute would be a `Team` instead of `Team | None`.
 
 ## Relationship Attributes With Lists
 
@@ -123,10 +84,13 @@ And in the `Team` class, the `heroes` attribute is annotated as a list of `Hero`
 
 **SQLModel** (actually SQLAlchemy) is smart enough to know that the relationship is established by the `team_id`, as that's the foreign key that points from the `hero` table to the `team` table, so we don't have to specify that explicitly here.
 
-!!! tip
-    There's a couple of things we'll check again in some of the next chapters, about the `List["Hero"]` and the `back_populates`.
+/// tip
 
-    But for now, let's first see how to use these relationship attributes.
+There's a couple of things we'll check again in some of the next chapters, about the `list["Hero"]` and the `back_populates`.
+
+But for now, let's first see how to use these relationship attributes.
+
+///
 
 ## Next Steps
 

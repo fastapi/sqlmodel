@@ -157,7 +157,7 @@ def test_relation_resolution_if_lazy_selectin_not_set_with_fastapi(clear_sqlmode
     hero_2 = Hero(name="PhD Strange", powers=[power_hero_2])
     team = Team(name="Marble", heroes=[hero_1, hero_2])
 
-    engine = create_engine("sqlite://")
+    engine = create_engine("sqlite://", connect_args={"check_same_thread": False})
 
     SQLModel.metadata.create_all(engine)
 
@@ -179,7 +179,7 @@ def test_relation_resolution_if_lazy_selectin_not_set_with_fastapi(clear_sqlmode
 
     client = TestClient(app)
     teams = client.get("/")
-    expected_json = [{"Team": {"name": "Marble", "id": 1}}]
+    expected_json = [{"name": "Marble", "id": 1}]
 
     # if sa_relationship_kwargs={"lazy": "selectin"}) not set in relation
     # there is no effect on the relations even though the Config was set
@@ -224,7 +224,7 @@ def test_relation_resolution_if_lazy_selectin_is_set_with_fastapi(clear_sqlmodel
     hero_2 = Hero(name="PhD Strange", powers=[power_hero_2])
     team = Team(name="Marble", heroes=[hero_1, hero_2])
 
-    engine = create_engine("sqlite://")
+    engine = create_engine("sqlite://", connect_args={"check_same_thread": False})
 
     SQLModel.metadata.create_all(engine)
 
@@ -248,28 +248,26 @@ def test_relation_resolution_if_lazy_selectin_is_set_with_fastapi(clear_sqlmodel
     teams = client.get("/")
     expected_json = [
         {
-            "Team": {
-                "name": "Marble",
-                "id": 1,
-                "heroes": [
-                    {
-                        "id": 1,
-                        "team_id": 1,
-                        "name": "Deadpond",
-                        "powers": [
-                            {"id": 1, "hero_id": 1, "description": "Healing Power"}
-                        ],
-                    },
-                    {
-                        "id": 2,
-                        "team_id": 1,
-                        "name": "PhD Strange",
-                        "powers": [
-                            {"id": 2, "hero_id": 2, "description": "Levitating Cloak"}
-                        ],
-                    },
-                ],
-            }
+            "name": "Marble",
+            "id": 1,
+            "heroes": [
+                {
+                    "id": 1,
+                    "team_id": 1,
+                    "name": "Deadpond",
+                    "powers": [
+                        {"id": 1, "hero_id": 1, "description": "Healing Power"}
+                    ],
+                },
+                {
+                    "id": 2,
+                    "team_id": 1,
+                    "name": "PhD Strange",
+                    "powers": [
+                        {"id": 2, "hero_id": 2, "description": "Levitating Cloak"}
+                    ],
+                },
+            ],
         }
     ]
 

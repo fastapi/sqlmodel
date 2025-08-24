@@ -13,7 +13,7 @@ function setupTermynal() {
 
     function createTermynals() {
         document
-            .querySelectorAll(`.${termynalActivateClass} .highlight`)
+            .querySelectorAll(`.${termynalActivateClass} .highlight code`)
             .forEach(node => {
                 const text = node.textContent;
                 const lines = text.split("\n");
@@ -110,4 +110,6 @@ async function main() {
     setupTermynal()
 }
 
-main()
+document$.subscribe(() => {
+    main()
+})

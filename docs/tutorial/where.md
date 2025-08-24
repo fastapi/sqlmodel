@@ -31,14 +31,7 @@ We'll continue with the same examples we have been using in the previous chapter
 
 And now we will update `select_heroes()` to filter the data.
 
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python hl_lines="36-41"
-{!./docs_src/tutorial/select/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/select/tutorial001_py310.py ln[0] *}
 
 If you already executed the previous examples and have a database with data, **remove the database file** before running each example, that way you won't have duplicate data and you will be able to get the same results.
 
@@ -81,10 +74,13 @@ Then the database will bring a table like this:
 </tr>
 </table>
 
-!!! tip
-    Even if the result is only one row, the database always returns a **table**.
+/// tip
 
-    In this case, a table with only one row.
+Even if the result is only one row, the database always returns a **table**.
+
+In this case, a table with only one row.
+
+///
 
 You can try that out in **DB Browser for SQLite**:
 
@@ -187,43 +183,13 @@ Let's review some of the code we used to read data with **SQLModel**.
 
 We care specially about the **select** statement:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/select/tutorial001.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/select/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/select/tutorial001_py310.py ln[34:39] hl[36] *}
 
 ## Filter Rows Using `WHERE` with **SQLModel**
 
 Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can add a `.where()` to a **SQLModel** `select()` statement to filter rows, which will filter the objects returned:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial001.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial001_py310.py ln[34:39] hl[36] *}
 
 It's a very small change, but it's packed of details. Let's explore them.
 
@@ -268,10 +234,13 @@ So, what's happening there?
 
 In the example above we are using two equal signs (`==`). That's called the "**equality operator**".
 
-!!! tip
-    An **operator** is just a symbol that is put beside one value or in the middle of two values to do something with them.
+/// tip
 
-    `==` is called the **equality** operator because it checks if two things are **equal**.
+An **operator** is just a symbol that is put beside one value or in the middle of two values to do something with them.
+
+`==` is called the **equality** operator because it checks if two things are **equal**.
+
+///
 
 When writing Python, if you write something using this equality operator (`==`) like:
 
@@ -291,8 +260,11 @@ True
 False
 ```
 
-!!! tip
-    `<`, `>`, `==`, `>=`, `<=`, and `!=` are all **operators** used for **comparisons**.
+/// tip
+
+`<`, `>`, `==`, `>=`, `<=`, and `!=` are all **operators** used for **comparisons**.
+
+///
 
 But SQLAlchemy adds some magic to the columns/fields in a **model class** to make those Python comparisons have super powers.
 
@@ -451,8 +423,11 @@ select(Hero).where(Hero.secret_name == "Pedro Parqueador")
 
 I think that alone, having better editor support, autocompletion, and inline errors, is enough to make it worth having expressions instead of keyword arguments. ✨
 
-!!! tip
-    **Expressions** also provide more features for other types of comparisons, shown down below. 👇
+/// tip
+
+**Expressions** also provide more features for other types of comparisons, shown down below. 👇
+
+///
 
 ## Exec the Statement
 
@@ -460,22 +435,7 @@ Now that we know how `.where()` works, let's finish the code.
 
 It's actually the same as in previous chapters for selecting data:
 
-```Python hl_lines="6-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial001.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial001_py310.py ln[34:39] hl[37:39] *}
 
 We take that statement, that now includes a `WHERE`, and we `exec()` it to get the results.
 
@@ -502,12 +462,15 @@ secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 </div>
 
 
-!!! tip
-    The `results` object is an iterable to be used in a `for` loop.
+/// tip
 
-    Even if we got only one row, we iterate over that `results` object. Just as if it was a list of one element.
+The `results` object is an iterable to be used in a `for` loop.
 
-    We'll see other ways to get the data later.
+Even if we got only one row, we iterate over that `results` object. Just as if it was a list of one element.
+
+We'll see other ways to get the data later.
+
+///
 
 ## Other Comparisons
 
@@ -521,22 +484,7 @@ But we can use other standard Python comparisons. ✨
 
 We could get the rows where a column is **not** equal to a value using `!=`:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial002.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial002.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial002_py310.py ln[34:39] hl[36] *}
 
 That would output:
 
@@ -549,22 +497,7 @@ secret_name='Tommy Sharp' age=48 id=3 name='Rusty-Man'
 
 Let's update the function `create_heroes()` and add some more rows to make the next comparison examples clearer:
 
-```Python hl_lines="4-10  13-19"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial003.py[ln:23-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial003_py310.py ln[21:39] hl[22:28,31:37] *}
 
 Now that we have several heroes with different ages, it's gonna be more obvious what the next comparisons do.
 
@@ -572,22 +505,7 @@ Now that we have several heroes with different ages, it's gonna be more obvious 
 
 Now let's use `>` to get the rows where a column is **more than** a value:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial003.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial003_py310.py ln[42:47] hl[44] *}
 
 That would output:
 
@@ -597,29 +515,17 @@ age=36 id=6 name='Dr. Weird' secret_name='Steve Weird'
 age=93 id=7 name='Captain North America' secret_name='Esteban Rogelios'
 ```
 
-!!! tip
-    Notice that it didn't select `Black Lion`, because the age is not *strictly* greater than `35`.
+/// tip
+
+Notice that it didn't select `Black Lion`, because the age is not *strictly* greater than `35`.
+
+///
 
 ### More Than or Equal
 
 Let's do that again, but with `>=` to get the rows where a column is **more than or equal** to a value:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial004.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial004.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial004_py310.py ln[42:47] hl[44] *}
 
 Because we are using `>=`, the age `35` will be included in the output:
 
@@ -630,29 +536,17 @@ age=36 id=6 name='Dr. Weird' secret_name='Steve Weird'
 age=93 id=7 name='Captain North America' secret_name='Esteban Rogelios'
 ```
 
-!!! tip
-    This time we got `Black Lion` too because although the age is not *strictly* greater than `35`it is *equal* to `35`.
+/// tip
+
+This time we got `Black Lion` too because although the age is not *strictly* greater than `35`it is *equal* to `35`.
+
+///
 
 ### Less Than
 
 Similarly, we can use `<` to get the rows where a column is **less than** a value:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial005.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial005.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial005_py310.py ln[42:47] hl[44] *}
 
 And we get the younger one with an age in the database:
 
@@ -660,29 +554,17 @@ And we get the younger one with an age in the database:
 age=32 id=4 name='Tarantula' secret_name='Natalia Roman-on'
 ```
 
-!!! tip
-    We could imagine that **Spider-Boy** is even **younger**. But because we don't know the age, it is `NULL` in the database (`None` in Python), it doesn't match any of these age comparisons with numbers.
+/// tip
+
+We could imagine that **Spider-Boy** is even **younger**. But because we don't know the age, it is `NULL` in the database (`None` in Python), it doesn't match any of these age comparisons with numbers.
+
+///
 
 ### Less Than or Equal
 
 Finally, we can use `<=` to get the rows where a column is **less than or equal** to a value:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial006.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial006.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial006_py310.py ln[42:47] hl[44] *}
 
 And we get the younger ones, `35` and below:
 
@@ -691,8 +573,11 @@ age=32 id=4 name='Tarantula' secret_name='Natalia Roman-on'
 age=35 id=5 name='Black Lion' secret_name='Trevor Challa'
 ```
 
-!!! tip
-    We get `Black Lion` here too because although the age is not *strictly* less than `35` it is *equal* to `35`.
+/// tip
+
+We get `Black Lion` here too because although the age is not *strictly* less than `35` it is *equal* to `35`.
+
+///
 
 ### Benefits of Expressions
 
@@ -704,22 +589,7 @@ We can use the same standard Python comparison operators like `<`, `<=`, `>`, `>
 
 Because `.where()` returns the same special select object back, we can add more `.where()` calls to it:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial007.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial007.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial007_py310.py ln[42:47] hl[44] *}
 
 This will select the rows `WHERE` the `age` is **greater than or equal** to `35`, `AND` also the `age` is **less than** `40`.
 
@@ -760,22 +630,7 @@ age=36 id=6 name='Dr. Weird' secret_name='Steve Weird'
 
 As an alternative to using multiple `.where()` we can also pass several expressions to a single `.where()`:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial008.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial008.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial008_py310.py ln[42:47] hl[44] *}
 
 This is the same as the above, and will result in the same output with the two heroes:
 
@@ -792,41 +647,13 @@ But we can also combine expressions using `OR`. Which means that **any** (but no
 
 To do it, you can import `or_`:
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/where/tutorial009.py[ln:1-3]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial009.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial009_py310.py ln[1] hl[1] *}
 
 And then pass both expressions to `or_()` and put it inside `.where()`.
 
 For example, here we select the heroes that are the youngest OR the oldest:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial009.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial009.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial009_py310.py ln[42:47] hl[44] *}
 
 When we run it, this generates the output:
 
@@ -863,7 +690,7 @@ It would be an error telling you that
 
 > `Hero.age` is potentially `None`, and you cannot compare `None` with `>`
 
-This is because as we are using pure and plain Python annotations for the fields, `age` is indeed annotated as `Optional[int]`, which means `int` or `None`.
+This is because as we are using pure and plain Python annotations for the fields, `age` is indeed annotated as `int | None`.
 
 By using this simple and standard Python type annotations we get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
 
@@ -877,39 +704,11 @@ We can tell the editor that this class attribute is actually a special **SQLMode
 
 To do that, we can import `col()` (as short for "column"):
 
-```Python hl_lines="3"
-{!./docs_src/tutorial/where/tutorial011.py[ln:1-3]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial011.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial011_py310.py ln[1] hl[1] *}
 
 And then put the **class attribute** inside `col()` when using it in a `.where()`:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/where/tutorial011.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/where/tutorial011.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/where/tutorial011_py310.py ln[42:47] hl[44] *}
 
 So, now the comparison is not:
 
@@ -925,10 +724,13 @@ col(Hero.age) > 35
 
 And with that the editor knows this code is actually fine, because this is a special **SQLModel** column.
 
-!!! tip
-    That `col()` will come handy later, giving autocompletion to several other things we can do with these special **class attributes** for columns.
+/// tip
 
-    But we'll get there later.
+That `col()` will come handy later, giving autocompletion to several other things we can do with these special **class attributes** for columns.
+
+But we'll get there later.
+
+///
 
 ## Recap
 

@@ -8,8 +8,11 @@ So, we probably want to limit it.
 
 Let's use the same **offset** and **limit** we learned about in the previous tutorial chapters for the API.
 
-!!! info
-    In many cases, this is also called **pagination**.
+/// info
+
+In many cases, this is also called **pagination**.
+
+///
 
 ## Add a Limit and Offset to the Query Parameters
 
@@ -19,24 +22,7 @@ By default, we will return the first results from the database, so `offset` will
 
 And by default, we will return a maximum of `100` heroes, so `limit` will have a default value of `100`.
 
-```Python hl_lines="3  9  11"
-{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001.py[ln:54-58]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/limit_and_offset/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py ln[1:2,52:56] hl[1,53,55] *}
 
 We want to allow clients to set different `offset` and `limit` values.
 
@@ -46,12 +32,15 @@ So, to prevent it, we add additional validation to the `limit` query parameter, 
 
 This way, a client can decide to take fewer heroes if they want, but not more.
 
-!!! info
-    If you need to refresh how query parameters and their validation work, check out the docs in FastAPI:
+/// info
 
-    * <a href="https://fastapi.tiangolo.com/tutorial/query-params/" class="external-link" target="_blank">Query Parameters</a>
-    * <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" class="external-link" target="_blank">Query Parameters and String Validations</a>
-    * <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/" class="external-link" target="_blank">Path Parameters and Numeric Validations</a>
+If you need to refresh how query parameters and their validation work, check out the docs in FastAPI:
+
+* <a href="https://fastapi.tiangolo.com/tutorial/query-params/" class="external-link" target="_blank">Query Parameters</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" class="external-link" target="_blank">Query Parameters and String Validations</a>
+* <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/" class="external-link" target="_blank">Path Parameters and Numeric Validations</a>
+
+///
 
 ## Check the Docs UI
 
