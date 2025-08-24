@@ -1,7 +1,6 @@
 from typing import List, Optional
 
 from sqlalchemy import StaticPool
-
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
 
@@ -160,9 +159,7 @@ def test_relation_resolution_if_lazy_selectin_not_set_with_fastapi(clear_sqlmode
     team = Team(name="Marble", heroes=[hero_1, hero_2])
 
     engine = create_engine(
-        "sqlite://",
-        connect_args={"check_same_thread": False},
-        poolclass=StaticPool
+        "sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool
     )
 
     SQLModel.metadata.create_all(engine)
@@ -231,9 +228,7 @@ def test_relation_resolution_if_lazy_selectin_is_set_with_fastapi(clear_sqlmodel
     team = Team(name="Marble", heroes=[hero_1, hero_2])
 
     engine = create_engine(
-        "sqlite://",
-        connect_args={"check_same_thread": False},
-        poolclass=StaticPool
+        "sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool
     )
 
     SQLModel.metadata.create_all(engine)
@@ -265,9 +260,7 @@ def test_relation_resolution_if_lazy_selectin_is_set_with_fastapi(clear_sqlmodel
                     "id": 1,
                     "team_id": 1,
                     "name": "Deadpond",
-                    "powers": [
-                        {"id": 1, "hero_id": 1, "description": "Healing Power"}
-                    ],
+                    "powers": [{"id": 1, "hero_id": 1, "description": "Healing Power"}],
                 },
                 {
                     "id": 2,
