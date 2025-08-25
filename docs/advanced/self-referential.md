@@ -16,7 +16,7 @@ To allow more fine-grained control over it, the `Relationship` constructor allow
 
 Since SQLAlchemy relationships provide the [`remote_side`](https://docs.sqlalchemy.org/en/20/orm/relationship_api.html#sqlalchemy.orm.relationship.params.remote_side){.external-link target=_blank} parameter for just such an occasion, we can leverage that directly to construct the self-referential pattern with minimal code.
 
-{* ./docs_src/advanced/self_referential/tutorial001.py ln[6:17] hl[16] *}
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[6:18] hl[16] *}
 
 Using the `sa_relationship_kwargs` parameter, we pass the keyword-argument `remote_side='Villain.id'` to the underlying relationship property.
 
@@ -42,17 +42,17 @@ Finally, as with regular (i.e. non-self-referential) foreign key relationships, 
 
 Now let us see how we can create villains with a boss:
 
-{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:49] hl[34:35] *}
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[31:50] hl[34:35] *}
 
 Just as with regular relationships, we can simply pass our boss villain as an argument to the constructor with `boss=thinnus`.
 
 If we only learn that a villain actually had a secret boss after we have already created him, we can just as easily assign him that boss retroactively:
 
-{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,51:55] hl[52] *}
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[31:32,52:56] hl[52] *}
 
 And if we want to add minions to a boss after the fact, this is as easy as adding items to a Python list (because that's all it is 🤓):
 
-{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,57:68] hl[61] *}
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[31:32,58:69] hl[61] *}
 
 Since our relationships work both ways, we don't even need to add all our `clone_bot_`s  to the session individually. Instead we can simply add `ultra_bot` once again and commit the changes. We do need to refresh them all individually though, if we want to get their updated attributes.
 
