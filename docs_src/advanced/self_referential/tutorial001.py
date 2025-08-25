@@ -12,7 +12,8 @@ class Villain(SQLModel, table=True):
         foreign_key="villain.id", default=None, nullable=True
     )
     boss: Optional["Villain"] = Relationship(
-        back_populates="minions", sa_relationship_kwargs=dict(remote_side="Villain.id")
+        back_populates="minions",
+        sa_relationship_kwargs={"remote_side": "Villain.id"},
     )
     minions: List["Villain"] = Relationship(back_populates="boss")
 
