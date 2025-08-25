@@ -23,6 +23,7 @@ from sqlalchemy import (
     WithinGroup,
 )
 from sqlalchemy.orm import InstrumentedAttribute
+from sqlalchemy.orm.attributes import QueryableAttribute
 from sqlalchemy.sql._typing import (
     _ColumnExpressionArgument,
     _ColumnExpressionOrLiteralArgument,
@@ -209,7 +210,7 @@ def within_group(
     return sqlalchemy.within_group(element, *order_by)
 
 
-def col(column_expression: _T) -> Column[_T]:
+def col(column_expression: _T) -> QueryableAttribute[_T]:
     if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
     return column_expression  # type: ignore
