@@ -12,7 +12,7 @@ The `team` table has this data:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -35,14 +35,7 @@ And the `hero` table has this data:
 
 We will continue with the code in the previous example and we will add more things to it.
 
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[0] *}
 
 ## `SELECT` Connected Data with SQL
 
@@ -62,8 +55,11 @@ FROM hero, team
 WHERE hero.team_id = team.id
 ```
 
-!!! info
-    Because we have two columns called `name`, one for `hero` and one for `team`, we can specify them with the prefix of the table name and the dot to make it explicit what we refer to.
+/// info
+
+Because we have two columns called `name`, one for `hero` and one for `team`, we can specify them with the prefix of the table name and the dot to make it explicit what we refer to.
+
+///
 
 Notice that now in the `WHERE` part we are not comparing one column with a literal value (like `hero.name = "Deadpond"`), but we are comparing two columns.
 
@@ -99,14 +95,17 @@ You can go ahead and try it in **DB Browser for SQLite**:
 
 <img class="shadow" src="/img/tutorial/relationships/select/image01.png">
 
-!!! note
-    Wait, what about Spider-Boy? 😱
+/// note
 
-    He doesn't have a team, so his `team_id` is `NULL` in the database. And this SQL is comparing that `NULL` from the `team_id` with all the `id` fields in the rows in the `team` table.
+Wait, what about Spider-Boy? 😱
 
-    As there's no team with an ID of `NULL`, it doesn't find a match.
+He doesn't have a team, so his `team_id` is `NULL` in the database. And this SQL is comparing that `NULL` from the `team_id` with all the `id` fields in the rows in the `team` table.
 
-    But we'll see how to fix that later with a `LEFT JOIN`.
+As there's no team with an ID of `NULL`, it doesn't find a match.
+
+But we'll see how to fix that later with a `LEFT JOIN`.
+
+///
 
 ## Select Related Data with **SQLModel**
 
@@ -118,22 +117,7 @@ Remember SQLModel's `select()` function? It can take more than one argument.
 
 So, we can pass the `Hero` and `Team` model classes. And we can also use both their columns in the `.where()` part:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/select/tutorial001.py[ln:63-65]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/select/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/select/tutorial001_py310.py ln[61:63] hl[63] *}
 
 Notice that in the comparison with `==` we are using the class attributes for both `Hero.team_id` and `Team.id`.
 
@@ -143,53 +127,25 @@ Now we can execute it and get the `results` object.
 
 And as we used `select` with two models, we will receive tuples of instances of those two models, so we can iterate over them naturally in a `for` loop:
 
-```Python hl_lines="7"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/select/tutorial001.py[ln:63-68]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/select/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/select/tutorial001_py310.py ln[61:66] hl[65] *}
 
 For each iteration in the `for` loop we get a a tuple with an instance of the class `Hero` and an instance of the class `Team`.
 
 And in this `for` loop we assign them to the variable `hero` and the variable `team`.
 
-!!! info
-    There was a lot of research, design, and work behind **SQLModel** to make this provide the best possible developer experience.
+/// info
 
-    And you should get autocompletion and inline errors in your editor for both `hero` and `team`. 🎉
+There was a lot of research, design, and work behind **SQLModel** to make this provide the best possible developer experience.
+
+And you should get autocompletion and inline errors in your editor for both `hero` and `team`. 🎉
+
+///
 
 ## Add It to Main
 
 As always, we must remember to add this new `select_heroes()` function to the `main()` function to make sure it is executed when we call this program from the command line.
 
-```Python hl_lines="6"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/select/tutorial001.py[ln:71-74]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/select/tutorial001.py!}
-```
-
-</details>
-
+{* ./docs_src/tutorial/connect/select/tutorial001_py310.py ln[69:72] hl[72] *}
 
 ## Run the Program
 
@@ -203,13 +159,13 @@ $ python app.py
 // Previous output omitted 😉
 
 // Get the heroes with their teams
-2021-08-09 08:55:50,682 INFO sqlalchemy.engine.Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
-FROM hero, team 
+2021-08-09 08:55:50,682 INFO sqlalchemy.engine.Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
+FROM hero, team
 WHERE hero.team_id = team.id
 2021-08-09 08:55:50,682 INFO sqlalchemy.engine.Engine [no key 0.00015s] ()
 
 // Print the first hero and team
-Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret’s Bar' id=2 name='Z-Force'
+Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret's Bar' id=2 name='Z-Force'
 
 // Print the second hero and team
 Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48 Team: headquarters='Sharp Tower' id=1 name='Preventers'
@@ -281,10 +237,13 @@ Also in **DB Browser for SQLite**:
 
 <img class="shadow" src="/img/tutorial/relationships/select/image02.png">
 
-!!! tip
-    Why bother with all this if the result is the same?
+/// tip
 
-    This `JOIN` will be useful in a bit to be able to also get Spider-Boy, even if he doesn't have a team.
+Why bother with all this if the result is the same?
+
+This `JOIN` will be useful in a bit to be able to also get Spider-Boy, even if he doesn't have a team.
+
+///
 
 ## Join Tables in **SQLModel**
 
@@ -292,22 +251,7 @@ The same way there's a `.where()` available when using `select()`, there's also 
 
 And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we already declared what is the `foreign_key` when creating the models, we don't have to pass an `ON` part, it is inferred automatically:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/select/tutorial002.py[ln:63-68]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/select/tutorial002.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/select/tutorial002_py310.py ln[61:66] hl[63] *}
 
 Also notice that we are still including `Team` in the `select(Hero, Team)`, because we still want to access that data.
 
@@ -323,12 +267,12 @@ $ python app.py
 // Previous output omitted 😉
 
 // Select using a JOIN with automatic ON
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
 FROM hero JOIN team ON team.id = hero.team_id
 INFO Engine [no key 0.00032s] ()
 
 // Print the first hero and team
-Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret’s Bar' id=2 name='Z-Force'
+Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret's Bar' id=2 name='Z-Force'
 
 // Print the second hero and team
 Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48 Team: headquarters='Sharp Tower' id=1 name='Preventers'
@@ -349,7 +293,7 @@ And then you tell the database `ON` which condition it should join those two tab
 
 But by default, only the rows from both left and right that match the condition will be returned.
 
-<img alt="table relationships" src="/img/databases/relationships.svg">
+<img alt="table relationships" src="/img/databases/relationships.drawio.svg">
 
 In this example of tables above 👆, it would return all the heroes, because every hero has a `team_id`, so every hero can be joined with the `team` table:
 
@@ -374,7 +318,7 @@ But in the database that we are working with in the code above, **Spider-Boy** d
 
 So there's no way to join the **Spider-Boy** row with some row in the `team` table:
 
-<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.svg">
+<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.drawio.svg">
 
 Running the same SQL we used above, the resulting table would not include **Spider-Boy** 😱:
 
@@ -420,8 +364,11 @@ And that would return the following result, including **Spider-Boy** 🎉:
 </tr>
 </table>
 
-!!! tip
-    The only difference between this query and the previous is that extra `LEFT OUTER`.
+/// tip
+
+The only difference between this query and the previous is that extra `LEFT OUTER`.
+
+///
 
 And here's another of the SQL variations, you could write `LEFT OUTER JOIN` or just `LEFT JOIN`, it means the same.
 
@@ -431,22 +378,7 @@ Now let's replicate the same query in **SQLModel**.
 
 `.join()` has a parameter we can use `isouter=True` to make the `JOIN` be a `LEFT OUTER JOIN`:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/select/tutorial003.py[ln:63-68]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/select/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/select/tutorial003_py310.py ln[61:66] hl[63] *}
 
 And if we run it, it will output:
 
@@ -458,13 +390,13 @@ $ python app.py
 // Previous output omitted 😉
 
 // SELECT using LEFT OUTER JOIN
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
 FROM hero LEFT OUTER JOIN team ON team.id = hero.team_id
 
 INFO Engine [no key 0.00051s] ()
 
 // Print the first hero and team
-Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret’s Bar' id=2 name='Z-Force'
+Hero: id=1 secret_name='Dive Wilson' team_id=2 name='Deadpond' age=None Team: headquarters='Sister Margaret's Bar' id=2 name='Z-Force'
 // Print the second hero and team
 Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48 Team: headquarters='Sharp Tower' id=1 name='Preventers'
 // Print the third hero and team, we included Spider-Boy 🎉
@@ -493,22 +425,7 @@ But we would still be able to **filter** the rows with it. 🤓
 
 We could even add some additional `.where()` after `.join()` to filter the data more, for example to return only the heroes from one team:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/select/tutorial004.py[ln:63-68]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/select/tutorial004.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/select/tutorial004_py310.py ln[61:66] hl[63] *}
 
 Here we are **filtering** with `.where()` to get only the heroes that belong to the **Preventers** team.
 
@@ -522,9 +439,9 @@ If we run that, it would output:
 $ python app.py
 
 // Select only the hero data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
 // But still join with the team table
-FROM hero JOIN team ON team.id = hero.team_id 
+FROM hero JOIN team ON team.id = hero.team_id
 // And filter with WHERE to get only the Preventers
 WHERE team.name = ?
 INFO Engine [no key 0.00066s] ('Preventers',)
@@ -539,22 +456,7 @@ Preventer Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48
 
 By putting the `Team` in `select()` we tell **SQLModel** and the database that we want the team data too.
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/select/tutorial005.py[ln:63-68]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/select/tutorial005.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/select/tutorial005_py310.py ln[61:66] hl[63] *}
 
 And if we run that, it will output:
 
@@ -564,9 +466,9 @@ And if we run that, it will output:
 $ python app.py
 
 // Select the hero and the team data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters
 // Join the hero with the team table
-FROM hero JOIN team ON team.id = hero.team_id 
+FROM hero JOIN team ON team.id = hero.team_id
 // Filter with WHERE to get only Preventers
 WHERE team.name = ?
 INFO Engine [no key 0.00018s] ('Preventers',)

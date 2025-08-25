@@ -1,0 +1,2 @@
+# For mkdocstrings and code generator using templates
+black >=22.10

@@ -16,10 +16,13 @@
 
 7. Create a new **session** to query data.
 
-    !!! tip
-        Notice that this is a new **session** independent from the one in the other function above.
+    /// tip
 
-        But it still uses the same **engine**. We still have one engine for the whole application.
+    Notice that this is a new **session** independent from the one in the other function above.
+
+    But it still uses the same **engine**. We still have one engine for the whole application.
+
+    ///
 
 8. Use the `select()` function to create a statement selecting all the `Hero` objects.
 
@@ -35,7 +38,7 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
     FROM hero
     INFO Engine [no key 0.00032s] ()
     ```
