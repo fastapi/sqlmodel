@@ -36,7 +36,7 @@ expected_calls = [
         "Created villain:",
         {
             "name": "Ultra Bot",
-            "power_level": 2 ** 9,
+            "power_level": 2**9,
             "id": 2,
             "boss_id": None,
         },
@@ -45,7 +45,7 @@ expected_calls = [
         "Updated villain:",
         {
             "name": "Ultra Bot",
-            "power_level": 2 ** 9,
+            "power_level": 2**9,
             "id": 2,
             "boss_id": 1,
         },
@@ -54,7 +54,7 @@ expected_calls = [
         "Added minion:",
         {
             "name": "Clone Bot 1",
-            "power_level": 2 ** 6,
+            "power_level": 2**6,
             "id": 5,
             "boss_id": 2,
         },
@@ -63,7 +63,7 @@ expected_calls = [
         "Added minion:",
         {
             "name": "Clone Bot 2",
-            "power_level": 2 ** 6,
+            "power_level": 2**6,
             "id": 6,
             "boss_id": 2,
         },
@@ -72,7 +72,7 @@ expected_calls = [
         "Added minion:",
         {
             "name": "Clone Bot 3",
-            "power_level": 2 ** 6,
+            "power_level": 2**6,
             "id": 7,
             "boss_id": 2,
         },
