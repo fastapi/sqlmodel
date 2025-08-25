@@ -6,26 +6,7 @@ Now that we know how to connect data using **relationship Attributes**, let's se
 
 First, add a function `select_heroes()` where we get a hero to start working with, and add that function to the `main()` function:
 
-```Python hl_lines="3-7  14"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-100]!}
-
-# Previous code here omitted 👈
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:110-113]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,108:111] hl[94:98,111] *}
 
 ## Select the Related Team - Old Way
 
@@ -33,75 +14,29 @@ Now that we have a hero, we can get the team this hero belongs to.
 
 With what we have learned **up to now**, we could use a `select()` statement, then execute it with `session.exec()`, and then get the `.first()` result, for example:
 
-```Python hl_lines="9-12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-105]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:103] hl[100:103] *}
 
 ## Get Relationship Team - New Way
 
-But now that we have the **relationship attributes**, we can just access them, and **SQLModel** (actually SQLAlchemy) will go and fetch the correspoinding data from the database, and make it available in the attribute. ✨
+But now that we have the **relationship attributes**, we can just access them, and **SQLModel** (actually SQLAlchemy) will go and fetch the corresponding data from the database, and make it available in the attribute. ✨
 
 So, the highlighted block above, has the same results as the block below:
 
-```Python hl_lines="11"
-# Code above omitted 👆
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,105] hl[105] *}
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:96-100]!}
+/// tip
 
-        # Code from the previous example omitted 👈
+The automatic data fetching will work as long as the starting object (in this case the `Hero`) is associated with an **open** session.
 
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py[ln:107]!}
+For example, here, **inside** a `with` block with a `Session` object.
 
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py!}
-```
-
-</details>
-
-!!! tip
-    The automatic data fetching will work as long as the starting object (in this case the `Hero`) is associated with an **open** session.
-
-    For example, here, **inside** a `with` block with a `Session` object.
+///
 
 ## Get a List of Relationship Objects
 
 And the same way, when we are working on the **many** side of the **one-to-many** relationship, we can get a list of of the related objects just by accessing the relationship attribute:
 
-```Python hl_lines="9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py[ln:96-102]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py ln[94:100] hl[100] *}
 
 That would print a list with all the heroes in the Preventers team:
 
@@ -111,8 +46,8 @@ That would print a list with all the heroes in the Preventers team:
 $ python app.py
 
 // Automatically fetch the heroes
-INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id 
-FROM hero 
+INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id
+FROM hero
 WHERE ? = hero.team_id
 INFO Engine [cached since 0.8774s ago] (2,)
 

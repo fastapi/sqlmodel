@@ -12,7 +12,7 @@ The `team` table will look like this:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -35,21 +35,17 @@ And after we finish working with the data in this chapter, the `hero` table will
 
 Each row in the table `hero` will point to a row in the table `team`:
 
-<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.svg">
+<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.drawio.svg">
 
-!!! info
-    We will later update **Spider-Boy** to add him to the **Preventers** team too, but not yet.
+/// info
+
+We will later update **Spider-Boy** to add him to the **Preventers** team too, but not yet.
+
+///
 
 We will continue with the code in the previous example and we will add more things to it.
 
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/create_tables/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/create_tables/tutorial001_py310.py ln[0] *}
 
 Make sure you remove the `database.db` file before running the examples to get the same results.
 
@@ -61,22 +57,7 @@ And now we will also create the teams there. 🎉
 
 Let's start by creating two teams:
 
-```Python hl_lines="3-9"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-37]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:35] hl[29:35] *}
 
 This would hopefully look already familiar.
 
@@ -92,22 +73,7 @@ And finally we **commit** the session to save the changes to the database.
 
 Let's not forget to add this function `create_heroes()` to the `main()` function so that we run it when calling the program from the command line:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:63-65]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[61:63] hl[63] *}
 
 ## Run it
 
@@ -126,7 +92,7 @@ INFO Engine BEGIN (implicit)
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00050s] ('Preventers', 'Sharp Tower')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
-INFO Engine [cached since 0.002324s ago] ('Z-Force', 'Sister Margaret’s Bar')
+INFO Engine [cached since 0.002324s ago] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine COMMIT
 ```
 
@@ -140,26 +106,11 @@ Now let's create one hero object to start.
 
 As the `Hero` class model now has a field (column, attribute) `team_id`, we can set it by using the ID field from the `Team` objects we just created before:
 
-```Python hl_lines="12"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:39] hl[38] *}
 
 We haven't committed this hero to the database yet, but there are already a couple of things to pay **attention** to.
 
-If the database already had some teams, we wouldn't even know **what is the ID** that is going to be automatically assigned to each team by the database, for example, we couldn't just guess `1` or `2`. 
+If the database already had some teams, we wouldn't even know **what is the ID** that is going to be automatically assigned to each team by the database, for example, we couldn't just guess `1` or `2`.
 
 But once the team is created and committed to the database, we can access the object's `id` field to get that ID.
 
@@ -171,41 +122,26 @@ That line alone would generate an output of:
 
 ```
 INFO Engine BEGIN (implicit)
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [generated in 0.00025s] (2,)
 ```
 
 Let's now create two more heroes:
 
-```Python hl_lines="14-20"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-52]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:50] hl[40:46] *}
 
 When creating `hero_rusty_man`, we are accessing `team_preventers.id`, so that will also trigger a refresh of its data, generating an output of:
 
 ```
-INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters 
-FROM team 
+INFO Engine SELECT team.id AS team_id, team.name AS team_name, team.headquarters AS team_headquarters
+FROM team
 WHERE team.id = ?
 INFO Engine [cached since 0.001795s ago] (1,)
 ```
 
-There's something else to note. We marked `team_id` as `Optional[int]`, meaning that this could be `NULL` on the database (and `None` in Python).
+There's something else to note. We marked `team_id` as `int | None`, meaning that this could be `NULL` on the database (and `None` in Python).
 
 That means that a hero doesn't have to have a team. And in this case, **Spider-Boy** doesn't have one.
 
@@ -225,23 +161,7 @@ INFO Engine COMMIT
 
 Now let's refresh and print those new heroes to see their new ID pointing to their teams:
 
-```Python hl_lines="26-28  30-32"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/insert/tutorial001.py[ln:31-60]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
-
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[29:58] hl[52:54,56:58] *}
 
 If we execute that in the command line, it will output:
 
@@ -256,18 +176,18 @@ $ python app.py
 INFO Engine BEGIN (implicit)
 
 // Refresh the first hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [generated in 0.00021s] (1,)
 // Refresh the second hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.001575s ago] (2,)
 // Refresh the third hero
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.002518s ago] (3,)
 

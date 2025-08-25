@@ -26,12 +26,15 @@ The `team` table looks like this:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
-!!! tip
-    Notice that it doesn't have any foreign key to other tables.
+/// tip
+
+Notice that it doesn't have any foreign key to other tables.
+
+///
 
 And the `hero` table looks like this:
 
@@ -54,7 +57,7 @@ We have a column in the `hero` table for the `team_id` that points to the ID of 
 
 This is how we connect each `hero` with a `team`:
 
-<img alt="table relationships" src="/img/databases/relationships.svg">
+<img alt="table relationships" src="/img/databases/relationships.drawio.svg">
 
 Notice that each hero can only have **one** connection. But each team can receive **many** connections. In particular, the team **Preventers** has two heroes.
 
@@ -80,7 +83,7 @@ As this will represent the **hero-team-link**, let's call the table `heroteamlin
 
 It would look like this:
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.drawio.svg">
 
 Notice that now the table `hero` **doesn't have a `team_id`** column anymore, it is replaced by this link table.
 
@@ -106,19 +109,22 @@ Specifically, the new link table `heroteamlink` would be:
 </tr>
 </table>
 
-!!! info
-    Other names used for this **link table** are:
+/// info
 
-    * association table
-    * secondary table
-    * junction table
-    * intermediate table
-    * join table
-    * through table
-    * relationship table
-    * connection table
+Other names used for this **link table** are:
 
-    I'm using the term "link table" because it's short, doesn't collide with other terms already used (e.g. "relationship"), it's easy to remember how to write it, etc.
+* association table
+* secondary table
+* junction table
+* intermediate table
+* join table
+* through table
+* relationship table
+* connection table
+
+I'm using the term "link table" because it's short, doesn't collide with other terms already used (e.g. "relationship"), it's easy to remember how to write it, etc.
+
+///
 
 ## Link Primary Key
 

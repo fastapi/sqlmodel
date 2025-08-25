@@ -6,7 +6,7 @@ And you also know how to get multiple rows while filtering them using `.where()`
 
 Now let's see how to get only a **range of results**.
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.drawio.svg">
 
 ## Create Data
 
@@ -14,43 +14,13 @@ We will continue with the same code as before, but we'll modify it a little the 
 
 Again, we will create several heroes to have some data to select from:
 
-```Python hl_lines="4-10"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py[ln:23-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[21:39] hl[22:28] *}
 
 ## Review Select All
 
 This is the code we had to select all the heroes in the `select()` examples:
 
-```Python hl_lines="3-8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/select/tutorial003.py[ln:36-41]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/select/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/select/tutorial003_py310.py ln[34:39] hl[34:39] *}
 
 But this would get us **all** the heroes at the same time, in a database that could have thousands, that could be problematic.
 
@@ -58,28 +28,13 @@ But this would get us **all** the heroes at the same time, in a database that co
 
 We currently have 7 heroes in the database. But we could as well have thousands, so let's limit the results to get only the first 3:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[42:47] hl[44] *}
 
 The special **select** object we get from `select()` also has a method `.limit()` that we can use to limit the results to a certain number.
 
 In this case, instead of getting all the 7 rows, we are limiting them to only get the first 3.
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.drawio.svg">
 
 ## Run the Program on the Command Line
 
@@ -93,7 +48,7 @@ $ python app.py
 // Previous output omitted 🙈
 
 // Select with LIMIT
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00014s] (3, 0)
@@ -110,8 +65,11 @@ INFO Engine [no key 0.00014s] (3, 0)
 
 Great! We got only 3 heroes as we wanted.
 
-!!! tip
-    We will check out that SQL code more in a bit.
+/// tip
+
+We will check out that SQL code more in a bit.
+
+///
 
 ## Select with Offset and Limit
 
@@ -119,33 +77,21 @@ Now we can limit the results to get only the first 3.
 
 But imagine we are in a user interface showing the results in batches of 3 heroes at a time.
 
-!!! tip
-    This is commonly called "pagination". Because the user interface would normally show a "page" of a predefined number of heroes at a time.
+/// tip
 
-    And then you can interact with the user interface to get the next page, and so on.
+This is commonly called "pagination". Because the user interface would normally show a "page" of a predefined number of heroes at a time.
+
+And then you can interact with the user interface to get the next page, and so on.
+
+///
 
 How do we get the next 3?
 
-<img class="shadow" alt="table with next rows selected, from 4 to 6" src="/img/tutorial/offset-and-limit/limit2.svg">
+<img class="shadow" alt="table with next rows selected, from 4 to 6" src="/img/tutorial/offset-and-limit/limit2.drawio.svg">
 
 We can use `.offset()`:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial002.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial002.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/offset_and_limit/tutorial002_py310.py ln[42:47] hl[44] *}
 
 The way this works is that the special **select** object we get from `select()` has methods like `.where()`, `.offset()` and `.limit()`.
 
@@ -165,7 +111,7 @@ $python app.py
 // Previous output omitted 🙈
 
 // Select with LIMIT and OFFSET
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00020s] (3, 3)
@@ -184,26 +130,11 @@ INFO Engine [no key 0.00020s] (3, 3)
 
 Then to get the next batch of 3 rows we would offset all the ones we already saw, the first 6:
 
-```Python hl_lines="5"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/offset_and_limit/tutorial003.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial003.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/offset_and_limit/tutorial003_py310.py ln[42:47] hl[44] *}
 
 The database right now has **only 7 rows**, so this query can only get 1 row.
 
-<img class="shadow" alt="table with the last row (7th) selected" src="/img/tutorial/offset-and-limit/limit3.svg">
+<img class="shadow" alt="table with the last row (7th) selected" src="/img/tutorial/offset-and-limit/limit3.drawio.svg">
 
 But don't worry, the database won't throw an error trying to get 3 rows when there's only one (as would happen with a Python list).
 
@@ -221,7 +152,7 @@ $ python app.py
 // Previous output omitted 🙈
 
 // Select last batch with LIMIT and OFFSET
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
  LIMIT ? OFFSET ?
 INFO Engine [no key 0.00038s] (3, 6)
@@ -241,7 +172,7 @@ You probably noticed the new SQL keywords `LIMIT` and `OFFSET`.
 You can use them in SQL, at the end of the other parts:
 
 ```SQL
-SELECT id, name, secret_name, age 
+SELECT id, name, secret_name, age
 FROM hero
 LIMIT 3 OFFSET 6
 ```
@@ -254,28 +185,13 @@ If you try that in **DB Browser for SQLite**, you will get the same result:
 
 Of course, you can also combine `.limit()` and `.offset()` with `.where()` and other methods you will learn about later:
 
-```Python hl_lines="5"
-# Code above omitted 👆
+{* ./docs_src/tutorial/offset_and_limit/tutorial004_py310.py ln[42:47] hl[44] *}
 
-{!./docs_src/tutorial/offset_and_limit/tutorial004.py[ln:44-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/offset_and_limit/tutorial004.py!}
-```
-
-</details>
-
-## Run the Program with Limit and Where on the Command Line
+## Run the Program with Limit, Offset, and Where on the Command Line
 
 If we run it on the command line, it will find all the heroes in the database with an age above 32. That would normally be 4 heroes.
 
-But we are limiting the results to only get the first 3:
+But we are starting to include after an offset of 1 (so we don't count the first one), and we are limiting the results to only get the first 2 after that:
 
 <div class="termy">
 
@@ -284,18 +200,17 @@ $ python app.py
 
 // Previous output omitted 🙈
 
-// Select with WHERE and LIMIT
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-FROM hero 
+// Select with WHERE and LIMIT and OFFSET
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+FROM hero
 WHERE hero.age > ?
  LIMIT ? OFFSET ?
-INFO Engine [no key 0.00022s] (32, 3, 0)
+INFO Engine [no key 0.00022s] (32, 2, 1)
 
-// Print the heroes received, only 3
+// Print the heroes received, only 2
 [
-    Hero(age=35, secret_name='Trevor Challa', id=5, name='Black Lion'),
-    Hero(age=36, secret_name='Steve Weird', id=6, name='Dr. Weird'),
-    Hero(age=48, secret_name='Tommy Sharp', id=3, name='Rusty-Man')
+    Hero(age=36, id=6, name='Dr. Weird', secret_name='Steve Weird'),
+    Hero(age=48, id=3, name='Rusty-Man', secret_name='Tommy Sharp')
 ]
 ```
 

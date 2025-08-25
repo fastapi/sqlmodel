@@ -42,8 +42,11 @@ Click the button <kbd>New Database</kbd>.
 
 A dialog should show up. Go to the [project directory you created](./index.md#create-a-project){.internal-link target=_blank} and save the file with a name of `database.db`.
 
-!!! tip
-    It's common to save SQLite database files with an extension of `.db`. Sometimes also `.sqlite`.
+/// tip
+
+It's common to save SQLite database files with an extension of `.db`. Sometimes also `.sqlite`.
+
+///
 
 ## Create a Table
 
@@ -122,6 +125,8 @@ And delete that `./database.db` file in your project directory.
 
 And click again on <kbd>New Database</kbd>.
 
+Save the file with the name `database.db` again.
+
 This time, if you see the dialog to create a new table, just close it by clicking the <kbd>Cancel</kbd> button.
 
 And now, go to the tab <kbd>Execute SQL</kbd>.
@@ -164,6 +169,6 @@ Of course, you can also go and take a full SQL course or read a book about SQL, 
 
 We saw how to interact with SQLite databases in files using **DB Browser for SQLite** in a visual user interface.
 
-We also saw how to use it to write some SQL directly to the SQLite database. This will be useful to verify the data in the database is looking correclty, to debug, etc.
+We also saw how to use it to write some SQL directly to the SQLite database. This will be useful to verify the data in the database is looking correctly, to debug, etc.
 
 In the next chapters we will start using **SQLModel** to interact with the database, and we will continue to use **DB Browser for SQLite** at the same time to look at the database underneath. 🔍

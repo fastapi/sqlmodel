@@ -12,22 +12,7 @@ We get a `hero_id` from the path parameter and verify if it exists, just as we d
 
 And if we actually find a hero, we just delete it with the **session**.
 
-```Python hl_lines="3-11"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/fastapi/delete/tutorial001.py[ln:91-99]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/fastapi/delete/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/fastapi/delete/tutorial001_py310.py ln[89:97] hl[89:97] *}
 
 After deleting it successfully, we just return a response of:
 

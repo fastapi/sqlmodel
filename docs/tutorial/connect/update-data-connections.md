@@ -10,7 +10,7 @@ At this point we have a `team` table:
 <td>1</td><td>Preventers</td><td>Sharp Tower</td>
 </tr>
 <tr>
-<td>2</td><td>Z-Force</td><td>Sister Margaret’s Bar</td>
+<td>2</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 </table>
 
@@ -37,14 +37,7 @@ Now we'll see how to **update** those connections between rows tables.
 
 We will continue with the code we used to create some heroes, and we'll update them.
 
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/insert/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[0] *}
 
 ## Assign a Team to a Hero
 
@@ -52,26 +45,7 @@ Let's say that **Tommy Sharp** uses his "rich uncle" charms to recruit **Spider-
 
 Doing it is just like updating any other field:
 
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/connect/update/tutorial001.py[ln:31-32]!}
-        
-        # Previous code here omitted 👈
-
-{!./docs_src/tutorial/connect/update/tutorial001.py[ln:62-66]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/tutorial/connect/update/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/tutorial/connect/update/tutorial001_py310.py ln[29:30,60:64] hl[60] *}
 
 We can simply **assign** a value to that field attribute `team_id`, then `add()` the hero to the session, and then `commit()`.
 
@@ -94,8 +68,8 @@ INFO Engine COMMIT
 // Automatically start a new transaction
 INFO Engine BEGIN (implicit)
 // Refresh the hero data
-INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id 
-FROM hero 
+INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
+FROM hero
 WHERE hero.id = ?
 INFO Engine [cached since 0.08837s ago] (3,)
 

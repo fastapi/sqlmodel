@@ -157,7 +157,7 @@
     Hero 3:
     ```
 
-21. Print the line `"After commiting the session, show IDs"`.
+21. Print the line `"After committing the session, show IDs"`.
 
     Generates the output:
 
@@ -181,8 +181,8 @@
 
     ```
     INFO Engine BEGIN (implicit)
-    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-    FROM hero 
+    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [generated in 0.00017s] (1,)
 
@@ -196,8 +196,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-    FROM hero 
+    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.001245s ago] (2,)
 
@@ -211,8 +211,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age 
-    FROM hero 
+    INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.002215s ago] (3,)
 
@@ -265,8 +265,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [generated in 0.00024s] (1,)
     ```
@@ -278,8 +278,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.001487s ago] (2,)
     ```
@@ -291,8 +291,8 @@
     Generates the output:
 
     ```
-    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
-    FROM hero 
+    INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
+    FROM hero
     WHERE hero.id = ?
     INFO Engine [cached since 0.002377s ago] (3,)
     ```
@@ -307,8 +307,11 @@
 
 33. Print the `hero_1`.
 
-    !!! info
-        Even if the `hero_1` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+    /// info
+
+    Even if the `hero_1` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+
+    ///
 
     Because the `hero_1` is fresh it has all it's data available.
 
@@ -320,8 +323,11 @@
 
 34. Print the `hero_2`.
 
-    !!! info
-        Even if the `hero_2` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+    /// info
+
+    Even if the `hero_2` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+
+    ///
 
     Because the `hero_2` is fresh it has all it's data available.
 
@@ -333,8 +339,11 @@
 
 35. Print the `hero_3`.
 
-    !!! info
-        Even if the `hero_3` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+    /// info
+
+    Even if the `hero_3` wasn't fresh, this would **not** trigger a `refresh` making the **session** use the **engine** to fetch data from the database because it is not accessing an attribute.
+
+    ///
 
     Because the `hero_3` is fresh it has all it's data available.
 
