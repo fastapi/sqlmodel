@@ -10,9 +10,7 @@ Two ways of implementing `created_at` timestamps with Pydantic are [default fact
 
 The SQLAlchemy docs describe how `created_at` timestamps can be automatically set with either [default](https://docs.sqlalchemy.org/en/14/core/defaults.html#python-executed-functions) or [server-default](https://docs.sqlalchemy.org/en/14/core/defaults.html#server-invoked-ddl-explicit-default-expressions) functions, by using `sa_column=Column(...)` as described in the SQLAlchemy documentation we can achieve the same behaviour:
 
-```{.python .annotate hl_lines="8 12"}
-{!./docs_src/advanced/sa_column/tutorial001.py[ln:9-21]!}
-```
+{* ./docs_src/advanced/sa_column/tutorial001.py ln[9:21] hl[16,20] *}
 
 Above we are saying that the `registered_at` column should have a `server_default` value of `func.now()` (see full code for imports), which means that if there is no provided value then the current time will be the recorded value for that row.
 
@@ -20,17 +18,11 @@ As there is a value there now, then it will not be changed automatically in the 
 
 The `updated_at` column has an `onupdate` value of `func.now()`, this means that each time an `UPDATE` is performed, the function will be executed, meaning that the timestamp changes whenever a change is made to the row.
 
-!!! warning
-    The difference between client-side python functions, server-side ddl expressions, and server-side implicit defaults is important in some situations but too in-depth to go into here. Check the SQL and SQLAlchemy docs for more information.
+/// warning
 
-<details>
-<summary>👀 Full file preview</summary>
+The difference between client-side python functions, server-side ddl expressions, and server-side implicit defaults is important in some situations but too in-depth to go into here. Check the SQL and SQLAlchemy docs for more information.
 
-```Python
-{!./docs_src/advanced/sa_column/tutorial001.py!}
-```
-
-</details>
+///
 
 ### Pydantic Implementation
 
