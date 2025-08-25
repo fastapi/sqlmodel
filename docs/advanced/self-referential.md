@@ -10,35 +10,23 @@ Let's do this with **SQLModel**. 🤓
 
 ## Using SQLAlchemy arguments
 
-We already learned a lot about [Relationship attributes](../tutorial/relationship-attributes/index.md){.internal-link target=_blank} in previous chapters. We know that **SQLModel** is built on top of **SQLAlchemy** and we know that the latter allows defining self-referential relationships (see [their documentation](https://docs.sqlalchemy.org/en/14/orm/self_referential.html){.external-link target=_blank}).
+We already learned a lot about [Relationship attributes](../tutorial/relationship-attributes/index.md){.internal-link target=_blank} in previous chapters. We know that **SQLModel** is built on top of **SQLAlchemy** and we know that the latter allows defining self-referential relationships (see [their documentation](https://docs.sqlalchemy.org/en/20/orm/self_referential.html){.external-link target=_blank}).
 
-To allow more fine-grained control over it, the `Relationship` constructor allows explicitly passing additional keyword-arguments to the [`sqlalchemy.orm.relationship`](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship){.external-link target=_blank} constructor that is being called under the hood via the `sa_relationship_kwargs` parameter. This is supposed to be a mapping (e.g. a dictionary) of strings representing the SQLAlchemy **parameter names** to the **values** we want to pass through as arguments.
+To allow more fine-grained control over it, the `Relationship` constructor allows explicitly passing additional keyword-arguments to the [`sqlalchemy.orm.relationship`](https://docs.sqlalchemy.org/en/20/orm/relationship_api.html#sqlalchemy.orm.relationship){.external-link target=_blank} constructor that is being called under the hood via the `sa_relationship_kwargs` parameter. This is supposed to be a mapping (e.g. a dictionary) of strings representing the SQLAlchemy **parameter names** to the **values** we want to pass through as arguments.
 
-Since SQLAlchemy relationships provide the [`remote_side`](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship.params.remote_side){.external-link target=_blank} parameter for just such an occasion, we can leverage that directly to construct the self-referential pattern with minimal code.
+Since SQLAlchemy relationships provide the [`remote_side`](https://docs.sqlalchemy.org/en/20/orm/relationship_api.html#sqlalchemy.orm.relationship.params.remote_side){.external-link target=_blank} parameter for just such an occasion, we can leverage that directly to construct the self-referential pattern with minimal code.
 
-```Python hl_lines="12"
-# Code above omitted 👆
-
-{!./docs_src/advanced/self_referential/tutorial001.py[ln:6-17]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/advanced/self_referential/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[6:17] hl[16] *}
 
 Using the `sa_relationship_kwargs` parameter, we pass the keyword-argument `remote_side='Villain.id'` to the underlying relationship property.
 
-!!! info
-    The SQLAlchemy documentation mentions this in passing, but crucially the `remote_side` value _"may be passed as a Python-evaluable string when using Declarative."_
+/// info
 
-    This allows us to pass the `id` field of the class we are just now defining as the remote side of that relationship.
+The SQLAlchemy documentation mentions this in passing, but crucially the `remote_side` value _"may be passed as a Python-evaluable string when using Declarative."_
+
+This allows us to pass the `id` field of the class we are just now defining as the remote side of that relationship.
+
+///
 
 ## Back-populating and self-referencing
 
@@ -54,70 +42,17 @@ Finally, as with regular (i.e. non-self-referential) foreign key relationships, 
 
 Now let us see how we can create villains with a boss:
 
-```Python hl_lines="6-7"
-# Code above omitted 👆
-
-{!./docs_src/advanced/self_referential/tutorial001.py[ln:30-49]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/advanced/self_referential/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:49] hl[34-35] *}
 
 Just as with regular relationships, we can simply pass our boss villain as an argument to the constructor with `boss=thinnus`.
 
 If we only learn that a villain actually had a secret boss after we have already created him, we can just as easily assign him that boss retroactively:
 
-```Python hl_lines="8"
-# Code above omitted 👆
-
-{!./docs_src/advanced/self_referential/tutorial001.py[ln:30-31]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/advanced/self_referential/tutorial001.py[ln:51-55]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/advanced/self_referential/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,51-55] hl[52] *}
 
 And if we want to add minions to a boss after the fact, this is as easy as adding items to a Python list (because that's all it is 🤓):
 
-```Python hl_lines="11"
-# Code above omitted 👆
-
-{!./docs_src/advanced/self_referential/tutorial001.py[ln:30-31]!}
-
-        # Previous code here omitted 👈
-
-{!./docs_src/advanced/self_referential/tutorial001.py[ln:57-68]!}
-
-# Code below omitted 👇
-```
-
-<details>
-<summary>👀 Full file preview</summary>
-
-```Python
-{!./docs_src/advanced/self_referential/tutorial001.py!}
-```
-
-</details>
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,57-68] hl[61] *}
 
 Since our relationships work both ways, we don't even need to add all our `clone_bot_`s  to the session individually. Instead we can simply add `ultra_bot` once again and commit the changes. We do need to refresh them all individually though, if we want to get their updated attributes.
 
@@ -132,5 +67,8 @@ top_boss_minions = clone_bot_3.boss.boss.minions
 assert any(minion is ebonite_mew for minion in top_boss_minions)  # passes
 ```
 
-!!! info
-    Notice that we can in fact check for **identity** using `is` as opposed to `==` here, since we are dealing with those exact same objects, not just objects that hold the same **data**.
+/// info
+
+Notice that we can in fact check for **identity** using `is` as opposed to `==` here, since we are dealing with those exact same objects, not just objects that hold the same **data**.
+
+///
