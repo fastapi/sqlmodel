@@ -42,17 +42,17 @@ Finally, as with regular (i.e. non-self-referential) foreign key relationships, 
 
 Now let us see how we can create villains with a boss:
 
-{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:49] hl[34-35] *}
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:49] hl[34:35] *}
 
 Just as with regular relationships, we can simply pass our boss villain as an argument to the constructor with `boss=thinnus`.
 
 If we only learn that a villain actually had a secret boss after we have already created him, we can just as easily assign him that boss retroactively:
 
-{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,51-55] hl[52] *}
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,51:55] hl[52] *}
 
 And if we want to add minions to a boss after the fact, this is as easy as adding items to a Python list (because that's all it is 🤓):
 
-{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,57-68] hl[61] *}
+{* ./docs_src/advanced/self_referential/tutorial001.py ln[30:31,57:68] hl[61] *}
 
 Since our relationships work both ways, we don't even need to add all our `clone_bot_`s  to the session individually. Instead we can simply add `ultra_bot` once again and commit the changes. We do need to refresh them all individually though, if we want to get their updated attributes.
 
