@@ -666,7 +666,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
         return AutoString
     # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
     if issubclass(type_, Enum):
-        return sa_Enum(type_)
+        return sa_Enum(cast(Type[Enum], type_))
     if issubclass(
         type_,
         (
