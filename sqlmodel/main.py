@@ -39,6 +39,7 @@ from sqlalchemy import (
     Numeric,
     inspect,
 )
+from sqlalchemy import types as sa_types
 from sqlalchemy import Enum as sa_Enum
 from sqlalchemy.orm import (
     Mapped,
@@ -655,6 +656,10 @@ def get_sqlalchemy_type(field: Any) -> Any:
 
     type_ = get_sa_type_from_field(field)
     metadata = get_field_metadata(field)
+
+    # If it's already an SQLAlchemy type (eg. AutoString), use it directly
+    if isinstance(type_, type) and issubclass(type_, sa_types.TypeEngine):
+        return type_
 
     # Checks for `Literal` type annotation
     if type_ is Literal:
