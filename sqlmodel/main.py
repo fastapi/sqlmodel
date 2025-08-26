@@ -39,8 +39,8 @@ from sqlalchemy import (
     Numeric,
     inspect,
 )
-from sqlalchemy import types as sa_types
 from sqlalchemy import Enum as sa_Enum
+from sqlalchemy import types as sa_types
 from sqlalchemy.orm import (
     Mapped,
     RelationshipProperty,
