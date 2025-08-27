@@ -8,6 +8,7 @@
 
 ### Docs
 
+* ✏️ Fix typos in `docs/tutorial/relationship-attributes/cascade-delete-relationships.md`. PR [#1543](https://github.com/fastapi/sqlmodel/pull/1543) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🍱 Update SVG files, a single file per diagram, sans-serif fonts. PR [#1373](https://github.com/fastapi/sqlmodel/pull/1373) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Grammar tweak in `docs/tutorial/insert.md`. PR [#1368](https://github.com/fastapi/sqlmodel/pull/1368) by [@brettcannon](https://github.com/brettcannon).
 * 📝 Update `docs/tutorial/fastapi/relationships.md`. PR [#1365](https://github.com/fastapi/sqlmodel/pull/1365) by [@Foxerine](https://github.com/Foxerine).
