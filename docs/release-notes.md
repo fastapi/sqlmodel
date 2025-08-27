@@ -19,6 +19,8 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.12.9 to 0.12.10. PR [#1532](https://github.com/fastapi/sqlmodel/pull/1532) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1534](https://github.com/fastapi/sqlmodel/pull/1534) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump typer from 0.16.0 to 0.16.1. PR [#1531](https://github.com/fastapi/sqlmodel/pull/1531) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 4 to 5. PR [#1451](https://github.com/fastapi/sqlmodel/pull/1451) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 4 to 5. PR [#1488](https://github.com/fastapi/sqlmodel/pull/1488) by [@dependabot[bot]](https://github.com/apps/dependabot).
