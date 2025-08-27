@@ -24,8 +24,6 @@ from pydantic import BaseModel
 from pydantic.fields import FieldInfo
 from typing_extensions import Annotated, get_args, get_origin
 
-from .sql.sqltypes import AutoString
-
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
 PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
@@ -469,8 +467,8 @@ else:
 
     def get_sa_type_from_field(field: Any) -> Any:
         if get_origin(field.type_) is Literal:
-            return AutoString
-        elif isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
+            return Literal
+        if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
             return field.type_
         raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")
 
