@@ -1,4 +1,5 @@
-from typing import List, Optional
+from decimal import Decimal
+from typing import Annotated, List, Optional
 
 import pytest
 from sqlalchemy.exc import IntegrityError
@@ -125,3 +126,25 @@ def test_sa_relationship_property(clear_sqlmodel):
         # The next statement should not raise an AttributeError
         assert hero_rusty_man.team
         assert hero_rusty_man.team.name == "Preventers"
+
+
+def test_optional_annotated_decimal():
+    class Model(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        dec: Annotated[Decimal, Field(max_digits=4, decimal_places=2)] | None = None
+
+    engine = create_engine("sqlite://")
+
+    SQLModel.metadata.create_all(engine)
+
+    with Session(engine) as session:
+        session.add(model := Model(dec=Decimal("3.14")))
+        session.commit()
+        session.refresh(model)
+        assert model.dec == Decimal("3.14")
+
+    with Session(engine) as session:
+        session.add(model := Model(dec=Decimal("3.142")))
+        session.commit()
+        session.refresh(model)
+        assert model.dec == Decimal("3.14")
