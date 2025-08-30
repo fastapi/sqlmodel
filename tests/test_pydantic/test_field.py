@@ -55,3 +55,17 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+@pytest.mark.parametrize("param", ["regex", "pattern"])
+def test_field_regex_param(param: str):
+    class DateModel(SQLModel):
+        date_1: str = Field(**{param: r"^\d{2}-\d{2}-\d{4}$"})
+        date_2: str = Field(schema_extra={param: r"^\d{2}-\d{2}-\d{4}$"})
+
+    DateModel(date_1="12-31-2024", date_2="12-31-2024")
+    # Validates correctly
+
+    with pytest.raises(ValidationError):
+        DateModel(date_1="2024-12-31", date_2="2024-12-31")
+        # This should raise a ValueError due to regex mismatch
