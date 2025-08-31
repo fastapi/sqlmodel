@@ -29,21 +29,7 @@ and a couple of extra bits of info in our **SQLModel** relationship definition a
 Let's define a `winter_team` and `summer_team` relationship for our heros.  They can be on different
 winter and summer teams or on the same team for both seasons.
 
-```Python hl_lines="11  15"
-# Code above omitted 👆
-
-{!./docs_src/tutorial/relationship_attributes/aliased_relationship/tutorial001.py[ln:13-26]!}
-
-# Code below omitted 👇
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/relationship_attributes/aliased_relationship/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/relationship_attributes/aliased_relationship/tutorial001_py310.py ln[13:26] hl[11,15] *}
 
 The `sa_relationship_kwargs={"primaryjoin": ...}` is a new bit of info we need for **SQLAlchemy** to
 figure out which SQL join we should use depending on which attribute is in our query.
