@@ -8,6 +8,7 @@
 
 ### Docs
 
+* ✏️ Fix typos in `docs/tutorial/relationship-attributes/cascade-delete-relationships.md`. PR [#1543](https://github.com/fastapi/sqlmodel/pull/1543) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🍱 Update SVG files, a single file per diagram, sans-serif fonts. PR [#1373](https://github.com/fastapi/sqlmodel/pull/1373) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Grammar tweak in `docs/tutorial/insert.md`. PR [#1368](https://github.com/fastapi/sqlmodel/pull/1368) by [@brettcannon](https://github.com/brettcannon).
 * 📝 Update `docs/tutorial/fastapi/relationships.md`. PR [#1365](https://github.com/fastapi/sqlmodel/pull/1365) by [@Foxerine](https://github.com/Foxerine).
@@ -19,6 +20,8 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.12.9 to 0.12.10. PR [#1532](https://github.com/fastapi/sqlmodel/pull/1532) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1534](https://github.com/fastapi/sqlmodel/pull/1534) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump typer from 0.16.0 to 0.16.1. PR [#1531](https://github.com/fastapi/sqlmodel/pull/1531) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 4 to 5. PR [#1451](https://github.com/fastapi/sqlmodel/pull/1451) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/checkout from 4 to 5. PR [#1488](https://github.com/fastapi/sqlmodel/pull/1488) by [@dependabot[bot]](https://github.com/apps/dependabot).
