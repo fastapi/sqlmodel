@@ -13,7 +13,7 @@ Query: Find users with home address zipcode "100000" and work address zipcode = 
 ### Alias Query
 
 Using an alias, JOIN the address table twice:
-```
+```sql
 SELECT *
 FROM user
 JOIN address AS home_address_alias
@@ -27,7 +27,7 @@ WHERE
 
 ### Correlated Sub-Query
 Using sub-queries, filter the matches with EXISTS:
-```
+```sql
 SELECT *
 FROM user
 WHERE (
@@ -69,7 +69,7 @@ If the foreign table search criteria (address.zipcode) is not unique, prefer EXI
 Let's define a `winter_team` and `summer_team` relationship for our heros.  They can be on different
 winter and summer teams or on the same team for both seasons.
 
-```Python hl_lines="9 13"
+```Python hl_lines="11 15"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:13-26]!}
@@ -134,7 +134,7 @@ Query Heros filtering by Team attributes by manually specifying the `join` with 
 ```Python hl_lines="9"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:69-89]!}
+{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:69-91]!}
 
 # Code below omitted 👇
 ```
