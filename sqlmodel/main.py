@@ -98,7 +98,9 @@ IncEx: TypeAlias = Union[
     Mapping[str, Union["IncEx", bool]],
 ]
 SaTypeOrInstance: TypeAlias = Union[
-    TypeEngine[Any], Type[TypeEngine[Any]], SchemaEventTarget
+    TypeEngine[Any],
+    Type[TypeEngine[Any]],
+    SchemaEventTarget,
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
