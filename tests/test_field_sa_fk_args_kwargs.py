@@ -22,9 +22,11 @@ def test_base_model_fk(clear_sqlmodel, caplog) -> None:
         id: Optional[int] = Field(default=None, primary_key=True)
 
     # Fails in Pydantic v2, but not v1
-    with pytest.raises(
-        sqlalchemy.exc.InvalidRequestError
-    ) if IS_PYDANTIC_V2 else contextlib.nullcontext() as e:
+    with (
+        pytest.raises(sqlalchemy.exc.InvalidRequestError)
+        if IS_PYDANTIC_V2
+        else contextlib.nullcontext()
+    ) as e:
 
         class Document(Base, table=True):
             id: Optional[int] = Field(default=None, primary_key=True)
@@ -52,8 +54,7 @@ def test_base_model_fk_args(clear_sqlmodel, caplog) -> None:
     class Base(SQLModel):
         owner_id: Optional[int] = Field(
             default=None,
-            foreign_key="user.id",
-            sa_foreign_key_kwargs={"ondelete": "SET NULL"},
+            foreign_key=ForeignKey("user.id", ondelete="SET NULL"),
         )
 
     class Asset(Base, table=True):
