@@ -48,25 +48,17 @@ expected_calls = [
             },
         ],
     ],
-    [
-        "Heros with Preventers as their winter and Z-Force as their summer team:",
-        [
-            {
-                "age": None,
-                "id": 1,
-                "name": "Deadpond",
-                "secret_name": "Dive Wilson",
-                "summer_team_id": 2,
-                "winter_team_id": 1,
-            }
-        ],
-    ],
+    ["Heros with Preventers as their winter team:"],
+    ["Hero: Deadpond, Winter Team: Preventers Summer Team: Z-Force"],
+    ["Hero: Rusty-Man, Winter Team: Preventers Summer Team: Preventers"],
+    ["Heros with Preventers as their winter and Z-Force as their summer team:"],
+    ["Hero: Deadpond, Winter Team: Preventers Summer Team: Z-Force"],
 ]
 
 
 @needs_py310
 def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.relationship_attributes.aliased_relationship import (
+    from docs_src.tutorial.relationship_attributes.multiple_relationships_same_model import (
         tutorial001_py310 as mod,
     )
 
