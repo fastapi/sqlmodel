@@ -69,7 +69,13 @@ If the foreign table search criteria (address.zipcode) is not unique, prefer EXI
 Let's define a `winter_team` and `summer_team` relationship for our heros.  They can be on different
 winter and summer teams or on the same team for both seasons.
 
-{* ./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001_py310.py ln[13:26] hl[9,13] *}
+```Python hl_lines="9 13"
+# Code above omitted 👆
+
+{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:13-26]!}
+
+# Code below omitted 👇
+```
 
 The `sa_relationship_kwargs={"foreign_keys": ...}` is a new bit of info we need for **SQLAlchemy** to
 figure out which SQL join we should use depending on which attribute is in our query.
@@ -113,7 +119,7 @@ The aliases we create are `home_address_alias` and `work_address_alias`.  You ca
 as a view to the same underlying `address` table. We can do this with **SQLModel** and **SQLAlchemy** using `sqlalchemy.orm.aliased`
 and a couple of extra bits of info in our **SQLModel** join statements.
 
-```Python hl_lines="2"
+```Python hl_lines="4"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:69-71]!}
@@ -125,7 +131,7 @@ and a couple of extra bits of info in our **SQLModel** join statements.
 
 Query Heros filtering by Team attributes by manually specifying the `join` with an `onclause` to tell **SQLAlchemy** to join the `hero` and `team` tables.
 
-```Python hl_lines="7"
+```Python hl_lines="9"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:69-89]!}
@@ -148,11 +154,11 @@ For more information see [SQLAlchemy: Handling Multiple Join Paths](https://docs
 
 ///
 
-#### Correlated Sub Query
+### Correlated Sub Query
 
 From a query perspecitve, this is a much simpler solution.  We use the `has` function in the query:
 
-```Python hl_lines="4 5"
+```Python hl_lines="6 7"
 # Code above omitted 👆
 
 {!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:93-123]!}
