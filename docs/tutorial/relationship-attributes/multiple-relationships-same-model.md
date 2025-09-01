@@ -69,7 +69,7 @@ If the foreign table search criteria (address.zipcode) is not unique, prefer EXI
 Let's define a `winter_team` and `summer_team` relationship for our heros.  They can be on different
 winter and summer teams or on the same team for both seasons.
 
-{* ./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001_py310.py ln[13:26] hl[11,15] *}
+{* ./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001_py310.py ln[13:26] hl[9,13] *}
 
 The `sa_relationship_kwargs={"foreign_keys": ...}` is a new bit of info we need for **SQLAlchemy** to
 figure out which SQL join we should use depending on which attribute is in our query.
@@ -116,7 +116,7 @@ and a couple of extra bits of info in our **SQLModel** join statements.
 ```Python hl_lines="2"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:70-71]!}
+{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:69-71]!}
 
 # Code below omitted 👇
 ```
@@ -128,7 +128,7 @@ Query Heros filtering by Team attributes by manually specifying the `join` with 
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:70-89]!}
+{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:69-89]!}
 
 # Code below omitted 👇
 ```
@@ -152,10 +152,10 @@ For more information see [SQLAlchemy: Handling Multiple Join Paths](https://docs
 
 From a query perspecitve, this is a much simpler solution.  We use the `has` function in the query:
 
-```Python hl_lines="5"
+```Python hl_lines="4 5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:91-119]!}
+{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:93-123]!}
 
 # Code below omitted 👇
 ```
