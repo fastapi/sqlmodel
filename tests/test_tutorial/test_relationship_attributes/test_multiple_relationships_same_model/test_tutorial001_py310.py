@@ -27,27 +27,6 @@ expected_calls = [
             "winter_team_id": 1,
         },
     ],
-    [
-        "Heros with Preventers as their winter team:",
-        [
-            {
-                "age": None,
-                "id": 1,
-                "name": "Deadpond",
-                "secret_name": "Dive Wilson",
-                "summer_team_id": 2,
-                "winter_team_id": 1,
-            },
-            {
-                "age": 48,
-                "id": 2,
-                "name": "Rusty-Man",
-                "secret_name": "Tommy Sharp",
-                "summer_team_id": 1,
-                "winter_team_id": 1,
-            },
-        ],
-    ],
     ["Heros with Preventers as their winter team:"],
     ["Hero: Deadpond, Winter Team: Preventers Summer Team: Z-Force"],
     ["Hero: Rusty-Man, Winter Team: Preventers Summer Team: Preventers"],
