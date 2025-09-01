@@ -97,7 +97,7 @@ IncEx: TypeAlias = Union[
     Mapping[int, Union["IncEx", bool]],
     Mapping[str, Union["IncEx", bool]],
 ]
-SaType: TypeAlias = Union[TypeEngine[Any], Type[TypeEngine[Any]], SchemaEventTarget]
+SaTypeOrInstance: TypeAlias = Union[TypeEngine[Any], Type[TypeEngine[Any]], SchemaEventTarget]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 
@@ -247,7 +247,7 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[SaType, UndefinedType] = Undefined,
+    sa_type: Union[SaTypeOrInstance, UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
@@ -293,7 +293,7 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[SaType, UndefinedType] = Undefined,
+    sa_type: Union[SaTypeOrInstance, UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
@@ -382,7 +382,7 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[SaType, UndefinedType] = Undefined,
+    sa_type: Union[SaTypeOrInstance, UndefinedType] = Undefined,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
