@@ -83,13 +83,14 @@ def select_heroes():
         WHERE team_1.name = ?
 
         """
-
         heros = result.all()
-        print("Heros with Preventers as their winter team:", heros)
-        assert len(heros) == 2
+        print("Heros with Preventers as their winter team:")
+        for hero in heros:
+            print(
+                f"Hero: {hero.name}, Winter Team: {hero.winter_team.name} Summer Team: {hero.summer_team.name}"
+            )
 
-        # Heros with Preventers as their winter team and Z-Force as their summer team
-        # using "has" function.
+        # Heros with Preventers as their winter team and Z-Force as their summer team using "has" function.
         result = session.exec(
             select(Hero)
             .where(Hero.winter_team.has(Team.name == "Preventers"))
@@ -115,9 +116,11 @@ def select_heroes():
         heros = result.all()
         print(
             "Heros with Preventers as their winter and Z-Force as their summer team:",
-            heros,
         )
-        assert len(heros) == 1
+        for hero in heros:
+            print(
+                f"Hero: {hero.name}, Winter Team: {hero.winter_team.name} Summer Team: {hero.summer_team.name}"
+            )
         assert heros[0].name == "Deadpond"
 
 

@@ -28,9 +28,8 @@ class Hero(SQLModel, table=True):
 
 sqlite_file_name = ":memory:"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
-mysql_url = "mysql+pymysql://root@127.0.0.1/test"
 
-engine = create_engine(mysql_url, echo=True)
+engine = create_engine(sqlite_url, echo=True)
 
 
 def create_db_and_tables():
@@ -85,7 +84,11 @@ def select_heroes():
 
         """
         heros = result.all()
-        print("Heros with Preventers as their winter team:", heros)
+        print("Heros with Preventers as their winter team:")
+        for hero in heros:
+            print(
+                f"Hero: {hero.name}, Winter Team: {hero.winter_team.name} Summer Team: {hero.summer_team.name}"
+            )
 
         # Heros with Preventers as their winter team and Z-Force as their summer team using "has" function.
         result = session.exec(
@@ -113,8 +116,11 @@ def select_heroes():
         heros = result.all()
         print(
             "Heros with Preventers as their winter and Z-Force as their summer team:",
-            heros,
         )
+        for hero in heros:
+            print(
+                f"Hero: {hero.name}, Winter Team: {hero.winter_team.name} Summer Team: {hero.summer_team.name}"
+            )
         assert heros[0].name == "Deadpond"
 
 

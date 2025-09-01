@@ -128,7 +128,7 @@ Query Heros filtering by Team attributes by manually specifying the `join` with 
 ```Python hl_lines="7"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:70-87]!}
+{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:70-89]!}
 
 # Code below omitted 👇
 ```
@@ -155,7 +155,7 @@ From a query perspecitve, this is a much simpler solution.  We use the `has` fun
 ```Python hl_lines="5"
 # Code above omitted 👆
 
-{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:90-113]!}
+{!./docs_src/tutorial/relationship_attributes/multiple_relationships_same_model/tutorial001.py[ln:91-119]!}
 
 # Code below omitted 👇
 ```
