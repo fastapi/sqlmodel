@@ -163,6 +163,10 @@ class FieldInfo(PydanticFieldInfo):
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
+            if not isinstance(foreign_key, str):
+                raise RuntimeError(
+                    "ondelete can only be used with foreign_key given as a string"
+                )
         super().__init__(default=default, **kwargs)
         self.primary_key = primary_key
         self.nullable = nullable
@@ -730,14 +734,18 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     if unique is Undefined:
         unique = False
     if foreign_key:
-        if field_info.ondelete == "SET NULL" and not nullable:
-            raise RuntimeError('ondelete="SET NULL" requires nullable=True')
-        assert isinstance(foreign_key, str)
-        ondelete = getattr(field_info, "ondelete", Undefined)
-        if ondelete is Undefined:
-            ondelete = None
-        assert isinstance(ondelete, (str, type(None)))  # for typing
-        args.append(ForeignKey(foreign_key, ondelete=ondelete))
+        if isinstance(foreign_key, str):
+            if field_info.ondelete == "SET NULL" and not nullable:
+                raise RuntimeError('ondelete="SET NULL" requires nullable=True')
+            assert isinstance(foreign_key, str)
+            ondelete = getattr(field_info, "ondelete", Undefined)
+            if ondelete is Undefined:
+                ondelete = None
+            assert isinstance(ondelete, (str, type(None)))
+            args.append(ForeignKey(foreign_key, ondelete=ondelete))
+        else:
+            assert isinstance(foreign_key, ForeignKey)
+            args.append(foreign_key.copy())
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
