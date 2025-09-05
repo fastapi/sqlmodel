@@ -20,6 +20,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1546](https://github.com/fastapi/sqlmodel/pull/1546) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.12.10 to 0.12.12. PR [#1548](https://github.com/fastapi/sqlmodel/pull/1548) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.16.1 to 0.17.3. PR [#1547](https://github.com/fastapi/sqlmodel/pull/1547) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pypa/gh-action-pypi-publish from 1.12.4 to 1.13.0. PR [#1550](https://github.com/fastapi/sqlmodel/pull/1550) by [@dependabot[bot]](https://github.com/apps/dependabot).
