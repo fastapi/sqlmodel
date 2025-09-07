@@ -122,6 +122,7 @@ Then go to `migrations\env.py` to finish the alembic configuration.
 ```
 
 /// warning
+
     First import your models and then import SQLModel otherwise sqlmodel doesn´t recognize all models.
 
 ///
@@ -137,7 +138,9 @@ Then go to `migrations\env.py` to finish the alembic configuration.
 ```
 
 /// tip
+
     This step can be replaced setting the same `sqlalchemy.url` variable in `alembic.ini` file.
+
 ///
 
 - Finally set `target_metadata` with your `SQLModel.metada`
@@ -179,6 +182,7 @@ Generating migrations\versions\34abfb7ac266_init_db.py ...  done
 Now in `versions` folder we have a new file called `34abfb7ac266_init_db.py`
 
 /// info
+
     This file has a revision id and the message part from our revision command.
 
 ///
@@ -190,6 +194,7 @@ Now in `versions` folder we have a new file called `34abfb7ac266_init_db.py`
 {!./docs_src/advanced/migrations/annotations/en/tutorial005.md!}
 
 /// success
+
     At this moment we have all the files to create our new database model.
 
 ///
@@ -295,6 +300,7 @@ The new file `b39b8d3c77f0_new_field_power.py`:
 {!./docs_src/advanced/migrations/annotations/en/tutorial007.md!}
 
 /// note
+
     Run `alembic upgrade head` to add the new field named power
 
 ///
@@ -312,6 +318,7 @@ INFO  [alembic.runtime.migration] Running upgrade 357d6ebcfadf -> b39b8d3c77f0, 
 </div>
 
 /// note
+
     After you can downgrade the database to the previous version, run `alembic downgrade -1`
 
 ///
@@ -329,6 +336,7 @@ INFO  [alembic.runtime.migration] Running downgrade b39b8d3c77f0 -> 357d6ebcfadf
 </div>
 
 /// success
+
     Migrations complete!!! Try adding new tables and relationship.
 
 ///
