@@ -2,7 +2,7 @@
 
 We will use `Alembic` to handle database schema changes.
 
-`SQLModel` is compatible with `Alembic`.  
+`SQLModel` is compatible with `Alembic`.
 
 ## Initial example
 
@@ -78,7 +78,7 @@ Generating alembic.ini ...  done
 Generating migrations\env.py ...  done
 Generating migrations\README ...  done
 Generating migrations\script.py.mako ...  done
-Please edit configuration/connection/logging settings in 'alembic.ini' before proceeding.    
+Please edit configuration/connection/logging settings in 'alembic.ini' before proceeding.
 
 ```
 
@@ -195,7 +195,7 @@ Initialize the database:
 $ alembic upgrade head
 
 INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
-INFO  [alembic.runtime.migration] Will assume non-transactional DDL.       
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 INFO  [alembic.runtime.migration] Running upgrade  -> 34abfb7ac266, init_db
 ```
 
@@ -225,10 +225,10 @@ INFO sqlalchemy.engine.Engine [generated in 0.00035s] ('Deadpond', 'Dive Wilson'
 INFO sqlalchemy.engine.Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
 INFO sqlalchemy.engine.Engine [cached since 0.002439s ago] ('Spider-Boy', 'Pedro Parqueador', None)
 INFO sqlalchemy.engine.Engine INSERT INTO hero (name, secret_name, age) VALUES (?, ?, ?)
-INFO sqlalchemy.engine.Engine [cached since 0.003134s ago] ('Rusty-Man', 'Tommy Sharp', 48)      
+INFO sqlalchemy.engine.Engine [cached since 0.003134s ago] ('Rusty-Man', 'Tommy Sharp', 48)
 INFO sqlalchemy.engine.Engine COMMIT
 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-INFO sqlalchemy.engine.Engine SELECT hero.id, hero.name, hero.secret_name, hero.age 
+INFO sqlalchemy.engine.Engine SELECT hero.id, hero.name, hero.secret_name, hero.age
 FROM hero
 INFO sqlalchemy.engine.Engine [generated in 0.00038s] ()
 age=None id=1 name='Deadpond' secret_name='Dive Wilson'

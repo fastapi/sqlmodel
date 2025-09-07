@@ -5,6 +5,7 @@ Revises: 357d6ebcfadf
 Create Date:
 
 """
+
 from alembic import op  # isort:skip
 import sqlalchemy as sa  # isort:skip
 import sqlmodel  # noqa: F401, isort:skip

@@ -5,6 +5,7 @@ Revises:
 Create Date:
 
 """
+
 from alembic import op  # isort:skip
 import sqlalchemy as sa  # isort:skip
 import sqlmodel  # (1), # isort:skip
