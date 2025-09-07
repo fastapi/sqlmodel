@@ -179,6 +179,7 @@ markdown_extensions:
     - warning
     # Custom types
     - info
+    - success
   pymdownx.blocks.details:
   pymdownx.blocks.tab:
     alternate_style: True
