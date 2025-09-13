@@ -4,6 +4,7 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import RelationshipProperty
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
+from typing_extensions import Literal
 
 
 def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sqlmodel):
@@ -125,3 +126,25 @@ def test_sa_relationship_property(clear_sqlmodel):
         # The next statement should not raise an AttributeError
         assert hero_rusty_man.team
         assert hero_rusty_man.team.name == "Preventers"
+
+
+def test_literal_typehints_are_treated_as_strings(clear_sqlmodel):
+    """Test https://github.com/fastapi/sqlmodel/issues/57"""
+
+    class Hero(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        name: str = Field(unique=True)
+        weakness: Literal["Kryptonite", "Dehydration", "Munchies"]
+
+    superguy = Hero(name="Superguy", weakness="Kryptonite")
+
+    engine = create_engine("sqlite://", echo=True)
+
+    SQLModel.metadata.create_all(engine)
+
+    with Session(engine) as session:
+        session.add(superguy)
+        session.commit()
+        session.refresh(superguy)
+        assert superguy.weakness == "Kryptonite"
+        assert isinstance(superguy.weakness, str)
