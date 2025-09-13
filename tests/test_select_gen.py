@@ -13,8 +13,8 @@ def test_select_gen() -> None:
     env = os.environ.copy()
     env["CHECK_JINJA"] = "1"
     result = subprocess.run(
-        [sys.executable, "scripts/generate_select.py"],
-        env=env,
+        [sys.executable, Path("scripts") / "generate_select.py"],
+        env={**os.environ},
         check=True,
         cwd=root_path,
         capture_output=True,
