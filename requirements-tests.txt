@@ -2,7 +2,7 @@
 -r requirements-docs-tests.txt
 pytest >=7.0.1,<9.0.0
 coverage[toml] >=6.2,<8.0
-mypy ==1.18.1
+mypy ==1.14.1
 ruff ==0.13.0
 # For FastAPI tests
 fastapi >=0.103.2
