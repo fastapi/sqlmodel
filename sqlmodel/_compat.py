@@ -123,7 +123,7 @@ if IS_PYDANTIC_V2:
         object.__setattr__(new_object, "__pydantic_private__", None)
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
-        return class_dict.get("__annotations__", {})
+        return class_dict.get("__annotations__", {})  # type: ignore
 
     def is_table_model_class(cls: Type[Any]) -> bool:
         config = getattr(cls, "model_config", {})
