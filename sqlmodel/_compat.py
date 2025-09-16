@@ -180,7 +180,7 @@ if IS_PYDANTIC_V2:
         if not field.is_required():
             if field.default is Undefined:
                 return False
-            if field.annotation is None or field.annotation is NoneType:  # type: ignore[comparison-overlap]
+            if field.annotation is None or field.annotation is NoneType:
                 return True
             return False
         return False
