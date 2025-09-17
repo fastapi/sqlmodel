@@ -1,6 +1,6 @@
 # Self-referential relationships
 
-Oftentimes we need to model a relationship between one entity of some class and another entity (or multiple entities) of that **same** class. This is called a **self-referential** or **recursive** relationship. (The pattern is also sometimes referred to as an **adjacency list**.)
+Oftentimes we need to model a relationship between one entity of some class and another entity (or multiple entities) of that **same** class. This is known as a **self-referential** or **recursive** relationship, sometimes also called an **adjacency list**.
 
 In database terms this means having a table with a foreign key reference to the primary key in the same table.
 
@@ -22,9 +22,13 @@ Using the `sa_relationship_kwargs` parameter, we pass the keyword-argument `remo
 
 /// info
 
-The SQLAlchemy documentation mentions this in passing, but crucially the `remote_side` value _"may be passed as a Python-evaluable string when using Declarative."_
+The `remote_side` parameter accepts a Python-evaluable string when using Declarative. This allows us to reference `Villain.id` even though the class is still being defined.
 
-This allows us to pass the `id` field of the class we are just now defining as the remote side of that relationship.
+Alternatively, you can use a callable:
+
+```py
+sa_relationship_kwargs={"remote_side": lambda : Villain.id}
+```
 
 ///
 
@@ -34,9 +38,9 @@ Notice that we explicitly defined the relationship attributes we wanted for refe
 
 For our purposes, it is necessary that we also provide the `back_populates` parameter to both relationships as explained in detail in a [dedicated chapter](../tutorial/relationship-attributes/back-populates.md){.internal-link target=_blank}.
 
-In addition, the type annotations were made by enclosing our `Villain` class name in quotes, since we are referencing a class that is not yet fully defined by the time the interpreter reaches those lines. (See the chapter on [type annotation strings](../tutorial/relationship-attributes/type-annotation-strings.md){.internal-link target=_blank} for a detailed explanation.)
+In addition, the type annotations were made by enclosing our `Villain` class name in quotes, since we are referencing a class that is not yet fully defined by the time the interpreter reaches those lines. See the chapter on [type annotation strings](../tutorial/relationship-attributes/type-annotation-strings.md){.internal-link target=_blank} for a detailed explanation.
 
-Finally, as with regular (i.e. non-self-referential) foreign key relationships, it is up to us to decide, whether it makes sense to allow the field to be **empty** or not. In our example, not every villain must have a boss. (In fact, we would otherwise introduce a circular reference chain, which would not make sense in this context.) Therefore we declare `boss_id: Optional[int]` and `boss: Optional['Villain']`. This is analogous to the `Hero`→`Team` relationship we saw [in an earlier chapter](../tutorial/relationship-attributes/define-relationships-attributes.md#optional-relationship-attributes){.internal-link target=_blank}.
+Finally, as with regular (i.e. non-self-referential) foreign key relationships, it is up to us to decide, whether it makes sense to allow the field to be **empty** or not. In our example, not every villain must have a boss (in fact, we would otherwise introduce a circular reference chain, which would not make sense in this context). Therefore we declare `boss_id: Optional[int]` and `boss: Optional['Villain']`. This is analogous to the `Hero`→`Team` relationship we saw [in an earlier chapter](../tutorial/relationship-attributes/define-relationships-attributes.md#optional-relationship-attributes){.internal-link target=_blank}.
 
 ## Creating instances
 
