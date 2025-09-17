@@ -10,9 +10,11 @@ root_path = Path(__file__).parent.parent
 
 @needs_py39
 def test_select_gen() -> None:
+    env = os.environ.copy()
+    env["CHECK_JINJA"] = "1"
     result = subprocess.run(
         [sys.executable, Path("scripts") / "generate_select.py"],
-        env={**os.environ, "CHECK_JINJA": "1"},
+        env=env,
         check=True,
         cwd=root_path,
         capture_output=True,
