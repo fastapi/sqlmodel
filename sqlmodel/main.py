@@ -50,8 +50,9 @@ from sqlalchemy.orm import (
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
-from sqlalchemy.sql.schema import MetaData
+from sqlalchemy.sql.schema import MetaData, SchemaEventTarget
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
+from sqlalchemy.types import TypeEngine
 from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
@@ -95,6 +96,11 @@ IncEx: TypeAlias = Union[
     Set[str],
     Mapping[int, Union["IncEx", bool]],
     Mapping[str, Union["IncEx", bool]],
+]
+SaTypeOrInstance: TypeAlias = Union[
+    TypeEngine[Any],
+    Type[TypeEngine[Any]],
+    SchemaEventTarget,
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
@@ -245,7 +251,7 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_type: Union[SaTypeOrInstance, UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
@@ -291,7 +297,7 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_type: Union[SaTypeOrInstance, UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
@@ -380,7 +386,7 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_type: Union[SaTypeOrInstance, UndefinedType] = Undefined,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
