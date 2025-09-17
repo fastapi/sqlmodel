@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 💚 Fix CI test suite for Windows and MacOS. PR [#1307](https://github.com/fastapi/sqlmodel/pull/1307) by [@svlandeg](https://github.com/svlandeg).
+
 ## 0.0.25
 
 ### Features
