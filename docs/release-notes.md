@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.25
+
 ### Features
 
 * ✨ Add overload for `exec` method to support `insert`, `update`, `delete` statements. PR [#1342](https://github.com/fastapi/sqlmodel/pull/1342) by [@seriaati](https://github.com/seriaati).
