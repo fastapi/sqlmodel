@@ -185,7 +185,7 @@ For example, **SQLite** doesn't support them by default. They have to be manuall
 PRAGMA foreign_keys = ON;
 ```
 
-So, in general is a good idea to have both `cascade_delete` and `ondelete` configured.
+So, in general it's a good idea to have both `cascade_delete` and `ondelete` configured.
 
 /// tip
 
@@ -203,7 +203,7 @@ Just a note to remember... 🤓
 class Hero(SQLModel, table=True):
     ...
 
-    team_id: int Field(foreign_key="team.id", ondelete="CASCADE")
+    team_id: int = Field(foreign_key="team.id", ondelete="CASCADE")
 ```
 
 * `cascade_delete` is put on the `Relationship()`. Normally on the **"one"** side in "one-to-many" relationships, the side **without a foreign key**.
@@ -348,7 +348,7 @@ The result would be these tables.
 
 | id   | name            | secret_name      | age  | team_id |
 | ---- | --------------- | ---------------- | ---- | ------- |
-| 1    | Deadpond        | Dive WIlson      |      | 1       |
+| 1    | Deadpond        | Dive Wilson      |      | 1       |
 | 2    | Rusty-Man       | Tommy Sharp      | 48   | 2       |
 | 3    | Spider-Boy      | Pedro Parqueador |      | 2       |
 | 4    | Black Lion      | Trevor Challa    | 35   | NULL    |

@@ -10,7 +10,7 @@ So, what is that `back_populates` argument in each `Relationship()`?
 
 The value is a string with the name of the attribute in the **other** model class.
 
-<img src="/img/tutorial/relationships/attributes/back-populates.svg">
+<img src="/img/tutorial/relationships/attributes/back-populates.drawio.svg">
 
 That tells **SQLModel** that if something changes in this model, it should change that attribute in the other model, and it will work even before committing with the session (that would force a refresh of the data).
 
@@ -175,7 +175,7 @@ It's quite simple code, it's just a string, but it might be confusing to think e
 
 The string in `back_populates` is the name of the attribute *in the other* model, that will reference *the current* model.
 
-<img src="/img/tutorial/relationships/attributes/back-populates.svg">
+<img src="/img/tutorial/relationships/attributes/back-populates.drawio.svg">
 
 So, in the class `Team`, we have an attribute `heroes` and we declare it with `Relationship(back_populates="team")`.
 
@@ -210,6 +210,6 @@ So, if you are in the class `Hero`, the value of `back_populates` for any relati
 
 So, `back_populates` would most probably be something like `"hero"` or `"heroes"`.
 
-<img src="/img/tutorial/relationships/attributes/back-populates2.svg">
+<img src="/img/tutorial/relationships/attributes/back-populates2.drawio.svg">
 
 {* ./docs_src/tutorial/relationship_attributes/back_populates/tutorial003_py310.py ln[27:39] hl[27,34,37,39] *}

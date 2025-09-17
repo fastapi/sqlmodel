@@ -50,7 +50,7 @@ Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model
 
 In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[102:107,156:161] hl[102,107,156,161] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[102:107,155:160] hl[102,107,155,160] *}
 
 ## Don't Include All the Data
 
@@ -166,7 +166,7 @@ This will tell **FastAPI** to take the object that we return from the *path oper
 
 In the case of the hero, this tells FastAPI to extract the `team` too. And in the case of the team, to extract the list of `heroes` too.
 
-{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[111:116,165:170] hl[111,116,165,170] *}
+{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[111:116,164:169] hl[111,116,164,169] *}
 
 ## Check It Out in the Docs UI
 

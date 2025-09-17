@@ -34,35 +34,35 @@ Imagine a **dictionary**, a book with definitions of words. 📔 ...not a Python
 
 Let's say that you want to **find a word**, for example the word "**database**". You take the dictionary, and open it somewhere, for example in the middle. Maybe you see some definitions of words that start with `m`, like `manual`, so you conclude that you are in the letter `m` in the dictionary.
 
-<img src="/img/tutorial/indexes/dictionary001.svg">
+<img src="/img/tutorial/indexes/dictionary001.drawio.svg">
 
 You know that in the alphabet, the letter `d` for `database` comes **before** the letter `m` for `manual`.
 
-<img src="/img/tutorial/indexes/dictionary002.svg">
+<img src="/img/tutorial/indexes/dictionary002.drawio.svg">
 
 So, you know you have to search in the dictionary **before** the point you currently are. You still don't know where the word `database` is, because you don't know exactly where the letter `d` is in the dictionary, but you know that **it is not after** that point, you can now **discard the right half** of the dictionary in your search.
 
-<img src="/img/tutorial/indexes/dictionary003.svg">
+<img src="/img/tutorial/indexes/dictionary003.drawio.svg">
 
 Next, you **open the dictionary again**, but only taking into account the **half of the dictionary** that can contain the word you want, the **left part of the dictionary**. You open it in the middle of that left part and now you arrive maybe at the letter `f`.
 
-<img src="/img/tutorial/indexes/dictionary004.svg">
+<img src="/img/tutorial/indexes/dictionary004.drawio.svg">
 
 You know that `d` from `database` comes before `f`. So it has to be **before** that. But now you know that `database` **is not after** that point, and you can discard the dictionary from that point onward.
 
-<img src="/img/tutorial/indexes/dictionary005.svg">
+<img src="/img/tutorial/indexes/dictionary005.drawio.svg">
 
 Now you have a **small section of dictionary** to search (only a **quarter** of dictionary can have your word). You take that **quarter** of the pages at the start of the dictionary that can contain your word, and open it in the middle of that section. Maybe you arrive at the letter `c`.
 
-<img src="/img/tutorial/indexes/dictionary006.svg">
+<img src="/img/tutorial/indexes/dictionary005.drawio.svg">
 
 You know the word `database` has to be **after** that and **not before** that point, so you can discard the left part of that block of pages.
 
-<img src="/img/tutorial/indexes/dictionary007.svg">
+<img src="/img/tutorial/indexes/dictionary007.drawio.svg">
 
 You repeat this process **a few more times**, and you finally arrive at the letter `d`, you continue with the same process in that section for the letter `d` and you finally **find the word** `database`. 🎉
 
-<img src="/img/tutorial/indexes/dictionary008.svg">
+<img src="/img/tutorial/indexes/dictionary008.drawio.svg">
 
 You had to open the dictionary a few times, maybe **5 or 10**. That's actually **very little work** compared to what it could have been.
 
@@ -96,7 +96,7 @@ Open the index, and after **5 or 10 steps**, quickly find the topic "**database*
 
 Now you know that you need to find "**page 253**". But by looking at the closed book you still don't know where that page is, so you have to **find that page**. To find it, you can do the same process again, but this time, instead of searching for a **topic** in the **index**, you are searching for a **page number** in the **entire book**. And after **5 or 10 more steps**, you find the page 253 in Chapter 5.
 
-<img src="/img/tutorial/indexes/techbook001.svg">
+<img src="/img/tutorial/indexes/techbook001.drawio.svg">
 
 After this, even though this book is not a dictionary and has some particular content, you were able to **find the section** in the book that talks about a "**database**" in a **few steps** (say 10 or 20, instead of reading all the 500 pages).
 

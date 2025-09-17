@@ -279,7 +279,7 @@ For example this **Relation** or table:
 
 * **Mapper**: this comes from Math, when there's something that can convert from some set of things to another, that's called a "**mapping function**". That's where the **Mapper** comes from.
 
-![Squares to Triangles Mapper](img/db-to-code/mapper.svg)
+![Squares to Triangles Mapper](img/db-to-code/mapper.drawio.svg)
 
 We could also write a **mapping function** in Python that converts from the *set of lowercase letters* to the *set of uppercase letters*, like this:
 
