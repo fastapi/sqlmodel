@@ -14,21 +14,7 @@ If you need to refresh how *path parameters* work, including their data validati
 
 ///
 
-```Python hl_lines="8"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59] *}
 
 For example, to get the hero with ID `2` we would send a `GET` request to:
 
@@ -48,43 +34,15 @@ And to use it, we first import `HTTPException` from `fastapi`.
 
 This will let the client know that they probably made a mistake on their side and requested a hero that doesn't exist in the database.
 
-```Python hl_lines="3  11-13"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[1,62:64] *}
 
 ## Return the Hero
 
 Then, if the hero exists, we return it.
 
-And because we are using the `response_model` with `HeroRead`, it will be validated, documented, etc.
+And because we are using the `response_model` with `HeroPublic`, it will be validated, documented, etc.
 
-```Python hl_lines="8  14"
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:1-4]!}
-
-# Code here omitted 👈
-
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py[ln:61-67]!}
-```
-
-/// details | 👀 Full file preview
-
-```Python
-{!./docs_src/tutorial/fastapi/read_one/tutorial001.py!}
-```
-
-///
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59,65] *}
 
 ## Check the Docs UI
 
