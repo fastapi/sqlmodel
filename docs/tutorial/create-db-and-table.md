@@ -321,7 +321,7 @@ But you will learn about migrations later in the Advanced User Guide.
 
 Let's run the program to see it all working.
 
-Put the code it in a file `app.py` if you haven't already.
+Put the code in a file `app.py` if you haven't already.
 
 {* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py *}
 
