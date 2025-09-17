@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add overload for `exec` method to support `insert`, `update`, `delete` statements. PR [#1342](https://github.com/fastapi/sqlmodel/pull/1342) by [@seriaati](https://github.com/seriaati).
+
 ### Upgrades
 
 * ⬆️ Drop support for Python 3.7, require Python 3.8 or above. PR [#1316](https://github.com/fastapi/sqlmodel/pull/1316) by [@svlandeg](https://github.com/svlandeg).
