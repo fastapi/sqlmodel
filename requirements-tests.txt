@@ -7,6 +7,6 @@ ruff ==0.13.0
 # For FastAPI tests
 fastapi >=0.103.2
 httpx ==0.28.1
-dirty-equals ==0.9.0
+dirty-equals ==0.10.0
 jinja2 ==3.1.6
 typing-extensions ==4.13.2
