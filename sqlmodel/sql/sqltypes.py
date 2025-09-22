@@ -1,6 +1,7 @@
+import enum
 from datetime import datetime, timedelta, timezone
 from enum import IntEnum as _IntEnum
-from typing import Any, Optional, Type, TypeVar, cast
+from typing import Any, Optional, TypeVar, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
@@ -63,39 +64,29 @@ class AutoString(types.TypeDecorator):  # type: ignore
 
 
 _TIntEnum = TypeVar("_TIntEnum", bound="_IntEnum")
-
-
-class IntEnum(types.TypeDecorator):  # type: ignore
+class IntEnum(types.TypeDecorator[Optional[_TIntEnum]]):
     impl = types.Integer
     cache_ok = True
 
-    def __init__(self, enum_type: Type[_TIntEnum], *args: Any, **kwargs: Any):
+    def __init__(self, enum_type: type[_TIntEnum], *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
 
         # validate the input enum type
-        if not issubclass(enum_type, _IntEnum):
+        if not issubclass(enum_type, enum.IntEnum):
             raise TypeError("Input must be enum.IntEnum")
 
         self.enum_type = enum_type
 
-    def process_result_value(  # type: ignore[override]
+    def process_result_value(
         self,
         value: Optional[int],
         dialect: Dialect,
     ) -> Optional[_TIntEnum]:
-        if value is None:
-            return None
-
-        result = self.enum_type(value)
-        return result
+        return None if (value is None) else self.enum_type(value)
 
     def process_bind_param(
         self,
         value: Optional[_TIntEnum],
         dialect: Dialect,
     ) -> Optional[int]:
-        if value is None:
-            return None
-
-        result = value.value
-        return result
+        return None if (value is None) else value.value
