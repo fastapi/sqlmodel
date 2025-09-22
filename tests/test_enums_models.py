@@ -22,7 +22,7 @@ class MyEnum3(enum.IntEnum):
 class BaseModel(SQLModel):
     id: uuid.UUID = Field(primary_key=True)
     enum_field: MyEnum2
-    int_enum_field: MyEnum3
+    int_enum_field: MyEnum3 = Field(sa_type=IntEnum(MyEnum3))
 
 
 class FlatModel(SQLModel, table=True):
