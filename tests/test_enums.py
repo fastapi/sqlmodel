@@ -43,6 +43,7 @@ def test_postgres_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
     captured = capsys.readouterr()
     assert "CREATE TYPE myenum1 AS ENUM ('A', 'B');" in captured.out
     assert "CREATE TYPE myenum2 AS ENUM ('C', 'D');" in captured.out
+    assert "int_enum_field SMALLINT NOT NULL" in captured.out
 
 
 def test_sqlite_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
@@ -52,6 +53,7 @@ def test_sqlite_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
 
     captured = capsys.readouterr()
     assert "enum_field VARCHAR(1) NOT NULL" in captured.out, captured
+    assert "int_enum_field SMALLINT NOT NULL" in captured.out, captured
     assert "CREATE TYPE" not in captured.out
 
 
