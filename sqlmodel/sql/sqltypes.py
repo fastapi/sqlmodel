@@ -20,7 +20,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
 
 
 class IntEnum(types.TypeDecorator[Optional[_TIntEnum]]):
-    impl = types.Integer
+    impl = types.SmallInteger
     cache_ok = True
 
     def __init__(self, enum_type: Type[_TIntEnum], *args: Any, **kwargs: Any):
