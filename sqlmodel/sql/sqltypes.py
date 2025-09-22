@@ -65,7 +65,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
 
 _TIntEnum = TypeVar("_TIntEnum", bound="_IntEnum")
 class IntEnum(types.TypeDecorator[Optional[_TIntEnum]]):
-    impl = types.Integer
+    impl = types.SmallInteger
     cache_ok = True
 
     def __init__(self, enum_type: type[_TIntEnum], *args: Any, **kwargs: Any):
