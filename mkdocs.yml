@@ -87,6 +87,7 @@ nav:
       - tutorial/limit-and-offset.md
       - tutorial/update.md
       - tutorial/delete.md
+      - tutorial/encrypted-type.md
       - Connect Tables - JOIN:
         - tutorial/connect/index.md
         - tutorial/connect/create-connected-tables.md
@@ -128,6 +129,7 @@ nav:
       - advanced/index.md
       - advanced/decimal.md
       - advanced/uuid.md
+      - advanced/encrypted-type.md
   - Resources:
     - resources/index.md
     - help.md
