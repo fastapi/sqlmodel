@@ -215,6 +215,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -260,6 +262,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -314,6 +318,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -349,6 +355,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -387,43 +395,60 @@ def Field(
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
-    field_info = FieldInfo(
-        default,
-        default_factory=default_factory,
-        alias=alias,
-        title=title,
-        description=description,
-        exclude=exclude,
-        include=include,
-        const=const,
-        gt=gt,
-        ge=ge,
-        lt=lt,
-        le=le,
-        multiple_of=multiple_of,
-        max_digits=max_digits,
-        decimal_places=decimal_places,
-        min_items=min_items,
-        max_items=max_items,
-        unique_items=unique_items,
-        min_length=min_length,
-        max_length=max_length,
-        allow_mutation=allow_mutation,
-        regex=regex,
-        discriminator=discriminator,
-        repr=repr,
-        primary_key=primary_key,
-        foreign_key=foreign_key,
-        ondelete=ondelete,
-        unique=unique,
-        nullable=nullable,
-        index=index,
-        sa_type=sa_type,
-        sa_column=sa_column,
-        sa_column_args=sa_column_args,
-        sa_column_kwargs=sa_column_kwargs,
+    field_info_kwargs = {
+        "alias": alias,
+        "validation_alias": validation_alias,
+        "serialization_alias": serialization_alias,
+        "title": title,
+        "description": description,
+        "exclude": exclude,
+        "include": include,
+        "const": const,
+        "gt": gt,
+        "ge": ge,
+        "lt": lt,
+        "le": le,
+        "multiple_of": multiple_of,
+        "max_digits": max_digits,
+        "decimal_places": decimal_places,
+        "min_items": min_items,
+        "max_items": max_items,
+        "unique_items": unique_items,
+        "min_length": min_length,
+        "max_length": max_length,
+        "allow_mutation": allow_mutation,
+        "regex": regex,
+        "discriminator": discriminator,
+        "repr": repr,
+        "primary_key": primary_key,
+        "foreign_key": foreign_key,
+        "ondelete": ondelete,
+        "unique": unique,
+        "nullable": nullable,
+        "index": index,
+        "sa_type": sa_type,
+        "sa_column": sa_column,
+        "sa_column_args": sa_column_args,
+        "sa_column_kwargs": sa_column_kwargs,
         **current_schema_extra,
-    )
+    }
+    if IS_PYDANTIC_V2:
+        field_info = FieldInfo(
+            default,
+            default_factory=default_factory,
+            **field_info_kwargs,
+        )
+    else:
+        if validation_alias:
+            raise RuntimeError("validation_alias is not supported in Pydantic v1")
+        if serialization_alias:
+            raise RuntimeError("serialization_alias is not supported in Pydantic v1")
+        field_info = FieldInfo(
+            default,
+            default_factory=default_factory,
+            **field_info_kwargs,
+        )
+
     post_init_field_info(field_info)
     return field_info
 
