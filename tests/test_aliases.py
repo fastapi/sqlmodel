@@ -97,7 +97,7 @@ def test_dict_default_uses_field_names(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    data = user.dict()
+    data = user.model_dump()
     assert "full_name" in data
     assert "fullName" not in data
     assert data["full_name"] == "Dana"
@@ -111,7 +111,7 @@ def test_dict_default_uses_aliases(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    data = user.dict(by_alias=True)
+    data = user.model_dump(by_alias=True)
     assert "fullName" in data
     assert "full_name" not in data
     assert data["fullName"] == "Dana"
@@ -125,17 +125,27 @@ def test_json_by_alias(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Frank")
-    json_data = user.json(by_alias=True)
+    json_data = user.model_dump_json(by_alias=True)
     assert ('"fullName":"Frank"' in json_data) or ('"fullName": "Frank"' in json_data)
     assert "full_name" not in json_data
 
 
-class PydanticUserV2(BaseModel):
-    first_name: str = PField(validation_alias="firstName", serialization_alias="f_name")
+# Pydantic v2 specific models - only define if we're running Pydantic v2
+if VERSION.startswith("2."):
 
+    class PydanticUserV2(BaseModel):
+        first_name: str = PField(
+            validation_alias="firstName", serialization_alias="f_name"
+        )
 
-class SQLModelUserV2(SQLModel):
-    first_name: str = Field(validation_alias="firstName", serialization_alias="f_name")
+    class SQLModelUserV2(SQLModel):
+        first_name: str = Field(
+            validation_alias="firstName", serialization_alias="f_name"
+        )
+else:
+    # Dummy classes for Pydantic v1 to prevent import errors
+    PydanticUserV2 = None
+    SQLModelUserV2 = None
 
 
 @pytest.mark.skipif(
@@ -159,7 +169,7 @@ def test_serialize_with_serialization_alias(
     model: Union[Type[PydanticUserV2], Type[SQLModelUserV2]],
 ):
     user = model(firstName="Jane")
-    data = user.dict(by_alias=True)
+    data = user.model_dump(by_alias=True)
     assert "f_name" in data
     assert "firstName" not in data
     assert "first_name" not in data
