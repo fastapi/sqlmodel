@@ -1,17 +1,17 @@
 # Import necessary modules
-import os
 from typing import Optional
 
 import sqlalchemy
 from sqlalchemy import Column, text
 from sqlalchemy_utils import EncryptedType
 from sqlalchemy_utils.types.encrypted.encrypted_type import AesEngine
-from sqlmodel import create_engine, Field, Session, SQLModel, select
+from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 # Define a secret key for encryption.
 # In a real application, this key should be stored securely and not hardcoded.
 # For example, you could load it from an environment variable or a secret management service.
 ENCRYPTION_KEY = "a-super-secret-key"
+
 
 # Define the Character model
 # This model represents a table named 'character' in the database.
@@ -32,17 +32,20 @@ class Character(SQLModel, table=True):
     )
     age: Optional[int] = None
 
+
 # Define the database URL and create the engine
 # We are using a SQLite database for this example.
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 engine = create_engine(sqlite_url)
 
+
 # This function creates the database and the Character table.
 # It first drops the existing table to ensure a clean state for the example.
 def create_db_and_tables():
     SQLModel.metadata.drop_all(engine)
     SQLModel.metadata.create_all(engine)
+
 
 # This function creates some sample characters and adds them to the database.
 def create_characters():
@@ -60,6 +63,7 @@ def create_characters():
 
         # Commit the changes to the database
         session.commit()
+
 
 # This function demonstrates how the encryption works.
 def demonstrate_encryption():
@@ -80,7 +84,10 @@ def demonstrate_encryption():
         print("\nData as accessed through SQLModel:")
         for character in characters:
             # The secret_name will be the original, decrypted string.
-            print(f"Name: {character.name}, Decrypted Secret Name: {character.secret_name}")
+            print(
+                f"Name: {character.name}, Decrypted Secret Name: {character.secret_name}"
+            )
+
 
 # The main function that runs the example.
 def main():
@@ -90,6 +97,7 @@ def main():
     create_characters()
     print("\nDemonstrating encryption...")
     demonstrate_encryption()
+
 
 # Run the main function when the script is executed.
 if __name__ == "__main__":
