@@ -397,8 +397,6 @@ def Field(
     current_schema_extra = schema_extra or {}
     field_info_kwargs = {
         "alias": alias,
-        "validation_alias": validation_alias,
-        "serialization_alias": serialization_alias,
         "title": title,
         "description": description,
         "exclude": exclude,
@@ -433,6 +431,13 @@ def Field(
         **current_schema_extra,
     }
     if IS_PYDANTIC_V2:
+        # Add Pydantic v2 specific parameters
+        field_info_kwargs.update(
+            {
+                "validation_alias": validation_alias,
+                "serialization_alias": serialization_alias,
+            }
+        )
         field_info = FieldInfo(
             default,
             default_factory=default_factory,
