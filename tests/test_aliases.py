@@ -5,7 +5,6 @@ from pydantic import VERSION, BaseModel, ValidationError
 from pydantic import Field as PField
 from sqlmodel import Field, SQLModel
 
-
 # -----------------------------------------------------------------------------------
 # Models
 
@@ -132,28 +131,32 @@ def test_json_by_alias(
 
 
 class PydanticUserV2(BaseModel):
-    first_name: str = PField(
-        validation_alias="firstName", serialization_alias="f_name"
-    )
+    first_name: str = PField(validation_alias="firstName", serialization_alias="f_name")
 
 
 class SQLModelUserV2(SQLModel):
-    first_name: str = Field(
-        validation_alias="firstName", serialization_alias="f_name"
-    )
+    first_name: str = Field(validation_alias="firstName", serialization_alias="f_name")
 
 
-@pytest.mark.skipif(not VERSION.startswith("2."), reason="validation_alias and serialization_alias are not supported in Pydantic v1")
+@pytest.mark.skipif(
+    not VERSION.startswith("2."),
+    reason="validation_alias and serialization_alias are not supported in Pydantic v1",
+)
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
-def test_create_with_validation_alias(model: Union[Type[PydanticUserV2], Type[SQLModelUserV2]]):
+def test_create_with_validation_alias(
+    model: Union[Type[PydanticUserV2], Type[SQLModelUserV2]],
+):
     user = model(firstName="John")
     assert user.first_name == "John"
 
 
-@pytest.mark.skipif(not VERSION.startswith("2."), reason="validation_alias and serialization_alias are not supported in Pydantic v1")
+@pytest.mark.skipif(
+    not VERSION.startswith("2."),
+    reason="validation_alias and serialization_alias are not supported in Pydantic v1",
+)
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_serialize_with_serialization_alias(
-    model: Union[Type[PydanticUserV2], Type[SQLModelUserV2]]
+    model: Union[Type[PydanticUserV2], Type[SQLModelUserV2]],
 ):
     user = model(firstName="Jane")
     data = user.dict(by_alias=True)

@@ -228,6 +228,7 @@ if IS_PYDANTIC_V2:
                 field_info.serialization_alias = field_info.alias
         else:
             field_info._validate()  # type: ignore[attr-defined]
+
     # Dummy to make it importable
     def _calculate_keys(
         self: "SQLModel",
