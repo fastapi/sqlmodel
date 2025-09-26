@@ -509,7 +509,7 @@ else:
             keys -= update.keys()
 
         if exclude:
-            keys -= {k for k, v in exclude.items() if ValueItems.is_true(v)}
+            keys -= {str(k) for k, v in exclude.items() if ValueItems.is_true(v)}
 
         return keys
 
