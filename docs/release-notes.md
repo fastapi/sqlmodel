@@ -2,6 +2,20 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump typing-extensions from 4.13.2 to 4.15.0 for Python 3.9+. PR [#1580](https://github.com/fastapi/sqlmodel/pull/1580) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1571](https://github.com/fastapi/sqlmodel/pull/1571) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump typer from 0.17.4 to 0.19.2. PR [#1573](https://github.com/fastapi/sqlmodel/pull/1573) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.13.0 to 0.13.2. PR [#1576](https://github.com/fastapi/sqlmodel/pull/1576) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 💚 Fix CI test suite for Windows and MacOS. PR [#1307](https://github.com/fastapi/sqlmodel/pull/1307) by [@svlandeg](https://github.com/svlandeg).
+
+## 0.0.25
+
+### Features
+
+* ✨ Add overload for `exec` method to support `insert`, `update`, `delete` statements. PR [#1342](https://github.com/fastapi/sqlmodel/pull/1342) by [@seriaati](https://github.com/seriaati).
+
 ### Upgrades
 
 * ⬆️ Drop support for Python 3.7, require Python 3.8 or above. PR [#1316](https://github.com/fastapi/sqlmodel/pull/1316) by [@svlandeg](https://github.com/svlandeg).
