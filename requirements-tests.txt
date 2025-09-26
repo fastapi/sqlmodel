@@ -2,7 +2,9 @@
 -r requirements-docs-tests.txt
 pytest >=7.0.1,<9.0.0
 coverage[toml] >=6.2,<8.0
-mypy ==1.4.1
+# Remove when support for Python 3.8 is dropped
+mypy ==1.14.1; python_version < "3.9"
+mypy ==1.18.2; python_version >= "3.9"
 ruff ==0.13.2
 # For FastAPI tests
 fastapi >=0.103.2
