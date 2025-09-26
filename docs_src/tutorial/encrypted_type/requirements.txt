@@ -1,0 +1,3 @@
+sqlmodel
+sqlalchemy-utils
+cryptography
