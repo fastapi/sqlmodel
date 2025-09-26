@@ -74,6 +74,9 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled == 'true' }}
         with:
           limit-access-to-actor: true
+      - name: Preinstall Pydantic 2.12.0a1 for Python 3.14
+          if: matrix.python-version == '3.14'
+          run: uv pip install --pre "pydantic==2.12.0a1"
       - name: Install Dependencies
         run: uv pip install -r requirements-tests.txt
       - name: Install Pydantic v1
