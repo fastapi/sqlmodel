@@ -2,7 +2,7 @@
 
 We'll now support **many-to-many** relationships using a **link table** like this:
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.drawio.svg">
 
 Let's start by defining the class models, including the **link table** model.
 
@@ -28,7 +28,7 @@ Let's see the `Team` model, it's almost identical as before, but with a little c
 
 {* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[9:14] hl[14] *}
 
-The **relationship attribute `heroes`** is still a list of heroes, annotated as `List["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
+The **relationship attribute `heroes`** is still a list of heroes, annotated as `list["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
 
 We use the same **`Relationship()`** function.
 
@@ -46,7 +46,7 @@ We **removed** the previous `team_id` field (column) because now the relationshi
 
 The relationship attribute is now named **`teams`** instead of `team`, as now we support multiple teams.
 
-It is no longer an `Optional[Team]` but a list of teams, annotated as **`List[Team]`**.
+It no longer has a type of `Team | None` but a list of teams, the type is now declared as **`list[Team]`**.
 
 We are using the **`Relationship()`** here too.
 
