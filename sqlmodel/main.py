@@ -602,7 +602,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
                 raw_ann = cls.__annotations__[rel_name]
-                origin = get_origin(raw_ann)
+                origin: Any = get_origin(raw_ann)
                 if origin is Mapped:
                     ann = raw_ann.__args__[0]
                 else:
