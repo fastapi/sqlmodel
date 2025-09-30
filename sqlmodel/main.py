@@ -438,21 +438,16 @@ def Field(
                 "serialization_alias": serialization_alias,
             }
         )
-        field_info = FieldInfo(
-            default,
-            default_factory=default_factory,
-            **field_info_kwargs,
-        )
     else:
         if validation_alias:
             raise RuntimeError("validation_alias is not supported in Pydantic v1")
         if serialization_alias:
             raise RuntimeError("serialization_alias is not supported in Pydantic v1")
-        field_info = FieldInfo(
-            default,
-            default_factory=default_factory,
-            **field_info_kwargs,
-        )
+    field_info = FieldInfo(
+        default,
+        default_factory=default_factory,
+        **field_info_kwargs,
+    )
 
     post_init_field_info(field_info)
     return field_info
