@@ -208,6 +208,13 @@ if IS_PYDANTIC_V2:
             # Optional unions are allowed
             use_type = bases[0] if bases[0] is not NoneType else bases[1]
             return get_sa_type_from_type_annotation(use_type)
+        if origin is Literal:
+            literal_args = get_args(annotation)
+            if all(isinstance(arg, bool) for arg in literal_args):  # all bools
+                return bool
+            if all(isinstance(arg, int) for arg in literal_args):  # all ints
+                return int
+            return str
         return origin
 
     def get_sa_type_from_field(field: Any) -> Any:
@@ -460,7 +467,13 @@ else:
 
     def get_sa_type_from_field(field: Any) -> Any:
         if get_origin(field.type_) is Literal:
-            return Literal
+            literal_args = get_args(field.type_)
+            if all(isinstance(arg, bool) for arg in literal_args):  # all bools
+                return bool
+            if all(isinstance(arg, int) for arg in literal_args):  # all ints
+                return int
+            return str
+
         if isinstance(field.type_, type) and field.shape == SHAPE_SINGLETON:
             return field.type_
         raise ValueError(f"The field {field.name} has no matching SQLAlchemy type")

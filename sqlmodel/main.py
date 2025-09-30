@@ -655,9 +655,6 @@ def get_sqlalchemy_type(field: Any) -> Any:
     type_ = get_sa_type_from_field(field)
     metadata = get_field_metadata(field)
 
-    # Checks for `Literal` type annotation
-    if type_ is Literal:
-        return AutoString
     # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
     if issubclass(type_, Enum):
         return sa_Enum(type_)
