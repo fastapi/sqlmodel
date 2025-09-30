@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_SHA: ${{ github.event.workflow_run.head_sha }}
           RUN_ID: ${{ github.run_id }}
-
+          STATE: "pending"
       - name: Clean site
         run: |
           rm -rf ./site
@@ -62,12 +62,20 @@ jobs:
         id: deploy
         env:
           PROJECT_NAME: sqlmodel
-          BRANCH: ${{ ( github.event.workflow_run.head_repository.full_name == github.repository && github.event.workflow_run.head_branch == 'main' && 'main' ) || ( github.event.workflow_run.head_sha ) }}
+          BRANCH: ${{ ( github.event.workflow_run.head_repository.full_name == github.repository && github.event.workflow_run.head_branch == 'master' && 'main' ) || ( github.event.workflow_run.head_sha ) }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy ./site --project-name=${{ env.PROJECT_NAME }} --branch=${{ env.BRANCH }}
+      - name: Deploy Docs Status Error
+        if: failure()
+        run: python ./scripts/deploy_docs_status.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMMIT_SHA: ${{ github.event.workflow_run.head_sha }}
+          RUN_ID: ${{ github.run_id }}
+          STATE: "error"
       - name: Comment Deploy
         run: python ./scripts/deploy_docs_status.py
         env:
@@ -75,4 +83,4 @@ jobs:
           DEPLOY_URL: ${{ steps.deploy.outputs.deployment-url }}
           COMMIT_SHA: ${{ github.event.workflow_run.head_sha }}
           RUN_ID: ${{ github.run_id }}
-          IS_DONE: "true"
+          STATE: "success"
