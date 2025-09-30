@@ -148,10 +148,7 @@ else:
     SQLModelUserV2 = None
 
 
-@pytest.mark.skipif(
-    not VERSION.startswith("2."),
-    reason="validation_alias and serialization_alias are not supported in Pydantic v1",
-)
+@needs_pydanticv2
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_create_with_validation_alias(
     model: Union[Type[PydanticUserV2], Type[SQLModelUserV2]],
