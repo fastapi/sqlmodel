@@ -5,8 +5,11 @@ from pydantic import VERSION, BaseModel, ValidationError
 from pydantic import Field as PField
 from sqlmodel import Field, SQLModel
 
-# -----------------------------------------------------------------------------------
-# Models
+from tests.conftest import needs_pydanticv2
+
+"""
+Alias tests for SQLModel and Pydantic compatibility
+"""
 
 
 class PydanticUser(BaseModel):
@@ -39,12 +42,6 @@ else:
             allow_population_by_field_name = True
 
 
-# -----------------------------------------------------------------------------------
-# Tests
-
-# Test validate by name
-
-
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
 def test_create_with_field_name(model: Union[Type[PydanticUser], Type[SQLModelUser]]):
     with pytest.raises(ValidationError):
@@ -57,9 +54,6 @@ def test_create_with_field_name_with_config(
 ):
     user = model(full_name="Alice")
     assert user.full_name == "Alice"
-
-
-# Test validate by alias
 
 
 @pytest.mark.parametrize(
@@ -78,9 +72,6 @@ def test_create_with_alias(
     assert user.full_name == "Bob"
 
 
-# Test validate by name and alias
-
-
 @pytest.mark.parametrize("model", [PydanticUserWithConfig, SQLModelUserWithConfig])
 def test_create_with_both_prefers_alias(
     model: Union[Type[PydanticUserWithConfig], Type[SQLModelUserWithConfig]],
@@ -89,21 +80,18 @@ def test_create_with_both_prefers_alias(
     assert user.full_name == "Charlie"  # alias should take precedence
 
 
-# Test serialize
-
-
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
 def test_dict_default_uses_field_names(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    data = user.dict()
+    if VERSION.startswith("2."):
+        data = user.model_dump()
+    else:
+        data = user.dict()
     assert "full_name" in data
     assert "fullName" not in data
     assert data["full_name"] == "Dana"
-
-
-# Test serialize by alias
 
 
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
@@ -111,13 +99,13 @@ def test_dict_default_uses_aliases(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    data = user.dict(by_alias=True)
+    if VERSION.startswith("2."):
+        data = user.model_dump(by_alias=True)
+    else:
+        data = user.dict(by_alias=True)
     assert "fullName" in data
     assert "full_name" not in data
     assert data["fullName"] == "Dana"
-
-
-# Test json by alias
 
 
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
@@ -125,12 +113,14 @@ def test_json_by_alias(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Frank")
-    json_data = user.json(by_alias=True)
+    if VERSION.startswith("2."):
+        json_data = user.model_dump_json(by_alias=True)
+    else:
+        json_data = user.json(by_alias=True)
     assert ('"fullName":"Frank"' in json_data) or ('"fullName": "Frank"' in json_data)
     assert "full_name" not in json_data
 
 
-# Pydantic v2 specific models - only define if we're running Pydantic v2
 if VERSION.startswith("2."):
 
     class PydanticUserV2(BaseModel):
@@ -148,6 +138,24 @@ else:
     SQLModelUserV2 = None
 
 
+def test_validation_alias_runtimeerror_pydantic_v1():
+    if VERSION.startswith("2."):
+        pytest.skip("Only relevant for Pydantic v1")
+    with pytest.raises(
+        RuntimeError, match="validation_alias is not supported in Pydantic v1"
+    ):
+        Field(validation_alias="foo")
+
+
+def test_serialization_alias_runtimeerror_pydantic_v1():
+    if VERSION.startswith("2."):
+        pytest.skip("Only relevant for Pydantic v1")
+    with pytest.raises(
+        RuntimeError, match="serialization_alias is not supported in Pydantic v1"
+    ):
+        Field(serialization_alias="bar")
+
+
 @needs_pydanticv2
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_create_with_validation_alias(
@@ -157,16 +165,13 @@ def test_create_with_validation_alias(
     assert user.first_name == "John"
 
 
-@pytest.mark.skipif(
-    not VERSION.startswith("2."),
-    reason="validation_alias and serialization_alias are not supported in Pydantic v1",
-)
+@needs_pydanticv2
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_serialize_with_serialization_alias(
     model: Union[Type[PydanticUserV2], Type[SQLModelUserV2]],
 ):
     user = model(firstName="Jane")
-    data = user.dict(by_alias=True)
+    data = user.model_dump(by_alias=True)
     assert "f_name" in data
     assert "firstName" not in data
     assert "first_name" not in data
