@@ -12,9 +12,6 @@ def test_attribute_keyed_dict_works(clear_sqlmodel):
 
     class Child(SQLModel, table=True):
         __tablename__ = "children"
-        __table_args__ = (
-            Index("ix_children_parent_id_color", "parent_id", "color", unique=True),
-        )
 
         id: Optional[int] = Field(primary_key=True, default=None)
         parent_id: int = Field(foreign_key="parents.id")
