@@ -35,7 +35,7 @@ And after we finish working with the data in this chapter, the `hero` table will
 
 Each row in the table `hero` will point to a row in the table `team`:
 
-<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.svg">
+<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.drawio.svg">
 
 /// info
 

@@ -3,7 +3,7 @@ from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine
 
 
-def test_tutorial001(clear_sqlmodel):
+def test_tutorial001():
     from docs_src.tutorial.connect.create_tables import tutorial001 as mod
 
     mod.sqlite_url = "sqlite://"

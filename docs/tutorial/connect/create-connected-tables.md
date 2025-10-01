@@ -39,7 +39,7 @@ To connect them, we will add another column to the hero table to point to each t
 
 This way each row in the table `hero` can point to a row in the table `team`:
 
-<img alt="table relationships" src="/img/databases/relationships.svg">
+<img alt="table relationships" src="/img/databases/relationships.drawio.svg">
 
 ## One-to-Many and Many-to-One
 

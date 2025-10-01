@@ -6,7 +6,7 @@ And you also know how to get multiple rows while filtering them using `.where()`
 
 Now let's see how to get only a **range of results**.
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.drawio.svg">
 
 ## Create Data
 
@@ -34,7 +34,7 @@ The special **select** object we get from `select()` also has a method `.limit()
 
 In this case, instead of getting all the 7 rows, we are limiting them to only get the first 3.
 
-<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.svg">
+<img class="shadow" alt="table with first 3 rows selected" src="/img/tutorial/offset-and-limit/limit.drawio.svg">
 
 ## Run the Program on the Command Line
 
@@ -87,7 +87,7 @@ And then you can interact with the user interface to get the next page, and so o
 
 How do we get the next 3?
 
-<img class="shadow" alt="table with next rows selected, from 4 to 6" src="/img/tutorial/offset-and-limit/limit2.svg">
+<img class="shadow" alt="table with next rows selected, from 4 to 6" src="/img/tutorial/offset-and-limit/limit2.drawio.svg">
 
 We can use `.offset()`:
 
@@ -134,7 +134,7 @@ Then to get the next batch of 3 rows we would offset all the ones we already saw
 
 The database right now has **only 7 rows**, so this query can only get 1 row.
 
-<img class="shadow" alt="table with the last row (7th) selected" src="/img/tutorial/offset-and-limit/limit3.svg">
+<img class="shadow" alt="table with the last row (7th) selected" src="/img/tutorial/offset-and-limit/limit3.drawio.svg">
 
 But don't worry, the database won't throw an error trying to get 3 rows when there's only one (as would happen with a Python list).
 

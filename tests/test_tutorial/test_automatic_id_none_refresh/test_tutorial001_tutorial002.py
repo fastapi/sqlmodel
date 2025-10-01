@@ -1,12 +1,14 @@
+import importlib
+from types import ModuleType
 from typing import Any, Dict, List, Union
-from unittest.mock import patch
 
+import pytest
 from sqlmodel import create_engine
 
-from tests.conftest import get_testing_print_function
+from tests.conftest import PrintMock, needs_py310
 
 
-def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
+def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]) -> None:
     assert calls[0] == ["Before interacting with the database"]
     assert calls[1] == [
         "Hero 1:",
@@ -133,29 +135,25 @@ def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
     ]
 
 
-def test_tutorial_001(clear_sqlmodel):
-    from docs_src.tutorial.automatic_id_none_refresh import tutorial001 as mod
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial001",
+        "tutorial002",
+        pytest.param("tutorial001_py310", marks=needs_py310),
+        pytest.param("tutorial002_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    module = importlib.import_module(
+        f"docs_src.tutorial.automatic_id_none_refresh.{request.param}"
+    )
+    module.sqlite_url = "sqlite://"
+    module.engine = create_engine(module.sqlite_url)
 
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
-
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    check_calls(calls)
+    return module
 
 
-def test_tutorial_002(clear_sqlmodel):
-    from docs_src.tutorial.automatic_id_none_refresh import tutorial002 as mod
-
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
-
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    check_calls(calls)
+def test_tutorial_001_tutorial_002(print_mock: PrintMock, module: ModuleType) -> None:
+    module.main()
+    check_calls(print_mock.calls)

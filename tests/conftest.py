@@ -1,8 +1,10 @@
 import shutil
 import subprocess
 import sys
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Union
+from typing import Any, Callable, Dict, Generator, List, Union
+from unittest.mock import patch
 
 import pytest
 from pydantic import BaseModel
@@ -14,8 +16,8 @@ top_level_path = Path(__file__).resolve().parent.parent
 docs_src_path = top_level_path / "docs_src"
 
 
-@pytest.fixture()
-def clear_sqlmodel():
+@pytest.fixture(autouse=True)
+def clear_sqlmodel() -> Any:
     # Clear the tables in the metadata for the default base model
     SQLModel.metadata.clear()
     # Clear the Models associated with the registry, to avoid warnings
@@ -26,7 +28,7 @@ def clear_sqlmodel():
 
 
 @pytest.fixture()
-def cov_tmp_path(tmp_path: Path):
+def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
     yield tmp_path
     for coverage_path in tmp_path.glob(".coverage*"):
         coverage_destiny_path = top_level_path / coverage_path.name
@@ -53,8 +55,8 @@ def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedP
 def get_testing_print_function(
     calls: List[List[Union[str, Dict[str, Any]]]],
 ) -> Callable[..., Any]:
-    def new_print(*args):
-        data = []
+    def new_print(*args: Any) -> None:
+        data: List[Any] = []
         for arg in args:
             if isinstance(arg, BaseModel):
                 data.append(arg.model_dump())
@@ -69,6 +71,19 @@ def get_testing_print_function(
         calls.append(data)
 
     return new_print
+
+
+@dataclass
+class PrintMock:
+    calls: List[Any] = field(default_factory=list)
+
+
+@pytest.fixture(name="print_mock")
+def print_mock_fixture() -> Generator[PrintMock, None, None]:
+    print_mock = PrintMock()
+    new_print = get_testing_print_function(print_mock.calls)
+    with patch("builtins.print", new=new_print):
+        yield print_mock
 
 
 needs_pydanticv2 = pytest.mark.skipif(not IS_PYDANTIC_V2, reason="requires Pydantic v2")

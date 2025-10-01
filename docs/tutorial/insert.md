@@ -329,7 +329,7 @@ And it will work even if there's an exception in the code. 😎
 
 Let's give this whole file a final look. 🔍
 
-You already know all the first part creating the `Hero` model class, the **engine**, and creating the database and table.
+You already know all of the first part for creating the `Hero` model class, the **engine**, and creating the database and table.
 
 Let's focus on the new code:
 

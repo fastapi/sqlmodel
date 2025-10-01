@@ -7,7 +7,7 @@ from ...conftest import get_testing_print_function, needs_py310
 
 
 @needs_py310
-def test_tutorial(clear_sqlmodel) -> None:
+def test_tutorial() -> None:
     from docs_src.advanced.uuid import tutorial002_py310 as mod
 
     mod.sqlite_url = "sqlite://"
