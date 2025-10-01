@@ -2,7 +2,7 @@ from enum import Enum
 from typing import Dict, Optional
 
 from sqlalchemy.orm.collections import attribute_keyed_dict
-from sqlmodel import Field, Index, Relationship, Session, SQLModel, create_engine
+from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 
 
 def test_attribute_keyed_dict_works(clear_sqlmodel):
