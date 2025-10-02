@@ -21,12 +21,13 @@ from typing import (
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
+from sqlalchemy import inspect
+from sqlalchemy.orm import Mapper
 from typing_extensions import Annotated, get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
-PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
-IS_PYDANTIC_V2 = PYDANTIC_MINOR_VERSION[0] == 2
+IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
 
 
 if TYPE_CHECKING:
@@ -63,6 +64,35 @@ def _is_union_type(t: Any) -> bool:
 
 
 finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
+
+
+def set_polymorphic_default_value(
+    self_instance: _TSQLModel,
+    values: Dict[str, Any],
+) -> bool:
+    """By default, when init a model, pydantic will set the polymorphic_on
+    value to field default value. But when inherit a model, the polymorphic_on
+    should be set to polymorphic_identity value by default."""
+    cls = type(self_instance)
+    mapper = inspect(cls)
+    ret = False
+    if isinstance(mapper, Mapper):
+        polymorphic_on = mapper.polymorphic_on
+        if polymorphic_on is not None:
+            polymorphic_property = mapper.get_property_by_column(polymorphic_on)
+            field_info = get_model_fields(cls).get(polymorphic_property.key)
+            if field_info:
+                v = values.get(polymorphic_property.key)
+                # if model is inherited or polymorphic_on is not explicitly set
+                # set the polymorphic_on by default
+                if mapper.inherits or v is None:
+                    setattr(
+                        self_instance,
+                        polymorphic_property.key,
+                        mapper.polymorphic_identity,
+                    )
+                    ret = True
+    return ret
 
 
 @contextmanager
@@ -103,14 +133,7 @@ if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
-        # TODO: refactor the usage of this function to always pass the class
-        # not the instance, and then remove this extra check
-        # this is for compatibility with Pydantic v3
-        if isinstance(model, type):
-            use_model = model
-        else:
-            use_model = model.__class__
-        return use_model.model_fields
+        return model.model_fields
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
@@ -298,6 +321,8 @@ if IS_PYDANTIC_V2:
             if value is not Undefined:
                 setattr(self_instance, key, value)
         # End SQLModel override
+        # Override polymorphic_on default value
+        set_polymorphic_default_value(self_instance, values)
         return self_instance
 
     def sqlmodel_validate(
