@@ -456,9 +456,6 @@ def Field(
             else:
                 current_json_schema_extra[key] = value
 
-    print(current_pydantic_kwargs)
-    print(current_json_schema_extra)
-
     field_info = FieldInfo(
         default,
         default_factory=default_factory,

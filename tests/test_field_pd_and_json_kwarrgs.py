@@ -37,6 +37,8 @@ def test_pydantic_kwargs_applied():
 
 
 def test_schema_extra_and_new_param_conflict():
+    '''test that passing schema_extra and new params at the same time raises an error'''
+
     with pytest.raises(RuntimeError) as excinfo:
 
         class ItemA(SQLModel):
@@ -63,7 +65,6 @@ def test_schema_extra_backward_compatibility():
     test that schema_extra is backward compatible with json_schema_extra
     """
 
-    # 1. 定义一个仅使用 schema_extra 的模型
     class LegacyItem(SQLModel):
         name: str = Field(
             schema_extra={
