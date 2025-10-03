@@ -37,7 +37,7 @@ def test_pydantic_kwargs_applied():
 
 
 def test_schema_extra_and_new_param_conflict():
-    '''test that passing schema_extra and new params at the same time raises an error'''
+    """test that passing schema_extra and new params at the same time raises an error"""
 
     with pytest.raises(RuntimeError) as excinfo:
 
