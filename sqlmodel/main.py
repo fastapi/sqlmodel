@@ -101,7 +101,8 @@ IncEx: TypeAlias = Union[
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 FIELD_ACCEPTED_KWARGS = set(inspect_module.signature(PydanticField).parameters.keys())
-FIELD_ACCEPTED_KWARGS.remove("json_schema_extra")
+if "schema_extra" in FIELD_ACCEPTED_KWARGS:
+    FIELD_ACCEPTED_KWARGS.remove("schema_extra")
 
 
 def __dataclass_transform__(
