@@ -2,8 +2,19 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Fix typo in `docs/tutorial/fastapi/simple-hero-api.md`. PR [#1583](https://github.com/fastapi/sqlmodel/pull/1583) by [@kofi-kusi](https://github.com/kofi-kusi).
+
 ### Internal
 
+* ⬆ Bump tiangolo/issue-manager from 0.5.1 to 0.6.0. PR [#1589](https://github.com/fastapi/sqlmodel/pull/1589) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Update docs previews comment, single comment, add failure status. PR [#1586](https://github.com/fastapi/sqlmodel/pull/1586) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump markdown-include-variants from 0.0.4 to 0.0.5. PR [#1582](https://github.com/fastapi/sqlmodel/pull/1582) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typing-extensions from 4.13.2 to 4.15.0 for Python 3.9+. PR [#1580](https://github.com/fastapi/sqlmodel/pull/1580) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1571](https://github.com/fastapi/sqlmodel/pull/1571) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump typer from 0.17.4 to 0.19.2. PR [#1573](https://github.com/fastapi/sqlmodel/pull/1573) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.13.0 to 0.13.2. PR [#1576](https://github.com/fastapi/sqlmodel/pull/1576) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 💚 Fix CI test suite for Windows and MacOS. PR [#1307](https://github.com/fastapi/sqlmodel/pull/1307) by [@svlandeg](https://github.com/svlandeg).
 
 ## 0.0.25
