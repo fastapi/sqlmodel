@@ -1,6 +1,6 @@
+import inspect as inspect_module
 import ipaddress
 import uuid
-import inspect as inspect_module
 import weakref
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
@@ -101,7 +101,7 @@ IncEx: TypeAlias = Union[
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 FIELD_ACCEPTED_KWARGS = set(inspect_module.signature(PydanticField).parameters.keys())
-FIELD_ACCEPTED_KWARGS.remove('json_schema_extra')
+FIELD_ACCEPTED_KWARGS.remove("json_schema_extra")
 
 
 def __dataclass_transform__(

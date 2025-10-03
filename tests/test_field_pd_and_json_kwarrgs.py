@@ -1,9 +1,9 @@
-from sqlmodel import Field, SQLModel
 import pytest
+from sqlmodel import Field, SQLModel
 
 
 def test_json_schema_extra_applied():
-    '''test json_schema_extra is applied to the field'''
+    """test json_schema_extra is applied to the field"""
 
     class Item(SQLModel):
         name: str = Field(
@@ -22,7 +22,7 @@ def test_json_schema_extra_applied():
 
 
 def test_pydantic_kwargs_applied():
-    '''test pydantic_kwargs is applied to the field'''
+    """test pydantic_kwargs is applied to the field"""
 
     class User(SQLModel):
         user_name: str = Field(pydantic_kwargs={"validation_alias": "UserNameInInput"})
