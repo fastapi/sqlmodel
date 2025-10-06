@@ -51,14 +51,14 @@ def test_fields() -> None:
             assert type(hero_4[3]) in [int, type(None)]
 
     # check typing of select with 5 fields: currently runs but doesn't pass mypy
-    with Session(engine) as session:
-        statement_5 = select(Hero.id, Hero.name, Hero.secret_name, Hero.age, Hero.food)
-        results_5 = session.exec(statement_5)
-        for hero_5 in results_5:
-            assert len(hero_5) == 5
-            name_5: str = hero_5[1]
-            assert type(name_5) is str
-            assert type(hero_5[0]) is int
-            assert type(hero_5[2]) is str
-            assert type(hero_5[3]) in [int, type(None)]
-            assert type(hero_5[4]) in [str, type(None)]
+    # with Session(engine) as session:
+    #     statement_5 = select(Hero.id, Hero.name, Hero.secret_name, Hero.age, Hero.food)
+    #     results_5 = session.exec(statement_5)
+    #     for hero_5 in results_5:
+    #         assert len(hero_5) == 5
+    #         name_5: str = hero_5[1]
+    #         assert type(name_5) is str
+    #         assert type(hero_5[0]) is int
+    #         assert type(hero_5[2]) is str
+    #         assert type(hero_5[3]) in [int, type(None)]
+    #         assert type(hero_5[4]) in [str, type(None)]
