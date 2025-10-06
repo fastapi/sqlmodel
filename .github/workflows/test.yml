@@ -82,6 +82,9 @@ jobs:
       - name: Lint
         if: matrix.pydantic-version == 'pydantic-v2' && matrix.python-version != '3.8'
         run: bash scripts/lint.sh
+      - name: Extra Mypy check
+        if: matrix.python-version == '3.13'
+        run: mypy tests/test_select_typing.py
       - run: mkdir coverage
       - name: Test
         run: bash scripts/test.sh
