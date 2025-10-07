@@ -395,9 +395,13 @@ def Field(
     current_schema_extra = schema_extra or {}
 
     if IS_PYDANTIC_V2:
-        current_schema_extra.update(pattern=pattern or regex)
+        current_schema_extra.update(
+            pattern=pattern or regex or current_schema_extra.get("pattern")
+        )
     else:
-        current_schema_extra.update(regex=regex or pattern)
+        current_schema_extra.update(
+            regex=regex or pattern or current_schema_extra.get("pattern")
+        )
 
     field_info = FieldInfo(
         default,

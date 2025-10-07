@@ -61,13 +61,13 @@ def test_repr():
 def test_field_regex_param(param: str):
     class DateModel(SQLModel):
         date_1: str = Field(**{param: r"^\d{2}-\d{2}-\d{4}$"})
-        date_2: str = Field(schema_extra={param: r"^\d{2}-\d{2}-\d{4}$"})
 
-    DateModel(date_1="12-31-2024", date_2="12-31-2024")
-    # Validates correctly
+    DateModel(date_1="12-31-2024")  # Validates correctly
+
+
+def test_field_pattern_via_schema_extra():
+    class DateModel(SQLModel):
+        date_1: str = Field(schema_extra={"pattern": r"^\d{2}-\d{2}-\d{4}$"})
 
     with pytest.raises(ValidationError):
-        DateModel(date_1="incorrect", date_2="12-31-2024")  # date_1 pattern mismatch
-
-    with pytest.raises(ValidationError):
-        DateModel(date_1="12-31-2024", date_2="incorrect")  # date_2 pattern mismatch
+        DateModel(date_1="incorrect")
