@@ -67,5 +67,7 @@ def test_field_regex_param(param: str):
     # Validates correctly
 
     with pytest.raises(ValidationError):
-        DateModel(date_1="2024-12-31", date_2="2024-12-31")
-        # This should raise a ValueError due to regex mismatch
+        DateModel(date_1="incorrect", date_2="12-31-2024")  # date_1 pattern mismatch
+
+    with pytest.raises(ValidationError):
+        DateModel(date_1="12-31-2024", date_2="incorrect")  # date_2 pattern mismatch
