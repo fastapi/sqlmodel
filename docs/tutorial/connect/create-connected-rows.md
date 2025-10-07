@@ -35,7 +35,7 @@ And after we finish working with the data in this chapter, the `hero` table will
 
 Each row in the table `hero` will point to a row in the table `team`:
 
-<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.svg">
+<img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.drawio.svg">
 
 /// info
 
@@ -141,7 +141,7 @@ WHERE team.id = ?
 INFO Engine [cached since 0.001795s ago] (1,)
 ```
 
-There's something else to note. We marked `team_id` as `Optional[int]`, meaning that this could be `NULL` on the database (and `None` in Python).
+There's something else to note. We marked `team_id` as `int | None`, meaning that this could be `NULL` on the database (and `None` in Python).
 
 That means that a hero doesn't have to have a team. And in this case, **Spider-Boy** doesn't have one.
 

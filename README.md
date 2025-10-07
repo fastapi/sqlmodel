@@ -6,11 +6,11 @@
     <em>SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.</em>
 </p>
 <p align="center">
-<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest" target="_blank">
-    <img src="https://github.com/fastapi/sqlmodel/workflows/Test/badge.svg" alt="Test">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest+event%3Apush+branch%3Amain" target="_blank">
+    <img src="https://github.com/fastapi/sqlmodel/actions/workflows/test.yml/badge.svg?event=push&branch=main" alt="Test">
 </a>
 <a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3APublish" target="_blank">
-    <img src="https://github.com/fastapi/sqlmodel/workflows/Publish/badge.svg" alt="Publish">
+    <img src="https://github.com/fastapi/sqlmodel/actions/workflows/publish.yml/badge.svg" alt="Publish">
 </a>
 <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/sqlmodel" target="_blank">
     <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/sqlmodel.svg" alt="Coverage">
@@ -105,16 +105,14 @@ And you want it to have this data:
 Then you could create a **SQLModel** model like this:
 
 ```Python
-from typing import Optional
-
 from sqlmodel import Field, SQLModel
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 ```
 
 That class `Hero` is a **SQLModel** model, the equivalent of a SQL table in Python code.
@@ -149,17 +147,15 @@ And **inline errors**:
 
 You can learn a lot more about **SQLModel** by quickly following the **tutorial**, but if you need a taste right now of how to put all that together and save to the database, you can do this:
 
-```Python hl_lines="18  21  23-27"
-from typing import Optional
-
+```Python hl_lines="16  19  21-25"
 from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 
 
 hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
@@ -185,17 +181,15 @@ That will save a **SQLite** database with the 3 heroes.
 
 Then you could write queries to select from that same database, for example with:
 
-```Python hl_lines="15-18"
-from typing import Optional
-
+```Python hl_lines="13-17"
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     secret_name: str
-    age: Optional[int] = None
+    age: int | None = None
 
 
 engine = create_engine("sqlite:///database.db")
