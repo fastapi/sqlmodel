@@ -16,7 +16,7 @@ For input, we have:
 
 If we pay attention, it shows that the client *could* send an `id` in the JSON body of the request.
 
-This means that the client could try to use the same ID that already exists in the database for another hero.
+This means that the client could try to use the same ID that already exists in the database to create another hero.
 
 That's not what we want.
 
@@ -51,7 +51,7 @@ The `age` is optional, we don't have to return it, or it could be `None` (or `nu
 
 Here's the weird thing, the `id` currently seems also "optional". 🤔
 
-This is because in our **SQLModel** class we declare the `id` with `Optional[int]`, because it could be `None` in memory until we save it in the database and we finally get the actual ID.
+This is because in our **SQLModel** class we declare the `id` with a default value of `= None`, because it could be `None` in memory until we save it in the database and we finally get the actual ID.
 
 But in the responses, we always send a model from the database, so it **always has an ID**. So the `id` in the responses can be declared as required.
 
@@ -71,7 +71,7 @@ And in most of the cases, the developer of the client for that API **will also b
 
 ### So Why is it Important to Have Required IDs
 
-Now, what's the matter with having one **`id` field marked as "optional"** in a response when in reality it is always required?
+Now, what's the matter with having one **`id` field marked as "optional"** in a response when in reality it is always available (required)?
 
 For example, **automatically generated clients** in other languages (or also in Python) would have some declaration that this field `id` is optional.
 
@@ -98,7 +98,7 @@ But we also want to have a `HeroCreate` for the data we want to receive when **c
 * `secret_name`, required
 * `age`, optional
 
-And we want to have a `HeroPublic` with the `id` field, but this time annotated with `id: int`, instead of `id: Optional[int]`, to make it clear that it is required in responses **read** from the clients:
+And we want to have a `HeroPublic` with the `id` field, but this time with a type of `id: int`, instead of `id: int | None`, to make it clear that it will always have an `int` in responses **read** from the clients:
 
 * `id`, required
 * `name`, required
@@ -225,7 +225,7 @@ Let's start with the only **table model**, the `Hero`:
 
 Notice that `Hero` now doesn't inherit from `SQLModel`, but from `HeroBase`.
 
-And now we only declare one single field directly, the `id`, that here is `Optional[int]`, and is a `primary_key`.
+And now we only declare one single field directly, the `id`, that here is `int | None`, and is a `primary_key`.
 
 And even though we don't declare the other fields **explicitly**, because they are inherited, they are also part of this `Hero` model.
 

@@ -56,7 +56,7 @@ from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
-    PYDANTIC_VERSION,
+    PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelField,
     ModelMetaclass,
@@ -93,8 +93,8 @@ NoArgAnyCallable = Callable[[], Any]
 IncEx: TypeAlias = Union[
     Set[int],
     Set[str],
-    Mapping[int, Union["IncEx", Literal[True]]],
-    Mapping[str, Union["IncEx", Literal[True]]],
+    Mapping[int, Union["IncEx", bool]],
+    Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
@@ -134,8 +134,7 @@ class FieldInfo(PydanticFieldInfo):
                 )
             if primary_key is not Undefined:
                 raise RuntimeError(
-                    "Passing primary_key is not supported when "
-                    "also passing a sa_column"
+                    "Passing primary_key is not supported when also passing a sa_column"
                 )
             if nullable is not Undefined:
                 raise RuntimeError(
@@ -143,8 +142,7 @@ class FieldInfo(PydanticFieldInfo):
                 )
             if foreign_key is not Undefined:
                 raise RuntimeError(
-                    "Passing foreign_key is not supported when "
-                    "also passing a sa_column"
+                    "Passing foreign_key is not supported when also passing a sa_column"
                 )
             if ondelete is not Undefined:
                 raise RuntimeError(
@@ -344,7 +342,7 @@ def Field(
     pattern: Optional[str] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
+    sa_column: Union[Column[Any], UndefinedType] = Undefined,
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
@@ -492,7 +490,7 @@ def Relationship(
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: Dict[str, RelationshipInfo]
     model_config: SQLModelConfig
-    model_fields: Dict[str, FieldInfo]
+    model_fields: ClassVar[Dict[str, FieldInfo]]
     __config__: Type[SQLModelConfig]
     __fields__: Dict[str, ModelField]  # type: ignore[assignment]
 
@@ -854,7 +852,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(
+    def model_validate(  # type: ignore[override]
         cls: Type[_TSQLModel],
         obj: Any,
         *,
@@ -878,20 +876,25 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         mode: Union[Literal["json", "python"], str] = "python",
         include: Union[IncEx, None] = None,
         exclude: Union[IncEx, None] = None,
-        context: Union[Dict[str, Any], None] = None,
-        by_alias: bool = False,
+        context: Union[Any, None] = None,
+        by_alias: Union[bool, None] = None,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
+        fallback: Union[Callable[[Any], Any], None] = None,
         serialize_as_any: bool = False,
     ) -> Dict[str, Any]:
-        if PYDANTIC_VERSION >= "2.7.0":
+        if PYDANTIC_MINOR_VERSION < (2, 11):
+            by_alias = by_alias or False
+        if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs: Dict[str, Any] = {
                 "context": context,
                 "serialize_as_any": serialize_as_any,
             }
+        if PYDANTIC_MINOR_VERSION >= (2, 11):
+            extra_kwargs["fallback"] = fallback
         else:
             extra_kwargs = {}
         if IS_PYDANTIC_V2:
@@ -911,7 +914,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return super().dict(
                 include=include,
                 exclude=exclude,
-                by_alias=by_alias,
+                by_alias=by_alias or False,
                 exclude_unset=exclude_unset,
                 exclude_defaults=exclude_defaults,
                 exclude_none=exclude_none,
