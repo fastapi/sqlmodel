@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump mkdocs-material from 9.6.20 to 9.6.21. PR [#1588](https://github.com/fastapi/sqlmodel/pull/1588) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1584](https://github.com/fastapi/sqlmodel/pull/1584) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump tiangolo/issue-manager from 0.5.1 to 0.6.0. PR [#1589](https://github.com/fastapi/sqlmodel/pull/1589) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update docs previews comment, single comment, add failure status. PR [#1586](https://github.com/fastapi/sqlmodel/pull/1586) by [@tiangolo](https://github.com/tiangolo).
