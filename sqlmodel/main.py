@@ -453,12 +453,19 @@ def Field(
     current_json_schema_extra = json_schema_extra or {}
     current_schema_extra = schema_extra or {}
 
-    if current_schema_extra:
+    if IS_PYDANTIC_V2:
         for key, value in current_schema_extra.items():
-            if key in FIELD_ACCEPTED_KWARGS:
+            # if schema_extra={"json_schema_extra": {"x-yy-zz": "zz"}}
+            if key == "json_schema_extra":
+                current_json_schema_extra.update(value)
+            elif key in FIELD_ACCEPTED_KWARGS:
                 current_pydantic_kwargs[key] = value
             else:
                 current_json_schema_extra[key] = value
+        current_pydantic_kwargs["json_schema_extra"] = current_json_schema_extra
+    else:
+        current_pydantic_kwargs.update(current_json_schema_extra)
+        current_pydantic_kwargs.update(current_schema_extra)
 
     field_info = FieldInfo(
         default,
@@ -495,7 +502,6 @@ def Field(
         sa_column=sa_column,
         sa_column_args=sa_column_args,
         sa_column_kwargs=sa_column_kwargs,
-        json_schema_extra=current_json_schema_extra,
         **current_pydantic_kwargs,
     )
     post_init_field_info(field_info)

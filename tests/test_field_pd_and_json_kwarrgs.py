@@ -71,3 +71,27 @@ def test_schema_extra_backward_compatibility():
 
     field_info = LegacyItem.model_fields["name"]
     assert field_info.serialization_alias == "id_test"
+
+
+def test_json_schema_extra_mix_in_schema_extra():
+    """test that json_schema_extra is applied when it is in schema_extra"""
+
+    class Item(SQLModel):
+        name: str = Field(
+            schema_extra={
+                "json_schema_extra": {
+                    "example": "Sword of Power",
+                    "x-custom-key": "Important Data",
+                },
+                "serialization_alias": "id_test",
+            }
+        )
+
+    schema = Item.model_json_schema()
+
+    name_schema = schema["properties"]["name"]
+    assert name_schema["example"] == "Sword of Power"
+    assert name_schema["x-custom-key"] == "Important Data"
+
+    field_info = Item.model_fields["name"]
+    assert field_info.serialization_alias == "id_test"
