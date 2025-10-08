@@ -60,7 +60,7 @@ And then create an `app` object that is an instance of that `FastAPI` class:
 
 ## Create Database and Tables on `startup`
 
-We want to make sure that once the app starts running, the function `create_tables` is called. To create the database and tables.
+We want to make sure that once the app starts running, the function `create_db_and_tables` is called. To create the database and tables.
 
 This should be called only once at startup, not before every request, so we put it in the function to handle the `"startup"` event:
 

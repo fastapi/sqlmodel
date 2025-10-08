@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import ipaddress
 import uuid
 import weakref
@@ -109,7 +111,8 @@ def __dataclass_transform__(
     return lambda a: a
 
 
-class FieldInfo(PydanticFieldInfo):
+class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
+    # mypy - ignore that PydanticFieldInfo is @final
     def __init__(self, default: Any = Undefined, **kwargs: Any) -> None:
         primary_key = kwargs.pop("primary_key", False)
         nullable = kwargs.pop("nullable", Undefined)
@@ -600,7 +603,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     setattr(cls, rel_name, rel_info.sa_relationship)  # Fix #315
                     continue
                 raw_ann = cls.__annotations__[rel_name]
-                origin = get_origin(raw_ann)
+                origin: Any = get_origin(raw_ann)
                 if origin is Mapped:
                     ann = raw_ann.__args__[0]
                 else:
@@ -863,27 +866,27 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         mode: Union[Literal["json", "python"], str] = "python",
         include: Union[IncEx, None] = None,
         exclude: Union[IncEx, None] = None,
-        context: Union[Any, None] = None,
+        context: Union[Any, None] = None,  # v2.7
         by_alias: Union[bool, None] = None,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
+        exclude_computed_fields: bool = False,  # v2.12
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
-        fallback: Union[Callable[[Any], Any], None] = None,
-        serialize_as_any: bool = False,
+        fallback: Union[Callable[[Any], Any], None] = None,  # v2.11
+        serialize_as_any: bool = False,  # v2.7
     ) -> Dict[str, Any]:
         if PYDANTIC_MINOR_VERSION < (2, 11):
             by_alias = by_alias or False
+        extra_kwargs: Dict[str, Any] = {}
         if PYDANTIC_MINOR_VERSION >= (2, 7):
-            extra_kwargs: Dict[str, Any] = {
-                "context": context,
-                "serialize_as_any": serialize_as_any,
-            }
+            extra_kwargs["context"] = context
+            extra_kwargs["serialize_as_any"] = serialize_as_any
         if PYDANTIC_MINOR_VERSION >= (2, 11):
             extra_kwargs["fallback"] = fallback
-        else:
-            extra_kwargs = {}
+        if PYDANTIC_MINOR_VERSION >= (2, 12):
+            extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
         if IS_PYDANTIC_V2:
             return super().model_dump(
                 mode=mode,

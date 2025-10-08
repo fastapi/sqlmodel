@@ -2,7 +2,7 @@
 
 We'll now support **many-to-many** relationships using a **link table** like this:
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.drawio.svg">
 
 Let's start by defining the class models, including the **link table** model.
 
