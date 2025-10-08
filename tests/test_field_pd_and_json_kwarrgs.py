@@ -40,23 +40,11 @@ def test_schema_extra_and_new_param_conflict():
     """test that passing schema_extra and new params at the same time raises an error"""
 
     with pytest.raises(RuntimeError) as excinfo:
-
-        class ItemA(SQLModel):
-            name: str = Field(
-                schema_extra={"legacy": 1},
-                json_schema_extra={"new": 2},
-            )
-
+        Field(schema_extra={"legacy": 1}, json_schema_extra={"new": 2})
     assert "Passing schema_extra is not supported" in str(excinfo.value)
 
     with pytest.raises(RuntimeError) as excinfo:
-
-        class ItemB(SQLModel):
-            name: str = Field(
-                schema_extra={"legacy": 1},
-                pydantic_kwargs={"alias": "Alias"},
-            )
-
+        Field(schema_extra={"legacy": 1}, pydantic_kwargs={"alias": "Alias"})
     assert "Passing schema_extra is not supported" in str(excinfo.value)
 
 
