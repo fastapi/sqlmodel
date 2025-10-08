@@ -12,6 +12,7 @@
 
 ### Internal
 
+* ⬆ Bump mypy from 1.4.1 to 1.18.2. PR [#1560](https://github.com/fastapi/sqlmodel/pull/1560) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Add test that runs select with 3 or 4 arguments. PR [#1590](https://github.com/fastapi/sqlmodel/pull/1590) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump mkdocs-macros-plugin from 1.3.9 to 1.4.0. PR [#1581](https://github.com/fastapi/sqlmodel/pull/1581) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.6.20 to 9.6.21. PR [#1588](https://github.com/fastapi/sqlmodel/pull/1588) by [@dependabot[bot]](https://github.com/apps/dependabot).
