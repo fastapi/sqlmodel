@@ -27,7 +27,10 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import (
+    BaseModel,
+    EmailStr,
+)
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -83,6 +86,16 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_validate,
 )
 from .sql.sqltypes import AutoString
+
+if IS_PYDANTIC_V2:
+    from pydantic import (
+        AwareDatetime,
+        FutureDate,
+        FutureDatetime,
+        NaiveDatetime,
+        PastDate,
+        PastDatetime,
+    )
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -691,6 +704,15 @@ def get_sqlalchemy_type(field: Any) -> Any:
         return Interval
     if issubclass(type_, time):
         return Time
+    if IS_PYDANTIC_V2:
+        if issubclass(type_, (FutureDate, PastDate)):
+            return DateTime
+        if issubclass(type_, (FutureDatetime, PastDatetime)):
+            return DateTime
+        if issubclass(type_, AwareDatetime):
+            return DateTime(timezone=True)
+        if issubclass(type_, NaiveDatetime):
+            return DateTime(timezone=False)
     if issubclass(type_, bytes):
         return LargeBinary
     if issubclass(type_, Decimal):
