@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.26
+
 ### Fixes
 
 * 🐛 Fix attribute handling in `model_dump` for compatibility with the latest Pydantic versions. PR [#1595](https://github.com/fastapi/sqlmodel/pull/1595) by [@spazm](https://github.com/spazm).
