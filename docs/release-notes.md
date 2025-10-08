@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.27
+
 ### Upgrades
 
 * ⬆️ Add support for Python 3.14. PR [#1578](https://github.com/fastapi/sqlmodel/pull/1578) by [@svlandeg](https://github.com/svlandeg).
