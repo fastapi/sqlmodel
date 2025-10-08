@@ -1,3 +1,4 @@
+import sys
 import types
 from contextlib import contextmanager
 from contextvars import ContextVar
@@ -25,7 +26,8 @@ from typing_extensions import Annotated, get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
-IS_PYDANTIC_V2 = PYDANTIC_VERSION.startswith("2.")
+PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
+IS_PYDANTIC_V2 = PYDANTIC_MINOR_VERSION[0] == 2
 
 
 if TYPE_CHECKING:
@@ -102,7 +104,14 @@ if IS_PYDANTIC_V2:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
     def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
-        return model.model_fields
+        # TODO: refactor the usage of this function to always pass the class
+        # not the instance, and then remove this extra check
+        # this is for compatibility with Pydantic v3
+        if isinstance(model, type):
+            use_model = model
+        else:
+            use_model = model.__class__
+        return use_model.model_fields
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
@@ -115,7 +124,20 @@ if IS_PYDANTIC_V2:
         object.__setattr__(new_object, "__pydantic_private__", None)
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
-        return class_dict.get("__annotations__", {})
+        raw_annotations: Dict[str, Any] = class_dict.get("__annotations__", {})
+        if sys.version_info >= (3, 14) and "__annotations__" not in class_dict:
+            # See https://github.com/pydantic/pydantic/pull/11991
+            from annotationlib import (
+                Format,
+                call_annotate_function,
+                get_annotate_from_class_namespace,
+            )
+
+            if annotate := get_annotate_from_class_namespace(class_dict):
+                raw_annotations = call_annotate_function(
+                    annotate, format=Format.FORWARDREF
+                )
+        return raw_annotations
 
     def is_table_model_class(cls: Type[Any]) -> bool:
         config = getattr(cls, "model_config", {})
@@ -172,7 +194,7 @@ if IS_PYDANTIC_V2:
         if not field.is_required():
             if field.default is Undefined:
                 return False
-            if field.annotation is None or field.annotation is NoneType:  # type: ignore[comparison-overlap]
+            if field.annotation is None or field.annotation is NoneType:
                 return True
             return False
         return False
@@ -501,7 +523,7 @@ else:
             keys -= update.keys()
 
         if exclude:
-            keys -= {k for k, v in exclude.items() if ValueItems.is_true(v)}
+            keys -= {str(k) for k, v in exclude.items() if ValueItems.is_true(v)}
 
         return keys
 

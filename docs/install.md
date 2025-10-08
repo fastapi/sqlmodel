@@ -16,11 +16,11 @@ As **SQLModel** is built on top of <a href="https://www.sqlalchemy.org/" class="
 
 ## Install DB Browser for SQLite
 
-Remember that [SQLite is a simple database in a single file](../databases.md#a-single-file-database){.internal-link target=_blank}?
+Remember that [SQLite is a simple database in a single file](databases.md#a-single-file-database){.internal-link target=_blank}?
 
 For most of the tutorial I'll use SQLite for the examples.
 
-Python has integrated support for SQLite, it is a single file read and processed from Python. And it doesn't need an [External Database Server](../databases.md#a-server-database){.internal-link target=_blank}, so it will be perfect for learning.
+Python has integrated support for SQLite, it is a single file read and processed from Python. And it doesn't need an [External Database Server](databases.md#a-server-database){.internal-link target=_blank}, so it will be perfect for learning.
 
 In fact, SQLite is perfectly capable of handling quite big applications. At some point you might want to migrate to a server-based database like <a href="https://www.postgresql.org/" class="external-link" target="_blank">PostgreSQL</a> (which is also free). But for now we'll stick to SQLite.
 
