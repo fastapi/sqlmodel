@@ -869,6 +869,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
+        exclude_computed_fields: bool = False,  # v2.12
         round_trip: bool = False,
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
         fallback: Union[Callable[[Any], Any], None] = None,  # v2.11
@@ -882,6 +883,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             extra_kwargs["serialize_as_any"] = serialize_as_any
         if PYDANTIC_MINOR_VERSION >= (2, 11):
             extra_kwargs["fallback"] = fallback
+        if PYDANTIC_MINOR_VERSION >= (2, 12):
+            extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
         if IS_PYDANTIC_V2:
             return super().model_dump(
                 mode=mode,
