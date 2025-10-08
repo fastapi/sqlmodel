@@ -124,7 +124,7 @@ if IS_PYDANTIC_V2:
         object.__setattr__(new_object, "__pydantic_private__", None)
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
-        raw_annotations: dict[str, Any] = class_dict.get("__annotations__", {})
+        raw_annotations: Dict[str, Any] = class_dict.get("__annotations__", {})
         if sys.version_info >= (3, 14) and "__annotations__" not in class_dict:
             # See https://github.com/pydantic/pydantic/pull/11991
             from annotationlib import (
