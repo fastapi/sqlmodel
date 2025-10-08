@@ -10,7 +10,7 @@ Let's do this with **SQLModel**. 🤓
 
 ## Using SQLAlchemy arguments
 
-We already learned a lot about [Relationship attributes](../tutorial/relationship-attributes/index.md){.internal-link target=_blank} in previous chapters. We know that **SQLModel** is built on top of **SQLAlchemy** and we know that the latter allows defining self-referential relationships (see [their documentation](https://docs.sqlalchemy.org/en/20/orm/self_referential.html){.external-link target=_blank}).
+We already learned a lot about [Relationship attributes](../../tutorial/relationship-attributes/index.md){.internal-link target=_blank} in previous chapters. We know that **SQLModel** is built on top of **SQLAlchemy** and we know that the latter allows defining self-referential relationships (see [their documentation](https://docs.sqlalchemy.org/en/20/orm/self_referential.html){.external-link target=_blank}).
 
 To allow more fine-grained control over it, the `Relationship` constructor allows explicitly passing additional keyword-arguments to the [`sqlalchemy.orm.relationship`](https://docs.sqlalchemy.org/en/20/orm/relationship_api.html#sqlalchemy.orm.relationship){.external-link target=_blank} constructor that is being called under the hood via the `sa_relationship_kwargs` parameter. This is supposed to be a mapping (e.g. a dictionary) of strings representing the SQLAlchemy **parameter names** to the **values** we want to pass through as arguments.
 
@@ -36,11 +36,11 @@ sa_relationship_kwargs={"remote_side": lambda : Villain.id}
 
 Notice that we explicitly defined the relationship attributes we wanted for referring to the `boss` **as well as** the `minions` of a `Villain`.
 
-For our purposes, it is necessary that we also provide the `back_populates` parameter to both relationships as explained in detail in a [dedicated chapter](../tutorial/relationship-attributes/back-populates.md){.internal-link target=_blank}.
+For our purposes, it is necessary that we also provide the `back_populates` parameter to both relationships as explained in detail in a [dedicated chapter](../../tutorial/relationship-attributes/back-populates.md){.internal-link target=_blank}.
 
-In addition, the type annotations were made by enclosing our `Villain` class name in quotes, since we are referencing a class that is not yet fully defined by the time the interpreter reaches those lines. See the chapter on [type annotation strings](../tutorial/relationship-attributes/type-annotation-strings.md){.internal-link target=_blank} for a detailed explanation.
+In addition, the type annotations were made by enclosing our `Villain` class name in quotes, since we are referencing a class that is not yet fully defined by the time the interpreter reaches those lines. See the chapter on [type annotation strings](../../tutorial/relationship-attributes/type-annotation-strings.md){.internal-link target=_blank} for a detailed explanation.
 
-Finally, as with regular (i.e. non-self-referential) foreign key relationships, it is up to us to decide, whether it makes sense to allow the field to be **empty** or not. In our example, not every villain must have a boss (in fact, we would otherwise introduce a circular reference chain, which would not make sense in this context). Therefore we declare `boss_id: Optional[int]` and `boss: Optional['Villain']`. This is analogous to the `Hero`→`Team` relationship we saw [in an earlier chapter](../tutorial/relationship-attributes/define-relationships-attributes.md#optional-relationship-attributes){.internal-link target=_blank}.
+Finally, as with regular (i.e. non-self-referential) foreign key relationships, it is up to us to decide, whether it makes sense to allow the field to be **empty** or not. In our example, not every villain must have a boss (in fact, we would otherwise introduce a circular reference chain, which would not make sense in this context). Therefore we declare `boss_id: Optional[int]` and `boss: Optional['Villain']`. This is analogous to the `Hero`→`Team` relationship we saw [in an earlier chapter](../../tutorial/relationship-attributes/define-relationships-attributes.md#relationship-attributes-or-none){.internal-link target=_blank}.
 
 ## Creating instances
 
