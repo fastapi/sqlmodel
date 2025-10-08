@@ -446,7 +446,7 @@ def Field(
     if schema_extra and (json_schema_extra or pydantic_kwargs):
         raise RuntimeError(
             "Passing schema_extra is not supported when "
-            "also passing a json_schema_extra"
+            "also passing a json_schema_extra or pydantic_kwargs"
         )
 
     current_pydantic_kwargs = pydantic_kwargs or {}
