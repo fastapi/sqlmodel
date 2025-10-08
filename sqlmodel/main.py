@@ -163,6 +163,8 @@ class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
+        if not hasattr(PydanticFieldInfo, "validation_alias"):
+            kwargs.pop("validation_alias")
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
@@ -352,6 +354,7 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -394,6 +397,7 @@ def Field(
         default,
         default_factory=default_factory,
         alias=alias,
+        validation_alias=validation_alias,
         title=title,
         description=description,
         exclude=exclude,
