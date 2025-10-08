@@ -109,7 +109,8 @@ def __dataclass_transform__(
     return lambda a: a
 
 
-class FieldInfo(PydanticFieldInfo):
+class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
+    # mypy - ignore that PydanticFieldInfo is @final
     def __init__(self, default: Any = Undefined, **kwargs: Any) -> None:
         primary_key = kwargs.pop("primary_key", False)
         nullable = kwargs.pop("nullable", Undefined)
