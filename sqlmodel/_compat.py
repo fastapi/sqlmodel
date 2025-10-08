@@ -123,7 +123,7 @@ if IS_PYDANTIC_V2:
         object.__setattr__(new_object, "__pydantic_private__", None)
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
-        return class_dict.get("__annotations__", {})
+        return class_dict.get("__annotations__", {})  # type: ignore[no-any-return]
 
     def is_table_model_class(cls: Type[Any]) -> bool:
         config = getattr(cls, "model_config", {})
@@ -180,7 +180,7 @@ if IS_PYDANTIC_V2:
         if not field.is_required():
             if field.default is Undefined:
                 return False
-            if field.annotation is None or field.annotation is NoneType:  # type: ignore[comparison-overlap]
+            if field.annotation is None or field.annotation is NoneType:
                 return True
             return False
         return False
@@ -509,7 +509,7 @@ else:
             keys -= update.keys()
 
         if exclude:
-            keys -= {k for k, v in exclude.items() if ValueItems.is_true(v)}
+            keys -= {str(k) for k, v in exclude.items() if ValueItems.is_true(v)}
 
         return keys
 
