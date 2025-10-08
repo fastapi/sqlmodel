@@ -127,10 +127,16 @@ if IS_PYDANTIC_V2:
         raw_annotations: dict[str, Any] = class_dict.get("__annotations__", {})
         if sys.version_info >= (3, 14) and "__annotations__" not in class_dict:
             # See https://github.com/pydantic/pydantic/pull/11991
-            from annotationlib import Format, call_annotate_function, get_annotate_from_class_namespace
+            from annotationlib import (
+                Format,
+                call_annotate_function,
+                get_annotate_from_class_namespace,
+            )
 
             if annotate := get_annotate_from_class_namespace(class_dict):
-                raw_annotations = call_annotate_function(annotate, format=Format.FORWARDREF)
+                raw_annotations = call_annotate_function(
+                    annotate, format=Format.FORWARDREF
+                )
         return raw_annotations
 
     def is_table_model_class(cls: Type[Any]) -> bool:
