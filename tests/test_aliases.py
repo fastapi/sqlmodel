@@ -5,7 +5,7 @@ from pydantic import VERSION, BaseModel, ValidationError
 from pydantic import Field as PField
 from sqlmodel import Field, SQLModel
 
-from tests.conftest import needs_pydanticv2
+from tests.conftest import needs_pydanticv1, needs_pydanticv2
 
 """
 Alias tests for SQLModel and Pydantic compatibility
