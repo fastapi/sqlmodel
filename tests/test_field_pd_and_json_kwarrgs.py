@@ -21,31 +21,14 @@ def test_json_schema_extra_applied():
     assert name_schema["x-custom-key"] == "Important Data"
 
 
-def test_pydantic_kwargs_applied():
-    """test pydantic_kwargs is applied to the field"""
+def test_schema_extra_and_new_param_conflict(caplog):
+    """
+    Test that passing schema_extra and json_schema_extra at the same time produces
+    a warning.
+    """
 
-    class User(SQLModel):
-        user_name: str = Field(pydantic_kwargs={"validation_alias": "UserNameInInput"})
-
-    field_info = User.model_fields["user_name"]
-
-    assert field_info.validation_alias == "UserNameInInput"
-
-    data = {"UserNameInInput": "KimigaiiWuyi"}
-    user = User.model_validate(data)
-    assert user.user_name == "KimigaiiWuyi"
-
-
-def test_schema_extra_and_new_param_conflict():
-    """test that passing schema_extra and new params at the same time raises an error"""
-
-    with pytest.raises(RuntimeError) as excinfo:
+    with pytest.warns(DeprecationWarning, match="schema_extra parameter is deprecated"):
         Field(schema_extra={"legacy": 1}, json_schema_extra={"new": 2})
-    assert "Passing schema_extra is not supported" in str(excinfo.value)
-
-    with pytest.raises(RuntimeError) as excinfo:
-        Field(schema_extra={"legacy": 1}, pydantic_kwargs={"alias": "Alias"})
-    assert "Passing schema_extra is not supported" in str(excinfo.value)
 
 
 def test_schema_extra_backward_compatibility():
@@ -53,14 +36,16 @@ def test_schema_extra_backward_compatibility():
     test that schema_extra is backward compatible with json_schema_extra
     """
 
-    class LegacyItem(SQLModel):
-        name: str = Field(
-            schema_extra={
-                "example": "Sword of Old",
-                "x-custom-key": "Important Data",
-                "serialization_alias": "id_test",
-            }
-        )
+    with pytest.warns(DeprecationWarning, match="schema_extra parameter is deprecated"):
+
+        class LegacyItem(SQLModel):
+            name: str = Field(
+                schema_extra={
+                    "example": "Sword of Old",
+                    "x-custom-key": "Important Data",
+                    "serialization_alias": "id_test",
+                }
+            )
 
     schema = LegacyItem.model_json_schema()
 
@@ -76,16 +61,18 @@ def test_schema_extra_backward_compatibility():
 def test_json_schema_extra_mix_in_schema_extra():
     """test that json_schema_extra is applied when it is in schema_extra"""
 
-    class Item(SQLModel):
-        name: str = Field(
-            schema_extra={
-                "json_schema_extra": {
-                    "example": "Sword of Power",
-                    "x-custom-key": "Important Data",
-                },
-                "serialization_alias": "id_test",
-            }
-        )
+    with pytest.warns(DeprecationWarning, match="schema_extra parameter is deprecated"):
+
+        class Item(SQLModel):
+            name: str = Field(
+                schema_extra={
+                    "json_schema_extra": {
+                        "example": "Sword of Power",
+                        "x-custom-key": "Important Data",
+                    },
+                    "serialization_alias": "id_test",
+                }
+            )
 
     schema = Item.model_json_schema()
 

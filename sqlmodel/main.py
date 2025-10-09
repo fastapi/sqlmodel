@@ -3,6 +3,7 @@ from __future__ import annotations
 import inspect as inspect_module
 import ipaddress
 import uuid
+import warnings
 import weakref
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
@@ -262,14 +263,11 @@ def Field(
         deprecated(
             """
             This parameter is deprecated.
-            Use `json_schema_extra` to add extra information to the JSON schema.
-            Use `pydantic_kwargs` to pass additional parameters to `Field` that are not
-            part of this interface, but accepted by Pydantic's Field.
+            Use `json_schema_extra` to add extra information to JSON schema.
             """
         ),
     ] = None,
     json_schema_extra: Optional[Dict[str, Any]] = None,
-    pydantic_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -320,14 +318,11 @@ def Field(
         deprecated(
             """
             This parameter is deprecated.
-            Use `json_schema_extra` to add extra information to the JSON schema.
-            Use `pydantic_kwargs` to pass additional parameters to `Field` that are not
-            part of this interface, but accepted by Pydantic's Field.
+            Use `json_schema_extra` to add extra information to JSON schema.
             """
         ),
     ] = None,
     json_schema_extra: Optional[Dict[str, Any]] = None,
-    pydantic_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -378,14 +373,11 @@ def Field(
         deprecated(
             """
             This parameter is deprecated.
-            Use `json_schema_extra` to add extra information to the JSON schema.
-            Use `pydantic_kwargs` to pass additional parameters to `Field` that are not
-            part of this interface, but accepted by Pydantic's Field.
+            Use `json_schema_extra` to add extra information to JSON schema.
             """
         ),
     ] = None,
     json_schema_extra: Optional[Dict[str, Any]] = None,
-    pydantic_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -434,38 +426,40 @@ def Field(
         deprecated(
             """
             This parameter is deprecated.
-            Use `json_schema_extra` to add extra information to the JSON schema.
-            Use `pydantic_kwargs` to pass additional parameters to `Field` that are not
-            part of this interface, but accepted by Pydantic's Field.
+            Use `json_schema_extra` to add extra information to JSON schema.
             """
         ),
     ] = None,
     json_schema_extra: Optional[Dict[str, Any]] = None,
-    pydantic_kwargs: Optional[Dict[str, Any]] = None,
 ) -> Any:
-    if schema_extra and (json_schema_extra or pydantic_kwargs):
-        raise RuntimeError(
-            "Passing schema_extra is not supported when "
-            "also passing a json_schema_extra or pydantic_kwargs"
+    if schema_extra:
+        warnings.warn(
+            "schema_extra parameter is deprecated. "
+            "Use json_schema_extra to add extra information to JSON schema.",
+            DeprecationWarning,
+            stacklevel=1,
         )
 
-    current_pydantic_kwargs = pydantic_kwargs or {}
+    field_info_kwargs = {}
     current_json_schema_extra = json_schema_extra or {}
     current_schema_extra = schema_extra or {}
 
     if IS_PYDANTIC_V2:
+        # Handle a workaround when json_schema_extra was passed via schema_extra
+        if "json_schema_extra" in current_schema_extra:
+            if not current_json_schema_extra:
+                current_json_schema_extra = current_schema_extra.pop(
+                    "json_schema_extra"
+                )
+        # Split parameters from schema_extra to field_info_kwargs and json_schema_extra
         for key, value in current_schema_extra.items():
-            # if schema_extra={"json_schema_extra": {"x-yy-zz": "zz"}}
-            if key == "json_schema_extra":
-                current_json_schema_extra.update(value)
-            elif key in FIELD_ACCEPTED_KWARGS:
-                current_pydantic_kwargs[key] = value
+            if key in FIELD_ACCEPTED_KWARGS:
+                field_info_kwargs[key] = value
             else:
                 current_json_schema_extra[key] = value
-        current_pydantic_kwargs["json_schema_extra"] = current_json_schema_extra
+        field_info_kwargs["json_schema_extra"] = current_json_schema_extra
     else:
-        current_pydantic_kwargs.update(current_json_schema_extra)
-        current_pydantic_kwargs.update(current_schema_extra)
+        field_info_kwargs.update(current_json_schema_extra or current_schema_extra)
 
     field_info = FieldInfo(
         default,
@@ -502,7 +496,7 @@ def Field(
         sa_column=sa_column,
         sa_column_args=sa_column_args,
         sa_column_kwargs=sa_column_kwargs,
-        **current_pydantic_kwargs,
+        **field_info_kwargs,
     )
     post_init_field_info(field_info)
     return field_info
