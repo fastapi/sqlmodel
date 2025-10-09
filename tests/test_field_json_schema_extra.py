@@ -1,5 +1,8 @@
 import pytest
 from sqlmodel import Field, SQLModel
+from sqlmodel._compat import IS_PYDANTIC_V2
+
+from tests.conftest import needs_pydanticv2
 
 
 def test_json_schema_extra_applied():
@@ -13,7 +16,10 @@ def test_json_schema_extra_applied():
             }
         )
 
-    schema = Item.model_json_schema()
+    if IS_PYDANTIC_V2:
+        schema = Item.model_json_schema()
+    else:
+        schema = Item.schema()
 
     name_schema = schema["properties"]["name"]
 
@@ -21,7 +27,7 @@ def test_json_schema_extra_applied():
     assert name_schema["x-custom-key"] == "Important Data"
 
 
-def test_schema_extra_and_new_param_conflict(caplog):
+def test_schema_extra_and_json_schema_extra_conflict(caplog):
     """
     Test that passing schema_extra and json_schema_extra at the same time produces
     a warning.
@@ -47,19 +53,29 @@ def test_schema_extra_backward_compatibility():
                 }
             )
 
-    schema = LegacyItem.model_json_schema()
+    if IS_PYDANTIC_V2:
+        schema = LegacyItem.model_json_schema()
+    else:
+        schema = LegacyItem.schema()
 
     name_schema = schema["properties"]["name"]
 
     assert name_schema["example"] == "Sword of Old"
     assert name_schema["x-custom-key"] == "Important Data"
 
-    field_info = LegacyItem.model_fields["name"]
-    assert field_info.serialization_alias == "id_test"
+    if IS_PYDANTIC_V2:
+        # With Pydantic V1 serialization_alias from schema_extra is applied
+        field_info = LegacyItem.model_fields["name"]
+        assert field_info.serialization_alias == "id_test"
+    else:  # With Pydantic V1 it just goes to schema
+        assert name_schema["serialization_alias"] == "id_test"
 
 
+@needs_pydanticv2
 def test_json_schema_extra_mix_in_schema_extra():
-    """test that json_schema_extra is applied when it is in schema_extra"""
+    """
+    Test workaround when json_schema_extra was passed via schema_extra with Pydantic v2.
+    """
 
     with pytest.warns(DeprecationWarning, match="schema_extra parameter is deprecated"):
 
