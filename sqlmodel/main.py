@@ -437,21 +437,13 @@ def Field(
         **current_schema_extra,
     }
     if IS_PYDANTIC_V2:
-        # explicit params > schema_extra > alias propagation (handled later)
-        effective_validation_alias = (
-            validation_alias
-            if validation_alias is not None
-            else schema_validation_alias
+        # explicit params > schema_extra > alias propagation
+        field_info_kwargs["validation_alias"] = (
+            validation_alias or schema_validation_alias or alias
         )
-        effective_serialization_alias = (
-            serialization_alias
-            if serialization_alias is not None
-            else schema_serialization_alias
+        field_info_kwargs["serialization_alias"] = (
+            serialization_alias or schema_serialization_alias or alias
         )
-        if effective_validation_alias is not None:
-            field_info_kwargs["validation_alias"] = effective_validation_alias
-        if effective_serialization_alias is not None:
-            field_info_kwargs["serialization_alias"] = effective_serialization_alias
     else:
         if validation_alias or schema_validation_alias is not None:
             raise RuntimeError("validation_alias is not supported in Pydantic v1")
