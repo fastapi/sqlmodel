@@ -36,7 +36,9 @@ def create_heroes() -> None:
     with Session(engine) as session:
         hero_1 = Hero(email="ted@richmond.afc", name="Ted Lasso", secret_name="Coach")
         hero_2 = Hero(email="roy@richmond.afc", name="Roy Kent", secret_name="Roy")
-        hero_3 = Hero(email="keeley@richmond.afc", name="Keeley Jones", secret_name="Keeley")
+        hero_3 = Hero(
+            email="keeley@richmond.afc", name="Keeley Jones", secret_name="Keeley"
+        )
 
         print("Adding Hero 1: Ted Lasso (email=ted@richmond.afc)")
         print("Adding Hero 2: Roy Kent (email=roy@richmond.afc)")
