@@ -5,7 +5,7 @@ from pydantic import VERSION, BaseModel, ValidationError
 from pydantic import Field as PField
 from sqlmodel import Field, SQLModel
 
-from tests.conftest import needs_pydanticv2
+from tests.conftest import needs_pydanticv1, needs_pydanticv2
 
 """
 Alias tests for SQLModel and Pydantic compatibility
@@ -21,8 +21,6 @@ class SQLModelUser(SQLModel):
 
 
 # Models with config (validate_by_name=True)
-
-
 if VERSION.startswith("2."):
 
     class PydanticUserWithConfig(PydanticUser):
@@ -138,18 +136,16 @@ else:
     SQLModelUserV2 = None
 
 
+@needs_pydanticv1
 def test_validation_alias_runtimeerror_pydantic_v1():
-    if VERSION.startswith("2."):
-        pytest.skip("Only relevant for Pydantic v1")
     with pytest.raises(
         RuntimeError, match="validation_alias is not supported in Pydantic v1"
     ):
         Field(validation_alias="foo")
 
 
+@needs_pydanticv1
 def test_serialization_alias_runtimeerror_pydantic_v1():
-    if VERSION.startswith("2."):
-        pytest.skip("Only relevant for Pydantic v1")
     with pytest.raises(
         RuntimeError, match="serialization_alias is not supported in Pydantic v1"
     ):
@@ -176,3 +172,85 @@ def test_serialize_with_serialization_alias(
     assert "firstName" not in data
     assert "first_name" not in data
     assert data["f_name"] == "Jane"
+
+
+@needs_pydanticv2
+def test_schema_extra_validation_alias_sqlmodel_v2():
+    class M(SQLModel):
+        f: str = Field(schema_extra={"validation_alias": "f_alias"})
+
+    m = M.model_validate({"f_alias": "asd"})
+    assert m.f == "asd"
+
+
+@needs_pydanticv2
+def test_schema_extra_serialization_alias_sqlmodel_v2():
+    class M(SQLModel):
+        f: str = Field(schema_extra={"serialization_alias": "f_out"})
+
+    m = M(f="x")
+    data = m.model_dump(by_alias=True)
+    assert "f_out" in data
+    assert "f" not in data
+    assert data["f_out"] == "x"
+
+
+@needs_pydanticv1
+def test_schema_extra_validation_alias_runtimeerror_pydantic_v1():
+    with pytest.raises(
+        RuntimeError, match="validation_alias is not supported in Pydantic v1"
+    ):
+        Field(schema_extra={"validation_alias": "x"})
+
+
+@needs_pydanticv1
+def test_schema_extra_serialization_alias_runtimeerror_pydantic_v1():
+    with pytest.raises(
+        RuntimeError, match="serialization_alias is not supported in Pydantic v1"
+    ):
+        Field(schema_extra={"serialization_alias": "y"})
+
+
+@needs_pydanticv2
+def test_alias_plus_validation_alias_prefers_validation_alias_sqlmodel_v2():
+    class M(SQLModel):
+        first_name: str = Field(alias="fullName", validation_alias="v_name")
+
+    m = M.model_validate({"fullName": "A", "v_name": "B"})
+    assert m.first_name == "B"
+
+
+@needs_pydanticv2
+def test_alias_plus_serialization_alias_prefers_serialization_alias_sqlmodel_v2():
+    class M(SQLModel):
+        first_name: str = Field(alias="fullName", serialization_alias="f_name")
+
+    m = M(first_name="Z")
+    data = m.model_dump(by_alias=True)
+    assert "f_name" in data
+    assert "fullName" not in data
+    assert data["f_name"] == "Z"
+
+
+@needs_pydanticv2
+def test_alias_generator_works_sqlmodel_v2():
+    class M(SQLModel):
+        model_config = {"alias_generator": lambda s: "gen_" + s}
+        f: str = Field()
+
+    m = M.model_validate({"gen_f": "ok"})
+    assert m.f == "ok"
+    data = m.model_dump(by_alias=True)
+    assert "gen_f" in data and data["gen_f"] == "ok"
+
+
+@needs_pydanticv2
+def test_alias_generator_with_explicit_alias_prefers_field_alias_sqlmodel_v2():
+    class M(SQLModel):
+        model_config = {"alias_generator": lambda s: "gen_" + s}
+        f: str = Field(alias="custom")
+
+    m = M.model_validate({"custom": "ok"})
+    assert m.f == "ok"
+    data = m.model_dump(by_alias=True)
+    assert "custom" in data and "gen_f" not in data

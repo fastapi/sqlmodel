@@ -398,6 +398,9 @@ def Field(
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+    # Extract possible alias settings from schema_extra so we can control precedence
+    schema_validation_alias = current_schema_extra.pop("validation_alias", None)
+    schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -434,17 +437,25 @@ def Field(
         **current_schema_extra,
     }
     if IS_PYDANTIC_V2:
-        # Add Pydantic v2 specific parameters
-        field_info_kwargs.update(
-            {
-                "validation_alias": validation_alias,
-                "serialization_alias": serialization_alias,
-            }
+        # explicit params > schema_extra > alias propagation (handled later)
+        effective_validation_alias = (
+            validation_alias
+            if validation_alias is not None
+            else schema_validation_alias
         )
+        effective_serialization_alias = (
+            serialization_alias
+            if serialization_alias is not None
+            else schema_serialization_alias
+        )
+        if effective_validation_alias is not None:
+            field_info_kwargs["validation_alias"] = effective_validation_alias
+        if effective_serialization_alias is not None:
+            field_info_kwargs["serialization_alias"] = effective_serialization_alias
     else:
-        if validation_alias:
+        if validation_alias or schema_validation_alias is not None:
             raise RuntimeError("validation_alias is not supported in Pydantic v1")
-        if serialization_alias:
+        if serialization_alias or schema_serialization_alias is not None:
             raise RuntimeError("serialization_alias is not supported in Pydantic v1")
     field_info = FieldInfo(
         default,
