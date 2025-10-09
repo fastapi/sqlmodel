@@ -235,13 +235,10 @@ if IS_PYDANTIC_V2:
         return FakeMetadata()
 
     def post_init_field_info(field_info: FieldInfo) -> None:
-        if IS_PYDANTIC_V2:
-            if field_info.alias and not field_info.validation_alias:
-                field_info.validation_alias = field_info.alias
-            if field_info.alias and not field_info.serialization_alias:
-                field_info.serialization_alias = field_info.alias
-        else:
-            field_info._validate()  # type: ignore[attr-defined]
+        if field_info.alias and not field_info.validation_alias:
+            field_info.validation_alias = field_info.alias
+        if field_info.alias and not field_info.serialization_alias:
+            field_info.serialization_alias = field_info.alias
 
     # Dummy to make it importable
     def _calculate_keys(
