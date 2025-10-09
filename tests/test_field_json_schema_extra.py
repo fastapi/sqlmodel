@@ -27,7 +27,7 @@ def test_json_schema_extra_applied():
     assert name_schema["x-custom-key"] == "Important Data"
 
 
-def test_schema_extra_and_json_schema_extra_conflict(caplog):
+def test_schema_extra_and_json_schema_extra_conflict():
     """
     Test that passing schema_extra and json_schema_extra at the same time produces
     a warning.
