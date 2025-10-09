@@ -20,15 +20,6 @@ This allows you to use advanced SQLAlchemy features and third‑party column typ
 
 Use a third‑party SQLAlchemy type from `sqlalchemy-utils` to encrypt a string field. The key idea is that the field uses a full SQLAlchemy `Column(...)` via `sa_column`.
 
-/// warning | Deprecation
-
-`EncryptedType` is deprecated in SQLAlchemy‑Utils since version `0.36.6`. Use `StringEncryptedType` instead.
-
-<a href="https://sqlalchemy-utils.readthedocs.io/en/latest/data_types.html#encryptedtype" class="external-link" target="_blank">See the upstream deprecation note</a>.
-
-///
-
-Note: `StringEncryptedType` provides explicit string type handling and better compatibility with SQLAlchemy 2.x.
 
 {* ./docs_src/advanced/sa_column/tutorial001.py *}
 
