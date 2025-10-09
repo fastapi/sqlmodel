@@ -83,7 +83,7 @@ def test_dict_default_uses_field_names(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    if VERSION.startswith("2."):
+    if VERSION.startswith("2.") or isinstance(user, SQLModel):
         data = user.model_dump()
     else:
         data = user.dict()
@@ -93,11 +93,11 @@ def test_dict_default_uses_field_names(
 
 
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
-def test_dict_default_uses_aliases(
+def test_dict_by_alias_uses_aliases(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    if VERSION.startswith("2."):
+    if VERSION.startswith("2.") or isinstance(user, SQLModel):
         data = user.model_dump(by_alias=True)
     else:
         data = user.dict(by_alias=True)
