@@ -225,7 +225,7 @@ def test_alias_plus_serialization_alias_prefers_serialization_alias_sqlmodel_v2(
     class M(SQLModel):
         first_name: str = Field(alias="fullName", serialization_alias="f_name")
 
-    m = M(first_name="Z")
+    m = M(fullName="Z")
     data = m.model_dump(by_alias=True)
     assert "f_name" in data
     assert "fullName" not in data
