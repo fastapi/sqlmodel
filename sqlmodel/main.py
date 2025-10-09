@@ -447,10 +447,11 @@ def Field(
     if IS_PYDANTIC_V2:
         # Handle a workaround when json_schema_extra was passed via schema_extra
         if "json_schema_extra" in current_schema_extra:
+            json_schema_extra_from_schema_extra = current_schema_extra.pop(
+                "json_schema_extra"
+            )
             if not current_json_schema_extra:
-                current_json_schema_extra = current_schema_extra.pop(
-                    "json_schema_extra"
-                )
+                current_json_schema_extra = json_schema_extra_from_schema_extra
         # Split parameters from schema_extra to field_info_kwargs and json_schema_extra
         for key, value in current_schema_extra.items():
             if key in FIELD_ACCEPTED_KWARGS:
