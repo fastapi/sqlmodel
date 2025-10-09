@@ -30,10 +30,13 @@ class Hero(SQLModel, table=True):
 
 sqlite_file_name = "database_encrypted.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
-engine = create_engine(sqlite_url, echo=True)
+engine = create_engine(sqlite_url)
 
 
 def create_db_and_tables() -> None:
+    # Reset DB for demo so decryption key changes don't break runs
+    if os.path.exists(sqlite_file_name):
+        os.remove(sqlite_file_name)
     SQLModel.metadata.create_all(engine)
 
 
@@ -43,19 +46,32 @@ def create_heroes() -> None:
     hero_3 = Hero(name="Keeley Jones", secret_name="Keeley", age=29)
 
     with Session(engine) as session:
+        print("Adding Hero 1: Ted Lasso")
+        print("Adding Hero 2: Roy Kent")
+        print("Adding Hero 3: Keeley Jones")
         session.add(hero_1)
         session.add(hero_2)
         session.add(hero_3)
         session.commit()
+        print("Inserted 3 heroes.\n")
 
 
 def select_heroes() -> None:
     with Session(engine) as session:
+        print("Selecting by name: Ted Lasso")
         statement = select(Hero).where(Hero.name == "Ted Lasso")
         hero_1 = session.exec(statement).one()
         print("Hero 1:", hero_1)
         print("Hero 1 secret_name (decrypted in Python):", hero_1.secret_name)
+        # Read the raw encrypted value directly from the DB (bypassing type decryption)
+        with engine.connect() as conn:
+            raw_encrypted = conn.exec_driver_sql(
+                "SELECT secret_name FROM hero WHERE name = ?",
+                ("Ted Lasso",),
+            ).scalar_one()
+            print("Hero 1 secret_name (stored in DB, encrypted):", raw_encrypted)
 
+        print("\nSelecting by name: Roy Kent")
         statement = select(Hero).where(Hero.name == "Roy Kent")
         hero_2 = session.exec(statement).one()
         print("Hero 2:", hero_2)

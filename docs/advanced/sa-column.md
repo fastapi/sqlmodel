@@ -61,6 +61,24 @@ After running, you should see "Database and tables created." and a `database_enc
 If you change the encryption key between runs, delete `database_encrypted.db` first so existing ciphertext doesn’t fail to decrypt with the new key.
 ///
 
+### Output
+
+```
+Adding Hero 1: Ted Lasso
+Adding Hero 2: Roy Kent
+Adding Hero 3: Keeley Jones
+Inserted 3 heroes.
+
+Selecting by name: Ted Lasso
+Hero 1: id=1 name='Ted Lasso' secret_name='Coach' age=None
+Hero 1 secret_name (decrypted in Python): Coach
+Hero 1 secret_name (stored in DB, encrypted): omSF3WBuflYmqx2+Dz6PgQ==
+
+Selecting by name: Roy Kent
+Hero 2: id=2 name='Roy Kent' secret_name='Roy' age=None
+Hero 2 secret_name (decrypted in Python): Roy
+```
+
 ## Use case: enforcing uniqueness
 
 - Single‑column unique: You can express this using `Field(unique=True)` in SQLModel or directly on the SQLAlchemy `Column(...)` when using `sa_column` for full control (e.g., to set a specific SQL type or name).
@@ -90,6 +108,24 @@ python app.py
 ```
 
 After running, you should see the selected rows printed, with a database created at `database_unique.db`. Attempting to insert a duplicate `email` (single‑column unique) or a duplicate pair of `(name, secret_name)` (composite unique) would raise an integrity error.
+
+### Output
+
+```
+Adding Hero 1: Ted Lasso (email=ted@richmond.afc)
+Adding Hero 2: Roy Kent (email=roy@richmond.afc)
+Adding Hero 3: Keeley Jones (email=keeley@richmond.afc)
+Inserted 3 heroes.
+
+Attempting to insert a duplicate (name, secret_name) ...
+Composite unique constraint enforced: UNIQUE constraint failed: hero.name, hero.secret_name
+
+Selecting by email (unique column):
+Hero 1: name='Ted Lasso' id=1 age=None secret_name='Coach' email='ted@richmond.afc'
+
+Selecting by composite key (name, secret_name):
+Hero 2: name='Roy Kent' id=2 age=None secret_name='Roy' email='roy@richmond.afc'
+```
 
 ## Important considerations
 
