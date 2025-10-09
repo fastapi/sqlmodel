@@ -1,4 +1,4 @@
-# Use SQLAlchemy columns with `sa_column`
+# Use SQLAlchemy's `Column` with `sa_column`
 
 Sometimes you need full control over how a database column is defined — beyond what `Field()` options provide.
 
