@@ -572,7 +572,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     )
                     field = next(
                         (f for f in annotated_field_meta if isinstance(f, FieldInfo)), v
-                    )
+                    )  # type: ignore[assignment]
                     field.annotation = v.annotation
                     # Guarantee the field has the correct type
                 col = get_column_from_field(field)
