@@ -1,6 +1,5 @@
-from typing_extensions import Annotated
-
 from sqlmodel import Field, SQLModel
+from typing_extensions import Annotated
 
 
 def test_declaration_syntax_1():
