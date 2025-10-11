@@ -567,8 +567,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 if isinstance(original_field, FieldInfo):
                     field = original_field
                 else:
-                    annotated_field_meta = new_cls.__annotations__[k].__dict__.get("__metadata__", [])
-                    field = next((f for f in annotated_field_meta if isinstance(f, FieldInfo)), v)
+                    annotated_field_meta = new_cls.__annotations__[k].__dict__.get(
+                        "__metadata__", []
+                    )
+                    field = next(
+                        (f for f in annotated_field_meta if isinstance(f, FieldInfo)), v
+                    )
                     field.annotation = v.annotation
                     # Guarantee the field has the correct type
                 col = get_column_from_field(field)
