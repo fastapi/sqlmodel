@@ -567,7 +567,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 if isinstance(original_field, FieldInfo):
                     field = original_field
                 else:
-                    annotated_field = get_annotations(new_cls.__dict__).get(k, {})
+                    annotated_field = next(
+                        ann
+                        for c in new_cls.__mro__
+                        if (ann := get_annotations(c.__dict__).get(k))
+                    )
                     annotated_field_meta = getattr(
                         annotated_field, "__metadata__", (())
                     )
