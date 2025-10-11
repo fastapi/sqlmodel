@@ -563,12 +563,14 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
                 original_field = getattr(v, "_original_assignment", Undefined)
-                annotated_field_meta = new_cls.__annotations__[k].__dict__.get("__metadata__", [])
-                annotated_field = next((f for f in annotated_field_meta if isinstance(f, FieldInfo)), None)
-                field = original_field if isinstance(original_field, FieldInfo) else (annotated_field or v)
                 # Get the original sqlmodel FieldInfo, pydantic >=v2.12 changes the model
-                field.annotation = v.annotation
-                # Guarantee the field has the correct type
+                if isinstance(original_field, FieldInfo):
+                    field = original_field
+                else:
+                    annotated_field_meta = new_cls.__annotations__[k].__dict__.get("__metadata__", [])
+                    field = next((f for f in annotated_field_meta if isinstance(f, FieldInfo)), v)
+                    field.annotation = v.annotation
+                    # Guarantee the field has the correct type
                 col = get_column_from_field(field)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
