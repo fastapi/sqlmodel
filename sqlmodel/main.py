@@ -570,7 +570,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     annotated_field = next(
                         ann
                         for c in new_cls.__mro__
-                        if (ann := get_annotations(c.__dict__).get(k)) # type: ignore[arg-type]
+                        if (ann := get_annotations(c.__dict__).get(k))  # type: ignore[arg-type]
                     )
                     annotated_field_meta = getattr(
                         annotated_field, "__metadata__", (())
