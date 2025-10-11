@@ -567,14 +567,13 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 if isinstance(original_field, FieldInfo):
                     field = original_field
                 else:
-                    annotated_field_meta = new_cls.__annotations__[k].__dict__.get(
-                        "__metadata__", []
-                    )
+                    annotated_field = get_annotations(new_cls.__dict__).get(k, {})
+                    annotated_field_meta = getattr(annotated_field,"__metadata__", (()))
                     field = next(
                         (f for f in annotated_field_meta if isinstance(f, FieldInfo)), v
                     )  # type: ignore[assignment]
-                    field.annotation = v.annotation
-                    # Guarantee the field has the correct type
+                field.annotation = v.annotation
+                # Guarantee the field has the correct type
                 col = get_column_from_field(field)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
