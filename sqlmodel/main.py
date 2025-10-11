@@ -568,7 +568,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     field = original_field
                 else:
                     annotated_field = get_annotations(new_cls.__dict__).get(k, {})
-                    annotated_field_meta = getattr(annotated_field,"__metadata__", (()))
+                    annotated_field_meta = getattr(
+                        annotated_field, "__metadata__", (())
+                    )
                     field = next(
                         (f for f in annotated_field_meta if isinstance(f, FieldInfo)), v
                     )  # type: ignore[assignment]
