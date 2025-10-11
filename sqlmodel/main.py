@@ -562,6 +562,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
+                if not IS_PYDANTIC_V2:
+                    col = get_column_from_field(v)
+                    setattr(new_cls, k, col)
+                    continue
+
                 original_field = getattr(v, "_original_assignment", Undefined)
                 # Get the original sqlmodel FieldInfo, pydantic >=v2.12 changes the model
                 if isinstance(original_field, FieldInfo):
@@ -576,7 +581,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                         annotated_field, "__metadata__", (())
                     )
                     field = next(
-                        (f for f in annotated_field_meta if isinstance(f, FieldInfo)), v
+                        (f for f in annotated_field_meta if isinstance(f, FieldInfo)),
+                        v,
                     )  # type: ignore[assignment]
                 field.annotation = v.annotation
                 # Guarantee the field has the correct type
