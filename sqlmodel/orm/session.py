@@ -113,7 +113,7 @@ class Session(_Session):
         """,
         category=None,
     )
-    def execute(  # type: ignore
+    def execute(
         self,
         statement: _Executable,
         params: Optional[_CoreAnyExecuteParams] = None,

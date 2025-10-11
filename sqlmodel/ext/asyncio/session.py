@@ -129,7 +129,7 @@ class AsyncSession(_AsyncSession):
         ```
         """
     )
-    async def execute(  # type: ignore
+    async def execute(
         self,
         statement: _Executable,
         params: Optional[_CoreAnyExecuteParams] = None,
