@@ -3,6 +3,7 @@ from typing import Optional
 import pytest
 from sqlalchemy import Column, Integer, String
 from sqlmodel import Field, SQLModel
+from typing_extensions import Annotated
 
 
 def test_sa_column_takes_precedence() -> None:
@@ -13,6 +14,17 @@ def test_sa_column_takes_precedence() -> None:
         )
 
     # It would have been nullable with no sa_column
+    assert Item.id.nullable is False  # type: ignore
+    assert isinstance(Item.id.type, String)  # type: ignore
+
+
+def test_sa_column_with_annotated_metadata() -> None:
+    class Item(SQLModel, table=True):
+        id: Annotated[Optional[int], "meta"] = Field(
+            default=None,
+            sa_column=Column(String, primary_key=True, nullable=False),
+        )
+
     assert Item.id.nullable is False  # type: ignore
     assert isinstance(Item.id.type, String)  # type: ignore
 
