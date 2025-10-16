@@ -38,7 +38,12 @@ classifiers = [
 dependencies = [
     "SQLAlchemy >=2.0.14,<2.1.0",
     "pydantic>=2.7.0",
+    "typer >=0.9.0",
+    "alembic >=1.13.0",
 ]
+
+[project.scripts]
+sqlmodel = "sqlmodel.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/fastapi/sqlmodel"
@@ -52,6 +57,7 @@ dev = [
     { include-group = "docs" },
     { include-group = "tests" },
     "prek>=0.2.24,<1.0.0",
+    "inline-snapshot >=0.13.0",
 ]
 docs = [
     "black>=22.10",
