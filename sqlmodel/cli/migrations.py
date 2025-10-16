@@ -9,7 +9,47 @@ from alembic.config import Config
 from alembic.runtime.migration import MigrationContext
 from sqlalchemy import create_engine, pool
 
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib  # type: ignore
+
 migrations_app = typer.Typer()
+
+
+def get_models_path_from_config() -> str:
+    """Get the models path from pyproject.toml configuration."""
+    pyproject_path = Path.cwd() / "pyproject.toml"
+
+    if not pyproject_path.exists():
+        raise ValueError(
+            "Could not find pyproject.toml in the current directory. "
+            "Please create one with [tool.sqlmodel] section containing 'models = \"your.models.path\"'"
+        )
+
+    with open(pyproject_path, "rb") as f:
+        config = tomllib.load(f)
+
+    # Try to get models path from [tool.sqlmodel]
+    if "tool" not in config or "sqlmodel" not in config["tool"]:
+        raise ValueError(
+            "No [tool.sqlmodel] section found in pyproject.toml. "
+            "Please add:\n\n"
+            "[tool.sqlmodel]\n"
+            "models = \"your.models.path\"\n"
+        )
+
+    sqlmodel_config = config["tool"]["sqlmodel"]
+
+    if "models" not in sqlmodel_config:
+        raise ValueError(
+            "No 'models' key found in [tool.sqlmodel] section. "
+            "Please add:\n\n"
+            "[tool.sqlmodel]\n"
+            "models = \"your.models.path\"\n"
+        )
+
+    return sqlmodel_config["models"]
 
 
 def get_migrations_dir(migrations_path: Optional[str] = None) -> Path:
@@ -115,17 +155,19 @@ def generate_migration_ops(db_url: str, metadata):
 @migrations_app.command()
 def create(
     message: str = typer.Option(..., "--message", "-m", help="Migration message"),
-    models: str = typer.Option(
-        ...,
-        "--models",
-        help="Python import path to models module (e.g., 'models' or 'app.models')",
-    ),
     migrations_path: Optional[str] = typer.Option(
         None, "--path", "-p", help="Path to migrations directory"
     ),
 ) -> None:
     """Create a new migration with autogenerate."""
     migrations_dir = get_migrations_dir(migrations_path)
+
+    # Get models path from pyproject.toml
+    try:
+        models = get_models_path_from_config()
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(1)
 
     # Create migrations directory if it doesn't exist
     migrations_dir.mkdir(parents=True, exist_ok=True)
@@ -418,17 +460,19 @@ def apply_migrations_programmatically(
 
 @migrations_app.command()
 def migrate(
-    models: str = typer.Option(
-        ...,
-        "--models",
-        help="Python import path to models module (e.g., 'models' or 'app.models')",
-    ),
     migrations_path: Optional[str] = typer.Option(
         None, "--path", "-p", help="Path to migrations directory"
     ),
 ) -> None:
     """Apply all pending migrations to the database."""
     migrations_dir = get_migrations_dir(migrations_path)
+
+    # Get models path from pyproject.toml
+    try:
+        models = get_models_path_from_config()
+    except ValueError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(1)
 
     if not migrations_dir.exists():
         typer.echo(
