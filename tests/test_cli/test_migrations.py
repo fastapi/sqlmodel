@@ -1,5 +1,6 @@
 import shutil
 from pathlib import Path
+from typing import NamedTuple
 
 import pytest
 from inline_snapshot import external, register_format_alias
@@ -16,8 +17,19 @@ HERE = Path(__file__).parent
 register_format_alias(".html", ".txt")
 
 
-def test_create_first_migration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
-    """Test creating the first migration with an empty database."""
+class MigrationTestEnv(NamedTuple):
+    """Test environment for migrations."""
+    tmp_path: Path
+    db_path: Path
+    db_url: str
+    migrations_dir: Path
+    models_dir: Path
+    models_file: Path
+
+
+@pytest.fixture
+def migration_env(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> MigrationTestEnv:
+    """Set up a test environment for migrations."""
     db_path = tmp_path / "test.db"
     db_url = f"sqlite:///{db_path}"
     migrations_dir = tmp_path / "migrations"
@@ -35,6 +47,18 @@ def test_create_first_migration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
     monkeypatch.setenv("DATABASE_URL", db_url)
     monkeypatch.chdir(tmp_path)
 
+    return MigrationTestEnv(
+        tmp_path=tmp_path,
+        db_path=db_path,
+        db_url=db_url,
+        migrations_dir=migrations_dir,
+        models_dir=models_dir,
+        models_file=models_file,
+    )
+
+
+def test_create_first_migration(migration_env: MigrationTestEnv):
+    """Test creating the first migration with an empty database."""
     # Run the create command
     result = runner.invoke(
         app,
@@ -46,7 +70,7 @@ def test_create_first_migration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
             "--models",
             "test_models.models",
             "--path",
-            str(migrations_dir),
+            str(migration_env.migrations_dir),
         ],
     )
 
@@ -54,14 +78,14 @@ def test_create_first_migration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
     assert "✓ Created migration:" in result.stdout
 
     migration_files = sorted(
-        [str(f.relative_to(tmp_path)) for f in migrations_dir.glob("*.py")]
+        [str(f.relative_to(migration_env.tmp_path)) for f in migration_env.migrations_dir.glob("*.py")]
     )
 
     assert migration_files == [
         "migrations/0001_initial_migration.py",
     ]
 
-    migration_file = migrations_dir / "0001_initial_migration.py"
+    migration_file = migration_env.migrations_dir / "0001_initial_migration.py"
 
     assert migration_file.read_text() == external(
         "uuid:f1182584-912e-4f31-9d79-2233e5a8a986.py"
@@ -70,25 +94,9 @@ def test_create_first_migration(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
 
 # TODO: to force migration you need to pass `--empty`s
 def test_running_migration_twice_only_generates_migration_once(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    migration_env: MigrationTestEnv,
 ):
-    db_path = tmp_path / "test.db"
-    db_url = f"sqlite:///{db_path}"
-    migrations_dir = tmp_path / "migrations"
-
-    model_source = HERE / "./fixtures/models_initial.py"
-
-    models_dir = tmp_path / "test_models"
-    models_dir.mkdir()
-
-    (models_dir / "__init__.py").write_text("")
-    models_file = models_dir / "models.py"
-
-    shutil.copy(model_source, models_file)
-
-    monkeypatch.setenv("DATABASE_URL", db_url)
-    monkeypatch.chdir(tmp_path)
-
+    """Test that running migration creation twice without changes fails."""
     # Run the create command
     result = runner.invoke(
         app,
@@ -100,7 +108,7 @@ def test_running_migration_twice_only_generates_migration_once(
             "--models",
             "test_models.models",
             "--path",
-            str(migrations_dir),
+            str(migration_env.migrations_dir),
         ],
     )
 
@@ -116,7 +124,7 @@ def test_running_migration_twice_only_generates_migration_once(
             "--models",
             "test_models.models",
             "--path",
-            str(migrations_dir),
+            str(migration_env.migrations_dir),
         ],
     )
 
@@ -133,7 +141,7 @@ def test_running_migration_twice_only_generates_migration_once(
             "--models",
             "test_models.models",
             "--path",
-            str(migrations_dir),
+            str(migration_env.migrations_dir),
         ],
     )
 
@@ -141,7 +149,7 @@ def test_running_migration_twice_only_generates_migration_once(
     assert "Empty migrations are not allowed" in result.stdout
 
     migration_files = sorted(
-        [str(f.relative_to(tmp_path)) for f in migrations_dir.glob("*.py")]
+        [str(f.relative_to(migration_env.tmp_path)) for f in migration_env.migrations_dir.glob("*.py")]
     )
 
     assert migration_files == [
@@ -150,26 +158,9 @@ def test_running_migration_twice_only_generates_migration_once(
 
 
 def test_cannot_create_migration_with_pending_migrations(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    migration_env: MigrationTestEnv,
 ):
     """Test that creating a migration fails if there are unapplied migrations."""
-    db_path = tmp_path / "test.db"
-    db_url = f"sqlite:///{db_path}"
-    migrations_dir = tmp_path / "migrations"
-
-    model_source = HERE / "./fixtures/models_initial.py"
-
-    models_dir = tmp_path / "test_models"
-    models_dir.mkdir()
-
-    (models_dir / "__init__.py").write_text("")
-    models_file = models_dir / "models.py"
-
-    shutil.copy(model_source, models_file)
-
-    monkeypatch.setenv("DATABASE_URL", db_url)
-    monkeypatch.chdir(tmp_path)
-
     # Run the create command to create first migration
     result = runner.invoke(
         app,
@@ -181,7 +172,7 @@ def test_cannot_create_migration_with_pending_migrations(
             "--models",
             "test_models.models",
             "--path",
-            str(migrations_dir),
+            str(migration_env.migrations_dir),
         ],
     )
 
@@ -199,7 +190,7 @@ def test_cannot_create_migration_with_pending_migrations(
             "--models",
             "test_models.models",
             "--path",
-            str(migrations_dir),
+            str(migration_env.migrations_dir),
         ],
     )
 
@@ -217,7 +208,7 @@ def test_cannot_create_migration_with_pending_migrations(
 
     # Verify only one migration file exists
     migration_files = sorted(
-        [str(f.relative_to(tmp_path)) for f in migrations_dir.glob("*.py")]
+        [str(f.relative_to(migration_env.tmp_path)) for f in migration_env.migrations_dir.glob("*.py")]
     )
 
     assert migration_files == [
