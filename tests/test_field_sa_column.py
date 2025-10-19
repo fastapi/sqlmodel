@@ -1,10 +1,11 @@
-from typing import Optional
 from datetime import datetime
-from typing_extensions import Annotated
+from typing import Optional
 
 import pytest
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, DateTime, Integer, String
 from sqlmodel import Field, SQLModel
+from typing_extensions import Annotated
+
 from tests.conftest import needs_pydanticv2
 
 

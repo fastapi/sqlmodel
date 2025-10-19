@@ -26,6 +26,7 @@ from typing import (
     cast,
     overload,
 )
+from typing import Annotated as TypingAnnotated
 
 from pydantic import BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
@@ -56,13 +57,16 @@ from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from typing_extensions import (
     Annotated as TEAnnotated,
+)
+from typing_extensions import (
     Literal,
     TypeAlias,
     deprecated,
-    get_args as te_get_args,
     get_origin,
 )
-from typing import Annotated as TypingAnnotated
+from typing_extensions import (
+    get_args as te_get_args,
+)
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
@@ -568,7 +572,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                                 # Attach found Column to the Pydantic field info
                                 model_fields = get_model_fields(new_cls)
                                 if field_name in model_fields:
-                                    setattr(model_fields[field_name], "sa_column", sa_col)
+                                    model_fields[field_name].sa_column = sa_col
                                 break
                 except Exception:
                     # Best-effort; fall back to default behavior
