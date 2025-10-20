@@ -572,18 +572,18 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 if isinstance(original_field, FieldInfo):
                     field = original_field
                 else:
-                    annotated_field = next(
-                        ann
-                        for c in new_cls.__mro__
-                        if (ann := get_annotations(c.__dict__).get(k))  # type: ignore[arg-type]
-                    )
-                    annotated_field_meta = getattr(
-                        annotated_field, "__metadata__", (())
-                    )
-                    field = next(
-                        (f for f in annotated_field_meta if isinstance(f, FieldInfo)),
-                        v,
-                    )  # type: ignore[assignment]
+                    field = v  # type: ignore[assignment]
+                    # Update the FieldInfo with the correct class from annotation.
+                    # This is required because pydantic overrides the field with its own
+                    # class and the reference for sqlmodel.FieldInfo is lost.
+                    for c in new_cls.__mro__:
+                        if annotated := get_annotations(c.__dict__).get(k):  # type: ignore[arg-type]
+                            for meta in getattr(annotated, "__metadata__", ()):
+                                if isinstance(meta, FieldInfo):
+                                    field = meta
+                                    break
+                            break
+
                 field.annotation = v.annotation
                 # Guarantee the field has the correct type
                 col = get_column_from_field(field)
