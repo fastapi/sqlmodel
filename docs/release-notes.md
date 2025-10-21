@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ✅ Remove unused type ignores since SQLAlchemy 2.0.44. PR [#1613](https://github.com/fastapi/sqlmodel/pull/1613) by [@svlandeg](https://github.com/svlandeg).
+
 ## 0.0.27
 
 ### Upgrades
