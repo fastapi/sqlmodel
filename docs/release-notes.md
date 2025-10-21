@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Fix broken links in docs. PR [#1601](https://github.com/fastapi/sqlmodel/pull/1601) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ### Internal
 
 * ⬆ Bump ruff from 0.13.2 to 0.14.0. PR [#1592](https://github.com/fastapi/sqlmodel/pull/1592) by [@dependabot[bot]](https://github.com/apps/dependabot).
