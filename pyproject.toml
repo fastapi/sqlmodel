@@ -26,6 +26,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Database",
     "Topic :: Database :: Database Engines/Servers",
     "Topic :: Internet",
@@ -98,10 +99,7 @@ show_contexts = true
 
 [tool.mypy]
 strict = true
-
-[[tool.mypy.overrides]]
-module = "sqlmodel.sql._expression_select_gen"
-warn_unused_ignores = false
+exclude = "sqlmodel.sql._expression_select_gen"
 
 [[tool.mypy.overrides]]
 module = "docs_src.*"
