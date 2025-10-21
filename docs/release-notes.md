@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump astral-sh/setup-uv from 6 to 7. PR [#1593](https://github.com/fastapi/sqlmodel/pull/1593) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.6.21 to 9.6.22. PR [#1608](https://github.com/fastapi/sqlmodel/pull/1608) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Configure reminder for `waiting` label in `issue-manager`. PR [#1609](https://github.com/fastapi/sqlmodel/pull/1609) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump typer from 0.19.2 to 0.20.0. PR [#1612](https://github.com/fastapi/sqlmodel/pull/1612) by [@dependabot[bot]](https://github.com/apps/dependabot).
