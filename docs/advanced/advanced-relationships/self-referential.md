@@ -4,7 +4,7 @@ Oftentimes we need to model a relationship between one entity of some class and 
 
 In database terms this means having a table with a foreign key reference to the primary key in the same table.
 
-Say, for example, we want to introduce a `Villain` class. 😈 Every villain can have a **boss**, who also must be a villain. If a villain is the boss to other villains, we want to call those his **minions**.
+Say, for example, we want to introduce a `Villain` class. 😈 Every villain can have a **boss**, who also must be a villain. If a villain is the boss of other villains, we want to call those his **minions**.
 
 Let's implement this with **SQLModel**. 🤓
 
@@ -58,7 +58,7 @@ And if we want to add minions to a boss afterward, it's as easy as adding items 
 
 {* ./docs_src/advanced/self_referential/tutorial001.py ln[31:32,58:69] hl[61] *}
 
-Since our relationships work both ways, we don't even need to add all our `clone_bot_`s to the session individually. Instead, we can simply add ultra_bot again and commit the changes. We do need to refresh them individually, though, if we want to access their updated attributes.
+Since our relationships work both ways, we don't even need to add all our `clone_bot_`s to the session individually. Instead, we can simply add `ultra_bot` again and commit the changes. We do need to refresh them individually, though, if we want to access their updated attributes.
 
 ## Traversing the relationship graph
 
