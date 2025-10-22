@@ -562,7 +562,31 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
-                col = get_column_from_field(v)
+                if not IS_PYDANTIC_V2:
+                    col = get_column_from_field(v)
+                    setattr(new_cls, k, col)
+                    continue
+
+                original_field = getattr(v, "_original_assignment", Undefined)
+                # Get the original sqlmodel FieldInfo, pydantic >=v2.12 changes the model
+                if isinstance(original_field, FieldInfo):
+                    field = original_field
+                else:
+                    field = v  # type: ignore[assignment]
+                    # Update the FieldInfo with the correct class from annotation.
+                    # This is required because pydantic overrides the field with its own
+                    # class and the reference for sqlmodel.FieldInfo is lost.
+                    for c in new_cls.__mro__:
+                        if annotated := get_annotations(c.__dict__).get(k):  # type: ignore[arg-type]
+                            for meta in getattr(annotated, "__metadata__", ()):
+                                if isinstance(meta, FieldInfo):
+                                    field = meta
+                                    break
+                            break
+
+                field.annotation = v.annotation
+                # Guarantee the field has the correct type
+                col = get_column_from_field(field)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
             # in orm_mode instead of preemptively converting it to a dict.
