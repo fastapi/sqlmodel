@@ -1,4 +1,3 @@
-import re
 from typing import Optional
 
 from sqlalchemy import ForeignKey, create_engine
@@ -23,14 +22,9 @@ def test_base_model_fk(clear_sqlmodel, caplog) -> None:
     engine = create_engine("sqlite://", echo=True)
     SQLModel.metadata.create_all(engine)
 
-    fk_log = [
-        message
-        for message in caplog.messages
-        if re.search(
-            r"FOREIGN KEY\s*\(owner_id\)\s*REFERENCES\s*user\s*\(id\)", message
-        )
-    ][0]
-    assert "ON DELETE SET NULL" in fk_log
+    assert (
+        "FOREIGN KEY(owner_id) REFERENCES user (id) ON DELETE SET NULL" in caplog.text
+    )
 
 
 def test_base_model_fk_args(clear_sqlmodel, caplog) -> None:
@@ -52,11 +46,6 @@ def test_base_model_fk_args(clear_sqlmodel, caplog) -> None:
     engine = create_engine("sqlite://", echo=True)
     SQLModel.metadata.create_all(engine)
 
-    fk_log = [
-        message
-        for message in caplog.messages
-        if re.search(
-            r"FOREIGN KEY\s*\(owner_id\)\s*REFERENCES\s*user\s*\(id\)", message
-        )
-    ][0]
-    assert "ON DELETE SET NULL" in fk_log
+    assert (
+        "FOREIGN KEY(owner_id) REFERENCES user (id) ON DELETE SET NULL" in caplog.text
+    )
