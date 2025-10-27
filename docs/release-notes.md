@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump griffe-typingdoc from 0.2.9 to 0.3.0. PR [#1615](https://github.com/fastapi/sqlmodel/pull/1615) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 4 to 5. PR [#1620](https://github.com/fastapi/sqlmodel/pull/1620) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 5 to 6. PR [#1621](https://github.com/fastapi/sqlmodel/pull/1621) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.0 to 0.14.1. PR [#1614](https://github.com/fastapi/sqlmodel/pull/1614) by [@dependabot[bot]](https://github.com/apps/dependabot).
