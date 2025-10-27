@@ -168,7 +168,9 @@ class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
                 raise RuntimeError("ondelete can only be used with foreign_key")
             if not isinstance(foreign_key, str):
                 raise RuntimeError(
-                    "ondelete can only be used with foreign_key given as a string"
+                    "Passing ondelete to Field is not supported when foreign_key is "
+                    "specified as sa_column_args=[ForeignKey(...)]. Pass ondelete as "
+                    "a parameter to ForeignKey instead"
                 )
         super().__init__(default=default, **kwargs)
         self.primary_key = primary_key
