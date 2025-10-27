@@ -767,7 +767,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         kwargs["default"] = sa_default
     sa_column_args = getattr(field_info, "sa_column_args", Undefined)
     if sa_column_args is not Undefined:
-        for arg_v in sa_column_args:
+        for arg_v in list(cast(Sequence[Any], sa_column_args)):
             if isinstance(arg_v, ForeignKey):
                 args.append(copy(arg_v))
             else:
