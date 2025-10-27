@@ -3,6 +3,7 @@ from __future__ import annotations
 import ipaddress
 import uuid
 import weakref
+from copy import copy
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
@@ -750,7 +751,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
             args.append(ForeignKey(foreign_key, ondelete=ondelete))
         else:
             assert isinstance(foreign_key, ForeignKey)
-            args.append(foreign_key.copy())
+            args.append(copy(foreign_key))
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
@@ -766,7 +767,11 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         kwargs["default"] = sa_default
     sa_column_args = getattr(field_info, "sa_column_args", Undefined)
     if sa_column_args is not Undefined:
-        args.extend(list(cast(Sequence[Any], sa_column_args)))
+        for arg_v in sa_column_args:
+            if isinstance(arg_v, ForeignKey):
+                args.append(copy(arg_v))
+            else:
+                args.append(arg_v)
     sa_column_kwargs = getattr(field_info, "sa_column_kwargs", Undefined)
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
