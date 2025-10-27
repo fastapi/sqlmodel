@@ -2,7 +2,7 @@
 
 Now let's get to the code. 👩‍💻
 
-Make sure you are inside of your project directory and with your virtual environment activated as [explained in the previous chapter](index.md){.internal-link target=_blank}.
+Make sure you are inside of your project directory and with your virtual environment activated as explained in [Virtual Environments](../virtual-environments.md#create-a-project){.internal-link target=_blank}.
 
 We will:
 
@@ -327,7 +327,7 @@ Put the code it in a file `app.py` if you haven't already.
 
 /// tip
 
-Remember to [activate the virtual environment](./index.md#create-a-python-virtual-environment){.internal-link target=_blank} before running it.
+Remember to [activate the virtual environment](../virtual-environments.md#create-a-virtual-environment){.internal-link target=_blank} before running it.
 
 ///
 
