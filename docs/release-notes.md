@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 📝 Update link to JetBrains Python survey in `features.md`. PR [#1627](https://github.com/fastapi/sqlmodel/pull/1627) by [@sparkiegeek](https://github.com/sparkiegeek).
 * 📝 Fix broken links in docs. PR [#1601](https://github.com/fastapi/sqlmodel/pull/1601) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ### Internal
