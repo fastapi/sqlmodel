@@ -81,6 +81,7 @@ if IS_PYDANTIC_V2:
     from pydantic._internal._repr import Representation as Representation
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
+    from typing import TypeAliasType
 
     # Dummy for types, to make it importable
     class ModelField:
@@ -203,6 +204,8 @@ if IS_PYDANTIC_V2:
         # Resolve Optional fields
         if annotation is None:
             raise ValueError("Missing field type")
+        if isinstance(annotation, TypeAliasType):
+            annotation = annotation.__value__
         origin = get_origin(annotation)
         if origin is None:
             return annotation
