@@ -1,8 +1,11 @@
 import typing as t
+from textwrap import dedent
 
 import pytest
 import typing_extensions as te
 from sqlmodel import Field, SQLModel
+
+from tests.conftest import needs_py312
 
 
 def test_sa_type_typing_1() -> None:
@@ -39,20 +42,28 @@ def test_sa_type_typing_4() -> None:
         weapon: Type4_t = "sword"
 
 
+@needs_py312
 def test_sa_type_typing_5() -> None:
+    test_code = dedent("""
     type Type5_t = str
 
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
         weapon: Type5_t = "sword"
+    """)
+    exec(test_code, globals())
 
 
+@needs_py312
 def test_sa_type_typing_6() -> None:
+    test_code = dedent("""
     type Type6_t = t.Annotated[str, "Just a comment"]
 
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
         weapon: Type6_t = "sword"
+    """)
+    exec(test_code, globals())
 
 
 def test_sa_type_typing_7() -> None:
@@ -115,20 +126,28 @@ def test_sa_type_typing_extensions_4() -> None:
         weapon: Type4_te = "sword"
 
 
+@needs_py312
 def test_sa_type_typing_extensions_5() -> None:
+    test_code = dedent("""
     type Type5_te = str
 
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
         weapon: Type5_te = "sword"
+    """)
+    exec(test_code, globals())
 
 
+@needs_py312
 def test_sa_type_typing_extensions_6() -> None:
+    test_code = dedent("""
     type Type6_te = te.Annotated[str, "Just a comment"]
 
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
         weapon: Type6_te = "sword"
+    """)
+    exec(test_code, globals())
 
 
 def test_sa_type_typing_extensions_7() -> None:
