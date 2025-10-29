@@ -70,13 +70,16 @@ def test_sa_type_typing_8() -> None:
         pk: int = Field(primary_key=True)
         weapon: Type8_t = "sword"
 
+
 def test_sa_type_typing_9() -> None:
     Type9_t = t.TypeVar("Type9_t", str, bytes)
 
     with pytest.raises(ValueError):
+
         class Hero(SQLModel, table=True):
             pk: int = Field(primary_key=True)
             weapon: Type9_t = "sword"
+
 
 def test_sa_type_typing_extensions_1() -> None:
     Type1_te = str
@@ -148,6 +151,7 @@ def test_sa_type_typing_extensions_9() -> None:
     Type9_te = te.TypeVar("Type9_te", str, bytes)
 
     with pytest.raises(ValueError):
+
         class Hero(SQLModel, table=True):
             pk: int = Field(primary_key=True)
             weapon: Type9_te = "sword"
