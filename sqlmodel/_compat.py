@@ -210,7 +210,10 @@ if IS_PYDANTIC_V2:
         return bool(check_type) and isinstance(annotation, tuple(check_type))
 
     def _is_new_type_instance(annotation: Any) -> bool:
-        return _is_typing_type_instance(annotation, "NewType")
+        if sys.version_info >= (3, 10):
+            return _is_typing_type_instance(annotation, "NewType")
+        else:
+            return hasattr(annotation, "__supertype__")
 
     def _is_type_var_instance(annotation: Any) -> bool:
         return _is_typing_type_instance(annotation, "TypeVar")
