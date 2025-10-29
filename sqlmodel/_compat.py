@@ -15,7 +15,6 @@ from typing import (
     Optional,
     Set,
     Type,
-    TypeAliasType,
     TypeVar,
     Union,
 )
@@ -75,6 +74,9 @@ def partial_init() -> Generator[None, None, None]:
 
 
 if IS_PYDANTIC_V2:
+    if sys.version_info >= (3, 12):
+        from typing import TypeAliasType
+
     from annotated_types import MaxLen
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
@@ -204,7 +206,7 @@ if IS_PYDANTIC_V2:
         # Resolve Optional fields
         if annotation is None:
             raise ValueError("Missing field type")
-        if isinstance(annotation, TypeAliasType):
+        if sys.version_info >= (3, 12) and isinstance(annotation, TypeAliasType):
             annotation = annotation.__value__
         origin = get_origin(annotation)
         if origin is None:

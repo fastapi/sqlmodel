@@ -1,11 +1,11 @@
-from sys import version_info
 from typing import Annotated, TypeAlias
 
-import pytest
 from sqlmodel import Field, SQLModel
 
+from tests.conftest import needs_py312
 
-@pytest.mark.skipif(version_info[1] < 12, reason="Language feature of Python 3.12+")
+
+@needs_py312
 def test_sa_type_1() -> None:
     Type1 = str
 
@@ -14,7 +14,7 @@ def test_sa_type_1() -> None:
         weapon: Type1 = "sword"
 
 
-@pytest.mark.skipif(version_info[1] < 12, reason="Language feature of Python 3.12+")
+@needs_py312
 def test_sa_type_2() -> None:
     Type2 = Annotated[str, "Just a comment"]
 
@@ -26,7 +26,7 @@ def test_sa_type_2() -> None:
 Type3: TypeAlias = str
 
 
-@pytest.mark.skipif(version_info[1] < 12, reason="Language feature of Python 3.12+")
+@needs_py312
 def test_sa_type_3() -> None:
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
@@ -36,14 +36,14 @@ def test_sa_type_3() -> None:
 Type4: TypeAlias = Annotated[str, "Just a comment"]
 
 
-@pytest.mark.skipif(version_info[1] < 12, reason="Language feature of Python 3.12+")
+@needs_py312
 def test_sa_type_4() -> None:
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
         weapon: Type4 = "sword"
 
 
-@pytest.mark.skipif(version_info[1] < 12, reason="Language feature of Python 3.12+")
+@needs_py312
 def test_sa_type_5() -> None:
     type Type5 = str
 
@@ -52,7 +52,7 @@ def test_sa_type_5() -> None:
         weapon: Type5 = "sword"
 
 
-@pytest.mark.skipif(version_info[1] < 12, reason="Language feature of Python 3.12+")
+@needs_py312
 def test_sa_type_6() -> None:
     type Type6 = Annotated[str, "Just a comment"]
 
