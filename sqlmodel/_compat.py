@@ -179,6 +179,18 @@ if IS_PYDANTIC_V2:
         elif origin is list:
             use_annotation = get_args(annotation)[0]
 
+        # If a dict or Mapping, get the value type (second type argument)
+        elif origin is dict or origin is Mapping:
+            args = get_args(annotation)
+            if len(args) >= 2:
+                # For Dict[K, V] or Mapping[K, V], we want the value type (V)
+                use_annotation = args[1]
+            else:
+                raise ValueError(
+                    f"Dict/Mapping relationship field '{name}' must have both key "
+                    "and value type arguments (e.g., Dict[str, Model])"
+                )
+
         return get_relationship_to(
             name=name, rel_info=rel_info, annotation=use_annotation
         )
