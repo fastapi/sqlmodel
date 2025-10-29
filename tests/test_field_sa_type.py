@@ -5,7 +5,7 @@ import pytest
 import typing_extensions as te
 from sqlmodel import Field, SQLModel
 
-from tests.conftest import needs_py312, needs_pydanticv2
+from tests.conftest import needs_py312
 
 
 def test_sa_type_typing_1() -> None:
@@ -44,7 +44,6 @@ if hasattr(t, "TypeAlias"):
 
 
 @needs_py312
-@needs_pydanticv2
 def test_sa_type_typing_5() -> None:
     test_code = dedent("""
     type Type5_t = str
@@ -57,7 +56,6 @@ def test_sa_type_typing_5() -> None:
 
 
 @needs_py312
-@needs_pydanticv2
 def test_sa_type_typing_6() -> None:
     test_code = dedent("""
     type Type6_t = t.Annotated[str, "Just a comment"]
@@ -131,7 +129,6 @@ if hasattr(te, "TypeAlias"):
 
 
 @needs_py312
-@needs_pydanticv2
 def test_sa_type_typing_extensions_5() -> None:
     test_code = dedent("""
     type Type5_te = str
@@ -144,7 +141,6 @@ def test_sa_type_typing_extensions_5() -> None:
 
 
 @needs_py312
-@needs_pydanticv2
 def test_sa_type_typing_extensions_6() -> None:
     test_code = dedent("""
     type Type6_te = te.Annotated[str, "Just a comment"]
@@ -156,7 +152,6 @@ def test_sa_type_typing_extensions_6() -> None:
     exec(test_code, globals())
 
 
-@needs_pydanticv2
 def test_sa_type_typing_extensions_7() -> None:
     Type7_te = te.NewType("Type7_te", str)
 

@@ -1,6 +1,5 @@
 import sys
 import types
-import typing
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
@@ -20,7 +19,6 @@ from typing import (
     Union,
 )
 
-import typing_extensions
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
@@ -200,47 +198,10 @@ if IS_PYDANTIC_V2:
             return False
         return False
 
-    def _is_typing_type_instance(annotation: Any, type_name: str) -> bool:
-        check_type = []
-        if hasattr(typing, type_name):
-            check_type.append(getattr(typing, type_name))
-        if hasattr(typing_extensions, type_name):
-            check_type.append(getattr(typing_extensions, type_name))
-
-        return bool(check_type) and isinstance(annotation, tuple(check_type))
-
-    def _is_new_type_instance(annotation: Any) -> bool:
-        if sys.version_info >= (3, 10):
-            return _is_typing_type_instance(annotation, "NewType")
-        else:
-            return hasattr(annotation, "__supertype__")
-
-    def _is_type_var_instance(annotation: Any) -> bool:
-        return _is_typing_type_instance(annotation, "TypeVar")
-
-    def _is_type_alias_type_instance(annotation: Any) -> bool:
-        if sys.version_info[:2] == (3, 10):
-            if type(annotation) is types.GenericAlias:
-                # In Python 3.10, GenericAlias instances are of type TypeAliasType
-                return False
-
-        return _is_typing_type_instance(annotation, "TypeAliasType")
-
     def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         # Resolve Optional fields
         if annotation is None:
             raise ValueError("Missing field type")
-        if _is_type_var_instance(annotation):
-            annotation = annotation.__bound__
-            if not annotation:
-                raise ValueError(
-                    "TypeVars without a bound type cannot be converted to SQLAlchemy types"
-                )
-            # annotations.__constraints__ could be used and defined Union[*constraints], but ORM does not support it
-        elif _is_new_type_instance(annotation):
-            annotation = annotation.__supertype__
-        elif _is_type_alias_type_instance(annotation):
-            annotation = annotation.__value__
         origin = get_origin(annotation)
         if origin is None:
             return annotation
