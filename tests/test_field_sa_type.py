@@ -24,22 +24,20 @@ def test_sa_type_typing_2() -> None:
         weapon: Type2_t = "sword"
 
 
-Type3_t: t.TypeAlias = str
+if hasattr(t, "TypeAlias"):
+    Type3_t: t.TypeAlias = str
 
+    def test_sa_type_typing_3() -> None:
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type3_t = "sword"
 
-def test_sa_type_typing_3() -> None:
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type3_t = "sword"
+    Type4_t: t.TypeAlias = t.Annotated[str, "Just a comment"]
 
-
-Type4_t: t.TypeAlias = t.Annotated[str, "Just a comment"]
-
-
-def test_sa_type_typing_4() -> None:
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type4_t = "sword"
+    def test_sa_type_typing_4() -> None:
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type4_t = "sword"
 
 
 @needs_py312
@@ -108,22 +106,20 @@ def test_sa_type_typing_extensions_2() -> None:
         weapon: Type2_te = "sword"
 
 
-Type3_te: te.TypeAlias = str
+if hasattr(te, "TypeAlias"):
+    Type3_te: te.TypeAlias = str
 
+    def test_sa_type_typing_extensions_3() -> None:
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type3_te = "sword"
 
-def test_sa_type_typing_extensions_3() -> None:
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type3_te = "sword"
+    Type4_te: te.TypeAlias = te.Annotated[str, "Just a comment"]
 
-
-Type4_te: te.TypeAlias = te.Annotated[str, "Just a comment"]
-
-
-def test_sa_type_typing_extensions_4() -> None:
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type4_te = "sword"
+    def test_sa_type_typing_extensions_4() -> None:
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type4_te = "sword"
 
 
 @needs_py312
