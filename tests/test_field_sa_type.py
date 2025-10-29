@@ -3,10 +3,7 @@ import typing as t
 import typing_extensions as te
 from sqlmodel import Field, SQLModel
 
-from tests.conftest import needs_py312
 
-
-@needs_py312
 def test_sa_type_typing_1() -> None:
     Type1_t = str
 
@@ -15,7 +12,6 @@ def test_sa_type_typing_1() -> None:
         weapon: Type1_t = "sword"
 
 
-@needs_py312
 def test_sa_type_typing_2() -> None:
     Type2_t = t.Annotated[str, "Just a comment"]
 
@@ -27,7 +23,6 @@ def test_sa_type_typing_2() -> None:
 Type3_t: t.TypeAlias = str
 
 
-@needs_py312
 def test_sa_type_typing_3() -> None:
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
@@ -37,14 +32,12 @@ def test_sa_type_typing_3() -> None:
 Type4_t: t.TypeAlias = t.Annotated[str, "Just a comment"]
 
 
-@needs_py312
 def test_sa_type_typing_4() -> None:
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
         weapon: Type4_t = "sword"
 
 
-@needs_py312
 def test_sa_type_typing_5() -> None:
     type Type5_t = str
 
@@ -53,7 +46,6 @@ def test_sa_type_typing_5() -> None:
         weapon: Type5_t = "sword"
 
 
-@needs_py312
 def test_sa_type_typing_6() -> None:
     type Type6_t = t.Annotated[str, "Just a comment"]
 
@@ -62,7 +54,6 @@ def test_sa_type_typing_6() -> None:
         weapon: Type6_t = "sword"
 
 
-@needs_py312
 def test_sa_type_typing_extensions_1() -> None:
     Type1_te = str
 
@@ -71,7 +62,6 @@ def test_sa_type_typing_extensions_1() -> None:
         weapon: Type1_te = "sword"
 
 
-@needs_py312
 def test_sa_type_typing_extensions_2() -> None:
     Type2_te = te.Annotated[str, "Just a comment"]
 
@@ -83,7 +73,6 @@ def test_sa_type_typing_extensions_2() -> None:
 Type3_te: te.TypeAlias = str
 
 
-@needs_py312
 def test_sa_type_typing_extensions_3() -> None:
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
@@ -93,14 +82,12 @@ def test_sa_type_typing_extensions_3() -> None:
 Type4_te: te.TypeAlias = te.Annotated[str, "Just a comment"]
 
 
-@needs_py312
 def test_sa_type_typing_extensions_4() -> None:
     class Hero(SQLModel, table=True):
         pk: int = Field(primary_key=True)
         weapon: Type4_te = "sword"
 
 
-@needs_py312
 def test_sa_type_typing_extensions_5() -> None:
     type Type5_te = str
 
@@ -109,7 +96,6 @@ def test_sa_type_typing_extensions_5() -> None:
         weapon: Type5_te = "sword"
 
 
-@needs_py312
 def test_sa_type_typing_extensions_6() -> None:
     type Type6_te = te.Annotated[str, "Just a comment"]
 
