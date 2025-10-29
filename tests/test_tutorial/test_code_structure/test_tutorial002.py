@@ -22,7 +22,7 @@ expected_calls = [
 ]
 
 
-def test_tutorial(clear_sqlmodel):
+def test_tutorial():
     from docs_src.tutorial.code_structure.tutorial002 import app, database
 
     database.sqlite_url = "sqlite://"

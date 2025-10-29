@@ -25,33 +25,42 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
-        python-version:
-          - "3.8"
-          - "3.9"
-          - "3.10"
-          - "3.11"
-          - "3.12"
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+        python-version: [ "3.14" ]
         pydantic-version:
-          - pydantic-v1
           - pydantic-v2
         include:
-          - os: ubuntu-22.04
-            python-version: "3.7"
+          - os: macos-latest
+            python-version: "3.8"
             pydantic-version: pydantic-v1
-          - os: ubuntu-22.04
-            python-version: "3.7"
+          - os: windows-latest
+            python-version: "3.9"
+            pydantic-version: pydantic-v2
+          - os: ubuntu-latest
+            python-version: "3.10"
+            pydantic-version: pydantic-v1
+          - os: macos-latest
+            python-version: "3.11"
+            pydantic-version: pydantic-v2
+          - os: windows-latest
+            python-version: "3.12"
+            pydantic-version: pydantic-v1
+          - os: ubuntu-latest
+            python-version: "3.13"
+            pydantic-version: pydantic-v1
+          - os: macos-latest
+            python-version: "3.13"
             pydantic-version: pydantic-v2
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
       - name: Setup uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
         with:
           version: "0.4.15"
           enable-cache: true
@@ -71,10 +80,9 @@ jobs:
         run: uv pip install --upgrade "pydantic>=1.10.0,<2.0.0"
       - name: Install Pydantic v2
         if: matrix.pydantic-version == 'pydantic-v2'
-        run: uv pip install --upgrade "pydantic>=2.0.2,<3.0.0" "typing-extensions==4.6.1"
+        run: uv pip install --upgrade "pydantic>=2.0.2,<3.0.0"
       - name: Lint
-        # Do not run on Python 3.7 as mypy behaves differently
-        if: matrix.python-version != '3.7' && matrix.pydantic-version == 'pydantic-v2'
+        if: matrix.pydantic-version == 'pydantic-v2' && matrix.python-version != '3.8'
         run: bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
@@ -83,9 +91,9 @@ jobs:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
       - name: Store coverage files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
-          name: coverage-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
+          name: coverage-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage
           include-hidden-files: true
 
@@ -94,12 +102,12 @@ jobs:
       - test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.13'
       - name: Setup uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
         with:
           version: "0.4.15"
           enable-cache: true
@@ -107,7 +115,7 @@ jobs:
             requirements**.txt
             pyproject.toml
       - name: Get coverage files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           pattern: coverage-*
           path: coverage
@@ -119,7 +127,7 @@ jobs:
       - run: coverage report
       - run: coverage html --title "Coverage for ${{ github.sha }}"
       - name: Store coverage HTML
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: coverage-html
           path: htmlcov

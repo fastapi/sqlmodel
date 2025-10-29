@@ -6,7 +6,7 @@ from sqlmodel import create_engine
 from ...conftest import get_testing_print_function
 
 
-def test_tutorial(clear_sqlmodel) -> None:
+def test_tutorial() -> None:
     from docs_src.advanced.uuid import tutorial001 as mod
 
     mod.sqlite_url = "sqlite://"

@@ -38,7 +38,7 @@ expected_calls = [
 ]
 
 
-def test_tutorial001(clear_sqlmodel):
+def test_tutorial001():
     from docs_src.tutorial.connect.insert import tutorial001 as mod
 
     mod.sqlite_url = "sqlite://"
