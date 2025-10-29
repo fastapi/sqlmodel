@@ -1,7 +1,7 @@
 """Test for Dict relationship recursion bug fix."""
+
 from typing import Dict
 
-import pytest
 from sqlalchemy.orm.collections import attribute_mapped_collection
 from sqlmodel import Field, Relationship, SQLModel
 
