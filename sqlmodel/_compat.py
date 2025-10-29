@@ -207,7 +207,7 @@ if IS_PYDANTIC_V2:
         if hasattr(typing_extensions, type_name):
             check_type.append(getattr(typing_extensions, type_name))
 
-        return check_type and isinstance(annotation, tuple(check_type))
+        return bool(check_type) and isinstance(annotation, tuple(check_type))
 
     def _is_new_type_instance(annotation: Any) -> bool:
         return _is_typing_type_instance(annotation, "NewType")
