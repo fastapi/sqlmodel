@@ -1,3 +1,4 @@
+import sys
 from typing import Annotated, TypeAlias
 
 from sqlmodel import Field, SQLModel
@@ -43,19 +44,20 @@ def test_sa_type_4() -> None:
         weapon: Type4 = "sword"
 
 
-@needs_py312
-def test_sa_type_5() -> None:
-    type Type5 = str
+if sys.version_info >= (3, 12):
 
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type5 = "sword"
+    @needs_py312
+    def test_sa_type_5() -> None:
+        type Type5 = str
 
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type5 = "sword"
 
-@needs_py312
-def test_sa_type_6() -> None:
-    type Type6 = Annotated[str, "Just a comment"]
+    @needs_py312
+    def test_sa_type_6() -> None:
+        type Type6 = Annotated[str, "Just a comment"]
 
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type6 = "sword"
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type6 = "sword"
