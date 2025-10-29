@@ -1,5 +1,6 @@
 import sys
 import types
+import typing
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
@@ -19,6 +20,7 @@ from typing import (
     Union,
 )
 
+import typing_extensions
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
@@ -74,9 +76,6 @@ def partial_init() -> Generator[None, None, None]:
 
 
 if IS_PYDANTIC_V2:
-    if sys.version_info >= (3, 12):
-        from typing import TypeAliasType
-
     from annotated_types import MaxLen
     from pydantic import ConfigDict as BaseConfig
     from pydantic._internal._fields import PydanticMetadata
@@ -202,11 +201,24 @@ if IS_PYDANTIC_V2:
             return False
         return False
 
+    def _is_type_alias_type_instance(annotation: Any) -> bool:
+        type_to_check = "TypeAliasType"
+        in_typing = hasattr(typing, type_to_check)
+        in_typing_extensions = hasattr(typing_extensions, type_to_check)
+
+        check_type = []
+        if in_typing:
+            check_type.append(typing.TypeAliasType)
+        if in_typing_extensions:
+            check_type.append(typing_extensions.TypeAliasType)
+
+        return check_type and isinstance(annotation, tuple(check_type))
+
     def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         # Resolve Optional fields
         if annotation is None:
             raise ValueError("Missing field type")
-        if sys.version_info >= (3, 12) and isinstance(annotation, TypeAliasType):
+        if _is_type_alias_type_instance(annotation):
             annotation = annotation.__value__
         origin = get_origin(annotation)
         if origin is None:
