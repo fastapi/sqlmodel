@@ -212,6 +212,11 @@ if IS_PYDANTIC_V2:
         if in_typing_extensions:
             check_type.append(typing_extensions.TypeAliasType)
 
+        if sys.version_info[:2] == (3, 10):
+            if type(annotation) is types.GenericAlias:
+                # In Python 3.10, TypeAliasType instances are of type GenericAlias
+                return False
+
         return check_type and isinstance(annotation, tuple(check_type))
 
     def get_sa_type_from_type_annotation(annotation: Any) -> Any:
