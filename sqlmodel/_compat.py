@@ -149,9 +149,16 @@ def get_relationship_to(
     # If a list, then also get the real field
     elif origin is list:
         use_annotation = get_args(annotation)[0]
-    # If a list, then use the value type
-    elif origin is dict:
-        use_annotation = get_args(annotation)[1]
+    # If a dict or Mapping, then use the value (second) type argument
+    elif origin is dict or origin is Mapping:
+        args = get_args(annotation)
+        if len(args) >= 2:
+            use_annotation = args[1]
+        else:
+            raise ValueError(
+                f"Dict/Mapping relationship field '{name}' must have both "
+                "key and value type arguments (e.g., dict[str, Model])"
+            )
 
     return get_relationship_to(name=name, rel_info=rel_info, annotation=use_annotation)
 
