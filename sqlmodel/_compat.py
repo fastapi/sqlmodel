@@ -31,7 +31,6 @@ PYDANTIC_VERSION = P_VERSION
 PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
 IS_PYDANTIC_V2 = PYDANTIC_MINOR_VERSION[0] == 2
 
-
 if TYPE_CHECKING:
     from .main import RelationshipInfo, SQLModel
 
@@ -201,29 +200,43 @@ if IS_PYDANTIC_V2:
             return False
         return False
 
-    def _is_type_alias_type_instance(annotation: Any) -> bool:
-        type_to_check = "TypeAliasType"
-        in_typing = hasattr(typing, type_to_check)
-        in_typing_extensions = hasattr(typing_extensions, type_to_check)
-
+    def _is_typing_type_instance(annotation: Any, type_name: str) -> bool:
         check_type = []
-        if in_typing:
-            check_type.append(typing.TypeAliasType)
-        if in_typing_extensions:
-            check_type.append(typing_extensions.TypeAliasType)
-
-        if sys.version_info[:2] == (3, 10):
-            if type(annotation) is types.GenericAlias:
-                # In Python 3.10, TypeAliasType instances are of type GenericAlias
-                return False
+        if hasattr(typing, type_name):
+            check_type.append(getattr(typing, type_name))
+        if hasattr(typing_extensions, type_name):
+            check_type.append(getattr(typing_extensions, type_name))
 
         return check_type and isinstance(annotation, tuple(check_type))
+
+    def _is_new_type_instance(annotation: Any) -> bool:
+        return _is_typing_type_instance(annotation, "NewType")
+
+    def _is_type_var_instance(annotation: Any) -> bool:
+        return _is_typing_type_instance(annotation, "TypeVar")
+
+    def _is_type_alias_type_instance(annotation: Any) -> bool:
+        if sys.version_info[:2] == (3, 10):
+            if type(annotation) is types.GenericAlias:
+                # In Python 3.10, GenericAlias instances are of type TypeAliasType
+                return False
+
+        return _is_typing_type_instance(annotation, "TypeAliasType")
 
     def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         # Resolve Optional fields
         if annotation is None:
             raise ValueError("Missing field type")
-        if _is_type_alias_type_instance(annotation):
+        if _is_type_var_instance(annotation):
+            annotation = annotation.__bound__
+            if not annotation:
+                raise ValueError(
+                    "TypeVars without a bound type cannot be converted to SQLAlchemy types"
+                )
+            # annotations.__constraints__ could be used and defined Union[*constraints], but ORM does not support it
+        elif _is_new_type_instance(annotation):
+            annotation = annotation.__supertype__
+        elif _is_type_alias_type_instance(annotation):
             annotation = annotation.__value__
         origin = get_origin(annotation)
         if origin is None:
