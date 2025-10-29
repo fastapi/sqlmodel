@@ -563,8 +563,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         }
         new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
         # Restore base annotations
-        for base, annotations in backup_base_annotations.items():
-            base.__annotations__ = annotations
+        for base, backup_annotations in backup_base_annotations.items():
+            base.__annotations__ = backup_annotations
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
