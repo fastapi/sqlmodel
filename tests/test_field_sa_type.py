@@ -16,12 +16,14 @@ def test_sa_type_typing_1() -> None:
         weapon: Type1_t = "sword"
 
 
-def test_sa_type_typing_2() -> None:
-    Type2_t = t.Annotated[str, "Just a comment"]
+if hasattr(t, "Annotated"):
 
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type2_t = "sword"
+    def test_sa_type_typing_2() -> None:
+        Type2_t = t.Annotated[str, "Just a comment"]
+
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type2_t = "sword"
 
 
 if hasattr(t, "TypeAlias"):
@@ -32,12 +34,13 @@ if hasattr(t, "TypeAlias"):
             pk: int = Field(primary_key=True)
             weapon: Type3_t = "sword"
 
-    Type4_t: t.TypeAlias = t.Annotated[str, "Just a comment"]
+    if hasattr(t, "Annotated"):
+        Type4_t: t.TypeAlias = t.Annotated[str, "Just a comment"]
 
-    def test_sa_type_typing_4() -> None:
-        class Hero(SQLModel, table=True):
-            pk: int = Field(primary_key=True)
-            weapon: Type4_t = "sword"
+        def test_sa_type_typing_4() -> None:
+            class Hero(SQLModel, table=True):
+                pk: int = Field(primary_key=True)
+                weapon: Type4_t = "sword"
 
 
 @needs_py312
@@ -98,12 +101,14 @@ def test_sa_type_typing_extensions_1() -> None:
         weapon: Type1_te = "sword"
 
 
-def test_sa_type_typing_extensions_2() -> None:
-    Type2_te = te.Annotated[str, "Just a comment"]
+if hasattr(te, "Annotated"):
 
-    class Hero(SQLModel, table=True):
-        pk: int = Field(primary_key=True)
-        weapon: Type2_te = "sword"
+    def test_sa_type_typing_extensions_2() -> None:
+        Type2_te = te.Annotated[str, "Just a comment"]
+
+        class Hero(SQLModel, table=True):
+            pk: int = Field(primary_key=True)
+            weapon: Type2_te = "sword"
 
 
 if hasattr(te, "TypeAlias"):
@@ -114,12 +119,13 @@ if hasattr(te, "TypeAlias"):
             pk: int = Field(primary_key=True)
             weapon: Type3_te = "sword"
 
-    Type4_te: te.TypeAlias = te.Annotated[str, "Just a comment"]
+    if hasattr(te, "Annotated"):
+        Type4_te: te.TypeAlias = te.Annotated[str, "Just a comment"]
 
-    def test_sa_type_typing_extensions_4() -> None:
-        class Hero(SQLModel, table=True):
-            pk: int = Field(primary_key=True)
-            weapon: Type4_te = "sword"
+        def test_sa_type_typing_extensions_4() -> None:
+            class Hero(SQLModel, table=True):
+                pk: int = Field(primary_key=True)
+                weapon: Type4_te = "sword"
 
 
 @needs_py312
