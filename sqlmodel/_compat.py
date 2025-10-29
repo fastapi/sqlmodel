@@ -15,6 +15,7 @@ from typing import (
     Optional,
     Set,
     Type,
+    TypeAliasType,
     TypeVar,
     Union,
 )
@@ -81,7 +82,6 @@ if IS_PYDANTIC_V2:
     from pydantic._internal._repr import Representation as Representation
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
-    from typing import TypeAliasType
 
     # Dummy for types, to make it importable
     class ModelField:
