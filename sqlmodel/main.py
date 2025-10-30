@@ -473,7 +473,7 @@ def Field(
         sa_column_kwargs=sa_column_kwargs,
     )
     if hasattr(field_info, "metadata"):
-        field_info.metadata.append(field_metadata)  # type: ignore[attr-defined]
+        field_info.metadata.append(field_metadata)
     post_init_field_info(field_info)
     return field_info
 
@@ -809,7 +809,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     )
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)  # type: ignore
+    return Column(sa_type, *args, **kwargs)
 
 
 class_registry = weakref.WeakValueDictionary()  # type: ignore
