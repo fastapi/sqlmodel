@@ -29,6 +29,7 @@ PYDANTIC_VERSION = P_VERSION
 PYDANTIC_MINOR_VERSION = tuple(int(i) for i in P_VERSION.split(".")[:2])
 IS_PYDANTIC_V2 = PYDANTIC_MINOR_VERSION[0] == 2
 
+
 if TYPE_CHECKING:
     from .main import RelationshipInfo, SQLModel
 
@@ -70,7 +71,6 @@ def partial_init() -> Generator[None, None, None]:
     token = finish_init.set(False)
     yield
     finish_init.reset(token)
-
 
 
 if IS_PYDANTIC_V2:
