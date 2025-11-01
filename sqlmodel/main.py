@@ -27,6 +27,14 @@ from typing import (
     overload,
 )
 
+from google.protobuf.descriptor import Descriptor
+from google.protobuf.message import Message
+from google.protobuf import json_format as _pb_json_format
+from google.protobuf import struct_pb2 as _pb_struct_pb2
+from google.protobuf import message as _pb_message_mod
+from google.protobuf import descriptor_pb2 as _pb_desc_pb2
+from google.protobuf import descriptor_pool as _pb_desc_pool
+import warnings
 from pydantic import BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
@@ -124,6 +132,7 @@ class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
         sa_column = kwargs.pop("sa_column", Undefined)
         sa_column_args = kwargs.pop("sa_column_args", Undefined)
         sa_column_kwargs = kwargs.pop("sa_column_kwargs", Undefined)
+        grpc_descriptor = kwargs.pop("grpc_descriptor", Undefined)
         if sa_column is not Undefined:
             if sa_column_args is not Undefined:
                 raise RuntimeError(
@@ -177,6 +186,7 @@ class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
         self.sa_column = sa_column
         self.sa_column_args = sa_column_args
         self.sa_column_kwargs = sa_column_kwargs
+        self.grpc_descriptor = grpc_descriptor
 
 
 class RelationshipInfo(Representation):
@@ -354,6 +364,7 @@ def Field(
     alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
+    grpc_descriptor: Optional[Any] = None,
     exclude: Union[
         AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
     ] = None,
@@ -396,6 +407,7 @@ def Field(
         alias=alias,
         title=title,
         description=description,
+        grpc_descriptor=grpc_descriptor,
         exclude=exclude,
         include=include,
         const=const,
@@ -545,6 +557,172 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             **pydantic_annotations,
             **new_cls.__annotations__,
         }
+
+        # Descriptor integration: accept provided DESCRIPTOR or synthesize one
+        # Only set if not already defined on the class body
+        provided_descriptor = class_dict.get("DESCRIPTOR", None)
+        try:
+            model_fields_map = get_model_fields(new_cls)
+        except Exception:
+            model_fields_map = {}
+        if provided_descriptor is not None:
+            # Validate field names present in descriptor against model fields
+            desc_fields = {f.name for f in provided_descriptor.fields}
+            missing = set(model_fields_map.keys()) - desc_fields
+            if missing:
+                raise ValueError(
+                    f"DESCRIPTOR missing fields: {sorted(missing)} for {new_cls.__name__}"
+                )
+            setattr(new_cls, "DESCRIPTOR", provided_descriptor)
+        else:
+            # Synthesize a minimal Descriptor for reflection
+            try:
+                pool = _pb_desc_pool.Default()
+                file_proto = _pb_desc_pb2.FileDescriptorProto()
+                file_proto.name = f"{new_cls.__module__}.{new_cls.__name__}.proto"
+                # Use module path as package to help namespacing
+                file_proto.package = new_cls.__module__
+                msg_proto = file_proto.message_type.add()
+                msg_proto.name = new_cls.__name__
+
+                used_numbers: Set[int] = set()
+
+                for idx, (fname, finfo) in enumerate(model_fields_map.items(), start=1):
+                    field_proto = msg_proto.field.add()
+                    field_proto.name = fname
+                    # Use provided field descriptor if present to seed number/type
+                    if IS_PYDANTIC_V2:
+                        provided_fdesc = getattr(finfo, "grpc_descriptor", None)
+                        if provided_fdesc is None:
+                            extra = getattr(finfo, "json_schema_extra", None)
+                            if isinstance(extra, dict):
+                                provided_fdesc = extra.get("grpc_descriptor")
+                    else:
+                        provided_fdesc = getattr(getattr(finfo, "field_info", finfo), "grpc_descriptor", None)
+                    seeded_label = False
+                    seeded_type = False
+                    if provided_fdesc is not None:
+                        # number
+                        if hasattr(provided_fdesc, "number"):
+                            num = int(getattr(provided_fdesc, "number"))
+                            if num in used_numbers or num <= 0:
+                                raise ValueError(
+                                    f"Duplicate/invalid field number {num} for {fname} in {new_cls.__name__}"
+                                )
+                            field_proto.number = num
+                            used_numbers.add(num)
+                        # type
+                        if hasattr(provided_fdesc, "type"):
+                            field_proto.type = int(getattr(provided_fdesc, "type"))
+                            seeded_type = True
+                        # label
+                        if hasattr(provided_fdesc, "label"):
+                            field_proto.label = int(getattr(provided_fdesc, "label"))
+                            seeded_label = True
+                    # Fill reasonable defaults if not set
+                    if field_proto.number == 0:
+                        num = idx
+                        while num in used_numbers:
+                            num += 1
+                        field_proto.number = num
+                        used_numbers.add(num)
+
+                    # Determine optional vs repeated
+                    raw_ann = new_cls.__annotations__.get(fname, None)
+                    origin = get_origin(raw_ann)
+                    is_repeated = False
+                    try:
+                        from collections.abc import Sequence as _ABCSequence
+                        if origin in (list, tuple) or (isinstance(origin, type) and issubclass(origin, _ABCSequence)):
+                            is_repeated = True
+                    except Exception:
+                        pass
+                    if not seeded_label:
+                        field_proto.label = (
+                            _pb_desc_pb2.FieldDescriptorProto.LABEL_REPEATED if is_repeated else _pb_desc_pb2.FieldDescriptorProto.LABEL_OPTIONAL
+                        )
+
+                    # Determine type by python annotation
+                    ftype = _pb_desc_pb2.FieldDescriptorProto.TYPE_STRING
+                    try:
+                        def _base_of(annotation: Any) -> Any:
+                            ann_origin = get_origin(annotation)
+                            # Unwrap Annotated[T, ...]
+                            if str(ann_origin) == 'typing.Annotated':
+                                args = getattr(annotation, "__args__", ())
+                                return args[0] if args else None
+                            # Optional/Union
+                            if ann_origin is Union:
+                                args = [t for t in getattr(annotation, "__args__", ()) if t is not type(None)]  # noqa: E721
+                                return args[0] if args else None
+                            return annotation
+
+                        target_type = raw_ann
+                        elem_type = None
+                        if is_repeated:
+                            args = getattr(raw_ann, "__args__", ())
+                            if args:
+                                elem_type = _base_of(args[0])
+                        base = _base_of(target_type)
+                        scalar = elem_type if elem_type is not None else base
+                        if scalar in (int,):
+                            ftype = _pb_desc_pb2.FieldDescriptorProto.TYPE_INT64
+                        elif scalar in (float,):
+                            ftype = _pb_desc_pb2.FieldDescriptorProto.TYPE_DOUBLE
+                        elif scalar in (bool,):
+                            ftype = _pb_desc_pb2.FieldDescriptorProto.TYPE_BOOL
+                        elif scalar in (bytes, bytearray):
+                            ftype = _pb_desc_pb2.FieldDescriptorProto.TYPE_BYTES
+                        elif scalar in (str,):
+                            ftype = _pb_desc_pb2.FieldDescriptorProto.TYPE_STRING
+                        else:
+                            # Leave as string by default for complex types
+                            warnings.warn(
+                                f"Falling back to TYPE_STRING for field '{fname}' in {new_cls.__name__}",
+                                RuntimeWarning,
+                                stacklevel=2,
+                            )
+                            ftype = _pb_desc_pb2.FieldDescriptorProto.TYPE_STRING
+                    except Exception:
+                        warnings.warn(
+                            f"Could not infer type for field '{fname}' in {new_cls.__name__}; using TYPE_STRING",
+                            RuntimeWarning,
+                            stacklevel=2,
+                        )
+                    if not seeded_type:
+                        field_proto.type = ftype
+
+                # Register file in pool; ignore if already added
+                # Only add if not already present
+                try:
+                    pool.FindFileByName(file_proto.name)
+                except KeyError:
+                    pool.Add(file_proto)
+                full_name = f"{file_proto.package}.{msg_proto.name}" if file_proto.package else msg_proto.name
+                try:
+                        desc = pool.FindMessageTypeByName(full_name)
+                        setattr(new_cls, "DESCRIPTOR", desc)
+                        # Attach resolved field descriptors back to FieldInfo.grpc_descriptor
+                        try:
+                            fields_by_name = getattr(desc, "fields_by_name", {})
+                            for fname, finfo in model_fields_map.items():
+                                fdesc = fields_by_name.get(fname)
+                                if fdesc is not None:
+                                    if IS_PYDANTIC_V2:
+                                        setattr(finfo, "grpc_descriptor", fdesc)
+                                    else:
+                                        target = getattr(finfo, "field_info", finfo)
+                                        setattr(target, "grpc_descriptor", fdesc)
+                        except Exception:
+                            pass
+                except Exception:
+                    # As a fallback, leave DESCRIPTOR as None
+                    setattr(new_cls, "DESCRIPTOR", None)
+            except ValueError:
+                # Propagate validation errors (e.g., duplicate field numbers)
+                raise
+            except Exception:
+                setattr(new_cls, "DESCRIPTOR", None)
 
         def get_config(name: str) -> Any:
             config_class_value = get_config_value(
@@ -770,7 +948,7 @@ default_registry = registry()
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
-class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
+class SQLModel(BaseModel, Message, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[Union[str, Callable[..., str]]]
@@ -778,6 +956,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
+    DESCRIPTOR: ClassVar[Optional[Descriptor]] = None
 
     if IS_PYDANTIC_V2:
         model_config = SQLModelConfig(from_attributes=True)
@@ -1014,3 +1193,306 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 f"is not a dict or SQLModel or Pydantic model: {obj}"
             )
         return self
+
+    # -----------------------------
+    # Protobuf Message API methods
+    # -----------------------------
+    def _to_struct(self) -> _pb_struct_pb2.Struct:
+        """Return a google.protobuf.Struct built from this model's data."""
+        data = self.model_dump(mode="python")
+        s = _pb_struct_pb2.Struct()
+        # Struct.update accepts a mapping of JSON-compatible values
+        try:
+            s.update(data)  # type: ignore[arg-type]
+        except Exception:
+            # Fallback: go through json_format to coerce non-JSON natives
+            s = _pb_json_format.ParseDict(data, _pb_struct_pb2.Struct())
+        return s
+
+    def _update_from_struct(self, s: _pb_struct_pb2.Struct) -> None:
+        """Merge values from a google.protobuf.Struct into this model."""
+        try:
+            data = _pb_json_format.MessageToDict(s, preserving_proto_field_name=True)
+        except Exception as exc:  # pragma: no cover - defensive
+            raise _pb_message_mod.DecodeError(str(exc))
+        # Merge dict data into this model
+        for key, value in data.items():
+            if key in get_model_fields(self):
+                setattr(self, key, value)
+
+    def _is_optional_field(self, field_name: str) -> bool:
+        try:
+            raw_ann = self.__class__.__annotations__.get(field_name, None)
+        except Exception:
+            raw_ann = None
+        if raw_ann is None:
+            return False
+        origin = get_origin(raw_ann)
+        if origin is Union:
+            args = getattr(raw_ann, "__args__", ())
+            return type(None) in args  # noqa: E721
+        return False
+
+    def _is_repeated_field(self, field_name: str) -> bool:
+        try:
+            raw_ann = self.__class__.__annotations__.get(field_name, None)
+        except Exception:
+            raw_ann = None
+        origin = get_origin(raw_ann)
+        if origin is None:
+            return False
+        try:
+            from collections.abc import Sequence as _ABCSequence, Mapping as _ABCMapping
+            # Repeated (list-like) and map fields (mapping-like) should be treated as invalid for HasField
+            if origin in (list, tuple, set, dict):
+                return True
+            if isinstance(origin, type) and (issubclass(origin, _ABCSequence) or issubclass(origin, _ABCMapping)):
+                return True
+        except Exception:
+            # Be conservative: if we cannot determine, consider not repeated
+            return False
+        return False
+
+    def _default_for_field(self, field_name: str) -> Any:
+        # Proto3 scalar defaults
+        # If field is optional, prefer None to represent absence
+        if self._is_optional_field(field_name):
+            return None
+        try:
+            raw_ann = self.__class__.__annotations__.get(field_name, None)
+        except Exception:
+            raw_ann = None
+        typ = raw_ann
+        origin = get_origin(typ)
+        if origin is Union:
+            # Optional handled above; take first non-None
+            args = [t for t in getattr(typ, "__args__", ()) if t is not type(None)]  # noqa: E721
+            typ = args[0] if args else None
+        if typ in (int,):
+            return 0
+        if typ in (float,):
+            return 0.0
+        if typ in (bool,):
+            return False
+        if typ in (str,):
+            return ""
+        if typ in (bytes, bytearray):
+            return b""
+        # For sequences/maps, default empty; for messages, None
+        try:
+            from collections.abc import Sequence as _ABCSequence, Mapping as _ABCMapping
+            if origin in (list, set, tuple, dict):
+                try:
+                    return origin()  # type: ignore[call-arg]
+                except Exception:
+                    return None
+            if isinstance(origin, type) and (issubclass(origin, _ABCSequence) or issubclass(origin, _ABCMapping)):
+                # Choose a sensible empty default
+                if issubclass(origin, _ABCMapping):
+                    return {}
+                return []
+        except Exception:
+            pass
+        return None
+
+    def serialize_to_string(self, **kwargs: Any) -> bytes:  # type: ignore[override]
+        """Serialize the message to a binary string.
+
+        Raises EncodeError if the message isn't initialized.
+        """
+        try:
+            deterministic = bool(kwargs.get("deterministic", False))
+            s = self._to_struct()
+            # Struct serialization is stable when deterministic is requested
+            # json_format is not needed; protobuf binary wire:
+            return s.SerializeToString(deterministic=deterministic)
+        except Exception as exc:
+            raise _pb_message_mod.EncodeError(str(exc))
+
+    def SerializeToString(self, **kwargs: Any) -> bytes:  # type: ignore[override]
+        return self.serialize_to_string(**kwargs)
+
+    def serialize_partial_to_string(self, **kwargs: Any) -> bytes:  # type: ignore[override]
+        """Serialize the partial message to a binary string without initialization checks."""
+        # Same behavior; SQLModel does not track required fields in protobuf sense
+        return self.serialize_to_string(**kwargs)
+
+    def SerializePartialToString(self, **kwargs: Any) -> bytes:  # type: ignore[override]
+        return self.serialize_partial_to_string(**kwargs)
+
+    def parse_from_string(self, serialized: bytes) -> None:  # type: ignore[override]
+        """Parse serialized protocol buffer data into this message (clears first).
+
+        Raises DecodeError if the input cannot be parsed.
+        """
+        # Clear first per interface
+        self.clear()
+        read = self.merge_from_string(serialized)
+        # MergeFromString returns bytes read; here we just ignore and return None
+        _ = read
+
+    def ParseFromString(self, serialized: bytes) -> None:  # type: ignore[override]
+        return self.parse_from_string(serialized)
+
+    def merge_from_string(self, serialized: bytes) -> int:  # type: ignore[override]
+        """Merge serialized protocol buffer data into this message and return bytes read.
+
+        Raises DecodeError if the input cannot be parsed.
+        """
+        try:
+            s = _pb_struct_pb2.Struct()
+            # For non-group messages this should consume all bytes
+            read = s.MergeFromString(serialized)
+            self._update_from_struct(s)
+            return read
+        except Exception as exc:
+            raise _pb_message_mod.DecodeError(str(exc))
+
+    def MergeFromString(self, serialized: bytes) -> int:  # type: ignore[override]
+        return self.merge_from_string(serialized)
+
+    def merge_from(self, other_msg: Message) -> None:  # type: ignore[override]
+        """Merge the contents of another message into this one."""
+        if isinstance(other_msg, SQLModel):
+            for key in get_model_fields(other_msg):
+                setattr(self, key, getattr(other_msg, key))
+            return
+        # Fallback: try to convert any Message to dict via json_format, then merge
+        try:
+            data = _pb_json_format.MessageToDict(other_msg, preserving_proto_field_name=True)
+            for key, value in data.items():
+                if key in get_model_fields(self):
+                    setattr(self, key, value)
+        except Exception as exc:
+            raise _pb_message_mod.DecodeError(str(exc))
+
+    def MergeFrom(self, other_msg: Message) -> None:  # type: ignore[override]
+        return self.merge_from(other_msg)
+
+    def copy_from(self, other_msg: Message) -> None:  # type: ignore[override]
+        """Clear this message and then merge from the given message."""
+        self.clear()
+        self.merge_from(other_msg)
+
+    def CopyFrom(self, other_msg: Message) -> None:  # type: ignore[override]
+        return self.copy_from(other_msg)
+
+    def clear(self) -> None:  # type: ignore[override]
+        """Clear all fields in the message to their default values."""
+        for key in list(get_model_fields(self).keys()):
+            try:
+                setattr(self, key, self._default_for_field(key))
+            except Exception:
+                pass
+
+    def Clear(self) -> None:  # type: ignore[override]
+        return self.clear()
+
+    def clear_field(self, field_name: str) -> None:  # type: ignore[override]
+        """Clear the contents of the given field.
+
+        Raises ValueError if the field name is not a member.
+        """
+        if field_name not in get_model_fields(self):
+            raise ValueError(f"Field {field_name!r} is not a member of this message.")
+        setattr(self, field_name, self._default_for_field(field_name))
+
+    def ClearField(self, field_name: str) -> None:  # type: ignore[override]
+        return self.clear_field(field_name)
+
+    def has_field(self, field_name: str) -> bool:  # type: ignore[override]
+        """Check if a field is set (presence).
+
+        In proto3, valid only for optional scalars and sub-messages; raises for
+        repeated fields and non-optional scalars.
+        """
+        if field_name not in get_model_fields(self):
+            raise ValueError(f"Field {field_name!r} is not a member of this message.")
+        # In proto3, HasField is only valid for sub-messages, oneofs, and optional scalars
+        if self._is_repeated_field(field_name):
+            raise ValueError("HasField() is not valid for repeated fields in proto3")
+        if not self._is_optional_field(field_name):
+            # Treat BaseModel (message-like) as allowing presence
+            value = getattr(self, field_name, None)
+            if isinstance(value, BaseModel):
+                return value is not None
+            raise ValueError("HasField() is not valid for non-optional scalar fields in proto3")
+        return getattr(self, field_name, None) is not None
+
+    def HasField(self, field_name: str) -> bool:  # type: ignore[override]
+        return self.has_field(field_name)
+
+    def list_fields(self) -> List[Tuple[Any, Any]]:  # type: ignore[override]
+        """Return a list of (FieldDescriptor, value) for present fields.
+
+        This dynamic implementation does not expose FieldDescriptors; returns [].
+        """
+        # We do not have real FieldDescriptors; return empty list for compatibility
+        present: List[Tuple[Any, Any]] = []
+        return present
+
+    def ListFields(self) -> List[Tuple[Any, Any]]:  # type: ignore[override]
+        return self.list_fields()
+
+    def is_initialized(self) -> bool:  # type: ignore[override]
+        """Return True if the message is initialized (proto3: always True)."""
+        # Proto3 has no required fields; always initialized
+        return True
+
+    def IsInitialized(self) -> bool:  # type: ignore[override]
+        return self.is_initialized()
+
+    def byte_size(self) -> int:  # type: ignore[override]
+        """Return the number of bytes required to serialize this message."""
+        try:
+            return len(self.serialize_to_string())
+        except _pb_message_mod.EncodeError:
+            return 0
+
+    def ByteSize(self) -> int:  # type: ignore[override]
+        return self.byte_size()
+
+    def discard_unknown_fields(self) -> None:  # type: ignore[override]
+        """Clear all fields in the UnknownFieldSet (no-op for dynamic model)."""
+        # No unknown fields are tracked when using Struct
+        return None
+
+    def DiscardUnknownFields(self) -> None:  # type: ignore[override]
+        return self.discard_unknown_fields()
+
+    @staticmethod
+    def register_extension(extension_handle: Any) -> None:  # type: ignore[override]
+        """Register an extension (not supported for this dynamic message)."""
+        # Not supported for dynamic SQLModel-based messages
+        return None
+
+    @staticmethod
+    def RegisterExtension(extension_handle: Any) -> None:  # type: ignore[override]
+        return SQLModel.register_extension(extension_handle)
+
+    def unknown_fields(self) -> Any:  # type: ignore[override]
+        """Return the UnknownFieldSet (empty for this dynamic message)."""
+        # Not tracking unknown fields; return empty Struct for API compatibility
+        return _pb_struct_pb2.Struct()
+
+    def UnknownFields(self) -> Any:  # type: ignore[override]
+        return self.unknown_fields()
+
+    def set_in_parent(self) -> None:  # type: ignore[override]
+        """Mark this as present in the parent (no-op)."""
+        # No-op: presence is implicit in SQLModel
+        return None
+
+    def SetInParent(self) -> None:  # type: ignore[override]
+        return self.set_in_parent()
+
+    def which_oneof(self, oneof_group: str) -> Optional[str]:  # type: ignore[override]
+        """Return the name of the field set inside a oneof group, or None.
+
+        This dynamic model does not define oneof groups; always returns None.
+        """
+        # SQLModel does not model oneof groups
+        return None
+
+    def WhichOneof(self, oneof_group: str) -> Optional[str]:  # type: ignore[override]
+        return self.which_oneof(oneof_group)

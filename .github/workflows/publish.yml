@@ -1,37 +1,60 @@
-name: Publish
+name: Publish to PyPI
 
 on:
-  release:
-    types:
-      - created
-  workflow_dispatch:
-    inputs:
-      debug_enabled:
-        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
-        required: false
-        default: 'false'
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
 
 jobs:
-  publish:
+  publish-production:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package:
-          - sqlmodel
-          - sqlmodel-slim
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
     permissions:
-      id-token: write
+      id-token: write # Required for Trusted Publishing
+      contents: write # Required for pushing tags
+
     steps:
-      - uses: actions/checkout@v5
-      - name: Set up Python
-        uses: actions/setup-python@v6
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          python-version: "3.11"
-      - name: Install build dependencies
-        run: pip install build
-      - name: Build distribution
-        env:
-          TIANGOLO_BUILD_PACKAGE: ${{ matrix.package }}
-        run: python -m build
-      - name: Publish
-        uses: pypa/gh-action-pypi-publish@v1.13.0
+          fetch-depth: 0 # Full history for version bumping
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v2
+        with:
+          version: "latest"
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          # Configure Git to use the token for authentication
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Build package
+        run: uv build
+
+      - name: Publish to PyPI
+        if: github.ref == 'refs/heads/main'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        # Trusted Publishing is enabled by default when no password is provided
+        # and id-token: write permission is set
+        # Only publish when pushing to main, not when tags are pushed
+        # (tags trigger this workflow again, causing duplicate publish attempts)
+
+      - name: Create Release
+        if: github.ref == 'refs/heads/main'
+        run: |
+          VERSION=$(uv version --short)
+          git tag -a "v$VERSION" -m "Release v$VERSION"
+          git push origin "v$VERSION"

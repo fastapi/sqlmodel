@@ -1,30 +1,26 @@
 [build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+requires = ["uv_build>=0.9.6,<0.10.0"]
+build-backend = "uv_build"
 
 [project]
-name = "sqlmodel"
+name = "grpcmodel"
 dynamic = ["version"]
-description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
+description = "gRPCModel, gRPC models and schemas in Python, designed for simplicity, compatibility, and robustness."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.13"
 authors = [
-    { name = "Sebastián Ramírez", email = "tiangolo@gmail.com" },
+    { name = "River Studio", email = "git@river-studio.net" },
 ]
 
 classifiers = [
     "Development Status :: 4 - Beta",
     "Framework :: AsyncIO",
+    "Framework :: gRPC",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Topic :: Database",
@@ -37,46 +33,21 @@ classifiers = [
 
 dependencies = [
     "SQLAlchemy >=2.0.14,<2.1.0",
+    "protobuf>=5.29.5",
     "pydantic >=1.10.13,<3.0.0",
 ]
 
 [project.urls]
-Homepage = "https://github.com/fastapi/sqlmodel"
-Documentation = "https://sqlmodel.tiangolo.com"
-Repository = "https://github.com/fastapi/sqlmodel"
-Issues = "https://github.com/fastapi/sqlmodel/issues"
-Changelog = "https://sqlmodel.tiangolo.com/release-notes/"
-
-[tool.pdm]
-version = { source = "file", path = "sqlmodel/__init__.py" }
-distribution = true
-
-[tool.pdm.build]
-source-includes = [
-    "tests/",
-    "docs_src/",
-    "requirements*.txt",
-    "scripts/",
-    "sqlmodel/sql/expression.py.jinja2",
-    ]
-
-[tool.tiangolo._internal-slim-build.packages.sqlmodel-slim.project]
-name = "sqlmodel-slim"
-
-[tool.tiangolo._internal-slim-build.packages.sqlmodel]
-# include-optional-dependencies = ["standard"]
-
-[tool.tiangolo._internal-slim-build.packages.sqlmodel.project]
-optional-dependencies = {}
-
-# [tool.tiangolo._internal-slim-build.packages.sqlmodel.project.scripts]
-# sqlmodel = "sqlmodel.cli:main"
+Homepage = "https://github.com/river-studio-net/grpcmodel"
+Documentation = "https://github.com/river-studio-net/grpcmodel?tab=readme-ov-file"
+Repository = "https://github.com/river-studio-net/grpcmodel"
+Issues = "https://github.com/river-studio-net/grpcmodel/issues"
+Changelog = "https://github.com/river-studio-net/grpcmodel/releases"
 
 [tool.coverage.run]
 parallel = true
 data_file = "coverage/.coverage"
 source = [
-    "docs_src",
     "tests",
     "sqlmodel"
 ]
