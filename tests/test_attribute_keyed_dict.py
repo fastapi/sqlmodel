@@ -1,4 +1,5 @@
 import re
+import sys
 from enum import Enum
 from typing import Dict, Optional
 
@@ -47,6 +48,9 @@ def test_attribute_keyed_dict_works(clear_sqlmodel):
         assert parent.children_by_color[Color.Blue].value == 2
 
 
+# typing.Dict throws if it receives the wrong number of type arguments, but
+# dict (3.10+) does not.
+@pytest.skipif(sys.version_info < 3.10)
 def test_dict_relationship_throws_on_missing_annotation_arg(clear_sqlmodel):
     class Color(str, Enum):
         Orange = "Orange"
