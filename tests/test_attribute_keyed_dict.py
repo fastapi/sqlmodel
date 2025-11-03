@@ -50,7 +50,7 @@ def test_attribute_keyed_dict_works(clear_sqlmodel):
 
 # typing.Dict throws if it receives the wrong number of type arguments, but
 # dict (3.10+) does not.
-@pytest.skipif(sys.version_info < 3.10)
+@pytest.mark.skipif(sys.version_info < (3, 10), reason="dict is not subscriptable")
 def test_dict_relationship_throws_on_missing_annotation_arg(clear_sqlmodel):
     class Color(str, Enum):
         Orange = "Orange"
