@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1636](https://github.com/fastapi/sqlmodel/pull/1636) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump mkdocs-macros-plugin from 1.4.0 to 1.4.1. PR [#1626](https://github.com/fastapi/sqlmodel/pull/1626) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.1 to 0.14.2. PR [#1616](https://github.com/fastapi/sqlmodel/pull/1616) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1625](https://github.com/fastapi/sqlmodel/pull/1625) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
