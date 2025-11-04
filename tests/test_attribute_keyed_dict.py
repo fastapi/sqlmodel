@@ -1,5 +1,4 @@
 import re
-import sys
 from enum import Enum
 from typing import Dict, Optional
 
@@ -68,7 +67,7 @@ def test_dict_relationship_throws_on_missing_annotation_arg(clear_sqlmodel):
         color: Color
         value: int
 
-    error_msg_fmt =  "Dict/Mapping relationship field 'children_by_color' has {count} type arguments.  Exactly two required (e.g., dict[str, Model])"
+    error_msg_fmt = "Dict/Mapping relationship field 'children_by_color' has {count} type arguments.  Exactly two required (e.g., dict[str, Model])"
 
     # No type args
     with pytest.raises(ValueError, match=re.escape(error_msg_fmt.format(count=0))):
