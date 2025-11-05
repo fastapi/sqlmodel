@@ -6,7 +6,7 @@ import pytest
 from sqlalchemy.orm.collections import attribute_keyed_dict
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 
-from tests.conftest import needs_py310, needs_pydanticv2
+from tests.conftest import needs_pydanticv2
 
 
 def test_attribute_keyed_dict_works(clear_sqlmodel):
