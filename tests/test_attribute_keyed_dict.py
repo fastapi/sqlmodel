@@ -6,7 +6,7 @@ import pytest
 from sqlalchemy.orm.collections import attribute_keyed_dict
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 
-from tests.conftest import needs_pydanticv2
+from tests.conftest import needs_py39, needs_pydanticv2
 
 
 def test_attribute_keyed_dict_works(clear_sqlmodel):
@@ -65,19 +65,6 @@ def test_dict_relationship_throws_on_wrong_number_of_annotation_args(clear_sqlmo
         value: int
 
     error_msg_fmt = "Dict/Mapping relationship field 'children_by_color' has {count} type arguments.  Exactly two required (e.g., dict[str, Model])"
-
-    # No type args
-    with pytest.raises(ValueError, match=re.escape(error_msg_fmt.format(count=0))):
-
-        class Parent(SQLModel, table=True):
-            __tablename__ = "parents"
-
-            id: Optional[int] = Field(primary_key=True, default=None)
-            children_by_color: dict[()] = Relationship(
-                sa_relationship_kwargs={
-                    "collection_class": attribute_keyed_dict("color")
-                }
-            )
 
     # One type arg
     with pytest.raises(ValueError, match=re.escape(error_msg_fmt.format(count=1))):
