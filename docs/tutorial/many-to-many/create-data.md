@@ -4,7 +4,7 @@ Let's continue from where we left and create some data.
 
 We'll create data for this same **many-to-many** relationship with a link table:
 
-<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.svg">
+<img alt="many-to-many table relationships" src="/img/tutorial/many-to-many/many-to-many.drawio.svg">
 
 We'll continue from where we left off with the previous code.
 

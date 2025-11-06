@@ -11,6 +11,8 @@ requires-python = ">=3.8"
 authors = [
     { name = "Sebastián Ramírez", email = "tiangolo@gmail.com" },
 ]
+license = "MIT"
+license-files = ["LICENSE"]
 
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -18,7 +20,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Intended Audience :: System Administrators",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -26,6 +27,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Database",
     "Topic :: Database :: Database Engines/Servers",
     "Topic :: Internet",
@@ -81,6 +83,7 @@ source = [
 ]
 context = '${CONTEXT}'
 dynamic_context = "test_function"
+relative_files = true
 
 [tool.coverage.report]
 show_missing = true
@@ -97,10 +100,7 @@ show_contexts = true
 
 [tool.mypy]
 strict = true
-
-[[tool.mypy.overrides]]
-module = "sqlmodel.sql._expression_select_gen"
-warn_unused_ignores = false
+exclude = "sqlmodel.sql._expression_select_gen"
 
 [[tool.mypy.overrides]]
 module = "docs_src.*"
