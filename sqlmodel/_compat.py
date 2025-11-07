@@ -178,7 +178,7 @@ if IS_PYDANTIC_V2:
         # If a list, then also get the real field
         elif origin is list:
             use_annotation = get_args(annotation)[0]
-            
+
         elif origin is Annotated:
             use_annotation = get_args(annotation)[0]
 
