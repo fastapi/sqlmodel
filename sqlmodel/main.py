@@ -528,17 +528,16 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         pydantic_annotations = {}
         relationship_annotations = {}
         for k, v in class_dict.items():
-            if isinstance(v, RelationshipInfo):
+            a = original_annotations.get(k, None)
+            r = get_annotated_relationshipinfo(a)
+            if r is not None:
+                relationships[k] = r
+            elif isinstance(v, RelationshipInfo):
                 relationships[k] = v
             else:
                 dict_for_pydantic[k] = v
         for k, v in original_annotations.items():
-            # check for `field: Annotated[Any, Relationship()]`
-            t = get_annotated_relationshipinfo(v)
-            if t:
-                relationships[k] = t
-                relationship_annotations[k] = get_args(v)[0]
-            elif k in relationships:
+            if k in relationships:
                 relationship_annotations[k] = v
             else:
                 pydantic_annotations[k] = v
@@ -628,6 +627,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 origin: Any = get_origin(raw_ann)
                 if origin is Mapped:
                     ann = raw_ann.__args__[0]
+                if origin is Annotated:
+                    ann = get_args(raw_ann)[0]
+                    cls.__annotations__[rel_name] = Mapped[ann]
                 else:
                     ann = raw_ann
                     # Plain forward references, for models not yet defined, are not
