@@ -192,7 +192,7 @@ def over(
 def tuple_(
     *clauses: Union[_ColumnExpressionArgument[Any], Any],
     types: Optional[Sequence["_TypeEngineArgument[Any]"]] = None,
-) -> sqlalchemy.Tuple[Any, ...]:
+) -> sqlalchemy.Tuple:
     return sqlalchemy.tuple_(*clauses, types=types)
 
 
