@@ -629,7 +629,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     ann = raw_ann.__args__[0]
                 if origin is Annotated:
                     ann = get_args(raw_ann)[0]
-                    cls.__annotations__[rel_name] = Mapped[ann]
+                    cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
                 else:
                     ann = raw_ann
                     # Plain forward references, for models not yet defined, are not
