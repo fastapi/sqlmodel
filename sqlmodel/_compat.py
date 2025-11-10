@@ -1,3 +1,4 @@
+import sys
 import types
 from contextlib import contextmanager
 from contextvars import ContextVar
@@ -123,7 +124,20 @@ if IS_PYDANTIC_V2:
         object.__setattr__(new_object, "__pydantic_private__", None)
 
     def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
-        return class_dict.get("__annotations__", {})
+        raw_annotations: Dict[str, Any] = class_dict.get("__annotations__", {})
+        if sys.version_info >= (3, 14) and "__annotations__" not in class_dict:
+            # See https://github.com/pydantic/pydantic/pull/11991
+            from annotationlib import (
+                Format,
+                call_annotate_function,
+                get_annotate_from_class_namespace,
+            )
+
+            if annotate := get_annotate_from_class_namespace(class_dict):
+                raw_annotations = call_annotate_function(
+                    annotate, format=Format.FORWARDREF
+                )
+        return raw_annotations
 
     def is_table_model_class(cls: Type[Any]) -> bool:
         config = getattr(cls, "model_config", {})
@@ -180,7 +194,7 @@ if IS_PYDANTIC_V2:
         if not field.is_required():
             if field.default is Undefined:
                 return False
-            if field.annotation is None or field.annotation is NoneType:  # type: ignore[comparison-overlap]
+            if field.annotation is None or field.annotation is NoneType:
                 return True
             return False
         return False
@@ -509,7 +523,7 @@ else:
             keys -= update.keys()
 
         if exclude:
-            keys -= {k for k, v in exclude.items() if ValueItems.is_true(v)}
+            keys -= {str(k) for k, v in exclude.items() if ValueItems.is_true(v)}
 
         return keys
 
