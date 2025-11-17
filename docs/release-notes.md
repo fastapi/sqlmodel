@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1648](https://github.com/fastapi/sqlmodel/pull/1648) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.14.3 to 0.14.4. PR [#1640](https://github.com/fastapi/sqlmodel/pull/1640) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1642](https://github.com/fastapi/sqlmodel/pull/1642) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump mkdocs-material from 9.6.22 to 9.6.23. PR [#1637](https://github.com/fastapi/sqlmodel/pull/1637) by [@dependabot[bot]](https://github.com/apps/dependabot).
