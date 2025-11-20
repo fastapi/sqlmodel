@@ -129,6 +129,7 @@ from .sql.expression import case as case
 from .sql.expression import cast as cast
 from .sql.expression import col as col
 from .sql.expression import collate as collate
+from .sql.expression import columns_by_schema as columns_by_schema
 from .sql.expression import desc as desc
 from .sql.expression import distinct as distinct
 from .sql.expression import extract as extract
@@ -138,6 +139,7 @@ from .sql.expression import nulls_first as nulls_first
 from .sql.expression import nulls_last as nulls_last
 from .sql.expression import or_ as or_
 from .sql.expression import over as over
+from .sql.expression import relations as relations
 from .sql.expression import select as select
 from .sql.expression import tuple_ as tuple_
 from .sql.expression import type_coerce as type_coerce
