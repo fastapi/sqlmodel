@@ -27,7 +27,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import AliasChoices, AliasPath, BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     ARRAY,
@@ -230,7 +230,7 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
+    validation_alias: Optional[str | AliasPath | AliasChoices] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -330,7 +330,7 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
+    validation_alias: Optional[str | AliasPath | AliasChoices] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -366,7 +366,7 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
+    validation_alias: Optional[str | AliasPath | AliasChoices] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
