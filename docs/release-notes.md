@@ -9,6 +9,7 @@
 
 ### Internal
 
+* 🔧 Upgrade Material for MkDocs and remove insiders. PR [#1650](https://github.com/fastapi/sqlmodel/pull/1650) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump mkdocs-material from 9.6.23 to 9.7.0. PR [#1645](https://github.com/fastapi/sqlmodel/pull/1645) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-macros-plugin from 1.4.1 to 1.5.0. PR [#1647](https://github.com/fastapi/sqlmodel/pull/1647) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.4 to 0.14.5. PR [#1646](https://github.com/fastapi/sqlmodel/pull/1646) by [@dependabot[bot]](https://github.com/apps/dependabot).
