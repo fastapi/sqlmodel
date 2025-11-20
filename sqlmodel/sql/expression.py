@@ -11,6 +11,7 @@ from typing import (
 )
 
 import sqlalchemy
+from pydantic import BaseModel
 from sqlalchemy import (
     Column,
     ColumnElement,
@@ -22,8 +23,7 @@ from sqlalchemy import (
     TypeCoerce,
     WithinGroup,
 )
-from sqlalchemy.orm import InstrumentedAttribute
-from sqlalchemy.orm.attributes import QueryableAttribute
+from sqlalchemy.orm import InstrumentedAttribute, QueryableAttribute
 from sqlalchemy.sql._typing import (
     _ColumnExpressionArgument,
     _ColumnExpressionOrLiteralArgument,
@@ -39,6 +39,7 @@ from sqlalchemy.sql.elements import (
     UnaryExpression,
 )
 from sqlalchemy.sql.type_api import TypeEngine
+from sqlmodel.main import SQLModel
 from typing_extensions import Literal
 
 from ._expression_select_cls import Select as Select
@@ -210,7 +211,31 @@ def within_group(
     return sqlalchemy.within_group(element, *order_by)
 
 
-def col(column_expression: _T) -> QueryableAttribute[_T]:
+def col(column_expression: _T) -> InstrumentedAttribute[_T]:
     if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
-    return column_expression  # type: ignore
+    return column_expression
+
+
+def relations(relations_expression) -> QueryableAttribute:
+    if not isinstance(relations_expression, (QueryableAttribute)):
+        raise RuntimeError(f"Not a SQLAlchemy relations: {relations_expression}")
+    return relations_expression
+
+
+def columns_by_schema(
+    schema: type[BaseModel],
+    model: type[SQLModel],
+) -> list[InstrumentedAttribute]:
+    schema_fields = {
+        *schema.model_fields.keys(),
+    }
+    model_fields = {
+        *model.__pydantic_fields__.keys(),
+        *model.__sqlmodel_relationships__.keys(),
+        *model.__sqlalchemy_association_proxies__.keys(),
+        *model.__sqlalchemy_constructs__.keys(),
+    }
+    return [
+        col(getattr(model, field)) for field in schema_fields if field in model_fields
+    ]
