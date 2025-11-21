@@ -129,7 +129,7 @@ And as we used `select` with two models, we will receive tuples of instances of 
 
 {* ./docs_src/tutorial/connect/select/tutorial001_py310.py ln[61:66] hl[65] *}
 
-For each iteration in the `for` loop we get a a tuple with an instance of the class `Hero` and an instance of the class `Team`.
+For each iteration in the `for` loop we get a tuple with an instance of the class `Hero` and an instance of the class `Team`.
 
 And in this `for` loop we assign them to the variable `hero` and the variable `team`.
 
