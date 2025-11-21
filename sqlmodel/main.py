@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import ipaddress
+import sys
+import types
+import typing
 import uuid
 import weakref
 from datetime import date, datetime, time, timedelta
@@ -27,6 +30,7 @@ from typing import (
     overload,
 )
 
+import typing_extensions
 from pydantic import BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
@@ -519,7 +523,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             if k in relationships:
                 relationship_annotations[k] = v
             else:
-                pydantic_annotations[k] = v
+                pydantic_annotations[k] = resolve_type_alias(v)
         dict_used = {
             **dict_for_pydantic,
             "__weakref__": None,
@@ -761,6 +765,54 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
     return Column(sa_type, *args, **kwargs)  # type: ignore
+
+
+def _is_typing_type_instance(annotation: Any, type_name: str) -> bool:
+    check_type = []
+    if hasattr(typing, type_name):
+        check_type.append(getattr(typing, type_name))
+    if hasattr(typing_extensions, type_name):
+        check_type.append(getattr(typing_extensions, type_name))
+
+    return bool(check_type) and isinstance(annotation, tuple(check_type))
+
+
+def _is_new_type_instance(annotation: Any) -> bool:
+    if sys.version_info >= (3, 10):
+        return _is_typing_type_instance(annotation, "NewType")
+    else:
+        return hasattr(annotation, "__supertype__")
+
+
+def _is_type_var_instance(annotation: Any) -> bool:
+    return _is_typing_type_instance(annotation, "TypeVar")
+
+
+def _is_type_alias_type_instance(annotation: Any) -> bool:
+    if sys.version_info[:2] == (3, 10):
+        if type(annotation) is types.GenericAlias:
+            # In Python 3.10, GenericAlias instances are of type TypeAliasType
+            return False
+
+    return _is_typing_type_instance(annotation, "TypeAliasType")
+
+
+def resolve_type_alias(annotation: Any) -> Any:
+    if _is_type_var_instance(annotation):
+        resolution = annotation.__bound__
+        if not annotation:
+            raise ValueError(
+                "TypeVars without a bound type cannot be converted to SQLAlchemy types"
+            )
+        # annotations.__constraints__ could be used and defined Union[*constraints], but ORM does not support it
+    elif _is_new_type_instance(annotation):
+        resolution = annotation.__supertype__
+    elif _is_type_alias_type_instance(annotation):
+        resolution = annotation.__value__
+    else:
+        resolution = annotation
+
+    return resolution
 
 
 class_registry = weakref.WeakValueDictionary()  # type: ignore
