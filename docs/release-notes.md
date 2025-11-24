@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/checkout from 5 to 6. PR [#1651](https://github.com/fastapi/sqlmodel/pull/1651) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 💄 Use font Fira Code to fix display of Rich panels in docs in Windows. PR [#1653](https://github.com/fastapi/sqlmodel/pull/1653) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Upgrade `latest-changes` GitHub Action and pin `actions/checkout@v5`. PR [#1654](https://github.com/fastapi/sqlmodel/pull/1654) by [@svlandeg](https://github.com/svlandeg).
 * 🔧 Upgrade Material for MkDocs and remove insiders. PR [#1650](https://github.com/fastapi/sqlmodel/pull/1650) by [@tiangolo](https://github.com/tiangolo).
