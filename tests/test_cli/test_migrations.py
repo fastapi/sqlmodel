@@ -45,9 +45,10 @@ def migration_env(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> MigrationT
     shutil.copy(model_source, models_file)
 
     # Create pyproject.toml with [tool.sqlmodel] configuration
-    pyproject_content = """\
+    pyproject_content = f"""\
 [tool.sqlmodel]
 models = "test_models.models"
+migrations_path = "{migrations_dir}"
 """
     (tmp_path / "pyproject.toml").write_text(pyproject_content)
 
@@ -74,8 +75,6 @@ def test_create_first_migration(migration_env: MigrationTestEnv):
             "create",
             "-m",
             "Initial migration",
-            "--path",
-            str(migration_env.migrations_dir),
         ],
     )
 
@@ -110,8 +109,6 @@ def test_running_migration_twice_only_generates_migration_once(
             "create",
             "-m",
             "Initial migration",
-            "--path",
-            str(migration_env.migrations_dir),
         ],
     )
 
@@ -124,8 +121,6 @@ def test_running_migration_twice_only_generates_migration_once(
         [
             "migrations",
             "migrate",
-            "--path",
-            str(migration_env.migrations_dir),
         ],
     )
 
@@ -139,8 +134,6 @@ def test_running_migration_twice_only_generates_migration_once(
             "create",
             "-m",
             "Initial migration",
-            "--path",
-            str(migration_env.migrations_dir),
         ],
     )
 
@@ -168,8 +161,6 @@ def test_cannot_create_migration_with_pending_migrations(
             "create",
             "-m",
             "Initial migration",
-            "--path",
-            str(migration_env.migrations_dir),
         ],
     )
 
@@ -184,8 +175,6 @@ def test_cannot_create_migration_with_pending_migrations(
             "create",
             "-m",
             "Second migration",
-            "--path",
-            str(migration_env.migrations_dir),
         ],
     )
 

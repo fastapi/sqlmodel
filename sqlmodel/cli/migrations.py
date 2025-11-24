@@ -17,8 +17,8 @@ except ImportError:
 migrations_app = typer.Typer()
 
 
-def get_models_path_from_config() -> str:
-    """Get the models path from pyproject.toml configuration."""
+def get_config_from_pyproject() -> dict:
+    """Load and return the [tool.sqlmodel] configuration from pyproject.toml."""
     pyproject_path = Path.cwd() / "pyproject.toml"
 
     if not pyproject_path.exists():
@@ -30,7 +30,7 @@ def get_models_path_from_config() -> str:
     with open(pyproject_path, "rb") as f:
         config = tomllib.load(f)
 
-    # Try to get models path from [tool.sqlmodel]
+    # Try to get [tool.sqlmodel] section
     if "tool" not in config or "sqlmodel" not in config["tool"]:
         raise ValueError(
             "No [tool.sqlmodel] section found in pyproject.toml. "
@@ -39,7 +39,12 @@ def get_models_path_from_config() -> str:
             "models = \"your.models.path\"\n"
         )
 
-    sqlmodel_config = config["tool"]["sqlmodel"]
+    return config["tool"]["sqlmodel"]
+
+
+def get_models_path_from_config() -> str:
+    """Get the models path from pyproject.toml configuration."""
+    sqlmodel_config = get_config_from_pyproject()
 
     if "models" not in sqlmodel_config:
         raise ValueError(
@@ -53,9 +58,25 @@ def get_models_path_from_config() -> str:
 
 
 def get_migrations_dir(migrations_path: Optional[str] = None) -> Path:
-    """Get the migrations directory path."""
+    """Get the migrations directory path.
+
+    Priority:
+    1. Explicit migrations_path parameter
+    2. migrations_path in [tool.sqlmodel] in pyproject.toml
+    3. Default to ./migrations
+    """
     if migrations_path:
         return Path(migrations_path)
+
+    # Try to get from config
+    try:
+        sqlmodel_config = get_config_from_pyproject()
+        if "migrations_path" in sqlmodel_config:
+            return Path(sqlmodel_config["migrations_path"])
+    except ValueError:
+        # No pyproject.toml or no [tool.sqlmodel] section, use default
+        pass
+
     return Path.cwd() / "migrations"
 
 
