@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/checkout from 5 to 6. PR [#1656](https://github.com/fastapi/sqlmodel/pull/1656) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.5 to 0.14.6. PR [#1652](https://github.com/fastapi/sqlmodel/pull/1652) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1655](https://github.com/fastapi/sqlmodel/pull/1655) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#1651](https://github.com/fastapi/sqlmodel/pull/1651) by [@dependabot[bot]](https://github.com/apps/dependabot).
