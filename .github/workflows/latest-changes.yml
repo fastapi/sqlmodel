@@ -20,8 +20,6 @@ jobs:
   latest-changes:
     runs-on: ubuntu-latest
     steps:
-      # pin to actions/checkout@v6 for compatibility with latest-changes
-      # Ref: https://github.com/actions/checkout/issues/2313
       - uses: actions/checkout@v6
         with:
           # To allow latest-changes to commit to the main branch
