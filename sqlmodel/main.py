@@ -54,7 +54,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import Literal, TypeAlias, deprecated, get_origin
+from typing_extensions import Annotated, Literal, TypeAlias, deprecated, get_args, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
@@ -562,7 +562,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
-                col = get_column_from_field(v)
+                original_annotation = new_cls.__annotations__.get(k)
+                col = get_column_from_field(v, original_annotation)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
             # in orm_mode instead of preemptively converting it to a dict.
@@ -646,12 +647,44 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
-def get_sqlalchemy_type(field: Any) -> Any:
+def _get_sqlmodel_field_info_from_annotation(annotation: Any) -> Optional["FieldInfo"]:
+    """Extract SQLModel FieldInfo from an Annotated type's metadata.
+
+    When using Annotated[type, Field(...), Validator(...)], Pydantic V2 may create
+    a new pydantic.fields.FieldInfo that doesn't preserve SQLModel-specific attributes
+    like sa_column and sa_type. This function looks through the Annotated metadata
+    to find the original SQLModel FieldInfo.
+    """
+    if get_origin(annotation) is not Annotated:
+        return None
+    for arg in get_args(annotation)[1:]:  # Skip the first arg (the actual type)
+        if isinstance(arg, FieldInfo):
+            return arg
+    return None
+
+
+def get_sqlalchemy_type(field: Any, original_annotation: Any = None) -> Any:
     if IS_PYDANTIC_V2:
         field_info = field
     else:
         field_info = field.field_info
     sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
+    # If sa_type not found on field_info, check if it's in the Annotated metadata
+    # This handles the case where Pydantic V2 creates a new FieldInfo losing SQLModel attrs
+    if sa_type is Undefined and IS_PYDANTIC_V2:
+        # First try field_info.annotation (may be unpacked by Pydantic)
+        annotation = getattr(field_info, "annotation", None)
+        if annotation is not None:
+            sqlmodel_field_info = _get_sqlmodel_field_info_from_annotation(annotation)
+            if sqlmodel_field_info is not None:
+                sa_type = getattr(sqlmodel_field_info, "sa_type", Undefined)
+        # If still not found, try the original annotation from the class
+        if sa_type is Undefined and original_annotation is not None:
+            sqlmodel_field_info = _get_sqlmodel_field_info_from_annotation(
+                original_annotation
+            )
+            if sqlmodel_field_info is not None:
+                sa_type = getattr(sqlmodel_field_info, "sa_type", Undefined)
     if sa_type is not Undefined:
         return sa_type
 
@@ -703,15 +736,33 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column:  # type: ignore
+def get_column_from_field(
+    field: Any, original_annotation: Any = None
+) -> Column:  # type: ignore
     if IS_PYDANTIC_V2:
         field_info = field
     else:
         field_info = field.field_info
     sa_column = getattr(field_info, "sa_column", Undefined)
+    # If sa_column not found on field_info, check if it's in the Annotated metadata
+    # This handles the case where Pydantic V2 creates a new FieldInfo losing SQLModel attrs
+    if sa_column is Undefined and IS_PYDANTIC_V2:
+        # First try field_info.annotation (may be unpacked by Pydantic)
+        annotation = getattr(field_info, "annotation", None)
+        if annotation is not None:
+            sqlmodel_field_info = _get_sqlmodel_field_info_from_annotation(annotation)
+            if sqlmodel_field_info is not None:
+                sa_column = getattr(sqlmodel_field_info, "sa_column", Undefined)
+        # If still not found, try the original annotation from the class
+        if sa_column is Undefined and original_annotation is not None:
+            sqlmodel_field_info = _get_sqlmodel_field_info_from_annotation(
+                original_annotation
+            )
+            if sqlmodel_field_info is not None:
+                sa_column = getattr(sqlmodel_field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
-    sa_type = get_sqlalchemy_type(field)
+    sa_type = get_sqlalchemy_type(field, original_annotation)
     primary_key = getattr(field_info, "primary_key", Undefined)
     if primary_key is Undefined:
         primary_key = False
