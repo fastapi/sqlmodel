@@ -28,9 +28,7 @@ def test_annotated_sa_column_with_validators() -> None:
         timestamp: Annotated[
             datetime,
             Field(
-                sa_column=Column(
-                    DateTime(timezone=True), nullable=False, index=True
-                )
+                sa_column=Column(DateTime(timezone=True), nullable=False, index=True)
             ),
             BeforeValidator(before_validate),
             AfterValidator(after_validate),

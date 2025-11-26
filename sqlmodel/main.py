@@ -54,7 +54,14 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import Annotated, Literal, TypeAlias, deprecated, get_args, get_origin
+from typing_extensions import (
+    Annotated,
+    Literal,
+    TypeAlias,
+    deprecated,
+    get_args,
+    get_origin,
+)
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
@@ -647,7 +654,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
 
-def _get_sqlmodel_field_info_from_annotation(annotation: Any) -> Optional["FieldInfo"]:
+def _get_sqlmodel_field_info_from_annotation(annotation: Any) -> Optional[FieldInfo]:
     """Extract SQLModel FieldInfo from an Annotated type's metadata.
 
     When using Annotated[type, Field(...), Validator(...)], Pydantic V2 may create
@@ -736,9 +743,7 @@ def get_sqlalchemy_type(field: Any, original_annotation: Any = None) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(
-    field: Any, original_annotation: Any = None
-) -> Column:  # type: ignore
+def get_column_from_field(field: Any, original_annotation: Any = None) -> Column:  # type: ignore
     if IS_PYDANTIC_V2:
         field_info = field
     else:
