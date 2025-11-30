@@ -211,14 +211,14 @@ def within_group(
     return sqlalchemy.within_group(element, *order_by)
 
 
-def col(column_expression: _T) -> InstrumentedAttribute[_T]:
-    if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
+def col(column_expression: _T) -> QueryableAttribute[_T]:
+    if not isinstance(column_expression, (ColumnClause, Column, QueryableAttribute)):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
     return column_expression
 
 
-def relations(relations_expression) -> QueryableAttribute:
-    if not isinstance(relations_expression, (QueryableAttribute)):
+def relations(relations_expression: _T) -> QueryableAttribute[_T]:
+    if not isinstance(relations_expression, QueryableAttribute):
         raise RuntimeError(f"Not a SQLAlchemy relations: {relations_expression}")
     return relations_expression
 
