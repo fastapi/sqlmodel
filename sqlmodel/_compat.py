@@ -2,6 +2,7 @@ import types
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
+from enum import Enum
 from typing import (
     TYPE_CHECKING,
     AbstractSet,
@@ -59,6 +60,14 @@ class ObjectWithUpdateWrapper:
 
 def _is_union_type(t: Any) -> bool:
     return t is UnionType or t is Union
+
+
+def _is_enum_type(t: Any) -> bool:
+    """Check if a type is an Enum subclass."""
+    try:
+        return isinstance(t, type) and issubclass(t, Enum)
+    except TypeError:
+        return False
 
 
 finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
@@ -425,6 +434,20 @@ else:
             return get_sa_type_from_type_annotation(get_args(annotation)[0])
         if _is_union_type(origin):
             bases = get_args(annotation)
+            # Filter out NoneType for analysis
+            non_none_bases = [b for b in bases if b is not NoneType]
+
+            # Check if all non-None types are Enum subclasses (Union of Enums)
+            # This allows types like: EnumA | EnumB or Optional[EnumA | EnumB]
+            if len(non_none_bases) > 1 and all(
+                _is_enum_type(b) for b in non_none_bases
+            ):
+                # Return tuple of enum types for Union of Enums.
+                # This will be handled in get_sqlalchemy_type to create
+                # sa_Enum(*enum_types) which supports multiple enum classes.
+                return tuple(non_none_bases)
+
+            # Standard handling for Optional and simple unions
             if len(bases) > 2:
                 raise ValueError(
                     "Cannot have a (non-optional) union as a SQLAlchemy field"

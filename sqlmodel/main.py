@@ -89,7 +89,7 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import AutoString
+from .sql.sqltypes import AutoString, UnionEnum
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -798,6 +798,14 @@ def get_sqlalchemy_type(field: Any) -> Any:
 
     type_ = get_sa_type_from_field(field)
     metadata = get_field_metadata(field)
+
+    # Handle Union of Enum types (returned as tuple from get_sa_type_from_field)
+    if isinstance(type_, tuple) and all(
+        isinstance(t, type) and issubclass(t, Enum) for t in type_
+    ):
+        # Create UnionEnum that handles multiple enum types
+        # Stores as VARCHAR but converts to/from proper Enum instances
+        return UnionEnum(*type_)
 
     # Check enums first as an enum can also be a str, needed by Pydantic/FastAPI
     if is_annotated_type(type_):
