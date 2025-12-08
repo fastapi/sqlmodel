@@ -998,7 +998,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 if key in get_model_fields(self):
                     setattr(self, key, value)
                 else:
-                    raise AttributeError(f"'{type(self).__name__}' has no field '{key}'")
+                    raise AttributeError(
+                        f"'{type(self).__name__}' has no field '{key}'"
+                    )
         elif isinstance(obj, BaseModel):
             for key in get_model_fields(obj):
                 if key in use_update:
