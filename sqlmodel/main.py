@@ -218,6 +218,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -263,6 +265,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -317,6 +321,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -352,6 +358,8 @@ def Field(
     *,
     default_factory: Optional[NoArgAnyCallable] = None,
     alias: Optional[str] = None,
+    validation_alias: Optional[str] = None,
+    serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[
@@ -390,43 +398,63 @@ def Field(
     schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+    # Extract possible alias settings from schema_extra so we can control precedence
+    schema_validation_alias = current_schema_extra.pop("validation_alias", None)
+    schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
+    field_info_kwargs = {
+        "alias": alias,
+        "title": title,
+        "description": description,
+        "exclude": exclude,
+        "include": include,
+        "const": const,
+        "gt": gt,
+        "ge": ge,
+        "lt": lt,
+        "le": le,
+        "multiple_of": multiple_of,
+        "max_digits": max_digits,
+        "decimal_places": decimal_places,
+        "min_items": min_items,
+        "max_items": max_items,
+        "unique_items": unique_items,
+        "min_length": min_length,
+        "max_length": max_length,
+        "allow_mutation": allow_mutation,
+        "regex": regex,
+        "discriminator": discriminator,
+        "repr": repr,
+        "primary_key": primary_key,
+        "foreign_key": foreign_key,
+        "ondelete": ondelete,
+        "unique": unique,
+        "nullable": nullable,
+        "index": index,
+        "sa_type": sa_type,
+        "sa_column": sa_column,
+        "sa_column_args": sa_column_args,
+        "sa_column_kwargs": sa_column_kwargs,
+        **current_schema_extra,
+    }
+    if IS_PYDANTIC_V2:
+        # explicit params > schema_extra > alias propagation
+        field_info_kwargs["validation_alias"] = (
+            validation_alias or schema_validation_alias or alias
+        )
+        field_info_kwargs["serialization_alias"] = (
+            serialization_alias or schema_serialization_alias or alias
+        )
+    else:
+        if validation_alias or schema_validation_alias is not None:
+            raise RuntimeError("validation_alias is not supported in Pydantic v1")
+        if serialization_alias or schema_serialization_alias is not None:
+            raise RuntimeError("serialization_alias is not supported in Pydantic v1")
     field_info = FieldInfo(
         default,
         default_factory=default_factory,
-        alias=alias,
-        title=title,
-        description=description,
-        exclude=exclude,
-        include=include,
-        const=const,
-        gt=gt,
-        ge=ge,
-        lt=lt,
-        le=le,
-        multiple_of=multiple_of,
-        max_digits=max_digits,
-        decimal_places=decimal_places,
-        min_items=min_items,
-        max_items=max_items,
-        unique_items=unique_items,
-        min_length=min_length,
-        max_length=max_length,
-        allow_mutation=allow_mutation,
-        regex=regex,
-        discriminator=discriminator,
-        repr=repr,
-        primary_key=primary_key,
-        foreign_key=foreign_key,
-        ondelete=ondelete,
-        unique=unique,
-        nullable=nullable,
-        index=index,
-        sa_type=sa_type,
-        sa_column=sa_column,
-        sa_column_args=sa_column_args,
-        sa_column_kwargs=sa_column_kwargs,
-        **current_schema_extra,
+        **field_info_kwargs,
     )
+
     post_init_field_info(field_info)
     return field_info
 
