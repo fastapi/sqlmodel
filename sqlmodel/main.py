@@ -61,11 +61,7 @@ from ._compat import (  # type: ignore[attr-defined]
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelField,
-    ModelMetaclass,
-    Representation,
     SQLModelConfig,
-    Undefined,
-    UndefinedType,
     _calculate_keys,
     finish_init,
     get_annotations,
@@ -89,6 +85,8 @@ if TYPE_CHECKING:
     from pydantic._internal._repr import Representation as Representation
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
+else:
+    from ._compat import ModelMetaclass, Representation, Undefined, UndefinedType
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
