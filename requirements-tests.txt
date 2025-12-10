@@ -5,7 +5,7 @@ coverage[toml] >=6.2,<8.0
 # Remove when support for Python 3.8 is dropped
 mypy ==1.14.1; python_version < "3.9"
 mypy ==1.18.2; python_version >= "3.9"
-ruff ==0.14.6
+ruff ==0.14.8
 # For FastAPI tests
 fastapi >=0.103.2
 httpx ==0.28.1
