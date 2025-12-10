@@ -1,18 +1,34 @@
+import importlib
+from types import ModuleType
+
+import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlmodel import Session, create_engine
 from sqlmodel.pool import StaticPool
 
+from tests.conftest import needs_py39, needs_py310
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.fastapi.update import tutorial002 as mod
 
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial002",
+        pytest.param("tutorial002_py39", marks=needs_py39),
+        pytest.param("tutorial002_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(f"docs_src.tutorial.fastapi.update.{request.param}")
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(
         mod.sqlite_url, connect_args=mod.connect_args, poolclass=StaticPool
     )
+    return mod
 
-    with TestClient(mod.app) as client:
+
+def test_tutorial(module: ModuleType):
+    with TestClient(module.app) as client:
         hero1_data = {
             "name": "Deadpond",
             "secret_name": "Dive Wilson",
@@ -60,16 +76,16 @@ def test_tutorial(clear_sqlmodel):
             assert "hashed_password" not in response_hero
 
         # Test hashed passwords
-        with Session(mod.engine) as session:
-            hero1_db = session.get(mod.Hero, hero1_id)
+        with Session(module.engine) as session:
+            hero1_db = session.get(module.Hero, hero1_id)
             assert hero1_db
             assert not hasattr(hero1_db, "password")
             assert hero1_db.hashed_password == "not really hashed chimichanga hehehe"
-            hero2_db = session.get(mod.Hero, hero2_id)
+            hero2_db = session.get(module.Hero, hero2_id)
             assert hero2_db
             assert not hasattr(hero2_db, "password")
             assert hero2_db.hashed_password == "not really hashed auntmay hehehe"
-            hero3_db = session.get(mod.Hero, hero3_id)
+            hero3_db = session.get(module.Hero, hero3_id)
             assert hero3_db
             assert not hasattr(hero3_db, "password")
             assert hero3_db.hashed_password == "not really hashed bestpreventer hehehe"
@@ -85,8 +101,8 @@ def test_tutorial(clear_sqlmodel):
         )
         assert "password" not in data
         assert "hashed_password" not in data
-        with Session(mod.engine) as session:
-            hero2b_db = session.get(mod.Hero, hero2_id)
+        with Session(module.engine) as session:
+            hero2b_db = session.get(module.Hero, hero2_id)
             assert hero2b_db
             assert not hasattr(hero2b_db, "password")
             assert hero2b_db.hashed_password == "not really hashed auntmay hehehe"
@@ -100,8 +116,8 @@ def test_tutorial(clear_sqlmodel):
         )
         assert "password" not in data
         assert "hashed_password" not in data
-        with Session(mod.engine) as session:
-            hero3b_db = session.get(mod.Hero, hero3_id)
+        with Session(module.engine) as session:
+            hero3b_db = session.get(module.Hero, hero3_id)
             assert hero3b_db
             assert not hasattr(hero3b_db, "password")
             assert hero3b_db.hashed_password == "not really hashed bestpreventer hehehe"
@@ -116,8 +132,8 @@ def test_tutorial(clear_sqlmodel):
         assert data["age"] is None
         assert "password" not in data
         assert "hashed_password" not in data
-        with Session(mod.engine) as session:
-            hero3b_db = session.get(mod.Hero, hero3_id)
+        with Session(module.engine) as session:
+            hero3b_db = session.get(module.Hero, hero3_id)
             assert hero3b_db
             assert not hasattr(hero3b_db, "password")
             assert (
