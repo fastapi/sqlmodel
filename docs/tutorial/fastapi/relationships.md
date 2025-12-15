@@ -152,7 +152,7 @@ Instead, here these are only **data models** that will tell FastAPI **which attr
 
 ### Reference to Other Models
 
-Also, notice that the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
+Also, notice that in the `HeroPublicWithTeam` model, the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
 
 And the same for `TeamPublicWithHeroes`, the model used for the new field `heroes` uses `HeroPublic` to get only each hero's data.
 
