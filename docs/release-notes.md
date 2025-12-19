@@ -4,11 +4,30 @@
 
 ### Docs
 
+* 💅 Update CSS to explicitly use emoji font. PR [#1658](https://github.com/fastapi/sqlmodel/pull/1658) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update link to JetBrains Python survey in `features.md`. PR [#1627](https://github.com/fastapi/sqlmodel/pull/1627) by [@sparkiegeek](https://github.com/sparkiegeek).
 * 📝 Fix broken links in docs. PR [#1601](https://github.com/fastapi/sqlmodel/pull/1601) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ### Internal
 
+* ⬆ Bump ruff from 0.14.6 to 0.14.8. PR [#1667](https://github.com/fastapi/sqlmodel/pull/1667) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1662](https://github.com/fastapi/sqlmodel/pull/1662) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump actions/checkout from 5 to 6. PR [#1656](https://github.com/fastapi/sqlmodel/pull/1656) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.5 to 0.14.6. PR [#1652](https://github.com/fastapi/sqlmodel/pull/1652) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1655](https://github.com/fastapi/sqlmodel/pull/1655) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump actions/checkout from 5 to 6. PR [#1651](https://github.com/fastapi/sqlmodel/pull/1651) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 💄 Use font Fira Code to fix display of Rich panels in docs in Windows. PR [#1653](https://github.com/fastapi/sqlmodel/pull/1653) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Upgrade `latest-changes` GitHub Action and pin `actions/checkout@v5`. PR [#1654](https://github.com/fastapi/sqlmodel/pull/1654) by [@svlandeg](https://github.com/svlandeg).
+* 🔧 Upgrade Material for MkDocs and remove insiders. PR [#1650](https://github.com/fastapi/sqlmodel/pull/1650) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump mkdocs-material from 9.6.23 to 9.7.0. PR [#1645](https://github.com/fastapi/sqlmodel/pull/1645) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-macros-plugin from 1.4.1 to 1.5.0. PR [#1647](https://github.com/fastapi/sqlmodel/pull/1647) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.4 to 0.14.5. PR [#1646](https://github.com/fastapi/sqlmodel/pull/1646) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1648](https://github.com/fastapi/sqlmodel/pull/1648) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.14.3 to 0.14.4. PR [#1640](https://github.com/fastapi/sqlmodel/pull/1640) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1642](https://github.com/fastapi/sqlmodel/pull/1642) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump mkdocs-material from 9.6.22 to 9.6.23. PR [#1637](https://github.com/fastapi/sqlmodel/pull/1637) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.2 to 0.14.3. PR [#1633](https://github.com/fastapi/sqlmodel/pull/1633) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1636](https://github.com/fastapi/sqlmodel/pull/1636) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump mkdocs-macros-plugin from 1.4.0 to 1.4.1. PR [#1626](https://github.com/fastapi/sqlmodel/pull/1626) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.1 to 0.14.2. PR [#1616](https://github.com/fastapi/sqlmodel/pull/1616) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1625](https://github.com/fastapi/sqlmodel/pull/1625) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
