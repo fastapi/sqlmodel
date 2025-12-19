@@ -32,7 +32,7 @@ We can use `response_model` to tell FastAPI the schema of the data we want to se
 
 For example, we can pass the same `Hero` **SQLModel** class (because it is also a Pydantic model):
 
-{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[31:37] hl[31] *}
+{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[34:40] hl[34] *}
 
 ## List of Heroes in `response_model`
 
@@ -40,7 +40,7 @@ We can also use other type annotations, the same way we can use with Pydantic fi
 
 To do so, we declare the `response_model` with `list[Hero]`:
 
-{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[40:44] hl[40] *}
+{* ./docs_src/tutorial/fastapi/response_model/tutorial001_py310.py ln[43:47] hl[43] *}
 
 ## FastAPI and Response Model
 
