@@ -2,6 +2,18 @@
 
 ## Latest Changes
 
+## 0.0.29
+
+### Fixes
+
+* 🐛 Fix `alias` support for Pydantic v2. PR [#1577](https://github.com/fastapi/sqlmodel/pull/1577) by [@ravishan16](https://github.com/ravishan16).
+
+## 0.0.28
+
+### Fixes
+
+* 🐛 Fix `RuntimeError: dictionary changed size during iteration` in `sqlmodel_update()`. PR [#997](https://github.com/fastapi/sqlmodel/pull/997) by [@BartSchuurmans](https://github.com/BartSchuurmans).
+
 ### Docs
 
 * 💅 Update CSS to explicitly use emoji font. PR [#1658](https://github.com/fastapi/sqlmodel/pull/1658) by [@tiangolo](https://github.com/tiangolo).
@@ -10,6 +22,9 @@
 
 ### Internal
 
+* 📌 Pin FastAPI in tests to 0.125.0 while dropping support for Python 3.8. PR [#1689](https://github.com/fastapi/sqlmodel/pull/1689) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Configure coverage, error on main tests, don't wait for Smokeshow. PR [#1683](https://github.com/fastapi/sqlmodel/pull/1683) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 👷 Run Smokeshow always, even on test failures. PR [#1682](https://github.com/fastapi/sqlmodel/pull/1682) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ruff from 0.14.6 to 0.14.8. PR [#1667](https://github.com/fastapi/sqlmodel/pull/1667) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1662](https://github.com/fastapi/sqlmodel/pull/1662) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#1656](https://github.com/fastapi/sqlmodel/pull/1656) by [@dependabot[bot]](https://github.com/apps/dependabot).
