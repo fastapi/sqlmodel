@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import inspect as inspect_module
 import ipaddress
 import uuid
+import warnings
 import weakref
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
@@ -28,6 +30,7 @@ from typing import (
 )
 
 from pydantic import BaseModel, EmailStr
+from pydantic import Field as PydanticField
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -54,7 +57,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import Literal, TypeAlias, deprecated, get_origin
+from typing_extensions import Annotated, Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     IS_PYDANTIC_V2,
@@ -99,6 +102,10 @@ IncEx: TypeAlias = Union[
     Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+
+FIELD_ACCEPTED_KWARGS = set(inspect_module.signature(PydanticField).parameters.keys())
+if "schema_extra" in FIELD_ACCEPTED_KWARGS:
+    FIELD_ACCEPTED_KWARGS.remove("schema_extra")
 
 
 def __dataclass_transform__(
@@ -251,7 +258,16 @@ def Field(
     sa_type: Union[Type[Any], UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Annotated[
+        Optional[Dict[str, Any]],
+        deprecated(
+            """
+            This parameter is deprecated.
+            Use `json_schema_extra` to add extra information to JSON schema.
+            """
+        ),
+    ] = None,
+    json_schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -297,7 +313,16 @@ def Field(
     sa_type: Union[Type[Any], UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Annotated[
+        Optional[Dict[str, Any]],
+        deprecated(
+            """
+            This parameter is deprecated.
+            Use `json_schema_extra` to add extra information to JSON schema.
+            """
+        ),
+    ] = None,
+    json_schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -343,7 +368,16 @@ def Field(
     discriminator: Optional[str] = None,
     repr: bool = True,
     sa_column: Union[Column[Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Annotated[
+        Optional[Dict[str, Any]],
+        deprecated(
+            """
+            This parameter is deprecated.
+            Use `json_schema_extra` to add extra information to JSON schema.
+            """
+        ),
+    ] = None,
+    json_schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -387,9 +421,47 @@ def Field(
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Annotated[
+        Optional[Dict[str, Any]],
+        deprecated(
+            """
+            This parameter is deprecated.
+            Use `json_schema_extra` to add extra information to JSON schema.
+            """
+        ),
+    ] = None,
+    json_schema_extra: Optional[Dict[str, Any]] = None,
 ) -> Any:
+    if schema_extra:
+        warnings.warn(
+            "schema_extra parameter is deprecated. "
+            "Use json_schema_extra to add extra information to JSON schema.",
+            DeprecationWarning,
+            stacklevel=1,
+        )
+
+    field_info_kwargs = {}
+    current_json_schema_extra = json_schema_extra or {}
     current_schema_extra = schema_extra or {}
+
+    if IS_PYDANTIC_V2:
+        # Handle a workaround when json_schema_extra was passed via schema_extra
+        if "json_schema_extra" in current_schema_extra:
+            json_schema_extra_from_schema_extra = current_schema_extra.pop(
+                "json_schema_extra"
+            )
+            if not current_json_schema_extra:
+                current_json_schema_extra = json_schema_extra_from_schema_extra
+        # Split parameters from schema_extra to field_info_kwargs and json_schema_extra
+        for key, value in current_schema_extra.items():
+            if key in FIELD_ACCEPTED_KWARGS:
+                field_info_kwargs[key] = value
+            else:
+                current_json_schema_extra[key] = value
+        field_info_kwargs["json_schema_extra"] = current_json_schema_extra
+    else:
+        field_info_kwargs.update(current_json_schema_extra or current_schema_extra)
+
     field_info = FieldInfo(
         default,
         default_factory=default_factory,
@@ -425,7 +497,7 @@ def Field(
         sa_column=sa_column,
         sa_column_args=sa_column_args,
         sa_column_kwargs=sa_column_kwargs,
-        **current_schema_extra,
+        **field_info_kwargs,
     )
     post_init_field_info(field_info)
     return field_info
