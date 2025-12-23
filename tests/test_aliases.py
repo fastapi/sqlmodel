@@ -1,9 +1,10 @@
 from typing import Type, Union
 
 import pytest
-from pydantic import VERSION, BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError
 from pydantic import Field as PField
 from sqlmodel import Field, SQLModel
+from sqlmodel._compat import IS_PYDANTIC_V2
 
 from tests.conftest import needs_pydanticv1, needs_pydanticv2
 
@@ -21,7 +22,7 @@ class SQLModelUser(SQLModel):
 
 
 # Models with config (validate_by_name=True)
-if VERSION.startswith("2."):
+if IS_PYDANTIC_V2:
 
     class PydanticUserWithConfig(PydanticUser):
         model_config = {"validate_by_name": True}
@@ -83,7 +84,7 @@ def test_dict_default_uses_field_names(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    if VERSION.startswith("2.") or isinstance(user, SQLModel):
+    if IS_PYDANTIC_V2 or isinstance(user, SQLModel):
         data = user.model_dump()
     else:
         data = user.dict()
@@ -97,7 +98,7 @@ def test_dict_by_alias_uses_aliases(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Dana")
-    if VERSION.startswith("2.") or isinstance(user, SQLModel):
+    if IS_PYDANTIC_V2 or isinstance(user, SQLModel):
         data = user.model_dump(by_alias=True)
     else:
         data = user.dict(by_alias=True)
@@ -111,7 +112,7 @@ def test_json_by_alias(
     model: Union[Type[PydanticUser], Type[SQLModelUser]],
 ):
     user = model(fullName="Frank")
-    if VERSION.startswith("2."):
+    if IS_PYDANTIC_V2:
         json_data = user.model_dump_json(by_alias=True)
     else:
         json_data = user.json(by_alias=True)
@@ -119,7 +120,7 @@ def test_json_by_alias(
     assert "full_name" not in json_data
 
 
-if VERSION.startswith("2."):
+if IS_PYDANTIC_V2:
 
     class PydanticUserV2(BaseModel):
         first_name: str = PField(
