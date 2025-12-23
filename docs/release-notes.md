@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.28
+
 ### Fixes
 
 * 🐛 Fix `RuntimeError: dictionary changed size during iteration` in `sqlmodel_update()`. PR [#997](https://github.com/fastapi/sqlmodel/pull/997) by [@BartSchuurmans](https://github.com/BartSchuurmans).
