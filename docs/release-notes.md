@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Fix `alias` support for Pydantic v2. PR [#1577](https://github.com/fastapi/sqlmodel/pull/1577) by [@ravishan16](https://github.com/ravishan16).
+
 ## 0.0.28
 
 ### Fixes
