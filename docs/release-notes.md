@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump typer from 0.20.0 to 0.20.1. PR [#1685](https://github.com/fastapi/sqlmodel/pull/1685) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.8 to 0.14.10. PR [#1681](https://github.com/fastapi/sqlmodel/pull/1681) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
 ## 0.0.29
