@@ -5,7 +5,7 @@ from types import ModuleType
 
 import pytest
 
-from tests.conftest import needs_py39, needs_py310
+from tests.conftest import needs_py310
 
 
 @dataclass
@@ -17,8 +17,7 @@ class Modules:
 @pytest.fixture(
     name="modules_path",
     params=[
-        "tutorial001",
-        pytest.param("tutorial001_py39", marks=needs_py39),
+        pytest.param("tutorial001_py39"),
         pytest.param("tutorial001_py310", marks=needs_py310),
     ],
 )
