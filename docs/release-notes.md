@@ -2,6 +2,29 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1677](https://github.com/fastapi/sqlmodel/pull/1677) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump actions/download-artifact from 6 to 7. PR [#1676](https://github.com/fastapi/sqlmodel/pull/1676) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/cache from 4 to 5. PR [#1673](https://github.com/fastapi/sqlmodel/pull/1673) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump markdown-include-variants from 0.0.5 to 0.0.8. PR [#1674](https://github.com/fastapi/sqlmodel/pull/1674) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/upload-artifact from 5 to 6. PR [#1675](https://github.com/fastapi/sqlmodel/pull/1675) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mypy from 1.18.2 to 1.19.1. PR [#1679](https://github.com/fastapi/sqlmodel/pull/1679) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.20.0 to 0.20.1. PR [#1685](https://github.com/fastapi/sqlmodel/pull/1685) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.8 to 0.14.10. PR [#1681](https://github.com/fastapi/sqlmodel/pull/1681) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.29
+
+### Fixes
+
+* 🐛 Fix `alias` support for Pydantic v2. PR [#1577](https://github.com/fastapi/sqlmodel/pull/1577) by [@ravishan16](https://github.com/ravishan16).
+
+## 0.0.28
+
+### Fixes
+
+* 🐛 Fix `RuntimeError: dictionary changed size during iteration` in `sqlmodel_update()`. PR [#997](https://github.com/fastapi/sqlmodel/pull/997) by [@BartSchuurmans](https://github.com/BartSchuurmans).
+
 ### Docs
 
 * 💅 Update CSS to explicitly use emoji font. PR [#1658](https://github.com/fastapi/sqlmodel/pull/1658) by [@tiangolo](https://github.com/tiangolo).
