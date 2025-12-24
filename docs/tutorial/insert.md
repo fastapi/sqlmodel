@@ -343,10 +343,10 @@ Let's focus on the new code:
 
 ////
 
-//// tab | Python 3.8+
+//// tab | Python 3.9+
 
 ```{.python .annotate }
-{!./docs_src/tutorial/insert/tutorial003.py!}
+{!./docs_src/tutorial/insert/tutorial003_py39.py!}
 ```
 
 {!./docs_src/tutorial/insert/annotations/en/tutorial003.md!}
