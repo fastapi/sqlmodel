@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump ruff from 0.14.8 to 0.14.10. PR [#1681](https://github.com/fastapi/sqlmodel/pull/1681) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.29
 
 ### Fixes
