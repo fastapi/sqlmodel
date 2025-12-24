@@ -138,8 +138,8 @@ def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]) -> None:
 @pytest.fixture(
     name="module",
     params=[
-        "tutorial001",
-        "tutorial002",
+        "tutorial001_py39",
+        "tutorial002_py39",
         pytest.param("tutorial001_py310", marks=needs_py310),
         pytest.param("tutorial002_py310", marks=needs_py310),
     ],
