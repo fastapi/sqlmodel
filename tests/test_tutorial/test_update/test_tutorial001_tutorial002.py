@@ -39,7 +39,7 @@ def get_module(request: pytest.FixtureRequest) -> ModuleType:
 @pytest.mark.parametrize(
     "module",
     [
-        "tutorial001",
+        pytest.param("tutorial001_py39"),
         pytest.param("tutorial001_py310", marks=needs_py310),
     ],
     indirect=True,
@@ -52,7 +52,7 @@ def test_tutorial001(print_mock: PrintMock, module: ModuleType):
 @pytest.mark.parametrize(
     "module",
     [
-        "tutorial002",
+        pytest.param("tutorial002_py39"),
         pytest.param("tutorial002_py310", marks=needs_py310),
     ],
     indirect=True,

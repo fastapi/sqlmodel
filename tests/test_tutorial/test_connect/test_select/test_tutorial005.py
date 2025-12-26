@@ -55,7 +55,7 @@ expected_calls = [
 @pytest.fixture(
     name="module",
     params=[
-        "tutorial005",
+        "tutorial005_py39",
         pytest.param("tutorial005_py310", marks=needs_py310),
     ],
 )

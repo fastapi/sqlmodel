@@ -10,7 +10,7 @@ from ...conftest import PrintMock, needs_py310
 @pytest.fixture(
     name="mod",
     params=[
-        "tutorial007",
+        pytest.param("tutorial007_py39"),
         pytest.param("tutorial007_py310", marks=needs_py310),
     ],
 )
