@@ -1,9 +1,10 @@
 import shutil
 import subprocess
 import sys
+from collections.abc import Generator
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, Generator, List, Union
+from typing import Any, Callable, Union
 from unittest.mock import patch
 
 import pytest
@@ -53,10 +54,10 @@ def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedP
 
 
 def get_testing_print_function(
-    calls: List[List[Union[str, Dict[str, Any]]]],
+    calls: list[list[Union[str, dict[str, Any]]]],
 ) -> Callable[..., Any]:
     def new_print(*args: Any) -> None:
-        data: List[Any] = []
+        data: list[Any] = []
         for arg in args:
             if isinstance(arg, BaseModel):
                 data.append(arg.model_dump())
@@ -75,7 +76,7 @@ def get_testing_print_function(
 
 @dataclass
 class PrintMock:
-    calls: List[Any] = field(default_factory=list)
+    calls: list[Any] = field(default_factory=list)
 
 
 @pytest.fixture(name="print_mock")

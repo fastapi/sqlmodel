@@ -1,6 +1,6 @@
 import importlib
 from types import ModuleType
-from typing import Any, Dict, List, Union
+from typing import Any, Union
 
 import pytest
 from sqlmodel import create_engine
@@ -8,7 +8,7 @@ from sqlmodel import create_engine
 from ...conftest import PrintMock, needs_py310
 
 
-def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
+def check_calls(calls: list[list[Union[str, dict[str, Any]]]]):
     assert calls[0][0] == [
         {
             "name": "Deadpond",
