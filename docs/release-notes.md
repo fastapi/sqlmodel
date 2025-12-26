@@ -10,7 +10,7 @@
 
 ### Docs
 
-* ➖ Drop support for Python 3.8 in CI and docs. PR [#1695](https://github.com/fastapi/sqlmodel/pull/1695) by [@tiangolo](https://github.com/tiangolo).
+* ➖ Drop support for Python 3.8 in CI and docs. PR [#1695](https://github.com/fastapi/sqlmodel/pull/1695) by [@YuriiMotov](https://github.com/YuriiMotov) and [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
 
