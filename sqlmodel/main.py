@@ -53,7 +53,7 @@ from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
-from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
+from sqlalchemy.sql.sqltypes import JSON, LargeBinary, Time, Uuid
 from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
@@ -728,6 +728,8 @@ def get_sqlalchemy_type(field: Any) -> Any:
         )
     if issubclass(type_, uuid.UUID):
         return Uuid
+    if issubclass(type_, dict):
+        return JSON
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
