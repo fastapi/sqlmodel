@@ -482,6 +482,17 @@ def Relationship(
     return relationship_info
 
 
+# Helper function to support Pydantic 2.12+ compatibility
+def _find_field_info(cls: type, field_name: str) -> Optional[FieldInfo]:
+    for c in cls.__mro__:
+        annotated = get_annotations(c.__dict__).get(field_name)  # type: ignore[arg-type]
+        if annotated:
+            for meta in getattr(annotated, "__metadata__", ()):
+                if isinstance(meta, FieldInfo):
+                    return meta
+    return None
+
+
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
@@ -568,7 +579,17 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # If it was passed by kwargs, ensure it's also set in config
             set_config_value(model=new_cls, parameter="table", value=config_table)
             for k, v in get_model_fields(new_cls).items():
-                col = get_column_from_field(v)
+                if PYDANTIC_MINOR_VERSION >= (2, 12):
+                    original_field = getattr(v, "_original_assignment", Undefined)
+                    # Get the original sqlmodel FieldInfo, pydantic >=v2.12 changes the model
+                    if isinstance(original_field, FieldInfo):
+                        field = original_field
+                    else:
+                        field = _find_field_info(new_cls, field_name=k) or v  # type: ignore[assignment]
+                    field.annotation = v.annotation
+                    col = get_column_from_field(field)
+                else:
+                    col = get_column_from_field(v)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
             # in orm_mode instead of preemptively converting it to a dict.
