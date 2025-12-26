@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.30
+
 ### Breaking Changes
 
 * ➖ Drop support for Python 3.8. PR [#1696](https://github.com/fastapi/sqlmodel/pull/1696) by [@tiangolo](https://github.com/tiangolo).
