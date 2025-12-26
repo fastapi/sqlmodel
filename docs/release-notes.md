@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 📌 Relax `prek` version pin to `>=0.2.24,<1.0.0`. PR [#1698](https://github.com/fastapi/sqlmodel/pull/1698) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.0.30
 
 ### Breaking Changes
