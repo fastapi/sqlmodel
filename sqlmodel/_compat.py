@@ -175,6 +175,9 @@ if IS_PYDANTIC_V2:
         elif origin is list:
             use_annotation = get_args(annotation)[0]
 
+        elif origin is Annotated:
+            use_annotation = get_args(annotation)[0]
+
         return get_relationship_to(
             name=name, rel_info=rel_info, annotation=use_annotation
         )
