@@ -128,23 +128,48 @@ def test_sa_relationship_property(clear_sqlmodel):
         assert hero_rusty_man.team.name == "Preventers"
 
 
-def test_literal_typehints_are_treated_as_strings(clear_sqlmodel):
+def test_literal_str(clear_sqlmodel, caplog):
     """Test https://github.com/fastapi/sqlmodel/issues/57"""
 
-    class Hero(SQLModel, table=True):
+    class Model(SQLModel, table=True):
         id: Optional[int] = Field(default=None, primary_key=True)
-        name: str = Field(unique=True)
-        weakness: Literal["Kryptonite", "Dehydration", "Munchies"]
+        all_str: Literal["a", "b", "c"]
+        mixed: Literal["yes", "no", 1, 0]
+        all_int: Literal[1, 2, 3]
+        int_bool: Literal[0, 1, True, False]
+        all_bool: Literal[True, False]
 
-    superguy = Hero(name="Superguy", weakness="Kryptonite")
+    obj = Model(
+        all_str="a",
+        mixed="yes",
+        all_int=1,
+        int_bool=True,
+        all_bool=False,
+    )
 
     engine = create_engine("sqlite://", echo=True)
 
     SQLModel.metadata.create_all(engine)
 
+    # Check DDL
+    assert "all_str VARCHAR NOT NULL" in caplog.text
+    assert "mixed VARCHAR NOT NULL" in caplog.text
+    assert "all_int INTEGER NOT NULL" in caplog.text
+    assert "int_bool INTEGER NOT NULL" in caplog.text
+    assert "all_bool BOOLEAN NOT NULL" in caplog.text
+
+    # Check query
     with Session(engine) as session:
-        session.add(superguy)
+        session.add(obj)
         session.commit()
-        session.refresh(superguy)
-        assert superguy.weakness == "Kryptonite"
-        assert isinstance(superguy.weakness, str)
+        session.refresh(obj)
+        assert isinstance(obj.all_str, str)
+        assert obj.all_str == "a"
+        assert isinstance(obj.mixed, str)
+        assert obj.mixed == "yes"
+        assert isinstance(obj.all_int, int)
+        assert obj.all_int == 1
+        assert isinstance(obj.int_bool, int)
+        assert obj.int_bool == 1
+        assert isinstance(obj.all_bool, bool)
+        assert obj.all_bool is False
