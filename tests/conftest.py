@@ -93,3 +93,6 @@ needs_pydanticv1 = pytest.mark.skipif(IS_PYDANTIC_V2, reason="requires Pydantic 
 needs_py310 = pytest.mark.skipif(
     sys.version_info < (3, 10), reason="requires python3.10+"
 )
+needs_py312 = pytest.mark.skipif(
+    sys.version_info < (3, 12), reason="requires python3.12+"
+)
