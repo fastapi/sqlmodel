@@ -2,15 +2,11 @@
 -r requirements-docs-tests.txt
 pytest >=7.0.1,<9.0.0
 coverage[toml] >=6.2,<8.0
-# Remove when support for Python 3.8 is dropped
-mypy ==1.14.1; python_version < "3.9"
-mypy ==1.18.2; python_version >= "3.9"
-ruff ==0.14.8
+mypy ==1.19.1
+ruff ==0.14.10
 # For FastAPI tests
-fastapi >=0.103.2
+fastapi >=0.103.2,<0.126.0
 httpx ==0.28.1
-dirty-equals ==0.9.0
+dirty-equals ==0.11
 jinja2 ==3.1.6
-# Remove when support for Python 3.8 is dropped
-typing-extensions ==4.13.2; python_version < "3.9"
-typing-extensions ==4.15.0; python_version >= "3.9"
+typing-extensions ==4.15.0

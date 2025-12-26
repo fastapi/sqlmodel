@@ -1,20 +1,16 @@
 import sys
 import types
+from collections.abc import Generator, Mapping, Set
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import (
     TYPE_CHECKING,
-    AbstractSet,
+    Annotated,
     Any,
     Callable,
-    Dict,
     ForwardRef,
-    Generator,
-    Mapping,
     Optional,
-    Set,
-    Type,
     TypeVar,
     Union,
 )
@@ -22,7 +18,7 @@ from typing import (
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic.fields import FieldInfo
-from typing_extensions import Annotated, get_args, get_origin
+from typing_extensions import get_args, get_origin
 
 # Reassign variable to make it reexported for mypy
 PYDANTIC_VERSION = P_VERSION
@@ -36,7 +32,7 @@ if TYPE_CHECKING:
 UnionType = getattr(types, "UnionType", Union)
 NoneType = type(None)
 T = TypeVar("T")
-InstanceOrType = Union[T, Type[T]]
+InstanceOrType = Union[T, type[T]]
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
@@ -49,7 +45,7 @@ class FakeMetadata:
 @dataclass
 class ObjectWithUpdateWrapper:
     obj: Any
-    update: Dict[str, Any]
+    update: dict[str, Any]
 
     def __getattribute__(self, __name: str) -> Any:
         update = super().__getattribute__("update")
@@ -103,7 +99,7 @@ if IS_PYDANTIC_V2:
     ) -> None:
         model.model_config[parameter] = value  # type: ignore[literal-required]
 
-    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> dict[str, "FieldInfo"]:
         # TODO: refactor the usage of this function to always pass the class
         # not the instance, and then remove this extra check
         # this is for compatibility with Pydantic v3
@@ -115,7 +111,7 @@ if IS_PYDANTIC_V2:
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
-    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
+    ) -> Union[set[str], Callable[[BaseModel], set[str]]]:
         return object.model_fields_set
 
     def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
@@ -123,8 +119,8 @@ if IS_PYDANTIC_V2:
         object.__setattr__(new_object, "__pydantic_extra__", None)
         object.__setattr__(new_object, "__pydantic_private__", None)
 
-    def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
-        raw_annotations: Dict[str, Any] = class_dict.get("__annotations__", {})
+    def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
+        raw_annotations: dict[str, Any] = class_dict.get("__annotations__", {})
         if sys.version_info >= (3, 14) and "__annotations__" not in class_dict:
             # See https://github.com/pydantic/pydantic/pull/11991
             from annotationlib import (
@@ -139,7 +135,7 @@ if IS_PYDANTIC_V2:
                 )
         return raw_annotations
 
-    def is_table_model_class(cls: Type[Any]) -> bool:
+    def is_table_model_class(cls: type[Any]) -> bool:
         config = getattr(cls, "model_config", {})
         if config:
             return config.get("table", False) or False
@@ -243,15 +239,15 @@ if IS_PYDANTIC_V2:
         include: Optional[Mapping[Union[int, str], Any]],
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
-        update: Optional[Dict[str, Any]] = None,
-    ) -> Optional[AbstractSet[str]]:  # pragma: no cover
+        update: Optional[dict[str, Any]] = None,
+    ) -> Optional[Set[str]]:  # pragma: no cover
         return None
 
     def sqlmodel_table_construct(
         *,
         self_instance: _TSQLModel,
-        values: Dict[str, Any],
-        _fields_set: Union[Set[str], None] = None,
+        values: dict[str, Any],
+        _fields_set: Union[set[str], None] = None,
     ) -> _TSQLModel:
         # Copy from Pydantic's BaseModel.construct()
         # Ref: https://github.com/pydantic/pydantic/blob/v2.5.2/pydantic/main.py#L198
@@ -264,8 +260,8 @@ if IS_PYDANTIC_V2:
         old_dict = self_instance.__dict__.copy()
         # End SQLModel override
 
-        fields_values: Dict[str, Any] = {}
-        defaults: Dict[
+        fields_values: dict[str, Any] = {}
+        defaults: dict[
             str, Any
         ] = {}  # keeping this separate from `fields_values` helps us compute `_fields_set`
         for name, field in cls.model_fields.items():
@@ -279,7 +275,7 @@ if IS_PYDANTIC_V2:
             _fields_set = set(fields_values.keys())
         fields_values.update(defaults)
 
-        _extra: Union[Dict[str, Any], None] = None
+        _extra: Union[dict[str, Any], None] = None
         if cls.model_config.get("extra") == "allow":
             _extra = {}
             for k, v in values.items():
@@ -315,13 +311,13 @@ if IS_PYDANTIC_V2:
         return self_instance
 
     def sqlmodel_validate(
-        cls: Type[_TSQLModel],
+        cls: type[_TSQLModel],
         obj: Any,
         *,
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
-        context: Union[Dict[str, Any], None] = None,
-        update: Union[Dict[str, Any], None] = None,
+        context: Union[dict[str, Any], None] = None,
+        update: Union[dict[str, Any], None] = None,
     ) -> _TSQLModel:
         if not is_table_model_class(cls):
             new_obj: _TSQLModel = cls.__new__(cls)
@@ -366,7 +362,7 @@ if IS_PYDANTIC_V2:
                     setattr(new_obj, key, value)
         return new_obj
 
-    def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
+    def sqlmodel_init(*, self: "SQLModel", data: dict[str, Any]) -> None:
         old_dict = self.__dict__.copy()
         if not is_table_model_class(self.__class__):
             self.__pydantic_validator__.validate_python(
@@ -424,24 +420,24 @@ else:
     ) -> None:
         setattr(model.__config__, parameter, value)  # type: ignore
 
-    def get_model_fields(model: InstanceOrType[BaseModel]) -> Dict[str, "FieldInfo"]:
+    def get_model_fields(model: InstanceOrType[BaseModel]) -> dict[str, "FieldInfo"]:
         return model.__fields__  # type: ignore
 
     def get_fields_set(
         object: InstanceOrType["SQLModel"],
-    ) -> Union[Set[str], Callable[[BaseModel], Set[str]]]:
+    ) -> Union[set[str], Callable[[BaseModel], set[str]]]:
         return object.__fields_set__
 
     def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
         object.__setattr__(new_object, "__fields_set__", set())
 
-    def get_annotations(class_dict: Dict[str, Any]) -> Dict[str, Any]:
+    def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
         return resolve_annotations(  # type: ignore[no-any-return]
             class_dict.get("__annotations__", {}),
             class_dict.get("__module__", None),
         )
 
-    def is_table_model_class(cls: Type[Any]) -> bool:
+    def is_table_model_class(cls: type[Any]) -> bool:
         config = getattr(cls, "__config__", None)
         if config:
             return getattr(config, "table", False)
@@ -492,8 +488,8 @@ else:
         include: Optional[Mapping[Union[int, str], Any]],
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
-        update: Optional[Dict[str, Any]] = None,
-    ) -> Optional[AbstractSet[str]]:
+        update: Optional[dict[str, Any]] = None,
+    ) -> Optional[Set[str]]:
         if include is None and exclude is None and not exclude_unset:
             # Original in Pydantic:
             # return None
@@ -504,7 +500,7 @@ else:
                 self.__fields__.keys()  # noqa
             )  # | self.__sqlmodel_relationships__.keys()
 
-        keys: AbstractSet[str]
+        keys: Set[str]
         if exclude_unset:
             keys = self.__fields_set__.copy()  # noqa
         else:
@@ -528,13 +524,13 @@ else:
         return keys
 
     def sqlmodel_validate(
-        cls: Type[_TSQLModel],
+        cls: type[_TSQLModel],
         obj: Any,
         *,
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
-        context: Union[Dict[str, Any], None] = None,
-        update: Union[Dict[str, Any], None] = None,
+        context: Union[dict[str, Any], None] = None,
+        update: Union[dict[str, Any], None] = None,
     ) -> _TSQLModel:
         # This was SQLModel's original from_orm() for Pydantic v1
         # Duplicated from Pydantic
@@ -573,7 +569,7 @@ else:
         m._init_private_attributes()  # type: ignore[attr-defined] # noqa
         return m
 
-    def sqlmodel_init(*, self: "SQLModel", data: Dict[str, Any]) -> None:
+    def sqlmodel_init(*, self: "SQLModel", data: dict[str, Any]) -> None:
         values, fields_set, validation_error = validate_model(self.__class__, data)
         # Only raise errors if not a SQLModel model
         if (
