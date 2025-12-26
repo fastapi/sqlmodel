@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* ➖ Drop support for Python 3.8 in CI and docs. PR [#1695](https://github.com/fastapi/sqlmodel/pull/1695) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump actions/checkout from 5 to 6. PR [#1692](https://github.com/fastapi/sqlmodel/pull/1692) by [@dependabot[bot]](https://github.com/apps/dependabot).
