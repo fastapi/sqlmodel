@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump dirty-equals from 0.9.0 to 0.11. PR [#1649](https://github.com/fastapi/sqlmodel/pull/1649) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.7.0 to 9.7.1. PR [#1690](https://github.com/fastapi/sqlmodel/pull/1690) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.20.1 to 0.21.0. PR [#1694](https://github.com/fastapi/sqlmodel/pull/1694) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 📌 Relax `prek` version pin to `>=0.2.24,<1.0.0`. PR [#1698](https://github.com/fastapi/sqlmodel/pull/1698) by [@YuriiMotov](https://github.com/YuriiMotov).
