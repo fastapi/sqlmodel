@@ -12,6 +12,7 @@
 
 ### Internal
 
+* 🔧 Update pre-commit, generate select on pre-commit, use local Ruff. PR [#1697](https://github.com/fastapi/sqlmodel/pull/1697) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump actions/checkout from 5 to 6. PR [#1692](https://github.com/fastapi/sqlmodel/pull/1692) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add pre-commit workflow. PR [#1684](https://github.com/fastapi/sqlmodel/pull/1684) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ✅ Simplify tests for code examples, one test file for multiple variants. PR [#1664](https://github.com/fastapi/sqlmodel/pull/1664) by [@YuriiMotov](https://github.com/YuriiMotov).
