@@ -5,7 +5,7 @@ from types import ModuleType
 
 import pytest
 
-from tests.conftest import needs_py39, needs_py310
+from tests.conftest import needs_py310
 
 
 @dataclass
@@ -17,8 +17,7 @@ class Modules:
 @pytest.fixture(
     name="modules_path",
     params=[
-        "tutorial001",
-        pytest.param("tutorial001_py39", marks=needs_py39),
+        pytest.param("tutorial001_py39"),
         pytest.param("tutorial001_py310", marks=needs_py310),
     ],
 )
@@ -35,7 +34,7 @@ def load_modules(clear_sqlmodel, modules_path: str) -> Modules:
         app_mod = sys.modules[app_mod_path]
         importlib.reload(app_mod)
     else:
-        app_mod = importlib.import_module(app_mod_path)
+        app_mod = importlib.import_module(app_mod_path)  # pragma: no cover
     test_mod = importlib.import_module(f"{modules_path}.test_main_002")
     return Modules(app=app_mod, test=test_mod)
 

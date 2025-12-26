@@ -6,14 +6,13 @@ from sqlalchemy import inspect
 from sqlalchemy.engine.reflection import Inspector
 from sqlmodel import create_engine
 
-from ....conftest import needs_py39, needs_py310
+from ....conftest import needs_py310
 
 
 @pytest.fixture(
     name="mod",
     params=[
-        "tutorial003",
-        pytest.param("tutorial003_py39", marks=needs_py39),
+        pytest.param("tutorial003_py39"),
         pytest.param("tutorial003_py310", marks=needs_py310),
     ],
 )
