@@ -1,26 +1,20 @@
 from __future__ import annotations
 
+import builtins
 import ipaddress
 import uuid
 import weakref
+from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
-    AbstractSet,
     Any,
     Callable,
     ClassVar,
-    Dict,
-    List,
-    Mapping,
     Optional,
-    Sequence,
-    Set,
-    Tuple,
-    Type,
     TypeVar,
     Union,
     cast,
@@ -93,8 +87,8 @@ if TYPE_CHECKING:
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx: TypeAlias = Union[
-    Set[int],
-    Set[str],
+    set[int],
+    set[str],
     Mapping[int, Union["IncEx", bool]],
     Mapping[str, Union["IncEx", bool]],
 ]
@@ -106,7 +100,7 @@ def __dataclass_transform__(
     eq_default: bool = True,
     order_default: bool = False,
     kw_only_default: bool = False,
-    field_descriptors: Tuple[Union[type, Callable[..., Any]], ...] = (()),
+    field_descriptors: tuple[Union[type, Callable[..., Any]], ...] = (()),
 ) -> Callable[[_T], _T]:
     return lambda a: a
 
@@ -222,12 +216,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -250,10 +240,10 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_type: Union[type[Any], UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -269,12 +259,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -298,10 +284,10 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_type: Union[type[Any], UndefinedType] = Undefined,
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -325,12 +311,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -349,7 +331,7 @@ def Field(
     discriminator: Optional[str] = None,
     repr: bool = True,
     sa_column: Union[Column[Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any: ...
 
 
@@ -362,12 +344,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -391,11 +369,11 @@ def Field(
     unique: Union[bool, UndefinedType] = Undefined,
     nullable: Union[bool, UndefinedType] = Undefined,
     index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[Type[Any], UndefinedType] = Undefined,
+    sa_type: Union[type[Any], UndefinedType] = Undefined,
     sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[Dict[str, Any]] = None,
+    schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
     # Extract possible alias settings from schema_extra so we can control precedence
@@ -506,11 +484,11 @@ def Relationship(
 
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
-    __sqlmodel_relationships__: Dict[str, RelationshipInfo]
+    __sqlmodel_relationships__: dict[str, RelationshipInfo]
     model_config: SQLModelConfig
-    model_fields: ClassVar[Dict[str, FieldInfo]]
-    __config__: Type[SQLModelConfig]
-    __fields__: Dict[str, ModelField]  # type: ignore[assignment]
+    model_fields: ClassVar[dict[str, FieldInfo]]
+    __config__: type[SQLModelConfig]
+    __fields__: dict[str, ModelField]  # type: ignore[assignment]
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
@@ -529,11 +507,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     def __new__(
         cls,
         name: str,
-        bases: Tuple[Type[Any], ...],
-        class_dict: Dict[str, Any],
+        bases: tuple[type[Any], ...],
+        class_dict: dict[str, Any],
         **kwargs: Any,
     ) -> Any:
-        relationships: Dict[str, RelationshipInfo] = {}
+        relationships: dict[str, RelationshipInfo] = {}
         dict_for_pydantic = {}
         original_annotations = get_annotations(class_dict)
         pydantic_annotations = {}
@@ -557,7 +535,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # Duplicate logic from Pydantic to filter config kwargs because if they are
         # passed directly including the registry Pydantic will pass them over to the
         # superclass causing an error
-        allowed_config_kwargs: Set[str] = {
+        allowed_config_kwargs: set[str] = {
             key
             for key in dir(BaseConfig)
             if not (
@@ -616,7 +594,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
     def __init__(
-        cls, classname: str, bases: Tuple[type, ...], dict_: Dict[str, Any], **kw: Any
+        cls, classname: str, bases: tuple[type, ...], dict_: dict[str, Any], **kw: Any
     ) -> None:
         # Only one of the base classes (or the current one) should be a table model
         # this allows FastAPI cloning a SQLModel for the response_model without
@@ -643,7 +621,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 relationship_to = get_relationship_to(
                     name=rel_name, rel_info=rel_info, annotation=ann
                 )
-                rel_kwargs: Dict[str, Any] = {}
+                rel_kwargs: dict[str, Any] = {}
                 if rel_info.back_populates:
                     rel_kwargs["back_populates"] = rel_info.back_populates
                 if rel_info.cascade_delete:
@@ -659,7 +637,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                             f"model {rel_info.link_model}"
                         )
                     rel_kwargs["secondary"] = local_table
-                rel_args: List[Any] = []
+                rel_args: list[Any] = []
                 if rel_info.sa_relationship_args:
                     rel_args.extend(rel_info.sa_relationship_args)
                 if rel_info.sa_relationship_kwargs:
@@ -787,7 +765,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         args.extend(list(cast(Sequence[Any], sa_column_args)))
     sa_column_kwargs = getattr(field_info, "sa_column_kwargs", Undefined)
     if sa_column_kwargs is not Undefined:
-        kwargs.update(cast(Dict[Any, Any], sa_column_kwargs))
+        kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
     return Column(sa_type, *args, **kwargs)  # type: ignore
 
 
@@ -802,7 +780,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[Union[str, Callable[..., str]]]
-    __sqlmodel_relationships__: ClassVar[Dict[str, RelationshipProperty[Any]]]
+    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipProperty[Any]]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
@@ -857,7 +835,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             if name not in self.__sqlmodel_relationships__:
                 super().__setattr__(name, value)
 
-    def __repr_args__(self) -> Sequence[Tuple[Optional[str], Any]]:
+    def __repr_args__(self) -> Sequence[tuple[Optional[str], Any]]:
         # Don't show SQLAlchemy private attributes
         return [
             (k, v)
@@ -871,13 +849,13 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     @classmethod
     def model_validate(  # type: ignore[override]
-        cls: Type[_TSQLModel],
+        cls: type[_TSQLModel],
         obj: Any,
         *,
         strict: Union[bool, None] = None,
         from_attributes: Union[bool, None] = None,
-        context: Union[Dict[str, Any], None] = None,
-        update: Union[Dict[str, Any], None] = None,
+        context: Union[builtins.dict[str, Any], None] = None,
+        update: Union[builtins.dict[str, Any], None] = None,
     ) -> _TSQLModel:
         return sqlmodel_validate(
             cls=cls,
@@ -904,10 +882,10 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         warnings: Union[bool, Literal["none", "warn", "error"]] = True,
         fallback: Union[Callable[[Any], Any], None] = None,  # v2.11
         serialize_as_any: bool = False,  # v2.7
-    ) -> Dict[str, Any]:
+    ) -> builtins.dict[str, Any]:
         if PYDANTIC_MINOR_VERSION < (2, 11):
             by_alias = by_alias or False
-        extra_kwargs: Dict[str, Any] = {}
+        extra_kwargs: dict[str, Any] = {}
         if PYDANTIC_MINOR_VERSION >= (2, 7):
             extra_kwargs["context"] = context
             extra_kwargs["serialize_as_any"] = serialize_as_any
@@ -953,7 +931,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
-    ) -> Dict[str, Any]:
+    ) -> builtins.dict[str, Any]:
         return self.model_dump(
             include=include,
             exclude=exclude,
@@ -971,7 +949,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         """
     )
     def from_orm(
-        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+        cls: type[_TSQLModel],
+        obj: Any,
+        update: Optional[builtins.dict[str, Any]] = None,
     ) -> _TSQLModel:
         return cls.model_validate(obj, update=update)
 
@@ -983,7 +963,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         """
     )
     def parse_obj(
-        cls: Type[_TSQLModel], obj: Any, update: Optional[Dict[str, Any]] = None
+        cls: type[_TSQLModel],
+        obj: Any,
+        update: Optional[builtins.dict[str, Any]] = None,
     ) -> _TSQLModel:
         if not IS_PYDANTIC_V2:
             obj = cls._enforce_dict_if_root(obj)  # type: ignore[attr-defined] # noqa
@@ -1004,8 +986,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         include: Optional[Mapping[Union[int, str], Any]],
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
-        update: Optional[Dict[str, Any]] = None,
-    ) -> Optional[AbstractSet[str]]:
+        update: Optional[builtins.dict[str, Any]] = None,
+    ) -> Optional[Set[str]]:
         return _calculate_keys(
             self,
             include=include,
@@ -1016,9 +998,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
 
     def sqlmodel_update(
         self: _TSQLModel,
-        obj: Union[Dict[str, Any], BaseModel],
+        obj: Union[builtins.dict[str, Any], BaseModel],
         *,
-        update: Union[Dict[str, Any], None] = None,
+        update: Union[builtins.dict[str, Any], None] = None,
     ) -> _TSQLModel:
         use_update = (update or {}).copy()
         if isinstance(obj, dict):

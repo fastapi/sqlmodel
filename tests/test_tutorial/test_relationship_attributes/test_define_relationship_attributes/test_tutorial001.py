@@ -4,14 +4,13 @@ from types import ModuleType
 import pytest
 from sqlmodel import create_engine
 
-from ....conftest import PrintMock, needs_py39, needs_py310
+from ....conftest import PrintMock, needs_py310
 
 
 @pytest.fixture(
     name="mod",
     params=[
-        "tutorial001",
-        pytest.param("tutorial001_py39", marks=needs_py39),
+        pytest.param("tutorial001_py39"),
         pytest.param("tutorial001_py310", marks=needs_py310),
     ],
 )

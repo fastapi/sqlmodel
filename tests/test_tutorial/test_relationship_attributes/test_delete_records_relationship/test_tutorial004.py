@@ -5,14 +5,13 @@ import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, create_engine, select
 
-from ....conftest import PrintMock, needs_py39, needs_py310
+from ....conftest import PrintMock, needs_py310
 
 
 @pytest.fixture(
     name="mod",
     params=[
-        "tutorial004",
-        pytest.param("tutorial004_py39", marks=needs_py39),
+        pytest.param("tutorial004_py39"),
         pytest.param("tutorial004_py310", marks=needs_py310),
     ],
 )

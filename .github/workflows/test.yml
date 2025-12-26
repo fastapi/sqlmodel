@@ -30,9 +30,6 @@ jobs:
         pydantic-version:
           - pydantic-v2
         include:
-          - os: macos-latest
-            python-version: "3.8"
-            pydantic-version: pydantic-v1
           - os: windows-latest
             python-version: "3.9"
             pydantic-version: pydantic-v2
