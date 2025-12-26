@@ -966,7 +966,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         """
     )
     def from_orm(
-        cls: type[_TSQLModel], obj: Any, update: Optional[builtins.dict[str, Any]] = None
+        cls: type[_TSQLModel],
+        obj: Any,
+        update: Optional[builtins.dict[str, Any]] = None,
     ) -> _TSQLModel:
         return cls.model_validate(obj, update=update)
 
@@ -978,7 +980,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         """
     )
     def parse_obj(
-        cls: type[_TSQLModel], obj: Any, update: Optional[builtins.dict[str, Any]] = None
+        cls: type[_TSQLModel],
+        obj: Any,
+        update: Optional[builtins.dict[str, Any]] = None,
     ) -> _TSQLModel:
         if not IS_PYDANTIC_V2:
             obj = cls._enforce_dict_if_root(obj)  # type: ignore[attr-defined] # noqa
