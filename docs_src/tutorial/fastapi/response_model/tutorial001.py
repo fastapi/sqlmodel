@@ -1,14 +1,15 @@
 from contextlib import asynccontextmanager
+from typing import List, Optional
 
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
 class Hero(SQLModel, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(index=True)
     secret_name: str
-    age: int | None = Field(default=None, index=True)
+    age: Optional[int] = Field(default=None, index=True)
 
 
 sqlite_file_name = "database.db"
@@ -40,7 +41,7 @@ def create_hero(hero: Hero):
         return hero
 
 
-@app.get("/heroes/", response_model=list[Hero])
+@app.get("/heroes/", response_model=List[Hero])
 def read_heroes():
     with Session(engine) as session:
         heroes = session.exec(select(Hero)).all()

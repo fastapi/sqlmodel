@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from typing import Optional
+from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
@@ -21,12 +21,6 @@ class HeroCreate(HeroBase):
 
 class HeroPublic(HeroBase):
     id: int
-
-
-class HeroUpdate(SQLModel):
-    name: Optional[str] = None
-    secret_name: Optional[str] = None
-    age: Optional[int] = None
 
 
 sqlite_file_name = "database.db"
@@ -59,7 +53,7 @@ def create_hero(hero: HeroCreate):
         return db_hero
 
 
-@app.get("/heroes/", response_model=list[HeroPublic])
+@app.get("/heroes/", response_model=List[HeroPublic])
 def read_heroes(offset: int = 0, limit: int = Query(default=100, le=100)):
     with Session(engine) as session:
         heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
@@ -73,17 +67,3 @@ def read_hero(hero_id: int):
         if not hero:
             raise HTTPException(status_code=404, detail="Hero not found")
         return hero
-
-
-@app.patch("/heroes/{hero_id}", response_model=HeroPublic)
-def update_hero(hero_id: int, hero: HeroUpdate):
-    with Session(engine) as session:
-        db_hero = session.get(Hero, hero_id)
-        if not db_hero:
-            raise HTTPException(status_code=404, detail="Hero not found")
-        hero_data = hero.model_dump(exclude_unset=True)
-        db_hero.sqlmodel_update(hero_data)
-        session.add(db_hero)
-        session.commit()
-        session.refresh(db_hero)
-        return db_hero

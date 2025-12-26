@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from typing import List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
@@ -10,9 +11,9 @@ class TeamBase(SQLModel):
 
 
 class Team(TeamBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
 
-    heroes: list["Hero"] = Relationship(back_populates="team")
+    heroes: List["Hero"] = Relationship(back_populates="team")
 
 
 class TeamCreate(TeamBase):
@@ -24,22 +25,23 @@ class TeamPublic(TeamBase):
 
 
 class TeamUpdate(SQLModel):
-    name: str | None = None
-    headquarters: str | None = None
+    id: Optional[int] = None
+    name: Optional[str] = None
+    headquarters: Optional[str] = None
 
 
 class HeroBase(SQLModel):
     name: str = Field(index=True)
     secret_name: str
-    age: int | None = Field(default=None, index=True)
+    age: Optional[int] = Field(default=None, index=True)
 
-    team_id: int | None = Field(default=None, foreign_key="team.id")
+    team_id: Optional[int] = Field(default=None, foreign_key="team.id")
 
 
 class Hero(HeroBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
 
-    team: Team | None = Relationship(back_populates="heroes")
+    team: Optional[Team] = Relationship(back_populates="heroes")
 
 
 class HeroPublic(HeroBase):
@@ -51,10 +53,18 @@ class HeroCreate(HeroBase):
 
 
 class HeroUpdate(SQLModel):
-    name: str | None = None
-    secret_name: str | None = None
-    age: int | None = None
-    team_id: int | None = None
+    name: Optional[str] = None
+    secret_name: Optional[str] = None
+    age: Optional[int] = None
+    team_id: Optional[int] = None
+
+
+class HeroPublicWithTeam(HeroPublic):
+    team: Optional[TeamPublic] = None
+
+
+class TeamPublicWithHeroes(TeamPublic):
+    heroes: List[HeroPublic] = []
 
 
 sqlite_file_name = "database.db"
@@ -91,7 +101,7 @@ def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     return db_hero
 
 
-@app.get("/heroes/", response_model=list[HeroPublic])
+@app.get("/heroes/", response_model=List[HeroPublic])
 def read_heroes(
     *,
     session: Session = Depends(get_session),
@@ -102,7 +112,7 @@ def read_heroes(
     return heroes
 
 
-@app.get("/heroes/{hero_id}", response_model=HeroPublic)
+@app.get("/heroes/{hero_id}", response_model=HeroPublicWithTeam)
 def read_hero(*, session: Session = Depends(get_session), hero_id: int):
     hero = session.get(Hero, hero_id)
     if not hero:
@@ -144,7 +154,7 @@ def create_team(*, session: Session = Depends(get_session), team: TeamCreate):
     return db_team
 
 
-@app.get("/teams/", response_model=list[TeamPublic])
+@app.get("/teams/", response_model=List[TeamPublic])
 def read_teams(
     *,
     session: Session = Depends(get_session),
@@ -155,7 +165,7 @@ def read_teams(
     return teams
 
 
-@app.get("/teams/{team_id}", response_model=TeamPublic)
+@app.get("/teams/{team_id}", response_model=TeamPublicWithHeroes)
 def read_team(*, team_id: int, session: Session = Depends(get_session)):
     team = session.get(Team, team_id)
     if not team:

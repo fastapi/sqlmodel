@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from typing import List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
@@ -7,11 +8,11 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select
 class HeroBase(SQLModel):
     name: str = Field(index=True)
     secret_name: str
-    age: int | None = Field(default=None, index=True)
+    age: Optional[int] = Field(default=None, index=True)
 
 
 class Hero(HeroBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
 
 
 class HeroCreate(HeroBase):
@@ -23,9 +24,9 @@ class HeroPublic(HeroBase):
 
 
 class HeroUpdate(SQLModel):
-    name: str | None = None
-    secret_name: str | None = None
-    age: int | None = None
+    name: Optional[str] = None
+    secret_name: Optional[str] = None
+    age: Optional[int] = None
 
 
 sqlite_file_name = "database.db"
@@ -62,7 +63,7 @@ def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     return db_hero
 
 
-@app.get("/heroes/", response_model=list[HeroPublic])
+@app.get("/heroes/", response_model=List[HeroPublic])
 def read_heroes(
     *,
     session: Session = Depends(get_session),
