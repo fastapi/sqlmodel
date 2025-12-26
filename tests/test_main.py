@@ -1,10 +1,9 @@
-from typing import Optional
+from typing import Literal, Optional
 
 import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import RelationshipProperty
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
-from typing_extensions import Literal
 
 
 def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sqlmodel):
