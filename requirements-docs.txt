@@ -14,6 +14,6 @@ mkdocstrings[python]==0.30.1
 griffe-typingdoc==0.3.0
 griffe-warnings-deprecated==1.1.0
 # For griffe, it formats with black
-typer == 0.20.1
+typer == 0.21.0
 mkdocs-macros-plugin==1.5.0
 markdown-include-variants==0.0.8
