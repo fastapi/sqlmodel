@@ -4,14 +4,13 @@ import builtins
 import ipaddress
 import uuid
 import weakref
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
-    AbstractSet,
     Any,
     Callable,
     ClassVar,
@@ -217,12 +216,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -264,12 +259,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -320,12 +311,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -357,12 +344,8 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
-    include: Union[
-        AbstractSet[Union[int, str]], Mapping[Union[int, str], Any], Any
-    ] = None,
+    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -1004,7 +987,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
         update: Optional[builtins.dict[str, Any]] = None,
-    ) -> Optional[AbstractSet[str]]:
+    ) -> Optional[Set[str]]:
         return _calculate_keys(
             self,
             include=include,

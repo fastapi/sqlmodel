@@ -1,12 +1,11 @@
 import sys
 import types
-from collections.abc import Generator, Mapping
+from collections.abc import Generator, Mapping, Set
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
 from typing import (
     TYPE_CHECKING,
-    AbstractSet,
     Annotated,
     Any,
     Callable,
@@ -241,7 +240,7 @@ if IS_PYDANTIC_V2:
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
         update: Optional[dict[str, Any]] = None,
-    ) -> Optional[AbstractSet[str]]:  # pragma: no cover
+    ) -> Optional[Set[str]]:  # pragma: no cover
         return None
 
     def sqlmodel_table_construct(
@@ -490,7 +489,7 @@ else:
         exclude: Optional[Mapping[Union[int, str], Any]],
         exclude_unset: bool,
         update: Optional[dict[str, Any]] = None,
-    ) -> Optional[AbstractSet[str]]:
+    ) -> Optional[Set[str]]:
         if include is None and exclude is None and not exclude_unset:
             # Original in Pydantic:
             # return None
@@ -501,7 +500,7 @@ else:
                 self.__fields__.keys()  # noqa
             )  # | self.__sqlmodel_relationships__.keys()
 
-        keys: AbstractSet[str]
+        keys: Set[str]
         if exclude_unset:
             keys = self.__fields_set__.copy()  # noqa
         else:
