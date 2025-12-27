@@ -14,7 +14,7 @@ We will use the application with the hero models, but without team models, and w
 
 Now we will see how useful it is to have this session dependency. ✨
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/main.py ln[0] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/main.py ln[0] *}
 
 ## File Structure
 
@@ -53,16 +53,16 @@ $ pip install requests pytest
 Let's start with a simple test, with just the basic test code we need the check that the **FastAPI** application is creating a new hero correctly.
 
 ```{ .python .annotate }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:1-7]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_001.py[ln:1-7]!}
         # Some code here omitted, we will see it later 👈
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:20-24]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_001.py[ln:20-24]!}
         # Some code here omitted, we will see it later 👈
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:26-32]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_001.py[ln:26-32]!}
 
 # Code below omitted 👇
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_001.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_001.md!}
 
 /// tip
 
@@ -103,14 +103,14 @@ We will override it to use a different **session** object just for the tests.
 That way we protect the production database and we have better control of the data we are testing.
 
 ```{ .python .annotate hl_lines="4  9-10  12  19" }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_002.py[ln:1-7]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_002.py[ln:1-7]!}
         # Some code here omitted, we will see it later 👈
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_002.py[ln:15-32]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_002.py[ln:15-32]!}
 
 # Code below omitted 👇
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_002.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_002.md!}
 
 /// tip
 
@@ -131,10 +131,10 @@ sqlite:///testing.db
 So, the testing database will be in the file `testing.db`.
 
 ``` { .python .annotate hl_lines="4  8-11  13  16  33"}
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_003.py!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_003.py!}
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_003.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_003.md!}
 
 ### Import Table Models
 
@@ -187,12 +187,12 @@ Let's update our code to use the in-memory database.
 We just have to change a couple of parameters in the **engine**.
 
 ```{ .python .annotate hl_lines="3  9-13"}
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_004.py[ln:1-13]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_004.py[ln:1-13]!}
 
 # Code below omitted 👇
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_004.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_004.md!}
 
 /// tip
 
@@ -235,10 +235,10 @@ You can read more about them in the <a href="https://docs.pytest.org/en/6.2.x/fi
 Let's see the first code example with a fixture:
 
 ``` { .python .annotate }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_005.py!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_005.py!}
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_005.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_005.md!}
 
 /// tip
 
@@ -275,10 +275,10 @@ Each **pytest** fixture (the same way as **FastAPI** dependencies), can require 
 So, we can create a **client fixture** that will be used in all the tests, and it will itself require the **session fixture**.
 
 ``` { .python .annotate hl_lines="19-28  31" }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_006.py!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_006.py!}
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_006.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_006.md!}
 
 /// tip
 
@@ -298,7 +298,7 @@ But normally we will create **lots of other test functions**. And now all the bo
 
 Let's add some more tests:
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py ln[30:58] hl[30,49] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main.py ln[30:58] hl[30,49] *}
 
 /// tip
 
@@ -318,7 +318,7 @@ For these examples, **that would have been simpler**, there's no need to separat
 
 But for the next test function, we will require **both fixtures**, the **client** and the **session**.
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py ln[1:6,61:81] hl[6,61] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main.py ln[1:6,61:81] hl[6,61] *}
 
 In this test function, we want to check that the *path operation* to **read a list of heroes** actually sends us heroes.
 
@@ -344,7 +344,7 @@ The function for the **client fixture** and the actual testing function will **b
 
 Using the same ideas, requiring the fixtures, creating data that we need for the tests, etc., we can now add the rest of the tests. They look quite similar to what we have done up to now.
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py ln[84:125] hl[84,99,114] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main.py ln[84:125] hl[84,99,114] *}
 
 ## Run the Tests
 

@@ -1,18 +1,33 @@
+import importlib
+from types import ModuleType
+
+import pytest
 from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
 
+from tests.conftest import needs_py310
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.fastapi.delete import tutorial001 as mod
 
+@pytest.fixture(
+    name="module",
+    params=[
+        pytest.param("tutorial001_py39"),
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(f"docs_src.tutorial.fastapi.delete.{request.param}")
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(
         mod.sqlite_url, connect_args=mod.connect_args, poolclass=StaticPool
     )
+    return mod
 
-    with TestClient(mod.app) as client:
+
+def test_tutorial(module: ModuleType):
+    with TestClient(module.app) as client:
         hero1_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
         hero2_data = {
             "name": "Spider-Boy",
