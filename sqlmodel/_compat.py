@@ -153,7 +153,7 @@ def get_relationship_to(
         args = get_args(annotation)
         if len(args) != 2:
             raise ValueError(
-                f"Dict/Mapping relationship field '{name}' has {len(args)} "
+                f"dict relationship field '{name}' has {len(args)} "
                 "type arguments.  Exactly two required (e.g., dict[str, "
                 "Model])"
             )

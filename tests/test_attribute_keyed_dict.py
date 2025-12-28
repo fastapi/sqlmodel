@@ -1,6 +1,6 @@
 import re
 from enum import Enum
-from typing import Dict, Optional
+from typing import Optional
 
 import pytest
 from sqlalchemy.orm.collections import attribute_keyed_dict
@@ -24,7 +24,7 @@ def test_attribute_keyed_dict_works(clear_sqlmodel):
         __tablename__ = "parents"
 
         id: Optional[int] = Field(primary_key=True, default=None)
-        children_by_color: Dict[Color, Child] = Relationship(
+        children_by_color: dict[Color, Child] = Relationship(
             sa_relationship_kwargs={"collection_class": attribute_keyed_dict("color")}
         )
 
@@ -60,7 +60,7 @@ def test_dict_relationship_throws_on_wrong_number_of_annotation_args(clear_sqlmo
         color: Color
         value: int
 
-    error_msg_fmt = "Dict/Mapping relationship field 'children_by_color' has {count} type arguments.  Exactly two required (e.g., dict[str, Model])"
+    error_msg_fmt = "dict relationship field 'children_by_color' has {count} type arguments.  Exactly two required (e.g., dict[str, Model])"
 
     # One type arg
     with pytest.raises(ValueError, match=re.escape(error_msg_fmt.format(count=1))):
