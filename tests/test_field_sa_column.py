@@ -1,9 +1,8 @@
-from typing import Optional
+from typing import Annotated, Optional
 
 import pytest
 from sqlalchemy import Column, Integer, String
 from sqlmodel import Field, SQLModel
-from typing_extensions import Annotated
 
 
 def test_sa_column_takes_precedence() -> None:
