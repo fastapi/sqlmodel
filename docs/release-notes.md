@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.31
+
 ### Breaking Changes
 
 * ➖ Drop support for Pydantic v1. PR [#1701](https://github.com/fastapi/sqlmodel/pull/1701) by [@tiangolo](https://github.com/tiangolo).
