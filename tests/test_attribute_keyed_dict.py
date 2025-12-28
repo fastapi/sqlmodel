@@ -6,8 +6,6 @@ import pytest
 from sqlalchemy.orm.collections import attribute_keyed_dict
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 
-from tests.conftest import needs_py39, needs_pydanticv2
-
 
 def test_attribute_keyed_dict_works(clear_sqlmodel):
     class Color(str, Enum):
@@ -49,8 +47,6 @@ def test_attribute_keyed_dict_works(clear_sqlmodel):
         assert parent.children_by_color[Color.Blue].value == 2
 
 
-@needs_pydanticv2
-@needs_py39  # Generic `dict` requires Python 3.9+
 def test_dict_relationship_throws_on_wrong_number_of_annotation_args(clear_sqlmodel):
     class Color(str, Enum):
         Orange = "Orange"
