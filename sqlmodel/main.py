@@ -51,19 +51,15 @@ from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
-    IS_PYDANTIC_V2,
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
-    ModelField,
     ModelMetaclass,
     Representation,
     SQLModelConfig,
     Undefined,
     UndefinedType,
-    _calculate_keys,
     finish_init,
     get_annotations,
-    get_config_value,
     get_field_metadata,
     get_model_fields,
     get_relationship_to,
@@ -71,8 +67,6 @@ from ._compat import (  # type: ignore[attr-defined]
     init_pydantic_private_attrs,
     is_field_noneable,
     is_table_model_class,
-    post_init_field_info,
-    set_config_value,
     sqlmodel_init,
     sqlmodel_validate,
 )
@@ -414,26 +408,20 @@ def Field(
         "sa_column_kwargs": sa_column_kwargs,
         **current_schema_extra,
     }
-    if IS_PYDANTIC_V2:
-        # explicit params > schema_extra > alias propagation
-        field_info_kwargs["validation_alias"] = (
-            validation_alias or schema_validation_alias or alias
-        )
-        field_info_kwargs["serialization_alias"] = (
-            serialization_alias or schema_serialization_alias or alias
-        )
-    else:
-        if validation_alias or schema_validation_alias is not None:
-            raise RuntimeError("validation_alias is not supported in Pydantic v1")
-        if serialization_alias or schema_serialization_alias is not None:
-            raise RuntimeError("serialization_alias is not supported in Pydantic v1")
+
+    # explicit params > schema_extra > alias propagation
+    field_info_kwargs["validation_alias"] = (
+        validation_alias or schema_validation_alias or alias
+    )
+    field_info_kwargs["serialization_alias"] = (
+        serialization_alias or schema_serialization_alias or alias
+    )
+
     field_info = FieldInfo(
         default,
         default_factory=default_factory,
         **field_info_kwargs,
     )
-
-    post_init_field_info(field_info)
     return field_info
 
 
@@ -487,8 +475,6 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
     model_config: SQLModelConfig
     model_fields: ClassVar[dict[str, FieldInfo]]
-    __config__: type[SQLModelConfig]
-    __fields__: dict[str, ModelField]  # type: ignore[assignment]
 
     # Replicate SQLAlchemy
     def __setattr__(cls, name: str, value: Any) -> None:
@@ -553,9 +539,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         }
 
         def get_config(name: str) -> Any:
-            config_class_value = get_config_value(
-                model=new_cls, parameter=name, default=Undefined
-            )
+            config_class_value = new_cls.model_config.get(name, Undefined)
             if config_class_value is not Undefined:
                 return config_class_value
             kwarg_value = kwargs.get(name, Undefined)
@@ -566,7 +550,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_table = get_config("table")
         if config_table is True:
             # If it was passed by kwargs, ensure it's also set in config
-            set_config_value(model=new_cls, parameter="table", value=config_table)
+            new_cls.model_config["table"] = config_table
             for k, v in get_model_fields(new_cls).items():
                 col = get_column_from_field(v)
                 setattr(new_cls, k, col)
@@ -575,18 +559,16 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            set_config_value(
-                model=new_cls, parameter="read_from_attributes", value=True
-            )
+            new_cls.model_config["read_from_attributes"] = True
             # For compatibility with older versions
             # TODO: remove this in the future
-            set_config_value(model=new_cls, parameter="read_with_orm_mode", value=True)
+            new_cls.model_config["read_with_orm_mode"] = True
 
         config_registry = get_config("registry")
         if config_registry is not Undefined:
             config_registry = cast(registry, config_registry)
             # If it was passed by kwargs, ensure it's also set in config
-            set_config_value(model=new_cls, parameter="registry", value=config_table)
+            new_cls.model_config["registry"] = config_table
             setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
             setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
             setattr(new_cls, "__abstract__", True)  # noqa: B010
@@ -653,10 +635,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 
 def get_sqlalchemy_type(field: Any) -> Any:
-    if IS_PYDANTIC_V2:
-        field_info = field
-    else:
-        field_info = field.field_info
+    field_info = field
     sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
     if sa_type is not Undefined:
         return sa_type
@@ -710,10 +689,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
 
 
 def get_column_from_field(field: Any) -> Column:  # type: ignore
-    if IS_PYDANTIC_V2:
-        field_info = field
-    else:
-        field_info = field.field_info
+    field_info = field
     sa_column = getattr(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
@@ -784,13 +760,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
-
-    if IS_PYDANTIC_V2:
-        model_config = SQLModelConfig(from_attributes=True)
-    else:
-
-        class Config:
-            orm_mode = True
+    model_config = SQLModelConfig(from_attributes=True)
 
     def __new__(cls, *args: Any, **kwargs: Any) -> Any:
         new_object = super().__new__(cls)
@@ -886,35 +856,24 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         if PYDANTIC_MINOR_VERSION < (2, 11):
             by_alias = by_alias or False
         extra_kwargs: dict[str, Any] = {}
-        if PYDANTIC_MINOR_VERSION >= (2, 7):
-            extra_kwargs["context"] = context
-            extra_kwargs["serialize_as_any"] = serialize_as_any
+        extra_kwargs["context"] = context
+        extra_kwargs["serialize_as_any"] = serialize_as_any
         if PYDANTIC_MINOR_VERSION >= (2, 11):
             extra_kwargs["fallback"] = fallback
         if PYDANTIC_MINOR_VERSION >= (2, 12):
             extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
-        if IS_PYDANTIC_V2:
-            return super().model_dump(
-                mode=mode,
-                include=include,
-                exclude=exclude,
-                by_alias=by_alias,
-                exclude_unset=exclude_unset,
-                exclude_defaults=exclude_defaults,
-                exclude_none=exclude_none,
-                round_trip=round_trip,
-                warnings=warnings,
-                **extra_kwargs,
-            )
-        else:
-            return super().dict(
-                include=include,
-                exclude=exclude,
-                by_alias=by_alias or False,
-                exclude_unset=exclude_unset,
-                exclude_defaults=exclude_defaults,
-                exclude_none=exclude_none,
-            )
+        return super().model_dump(
+            mode=mode,
+            include=include,
+            exclude=exclude,
+            by_alias=by_alias,
+            exclude_unset=exclude_unset,
+            exclude_defaults=exclude_defaults,
+            exclude_none=exclude_none,
+            round_trip=round_trip,
+            warnings=warnings,
+            **extra_kwargs,
+        )
 
     @deprecated(
         """
@@ -967,34 +926,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         obj: Any,
         update: Optional[builtins.dict[str, Any]] = None,
     ) -> _TSQLModel:
-        if not IS_PYDANTIC_V2:
-            obj = cls._enforce_dict_if_root(obj)  # type: ignore[attr-defined] # noqa
         return cls.model_validate(obj, update=update)
-
-    # From Pydantic, override to only show keys from fields, omit SQLAlchemy attributes
-    @deprecated(
-        """
-        🚨 You should not access `obj._calculate_keys()` directly.
-
-        It is only useful for Pydantic v1.X, you should probably upgrade to
-        Pydantic v2.X.
-        """,
-        category=None,
-    )
-    def _calculate_keys(
-        self,
-        include: Optional[Mapping[Union[int, str], Any]],
-        exclude: Optional[Mapping[Union[int, str], Any]],
-        exclude_unset: bool,
-        update: Optional[builtins.dict[str, Any]] = None,
-    ) -> Optional[Set[str]]:
-        return _calculate_keys(
-            self,
-            include=include,
-            exclude=exclude,
-            exclude_unset=exclude_unset,
-            update=update,
-        )
 
     def sqlmodel_update(
         self: _TSQLModel,
