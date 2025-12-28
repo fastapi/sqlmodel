@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Breaking Changes
+
+* ➖ Drop support for Pydantic v1. PR [#1701](https://github.com/fastapi/sqlmodel/pull/1701) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump dirty-equals from 0.9.0 to 0.11. PR [#1649](https://github.com/fastapi/sqlmodel/pull/1649) by [@dependabot[bot]](https://github.com/apps/dependabot).
