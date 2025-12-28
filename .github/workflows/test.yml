@@ -27,30 +27,19 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
         python-version: [ "3.14" ]
-        pydantic-version:
-          - pydantic-v2
         include:
-          - os: macos-latest
-            python-version: "3.8"
-            pydantic-version: pydantic-v1
           - os: windows-latest
             python-version: "3.9"
-            pydantic-version: pydantic-v2
           - os: ubuntu-latest
             python-version: "3.10"
-            pydantic-version: pydantic-v1
           - os: macos-latest
             python-version: "3.11"
-            pydantic-version: pydantic-v2
           - os: windows-latest
             python-version: "3.12"
-            pydantic-version: pydantic-v1
           - os: ubuntu-latest
             python-version: "3.13"
-            pydantic-version: pydantic-v1
           - os: macos-latest
             python-version: "3.13"
-            pydantic-version: pydantic-v2
       fail-fast: false
     runs-on: ${{ matrix.os }}
     steps:
@@ -75,15 +64,6 @@ jobs:
           limit-access-to-actor: true
       - name: Install Dependencies
         run: uv pip install -r requirements-tests.txt
-      - name: Install Pydantic v1
-        if: matrix.pydantic-version == 'pydantic-v1'
-        run: uv pip install --upgrade "pydantic>=1.10.0,<2.0.0"
-      - name: Install Pydantic v2
-        if: matrix.pydantic-version == 'pydantic-v2'
-        run: uv pip install --upgrade "pydantic>=2.0.2,<3.0.0"
-      - name: Lint
-        if: matrix.pydantic-version == 'pydantic-v2' && matrix.python-version != '3.8'
-        run: bash scripts/lint.sh
       - run: mkdir coverage
       - name: Test
         run: bash scripts/test.sh
@@ -91,7 +71,7 @@ jobs:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
       - name: Store coverage files
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage
@@ -115,7 +95,7 @@ jobs:
             requirements**.txt
             pyproject.toml
       - name: Get coverage files
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           pattern: coverage-*
           path: coverage
@@ -126,7 +106,7 @@ jobs:
       - run: coverage combine coverage
       - run: coverage html --title "Coverage for ${{ github.sha }}"
       - name: Store coverage HTML
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-html
           path: htmlcov

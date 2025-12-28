@@ -4,9 +4,11 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import Session
 
-from docs_src.tutorial.fastapi.app_testing.tutorial001 import main as app_mod
-from docs_src.tutorial.fastapi.app_testing.tutorial001 import test_main_006 as test_mod
-from docs_src.tutorial.fastapi.app_testing.tutorial001.test_main_006 import (
+from docs_src.tutorial.fastapi.app_testing.tutorial001_py39 import main as app_mod
+from docs_src.tutorial.fastapi.app_testing.tutorial001_py39 import (
+    test_main_006 as test_mod,
+)
+from docs_src.tutorial.fastapi.app_testing.tutorial001_py39.test_main_006 import (
     client_fixture,
     session_fixture,
 )

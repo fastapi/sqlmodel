@@ -1,11 +1,27 @@
+import importlib
+from types import ModuleType
+
+import pytest
 from sqlmodel import Session, create_engine, select
 
+from ...conftest import needs_py310
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.insert import tutorial001 as mod
 
+@pytest.fixture(
+    name="mod",
+    params=[
+        pytest.param("tutorial001_py39"),
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(f"docs_src.tutorial.insert.{request.param}")
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
+    return mod
+
+
+def test_tutorial(mod: ModuleType):
     mod.main()
     with Session(mod.engine) as session:
         heroes = session.exec(select(mod.Hero)).all()

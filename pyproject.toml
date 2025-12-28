@@ -7,7 +7,7 @@ name = "sqlmodel"
 dynamic = ["version"]
 description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 authors = [
     { name = "Sebastián Ramírez", email = "tiangolo@gmail.com" },
 ]
@@ -21,7 +21,6 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Intended Audience :: System Administrators",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -38,7 +37,7 @@ classifiers = [
 
 dependencies = [
     "SQLAlchemy >=2.0.14,<2.1.0",
-    "pydantic >=1.10.13,<3.0.0",
+    "pydantic>=2.7.0",
 ]
 
 [project.urls]
