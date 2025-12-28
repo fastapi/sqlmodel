@@ -10,7 +10,6 @@ from unittest.mock import patch
 import pytest
 from pydantic import BaseModel
 from sqlmodel import SQLModel
-from sqlmodel._compat import IS_PYDANTIC_V2
 from sqlmodel.main import default_registry
 
 top_level_path = Path(__file__).resolve().parent.parent
@@ -86,9 +85,6 @@ def print_mock_fixture() -> Generator[PrintMock, None, None]:
     with patch("builtins.print", new=new_print):
         yield print_mock
 
-
-needs_pydanticv2 = pytest.mark.skipif(not IS_PYDANTIC_V2, reason="requires Pydantic v2")
-needs_pydanticv1 = pytest.mark.skipif(IS_PYDANTIC_V2, reason="requires Pydantic v1")
 
 needs_py310 = pytest.mark.skipif(
     sys.version_info < (3, 10), reason="requires python3.10+"
