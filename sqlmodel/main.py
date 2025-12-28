@@ -338,7 +338,7 @@ class FieldInfoMetadata:
     ondelete: Union[OnDeleteType, UndefinedType] = Undefined
     unique: Union[bool, UndefinedType] = Undefined
     index: Union[bool, UndefinedType] = Undefined
-    sa_type: Union[Type[Any], UndefinedType] = Undefined
+    sa_type: Union[type[Any], UndefinedType] = Undefined
     sa_column: Union[Column[Any], UndefinedType] = Undefined
     sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined
     sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined
