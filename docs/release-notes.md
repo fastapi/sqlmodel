@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ✅ Update tests, remove conditionals for Pydantic v1. PR [#1702](https://github.com/fastapi/sqlmodel/pull/1702) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.31
 
 ### Breaking Changes
