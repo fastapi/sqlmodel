@@ -2,7 +2,6 @@ import importlib
 from types import ModuleType
 
 import pytest
-from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlmodel import Session, create_engine
 from sqlmodel.pool import StaticPool
@@ -342,16 +341,10 @@ def test_tutorial(module: ModuleType):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": IsDict(
-                                {
-                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
-                                    "title": "Age",
-                                }
-                            )
-                            | IsDict(
-                                # TODO: Remove when deprecating Pydantic v1
-                                {"title": "Age", "type": "integer"}
-                            ),
+                            "age": {
+                                "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                "title": "Age",
+                            },
                             "password": {"type": "string", "title": "Password"},
                         },
                     },
@@ -362,16 +355,10 @@ def test_tutorial(module: ModuleType):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": IsDict(
-                                {
-                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
-                                    "title": "Age",
-                                }
-                            )
-                            | IsDict(
-                                # TODO: Remove when deprecating Pydantic v1
-                                {"title": "Age", "type": "integer"}
-                            ),
+                            "age": {
+                                "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                "title": "Age",
+                            },
                             "id": {"title": "Id", "type": "integer"},
                         },
                     },
@@ -379,46 +366,22 @@ def test_tutorial(module: ModuleType):
                         "title": "HeroUpdate",
                         "type": "object",
                         "properties": {
-                            "name": IsDict(
-                                {
-                                    "anyOf": [{"type": "string"}, {"type": "null"}],
-                                    "title": "Name",
-                                }
-                            )
-                            | IsDict(
-                                # TODO: Remove when deprecating Pydantic v1
-                                {"title": "Name", "type": "string"}
-                            ),
-                            "secret_name": IsDict(
-                                {
-                                    "anyOf": [{"type": "string"}, {"type": "null"}],
-                                    "title": "Secret Name",
-                                }
-                            )
-                            | IsDict(
-                                # TODO: Remove when deprecating Pydantic v1
-                                {"title": "Secret Name", "type": "string"}
-                            ),
-                            "age": IsDict(
-                                {
-                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
-                                    "title": "Age",
-                                }
-                            )
-                            | IsDict(
-                                # TODO: Remove when deprecating Pydantic v1
-                                {"title": "Age", "type": "integer"}
-                            ),
-                            "password": IsDict(
-                                {
-                                    "anyOf": [{"type": "string"}, {"type": "null"}],
-                                    "title": "Password",
-                                }
-                            )
-                            | IsDict(
-                                # TODO: Remove when deprecating Pydantic v1
-                                {"title": "Password", "type": "string"}
-                            ),
+                            "name": {
+                                "anyOf": [{"type": "string"}, {"type": "null"}],
+                                "title": "Name",
+                            },
+                            "secret_name": {
+                                "anyOf": [{"type": "string"}, {"type": "null"}],
+                                "title": "Secret Name",
+                            },
+                            "age": {
+                                "anyOf": [{"type": "integer"}, {"type": "null"}],
+                                "title": "Age",
+                            },
+                            "password": {
+                                "anyOf": [{"type": "string"}, {"type": "null"}],
+                                "title": "Password",
+                            },
                         },
                     },
                     "ValidationError": {
