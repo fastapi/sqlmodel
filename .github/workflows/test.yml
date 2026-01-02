@@ -64,7 +64,7 @@ jobs:
         with:
           limit-access-to-actor: true
       - name: Install Dependencies
-        run: uv sync --locked --group tests
+        run: uv sync --locked --no-dev --group tests
       - run: mkdir coverage
       - name: Test
         run: uv run bash scripts/test.sh
@@ -101,7 +101,7 @@ jobs:
           path: coverage
           merge-multiple: true
       - name: Install Dependencies
-        run: uv sync --locked --group tests
+        run: uv sync --locked --no-dev --group tests
       - run: ls -la coverage
       - run: uv run coverage combine coverage
       - run: uv run coverage html --title "Coverage for ${{ github.sha }}"

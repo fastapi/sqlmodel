@@ -59,7 +59,7 @@ jobs:
             pyproject.toml
             uv.lock
       - name: Install docs extras
-        run: uv sync --locked --group docs
+        run: uv sync --locked --no-dev --group docs
       - uses: actions/cache@v5
         with:
           key: mkdocs-cards-${{ github.ref }}

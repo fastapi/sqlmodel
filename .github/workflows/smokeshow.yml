@@ -22,7 +22,7 @@ jobs:
           cache-dependency-glob: |
             pyproject.toml
             uv.lock
-      - run: uv sync --locked --group github-actions
+      - run: uv sync --locked --no-dev --group github-actions
       - uses: actions/download-artifact@v7
         with:
           name: coverage-html
