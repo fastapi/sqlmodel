@@ -342,10 +342,10 @@ And as we created the **engine** with `echo=True`, we can see the SQL statements
 
 ////
 
-//// tab | Python 3.8+
+//// tab | Python 3.9+
 
 ```Python
-{!./docs_src/tutorial/automatic_id_none_refresh/tutorial002.py!}
+{!./docs_src/tutorial/automatic_id_none_refresh/tutorial002_py39.py!}
 ```
 
 {!./docs_src/tutorial/automatic_id_none_refresh/annotations/en/tutorial002.md!}

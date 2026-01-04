@@ -39,14 +39,14 @@ This is the code we had to create the database and table, nothing new here:
 
 ////
 
-//// tab | Python 3.8+
+//// tab | Python 3.9+
 
 ```{.python .annotate hl_lines="22" }
-{!./docs_src/tutorial/create_db_and_table/tutorial003.py[ln:1-20]!}
+{!./docs_src/tutorial/create_db_and_table/tutorial003_py39.py[ln:1-20]!}
 
 # More code here later 👈
 
-{!./docs_src/tutorial/create_db_and_table/tutorial003.py[ln:23-24]!}
+{!./docs_src/tutorial/create_db_and_table/tutorial003_py39.py[ln:23-24]!}
 ```
 
 {!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
@@ -343,10 +343,10 @@ Let's focus on the new code:
 
 ////
 
-//// tab | Python 3.8+
+//// tab | Python 3.9+
 
 ```{.python .annotate }
-{!./docs_src/tutorial/insert/tutorial003.py!}
+{!./docs_src/tutorial/insert/tutorial003_py39.py!}
 ```
 
 {!./docs_src/tutorial/insert/annotations/en/tutorial003.md!}
