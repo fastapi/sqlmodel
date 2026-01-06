@@ -79,7 +79,7 @@ tests = [
     "black>=22.10",
     "coverage[toml]>=6.2,<8.0",
     "dirty-equals==0.11",
-    "fastapi>=0.103.2,<0.129.0",
+    "fastapi>=0.103.2",
     "httpx==0.28.1",
     "jinja2==3.1.6",
     "mypy==1.19.1",
