@@ -1,6 +1,7 @@
 from collections.abc import Iterable, Mapping, Sequence
 from typing import (
     Any,
+    Literal,
     Optional,
     TypeVar,
     Union,
@@ -34,7 +35,6 @@ from sqlalchemy.sql.elements import (
     UnaryExpression,
 )
 from sqlalchemy.sql.type_api import TypeEngine
-from typing_extensions import Literal
 
 from ._expression_select_cls import Select as Select
 from ._expression_select_cls import SelectOfScalar as SelectOfScalar
