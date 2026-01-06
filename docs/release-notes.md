@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆️ Update FastAPI version pin to `>=0.103.2` in tests. PR [#1709](https://github.com/fastapi/sqlmodel/pull/1709) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 📌 Pin development Python version to 3.10, for `deploy_docs_status.py`. PR [#1707](https://github.com/fastapi/sqlmodel/pull/1707) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️  Migrate to uv. PR [#1688](https://github.com/fastapi/sqlmodel/pull/1688) by [@DoctorJohn](https://github.com/DoctorJohn).
 * ⬆ Update fastapi requirement from >=0.103.2,<0.126.0 to >=0.103.2,<0.129.0. PR [#1703](https://github.com/fastapi/sqlmodel/pull/1703) by [@dependabot[bot]](https://github.com/apps/dependabot).
