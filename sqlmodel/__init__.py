@@ -1,4 +1,4 @@
-__version__ = "0.0.27"
+__version__ = "0.0.31"
 
 # Re-export from SQLAlchemy
 from sqlalchemy.engine import create_engine as create_engine

@@ -6,7 +6,6 @@ from sqlalchemy.sql.type_api import TypeEngine
 from sqlmodel import SQLModel
 
 from . import test_enums_models
-from .conftest import needs_pydanticv1, needs_pydanticv2
 
 """
 Tests related to Enums
@@ -57,63 +56,6 @@ def test_sqlite_ddl_sql(clear_sqlmodel, capsys: pytest.CaptureFixture[str]):
     assert "CREATE TYPE" not in captured.out
 
 
-@needs_pydanticv1
-def test_json_schema_flat_model_pydantic_v1():
-    assert test_enums_models.FlatModel.schema() == {
-        "title": "FlatModel",
-        "type": "object",
-        "properties": {
-            "id": {"title": "Id", "type": "string", "format": "uuid"},
-            "enum_field": {"$ref": "#/definitions/MyEnum1"},
-            "int_enum_field": {"$ref": "#/definitions/MyEnum3"},
-        },
-        "required": ["id", "enum_field", "int_enum_field"],
-        "definitions": {
-            "MyEnum1": {
-                "title": "MyEnum1",
-                "description": "An enumeration.",
-                "enum": ["A", "B"],
-                "type": "string",
-            },
-            "MyEnum3": {
-                "title": "MyEnum3",
-                "description": "An enumeration.",
-                "enum": [1, 2],
-                "type": "integer",
-            },
-        },
-    }
-
-
-@needs_pydanticv1
-def test_json_schema_inherit_model_pydantic_v1():
-    assert test_enums_models.InheritModel.schema() == {
-        "title": "InheritModel",
-        "type": "object",
-        "properties": {
-            "id": {"title": "Id", "type": "string", "format": "uuid"},
-            "enum_field": {"$ref": "#/definitions/MyEnum2"},
-            "int_enum_field": {"$ref": "#/definitions/MyEnum3"},
-        },
-        "required": ["id", "enum_field", "int_enum_field"],
-        "definitions": {
-            "MyEnum2": {
-                "title": "MyEnum2",
-                "description": "An enumeration.",
-                "enum": ["C", "D"],
-                "type": "string",
-            },
-            "MyEnum3": {
-                "title": "MyEnum3",
-                "description": "An enumeration.",
-                "enum": [1, 2],
-                "type": "integer",
-            },
-        },
-    }
-
-
-@needs_pydanticv2
 def test_json_schema_flat_model_pydantic_v2():
     assert test_enums_models.FlatModel.model_json_schema() == {
         "title": "FlatModel",
@@ -131,7 +73,6 @@ def test_json_schema_flat_model_pydantic_v2():
     }
 
 
-@needs_pydanticv2
 def test_json_schema_inherit_model_pydantic_v2():
     assert test_enums_models.InheritModel.model_json_schema() == {
         "title": "InheritModel",
