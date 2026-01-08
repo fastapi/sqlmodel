@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Optional, Union
 
 import pytest
 from sqlmodel import Field, SQLModel
@@ -9,7 +9,7 @@ def test_type_list_breaks() -> None:
 
         class Hero(SQLModel, table=True):
             id: Optional[int] = Field(default=None, primary_key=True)
-            tags: List[str]
+            tags: list[str]
 
 
 def test_type_dict_breaks() -> None:
@@ -17,7 +17,7 @@ def test_type_dict_breaks() -> None:
 
         class Hero(SQLModel, table=True):
             id: Optional[int] = Field(default=None, primary_key=True)
-            tags: Dict[str, Any]
+            tags: dict[str, Any]
 
 
 def test_type_union_breaks() -> None:
