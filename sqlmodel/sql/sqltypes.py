@@ -1,5 +1,5 @@
 import enum
-from typing import Any, Optional, Type, TypeVar, cast
+from typing import Any, Optional, TypeVar, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
@@ -23,7 +23,7 @@ class IntEnum(types.TypeDecorator[Optional[_TIntEnum]]):
     impl = types.SmallInteger
     cache_ok = True
 
-    def __init__(self, enum_type: Type[_TIntEnum], *args: Any, **kwargs: Any):
+    def __init__(self, enum_type: type[_TIntEnum], *args: Any, **kwargs: Any):
         super().__init__(*args, **kwargs)
 
         # validate the input enum type
