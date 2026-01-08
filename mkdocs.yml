@@ -1,4 +1,4 @@
-INHERIT: ./mkdocs.maybe-insiders.yml
+INHERIT: ./mkdocs.env.yml
 site_name: SQLModel
 site_description: SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
 site_url: https://sqlmodel.tiangolo.com/
@@ -58,6 +58,7 @@ plugins:
   # Material for MkDocs
   search:
   social:
+  typeset:
   # Other plugins
   macros:
     include_yaml:
@@ -140,6 +141,11 @@ nav:
   - release-notes.md
 
 markdown_extensions:
+  # Material for MkDocs
+  material.extensions.preview:
+    targets:
+      include:
+        - "*"
   # Python Markdown
   abbr:
   attr_list:
