@@ -1,8 +1,5 @@
 import pytest
 from sqlmodel import Field, SQLModel
-from sqlmodel._compat import IS_PYDANTIC_V2
-
-from tests.conftest import needs_pydanticv2
 
 
 def test_json_schema_extra_applied():
@@ -16,11 +13,7 @@ def test_json_schema_extra_applied():
             }
         )
 
-    if IS_PYDANTIC_V2:
-        schema = Item.model_json_schema()
-    else:
-        schema = Item.schema()
-
+    schema = Item.model_json_schema()
     name_schema = schema["properties"]["name"]
 
     assert name_schema["example"] == "Sword of Power"
@@ -53,28 +46,20 @@ def test_schema_extra_backward_compatibility():
                 }
             )
 
-    if IS_PYDANTIC_V2:
-        schema = LegacyItem.model_json_schema()
-    else:
-        schema = LegacyItem.schema()
-
+    schema = LegacyItem.model_json_schema()
     name_schema = schema["properties"]["name"]
 
     assert name_schema["example"] == "Sword of Old"
     assert name_schema["x-custom-key"] == "Important Data"
 
-    if IS_PYDANTIC_V2:
-        # With Pydantic V1 serialization_alias from schema_extra is applied
-        field_info = LegacyItem.model_fields["name"]
-        assert field_info.serialization_alias == "id_test"
-    else:  # With Pydantic V1 it just goes to schema
-        assert name_schema["serialization_alias"] == "id_test"
+    # With Pydantic V1 serialization_alias from schema_extra is applied
+    field_info = LegacyItem.model_fields["name"]
+    assert field_info.serialization_alias == "id_test"
 
 
-@needs_pydanticv2
 def test_json_schema_extra_mix_in_schema_extra():
     """
-    Test workaround when json_schema_extra was passed via schema_extra with Pydantic v2.
+    Test workaround when json_schema_extra was passed via schema_extra.
     """
 
     with pytest.warns(DeprecationWarning, match="schema_extra parameter is deprecated"):
