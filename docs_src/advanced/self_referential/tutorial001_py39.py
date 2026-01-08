@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 
@@ -15,7 +15,7 @@ class Villain(SQLModel, table=True):
         back_populates="minions",
         sa_relationship_kwargs={"remote_side": "Villain.id"},
     )
-    minions: List["Villain"] = Relationship(back_populates="boss")
+    minions: list["Villain"] = Relationship(back_populates="boss")
 
 
 sqlite_file_name = "database.db"

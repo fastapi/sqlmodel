@@ -81,7 +81,7 @@ expected_calls = [
 
 
 def test_tutorial(clear_sqlmodel):
-    from docs_src.advanced.self_referential import tutorial001 as mod
+    from docs_src.advanced.self_referential import tutorial001_py39 as mod
 
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
