@@ -1,8 +1,27 @@
-from unittest.mock import patch
+import importlib
+from types import ModuleType
 
+import pytest
 from sqlmodel import create_engine
 
-from ....conftest import get_testing_print_function
+from ....conftest import PrintMock, needs_py310
+
+
+@pytest.fixture(
+    name="mod",
+    params=[
+        pytest.param("tutorial001_py39"),
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(
+        f"docs_src.tutorial.relationship_attributes.define_relationship_attributes.{request.param}"
+    )
+    mod.sqlite_url = "sqlite://"
+    mod.engine = create_engine(mod.sqlite_url)
+    return mod
+
 
 expected_calls = [
     [
@@ -38,17 +57,6 @@ expected_calls = [
 ]
 
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.relationship_attributes.define_relationship_attributes import (
-        tutorial001 as mod,
-    )
-
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
-
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    assert calls == expected_calls
+def test_tutorial(print_mock: PrintMock, mod: ModuleType):
+    mod.main()
+    assert print_mock.calls == expected_calls

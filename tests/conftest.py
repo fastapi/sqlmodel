@@ -1,15 +1,15 @@
 import shutil
 import subprocess
 import sys
+from collections.abc import Generator
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Dict, Generator, List, Union
+from typing import Any, Callable, Union
 from unittest.mock import patch
 
 import pytest
 from pydantic import BaseModel
 from sqlmodel import SQLModel
-from sqlmodel._compat import IS_PYDANTIC_V2
 from sqlmodel.main import default_registry
 
 top_level_path = Path(__file__).resolve().parent.parent
@@ -31,7 +31,7 @@ def clear_sqlmodel() -> Any:
 def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
     yield tmp_path
     for coverage_path in tmp_path.glob(".coverage*"):
-        coverage_destiny_path = top_level_path / coverage_path.name
+        coverage_destiny_path = top_level_path / "coverage" / coverage_path.name
         shutil.copy(coverage_path, coverage_destiny_path)
 
 
@@ -53,10 +53,10 @@ def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedP
 
 
 def get_testing_print_function(
-    calls: List[List[Union[str, Dict[str, Any]]]],
+    calls: list[list[Union[str, dict[str, Any]]]],
 ) -> Callable[..., Any]:
     def new_print(*args: Any) -> None:
-        data: List[Any] = []
+        data: list[Any] = []
         for arg in args:
             if isinstance(arg, BaseModel):
                 data.append(arg.model_dump())
@@ -75,7 +75,7 @@ def get_testing_print_function(
 
 @dataclass
 class PrintMock:
-    calls: List[Any] = field(default_factory=list)
+    calls: list[Any] = field(default_factory=list)
 
 
 @pytest.fixture(name="print_mock")
@@ -86,10 +86,6 @@ def print_mock_fixture() -> Generator[PrintMock, None, None]:
         yield print_mock
 
 
-needs_pydanticv2 = pytest.mark.skipif(not IS_PYDANTIC_V2, reason="requires Pydantic v2")
-needs_pydanticv1 = pytest.mark.skipif(IS_PYDANTIC_V2, reason="requires Pydantic v1")
-
-needs_py39 = pytest.mark.skipif(sys.version_info < (3, 9), reason="requires python3.9+")
 needs_py310 = pytest.mark.skipif(
     sys.version_info < (3, 10), reason="requires python3.10+"
 )
