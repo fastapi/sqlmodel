@@ -2,6 +2,24 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Remove duplicated word in `read-relationships.md`. PR [#1705](https://github.com/fastapi/sqlmodel/pull/1705) by [@stefmolin](https://github.com/stefmolin).
+
+### Internal
+
+* ⬆️ Update FastAPI version pin to `>=0.103.2` in tests. PR [#1709](https://github.com/fastapi/sqlmodel/pull/1709) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 📌 Pin development Python version to 3.10, for `deploy_docs_status.py`. PR [#1707](https://github.com/fastapi/sqlmodel/pull/1707) by [@tiangolo](https://github.com/tiangolo).
+* ⬆️  Migrate to uv. PR [#1688](https://github.com/fastapi/sqlmodel/pull/1688) by [@DoctorJohn](https://github.com/DoctorJohn).
+* ⬆ Update fastapi requirement from >=0.103.2,<0.126.0 to >=0.103.2,<0.129.0. PR [#1703](https://github.com/fastapi/sqlmodel/pull/1703) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ✅ Update tests, remove conditionals for Pydantic v1. PR [#1702](https://github.com/fastapi/sqlmodel/pull/1702) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.31
+
+### Breaking Changes
+
+* ➖ Drop support for Pydantic v1. PR [#1701](https://github.com/fastapi/sqlmodel/pull/1701) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump dirty-equals from 0.9.0 to 0.11. PR [#1649](https://github.com/fastapi/sqlmodel/pull/1649) by [@dependabot[bot]](https://github.com/apps/dependabot).

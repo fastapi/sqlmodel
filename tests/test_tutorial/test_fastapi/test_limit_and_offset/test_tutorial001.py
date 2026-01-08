@@ -2,7 +2,6 @@ import importlib
 from types import ModuleType
 
 import pytest
-from dirty_equals import IsDict
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
@@ -235,16 +234,10 @@ def test_tutorial(module: ModuleType):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": IsDict(
-                                {
-                                    "title": "Age",
-                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
-                                }
-                            )
-                            | IsDict(
-                                # TODO: remove when deprecating Pydantic v1
-                                {"title": "Age", "type": "integer"}
-                            ),
+                            "age": {
+                                "title": "Age",
+                                "anyOf": [{"type": "integer"}, {"type": "null"}],
+                            },
                         },
                     },
                     "HeroPublic": {
@@ -254,16 +247,10 @@ def test_tutorial(module: ModuleType):
                         "properties": {
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": IsDict(
-                                {
-                                    "title": "Age",
-                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
-                                }
-                            )
-                            | IsDict(
-                                # TODO: remove when deprecating Pydantic v1
-                                {"title": "Age", "type": "integer"}
-                            ),
+                            "age": {
+                                "title": "Age",
+                                "anyOf": [{"type": "integer"}, {"type": "null"}],
+                            },
                             "id": {"title": "Id", "type": "integer"},
                         },
                     },
