@@ -68,7 +68,7 @@ class Session(_Session):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
     ) -> CursorResult[Any]: ...
