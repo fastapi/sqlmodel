@@ -3,10 +3,7 @@ from typing import Optional
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
-from tests.conftest import needs_pydanticv2
 
-
-@needs_pydanticv2
 def test_annotated_optional_types(clear_sqlmodel) -> None:
     from pydantic import UUID4
 

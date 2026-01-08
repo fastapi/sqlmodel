@@ -227,10 +227,10 @@ Now let's review all that code:
 
 ////
 
-//// tab | Python 3.8+
+//// tab | Python 3.9+
 
 ```{ .python .annotate hl_lines="72-90" }
-{!./docs_src/tutorial/delete/tutorial002.py!}
+{!./docs_src/tutorial/delete/tutorial002_py39.py!}
 ```
 
 {!./docs_src/tutorial/delete/annotations/en/tutorial002.md!}

@@ -1,10 +1,7 @@
+from collections.abc import Mapping, Sequence
 from datetime import datetime
 from typing import (
     Any,
-    Mapping,
-    Sequence,
-    Tuple,
-    Type,
     TypeVar,
     Union,
     overload,
@@ -27,7 +24,7 @@ _T = TypeVar("_T")
 _TCCA = Union[
     TypedColumnsClauseRole[_T],
     SQLCoreOperations[_T],
-    Type[_T],
+    type[_T],
 ]
 
 # Generated TypeVars start
@@ -71,7 +68,7 @@ def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
 @overload
 def select(  # type: ignore
     {% for arg in signature[0] %}{{ arg.name }}: {{ arg.annotation }}, {% endfor %}
-    ) -> Select[Tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]: ...
+    ) -> Select[tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]: ...
 
 {% endfor %}
 
