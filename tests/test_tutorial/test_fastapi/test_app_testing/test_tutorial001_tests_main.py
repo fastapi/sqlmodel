@@ -1,11 +1,29 @@
+import importlib
 import subprocess
 from pathlib import Path
+from types import ModuleType
+
+import pytest
+
+from ....conftest import needs_py310
 
 
-def test_run_tests(clear_sqlmodel):
-    from docs_src.tutorial.fastapi.app_testing.tutorial001 import test_main as mod
+@pytest.fixture(
+    name="module",
+    params=[
+        pytest.param("tutorial001_py39"),
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    module = importlib.import_module(
+        f"docs_src.tutorial.fastapi.app_testing.{request.param}.test_main"
+    )
+    return module
 
-    test_path = Path(mod.__file__).resolve().parent
+
+def test_run_tests(module: ModuleType):
+    test_path = Path(module.__file__).resolve().parent
     top_level_path = Path(__file__).resolve().parent.parent.parent.parent.parent
     result = subprocess.run(
         [
