@@ -1,4 +1,4 @@
-from typing import Any, List, Union
+from typing import Any, Union
 
 import pytest
 from sqlmodel import Field, Relationship, SQLModel
@@ -10,7 +10,7 @@ def test_ondelete_requires_nullable(clear_sqlmodel: Any) -> None:
         class Team(SQLModel, table=True):
             id: Union[int, None] = Field(default=None, primary_key=True)
 
-            heroes: List["Hero"] = Relationship(
+            heroes: list["Hero"] = Relationship(
                 back_populates="team", passive_deletes="all"
             )
 

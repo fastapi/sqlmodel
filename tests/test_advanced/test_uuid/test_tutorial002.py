@@ -1,31 +1,38 @@
-from unittest.mock import patch
+import importlib
+from types import ModuleType
 
+import pytest
 from dirty_equals import IsUUID
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import PrintMock, needs_py310
 
 
-def test_tutorial() -> None:
-    from docs_src.advanced.uuid import tutorial002 as mod
-
+@pytest.fixture(
+    name="mod",
+    params=[
+        pytest.param("tutorial002_py39"),
+        pytest.param("tutorial002_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(f"docs_src.advanced.uuid.{request.param}")
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
-    calls = []
+    return mod
 
-    new_print = get_testing_print_function(calls)
 
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    first_uuid = calls[1][0]["id"]
+def test_tutorial(print_mock: PrintMock, mod: ModuleType) -> None:
+    mod.main()
+    first_uuid = print_mock.calls[1][0]["id"]
     assert first_uuid == IsUUID(4)
 
-    second_uuid = calls[7][0]["id"]
+    second_uuid = print_mock.calls[7][0]["id"]
     assert second_uuid == IsUUID(4)
 
     assert first_uuid != second_uuid
 
-    assert calls == [
+    assert print_mock.calls == [
         ["The hero before saving in the DB"],
         [
             {
