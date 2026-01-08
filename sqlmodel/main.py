@@ -13,6 +13,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     Callable,
     ClassVar,
@@ -51,7 +52,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import Annotated, Literal, TypeAlias, deprecated, get_origin
+from typing_extensions import Literal, TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     PYDANTIC_MINOR_VERSION,
@@ -469,7 +470,7 @@ def Field(
     field_info_kwargs["serialization_alias"] = (
         serialization_alias or schema_serialization_alias or alias
     )
-    
+
     # Handle a workaround when json_schema_extra was passed via schema_extra
     if "json_schema_extra" in current_schema_extra:
         json_schema_extra_from_schema_extra = current_schema_extra.pop(
