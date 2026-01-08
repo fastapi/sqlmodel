@@ -583,7 +583,7 @@ We get `Black Lion` here too because although the age is not *strictly* less tha
 
 Finally, we can use `in_` to get the rows where a column is a member of a collection of values:
 
-{* ./docs_src/tutorial/where/tutorial0065.py ln[44:49] hl[46] *}
+{* ./docs_src/tutorial/where/tutorial006b_py310.py ln[42:47] hl[44] *}
 
 In this case, we match `Deadpond` since it's part of the collections of names.
 We don't have any hero called `Ratman`, so it does not match any hero.
