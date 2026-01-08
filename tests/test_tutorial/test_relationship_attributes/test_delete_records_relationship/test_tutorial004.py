@@ -1,36 +1,40 @@
-from unittest.mock import patch
+import importlib
+from types import ModuleType
 
 import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, create_engine, select
 
-from tests.conftest import get_testing_print_function
+from ....conftest import PrintMock, needs_py310
 
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.relationship_attributes.cascade_delete_relationships import (
-        tutorial004 as mod,
+@pytest.fixture(
+    name="mod",
+    params=[
+        pytest.param("tutorial004_py39"),
+        pytest.param("tutorial004_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(
+        f"docs_src.tutorial.relationship_attributes.cascade_delete_relationships.{request.param}"
     )
-
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
-    calls = []
+    return mod
 
-    new_print = get_testing_print_function(calls)
 
-    with patch("builtins.print", new=new_print):
-        mod.create_db_and_tables()
-        mod.create_heroes()
-        mod.select_deleted_heroes()
-        with Session(mod.engine) as session:
-            team = session.exec(
-                select(mod.Team).where(mod.Team.name == "Wakaland")
-            ).one()
-            team.heroes.clear()
-            session.add(team)
-            session.commit()
-        mod.delete_team()
-    assert calls == [
+def test_tutorial(print_mock: PrintMock, mod: ModuleType):
+    mod.create_db_and_tables()
+    mod.create_heroes()
+    mod.select_deleted_heroes()
+    with Session(mod.engine) as session:
+        team = session.exec(select(mod.Team).where(mod.Team.name == "Wakaland")).one()
+        team.heroes.clear()
+        session.add(team)
+        session.commit()
+    mod.delete_team()
+    assert print_mock.calls == [
         [
             "Created hero:",
             {
