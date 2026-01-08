@@ -1,8 +1,10 @@
-from unittest.mock import patch
+import importlib
+from types import ModuleType
 
+import pytest
 from sqlmodel import create_engine
 
-from ....conftest import get_testing_print_function
+from ....conftest import PrintMock, needs_py310
 
 expected_calls = [
     [
@@ -50,15 +52,22 @@ expected_calls = [
 ]
 
 
-def test_tutorial():
-    from docs_src.tutorial.connect.select import tutorial005 as mod
+@pytest.fixture(
+    name="module",
+    params=[
+        "tutorial005_py39",
+        pytest.param("tutorial005_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    module = importlib.import_module(
+        f"docs_src.tutorial.connect.select.{request.param}"
+    )
+    module.sqlite_url = "sqlite://"
+    module.engine = create_engine(module.sqlite_url)
+    return module
 
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
 
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    assert calls == expected_calls
+def test_tutorial(print_mock: PrintMock, module: ModuleType):
+    module.main()
+    assert print_mock.calls == expected_calls

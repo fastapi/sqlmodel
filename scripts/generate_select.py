@@ -1,7 +1,6 @@
 import os
 from itertools import product
 from pathlib import Path
-from typing import List, Tuple
 
 import black
 from jinja2 import Template
@@ -21,15 +20,15 @@ class Arg(BaseModel):
     annotation: str
 
 
-arg_groups: List[Arg] = []
+arg_groups: list[Arg] = []
 
-signatures: List[Tuple[List[Arg], List[str]]] = []
+signatures: list[tuple[list[Arg], list[str]]] = []
 
 for total_args in range(2, number_of_types + 1):
     arg_types_tuples = product(["model", "scalar"], repeat=total_args)
     for arg_type_tuple in arg_types_tuples:
-        args: List[Arg] = []
-        return_types: List[str] = []
+        args: list[Arg] = []
+        return_types: list[str] = []
         for i, arg_type in enumerate(arg_type_tuple):
             if arg_type == "scalar":
                 t_var = f"_TScalar_{i}"

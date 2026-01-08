@@ -1,22 +1,29 @@
-from unittest.mock import patch
+import importlib
+from types import ModuleType
 
+import pytest
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import PrintMock, needs_py310
 
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.where import tutorial007 as mod
-
+@pytest.fixture(
+    name="mod",
+    params=[
+        pytest.param("tutorial007_py39"),
+        pytest.param("tutorial007_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(f"docs_src.tutorial.where.{request.param}")
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(mod.sqlite_url)
-    calls = []
+    return mod
 
-    new_print = get_testing_print_function(calls)
 
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    assert calls == [
+def test_tutorial(print_mock: PrintMock, mod: ModuleType):
+    mod.main()
+    assert print_mock.calls == [
         [{"id": 5, "name": "Black Lion", "secret_name": "Trevor Challa", "age": 35}],
         [{"id": 6, "name": "Dr. Weird", "secret_name": "Steve Weird", "age": 36}],
     ]
