@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Annotated, Optional
 
 import pytest
 from sqlalchemy import inspect
@@ -6,7 +6,6 @@ from sqlalchemy.engine.reflection import Inspector
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import RelationshipProperty
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
-from typing_extensions import Annotated
 
 from .conftest import needs_pydanticv2
 
