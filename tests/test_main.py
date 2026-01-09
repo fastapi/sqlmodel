@@ -8,8 +8,6 @@ from sqlalchemy.orm import RelationshipProperty
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 from typing_extensions import Annotated
 
-from .conftest import needs_pydanticv2
-
 
 def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sqlmodel):
     class Hero(SQLModel, table=True):
@@ -162,7 +160,6 @@ def test_composite_primary_key(clear_sqlmodel):
             session.commit()
 
 
-@needs_pydanticv2
 def test_composite_primary_key_and_validator(clear_sqlmodel):
     from pydantic import AfterValidator
 
