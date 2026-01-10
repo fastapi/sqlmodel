@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine, select
@@ -41,7 +41,7 @@ def create_hero(hero: Hero):
         return hero
 
 
-@app.get("/heroes/", response_model=List[Hero])
+@app.get("/heroes/", response_model=list[Hero])
 def read_heroes():
     with Session(engine) as session:
         heroes = session.exec(select(Hero)).all()

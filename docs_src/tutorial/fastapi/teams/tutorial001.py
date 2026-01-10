@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
@@ -13,7 +13,7 @@ class TeamBase(SQLModel):
 class Team(TeamBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
 
-    heroes: List["Hero"] = Relationship(back_populates="team")
+    heroes: list["Hero"] = Relationship(back_populates="team")
 
 
 class TeamCreate(TeamBase):
@@ -92,7 +92,7 @@ def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
     return db_hero
 
 
-@app.get("/heroes/", response_model=List[HeroPublic])
+@app.get("/heroes/", response_model=list[HeroPublic])
 def read_heroes(
     *,
     session: Session = Depends(get_session),
@@ -145,7 +145,7 @@ def create_team(*, session: Session = Depends(get_session), team: TeamCreate):
     return db_team
 
 
-@app.get("/teams/", response_model=List[TeamPublic])
+@app.get("/teams/", response_model=list[TeamPublic])
 def read_teams(
     *,
     session: Session = Depends(get_session),
