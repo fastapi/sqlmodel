@@ -1,10 +1,9 @@
 from decimal import Decimal
-from typing import Optional, Union
+from typing import Literal, Optional, Union
 
 import pytest
 from pydantic import ValidationError
 from sqlmodel import Field, SQLModel
-from typing_extensions import Literal
 
 
 def test_decimal():

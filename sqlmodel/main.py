@@ -14,6 +14,7 @@ from typing import (
     Any,
     Callable,
     ClassVar,
+    Literal,
     Optional,
     TypeVar,
     Union,
@@ -49,7 +50,7 @@ from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData, SchemaEventTarget
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from sqlalchemy.types import TypeEngine
-from typing_extensions import Literal, TypeAlias, deprecated, get_origin
+from typing_extensions import TypeAlias, deprecated, get_origin
 
 from ._compat import (  # type: ignore[attr-defined]
     PYDANTIC_MINOR_VERSION,
