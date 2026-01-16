@@ -5,6 +5,7 @@ import ipaddress
 import uuid
 import weakref
 from collections.abc import Mapping, Sequence, Set
+from copy import copy
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
@@ -155,6 +156,12 @@ class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
+            if not isinstance(foreign_key, str):
+                raise RuntimeError(
+                    "Passing ondelete to Field is not supported when foreign_key is "
+                    "specified as sa_column_args=[ForeignKey(...)]. Pass ondelete as "
+                    "a parameter to ForeignKey instead"
+                )
         super().__init__(default=default, **kwargs)
         self.primary_key = primary_key
         self.nullable = nullable
@@ -716,14 +723,18 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     if unique is Undefined:
         unique = False
     if foreign_key:
-        if field_info.ondelete == "SET NULL" and not nullable:
-            raise RuntimeError('ondelete="SET NULL" requires nullable=True')
-        assert isinstance(foreign_key, str)
-        ondelete = getattr(field_info, "ondelete", Undefined)
-        if ondelete is Undefined:
-            ondelete = None
-        assert isinstance(ondelete, (str, type(None)))  # for typing
-        args.append(ForeignKey(foreign_key, ondelete=ondelete))
+        if isinstance(foreign_key, str):
+            if field_info.ondelete == "SET NULL" and not nullable:
+                raise RuntimeError('ondelete="SET NULL" requires nullable=True')
+            assert isinstance(foreign_key, str)
+            ondelete = getattr(field_info, "ondelete", Undefined)
+            if ondelete is Undefined:
+                ondelete = None
+            assert isinstance(ondelete, (str, type(None)))  # for typing
+            args.append(ForeignKey(foreign_key, ondelete=ondelete))
+        else:
+            assert isinstance(foreign_key, ForeignKey)
+            args.append(copy(foreign_key))
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
@@ -739,7 +750,11 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         kwargs["default"] = sa_default
     sa_column_args = getattr(field_info, "sa_column_args", Undefined)
     if sa_column_args is not Undefined:
-        args.extend(list(cast(Sequence[Any], sa_column_args)))
+        for arg_v in list(cast(Sequence[Any], sa_column_args)):
+            if isinstance(arg_v, ForeignKey):
+                args.append(copy(arg_v))
+            else:
+                args.append(arg_v)
     sa_column_kwargs = getattr(field_info, "sa_column_kwargs", Undefined)
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
