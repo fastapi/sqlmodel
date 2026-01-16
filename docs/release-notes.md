@@ -2,8 +2,14 @@
 
 ## Latest Changes
 
+### Refactors
+
+* ♻️ Import `Literal` from the `typing` module directly. PR [#1699](https://github.com/fastapi/sqlmodel/pull/1699) by [@svlandeg](https://github.com/svlandeg).
+
 ### Docs
 
+* 📝 Add contribution instructions about LLM generated code and comments and automated tools for PRs. PR [#1712](https://github.com/fastapi/sqlmodel/pull/1712) by [@alejsdev](https://github.com/alejsdev).
+* 🐛 Fix copy button in `custom.js`. PR [#1711](https://github.com/fastapi/sqlmodel/pull/1711) by [@alejsdev](https://github.com/alejsdev).
 * 📝 Remove duplicated word in `read-relationships.md`. PR [#1705](https://github.com/fastapi/sqlmodel/pull/1705) by [@stefmolin](https://github.com/stefmolin).
 
 ### Internal
