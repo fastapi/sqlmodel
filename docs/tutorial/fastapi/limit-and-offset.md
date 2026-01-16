@@ -22,7 +22,7 @@ By default, we will return the first results from the database, so `offset` will
 
 And by default, we will return a maximum of `100` heroes, so `limit` will have a default value of `100`.
 
-{* ./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py ln[1:2,52:56] hl[1,53,55] *}
+{* ./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py ln[3:4,55:59] hl[3,56,58] *}
 
 We want to allow clients to set different `offset` and `limit` values.
 
