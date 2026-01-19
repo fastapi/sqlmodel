@@ -1,8 +1,10 @@
-from unittest.mock import patch
+import importlib
+from types import ModuleType
 
+import pytest
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import PrintMock, needs_py310
 
 expected_calls = [
     [
@@ -26,29 +28,35 @@ expected_calls = [
 ]
 
 
-def test_tutorial001(clear_sqlmodel):
-    from docs_src.tutorial.update import tutorial001 as mod
-
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
-
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    assert calls == expected_calls
+@pytest.fixture(name="module")
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    module = importlib.import_module(f"docs_src.tutorial.update.{request.param}")
+    module.sqlite_url = "sqlite://"
+    module.engine = create_engine(module.sqlite_url)
+    return module
 
 
-def test_tutorial002(clear_sqlmodel):
-    from docs_src.tutorial.update import tutorial002 as mod
+@pytest.mark.parametrize(
+    "module",
+    [
+        pytest.param("tutorial001_py39"),
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+    indirect=True,
+)
+def test_tutorial001(print_mock: PrintMock, module: ModuleType):
+    module.main()
+    assert print_mock.calls == expected_calls
 
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
 
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    assert calls == expected_calls
+@pytest.mark.parametrize(
+    "module",
+    [
+        pytest.param("tutorial002_py39"),
+        pytest.param("tutorial002_py310", marks=needs_py310),
+    ],
+    indirect=True,
+)
+def test_tutorial002(print_mock: PrintMock, module: ModuleType):
+    module.main()
+    assert print_mock.calls == expected_calls

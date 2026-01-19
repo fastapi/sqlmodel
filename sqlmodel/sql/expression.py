@@ -1,11 +1,8 @@
+from collections.abc import Iterable, Mapping, Sequence
 from typing import (
     Any,
-    Iterable,
-    Mapping,
+    Literal,
     Optional,
-    Sequence,
-    Tuple,
-    Type,
     TypeVar,
     Union,
 )
@@ -38,7 +35,6 @@ from sqlalchemy.sql.elements import (
     UnaryExpression,
 )
 from sqlalchemy.sql.type_api import TypeEngine
-from typing_extensions import Literal
 
 from ._expression_select_cls import Select as Select
 from ._expression_select_cls import SelectOfScalar as SelectOfScalar
@@ -46,7 +42,7 @@ from ._expression_select_gen import select as select
 
 _T = TypeVar("_T")
 
-_TypeEngineArgument = Union[Type[TypeEngine[_T]], TypeEngine[_T]]
+_TypeEngineArgument = Union[type[TypeEngine[_T]], TypeEngine[_T]]
 
 # Redefine operatos that would only take a column expresion to also take the (virtual)
 # types of Pydantic models, e.g. str instead of only Mapped[str].
@@ -94,7 +90,7 @@ def not_(clause: Union[_ColumnExpressionArgument[_T], _T]) -> ColumnElement[_T]:
 
 def case(
     *whens: Union[
-        Tuple[Union[_ColumnExpressionArgument[bool], bool], Any], Mapping[Any, Any]
+        tuple[Union[_ColumnExpressionArgument[bool], bool], Any], Mapping[Any, Any]
     ],
     value: Optional[Any] = None,
     else_: Optional[Any] = None,
@@ -181,8 +177,8 @@ def over(
             Any,
         ]
     ] = None,
-    range_: Optional[Tuple[Optional[int], Optional[int]]] = None,
-    rows: Optional[Tuple[Optional[int], Optional[int]]] = None,
+    range_: Optional[tuple[Optional[int], Optional[int]]] = None,
+    rows: Optional[tuple[Optional[int], Optional[int]]] = None,
 ) -> Over[_T]:
     return sqlalchemy.over(
         element, partition_by=partition_by, order_by=order_by, range_=range_, rows=rows
@@ -192,7 +188,7 @@ def over(
 def tuple_(
     *clauses: Union[_ColumnExpressionArgument[Any], Any],
     types: Optional[Sequence["_TypeEngineArgument[Any]"]] = None,
-) -> Tuple[Any, ...]:
+) -> tuple[Any, ...]:
     return sqlalchemy.tuple_(*clauses, types=types)  # type: ignore[return-value]
 
 
