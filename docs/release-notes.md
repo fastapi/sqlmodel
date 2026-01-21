@@ -14,6 +14,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.14.10 to 0.14.13. PR [#1714](https://github.com/fastapi/sqlmodel/pull/1714) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.2.25 to 0.2.30. PR [#1716](https://github.com/fastapi/sqlmodel/pull/1716) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Update FastAPI version pin to `>=0.103.2` in tests. PR [#1709](https://github.com/fastapi/sqlmodel/pull/1709) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 📌 Pin development Python version to 3.10, for `deploy_docs_status.py`. PR [#1707](https://github.com/fastapi/sqlmodel/pull/1707) by [@tiangolo](https://github.com/tiangolo).
