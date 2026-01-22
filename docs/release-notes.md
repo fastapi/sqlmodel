@@ -14,6 +14,7 @@
 
 ### Internal
 
+* 🔧 Ensure that an edit to `uv.lock` gets the `internal` label. PR [#1719](https://github.com/fastapi/sqlmodel/pull/1719) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump sqlalchemy from 2.0.45 to 2.0.46. PR [#1717](https://github.com/fastapi/sqlmodel/pull/1717) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.21.0 to 0.21.1. PR [#1715](https://github.com/fastapi/sqlmodel/pull/1715) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.10 to 0.14.13. PR [#1714](https://github.com/fastapi/sqlmodel/pull/1714) by [@dependabot[bot]](https://github.com/apps/dependabot).
