@@ -18,7 +18,7 @@ CREATE TABLE hero (
 )
 ```
 
-But you can always specify a custom length if needed:
+But you can always override this by specifying a custom length if needed:
 
 {* ./docs_src/tutorial/str_fields_and_column_length/tutorial002_py310.py ln[4:6] hl[6] *}
 
