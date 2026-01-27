@@ -1,7 +1,8 @@
-from typing import Literal, Optional
+from typing import Literal, Optional, Union
 
 import pytest
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import text
 from sqlalchemy.orm import RelationshipProperty
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
@@ -127,7 +128,7 @@ def test_sa_relationship_property(clear_sqlmodel):
         assert hero_rusty_man.team.name == "Preventers"
 
 
-def test_literal_str(clear_sqlmodel, caplog):
+def test_literal_valid_values(clear_sqlmodel, caplog):
     """Test https://github.com/fastapi/sqlmodel/issues/57"""
 
     class Model(SQLModel, table=True):
@@ -172,3 +173,101 @@ def test_literal_str(clear_sqlmodel, caplog):
         assert obj.int_bool == 1
         assert isinstance(obj.all_bool, bool)
         assert obj.all_bool is False
+
+
+def test_literal_constraints_invalid_values(clear_sqlmodel):
+    """DB should reject values that are not part of the Literal choices."""
+
+    class Model(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        all_str: Literal["a", "b", "c"]
+        mixed: Literal["yes", "no", 1, 0]
+        all_int: Literal[1, 2, 3]
+        int_bool: Literal[0, 1, True, False]
+        all_bool: Literal[True, False]
+
+    engine = create_engine("sqlite://")
+    SQLModel.metadata.create_all(engine)
+
+    # Helper to attempt a raw insert that bypasses Pydantic validation so we
+    # can verify that the database-level CHECK constraints are enforced.
+    def insert_raw(values: dict[str, object]) -> None:
+        stmt = text(
+            "INSERT INTO model (all_str, mixed, all_int, int_bool, all_bool) "
+            "VALUES (:all_str, :mixed, :all_int, :int_bool, :all_bool)"
+        ).bindparams(**values)
+        with pytest.raises(IntegrityError):
+            with Session(engine) as session:
+                session.exec(stmt)
+                session.commit()
+
+    # Invalid string literal for all_str
+    insert_raw(
+        {
+            "all_str": "z",  # invalid, not in {"a","b","c"}
+            "mixed": "yes",
+            "all_int": 1,
+            "int_bool": 1,
+            "all_bool": 0,
+        }
+    )
+
+    # Invalid int literal for all_int
+    insert_raw(
+        {
+            "all_str": "a",
+            "mixed": "yes",
+            "all_int": 5,  # invalid, not in {1,2,3}
+            "int_bool": 1,
+            "all_bool": 0,
+        }
+    )
+
+    # Invalid bool literal for all_bool
+    insert_raw(
+        {
+            "all_str": "a",
+            "mixed": "yes",
+            "all_int": 1,
+            "int_bool": 1,
+            "all_bool": 2,  # invalid boolean value
+        }
+    )
+
+
+def test_literal_optional_and_union_constraints(clear_sqlmodel):
+    """Literals inside Optional/Union should also be enforced at the DB level."""
+
+    class Model(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        opt_str: Optional[Literal["x", "y"]] = None
+        union_int: Union[Literal[10, 20], None] = None
+
+    engine = create_engine("sqlite://")
+    SQLModel.metadata.create_all(engine)
+
+    # Valid values should be accepted
+    obj = Model(opt_str="x", union_int=10)
+    with Session(engine) as session:
+        session.add(obj)
+        session.commit()
+        session.refresh(obj)
+        assert obj.opt_str == "x"
+        assert obj.union_int == 10
+
+    # Invalid values should be rejected by the database
+    def insert_raw(values: dict[str, object]) -> None:
+        stmt = text(
+            "INSERT INTO model (opt_str, union_int) "
+            "VALUES (:opt_str, :union_int)"
+        ).bindparams(**values)
+        with pytest.raises(IntegrityError):
+            with Session(engine) as session:
+                session.exec(stmt)
+                session.commit()
+
+    # opt_str not in {"x", "y"}
+    insert_raw({"opt_str": "z", "union_int": 10})
+
+    # union_int not in {10, 20}
+    insert_raw({"opt_str": "x", "union_int": 30})
