@@ -65,7 +65,9 @@ def _is_union_type(t: Any) -> bool:
     return t is UnionType or t is Union
 
 
-def get_literal_annotation_info(annotation: Any) -> tuple[type[Any], tuple[Any, ...]] | None:
+def get_literal_annotation_info(
+    annotation: Any,
+) -> tuple[type[Any], tuple[Any, ...]] | None:
     if annotation is None or get_origin(annotation) is None:
         return None
     origin = get_origin(annotation)

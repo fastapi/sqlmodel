@@ -1,8 +1,8 @@
 from typing import Literal, Optional, Union
 
 import pytest
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import RelationshipProperty
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
@@ -258,8 +258,7 @@ def test_literal_optional_and_union_constraints(clear_sqlmodel):
     # Invalid values should be rejected by the database
     def insert_raw(values: dict[str, object]) -> None:
         stmt = text(
-            "INSERT INTO model (opt_str, union_int) "
-            "VALUES (:opt_str, :union_int)"
+            "INSERT INTO model (opt_str, union_int) VALUES (:opt_str, :union_int)"
         ).bindparams(**values)
         with pytest.raises(IntegrityError):
             with Session(engine) as session:
