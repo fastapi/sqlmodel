@@ -3,7 +3,7 @@ from typing import Literal, Optional, Union
 
 import pytest
 from pydantic import ValidationError
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 def test_decimal():
@@ -54,3 +54,76 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_strict_true():
+    class Model(SQLModel):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        val: int
+        val_strict: int = Field(strict=True)
+
+    class ModelDB(Model, table=True):
+        pass
+
+    Model(val=123, val_strict=456)
+    Model(val="123", val_strict=456)
+
+    with pytest.raises(ValidationError):
+        Model(val=123, val_strict="456")
+
+    engine = create_engine("sqlite://", echo=True)
+
+    SQLModel.metadata.create_all(engine)
+
+    model = ModelDB(val=123, val_strict=456)
+    with Session(engine) as session:
+        session.add(model)
+        session.commit()
+        session.refresh(model)
+
+    assert model.val == 123
+    assert model.val_strict == 456
+
+
+def test_strict_table_model():
+    class Model(SQLModel, table=True):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        val_strict: int = Field(strict=True)
+
+    engine = create_engine("sqlite://", echo=True)
+
+    SQLModel.metadata.create_all(engine)
+
+    model = Model(val_strict=456)
+    with Session(engine) as session:
+        session.add(model)
+        session.commit()
+        session.refresh(model)
+
+    assert model.val_strict == 456
+
+
+@pytest.mark.parametrize("strict", [None, False])
+def test_strict_false(strict: Optional[bool]):
+    class Model(SQLModel):
+        val: int = Field(strict=strict)
+
+    Model(val=123)
+    Model(val="123")
+
+
+def test_strict_via_schema_extra():  # Current workaround. Remove after some time
+    with pytest.warns(
+        DeprecationWarning,
+        match="Pass `strict` parameter directly to Field instead of passing it via `schema_extra`",
+    ):
+
+        class Model(SQLModel):
+            val: int
+            val_strict: int = Field(schema_extra={"strict": True})
+
+    Model(val=123, val_strict=456)
+    Model(val="123", val_strict=456)
+
+    with pytest.raises(ValidationError):
+        Model(val=123, val_strict="456")

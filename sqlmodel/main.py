@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
@@ -228,6 +229,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -271,6 +273,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -323,6 +326,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     sa_column: Union[Column[Any], UndefinedType] = Undefined,
@@ -356,6 +360,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -371,9 +376,16 @@ def Field(
     schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    for param_name in ("strict",):
+        if param_name in current_schema_extra:
+            msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
+            warnings.warn(msg, DeprecationWarning, stacklevel=2)
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
+    current_strict = strict or current_schema_extra.pop("strict", None)
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -395,6 +407,7 @@ def Field(
         "max_length": max_length,
         "allow_mutation": allow_mutation,
         "regex": regex,
+        "strict": current_strict,
         "discriminator": discriminator,
         "repr": repr,
         "primary_key": primary_key,
