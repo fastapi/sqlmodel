@@ -56,7 +56,7 @@ def test_repr():
     assert "foo=" not in repr(instance)
 
 
-def test_field_regex_param():
+def test_regex():
     with pytest.warns(DeprecationWarning, match="The `regex` parameter is deprecated"):
 
         class DateModel(SQLModel):
@@ -68,7 +68,7 @@ def test_field_regex_param():
         DateModel(date_1="incorrect")
 
 
-def test_field_pattern_param():
+def test_pattern():
     class DateModel(SQLModel):
         date_1: str = Field(pattern=r"^\d{2}-\d{2}-\d{4}$")
 
@@ -78,7 +78,7 @@ def test_field_pattern_param():
         DateModel(date_1="incorrect")
 
 
-def test_field_pattern_via_schema_extra():
+def test_pattern_via_schema_extra():
     with pytest.warns(
         DeprecationWarning,
         match="Pass `pattern` parameter directly to Field instead of passing it via `schema_extra`",
