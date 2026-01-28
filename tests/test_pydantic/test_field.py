@@ -220,3 +220,34 @@ def test_exclude_if_via_schema_extra():
     assert dict1["name"] == "Alice"
 
     assert "name" not in dict2
+
+
+def test_field_title_generator():
+    def upper(value: str, _: Any) -> str:
+        return value.upper()
+
+    class Model(SQLModel):
+        name: str = Field(field_title_generator=upper)
+        age: int
+
+    model_schema = Model.model_json_schema()
+    assert model_schema["properties"]["name"]["title"] == "NAME"
+    assert model_schema["properties"]["age"]["title"] == "Age"
+
+
+def test_field_title_generator_via_schema_extra():
+    def upper(value: str, _: Any) -> str:
+        return value.upper()
+
+    with pytest.warns(
+        DeprecationWarning,
+        match="Pass `field_title_generator` parameter directly to Field instead of passing it via `schema_extra`",
+    ):
+
+        class Model(SQLModel):
+            name: str = Field(schema_extra={"field_title_generator": upper})
+            age: int
+
+    model_schema = Model.model_json_schema()
+    assert model_schema["properties"]["name"]["title"] == "NAME"
+    assert model_schema["properties"]["age"]["title"] == "Age"
