@@ -3,7 +3,7 @@ from typing import Literal, Optional, Union
 
 import pytest
 from pydantic import ValidationError
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 def test_decimal():
@@ -87,3 +87,60 @@ def test_coerce_numbers_to_str_via_schema_extra():  # Current workaround. Remove
 
     assert Model.model_validate({"val": 123}).val == "123"
     assert Model.model_validate({"val": 45.67}).val == "45.67"
+
+
+def test_validate_default_true():
+    class Model(SQLModel):
+        val: int = Field(default="123", validate_default=True)
+
+    assert Model.model_validate({}).val == 123
+
+    class Model2(SQLModel):
+        val: int = Field(default=None, validate_default=True)
+
+    with pytest.raises(ValidationError):
+        Model2.model_validate({})
+
+
+def test_validate_default_table_model():
+    class Model(SQLModel):
+        id: Optional[int] = Field(default=None, primary_key=True)
+        val: int = Field(default="123", validate_default=True)
+
+    class ModelDB(Model, table=True):
+        pass
+
+    engine = create_engine("sqlite://", echo=True)
+
+    SQLModel.metadata.create_all(engine)
+
+    model = ModelDB()
+    with Session(engine) as session:
+        session.add(model)
+        session.commit()
+        session.refresh(model)
+
+    assert model.val == 123
+
+
+@pytest.mark.parametrize("validate_default", [None, False])
+def test_validate_default_false(validate_default: Optional[bool]):
+    class Model3(SQLModel):
+        val: int = Field(default="123", validate_default=validate_default)
+
+    assert Model3().val == "123"
+
+
+def test_validate_default_via_schema_extra():  # Current workaround. Remove after some time
+    with pytest.warns(
+        UserWarning,
+        match=(
+            "Pass `validate_default` parameter directly to Field instead of passing "
+            "it via `schema_extra`"
+        ),
+    ):
+
+        class Model(SQLModel):
+            val: int = Field(default="123", schema_extra={"validate_default": True})
+
+    assert Model.model_validate({}).val == 123

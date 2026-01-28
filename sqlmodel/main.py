@@ -231,6 +231,7 @@ def Field(
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
+    validate_default: Optional[bool] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
     foreign_key: Any = Undefined,
@@ -275,6 +276,7 @@ def Field(
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
+    validate_default: Optional[bool] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
     foreign_key: str,
@@ -328,6 +330,7 @@ def Field(
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
+    validate_default: Optional[bool] = None,
     repr: bool = True,
     sa_column: Union[Column[Any], UndefinedType] = Undefined,
     schema_extra: Optional[dict[str, Any]] = None,
@@ -362,6 +365,7 @@ def Field(
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
+    validate_default: Optional[bool] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
     foreign_key: Any = Undefined,
@@ -377,7 +381,10 @@ def Field(
 ) -> Any:
     current_schema_extra = schema_extra or {}
 
-    for param_name in ("coerce_numbers_to_str",):
+    for param_name in (
+        "coerce_numbers_to_str",
+        "validate_default",
+    ):
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
             warnings.warn(msg, UserWarning, stacklevel=2)
@@ -388,6 +395,9 @@ def Field(
     current_coerce_numbers_to_str = coerce_numbers_to_str or current_schema_extra.pop(
         "coerce_numbers_to_str", None
     )
+    current_validate_default = validate_default or current_schema_extra.pop(
+        "validate_default", None
+    )
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -396,6 +406,7 @@ def Field(
         "include": include,
         "const": const,
         "coerce_numbers_to_str": current_coerce_numbers_to_str,
+        "validate_default": current_validate_default,
         "gt": gt,
         "ge": ge,
         "lt": lt,
