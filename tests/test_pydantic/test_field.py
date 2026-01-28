@@ -144,3 +144,54 @@ def test_validate_default_via_schema_extra():  # Current workaround. Remove afte
             val: int = Field(default="123", schema_extra={"validate_default": True})
 
     assert Model.model_validate({}).val == 123
+
+
+@pytest.mark.parametrize("union_mode", [None, "smart"])
+def test_union_mode_smart(union_mode: Optional[Literal["smart"]]):
+    class Model(SQLModel):
+        val: Union[float, int] = Field(union_mode=union_mode)
+
+    a = Model.model_validate({"val": 123})
+    assert isinstance(a.val, int)  # float is first, but int is more precise
+
+    b = Model.model_validate({"val": 123.0})
+    assert isinstance(b.val, float)
+
+    c = Model.model_validate({"val": 123.1})
+    assert isinstance(c.val, float)
+
+
+def test_union_mode_left_to_right():
+    class Model(SQLModel):
+        val: Union[float, int] = Field(union_mode="left_to_right")
+
+    a = Model.model_validate({"val": 123})
+    assert isinstance(a.val, float)
+
+    b = Model.model_validate({"val": 123.0})
+    assert isinstance(b.val, float)
+
+    c = Model.model_validate({"val": 123.1})
+    assert isinstance(c.val, float)
+
+
+def test_union_mode_via_schema_extra():  # Current workaround. Remove after some time
+    with pytest.warns(
+        UserWarning,
+        match=(
+            "Pass `union_mode` parameter directly to Field instead of passing "
+            "it via `schema_extra`"
+        ),
+    ):
+
+        class Model(SQLModel):
+            val: Union[float, int] = Field(schema_extra={"union_mode": "smart"})
+
+    a = Model.model_validate({"val": 123})
+    assert isinstance(a.val, int)  # float is first, but int is more precise
+
+    b = Model.model_validate({"val": 123.0})
+    assert isinstance(b.val, float)
+
+    c = Model.model_validate({"val": 123.1})
+    assert isinstance(c.val, float)

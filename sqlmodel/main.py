@@ -228,6 +228,7 @@ def Field(
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
+    union_mode: Optional[Literal["smart", "left_to_right"]] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -273,6 +274,7 @@ def Field(
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
+    union_mode: Optional[Literal["smart", "left_to_right"]] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -327,6 +329,7 @@ def Field(
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
+    union_mode: Optional[Literal["smart", "left_to_right"]] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -362,6 +365,7 @@ def Field(
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
+    union_mode: Optional[Literal["smart", "left_to_right"]] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -384,6 +388,7 @@ def Field(
     for param_name in (
         "coerce_numbers_to_str",
         "validate_default",
+        "union_mode",
     ):
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
@@ -443,6 +448,10 @@ def Field(
     field_info_kwargs["serialization_alias"] = (
         serialization_alias or schema_serialization_alias or alias
     )
+
+    current_union_mode = union_mode or current_schema_extra.pop("union_mode", None)
+    if current_union_mode is not None:
+        field_info_kwargs["union_mode"] = current_union_mode
 
     field_info = FieldInfo(
         default,
