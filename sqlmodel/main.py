@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
@@ -23,6 +24,7 @@ from typing import (
 )
 
 from pydantic import BaseModel, EmailStr
+from pydantic.fields import Deprecated as Deprecated
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -210,8 +212,12 @@ def Field(
     validation_alias: Optional[str] = None,
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
+    field_title_generator: Optional[Callable[[str, PydanticFieldInfo], str]] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
+    deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -228,6 +234,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -253,8 +260,12 @@ def Field(
     validation_alias: Optional[str] = None,
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
+    field_title_generator: Optional[Callable[[str, PydanticFieldInfo], str]] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
+    deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -271,6 +282,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -305,8 +317,12 @@ def Field(
     validation_alias: Optional[str] = None,
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
+    field_title_generator: Optional[Callable[[str, PydanticFieldInfo], str]] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
+    deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -323,6 +339,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     sa_column: Union[Column[Any], UndefinedType] = Undefined,
@@ -338,8 +355,12 @@ def Field(
     validation_alias: Optional[str] = None,
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
+    field_title_generator: Optional[Callable[[str, PydanticFieldInfo], str]] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
+    deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -356,6 +377,7 @@ def Field(
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
+    strict: Optional[bool] = None,
     discriminator: Optional[str] = None,
     repr: bool = True,
     primary_key: Union[bool, UndefinedType] = Undefined,
@@ -371,15 +393,38 @@ def Field(
     schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    for param_name in (
+        "strict",
+        "examples",
+        "deprecated",
+        "exclude_if",
+        "field_title_generator",
+    ):
+        if param_name in current_schema_extra:
+            msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
+            warnings.warn(msg, DeprecationWarning, stacklevel=2)
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
+    current_strict = strict or current_schema_extra.pop("strict", None)
+    current_examples = examples or current_schema_extra.pop("examples", None)
+    current_deprecated = deprecated or current_schema_extra.pop("deprecated", None)
+    current_exclude_if = exclude_if or current_schema_extra.pop("exclude_if", None)
+    current_field_title_generator = field_title_generator or current_schema_extra.pop(
+        "field_title_generator", None
+    )
     field_info_kwargs = {
         "alias": alias,
         "title": title,
         "description": description,
+        "examples": current_examples,
+        "deprecated": current_deprecated,
         "exclude": exclude,
+        "exclude_if": current_exclude_if,
         "include": include,
+        "field_title_generator": current_field_title_generator,
         "const": const,
         "gt": gt,
         "ge": ge,
@@ -395,6 +440,7 @@ def Field(
         "max_length": max_length,
         "allow_mutation": allow_mutation,
         "regex": regex,
+        "strict": current_strict,
         "discriminator": discriminator,
         "repr": repr,
         "primary_key": primary_key,
