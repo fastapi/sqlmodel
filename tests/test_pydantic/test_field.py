@@ -56,12 +56,26 @@ def test_repr():
     assert "foo=" not in repr(instance)
 
 
-@pytest.mark.parametrize("param", ["regex", "pattern"])
-def test_field_regex_param(param: str):
-    class DateModel(SQLModel):
-        date_1: str = Field(**{param: r"^\d{2}-\d{2}-\d{4}$"})
+def test_field_regex_param():
+    with pytest.warns(DeprecationWarning, match="The `regex` parameter is deprecated"):
 
-    DateModel(date_1="12-31-2024")  # Validates correctly
+        class DateModel(SQLModel):
+            date_1: str = Field(regex=r"^\d{2}-\d{2}-\d{4}$")
+
+    DateModel(date_1="12-31-2024")
+
+    with pytest.raises(ValidationError):
+        DateModel(date_1="incorrect")
+
+
+def test_field_pattern_param():
+    class DateModel(SQLModel):
+        date_1: str = Field(pattern=r"^\d{2}-\d{2}-\d{4}$")
+
+    DateModel(date_1="12-31-2024")
+
+    with pytest.raises(ValidationError):
+        DateModel(date_1="incorrect")
 
 
 def test_field_pattern_via_schema_extra():
