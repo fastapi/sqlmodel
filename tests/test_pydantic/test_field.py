@@ -195,3 +195,51 @@ def test_union_mode_via_schema_extra():  # Current workaround. Remove after some
 
     c = Model.model_validate({"val": 123.1})
     assert isinstance(c.val, float)
+
+
+def test_fail_fast_true():
+    class Model(SQLModel):
+        val: list[int] = Field(fail_fast=True)
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model.model_validate({"val": [1.1, "not an int"]})
+
+    errors = exc_info.value.errors()
+    assert len(errors) == 1
+    assert errors[0]["type"] == "int_from_float"
+
+
+@pytest.mark.parametrize("fail_fast", [None, False])
+def test_fail_fast_false(fail_fast: Optional[bool]):
+    class Model(SQLModel):
+        val: list[int] = Field(fail_fast=fail_fast)
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model.model_validate({"val": [1.1, "not an int"]})
+
+    errors = exc_info.value.errors()
+    assert len(errors) == 2
+    error_types = {error["type"] for error in errors}
+
+    assert "int_from_float" in error_types
+    assert "int_parsing" in error_types
+
+
+def test_fail_fast_via_schema_extra():  # Current workaround. Remove after some time
+    with pytest.warns(
+        UserWarning,
+        match=(
+            "Pass `fail_fast` parameter directly to Field instead of passing "
+            "it via `schema_extra`"
+        ),
+    ):
+
+        class Model(SQLModel):
+            val: list[int] = Field(schema_extra={"fail_fast": True})
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model.model_validate({"val": [1.1, "not an int"]})
+
+    errors = exc_info.value.errors()
+    assert len(errors) == 1
+    assert errors[0]["type"] == "int_from_float"

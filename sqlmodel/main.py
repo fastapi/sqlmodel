@@ -229,6 +229,7 @@ def Field(
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     union_mode: Optional[Literal["smart", "left_to_right"]] = None,
+    fail_fast: Optional[bool] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -275,6 +276,7 @@ def Field(
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     union_mode: Optional[Literal["smart", "left_to_right"]] = None,
+    fail_fast: Optional[bool] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -330,6 +332,7 @@ def Field(
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     union_mode: Optional[Literal["smart", "left_to_right"]] = None,
+    fail_fast: Optional[bool] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -366,6 +369,7 @@ def Field(
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     union_mode: Optional[Literal["smart", "left_to_right"]] = None,
+    fail_fast: Optional[bool] = None,
     allow_mutation: bool = True,
     regex: Optional[str] = None,
     discriminator: Optional[str] = None,
@@ -389,6 +393,7 @@ def Field(
         "coerce_numbers_to_str",
         "validate_default",
         "union_mode",
+        "fail_fast",
     ):
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
@@ -403,6 +408,7 @@ def Field(
     current_validate_default = validate_default or current_schema_extra.pop(
         "validate_default", None
     )
+    current_fail_fast = fail_fast or current_schema_extra.pop("fail_fast", None)
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -424,6 +430,7 @@ def Field(
         "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
+        "fail_fast": current_fail_fast,
         "allow_mutation": allow_mutation,
         "regex": regex,
         "discriminator": discriminator,
