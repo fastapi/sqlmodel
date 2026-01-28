@@ -127,3 +127,24 @@ def test_strict_via_schema_extra():  # Current workaround. Remove after some tim
 
     with pytest.raises(ValidationError):
         Model(val=123, val_strict="456")
+
+
+def test_examples():
+    class Model(SQLModel):
+        name: str = Field(examples=["Alice", "Bob"])
+
+    model_schema = Model.model_json_schema()
+    assert model_schema["properties"]["name"]["examples"] == ["Alice", "Bob"]
+
+
+def test_examples_via_schema_extra():  # Current workaround. Remove after some time
+    with pytest.warns(
+        DeprecationWarning,
+        match="Pass `examples` parameter directly to Field instead of passing it via `schema_extra`",
+    ):
+
+        class Model(SQLModel):
+            name: str = Field(schema_extra={"examples": ["Alice", "Bob"]})
+
+    model_schema = Model.model_json_schema()
+    assert model_schema["properties"]["name"]["examples"] == ["Alice", "Bob"]

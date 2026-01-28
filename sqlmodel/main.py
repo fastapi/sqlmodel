@@ -212,6 +212,7 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
@@ -256,6 +257,7 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
@@ -309,6 +311,7 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
@@ -343,6 +346,7 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
+    examples: Optional[list[Any]] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
@@ -377,7 +381,7 @@ def Field(
 ) -> Any:
     current_schema_extra = schema_extra or {}
 
-    for param_name in ("strict",):
+    for param_name in ("strict", "examples"):
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
             warnings.warn(msg, DeprecationWarning, stacklevel=2)
@@ -386,10 +390,12 @@ def Field(
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
     current_strict = strict or current_schema_extra.pop("strict", None)
+    current_examples = examples or current_schema_extra.pop("examples", None)
     field_info_kwargs = {
         "alias": alias,
         "title": title,
         "description": description,
+        "examples": current_examples,
         "exclude": exclude,
         "include": include,
         "const": const,
