@@ -377,9 +377,7 @@ def Field(
 ) -> Any:
     current_schema_extra = schema_extra or {}
 
-    for param_name in (
-        "alias_priority",
-    ):
+    for param_name in ("alias_priority",):
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
             warnings.warn(msg, DeprecationWarning, stacklevel=2)
@@ -387,7 +385,9 @@ def Field(
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
-    current_alias_priority = alias_priority or current_schema_extra.pop("alias_priority", None)
+    current_alias_priority = alias_priority or current_schema_extra.pop(
+        "alias_priority", None
+    )
     field_info_kwargs = {
         "alias": alias,
         "alias_priority": current_alias_priority,
