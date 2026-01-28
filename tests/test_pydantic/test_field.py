@@ -80,7 +80,7 @@ def test_pattern():
 
 def test_pattern_via_schema_extra():
     with pytest.warns(
-        DeprecationWarning,
+        UserWarning,
         match="Pass `pattern` parameter directly to Field instead of passing it via `schema_extra`",
     ):
 

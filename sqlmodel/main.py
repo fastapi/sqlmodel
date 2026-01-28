@@ -395,17 +395,12 @@ def Field(
     current_schema_extra = schema_extra or {}
 
     if regex:
-        warnings.warn(
-            REGEX_PARAM_DEPRECATION_MSG,
-            DeprecationWarning,
-            stacklevel=2,
-        )
-    if "pattern" in current_schema_extra:
-        warnings.warn(
-            "Pass `pattern` parameter directly to Field instead of passing it via `schema_extra`",
-            DeprecationWarning,
-            stacklevel=2,
-        )
+        warnings.warn(REGEX_PARAM_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+
+    for param_name in ("pattern",):
+        if param_name in current_schema_extra:
+            msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
+            warnings.warn(msg, UserWarning, stacklevel=2)
 
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
