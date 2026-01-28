@@ -216,6 +216,7 @@ def Field(
     examples: Optional[list[Any]] = None,
     deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -262,6 +263,7 @@ def Field(
     examples: Optional[list[Any]] = None,
     deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -317,6 +319,7 @@ def Field(
     examples: Optional[list[Any]] = None,
     deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -353,6 +356,7 @@ def Field(
     examples: Optional[list[Any]] = None,
     deprecated: Union[Deprecated, str, bool, None] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude_if: Optional[Callable[[Any], bool]] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
@@ -386,7 +390,7 @@ def Field(
 ) -> Any:
     current_schema_extra = schema_extra or {}
 
-    for param_name in ("strict", "examples", "deprecated"):
+    for param_name in ("strict", "examples", "deprecated", "exclude_if"):
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
             warnings.warn(msg, DeprecationWarning, stacklevel=2)
@@ -397,6 +401,7 @@ def Field(
     current_strict = strict or current_schema_extra.pop("strict", None)
     current_examples = examples or current_schema_extra.pop("examples", None)
     current_deprecated = deprecated or current_schema_extra.pop("deprecated", None)
+    current_exclude_if = exclude_if or current_schema_extra.pop("exclude_if", None)
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -404,6 +409,7 @@ def Field(
         "examples": current_examples,
         "deprecated": current_deprecated,
         "exclude": exclude,
+        "exclude_if": current_exclude_if,
         "include": include,
         "const": const,
         "gt": gt,

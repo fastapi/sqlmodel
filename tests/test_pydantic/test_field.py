@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Literal, Optional, Union
+from typing import Any, Literal, Optional, Union
 
 import pytest
 from pydantic import ValidationError
@@ -175,3 +175,48 @@ def test_deprecated_via_schema_extra():  # Current workaround. Remove after some
     model_schema = Model.model_json_schema()
     assert model_schema["properties"]["old_field"]["deprecated"] is True
     assert model_schema["properties"]["another_old_field"]["deprecated"] is True
+
+
+def test_exclude_if():
+    def is_empty_string(value: Any) -> bool:
+        return value == ""
+
+    class Model(SQLModel):
+        name: str = Field(exclude_if=is_empty_string)
+        age: int
+
+    model1 = Model(name="Alice", age=30)
+    model2 = Model(name="", age=25)
+
+    dict1 = model1.model_dump()
+    dict2 = model2.model_dump()
+
+    assert "name" in dict1
+    assert dict1["name"] == "Alice"
+
+    assert "name" not in dict2
+
+
+def test_exclude_if_via_schema_extra():
+    def is_empty_string(value: Any) -> bool:
+        return value == ""
+
+    with pytest.warns(
+        DeprecationWarning,
+        match="Pass `exclude_if` parameter directly to Field instead of passing it via `schema_extra`",
+    ):
+
+        class Model(SQLModel):
+            name: str = Field(schema_extra={"exclude_if": is_empty_string})
+            age: int
+
+    model1 = Model(name="Alice", age=30)
+    model2 = Model(name="", age=25)
+
+    dict1 = model1.model_dump()
+    dict2 = model2.model_dump()
+
+    assert "name" in dict1
+    assert dict1["name"] == "Alice"
+
+    assert "name" not in dict2
