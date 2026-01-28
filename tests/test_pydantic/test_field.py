@@ -148,3 +148,30 @@ def test_examples_via_schema_extra():  # Current workaround. Remove after some t
 
     model_schema = Model.model_json_schema()
     assert model_schema["properties"]["name"]["examples"] == ["Alice", "Bob"]
+
+
+def test_deprecated():
+    class Model(SQLModel):
+        old_field: str = Field(deprecated=True)
+        another_old_field: str = Field(deprecated="This field is deprecated")
+
+    model_schema = Model.model_json_schema()
+    assert model_schema["properties"]["old_field"]["deprecated"] is True
+    assert model_schema["properties"]["another_old_field"]["deprecated"] is True
+
+
+def test_deprecated_via_schema_extra():  # Current workaround. Remove after some time
+    with pytest.warns(
+        DeprecationWarning,
+        match="Pass `deprecated` parameter directly to Field instead of passing it via `schema_extra`",
+    ):
+
+        class Model(SQLModel):
+            old_field: str = Field(schema_extra={"deprecated": True})
+            another_old_field: str = Field(
+                schema_extra={"deprecated": "This field is deprecated"}
+            )
+
+    model_schema = Model.model_json_schema()
+    assert model_schema["properties"]["old_field"]["deprecated"] is True
+    assert model_schema["properties"]["another_old_field"]["deprecated"] is True
