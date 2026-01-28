@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
@@ -214,6 +215,7 @@ def Field(
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
+    coerce_numbers_to_str: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -257,6 +259,7 @@ def Field(
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
+    coerce_numbers_to_str: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -309,6 +312,7 @@ def Field(
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
+    coerce_numbers_to_str: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -342,6 +346,7 @@ def Field(
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
+    coerce_numbers_to_str: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -371,9 +376,18 @@ def Field(
     schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    for param_name in ("coerce_numbers_to_str",):
+        if param_name in current_schema_extra:
+            msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
+            warnings.warn(msg, UserWarning, stacklevel=2)
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
+    current_coerce_numbers_to_str = coerce_numbers_to_str or current_schema_extra.pop(
+        "coerce_numbers_to_str", None
+    )
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -381,6 +395,7 @@ def Field(
         "exclude": exclude,
         "include": include,
         "const": const,
+        "coerce_numbers_to_str": current_coerce_numbers_to_str,
         "gt": gt,
         "ge": ge,
         "lt": lt,

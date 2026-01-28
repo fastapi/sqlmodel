@@ -54,3 +54,36 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_coerce_numbers_to_str_true():
+    class Model(SQLModel):
+        val: str = Field(coerce_numbers_to_str=True)
+
+    assert Model.model_validate({"val": 123}).val == "123"
+    assert Model.model_validate({"val": 45.67}).val == "45.67"
+
+
+@pytest.mark.parametrize("coerce_numbers_to_str", [None, False])
+def test_coerce_numbers_to_str_false(coerce_numbers_to_str: Optional[bool]):
+    class Model2(SQLModel):
+        val: str = Field(coerce_numbers_to_str=coerce_numbers_to_str)
+
+    with pytest.raises(ValidationError):
+        Model2.model_validate({"val": 123})
+
+
+def test_coerce_numbers_to_str_via_schema_extra():  # Current workaround. Remove after some time
+    with pytest.warns(
+        UserWarning,
+        match=(
+            "Pass `coerce_numbers_to_str` parameter directly to Field instead of passing "
+            "it via `schema_extra`"
+        ),
+    ):
+
+        class Model(SQLModel):
+            val: str = Field(schema_extra={"coerce_numbers_to_str": True})
+
+    assert Model.model_validate({"val": 123}).val == "123"
+    assert Model.model_validate({"val": 45.67}).val == "45.67"
