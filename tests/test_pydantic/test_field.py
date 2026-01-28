@@ -79,8 +79,13 @@ def test_field_pattern_param():
 
 
 def test_field_pattern_via_schema_extra():
-    class DateModel(SQLModel):
-        date_1: str = Field(schema_extra={"pattern": r"^\d{2}-\d{2}-\d{4}$"})
+    with pytest.warns(
+        DeprecationWarning,
+        match="Pass `pattern` parameter directly to Field instead of passing it via `schema_extra`",
+    ):
+
+        class DateModel(SQLModel):
+            date_1: str = Field(schema_extra={"pattern": r"^\d{2}-\d{2}-\d{4}$"})
 
     with pytest.raises(ValidationError):
         DateModel(date_1="incorrect")
