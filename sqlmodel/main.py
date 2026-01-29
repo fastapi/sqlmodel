@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
@@ -11,6 +12,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     Callable,
     ClassVar,
@@ -88,6 +90,8 @@ IncEx: TypeAlias = Union[
     Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+
+CONST_DEPRECATION_MSG = "`const` is deprecated and doesn't work, use `Literal` instead"
 
 
 def __dataclass_transform__(
@@ -213,7 +217,10 @@ def Field(
     description: Optional[str] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
+    const: Annotated[
+        Optional[bool],
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -256,7 +263,10 @@ def Field(
     description: Optional[str] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
+    const: Annotated[
+        Optional[bool],
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -308,7 +318,10 @@ def Field(
     description: Optional[str] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
+    const: Annotated[
+        Optional[bool],
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -341,7 +354,10 @@ def Field(
     description: Optional[str] = None,
     exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
+    const: Annotated[
+        Optional[bool],
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
     lt: Optional[float] = None,
@@ -371,6 +387,10 @@ def Field(
     schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if const is not None:
+        warnings.warn(CONST_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
@@ -380,7 +400,6 @@ def Field(
         "description": description,
         "exclude": exclude,
         "include": include,
-        "const": const,
         "gt": gt,
         "ge": ge,
         "lt": lt,
