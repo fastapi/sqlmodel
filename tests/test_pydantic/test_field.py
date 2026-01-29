@@ -64,3 +64,13 @@ def test_const_is_deprecated():
 
         class Model(SQLModel):
             int_value: int = Field(default=10, const=True)
+
+
+def test_unique_items_is_deprecated():
+    with pytest.warns(
+        DeprecationWarning,
+        match="`unique_items` is deprecated and doesn't work, use `set` type instead",
+    ):
+
+        class Model(SQLModel):
+            values: list[int] = Field(unique_items=True)

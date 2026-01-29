@@ -92,6 +92,9 @@ IncEx: TypeAlias = Union[
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 CONST_DEPRECATION_MSG = "`const` is deprecated and doesn't work, use `Literal` instead"
+UNIQUE_ITEMS_DEPRECATION_MSG = (
+    "`unique_items` is deprecated and doesn't work, use `set` type instead"
+)
 
 
 def __dataclass_transform__(
@@ -230,7 +233,10 @@ def Field(
     decimal_places: Optional[int] = None,
     min_items: Optional[int] = None,
     max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
+    unique_items: Annotated[
+        Optional[bool],
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
@@ -276,7 +282,10 @@ def Field(
     decimal_places: Optional[int] = None,
     min_items: Optional[int] = None,
     max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
+    unique_items: Annotated[
+        Optional[bool],
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
@@ -331,7 +340,10 @@ def Field(
     decimal_places: Optional[int] = None,
     min_items: Optional[int] = None,
     max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
+    unique_items: Annotated[
+        Optional[bool],
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
@@ -367,7 +379,10 @@ def Field(
     decimal_places: Optional[int] = None,
     min_items: Optional[int] = None,
     max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
+    unique_items: Annotated[
+        Optional[bool],
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
     allow_mutation: bool = True,
@@ -390,6 +405,8 @@ def Field(
 
     if const is not None:
         warnings.warn(CONST_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+    if unique_items is not None:
+        warnings.warn(UNIQUE_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
 
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
@@ -409,7 +426,6 @@ def Field(
         "decimal_places": decimal_places,
         "min_items": min_items,
         "max_items": max_items,
-        "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
         "allow_mutation": allow_mutation,
