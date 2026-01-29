@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
@@ -11,6 +12,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     Callable,
     ClassVar,
@@ -88,6 +90,13 @@ IncEx: TypeAlias = Union[
     Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+
+MIN_ITEMS_DEPRECATION_MSG = (
+    "`min_items` is deprecated and will be removed, use `min_length` instead"
+)
+MAX_ITEMS_DEPRECATION_MSG = (
+    "`max_items` is deprecated and will be removed, use `max_length` instead"
+)
 
 
 def __dataclass_transform__(
@@ -221,8 +230,14 @@ def Field(
     multiple_of: Optional[float] = None,
     max_digits: Optional[int] = None,
     decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
+    min_items: Annotated[
+        Optional[int],
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        Optional[int],
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
@@ -264,8 +279,14 @@ def Field(
     multiple_of: Optional[float] = None,
     max_digits: Optional[int] = None,
     decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
+    min_items: Annotated[
+        Optional[int],
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        Optional[int],
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
@@ -316,8 +337,14 @@ def Field(
     multiple_of: Optional[float] = None,
     max_digits: Optional[int] = None,
     decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
+    min_items: Annotated[
+        Optional[int],
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        Optional[int],
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
@@ -349,8 +376,14 @@ def Field(
     multiple_of: Optional[float] = None,
     max_digits: Optional[int] = None,
     decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
+    min_items: Annotated[
+        Optional[int],
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        Optional[int],
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: Optional[bool] = None,
     min_length: Optional[int] = None,
     max_length: Optional[int] = None,
@@ -371,6 +404,16 @@ def Field(
     schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if min_items is not None:
+        warnings.warn(MIN_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if min_length is None:
+            min_length = min_items
+    if max_items is not None:
+        warnings.warn(MAX_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if max_length is None:
+            max_length = max_items
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
@@ -388,8 +431,6 @@ def Field(
         "multiple_of": multiple_of,
         "max_digits": max_digits,
         "decimal_places": decimal_places,
-        "min_items": min_items,
-        "max_items": max_items,
         "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
