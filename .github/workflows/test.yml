@@ -74,7 +74,7 @@ jobs:
         with:
           limit-access-to-actor: true
       - name: Install Dependencies
-        run: uv sync --locked --no-dev --group tests
+        run: uv sync --no-dev --group tests
       - run: mkdir coverage
       - name: Test
         run: uv run bash scripts/test.sh
