@@ -41,10 +41,10 @@ jobs:
             uv-resolution: highest
           - os: windows-latest
             python-version: "3.12"
-            uv-resolution: highest
+            uv-resolution: lowest-direct
           - os: ubuntu-latest
             python-version: "3.13"
-            uv-resolution: lowest-direct
+            uv-resolution: highest
           - os: macos-latest
             python-version: "3.13"
             uv-resolution: highest
