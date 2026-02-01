@@ -33,16 +33,22 @@ jobs:
         include:
           - os: windows-latest
             python-version: "3.9"
+            uv-resolution: highest
           - os: ubuntu-latest
             python-version: "3.10"
+            uv-resolution: lowest-direct
           - os: macos-latest
             python-version: "3.11"
+            uv-resolution: highest
           - os: windows-latest
             python-version: "3.12"
+            uv-resolution: highest
           - os: ubuntu-latest
             python-version: "3.13"
+            uv-resolution: highest
           - os: macos-latest
             python-version: "3.13"
+            uv-resolution: highest
       fail-fast: false
     runs-on: ${{ matrix.os }}
     env:
