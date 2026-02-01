@@ -116,13 +116,13 @@ class AsyncSession(_AsyncSession):
         For example:
 
         ```Python
-        heroes = await session.execute(select(Hero)).scalars().all()
+        heroes = (await session.execute(select(Hero))).scalars().all()
         ```
 
         instead you could use `exec()`:
 
         ```Python
-        heroes = await session.exec(select(Hero)).all()
+        heroes = (await session.exec(select(Hero))).all()
         ```
         """
     )
@@ -145,13 +145,13 @@ class AsyncSession(_AsyncSession):
         For example:
 
         ```Python
-        heroes = await session.execute(select(Hero)).scalars().all()
+        heroes = (await session.execute(select(Hero))).scalars().all()
         ```
 
         instead you could use `exec()`:
 
         ```Python
-        heroes = await session.exec(select(Hero)).all()
+        heroes = (await session.exec(select(Hero))).all()
         ```
         """
         return await super().execute(
