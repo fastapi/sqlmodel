@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Fix support for `Annotated` fields with Pydantic 2.12+. PR [#1607](https://github.com/fastapi/sqlmodel/pull/1607) by [@vimota](https://github.com/vimota).
+
 ### Refactors
 
 * ♻️ Import `Literal` from the `typing` module directly. PR [#1699](https://github.com/fastapi/sqlmodel/pull/1699) by [@svlandeg](https://github.com/svlandeg).
