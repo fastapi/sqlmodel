@@ -27,6 +27,9 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
         python-version: [ "3.14" ]
+        uv-resolution:
+          - highest
+          - lowest-direct
         include:
           - os: windows-latest
             python-version: "3.9"
@@ -44,6 +47,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       UV_PYTHON: ${{ matrix.python-version }}
+      UV_RESOLUTION: ${{ matrix.uv-resolution }}
     steps:
       - uses: actions/checkout@v6
       - name: Set up Python
