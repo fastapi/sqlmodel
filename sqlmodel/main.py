@@ -200,6 +200,38 @@ class RelationshipInfo(Representation):
         self.sa_relationship_kwargs = sa_relationship_kwargs
 
 
+@dataclass
+class FieldInfoMetadata:
+    primary_key: Union[bool, UndefinedType] = Undefined
+    nullable: Union[bool, UndefinedType] = Undefined
+    foreign_key: Any = Undefined
+    ondelete: Union[OnDeleteType, UndefinedType] = Undefined
+    unique: Union[bool, UndefinedType] = Undefined
+    index: Union[bool, UndefinedType] = Undefined
+    sa_type: Union[type[Any], UndefinedType] = Undefined
+    sa_column: Union[Column[Any], UndefinedType] = Undefined
+    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined
+    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined
+
+
+def _get_sqlmodel_field_metadata(field_info: Any) -> Optional[FieldInfoMetadata]:
+    metadata_items = getattr(field_info, "metadata", None)
+    if metadata_items:
+        for meta in metadata_items:
+            if isinstance(meta, FieldInfoMetadata):
+                return meta
+    return None
+
+
+def _get_sqlmodel_field_value(
+    field_info: Any, attribute: str, default: Any = Undefined
+) -> Any:
+    metadata = _get_sqlmodel_field_metadata(field_info)
+    if metadata is not None and hasattr(metadata, attribute):
+        return getattr(metadata, attribute)
+    return getattr(field_info, attribute, default)
+
+
 # include sa_type, sa_column_args, sa_column_kwargs
 @overload
 def Field(
@@ -328,38 +360,6 @@ def Field(
     sa_column: Union[Column[Any], UndefinedType] = Undefined,
     schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any: ...
-
-
-@dataclass
-class FieldInfoMetadata:
-    primary_key: Union[bool, UndefinedType] = Undefined
-    nullable: Union[bool, UndefinedType] = Undefined
-    foreign_key: Any = Undefined
-    ondelete: Union[OnDeleteType, UndefinedType] = Undefined
-    unique: Union[bool, UndefinedType] = Undefined
-    index: Union[bool, UndefinedType] = Undefined
-    sa_type: Union[type[Any], UndefinedType] = Undefined
-    sa_column: Union[Column[Any], UndefinedType] = Undefined
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined
-
-
-def _get_sqlmodel_field_metadata(field_info: Any) -> Optional[FieldInfoMetadata]:
-    metadata_items = getattr(field_info, "metadata", None)
-    if metadata_items:
-        for meta in metadata_items:
-            if isinstance(meta, FieldInfoMetadata):
-                return meta
-    return None
-
-
-def _get_sqlmodel_field_value(
-    field_info: Any, attribute: str, default: Any = Undefined
-) -> Any:
-    metadata = _get_sqlmodel_field_metadata(field_info)
-    if metadata is not None and hasattr(metadata, attribute):
-        return getattr(metadata, attribute)
-    return getattr(field_info, attribute, default)
 
 
 def Field(
