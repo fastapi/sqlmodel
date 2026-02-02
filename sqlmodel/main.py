@@ -771,7 +771,9 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         unique = False
     if foreign_key:
         if isinstance(foreign_key, str):
-            ondelete_value = _get_sqlmodel_field_value(field_info, "ondelete", Undefined)
+            ondelete_value = _get_sqlmodel_field_value(
+                field_info, "ondelete", Undefined
+            )
             if ondelete_value is Undefined:
                 ondelete_value = None
             if ondelete_value == "SET NULL" and not nullable:
