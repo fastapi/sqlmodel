@@ -9,6 +9,7 @@ from typing import (
     Annotated,
     Any,
     ForwardRef,
+    Literal,
     Optional,
     TypeVar,
     Union,
@@ -62,6 +63,36 @@ class ObjectWithUpdateWrapper:
 
 def _is_union_type(t: Any) -> bool:
     return t is UnionType or t is Union
+
+
+def get_literal_annotation_info(
+    annotation: Any,
+) -> Optional[tuple[type[Any], tuple[Any, ...]]]:
+    if annotation is None or get_origin(annotation) is None:
+        return None
+    origin = get_origin(annotation)
+    if origin is Annotated:
+        return get_literal_annotation_info(get_args(annotation)[0])
+    if _is_union_type(origin):
+        bases = get_args(annotation)
+        if len(bases) > 2:
+            raise ValueError("Cannot have a Union with more than 2 members")
+        if bases[0] is not NoneType and bases[1] is not NoneType:
+            raise ValueError("Cannot have a Union without None")
+        use_type = bases[0] if bases[0] is not NoneType else bases[1]
+        return get_literal_annotation_info(use_type)
+    if origin is Literal:
+        literal_args = get_args(annotation)
+        if not literal_args:
+            return None
+        if all(isinstance(arg, bool) for arg in literal_args):  # all bools
+            base_type: type[Any] = bool
+        elif all(isinstance(arg, int) for arg in literal_args):  # all ints
+            base_type = int
+        else:
+            base_type = str
+        return base_type, tuple(literal_args)
+    return None
 
 
 finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
@@ -189,6 +220,12 @@ def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         # Optional unions are allowed
         use_type = bases[0] if bases[0] is not NoneType else bases[1]
         return get_sa_type_from_type_annotation(use_type)
+    if origin is Literal:
+        literal_info = get_literal_annotation_info(annotation)
+        if literal_info is None:
+            raise ValueError("Literal without values is not supported")
+        base_type, _ = literal_info
+        return base_type
     return origin
 
 
