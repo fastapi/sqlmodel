@@ -4,7 +4,7 @@ import builtins
 import ipaddress
 import uuid
 import weakref
-from collections.abc import Mapping, Sequence
+from collections.abc import Mapping, Sequence, Set
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
@@ -212,6 +212,7 @@ def Field(
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[bool, None] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -254,6 +255,7 @@ def Field(
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[bool, None] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -305,6 +307,7 @@ def Field(
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[bool, None] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -337,6 +340,7 @@ def Field(
     title: Optional[str] = None,
     description: Optional[str] = None,
     exclude: Union[bool, None] = None,
+    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -375,6 +379,7 @@ def Field(
         "title": title,
         "description": description,
         "exclude": exclude,
+        "include": include,
         "const": const,
         "gt": gt,
         "ge": ge,
