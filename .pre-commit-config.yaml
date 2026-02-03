@@ -28,6 +28,14 @@ repos:
         language: unsupported
         types: [python]
 
+      - id: local-mypy
+        name: mypy check
+        entry: uv run mypy sqlmodel tests/test_select_typing.py
+        require_serial: true
+        language: unsupported
+        pass_filenames: false
+        types: [python]
+
       - id: generate-select
         language: unsupported
         name: generate-select
