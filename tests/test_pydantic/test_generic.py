@@ -1,10 +1,8 @@
-from typing import Generic, List, Optional, TypeVar
+from typing import Generic, Optional, TypeVar
 
 import pydantic
 import pytest
 from sqlmodel import SQLModel
-
-from tests.conftest import needs_pydanticv2
 
 # Example adapted from
 # https://docs.pydantic.dev/2.10/concepts/models/#generic-models
@@ -12,15 +10,14 @@ DataT = TypeVar("DataT")
 
 
 class DataModel(SQLModel):
-    numbers: List[int]
-    people: List[str]
+    numbers: list[int]
+    people: list[str]
 
 
 class Response(SQLModel, Generic[DataT]):
     data: Optional[DataT] = None
 
 
-@needs_pydanticv2
 @pytest.mark.parametrize(
     ["data_type", "data_value"],
     [
