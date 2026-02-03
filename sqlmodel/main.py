@@ -607,7 +607,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            new_cls.model_config["read_from_attributes"] = True
+            new_cls.model_config["read_from_attributes"] = True  # type: ignore[typeddict-unknown-key]
             # For compatibility with older versions
             # TODO: remove this in the future
             new_cls.model_config["read_with_orm_mode"] = True
