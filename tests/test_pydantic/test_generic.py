@@ -33,7 +33,6 @@ def test_valid_generics(data_type, data_value):
     assert Response[data_type](**response.model_dump()) == response
 
 
-@needs_pydanticv2
 @pytest.mark.parametrize(
     ["data_type", "data_value", "error_loc", "error_type"],
     [
@@ -71,7 +70,6 @@ def test_invalid_generics(data_type, data_value, error_loc, error_type):
     assert error_dict["type"] == error_type
 
 
-@needs_pydanticv2
 def test_generic_json_schema():
     schema = Response[DataModel].model_json_schema()
     # Should have referenced the schema in $defs
