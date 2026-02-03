@@ -67,3 +67,13 @@ def test_exclude():
     assert "id" in dict_representation
     assert "name" in dict_representation
     assert "value" not in dict_representation
+
+
+def test_include_is_deprecated():
+    with pytest.warns(
+        DeprecationWarning,
+        match="`include` is deprecated and does nothing. It will be removed, use `exclude` instead",
+    ):
+
+        class Model(SQLModel):
+            values: list[int] = Field(include=True)
