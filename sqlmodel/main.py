@@ -579,7 +579,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        new_cls = cast(
+            "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        )
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
@@ -607,10 +609,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            new_cls.model_config["read_from_attributes"] = True
+            new_cls.model_config["read_from_attributes"] = True  # type: ignore[typeddict-unknown-key]
             # For compatibility with older versions
             # TODO: remove this in the future
-            new_cls.model_config["read_with_orm_mode"] = True
+            new_cls.model_config["read_with_orm_mode"] = True  # type: ignore[typeddict-unknown-key]
 
         config_registry = get_config("registry")
         if config_registry is not Undefined:
@@ -792,7 +794,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     )
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)  # type: ignore
+    return Column(sa_type, *args, **kwargs)
 
 
 class_registry = weakref.WeakValueDictionary()  # type: ignore
