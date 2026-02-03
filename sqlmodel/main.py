@@ -580,8 +580,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
         new_cls = cast(
-            "SQLModel",
-            super().__new__(cls, name, bases, dict_used, **config_kwargs)
+            "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
         )
         new_cls.__annotations__ = {
             **relationship_annotations,
