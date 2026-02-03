@@ -2,12 +2,36 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Run mypy by pre-commit. PR [#1738](https://github.com/fastapi/sqlmodel/pull/1738) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump prek from 0.3.0 to 0.3.1. PR [#1739](https://github.com/fastapi/sqlmodel/pull/1739) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.32
+
+### Fixes
+
+* 🐛 Fix support for `Annotated` fields with Pydantic 2.12+. PR [#1607](https://github.com/fastapi/sqlmodel/pull/1607) by [@vimota](https://github.com/vimota).
+
+### Refactors
+
+* ♻️ Import `Literal` from the `typing` module directly. PR [#1699](https://github.com/fastapi/sqlmodel/pull/1699) by [@svlandeg](https://github.com/svlandeg).
+
 ### Docs
 
+* 📝 Add contribution instructions about LLM generated code and comments and automated tools for PRs. PR [#1712](https://github.com/fastapi/sqlmodel/pull/1712) by [@alejsdev](https://github.com/alejsdev).
+* 🐛 Fix copy button in `custom.js`. PR [#1711](https://github.com/fastapi/sqlmodel/pull/1711) by [@alejsdev](https://github.com/alejsdev).
 * 📝 Remove duplicated word in `read-relationships.md`. PR [#1705](https://github.com/fastapi/sqlmodel/pull/1705) by [@stefmolin](https://github.com/stefmolin).
 
 ### Internal
 
+* ⬆ Bump ruff from 0.14.13 to 0.14.14. PR [#1721](https://github.com/fastapi/sqlmodel/pull/1721) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.2.30 to 0.3.0. PR [#1720](https://github.com/fastapi/sqlmodel/pull/1720) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔧 Ensure that an edit to `uv.lock` gets the `internal` label. PR [#1719](https://github.com/fastapi/sqlmodel/pull/1719) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump sqlalchemy from 2.0.45 to 2.0.46. PR [#1717](https://github.com/fastapi/sqlmodel/pull/1717) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.0 to 0.21.1. PR [#1715](https://github.com/fastapi/sqlmodel/pull/1715) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.10 to 0.14.13. PR [#1714](https://github.com/fastapi/sqlmodel/pull/1714) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.2.25 to 0.2.30. PR [#1716](https://github.com/fastapi/sqlmodel/pull/1716) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Update FastAPI version pin to `>=0.103.2` in tests. PR [#1709](https://github.com/fastapi/sqlmodel/pull/1709) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 📌 Pin development Python version to 3.10, for `deploy_docs_status.py`. PR [#1707](https://github.com/fastapi/sqlmodel/pull/1707) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️  Migrate to uv. PR [#1688](https://github.com/fastapi/sqlmodel/pull/1688) by [@DoctorJohn](https://github.com/DoctorJohn).
