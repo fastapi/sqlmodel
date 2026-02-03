@@ -34,7 +34,6 @@ repos:
         require_serial: true
         language: unsupported
         pass_filenames: false
-        types: [python]
 
       - id: generate-select
         language: unsupported
