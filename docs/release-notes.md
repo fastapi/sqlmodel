@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Update `management-tasks.md` to be in line with `management-tasks.md` in FastAPI repo. PR [#1743](https://github.com/fastapi/sqlmodel/pull/1743) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ### Internal
 
 * ⬆ Bump fastapi from 0.128.0 to 0.128.1. PR [#1742](https://github.com/fastapi/sqlmodel/pull/1742) by [@dependabot[bot]](https://github.com/apps/dependabot).
