@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Mapping, Sequence, Set
 from dataclasses import dataclass
@@ -12,6 +13,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     Callable,
     ClassVar,
@@ -89,6 +91,8 @@ IncEx: TypeAlias = Union[
     Mapping[str, Union["IncEx", bool]],
 ]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+
+INCLUDE_DEPRECATION_MSG = "`include` is deprecated and does nothing. It will be removed, use `exclude` instead"
 
 
 def __dataclass_transform__(
@@ -244,8 +248,11 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude: Union[bool, None] = None,
+    include: Annotated[
+        Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any],
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -287,8 +294,11 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude: Union[bool, None] = None,
+    include: Annotated[
+        Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any],
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -339,8 +349,11 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude: Union[bool, None] = None,
+    include: Annotated[
+        Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any],
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -372,8 +385,11 @@ def Field(
     serialization_alias: Optional[str] = None,
     title: Optional[str] = None,
     description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
+    exclude: Union[bool, None] = None,
+    include: Annotated[
+        Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any],
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: Optional[bool] = None,
     gt: Optional[float] = None,
     ge: Optional[float] = None,
@@ -404,6 +420,10 @@ def Field(
     schema_extra: Optional[dict[str, Any]] = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if include is not None:
+        warnings.warn(INCLUDE_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
