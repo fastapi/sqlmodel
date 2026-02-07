@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
@@ -42,12 +44,17 @@ def get_session():
         yield session
 
 
-app = FastAPI()
-
-
-@app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    on_startup()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/heroes/", response_model=HeroPublic)
