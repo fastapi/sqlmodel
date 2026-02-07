@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi from 0.128.1 to 0.128.3. PR [#1746](https://github.com/fastapi/sqlmodel/pull/1746) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.1 to 0.3.2. PR [#1745](https://github.com/fastapi/sqlmodel/pull/1745) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.128.0 to 0.128.1. PR [#1742](https://github.com/fastapi/sqlmodel/pull/1742) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Update `ValidationError` schema in FastAPI-related tests to be compatible with FastAPI 0.128.1+. PR [#1744](https://github.com/fastapi/sqlmodel/pull/1744) by [@YuriiMotov](https://github.com/YuriiMotov).
