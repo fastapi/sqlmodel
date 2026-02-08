@@ -123,6 +123,7 @@ from .sql.expression import and_ as and_
 from .sql.expression import any_ as any_
 from .sql.expression import asc as asc
 from .sql.expression import between as between
+from .sql.expression import bitwise_not as bitwise_not
 from .sql.expression import case as case
 from .sql.expression import cast as cast
 from .sql.expression import col as col
@@ -131,12 +132,14 @@ from .sql.expression import desc as desc
 from .sql.expression import distinct as distinct
 from .sql.expression import extract as extract
 from .sql.expression import funcfilter as funcfilter
+from .sql.expression import label as label
 from .sql.expression import not_ as not_
 from .sql.expression import nulls_first as nulls_first
 from .sql.expression import nulls_last as nulls_last
 from .sql.expression import or_ as or_
 from .sql.expression import over as over
 from .sql.expression import select as select
+from .sql.expression import try_cast as try_cast
 from .sql.expression import tuple_ as tuple_
 from .sql.expression import type_coerce as type_coerce
 from .sql.expression import within_group as within_group
