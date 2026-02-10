@@ -2581,7 +2581,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "black", specifier = ">=22.10" },
+    { name = "black", specifier = ">=24.1.0" },
     { name = "cairosvg", specifier = "==2.8.2" },
     { name = "coverage", extras = ["toml"], specifier = ">=6.2,<8.0" },
     { name = "dirty-equals", specifier = "==0.11" },
@@ -2607,7 +2607,7 @@ dev = [
     { name = "typing-extensions", specifier = "==4.15.0" },
 ]
 docs = [
-    { name = "black", specifier = ">=22.10" },
+    { name = "black", specifier = ">=24.1.0" },
     { name = "cairosvg", specifier = "==2.8.2" },
     { name = "griffe-typingdoc", specifier = "==0.3.0" },
     { name = "griffe-warnings-deprecated", specifier = "==1.1.0" },
@@ -2629,7 +2629,7 @@ github-actions = [
     { name = "smokeshow", specifier = ">=0.5.0" },
 ]
 tests = [
-    { name = "black", specifier = ">=22.10" },
+    { name = "black", specifier = ">=24.1.0" },
     { name = "coverage", extras = ["toml"], specifier = ">=6.2,<8.0" },
     { name = "dirty-equals", specifier = "==0.11" },
     { name = "fastapi", specifier = ">=0.128.0" },
