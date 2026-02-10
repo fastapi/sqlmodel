@@ -5,6 +5,7 @@ import ipaddress
 import uuid
 import weakref
 from collections.abc import Mapping, Sequence, Set
+from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
 from enum import Enum
@@ -198,6 +199,38 @@ class RelationshipInfo(Representation):
         self.sa_relationship = sa_relationship
         self.sa_relationship_args = sa_relationship_args
         self.sa_relationship_kwargs = sa_relationship_kwargs
+
+
+@dataclass
+class FieldInfoMetadata:
+    primary_key: Union[bool, UndefinedType] = Undefined
+    nullable: Union[bool, UndefinedType] = Undefined
+    foreign_key: Any = Undefined
+    ondelete: Union[OnDeleteType, UndefinedType] = Undefined
+    unique: Union[bool, UndefinedType] = Undefined
+    index: Union[bool, UndefinedType] = Undefined
+    sa_type: Union[type[Any], UndefinedType] = Undefined
+    sa_column: Union[Column[Any], UndefinedType] = Undefined
+    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined
+    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined
+
+
+def _get_sqlmodel_field_metadata(field_info: Any) -> Optional[FieldInfoMetadata]:
+    metadata_items = getattr(field_info, "metadata", None)
+    if metadata_items:
+        for meta in metadata_items:
+            if isinstance(meta, FieldInfoMetadata):
+                return meta
+    return None
+
+
+def _get_sqlmodel_field_value(
+    field_info: Any, attribute: str, default: Any = Undefined
+) -> Any:
+    metadata = _get_sqlmodel_field_metadata(field_info)
+    if metadata is not None and hasattr(metadata, attribute):
+        return getattr(metadata, attribute)
+    return getattr(field_info, attribute, default)
 
 
 # include sa_type, sa_column_args, sa_column_kwargs
@@ -423,6 +456,20 @@ def Field(
         default_factory=default_factory,
         **field_info_kwargs,
     )
+    field_metadata = FieldInfoMetadata(
+        primary_key=primary_key,
+        nullable=nullable,
+        foreign_key=foreign_key,
+        ondelete=ondelete,
+        unique=unique,
+        index=index,
+        sa_type=sa_type,
+        sa_column=sa_column,
+        sa_column_args=sa_column_args,
+        sa_column_kwargs=sa_column_kwargs,
+    )
+    if hasattr(field_info, "metadata"):
+        field_info.metadata.append(field_metadata)
     return field_info
 
 
@@ -532,7 +579,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        new_cls = super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        new_cls = cast(
+            "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
+        )
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
@@ -560,10 +609,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            new_cls.model_config["read_from_attributes"] = True
+            new_cls.model_config["read_from_attributes"] = True  # type: ignore[typeddict-unknown-key]
             # For compatibility with older versions
             # TODO: remove this in the future
-            new_cls.model_config["read_with_orm_mode"] = True
+            new_cls.model_config["read_with_orm_mode"] = True  # type: ignore[typeddict-unknown-key]
 
         config_registry = get_config("registry")
         if config_registry is not Undefined:
@@ -637,7 +686,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
 def get_sqlalchemy_type(field: Any) -> Any:
     field_info = field
-    sa_type = getattr(field_info, "sa_type", Undefined)  # noqa: B009
+    sa_type = _get_sqlmodel_field_value(field_info, "sa_type", Undefined)  # noqa: B009
     if sa_type is not Undefined:
         return sa_type
 
@@ -691,39 +740,39 @@ def get_sqlalchemy_type(field: Any) -> Any:
 
 def get_column_from_field(field: Any) -> Column:  # type: ignore
     field_info = field
-    sa_column = getattr(field_info, "sa_column", Undefined)
+    sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
         return sa_column
     sa_type = get_sqlalchemy_type(field)
-    primary_key = getattr(field_info, "primary_key", Undefined)
+    primary_key = _get_sqlmodel_field_value(field_info, "primary_key", Undefined)
     if primary_key is Undefined:
         primary_key = False
-    index = getattr(field_info, "index", Undefined)
+    index = _get_sqlmodel_field_value(field_info, "index", Undefined)
     if index is Undefined:
         index = False
     nullable = not primary_key and is_field_noneable(field)
     # Override derived nullability if the nullable property is set explicitly
     # on the field
-    field_nullable = getattr(field_info, "nullable", Undefined)  # noqa: B009
+    field_nullable = _get_sqlmodel_field_value(field_info, "nullable", Undefined)
     if field_nullable is not Undefined:
         assert not isinstance(field_nullable, UndefinedType)
         nullable = field_nullable
     args = []
-    foreign_key = getattr(field_info, "foreign_key", Undefined)
+    foreign_key = _get_sqlmodel_field_value(field_info, "foreign_key", Undefined)
     if foreign_key is Undefined:
         foreign_key = None
-    unique = getattr(field_info, "unique", Undefined)
+    unique = _get_sqlmodel_field_value(field_info, "unique", Undefined)
     if unique is Undefined:
         unique = False
     if foreign_key:
-        if field_info.ondelete == "SET NULL" and not nullable:
+        ondelete_value = _get_sqlmodel_field_value(field_info, "ondelete", Undefined)
+        if ondelete_value is Undefined:
+            ondelete_value = None
+        if ondelete_value == "SET NULL" and not nullable:
             raise RuntimeError('ondelete="SET NULL" requires nullable=True')
         assert isinstance(foreign_key, str)
-        ondelete = getattr(field_info, "ondelete", Undefined)
-        if ondelete is Undefined:
-            ondelete = None
-        assert isinstance(ondelete, (str, type(None)))  # for typing
-        args.append(ForeignKey(foreign_key, ondelete=ondelete))
+        assert isinstance(ondelete_value, (str, type(None)))  # for typing
+        args.append(ForeignKey(foreign_key, ondelete=ondelete_value))
     kwargs = {
         "primary_key": primary_key,
         "nullable": nullable,
@@ -737,13 +786,15 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         sa_default = field_info.default
     if sa_default is not Undefined:
         kwargs["default"] = sa_default
-    sa_column_args = getattr(field_info, "sa_column_args", Undefined)
+    sa_column_args = _get_sqlmodel_field_value(field_info, "sa_column_args", Undefined)
     if sa_column_args is not Undefined:
         args.extend(list(cast(Sequence[Any], sa_column_args)))
-    sa_column_kwargs = getattr(field_info, "sa_column_kwargs", Undefined)
+    sa_column_kwargs = _get_sqlmodel_field_value(
+        field_info, "sa_column_kwargs", Undefined
+    )
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)  # type: ignore
+    return Column(sa_type, *args, **kwargs)
 
 
 class_registry = weakref.WeakValueDictionary()  # type: ignore
