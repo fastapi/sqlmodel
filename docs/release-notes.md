@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.33
+
 ### Docs
 
 * ✏️ Fix typos in inline comment in `expression.py`. PR [#1747](https://github.com/fastapi/sqlmodel/pull/1747) by [@veeceey](https://github.com/veeceey).
