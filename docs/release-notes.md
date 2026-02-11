@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump fastapi from 0.128.7 to 0.128.8. PR [#1755](https://github.com/fastapi/sqlmodel/pull/1755) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.33
 
 ### Docs
