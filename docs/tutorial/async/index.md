@@ -100,7 +100,7 @@ async def read_heroes(session: AsyncSession):
 
 ### Async Database Drivers
 
-Make sure you use an asynchronous database driver. 
+Make sure you use an asynchronous database driver.
 
 * For **SQLite**, use `aiosqlite` with `sqlite+aiosqlite://`.
 * For **PostgreSQL**, use `asyncpg` with `postgresql+asyncpg://`.
