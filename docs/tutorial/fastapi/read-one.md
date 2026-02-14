@@ -14,7 +14,7 @@ If you need to refresh how *path parameters* work, including their data validati
 
 ///
 
-{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59] *}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[3:4,62:68] hl[62] *}
 
 For example, to get the hero with ID `2` we would send a `GET` request to:
 
@@ -34,7 +34,7 @@ And to use it, we first import `HTTPException` from `fastapi`.
 
 This will let the client know that they probably made a mistake on their side and requested a hero that doesn't exist in the database.
 
-{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[1,62:64] *}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[3:4,63:68] hl[3,65:67] *}
 
 ## Return the Hero
 
@@ -42,7 +42,7 @@ Then, if the hero exists, we return it.
 
 And because we are using the `response_model` with `HeroPublic`, it will be validated, documented, etc.
 
-{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59,65] *}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[3:4,62:68] hl[62,68] *}
 
 ## Check the Docs UI
 
