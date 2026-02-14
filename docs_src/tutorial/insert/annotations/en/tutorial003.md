@@ -6,7 +6,7 @@
 
 3. Use a `with` block to create a `Session` using the `engine`.
 
-    The new **sesion** will be assigned to the variable `session`.
+    The new **session** will be assigned to the variable `session`.
 
     And it will be automatically closed when the `with` block is finished.
 
