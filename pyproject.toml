@@ -37,7 +37,7 @@ classifiers = [
 
 dependencies = [
     "SQLAlchemy >=2.0.14,<2.1.0",
-    "pydantic>=2.7.0",
+    "pydantic>=2.11.0",
 ]
 
 [project.urls]
@@ -54,7 +54,7 @@ dev = [
     "prek>=0.2.24,<1.0.0",
 ]
 docs = [
-    "black>=22.10",
+    "black>=24.1.0",
     "cairosvg==2.8.2",
     "griffe-typingdoc==0.3.0",
     "griffe-warnings-deprecated==1.1.0",
@@ -76,10 +76,10 @@ github-actions = [
     "smokeshow>=0.5.0",
 ]
 tests = [
-    "black>=22.10",
+    "black>=24.1.0",
     "coverage[toml]>=6.2,<8.0",
     "dirty-equals==0.11",
-    "fastapi>=0.103.2",
+    "fastapi>=0.128.0",
     "httpx==0.28.1",
     "jinja2==3.1.6",
     "mypy==1.19.1",
