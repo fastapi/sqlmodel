@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.34
+
 ### Internal
 
 * 👷 Enable tests with lower and upper bound versions. PR [#1735](https://github.com/fastapi/sqlmodel/pull/1735) by [@tiangolo](https://github.com/tiangolo).
