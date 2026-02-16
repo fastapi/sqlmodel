@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Enable tests with lower and upper bound versions. PR [#1735](https://github.com/fastapi/sqlmodel/pull/1735) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump ruff from 0.15.0 to 0.15.1. PR [#1758](https://github.com/fastapi/sqlmodel/pull/1758) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.23.0 to 0.23.1. PR [#1759](https://github.com/fastapi/sqlmodel/pull/1759) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.21.2 to 0.23.0. PR [#1756](https://github.com/fastapi/sqlmodel/pull/1756) by [@dependabot[bot]](https://github.com/apps/dependabot).
