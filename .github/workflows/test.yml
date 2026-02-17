@@ -137,7 +137,7 @@ jobs:
 
   # https://github.com/marketplace/actions/alls-green#why
   alls-green:  # This job does nothing and is only used for the branch protection
-    if: always() && (github.repository_owner == 'fastapi' || github.event_name != 'schedule')
+    if: always()
     needs:
       - coverage-combine
     runs-on: ubuntu-latest
