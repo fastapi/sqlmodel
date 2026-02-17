@@ -24,6 +24,21 @@ Python has integrated support for SQLite, it is a single file read and processed
 
 In fact, SQLite is perfectly capable of handling quite big applications. At some point you might want to migrate to a server-based database like <a href="https://www.postgresql.org/" class="external-link" target="_blank">PostgreSQL</a> (which is also free). But for now we'll stick to SQLite.
 
+/// info
+
+In case you're using PostgreSQL, SQLModel does not install a database driver (such as Psycopg) and you'll need to install a database driver yourself.
+
+To install psycopg v3, run the following commands:
+
+pip install --upgrade pip
+pip install psycopg[binary]
+
+This installs the binary version (recommended for most users)
+
+For other installation options, see the <a href="https://www.psycopg.org/psycopg3/docs/basic/install.html" class="external-link" target="_blank">Psycopg documentation</a>.
+
+///
+
 Through the tutorial I will show you SQL fragments, and Python examples. And I hope (and expect 🧐) you to actually run them, and verify that the database is working as expected and showing you the same data.
 
 To be able to explore the SQLite file yourself, independent of Python code (and probably at the same time), I recommend you use <a href="https://sqlitebrowser.org/" class="external-link" target="_blank">DB Browser for SQLite</a>.
