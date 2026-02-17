@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump typer from 0.23.1 to 0.23.2. PR [#1760](https://github.com/fastapi/sqlmodel/pull/1760) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.34
 
 ### Internal
