@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump prek from 0.3.2 to 0.3.3. PR [#1761](https://github.com/fastapi/sqlmodel/pull/1761) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.23.1 to 0.23.2. PR [#1760](https://github.com/fastapi/sqlmodel/pull/1760) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
 ## 0.0.34
