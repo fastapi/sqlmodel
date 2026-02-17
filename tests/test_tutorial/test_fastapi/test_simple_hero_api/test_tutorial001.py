@@ -1,18 +1,35 @@
-from dirty_equals import IsDict
+import importlib
+from types import ModuleType
+
+import pytest
+from dirty_equals import IsOneOf
 from fastapi.testclient import TestClient
 from sqlmodel import create_engine
 from sqlmodel.pool import StaticPool
 
+from tests.conftest import needs_py310
 
-def test_tutorial(clear_sqlmodel):
-    from docs_src.tutorial.fastapi.simple_hero_api import tutorial001 as mod
 
+@pytest.fixture(
+    name="module",
+    params=[
+        pytest.param("tutorial001_py39"),
+        pytest.param("tutorial001_py310", marks=needs_py310),
+    ],
+)
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    mod = importlib.import_module(
+        f"docs_src.tutorial.fastapi.simple_hero_api.{request.param}"
+    )
     mod.sqlite_url = "sqlite://"
     mod.engine = create_engine(
         mod.sqlite_url, connect_args=mod.connect_args, poolclass=StaticPool
     )
+    return mod
 
-    with TestClient(mod.app) as client:
+
+def test_tutorial(module: ModuleType):
+    with TestClient(module.app) as client:
         hero1_data = {"name": "Deadpond", "secret_name": "Dive Wilson"}
         hero2_data = {
             "name": "Spider-Boy",
@@ -120,45 +137,54 @@ def test_tutorial(clear_sqlmodel):
                         "required": ["name", "secret_name"],
                         "type": "object",
                         "properties": {
-                            "id": IsDict(
-                                {
-                                    "title": "Id",
-                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
-                                }
-                            )
-                            | IsDict(
-                                # TODO: remove when deprecating Pydantic v1
-                                {"title": "Id", "type": "integer"}
-                            ),
+                            "id": {
+                                "title": "Id",
+                                "anyOf": [{"type": "integer"}, {"type": "null"}],
+                            },
                             "name": {"title": "Name", "type": "string"},
                             "secret_name": {"title": "Secret Name", "type": "string"},
-                            "age": IsDict(
-                                {
-                                    "title": "Age",
-                                    "anyOf": [{"type": "integer"}, {"type": "null"}],
-                                }
-                            )
-                            | IsDict(
-                                # TODO: remove when deprecating Pydantic v1
-                                {"title": "Age", "type": "integer"}
-                            ),
+                            "age": {
+                                "title": "Age",
+                                "anyOf": [{"type": "integer"}, {"type": "null"}],
+                            },
                         },
                     },
                     "ValidationError": {
                         "title": "ValidationError",
                         "required": ["loc", "msg", "type"],
                         "type": "object",
-                        "properties": {
-                            "loc": {
-                                "title": "Location",
-                                "type": "array",
-                                "items": {
-                                    "anyOf": [{"type": "string"}, {"type": "integer"}]
+                        "properties": IsOneOf(
+                            {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [
+                                            {"type": "string"},
+                                            {"type": "integer"},
+                                        ]
+                                    },
                                 },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
                             },
-                            "msg": {"title": "Message", "type": "string"},
-                            "type": {"title": "Error Type", "type": "string"},
-                        },
+                            {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [
+                                            {"type": "string"},
+                                            {"type": "integer"},
+                                        ]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "ctx": {"title": "Context", "type": "object"},
+                                "input": {"title": "Input"},
+                            },
+                        ),
                     },
                 }
             },

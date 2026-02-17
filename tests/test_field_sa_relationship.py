@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import Optional
 
 import pytest
 from sqlalchemy.orm import relationship
@@ -13,7 +13,7 @@ def test_sa_relationship_no_args() -> None:
             name: str = Field(index=True)
             headquarters: str
 
-            heroes: List["Hero"] = Relationship(
+            heroes: list["Hero"] = Relationship(
                 back_populates="team",
                 sa_relationship_args=["Hero"],
                 sa_relationship=relationship("Hero", back_populates="team"),
@@ -37,7 +37,7 @@ def test_sa_relationship_no_kwargs() -> None:
             name: str = Field(index=True)
             headquarters: str
 
-            heroes: List["Hero"] = Relationship(
+            heroes: list["Hero"] = Relationship(
                 back_populates="team",
                 sa_relationship_kwargs={"lazy": "selectin"},
                 sa_relationship=relationship("Hero", back_populates="team"),

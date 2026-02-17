@@ -1,10 +1,7 @@
+from collections.abc import Mapping, Sequence
 from typing import (
     Any,
-    Dict,
-    Mapping,
     Optional,
-    Sequence,
-    Type,
     TypeVar,
     Union,
     cast,
@@ -32,7 +29,7 @@ _TSelectParam = TypeVar("_TSelectParam", bound=Any)
 
 
 class AsyncSession(_AsyncSession):
-    sync_session_class: Type[Session] = Session
+    sync_session_class: type[Session] = Session
     sync_session: Session
 
     @overload
@@ -42,7 +39,7 @@ class AsyncSession(_AsyncSession):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
     ) -> TupleResult[_TSelectParam]: ...
@@ -54,7 +51,7 @@ class AsyncSession(_AsyncSession):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
     ) -> ScalarResult[_TSelectParam]: ...
@@ -66,7 +63,7 @@ class AsyncSession(_AsyncSession):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
     ) -> CursorResult[Any]: ...
@@ -82,7 +79,7 @@ class AsyncSession(_AsyncSession):
         *,
         params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
     ) -> Union[
@@ -119,13 +116,15 @@ class AsyncSession(_AsyncSession):
         For example:
 
         ```Python
-        heroes = await session.execute(select(Hero)).scalars().all()
+        result = await session.execute(select(Hero))
+        heroes = result.scalars().all()
         ```
 
         instead you could use `exec()`:
 
         ```Python
-        heroes = await session.exec(select(Hero)).all()
+        result = await session.exec(select(Hero))
+        heroes = result.all()
         ```
         """
     )
@@ -135,7 +134,7 @@ class AsyncSession(_AsyncSession):
         params: Optional[_CoreAnyExecuteParams] = None,
         *,
         execution_options: OrmExecuteOptionsParameter = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
+        bind_arguments: Optional[dict[str, Any]] = None,
         _parent_execute_state: Optional[Any] = None,
         _add_event: Optional[Any] = None,
     ) -> Result[Any]:
@@ -148,13 +147,15 @@ class AsyncSession(_AsyncSession):
         For example:
 
         ```Python
-        heroes = await session.execute(select(Hero)).scalars().all()
+        result = await session.execute(select(Hero))
+        heroes = result.scalars().all()
         ```
 
         instead you could use `exec()`:
 
         ```Python
-        heroes = await session.exec(select(Hero)).all()
+        result = await session.exec(select(Hero))
+        heroes = result.all()
         ```
         """
         return await super().execute(

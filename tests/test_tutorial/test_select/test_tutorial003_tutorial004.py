@@ -1,12 +1,14 @@
-from typing import Any, Dict, List, Union
-from unittest.mock import patch
+import importlib
+from types import ModuleType
+from typing import Any, Union
 
+import pytest
 from sqlmodel import create_engine
 
-from ...conftest import get_testing_print_function
+from ...conftest import PrintMock, needs_py310
 
 
-def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
+def check_calls(calls: list[list[Union[str, dict[str, Any]]]]):
     assert calls[0][0] == [
         {
             "name": "Deadpond",
@@ -29,29 +31,35 @@ def check_calls(calls: List[List[Union[str, Dict[str, Any]]]]):
     ]
 
 
-def test_tutorial_003(clear_sqlmodel):
-    from docs_src.tutorial.select import tutorial003 as mod
-
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
-
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    check_calls(calls)
+@pytest.fixture(name="module")
+def get_module(request: pytest.FixtureRequest) -> ModuleType:
+    module = importlib.import_module(f"docs_src.tutorial.select.{request.param}")
+    module.sqlite_url = "sqlite://"
+    module.engine = create_engine(module.sqlite_url)
+    return module
 
 
-def test_tutorial_002(clear_sqlmodel):
-    from docs_src.tutorial.select import tutorial004 as mod
+@pytest.mark.parametrize(
+    "module",
+    [
+        pytest.param("tutorial003_py39"),
+        pytest.param("tutorial003_py310", marks=needs_py310),
+    ],
+    indirect=True,
+)
+def test_tutorial_003(print_mock: PrintMock, module: ModuleType):
+    module.main()
+    check_calls(print_mock.calls)
 
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
-    calls = []
 
-    new_print = get_testing_print_function(calls)
-
-    with patch("builtins.print", new=new_print):
-        mod.main()
-    check_calls(calls)
+@pytest.mark.parametrize(
+    "module",
+    [
+        pytest.param("tutorial004_py39"),
+        pytest.param("tutorial004_py310", marks=needs_py310),
+    ],
+    indirect=True,
+)
+def test_tutorial_004(print_mock: PrintMock, module: ModuleType):
+    module.main()
+    check_calls(print_mock.calls)
