@@ -22,7 +22,7 @@ Because each field is **actually different** (we just set a default value of `No
 
 So, let's create this new `HeroUpdate` model:
 
-{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[5:26] hl[23:26] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[7:28] hl[25:28] *}
 
 This is almost the same as `HeroBase`, but all the fields are optional, so we can't simply inherit from `HeroBase`.
 
@@ -32,7 +32,7 @@ Now let's use this model in the *path operation* to update a hero.
 
 We will use a `PATCH` HTTP operation. This is used to **partially update data**, which is what we are doing.
 
-{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[74:75] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[77:91] hl[77:78] *}
 
 We also read the `hero_id` from the *path parameter* and the request body, a `HeroUpdate`.
 
@@ -42,7 +42,7 @@ We take a `hero_id` with the **ID** of the hero **we want to update**.
 
 So, we need to read the hero from the database, with the **same logic** we used to **read a single hero**, checking if it exists, possibly raising an error for the client if it doesn't exist, etc.
 
-{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[77:79] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[77:91] hl[80:82] *}
 
 ### Get the New Data
 
@@ -94,7 +94,7 @@ Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=
 
 Then we use that to get the data that was actually sent by the client:
 
-{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[80] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[77:91] hl[83] *}
 
 /// tip
 Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, but it was renamed to `hero.model_dump(exclude_unset=True)` to be consistent with Pydantic v2.
@@ -104,7 +104,7 @@ Before SQLModel 0.0.14, the method was called `hero.dict(exclude_unset=True)`, b
 
 Now that we have a **dictionary with the data sent by the client**, we can use the method `db_hero.sqlmodel_update()` to update the object `db_hero`.
 
-{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[74:89] hl[81] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial001_py310.py ln[77:91] hl[84] *}
 
 /// tip
 

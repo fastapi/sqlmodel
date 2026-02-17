@@ -28,7 +28,7 @@ We will start with the **simplest version**, with just heroes (no teams yet).
 
 This is almost the same code we have seen up to now in previous examples:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[2,5:20] hl[19:20] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[4,7:22] hl[21:22] *}
 
 There's only one change here from the code we have used before, the `check_same_thread` in the `connect_args`.
 
@@ -54,17 +54,17 @@ The next step is to create the **FastAPI** app.
 
 We will import the `FastAPI` class from `fastapi`.
 
-And then create an `app` object that is an instance of that `FastAPI` class:
+And then create an `app` object that is an instance of that `FastAPI` class, using a `lifespan` configuration that we will see next:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[1:2,23] hl[1,23] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[3:4,31] hl[3,31] *}
 
 ## Create Database and Tables on `startup`
 
 We want to make sure that once the app starts running, the function `create_db_and_tables` is called. To create the database and tables.
 
-This should be called only once at startup, not before every request, so we put it in the function to handle the `"startup"` event:
+This should be called only once at startup, not before every request, so we use FastAPI's `lifespan` functionality:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:28] hl[26:28] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[21:31] hl[25:28] *}
 
 ## Create Heroes *Path Operation*
 
@@ -78,7 +78,7 @@ Let's create the **path operation** code to create a new hero.
 
 It will be called when a user sends a request with a `POST` **operation** to the `/heroes/` **path**:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:37] hl[31:32] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[25:40] hl[34:35] *}
 
 /// info
 
@@ -112,7 +112,7 @@ We will improve this further later, but for now, it already shows the power of h
 
 Now let's add another **path operation** to read all the heroes:
 
-{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:44] hl[40:44] *}
+{* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[21:47] hl[43:47] *}
 
 This is pretty straightforward.
 
