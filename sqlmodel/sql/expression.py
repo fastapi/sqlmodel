@@ -44,7 +44,7 @@ _T = TypeVar("_T")
 
 _TypeEngineArgument = Union[type[TypeEngine[_T]], TypeEngine[_T]]
 
-# Redefine operatos that would only take a column expresion to also take the (virtual)
+# Redefine operators that would only take a column expression to also take the (virtual)
 # types of Pydantic models, e.g. str instead of only Mapped[str].
 
 
