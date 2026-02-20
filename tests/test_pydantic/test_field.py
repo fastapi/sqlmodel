@@ -4,6 +4,7 @@ from typing import Any, Literal
 import pytest
 from pydantic import ValidationError
 from sqlmodel import Field, Session, SQLModel, create_engine
+from sqlmodel._compat import PYDANTIC_MINOR_VERSION
 
 
 def test_decimal():
@@ -177,6 +178,10 @@ def test_deprecated_via_schema_extra():  # Current workaround. Remove after some
     assert model_schema["properties"]["another_old_field"]["deprecated"] is True
 
 
+@pytest.mark.skipif(
+    PYDANTIC_MINOR_VERSION < (2, 12),
+    reason="exlude_if requires Pydantic 2.12+",
+)
 def test_exclude_if():
     def is_empty_string(value: Any) -> bool:
         return value == ""
@@ -197,6 +202,10 @@ def test_exclude_if():
     assert "name" not in dict2
 
 
+@pytest.mark.skipif(
+    PYDANTIC_MINOR_VERSION < (2, 12),
+    reason="exlude_if requires Pydantic 2.12+",
+)
 def test_exclude_if_via_schema_extra():
     def is_empty_string(value: Any) -> bool:
         return value == ""
