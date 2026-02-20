@@ -4,7 +4,7 @@ import builtins
 import ipaddress
 import uuid
 import weakref
-from collections.abc import Mapping, Sequence, Set
+from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
@@ -13,13 +13,13 @@ from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Any,
-    Callable,
     ClassVar,
     Literal,
-    Optional,
+    TypeAlias,
     TypeVar,
     Union,
     cast,
+    get_origin,
     overload,
 )
 
@@ -50,7 +50,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import TypeAlias, deprecated, get_origin
+from typing_extensions import deprecated
 
 from ._compat import (  # type: ignore[attr-defined]
     PYDANTIC_MINOR_VERSION,
@@ -82,12 +82,12 @@ if TYPE_CHECKING:
 
 _T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
-IncEx: TypeAlias = Union[
-    set[int],
-    set[str],
-    Mapping[int, Union["IncEx", bool]],
-    Mapping[str, Union["IncEx", bool]],
-]
+IncEx: TypeAlias = (
+    set[int]
+    | set[str]
+    | Mapping[int, Union["IncEx", bool]]
+    | Mapping[str, Union["IncEx", bool]]
+)
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 
@@ -96,7 +96,7 @@ def __dataclass_transform__(
     eq_default: bool = True,
     order_default: bool = False,
     kw_only_default: bool = False,
-    field_descriptors: tuple[Union[type, Callable[..., Any]], ...] = (()),
+    field_descriptors: tuple[type | Callable[..., Any], ...] = (()),
 ) -> Callable[[_T], _T]:
     return lambda a: a
 
@@ -173,13 +173,13 @@ class RelationshipInfo(Representation):
     def __init__(
         self,
         *,
-        back_populates: Optional[str] = None,
-        cascade_delete: Optional[bool] = False,
-        passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-        link_model: Optional[Any] = None,
-        sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
-        sa_relationship_args: Optional[Sequence[Any]] = None,
-        sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+        back_populates: str | None = None,
+        cascade_delete: bool | None = False,
+        passive_deletes: bool | Literal["all"] | None = False,
+        link_model: Any | None = None,
+        sa_relationship: RelationshipProperty | None = None,  # type: ignore
+        sa_relationship_args: Sequence[Any] | None = None,
+        sa_relationship_kwargs: Mapping[str, Any] | None = None,
     ) -> None:
         if sa_relationship is not None:
             if sa_relationship_args is not None:
@@ -203,19 +203,19 @@ class RelationshipInfo(Representation):
 
 @dataclass
 class FieldInfoMetadata:
-    primary_key: Union[bool, UndefinedType] = Undefined
-    nullable: Union[bool, UndefinedType] = Undefined
+    primary_key: bool | UndefinedType = Undefined
+    nullable: bool | UndefinedType = Undefined
     foreign_key: Any = Undefined
-    ondelete: Union[OnDeleteType, UndefinedType] = Undefined
-    unique: Union[bool, UndefinedType] = Undefined
-    index: Union[bool, UndefinedType] = Undefined
-    sa_type: Union[type[Any], UndefinedType] = Undefined
-    sa_column: Union[Column[Any], UndefinedType] = Undefined
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined
+    ondelete: OnDeleteType | UndefinedType = Undefined
+    unique: bool | UndefinedType = Undefined
+    index: bool | UndefinedType = Undefined
+    sa_type: type[Any] | UndefinedType = Undefined
+    sa_column: Column[Any] | UndefinedType = Undefined
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined
 
 
-def _get_sqlmodel_field_metadata(field_info: Any) -> Optional[FieldInfoMetadata]:
+def _get_sqlmodel_field_metadata(field_info: Any) -> FieldInfoMetadata | None:
     metadata_items = getattr(field_info, "metadata", None)
     if metadata_items:
         for meta in metadata_items:
@@ -238,40 +238,40 @@ def _get_sqlmodel_field_value(
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: int | None = None,
+    max_items: int | None = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | None = None,
     repr: bool = True,
-    primary_key: Union[bool, UndefinedType] = Undefined,
+    primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
-    unique: Union[bool, UndefinedType] = Undefined,
-    nullable: Union[bool, UndefinedType] = Undefined,
-    index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[type[Any], UndefinedType] = Undefined,
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    unique: bool | UndefinedType = Undefined,
+    nullable: bool | UndefinedType = Undefined,
+    index: bool | UndefinedType = Undefined,
+    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined,
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any: ...
 
 
@@ -281,41 +281,41 @@ def Field(
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: int | None = None,
+    max_items: int | None = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | None = None,
     repr: bool = True,
-    primary_key: Union[bool, UndefinedType] = Undefined,
+    primary_key: bool | UndefinedType = Undefined,
     foreign_key: str,
-    ondelete: Union[OnDeleteType, UndefinedType] = Undefined,
-    unique: Union[bool, UndefinedType] = Undefined,
-    nullable: Union[bool, UndefinedType] = Undefined,
-    index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[type[Any], UndefinedType] = Undefined,
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    ondelete: OnDeleteType | UndefinedType = Undefined,
+    unique: bool | UndefinedType = Undefined,
+    nullable: bool | UndefinedType = Undefined,
+    index: bool | UndefinedType = Undefined,
+    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined,
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any: ...
 
 
@@ -333,75 +333,75 @@ def Field(
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: int | None = None,
+    max_items: int | None = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | None = None,
     repr: bool = True,
-    sa_column: Union[Column[Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    sa_column: Column[Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any: ...
 
 
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: int | None = None,
+    max_items: int | None = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | None = None,
     repr: bool = True,
-    primary_key: Union[bool, UndefinedType] = Undefined,
+    primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
-    ondelete: Union[OnDeleteType, UndefinedType] = Undefined,
-    unique: Union[bool, UndefinedType] = Undefined,
-    nullable: Union[bool, UndefinedType] = Undefined,
-    index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[type[Any], UndefinedType] = Undefined,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    ondelete: OnDeleteType | UndefinedType = Undefined,
+    unique: bool | UndefinedType = Undefined,
+    nullable: bool | UndefinedType = Undefined,
+    index: bool | UndefinedType = Undefined,
+    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_column: Column | UndefinedType = Undefined,  # type: ignore
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined,
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
     # Extract possible alias settings from schema_extra so we can control precedence
@@ -476,35 +476,35 @@ def Field(
 @overload
 def Relationship(
     *,
-    back_populates: Optional[str] = None,
-    cascade_delete: Optional[bool] = False,
-    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-    link_model: Optional[Any] = None,
-    sa_relationship_args: Optional[Sequence[Any]] = None,
-    sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+    back_populates: str | None = None,
+    cascade_delete: bool | None = False,
+    passive_deletes: bool | Literal["all"] | None = False,
+    link_model: Any | None = None,
+    sa_relationship_args: Sequence[Any] | None = None,
+    sa_relationship_kwargs: Mapping[str, Any] | None = None,
 ) -> Any: ...
 
 
 @overload
 def Relationship(
     *,
-    back_populates: Optional[str] = None,
-    cascade_delete: Optional[bool] = False,
-    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-    link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty[Any]] = None,
+    back_populates: str | None = None,
+    cascade_delete: bool | None = False,
+    passive_deletes: bool | Literal["all"] | None = False,
+    link_model: Any | None = None,
+    sa_relationship: RelationshipProperty[Any] | None = None,
 ) -> Any: ...
 
 
 def Relationship(
     *,
-    back_populates: Optional[str] = None,
-    cascade_delete: Optional[bool] = False,
-    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-    link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty[Any]] = None,
-    sa_relationship_args: Optional[Sequence[Any]] = None,
-    sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+    back_populates: str | None = None,
+    cascade_delete: bool | None = False,
+    passive_deletes: bool | Literal["all"] | None = False,
+    link_model: Any | None = None,
+    sa_relationship: RelationshipProperty[Any] | None = None,
+    sa_relationship_args: Sequence[Any] | None = None,
+    sa_relationship_kwargs: Mapping[str, Any] | None = None,
 ) -> Any:
     relationship_info = RelationshipInfo(
         back_populates=back_populates,
@@ -807,7 +807,7 @@ _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
-    __tablename__: ClassVar[Union[str, Callable[..., str]]]
+    __tablename__: ClassVar[str | Callable[..., str]]
     __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipProperty[Any]]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
@@ -857,7 +857,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             if name not in self.__sqlmodel_relationships__:
                 super().__setattr__(name, value)
 
-    def __repr_args__(self) -> Sequence[tuple[Optional[str], Any]]:
+    def __repr_args__(self) -> Sequence[tuple[str | None, Any]]:
         # Don't show SQLAlchemy private attributes
         return [
             (k, v)
@@ -874,10 +874,10 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         cls: type[_TSQLModel],
         obj: Any,
         *,
-        strict: Union[bool, None] = None,
-        from_attributes: Union[bool, None] = None,
-        context: Union[builtins.dict[str, Any], None] = None,
-        update: Union[builtins.dict[str, Any], None] = None,
+        strict: bool | None = None,
+        from_attributes: bool | None = None,
+        context: builtins.dict[str, Any] | None = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         return sqlmodel_validate(
             cls=cls,
@@ -891,18 +891,18 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def model_dump(
         self,
         *,
-        mode: Union[Literal["json", "python"], str] = "python",
-        include: Union[IncEx, None] = None,
-        exclude: Union[IncEx, None] = None,
-        context: Union[Any, None] = None,  # v2.7
-        by_alias: Union[bool, None] = None,
+        mode: Literal["json", "python"] | str = "python",
+        include: IncEx | None = None,
+        exclude: IncEx | None = None,
+        context: Any | None = None,  # v2.7
+        by_alias: bool | None = None,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         exclude_computed_fields: bool = False,  # v2.12
         round_trip: bool = False,
-        warnings: Union[bool, Literal["none", "warn", "error"]] = True,
-        fallback: Union[Callable[[Any], Any], None] = None,  # v2.11
+        warnings: bool | Literal["none", "warn", "error"] = True,
+        fallback: Callable[[Any], Any] | None = None,  # v2.11
         serialize_as_any: bool = False,  # v2.7
     ) -> builtins.dict[str, Any]:
         if PYDANTIC_MINOR_VERSION < (2, 11):
@@ -936,8 +936,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def dict(
         self,
         *,
-        include: Union[IncEx, None] = None,
-        exclude: Union[IncEx, None] = None,
+        include: IncEx | None = None,
+        exclude: IncEx | None = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
@@ -962,7 +962,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def from_orm(
         cls: type[_TSQLModel],
         obj: Any,
-        update: Optional[builtins.dict[str, Any]] = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         return cls.model_validate(obj, update=update)
 
@@ -976,15 +976,15 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def parse_obj(
         cls: type[_TSQLModel],
         obj: Any,
-        update: Optional[builtins.dict[str, Any]] = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         return cls.model_validate(obj, update=update)
 
     def sqlmodel_update(
         self: _TSQLModel,
-        obj: Union[builtins.dict[str, Any], BaseModel],
+        obj: builtins.dict[str, Any] | BaseModel,
         *,
-        update: Union[builtins.dict[str, Any], None] = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         use_update = (update or {}).copy()
         if isinstance(obj, dict):
