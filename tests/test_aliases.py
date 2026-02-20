@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 import pytest
 from pydantic import AliasChoices as PAliasChoices
 from pydantic import AliasPath as PAliasPath
@@ -30,14 +28,14 @@ class SQLModelUserWithConfig(SQLModelUser):
 
 
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
-def test_create_with_field_name(model: Union[type[PydanticUser], type[SQLModelUser]]):
+def test_create_with_field_name(model: type[PydanticUser] | type[SQLModelUser]):
     with pytest.raises(ValidationError):
         model(full_name="Alice")
 
 
 @pytest.mark.parametrize("model", [PydanticUserWithConfig, SQLModelUserWithConfig])
 def test_create_with_field_name_with_config(
-    model: Union[type[PydanticUserWithConfig], type[SQLModelUserWithConfig]],
+    model: type[PydanticUserWithConfig] | type[SQLModelUserWithConfig],
 ):
     user = model(full_name="Alice")
     assert user.full_name == "Alice"
@@ -48,12 +46,10 @@ def test_create_with_field_name_with_config(
     [PydanticUser, SQLModelUser, PydanticUserWithConfig, SQLModelUserWithConfig],
 )
 def test_create_with_alias(
-    model: Union[
-        type[PydanticUser],
-        type[SQLModelUser],
-        type[PydanticUserWithConfig],
-        type[SQLModelUserWithConfig],
-    ],
+    model: type[PydanticUser]
+    | type[SQLModelUser]
+    | type[PydanticUserWithConfig]
+    | type[SQLModelUserWithConfig],
 ):
     user = model(fullName="Bob")  # using alias
     assert user.full_name == "Bob"
@@ -61,7 +57,7 @@ def test_create_with_alias(
 
 @pytest.mark.parametrize("model", [PydanticUserWithConfig, SQLModelUserWithConfig])
 def test_create_with_both_prefers_alias(
-    model: Union[type[PydanticUserWithConfig], type[SQLModelUserWithConfig]],
+    model: type[PydanticUserWithConfig] | type[SQLModelUserWithConfig],
 ):
     user = model(full_name="IGNORED", fullName="Charlie")
     assert user.full_name == "Charlie"  # alias should take precedence
@@ -69,7 +65,7 @@ def test_create_with_both_prefers_alias(
 
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
 def test_dict_default_uses_field_names(
-    model: Union[type[PydanticUser], type[SQLModelUser]],
+    model: type[PydanticUser] | type[SQLModelUser],
 ):
     user = model(fullName="Dana")
     data = user.model_dump()
@@ -80,7 +76,7 @@ def test_dict_default_uses_field_names(
 
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
 def test_dict_by_alias_uses_aliases(
-    model: Union[type[PydanticUser], type[SQLModelUser]],
+    model: type[PydanticUser] | type[SQLModelUser],
 ):
     user = model(fullName="Dana")
     data = user.model_dump(by_alias=True)
@@ -91,7 +87,7 @@ def test_dict_by_alias_uses_aliases(
 
 @pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
 def test_json_by_alias(
-    model: Union[type[PydanticUser], type[SQLModelUser]],
+    model: type[PydanticUser] | type[SQLModelUser],
 ):
     user = model(fullName="Frank")
     json_data = user.model_dump_json(by_alias=True)
@@ -101,27 +97,23 @@ def test_json_by_alias(
 
 class PydanticUserV2(BaseModel):
     first_name: str = PField(validation_alias="firstName", serialization_alias="f_name")
-    second_name: Optional[str] = PField(
+    second_name: str | None = PField(
         default=None, validation_alias=PAliasChoices("secondName", "surname")
     )
-    nickname: Optional[str] = PField(
-        default=None, validation_alias=PAliasPath("names", 2)
-    )
+    nickname: str | None = PField(default=None, validation_alias=PAliasPath("names", 2))
 
 
 class SQLModelUserV2(SQLModel):
     first_name: str = Field(validation_alias="firstName", serialization_alias="f_name")
-    second_name: Optional[str] = Field(
+    second_name: str | None = Field(
         default=None, validation_alias=AliasChoices("secondName", "surname")
     )
-    nickname: Optional[str] = Field(
-        default=None, validation_alias=AliasPath("names", 2)
-    )
+    nickname: str | None = Field(default=None, validation_alias=AliasPath("names", 2))
 
 
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_create_with_validation_alias(
-    model: Union[type[PydanticUserV2], type[SQLModelUserV2]],
+    model: type[PydanticUserV2] | type[SQLModelUserV2],
 ):
     user = model(firstName="John")
     assert user.first_name == "John"
@@ -129,7 +121,7 @@ def test_create_with_validation_alias(
 
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_create_with_validation_alias_alias_choices(
-    model: Union[type[PydanticUserV2], type[SQLModelUserV2]],
+    model: type[PydanticUserV2] | type[SQLModelUserV2],
 ):
     user = model.model_validate({"firstName": "John", "secondName": "Doe"})
     assert user.second_name == "Doe"
@@ -140,7 +132,7 @@ def test_create_with_validation_alias_alias_choices(
 
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_create_with_validation_alias_alias_path(
-    model: Union[type[PydanticUserV2], type[SQLModelUserV2]],
+    model: type[PydanticUserV2] | type[SQLModelUserV2],
 ):
     user = model.model_validate(
         {"firstName": "John", "names": ["John", "Doe", "Johnny"]}
@@ -150,7 +142,7 @@ def test_create_with_validation_alias_alias_path(
 
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
 def test_serialize_with_serialization_alias(
-    model: Union[type[PydanticUserV2], type[SQLModelUserV2]],
+    model: type[PydanticUserV2] | type[SQLModelUserV2],
 ):
     user = model(firstName="Jane")
     data = user.model_dump(by_alias=True)
