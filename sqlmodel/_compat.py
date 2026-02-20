@@ -9,9 +9,11 @@ from typing import (
     Annotated,
     Any,
     ForwardRef,
-    Optional,
+    TypeAlias,
     TypeVar,
     Union,
+    get_args,
+    get_origin,
 )
 
 from annotated_types import MaxLen
@@ -24,7 +26,6 @@ from pydantic._internal._repr import Representation as Representation
 from pydantic.fields import FieldInfo
 from pydantic_core import PydanticUndefined as Undefined
 from pydantic_core import PydanticUndefinedType as PydanticUndefinedType
-from typing_extensions import get_args, get_origin
 
 BaseConfig = ConfigDict
 UndefinedType = PydanticUndefinedType
@@ -37,14 +38,14 @@ if TYPE_CHECKING:
 UnionType = getattr(types, "UnionType", Union)
 NoneType = type(None)
 T = TypeVar("T")
-InstanceOrType = Union[T, type[T]]
+InstanceOrType: TypeAlias = T | type[T]
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
 class FakeMetadata:
-    max_length: Optional[int] = None
-    max_digits: Optional[int] = None
-    decimal_places: Optional[int] = None
+    max_length: int | None = None
+    max_digits: int | None = None
+    decimal_places: int | None = None
 
 
 @dataclass
@@ -75,8 +76,8 @@ def partial_init() -> Generator[None, None, None]:
 
 
 class SQLModelConfig(BaseConfig, total=False):
-    table: Optional[bool]
-    registry: Optional[Any]
+    table: bool | None
+    registry: Any | None
 
 
 def get_model_fields(model: InstanceOrType[BaseModel]) -> dict[str, "FieldInfo"]:
@@ -208,7 +209,7 @@ def sqlmodel_table_construct(
     *,
     self_instance: _TSQLModel,
     values: dict[str, Any],
-    _fields_set: Union[set[str], None] = None,
+    _fields_set: set[str] | None = None,
 ) -> _TSQLModel:
     # Copy from Pydantic's BaseModel.construct()
     # Ref: https://github.com/pydantic/pydantic/blob/v2.5.2/pydantic/main.py#L198
@@ -236,7 +237,7 @@ def sqlmodel_table_construct(
         _fields_set = set(fields_values.keys())
     fields_values.update(defaults)
 
-    _extra: Union[dict[str, Any], None] = None
+    _extra: dict[str, Any] | None = None
     if cls.model_config.get("extra") == "allow":
         _extra = {}
         for k, v in values.items():
@@ -276,10 +277,10 @@ def sqlmodel_validate(
     cls: type[_TSQLModel],
     obj: Any,
     *,
-    strict: Union[bool, None] = None,
-    from_attributes: Union[bool, None] = None,
-    context: Union[dict[str, Any], None] = None,
-    update: Union[dict[str, Any], None] = None,
+    strict: bool | None = None,
+    from_attributes: bool | None = None,
+    context: dict[str, Any] | None = None,
+    update: dict[str, Any] | None = None,
 ) -> _TSQLModel:
     if not is_table_model_class(cls):
         new_obj: _TSQLModel = cls.__new__(cls)
