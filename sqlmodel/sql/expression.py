@@ -4,7 +4,6 @@ from typing import (
     Literal,
     Optional,
     TypeVar,
-    Union,
 )
 
 import sqlalchemy
@@ -42,41 +41,41 @@ from ._expression_select_gen import select as select
 
 _T = TypeVar("_T")
 
-_TypeEngineArgument = Union[type[TypeEngine[_T]], TypeEngine[_T]]
+_TypeEngineArgument = type[TypeEngine[_T]] | TypeEngine[_T]
 
 # Redefine operators that would only take a column expression to also take the (virtual)
 # types of Pydantic models, e.g. str instead of only Mapped[str].
 
 
-def all_(expr: Union[_ColumnExpressionArgument[_T], _T]) -> CollectionAggregate[bool]:
+def all_(expr: _ColumnExpressionArgument[_T] | _T) -> CollectionAggregate[bool]:
     return sqlalchemy.all_(expr)  # type: ignore[arg-type]
 
 
 def and_(
-    initial_clause: Union[Literal[True], _ColumnExpressionArgument[bool], bool],
-    *clauses: Union[_ColumnExpressionArgument[bool], bool],
+    initial_clause: Literal[True] | _ColumnExpressionArgument[bool] | bool,
+    *clauses: _ColumnExpressionArgument[bool] | bool,
 ) -> ColumnElement[bool]:
     return sqlalchemy.and_(initial_clause, *clauses)  # type: ignore[arg-type]
 
 
-def any_(expr: Union[_ColumnExpressionArgument[_T], _T]) -> CollectionAggregate[bool]:
+def any_(expr: _ColumnExpressionArgument[_T] | _T) -> CollectionAggregate[bool]:
     return sqlalchemy.any_(expr)  # type: ignore[arg-type]
 
 
 def asc(
-    column: Union[_ColumnExpressionOrStrLabelArgument[_T], _T],
+    column: _ColumnExpressionOrStrLabelArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
     return sqlalchemy.asc(column)  # type: ignore[arg-type]
 
 
 def collate(
-    expression: Union[_ColumnExpressionArgument[str], str], collation: str
+    expression: _ColumnExpressionArgument[str] | str, collation: str
 ) -> BinaryExpression[str]:
     return sqlalchemy.collate(expression, collation)  # type: ignore[arg-type]
 
 
 def between(
-    expr: Union[_ColumnExpressionOrLiteralArgument[_T], _T],
+    expr: _ColumnExpressionOrLiteralArgument[_T] | _T,
     lower_bound: Any,
     upper_bound: Any,
     symmetric: bool = False,
@@ -84,101 +83,93 @@ def between(
     return sqlalchemy.between(expr, lower_bound, upper_bound, symmetric=symmetric)
 
 
-def not_(clause: Union[_ColumnExpressionArgument[_T], _T]) -> ColumnElement[_T]:
+def not_(clause: _ColumnExpressionArgument[_T] | _T) -> ColumnElement[_T]:
     return sqlalchemy.not_(clause)  # type: ignore[arg-type]
 
 
 def case(
-    *whens: Union[
-        tuple[Union[_ColumnExpressionArgument[bool], bool], Any], Mapping[Any, Any]
-    ],
-    value: Optional[Any] = None,
-    else_: Optional[Any] = None,
+    *whens: tuple[_ColumnExpressionArgument[bool] | bool, Any] | Mapping[Any, Any],
+    value: Any | None = None,
+    else_: Any | None = None,
 ) -> Case[Any]:
     return sqlalchemy.case(*whens, value=value, else_=else_)  # type: ignore[arg-type]
 
 
 def cast(
-    expression: Union[_ColumnExpressionOrLiteralArgument[Any], Any],
+    expression: _ColumnExpressionOrLiteralArgument[Any] | Any,
     type_: "_TypeEngineArgument[_T]",
 ) -> Cast[_T]:
     return sqlalchemy.cast(expression, type_)
 
 
 def try_cast(
-    expression: Union[_ColumnExpressionOrLiteralArgument[Any], Any],
+    expression: _ColumnExpressionOrLiteralArgument[Any] | Any,
     type_: "_TypeEngineArgument[_T]",
 ) -> TryCast[_T]:
     return sqlalchemy.try_cast(expression, type_)
 
 
 def desc(
-    column: Union[_ColumnExpressionOrStrLabelArgument[_T], _T],
+    column: _ColumnExpressionOrStrLabelArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
     return sqlalchemy.desc(column)  # type: ignore[arg-type]
 
 
-def distinct(expr: Union[_ColumnExpressionArgument[_T], _T]) -> UnaryExpression[_T]:
+def distinct(expr: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
     return sqlalchemy.distinct(expr)  # type: ignore[arg-type]
 
 
-def bitwise_not(expr: Union[_ColumnExpressionArgument[_T], _T]) -> UnaryExpression[_T]:
+def bitwise_not(expr: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
     return sqlalchemy.bitwise_not(expr)  # type: ignore[arg-type]
 
 
-def extract(field: str, expr: Union[_ColumnExpressionArgument[Any], Any]) -> Extract:
+def extract(field: str, expr: _ColumnExpressionArgument[Any] | Any) -> Extract:
     return sqlalchemy.extract(field, expr)
 
 
 def funcfilter(
-    func: FunctionElement[_T], *criterion: Union[_ColumnExpressionArgument[bool], bool]
+    func: FunctionElement[_T], *criterion: _ColumnExpressionArgument[bool] | bool
 ) -> FunctionFilter[_T]:
     return sqlalchemy.funcfilter(func, *criterion)  # type: ignore[arg-type]
 
 
 def label(
     name: str,
-    element: Union[_ColumnExpressionArgument[_T], _T],
+    element: _ColumnExpressionArgument[_T] | _T,
     type_: Optional["_TypeEngineArgument[_T]"] = None,
 ) -> Label[_T]:
     return sqlalchemy.label(name, element, type_=type_)  # type: ignore[arg-type]
 
 
 def nulls_first(
-    column: Union[_ColumnExpressionArgument[_T], _T],
+    column: _ColumnExpressionArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
     return sqlalchemy.nulls_first(column)  # type: ignore[arg-type]
 
 
-def nulls_last(column: Union[_ColumnExpressionArgument[_T], _T]) -> UnaryExpression[_T]:
+def nulls_last(column: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
     return sqlalchemy.nulls_last(column)  # type: ignore[arg-type]
 
 
 def or_(
-    initial_clause: Union[Literal[False], _ColumnExpressionArgument[bool], bool],
-    *clauses: Union[_ColumnExpressionArgument[bool], bool],
+    initial_clause: Literal[False] | _ColumnExpressionArgument[bool] | bool,
+    *clauses: _ColumnExpressionArgument[bool] | bool,
 ) -> ColumnElement[bool]:
     return sqlalchemy.or_(initial_clause, *clauses)  # type: ignore[arg-type]
 
 
 def over(
     element: FunctionElement[_T],
-    partition_by: Optional[
-        Union[
-            Iterable[Union[_ColumnExpressionArgument[Any], Any]],
-            _ColumnExpressionArgument[Any],
-            Any,
-        ]
-    ] = None,
-    order_by: Optional[
-        Union[
-            Iterable[Union[_ColumnExpressionArgument[Any], Any]],
-            _ColumnExpressionArgument[Any],
-            Any,
-        ]
-    ] = None,
-    range_: Optional[tuple[Optional[int], Optional[int]]] = None,
-    rows: Optional[tuple[Optional[int], Optional[int]]] = None,
+    partition_by: Iterable[_ColumnExpressionArgument[Any] | Any]
+    | _ColumnExpressionArgument[Any]
+    | Any
+    | None = None,
+    order_by: Iterable[_ColumnExpressionArgument[Any] | Any]
+    | _ColumnExpressionArgument[Any]
+    | Any
+    | None = None,
+    range_: tuple[int | None, int | None] | None = None,
+    rows: tuple[int | None, int | None] | None = None,
 ) -> Over[_T]:
     return sqlalchemy.over(
         element, partition_by=partition_by, order_by=order_by, range_=range_, rows=rows
@@ -186,21 +177,21 @@ def over(
 
 
 def tuple_(
-    *clauses: Union[_ColumnExpressionArgument[Any], Any],
-    types: Optional[Sequence["_TypeEngineArgument[Any]"]] = None,
+    *clauses: _ColumnExpressionArgument[Any] | Any,
+    types: Sequence["_TypeEngineArgument[Any]"] | None = None,
 ) -> tuple[Any, ...]:
     return sqlalchemy.tuple_(*clauses, types=types)  # type: ignore[return-value]
 
 
 def type_coerce(
-    expression: Union[_ColumnExpressionOrLiteralArgument[Any], Any],
+    expression: _ColumnExpressionOrLiteralArgument[Any] | Any,
     type_: "_TypeEngineArgument[_T]",
 ) -> TypeCoerce[_T]:
     return sqlalchemy.type_coerce(expression, type_)
 
 
 def within_group(
-    element: FunctionElement[_T], *order_by: Union[_ColumnExpressionArgument[Any], Any]
+    element: FunctionElement[_T], *order_by: _ColumnExpressionArgument[Any] | Any
 ) -> WithinGroup[_T]:
     return sqlalchemy.within_group(element, *order_by)
 

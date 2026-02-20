@@ -1,9 +1,7 @@
 from collections.abc import Mapping, Sequence
 from typing import (
     Any,
-    Optional,
     TypeVar,
-    Union,
     cast,
     overload,
 )
@@ -37,11 +35,11 @@ class AsyncSession(_AsyncSession):
         self,
         statement: Select[_TSelectParam],
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> TupleResult[_TSelectParam]: ...
 
     @overload
@@ -49,11 +47,11 @@ class AsyncSession(_AsyncSession):
         self,
         statement: SelectOfScalar[_TSelectParam],
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> ScalarResult[_TSelectParam]: ...
 
     @overload
@@ -61,30 +59,26 @@ class AsyncSession(_AsyncSession):
         self,
         statement: UpdateBase,
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> CursorResult[Any]: ...
 
     async def exec(
         self,
-        statement: Union[
-            Select[_TSelectParam],
-            SelectOfScalar[_TSelectParam],
-            Executable[_TSelectParam],
-            UpdateBase,
-        ],
+        statement: Select[_TSelectParam]
+        | SelectOfScalar[_TSelectParam]
+        | Executable[_TSelectParam]
+        | UpdateBase,
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
-    ) -> Union[
-        TupleResult[_TSelectParam], ScalarResult[_TSelectParam], CursorResult[Any]
-    ]:
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
+    ) -> TupleResult[_TSelectParam] | ScalarResult[_TSelectParam] | CursorResult[Any]:
         if execution_options:
             execution_options = util.immutabledict(execution_options).union(
                 _EXECUTE_OPTIONS
@@ -131,12 +125,12 @@ class AsyncSession(_AsyncSession):
     async def execute(
         self,
         statement: _Executable,
-        params: Optional[_CoreAnyExecuteParams] = None,
+        params: _CoreAnyExecuteParams | None = None,
         *,
         execution_options: OrmExecuteOptionsParameter = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> Result[Any]:
         """
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
