@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Annotated, Any, Literal, Optional, Union
+from typing import Annotated, Any, Literal
 
 import pytest
 from pydantic import ValidationError
@@ -38,7 +38,7 @@ def test_discriminator():
         scales: bool
 
     class Model(SQLModel):
-        pet: Union[Cat, Dog, Lizard] = Field(..., discriminator="pet_type")
+        pet: Cat | Dog | Lizard = Field(..., discriminator="pet_type")
         n: int
 
     Model(pet={"pet_type": "dog", "barks": 3.14}, n=1)  # type: ignore[arg-type]
@@ -66,10 +66,9 @@ def test_discriminator_callable():
         return getattr(v, "fruit", getattr(v, "filling", None))
 
     class ThanksgivingDinner(SQLModel):
-        dessert: Union[
-            Annotated[ApplePie, Tag("apple")],
-            Annotated[PumpkinPie, Tag("pumpkin")],
-        ] = Field(
+        dessert: (
+            Annotated[ApplePie, Tag("apple")] | Annotated[PumpkinPie, Tag("pumpkin")]
+        ) = Field(
             discriminator=Discriminator(get_discriminator_value),
         )
 
@@ -82,7 +81,7 @@ def test_discriminator_callable():
 
 def test_repr():
     class Model(SQLModel):
-        id: Optional[int] = Field(primary_key=True)
+        id: int | None = Field(primary_key=True)
         foo: str = Field(repr=False)
 
     instance = Model(id=123, foo="bar")
