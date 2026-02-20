@@ -73,7 +73,7 @@ def test_alias_priority_1():
 
 
 @pytest.mark.parametrize("alias_priority", [None, 2])
-def test_alias_priority_2(alias_priority: Optional[int]):
+def test_alias_priority_2(alias_priority: int | None):
     def to_camel(string: str) -> str:
         return "".join(word.capitalize() for word in string.split("_"))
 
