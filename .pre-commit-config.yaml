@@ -28,8 +28,22 @@ repos:
         language: unsupported
         types: [python]
 
+      - id: local-mypy
+        name: mypy check
+        entry: uv run mypy sqlmodel tests/test_select_typing.py
+        require_serial: true
+        language: unsupported
+        pass_filenames: false
+
       - id: generate-select
         language: unsupported
         name: generate-select
         entry: uv run ./scripts/generate_select.py
         files: ^scripts/generate_select\.py|sqlmodel/sql/_expression_select_gen\.py\.jinja2$
+
+      - id: generate-readme
+        language: unsupported
+        name: generate README.md from index.md
+        entry: uv run ./scripts/docs.py generate-readme
+        files: ^docs/index\.md|scripts/docs\.py$
+        pass_filenames: false
