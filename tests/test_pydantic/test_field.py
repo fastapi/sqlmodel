@@ -1,5 +1,5 @@
 from decimal import Decimal
-from typing import Any, Literal, Optional, Union
+from typing import Any, Literal
 
 import pytest
 from pydantic import ValidationError
@@ -38,7 +38,7 @@ def test_discriminator():
         scales: bool
 
     class Model(SQLModel):
-        pet: Union[Cat, Dog, Lizard] = Field(..., discriminator="pet_type")
+        pet: Cat | Dog | Lizard = Field(..., discriminator="pet_type")
         n: int
 
     Model(pet={"pet_type": "dog", "barks": 3.14}, n=1)  # type: ignore[arg-type]
@@ -49,7 +49,7 @@ def test_discriminator():
 
 def test_repr():
     class Model(SQLModel):
-        id: Optional[int] = Field(primary_key=True)
+        id: int | None = Field(primary_key=True)
         foo: str = Field(repr=False)
 
     instance = Model(id=123, foo="bar")
@@ -58,7 +58,7 @@ def test_repr():
 
 def test_strict_true():
     class Model(SQLModel):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         val: int
         val_strict: int = Field(strict=True)
 
@@ -87,7 +87,7 @@ def test_strict_true():
 
 def test_strict_table_model():
     class Model(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         val_strict: int = Field(strict=True)
 
     engine = create_engine("sqlite://", echo=True)
@@ -104,7 +104,7 @@ def test_strict_table_model():
 
 
 @pytest.mark.parametrize("strict", [None, False])
-def test_strict_false(strict: Optional[bool]):
+def test_strict_false(strict: int | None):
     class Model(SQLModel):
         val: int = Field(strict=strict)
 
