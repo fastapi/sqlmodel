@@ -65,7 +65,7 @@ def test_coerce_numbers_to_str_true():
 
 
 @pytest.mark.parametrize("coerce_numbers_to_str", [None, False])
-def test_coerce_numbers_to_str_false(coerce_numbers_to_str: Optional[bool]):
+def test_coerce_numbers_to_str_false(coerce_numbers_to_str: bool | None):
     class Model2(SQLModel):
         val: str = Field(coerce_numbers_to_str=coerce_numbers_to_str)
 
@@ -104,7 +104,7 @@ def test_validate_default_true():
 
 def test_validate_default_table_model():
     class Model(SQLModel):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         val: int = Field(default="123", validate_default=True)
 
     class ModelDB(Model, table=True):
@@ -124,7 +124,7 @@ def test_validate_default_table_model():
 
 
 @pytest.mark.parametrize("validate_default", [None, False])
-def test_validate_default_false(validate_default: Optional[bool]):
+def test_validate_default_false(validate_default: bool | None):
     class Model3(SQLModel):
         val: int = Field(default="123", validate_default=validate_default)
 
@@ -147,9 +147,9 @@ def test_validate_default_via_schema_extra():  # Current workaround. Remove afte
 
 
 @pytest.mark.parametrize("union_mode", [None, "smart"])
-def test_union_mode_smart(union_mode: Optional[Literal["smart"]]):
+def test_union_mode_smart(union_mode: Literal["smart"] | None):
     class Model(SQLModel):
-        val: Union[float, int] = Field(union_mode=union_mode)
+        val: float | int = Field(union_mode=union_mode)
 
     a = Model.model_validate({"val": 123})
     assert isinstance(a.val, int)  # float is first, but int is more precise
@@ -163,7 +163,7 @@ def test_union_mode_smart(union_mode: Optional[Literal["smart"]]):
 
 def test_union_mode_left_to_right():
     class Model(SQLModel):
-        val: Union[float, int] = Field(union_mode="left_to_right")
+        val: float | int = Field(union_mode="left_to_right")
 
     a = Model.model_validate({"val": 123})
     assert isinstance(a.val, float)
@@ -185,7 +185,7 @@ def test_union_mode_via_schema_extra():  # Current workaround. Remove after some
     ):
 
         class Model(SQLModel):
-            val: Union[float, int] = Field(schema_extra={"union_mode": "smart"})
+            val: float | int = Field(schema_extra={"union_mode": "smart"})
 
     a = Model.model_validate({"val": 123})
     assert isinstance(a.val, int)  # float is first, but int is more precise
@@ -210,7 +210,7 @@ def test_fail_fast_true():
 
 
 @pytest.mark.parametrize("fail_fast", [None, False])
-def test_fail_fast_false(fail_fast: Optional[bool]):
+def test_fail_fast_false(fail_fast: bool | None):
     class Model(SQLModel):
         val: list[int] = Field(fail_fast=fail_fast)
 
