@@ -5,7 +5,6 @@ from datetime import datetime
 from typing import (
     Any,
     TypeVar,
-    Union,
     overload,
 )
 from uuid import UUID
@@ -23,11 +22,7 @@ from ._expression_select_cls import Select, SelectOfScalar
 _T = TypeVar("_T")
 
 
-_TCCA = Union[
-    TypedColumnsClauseRole[_T],
-    SQLCoreOperations[_T],
-    type[_T],
-]
+_TCCA = TypedColumnsClauseRole[_T] | SQLCoreOperations[_T] | type[_T]
 
 # Generated TypeVars start
 
@@ -358,7 +353,7 @@ def select(  # type: ignore
 # Generated overloads end
 
 
-def select(*entities: Any) -> Union[Select, SelectOfScalar]:  # type: ignore
+def select(*entities: Any) -> Select | SelectOfScalar:  # type: ignore
     if len(entities) == 1:
         return SelectOfScalar(*entities)
     return Select(*entities)
