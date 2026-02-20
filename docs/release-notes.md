@@ -8,6 +8,7 @@
 
 ### Internal
 
+* 🔨 Add script to remove Python 3.9 files, migrate to Python 3.10. PR [#1767](https://github.com/fastapi/sqlmodel/pull/1767) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump prek from 0.3.2 to 0.3.3. PR [#1761](https://github.com/fastapi/sqlmodel/pull/1761) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.23.1 to 0.23.2. PR [#1760](https://github.com/fastapi/sqlmodel/pull/1760) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
