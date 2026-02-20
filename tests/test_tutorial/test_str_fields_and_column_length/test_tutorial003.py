@@ -11,8 +11,6 @@ from sqlalchemy.exc import CompileError
 from sqlalchemy.sql.type_api import TypeEngine
 from sqlmodel import create_engine
 
-from ...conftest import needs_py310
-
 
 def mysql_dump(sql: TypeEngine, *args, **kwargs):
     dialect = sql.compile(dialect=mysql_engine.dialect)
@@ -27,8 +25,7 @@ mysql_engine = create_mock_engine("mysql://", mysql_dump)
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial003_py39"),
-        pytest.param("tutorial003_py310", marks=needs_py310),
+        "tutorial003_py310",
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> Generator[ModuleType, None, None]:
