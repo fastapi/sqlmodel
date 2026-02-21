@@ -83,7 +83,7 @@ tests = [
     "jinja2==3.1.6",
     "mypy==1.19.1",
     "pre-commit>=2.17.0,<5.0.0",
-    "pytest>=7.0.1,<9.0.0",
+    "pytest>=9.0.0",
     "ruff==0.15.1",
     "typing-extensions==4.15.0",
 ]
@@ -98,6 +98,17 @@ source-includes = [
     "docs_src/",
     "scripts/",
     "sqlmodel/sql/expression.py.jinja2",
+]
+
+[tool.pytest]
+minversion = "9.0"
+addopts = [
+  "--strict-config",
+  "--strict-markers",
+]
+strict_xfail = true
+filterwarnings = [
+    "error",
 ]
 
 [tool.coverage.run]
