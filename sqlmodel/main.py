@@ -411,7 +411,7 @@ def Field(
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | None = None,
-    discriminator: Optional[str] = None,
+    discriminator: str | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
