@@ -1,17 +1,15 @@
-from typing import Optional
-
 from sqlalchemy import ForeignKey
 from sqlmodel import Field, SQLModel, create_engine
 
 
 def test_sa_column_args(clear_sqlmodel, caplog) -> None:
     class Team(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
 
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
-        team_id: Optional[int] = Field(
+        id: int | None = Field(default=None, primary_key=True)
+        team_id: int | None = Field(
             default=None,
             sa_column_args=[ForeignKey("team.id")],
         )
@@ -26,7 +24,7 @@ def test_sa_column_args(clear_sqlmodel, caplog) -> None:
 
 def test_sa_column_kargs(clear_sqlmodel, caplog) -> None:
     class Item(SQLModel, table=True):
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None,
             sa_column_kwargs={"primary_key": True},
         )
