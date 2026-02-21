@@ -1,4 +1,4 @@
-from typing import Annotated, Optional
+from typing import Annotated
 
 import pytest
 from sqlalchemy import Column, Integer, String
@@ -7,7 +7,7 @@ from sqlmodel import Field, SQLModel
 
 def test_sa_column_takes_precedence() -> None:
     class Item(SQLModel, table=True):
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None,
             sa_column=Column(String, primary_key=True, nullable=False),
         )
@@ -19,7 +19,7 @@ def test_sa_column_takes_precedence() -> None:
 
 def test_sa_column_with_annotated_metadata() -> None:
     class Item(SQLModel, table=True):
-        id: Annotated[Optional[int], "meta"] = Field(
+        id: Annotated[int | None, "meta"] = Field(
             default=None,
             sa_column=Column(String, primary_key=True, nullable=False),
         )
@@ -32,7 +32,7 @@ def test_sa_column_no_sa_args() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 sa_column_args=[Integer],
                 sa_column=Column(Integer, primary_key=True),
@@ -43,7 +43,7 @@ def test_sa_column_no_sa_kargs() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 sa_column_kwargs={"primary_key": True},
                 sa_column=Column(Integer, primary_key=True),
@@ -54,7 +54,7 @@ def test_sa_column_no_type() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 sa_type=Integer,
                 sa_column=Column(Integer, primary_key=True),
@@ -65,7 +65,7 @@ def test_sa_column_no_primary_key() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 primary_key=True,
                 sa_column=Column(Integer, primary_key=True),
@@ -76,7 +76,7 @@ def test_sa_column_no_nullable() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 nullable=True,
                 sa_column=Column(Integer, primary_key=True),
@@ -87,12 +87,12 @@ def test_sa_column_no_foreign_key() -> None:
     with pytest.raises(RuntimeError):
 
         class Team(SQLModel, table=True):
-            id: Optional[int] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
             name: str
 
         class Hero(SQLModel, table=True):
-            id: Optional[int] = Field(default=None, primary_key=True)
-            team_id: Optional[int] = Field(
+            id: int | None = Field(default=None, primary_key=True)
+            team_id: int | None = Field(
                 default=None,
                 foreign_key="team.id",
                 sa_column=Column(Integer, primary_key=True),
@@ -103,7 +103,7 @@ def test_sa_column_no_unique() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 unique=True,
                 sa_column=Column(Integer, primary_key=True),
@@ -114,7 +114,7 @@ def test_sa_column_no_index() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 index=True,
                 sa_column=Column(Integer, primary_key=True),
@@ -125,7 +125,7 @@ def test_sa_column_no_ondelete() -> None:
     with pytest.raises(RuntimeError):
 
         class Item(SQLModel, table=True):
-            id: Optional[int] = Field(
+            id: int | None = Field(
                 default=None,
                 sa_column=Column(Integer, primary_key=True),
                 ondelete="CASCADE",

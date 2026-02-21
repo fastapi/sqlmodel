@@ -273,16 +273,6 @@ Let's review the code up to this point:
 
 ////
 
-//// tab | Python 3.9+
-
-```{ .python .annotate }
-{!./docs_src/tutorial/select/tutorial002_py39.py!}
-```
-
-{!./docs_src/tutorial/select/annotations/en/tutorial002.md!}
-
-////
-
 /// tip
 
 Check out the number bubbles to see what is done by each line of code.
