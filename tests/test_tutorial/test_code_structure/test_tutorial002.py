@@ -34,7 +34,6 @@ class Modules:
 @pytest.fixture(
     name="modules",
     params=[
-        pytest.param("tutorial002_py39"),
         pytest.param("tutorial002_py310", marks=needs_py310),
     ],
 )
