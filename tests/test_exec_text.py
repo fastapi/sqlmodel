@@ -1,14 +1,12 @@
-from typing import Optional
-
 from sqlmodel import Field, Session, SQLModel, create_engine, text
 
 
 def test_select_using_text_statement(clear_sqlmodel):
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
 
@@ -29,10 +27,10 @@ def test_select_using_text_statement(clear_sqlmodel):
 
 def test_insert_using_text_statement(clear_sqlmodel):
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     engine = create_engine("sqlite://")
 
