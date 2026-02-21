@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.36
+
 ### Internal
 
 * ➖ Drop support for `sqlmodel-slim`, no more versions will be released, use only `sqmodel`. PR [#1772](https://github.com/fastapi/sqlmodel/pull/1772) by [@tiangolo](https://github.com/tiangolo).
