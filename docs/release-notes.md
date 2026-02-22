@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump black from 25.12.0 to 26.1.0. PR [#1768](https://github.com/fastapi/sqlmodel/pull/1768) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.37
 
 ### Internal
