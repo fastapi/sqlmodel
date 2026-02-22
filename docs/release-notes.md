@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump pydantic-settings from 2.12.0 to 2.13.1. PR [#1771](https://github.com/fastapi/sqlmodel/pull/1771) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.128.8 to 0.129.0. PR [#1769](https://github.com/fastapi/sqlmodel/pull/1769) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump black from 25.12.0 to 26.1.0. PR [#1768](https://github.com/fastapi/sqlmodel/pull/1768) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
