@@ -1,18 +1,14 @@
 import uuid
-from typing import Optional
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
-from tests.conftest import needs_pydanticv2
 
-
-@needs_pydanticv2
 def test_annotated_optional_types(clear_sqlmodel) -> None:
     from pydantic import UUID4
 
     class Hero(SQLModel, table=True):
         # Pydantic UUID4 is: Annotated[UUID, UuidVersion(4)]
-        id: Optional[UUID4] = Field(default_factory=uuid.uuid4, primary_key=True)
+        id: UUID4 | None = Field(default_factory=uuid.uuid4, primary_key=True)
 
     engine = create_engine("sqlite:///:memory:")
     SQLModel.metadata.create_all(engine)

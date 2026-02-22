@@ -14,24 +14,22 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        package:
-          - sqlmodel
-          - sqlmodel-slim
     permissions:
       id-token: write
+      contents: read
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - name: Install build dependencies
-        run: pip install build
-      - name: Build distribution
+      - name: Dump GitHub context
         env:
-          TIANGOLO_BUILD_PACKAGE: ${{ matrix.package }}
-        run: python -m build
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version-file: ".python-version"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+      - name: Build distribution
+        run: uv build
       - name: Publish
-        uses: pypa/gh-action-pypi-publish@v1.12.4
+        run: uv publish

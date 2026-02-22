@@ -2,12 +2,243 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump mkdocs-material from 9.7.1 to 9.7.2. PR [#1764](https://github.com/fastapi/sqlmodel/pull/1764) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pillow from 11.3.0 to 12.1.1. PR [#1770](https://github.com/fastapi/sqlmodel/pull/1770) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pydantic-settings from 2.12.0 to 2.13.1. PR [#1771](https://github.com/fastapi/sqlmodel/pull/1771) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.8 to 0.129.0. PR [#1769](https://github.com/fastapi/sqlmodel/pull/1769) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump black from 25.12.0 to 26.1.0. PR [#1768](https://github.com/fastapi/sqlmodel/pull/1768) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.37
+
+### Internal
+
+* 👷 Fix build CI to not attempt to build `sqlmodel-slim`. PR [#1773](https://github.com/fastapi/sqlmodel/pull/1773) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.36
+
+### Internal
+
+* ➖ Drop support for `sqlmodel-slim`, no more versions will be released, use only `sqmodel`. PR [#1772](https://github.com/fastapi/sqlmodel/pull/1772) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.35
+
+### Breaking Changes
+
+* ➖ Drop support for Python 3.9. PR [#1766](https://github.com/fastapi/sqlmodel/pull/1766) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 🔨 Add script to remove Python 3.9 files, migrate to Python 3.10. PR [#1767](https://github.com/fastapi/sqlmodel/pull/1767) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump prek from 0.3.2 to 0.3.3. PR [#1761](https://github.com/fastapi/sqlmodel/pull/1761) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.1 to 0.23.2. PR [#1760](https://github.com/fastapi/sqlmodel/pull/1760) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.34
+
+### Internal
+
+* 👷 Enable tests with lower and upper bound versions. PR [#1735](https://github.com/fastapi/sqlmodel/pull/1735) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump ruff from 0.15.0 to 0.15.1. PR [#1758](https://github.com/fastapi/sqlmodel/pull/1758) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.0 to 0.23.1. PR [#1759](https://github.com/fastapi/sqlmodel/pull/1759) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.2 to 0.23.0. PR [#1756](https://github.com/fastapi/sqlmodel/pull/1756) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.7 to 0.128.8. PR [#1755](https://github.com/fastapi/sqlmodel/pull/1755) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.33
+
+### Docs
+
+* ✏️ Fix typos in inline comment in `expression.py`. PR [#1747](https://github.com/fastapi/sqlmodel/pull/1747) by [@veeceey](https://github.com/veeceey).
+* 📝 Fix async example in `session.execute()` docstring & deprecation message. PR [#1643](https://github.com/fastapi/sqlmodel/pull/1643) by [@DanielLeviLucas](https://github.com/DanielLeviLucas).
+* 📝 Update `management-tasks.md` to be in line with `management-tasks.md` in FastAPI repo. PR [#1743](https://github.com/fastapi/sqlmodel/pull/1743) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+### Internal
+
+* 🔨 Update build script for `sqlmodel-slim`. PR [#1754](https://github.com/fastapi/sqlmodel/pull/1754) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump fastapi from 0.128.6 to 0.128.7. PR [#1751](https://github.com/fastapi/sqlmodel/pull/1751) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.1 to 0.21.2. PR [#1752](https://github.com/fastapi/sqlmodel/pull/1752) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Update build setup for `sqlmodel-slim`, deprecate it, and make it only depend on `sqlmodel`. PR [#1753](https://github.com/fastapi/sqlmodel/pull/1753) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump fastapi from 0.128.3 to 0.128.6. PR [#1750](https://github.com/fastapi/sqlmodel/pull/1750) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.1 to 0.128.3. PR [#1746](https://github.com/fastapi/sqlmodel/pull/1746) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.1 to 0.3.2. PR [#1745](https://github.com/fastapi/sqlmodel/pull/1745) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.0 to 0.128.1. PR [#1742](https://github.com/fastapi/sqlmodel/pull/1742) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ✅ Update `ValidationError` schema in FastAPI-related tests to be compatible with FastAPI 0.128.1+. PR [#1744](https://github.com/fastapi/sqlmodel/pull/1744) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump ruff from 0.14.14 to 0.15.0. PR [#1740](https://github.com/fastapi/sqlmodel/pull/1740) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Add generate-readme to pre-commit. PR [#1741](https://github.com/fastapi/sqlmodel/pull/1741) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Run mypy by pre-commit. PR [#1738](https://github.com/fastapi/sqlmodel/pull/1738) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump prek from 0.3.0 to 0.3.1. PR [#1739](https://github.com/fastapi/sqlmodel/pull/1739) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.32
+
+### Fixes
+
+* 🐛 Fix support for `Annotated` fields with Pydantic 2.12+. PR [#1607](https://github.com/fastapi/sqlmodel/pull/1607) by [@vimota](https://github.com/vimota).
+
+### Refactors
+
+* ♻️ Import `Literal` from the `typing` module directly. PR [#1699](https://github.com/fastapi/sqlmodel/pull/1699) by [@svlandeg](https://github.com/svlandeg).
+
+### Docs
+
+* 📝 Add contribution instructions about LLM generated code and comments and automated tools for PRs. PR [#1712](https://github.com/fastapi/sqlmodel/pull/1712) by [@alejsdev](https://github.com/alejsdev).
+* 🐛 Fix copy button in `custom.js`. PR [#1711](https://github.com/fastapi/sqlmodel/pull/1711) by [@alejsdev](https://github.com/alejsdev).
+* 📝 Remove duplicated word in `read-relationships.md`. PR [#1705](https://github.com/fastapi/sqlmodel/pull/1705) by [@stefmolin](https://github.com/stefmolin).
+
+### Internal
+
+* ⬆ Bump ruff from 0.14.13 to 0.14.14. PR [#1721](https://github.com/fastapi/sqlmodel/pull/1721) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.2.30 to 0.3.0. PR [#1720](https://github.com/fastapi/sqlmodel/pull/1720) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔧 Ensure that an edit to `uv.lock` gets the `internal` label. PR [#1719](https://github.com/fastapi/sqlmodel/pull/1719) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump sqlalchemy from 2.0.45 to 2.0.46. PR [#1717](https://github.com/fastapi/sqlmodel/pull/1717) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.0 to 0.21.1. PR [#1715](https://github.com/fastapi/sqlmodel/pull/1715) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.10 to 0.14.13. PR [#1714](https://github.com/fastapi/sqlmodel/pull/1714) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.2.25 to 0.2.30. PR [#1716](https://github.com/fastapi/sqlmodel/pull/1716) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆️ Update FastAPI version pin to `>=0.103.2` in tests. PR [#1709](https://github.com/fastapi/sqlmodel/pull/1709) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 📌 Pin development Python version to 3.10, for `deploy_docs_status.py`. PR [#1707](https://github.com/fastapi/sqlmodel/pull/1707) by [@tiangolo](https://github.com/tiangolo).
+* ⬆️  Migrate to uv. PR [#1688](https://github.com/fastapi/sqlmodel/pull/1688) by [@DoctorJohn](https://github.com/DoctorJohn).
+* ⬆ Update fastapi requirement from >=0.103.2,<0.126.0 to >=0.103.2,<0.129.0. PR [#1703](https://github.com/fastapi/sqlmodel/pull/1703) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ✅ Update tests, remove conditionals for Pydantic v1. PR [#1702](https://github.com/fastapi/sqlmodel/pull/1702) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.31
+
+### Breaking Changes
+
+* ➖ Drop support for Pydantic v1. PR [#1701](https://github.com/fastapi/sqlmodel/pull/1701) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ⬆ Bump dirty-equals from 0.9.0 to 0.11. PR [#1649](https://github.com/fastapi/sqlmodel/pull/1649) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.7.0 to 9.7.1. PR [#1690](https://github.com/fastapi/sqlmodel/pull/1690) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.20.1 to 0.21.0. PR [#1694](https://github.com/fastapi/sqlmodel/pull/1694) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 📌 Relax `prek` version pin to `>=0.2.24,<1.0.0`. PR [#1698](https://github.com/fastapi/sqlmodel/pull/1698) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.0.30
+
+### Breaking Changes
+
+* ➖ Drop support for Python 3.8. PR [#1696](https://github.com/fastapi/sqlmodel/pull/1696) by [@tiangolo](https://github.com/tiangolo).
+
+### Docs
+
+* ➖ Drop support for Python 3.8 in CI and docs. PR [#1695](https://github.com/fastapi/sqlmodel/pull/1695) by [@YuriiMotov](https://github.com/YuriiMotov) and [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 🔧 Update pre-commit, generate select on pre-commit, use local Ruff. PR [#1697](https://github.com/fastapi/sqlmodel/pull/1697) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump actions/checkout from 5 to 6. PR [#1692](https://github.com/fastapi/sqlmodel/pull/1692) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Add pre-commit workflow. PR [#1684](https://github.com/fastapi/sqlmodel/pull/1684) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ✅ Simplify tests for code examples, one test file for multiple variants. PR [#1664](https://github.com/fastapi/sqlmodel/pull/1664) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1677](https://github.com/fastapi/sqlmodel/pull/1677) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump actions/download-artifact from 6 to 7. PR [#1676](https://github.com/fastapi/sqlmodel/pull/1676) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/cache from 4 to 5. PR [#1673](https://github.com/fastapi/sqlmodel/pull/1673) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump markdown-include-variants from 0.0.5 to 0.0.8. PR [#1674](https://github.com/fastapi/sqlmodel/pull/1674) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/upload-artifact from 5 to 6. PR [#1675](https://github.com/fastapi/sqlmodel/pull/1675) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mypy from 1.18.2 to 1.19.1. PR [#1679](https://github.com/fastapi/sqlmodel/pull/1679) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.20.0 to 0.20.1. PR [#1685](https://github.com/fastapi/sqlmodel/pull/1685) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.8 to 0.14.10. PR [#1681](https://github.com/fastapi/sqlmodel/pull/1681) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.29
+
+### Fixes
+
+* 🐛 Fix `alias` support for Pydantic v2. PR [#1577](https://github.com/fastapi/sqlmodel/pull/1577) by [@ravishan16](https://github.com/ravishan16).
+
+## 0.0.28
+
+### Fixes
+
+* 🐛 Fix `RuntimeError: dictionary changed size during iteration` in `sqlmodel_update()`. PR [#997](https://github.com/fastapi/sqlmodel/pull/997) by [@BartSchuurmans](https://github.com/BartSchuurmans).
+
+### Docs
+
+* 💅 Update CSS to explicitly use emoji font. PR [#1658](https://github.com/fastapi/sqlmodel/pull/1658) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update link to JetBrains Python survey in `features.md`. PR [#1627](https://github.com/fastapi/sqlmodel/pull/1627) by [@sparkiegeek](https://github.com/sparkiegeek).
+* 📝 Fix broken links in docs. PR [#1601](https://github.com/fastapi/sqlmodel/pull/1601) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+### Internal
+
+* 📌 Pin FastAPI in tests to 0.125.0 while dropping support for Python 3.8. PR [#1689](https://github.com/fastapi/sqlmodel/pull/1689) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Configure coverage, error on main tests, don't wait for Smokeshow. PR [#1683](https://github.com/fastapi/sqlmodel/pull/1683) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 👷 Run Smokeshow always, even on test failures. PR [#1682](https://github.com/fastapi/sqlmodel/pull/1682) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump ruff from 0.14.6 to 0.14.8. PR [#1667](https://github.com/fastapi/sqlmodel/pull/1667) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1662](https://github.com/fastapi/sqlmodel/pull/1662) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump actions/checkout from 5 to 6. PR [#1656](https://github.com/fastapi/sqlmodel/pull/1656) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.5 to 0.14.6. PR [#1652](https://github.com/fastapi/sqlmodel/pull/1652) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1655](https://github.com/fastapi/sqlmodel/pull/1655) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump actions/checkout from 5 to 6. PR [#1651](https://github.com/fastapi/sqlmodel/pull/1651) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 💄 Use font Fira Code to fix display of Rich panels in docs in Windows. PR [#1653](https://github.com/fastapi/sqlmodel/pull/1653) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Upgrade `latest-changes` GitHub Action and pin `actions/checkout@v5`. PR [#1654](https://github.com/fastapi/sqlmodel/pull/1654) by [@svlandeg](https://github.com/svlandeg).
+* 🔧 Upgrade Material for MkDocs and remove insiders. PR [#1650](https://github.com/fastapi/sqlmodel/pull/1650) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump mkdocs-material from 9.6.23 to 9.7.0. PR [#1645](https://github.com/fastapi/sqlmodel/pull/1645) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-macros-plugin from 1.4.1 to 1.5.0. PR [#1647](https://github.com/fastapi/sqlmodel/pull/1647) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.4 to 0.14.5. PR [#1646](https://github.com/fastapi/sqlmodel/pull/1646) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1648](https://github.com/fastapi/sqlmodel/pull/1648) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.14.3 to 0.14.4. PR [#1640](https://github.com/fastapi/sqlmodel/pull/1640) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1642](https://github.com/fastapi/sqlmodel/pull/1642) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump mkdocs-material from 9.6.22 to 9.6.23. PR [#1637](https://github.com/fastapi/sqlmodel/pull/1637) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.2 to 0.14.3. PR [#1633](https://github.com/fastapi/sqlmodel/pull/1633) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1636](https://github.com/fastapi/sqlmodel/pull/1636) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump mkdocs-macros-plugin from 1.4.0 to 1.4.1. PR [#1626](https://github.com/fastapi/sqlmodel/pull/1626) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.1 to 0.14.2. PR [#1616](https://github.com/fastapi/sqlmodel/pull/1616) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1625](https://github.com/fastapi/sqlmodel/pull/1625) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* 🔧 Add PEP-639 license metadata. PR [#1624](https://github.com/fastapi/sqlmodel/pull/1624) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump griffe-typingdoc from 0.2.9 to 0.3.0. PR [#1615](https://github.com/fastapi/sqlmodel/pull/1615) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/upload-artifact from 4 to 5. PR [#1620](https://github.com/fastapi/sqlmodel/pull/1620) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/download-artifact from 5 to 6. PR [#1621](https://github.com/fastapi/sqlmodel/pull/1621) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.14.0 to 0.14.1. PR [#1614](https://github.com/fastapi/sqlmodel/pull/1614) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.13.2 to 0.14.0. PR [#1592](https://github.com/fastapi/sqlmodel/pull/1592) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1605](https://github.com/fastapi/sqlmodel/pull/1605) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump astral-sh/setup-uv from 6 to 7. PR [#1593](https://github.com/fastapi/sqlmodel/pull/1593) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.6.21 to 9.6.22. PR [#1608](https://github.com/fastapi/sqlmodel/pull/1608) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔧 Configure reminder for `waiting` label in `issue-manager`. PR [#1609](https://github.com/fastapi/sqlmodel/pull/1609) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump typer from 0.19.2 to 0.20.0. PR [#1612](https://github.com/fastapi/sqlmodel/pull/1612) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ✅ Remove unused type ignores since SQLAlchemy 2.0.44. PR [#1613](https://github.com/fastapi/sqlmodel/pull/1613) by [@svlandeg](https://github.com/svlandeg).
+
+## 0.0.27
+
+### Upgrades
+
+* ⬆️ Add support for Python 3.14. PR [#1578](https://github.com/fastapi/sqlmodel/pull/1578) by [@svlandeg](https://github.com/svlandeg).
+
+## 0.0.26
+
+### Fixes
+
+* 🐛 Fix attribute handling in `model_dump` for compatibility with the latest Pydantic versions. PR [#1595](https://github.com/fastapi/sqlmodel/pull/1595) by [@spazm](https://github.com/spazm).
+
+### Docs
+
+* 📝 Fix typo in `docs/tutorial/fastapi/simple-hero-api.md`. PR [#1583](https://github.com/fastapi/sqlmodel/pull/1583) by [@kofi-kusi](https://github.com/kofi-kusi).
+
+### Internal
+
+* ⬆ Bump mypy from 1.4.1 to 1.18.2. PR [#1560](https://github.com/fastapi/sqlmodel/pull/1560) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ✅ Add test that runs select with 3 or 4 arguments. PR [#1590](https://github.com/fastapi/sqlmodel/pull/1590) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump mkdocs-macros-plugin from 1.3.9 to 1.4.0. PR [#1581](https://github.com/fastapi/sqlmodel/pull/1581) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.6.20 to 9.6.21. PR [#1588](https://github.com/fastapi/sqlmodel/pull/1588) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1584](https://github.com/fastapi/sqlmodel/pull/1584) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump tiangolo/issue-manager from 0.5.1 to 0.6.0. PR [#1589](https://github.com/fastapi/sqlmodel/pull/1589) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Update docs previews comment, single comment, add failure status. PR [#1586](https://github.com/fastapi/sqlmodel/pull/1586) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump markdown-include-variants from 0.0.4 to 0.0.5. PR [#1582](https://github.com/fastapi/sqlmodel/pull/1582) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typing-extensions from 4.13.2 to 4.15.0 for Python 3.9+. PR [#1580](https://github.com/fastapi/sqlmodel/pull/1580) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1571](https://github.com/fastapi/sqlmodel/pull/1571) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump typer from 0.17.4 to 0.19.2. PR [#1573](https://github.com/fastapi/sqlmodel/pull/1573) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.13.0 to 0.13.2. PR [#1576](https://github.com/fastapi/sqlmodel/pull/1576) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 💚 Fix CI test suite for Windows and MacOS. PR [#1307](https://github.com/fastapi/sqlmodel/pull/1307) by [@svlandeg](https://github.com/svlandeg).
+
+## 0.0.25
+
+### Features
+
+* ✨ Add overload for `exec` method to support `insert`, `update`, `delete` statements. PR [#1342](https://github.com/fastapi/sqlmodel/pull/1342) by [@seriaati](https://github.com/seriaati).
+
 ### Upgrades
 
 * ⬆️ Drop support for Python 3.7, require Python 3.8 or above. PR [#1316](https://github.com/fastapi/sqlmodel/pull/1316) by [@svlandeg](https://github.com/svlandeg).
 
 ### Docs
 
+* ✏️ Fix typos in `docs/tutorial/relationship-attributes/cascade-delete-relationships.md`. PR [#1543](https://github.com/fastapi/sqlmodel/pull/1543) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🍱 Update SVG files, a single file per diagram, sans-serif fonts. PR [#1373](https://github.com/fastapi/sqlmodel/pull/1373) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Grammar tweak in `docs/tutorial/insert.md`. PR [#1368](https://github.com/fastapi/sqlmodel/pull/1368) by [@brettcannon](https://github.com/brettcannon).
 * 📝 Update `docs/tutorial/fastapi/relationships.md`. PR [#1365](https://github.com/fastapi/sqlmodel/pull/1365) by [@Foxerine](https://github.com/Foxerine).
@@ -19,6 +250,40 @@
 
 ### Internal
 
+* ⬆ Bump griffe-typingdoc from 0.2.8 to 0.2.9. PR [#1553](https://github.com/fastapi/sqlmodel/pull/1553) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.6.17 to 9.6.20. PR [#1565](https://github.com/fastapi/sqlmodel/pull/1565) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/setup-python from 5 to 6. PR [#1551](https://github.com/fastapi/sqlmodel/pull/1551) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.12.12 to 0.13.0. PR [#1559](https://github.com/fastapi/sqlmodel/pull/1559) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1564](https://github.com/fastapi/sqlmodel/pull/1564) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump actions/labeler from 5 to 6. PR [#1549](https://github.com/fastapi/sqlmodel/pull/1549) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1556](https://github.com/fastapi/sqlmodel/pull/1556) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump typer from 0.17.3 to 0.17.4. PR [#1554](https://github.com/fastapi/sqlmodel/pull/1554) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1546](https://github.com/fastapi/sqlmodel/pull/1546) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.12.10 to 0.12.12. PR [#1548](https://github.com/fastapi/sqlmodel/pull/1548) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.16.1 to 0.17.3. PR [#1547](https://github.com/fastapi/sqlmodel/pull/1547) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pypa/gh-action-pypi-publish from 1.12.4 to 1.13.0. PR [#1550](https://github.com/fastapi/sqlmodel/pull/1550) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Detect and label merge conflicts on PRs automatically. PR [#1552](https://github.com/fastapi/sqlmodel/pull/1552) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump ruff from 0.12.9 to 0.12.10. PR [#1532](https://github.com/fastapi/sqlmodel/pull/1532) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1534](https://github.com/fastapi/sqlmodel/pull/1534) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump typer from 0.16.0 to 0.16.1. PR [#1531](https://github.com/fastapi/sqlmodel/pull/1531) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/download-artifact from 4 to 5. PR [#1451](https://github.com/fastapi/sqlmodel/pull/1451) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/checkout from 4 to 5. PR [#1488](https://github.com/fastapi/sqlmodel/pull/1488) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1479](https://github.com/fastapi/sqlmodel/pull/1479) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump mkdocs-macros-plugin from 1.3.7 to 1.3.9. PR [#1507](https://github.com/fastapi/sqlmodel/pull/1507) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.12.7 to 0.12.9. PR [#1521](https://github.com/fastapi/sqlmodel/pull/1521) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.6.16 to 9.6.17. PR [#1528](https://github.com/fastapi/sqlmodel/pull/1528) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1444](https://github.com/fastapi/sqlmodel/pull/1444) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump mkdocs-material from 9.6.15 to 9.6.16. PR [#1446](https://github.com/fastapi/sqlmodel/pull/1446) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.12.4 to 0.12.7. PR [#1447](https://github.com/fastapi/sqlmodel/pull/1447) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump tiangolo/latest-changes from 0.3.2 to 0.4.0. PR [#1448](https://github.com/fastapi/sqlmodel/pull/1448) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1437](https://github.com/fastapi/sqlmodel/pull/1437) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.12.3 to 0.12.4. PR [#1436](https://github.com/fastapi/sqlmodel/pull/1436) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1428](https://github.com/fastapi/sqlmodel/pull/1428) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump ruff from 0.12.2 to 0.12.3. PR [#1432](https://github.com/fastapi/sqlmodel/pull/1432) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1418](https://github.com/fastapi/sqlmodel/pull/1418) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
+* ⬆ Bump pillow from 11.2.1 to 11.3.0. PR [#1423](https://github.com/fastapi/sqlmodel/pull/1423) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.6.14 to 9.6.15. PR [#1424](https://github.com/fastapi/sqlmodel/pull/1424) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.12.0 to 0.12.2. PR [#1425](https://github.com/fastapi/sqlmodel/pull/1425) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1374](https://github.com/fastapi/sqlmodel/pull/1374) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.11.13 to 0.12.0. PR [#1403](https://github.com/fastapi/sqlmodel/pull/1403) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Simplify tests for `tests/test_tutorial/test_code_structure/test_tutorial001.py`, one test file for multiple variants. PR [#1408](https://github.com/fastapi/sqlmodel/pull/1408) by [@tiangolo](https://github.com/tiangolo).
