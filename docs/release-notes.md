@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Fix small typos in the documentation. PR [#1641](https://github.com/fastapi/sqlmodel/pull/1641) by [@svlandeg](https://github.com/svlandeg).
+
 ### Internal
 
 * ⬆ Bump mkdocs-material from 9.7.1 to 9.7.2. PR [#1764](https://github.com/fastapi/sqlmodel/pull/1764) by [@dependabot[bot]](https://github.com/apps/dependabot).
