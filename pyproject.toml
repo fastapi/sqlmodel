@@ -55,8 +55,8 @@ dev = [
 docs = [
     "black>=24.1.0",
     "cairosvg==2.8.2",
-    "griffe-typingdoc==0.3.0",
-    "griffe-warnings-deprecated==1.1.0",
+    "griffe-typingdoc >=0.3.0",
+    "griffe-warnings-deprecated >=1.1.0",
     "markdown-include-variants==0.0.8",
     "mdx-include>=1.4.1,<2.0.0",
     "mkdocs-macros-plugin==1.5.0",
