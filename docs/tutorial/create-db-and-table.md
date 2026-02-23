@@ -562,16 +562,6 @@ Now, let's give the code a final look:
 
 ////
 
-//// tab | Python 3.9+
-
-```{.python .annotate}
-{!./docs_src/tutorial/create_db_and_table/tutorial003_py39.py!}
-```
-
-{!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
-
-////
-
 /// tip
 
 Review what each line does by clicking each number bubble in the code. 👆
