@@ -1,9 +1,5 @@
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
-    Type,
     TypeVar,
     Union,
     cast,
@@ -20,7 +16,7 @@ from sqlalchemy.engine.interfaces import Dialect
 BaseModelType = TypeVar("BaseModelType", bound=BaseModel)
 
 # Define a type alias for JSON-serializable values
-JSONValue = Union[Dict[str, Any], List[Any], str, int, float, bool, None]
+JSONValue = Union[dict[str, Any], list[Any], str, int, float, bool, None]
 JSON_VARIANT = JSON().with_variant(JSONB, "postgresql")
 
 
@@ -44,11 +40,9 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
 
     def __init__(
         self,
-        model_class: Union[
-            Type[BaseModelType],
-            Type[List[BaseModelType]],
-            Type[Dict[str, BaseModelType]],
-        ],
+        model_class: type[BaseModelType]
+        | type[list[BaseModelType]]
+        | type[dict[str, BaseModelType]],
         *args: Any,
         **kwargs: Any,
     ):
@@ -80,7 +74,7 @@ class PydanticJSONB(types.TypeDecorator):  # type: ignore
 
     def process_result_value(
         self, value: Any, dialect: Any
-    ) -> Optional[Union[BaseModelType, List[BaseModelType], Dict[str, BaseModelType]]]:  # noqa: ANN401, ARG002, ANN001
+    ) -> BaseModelType | list[BaseModelType] | dict[str, BaseModelType] | None:  # noqa: ANN401, ARG002, ANN001
         if value is None:
             return None
         if isinstance(value, dict):
