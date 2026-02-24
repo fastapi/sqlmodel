@@ -1,4 +1,4 @@
-from typing import Annotated, Literal, Union
+from typing import Annotated, Literal
 
 import pytest
 from sqlalchemy import text
@@ -332,7 +332,7 @@ def test_literal_optional_and_union_constraints(clear_sqlmodel):
     class Model(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         opt_str: Literal["x", "y"] | None = None
-        union_int: Union[Literal[10, 20], None] = None
+        union_int: Literal[10, 20] | None = None
 
     engine = create_engine("sqlite://")
     SQLModel.metadata.create_all(engine)
