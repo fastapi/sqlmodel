@@ -223,7 +223,7 @@ def test_literal_valid_values(clear_sqlmodel, caplog):
     """Test https://github.com/fastapi/sqlmodel/issues/57"""
 
     class Model(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         all_str: Literal["a", "b", "c"]
         mixed: Literal["yes", "no", 1, 0]
         all_int: Literal[1, 2, 3]
@@ -270,7 +270,7 @@ def test_literal_constraints_invalid_values(clear_sqlmodel):
     """DB should reject values that are not part of the Literal choices."""
 
     class Model(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         all_str: Literal["a", "b", "c"]
         mixed: Literal["yes", "no", 1, 0]
         all_int: Literal[1, 2, 3]
@@ -330,8 +330,8 @@ def test_literal_optional_and_union_constraints(clear_sqlmodel):
     """Literals inside Optional/Union should also be enforced at the DB level."""
 
     class Model(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
-        opt_str: Optional[Literal["x", "y"]] = None
+        id: int | None = Field(default=None, primary_key=True)
+        opt_str: Literal["x", "y"] | None = None
         union_int: Union[Literal[10, 20], None] = None
 
     engine = create_engine("sqlite://")
