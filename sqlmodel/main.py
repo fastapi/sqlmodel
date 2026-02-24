@@ -685,7 +685,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             table = getattr(cls, "__table__", None)
             if table is not None:
                 # Attach Literal-based value constraints at the database level
-                for field_name, field in get_model_fields(cls).items():
+                for field_name, field in get_model_fields(cls).items():  # type: ignore
                     annotation = getattr(field, "annotation", None)
                     literal_info = get_literal_annotation_info(annotation)
                     if literal_info is None:
@@ -700,7 +700,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     elif base_type is bool:
                         coerced_values = tuple(bool(v) for v in values)
                     else:
-                        coerced_values = tuple(str(v) for v in values)
+                        coerced_values = tuple(str(v) for v in values)  # type: ignore
                     constraint_name = f"ck_{table.name}_{field_name}_literal"
                     constraint = CheckConstraint(
                         column.in_(coerced_values),
