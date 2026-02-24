@@ -2,6 +2,82 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Fix small typos in the documentation. PR [#1641](https://github.com/fastapi/sqlmodel/pull/1641) by [@svlandeg](https://github.com/svlandeg).
+
+### Internal
+
+* ⬆ Bump pytest from 8.4.2 to 9.0.2. PR [#1780](https://github.com/fastapi/sqlmodel/pull/1780) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocstrings[python] from 0.30.1 to 1.0.3. PR [#1776](https://github.com/fastapi/sqlmodel/pull/1776) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.2 to 0.24.1. PR [#1777](https://github.com/fastapi/sqlmodel/pull/1777) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.1 to 0.15.2. PR [#1779](https://github.com/fastapi/sqlmodel/pull/1779) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.129.0 to 0.132.0. PR [#1778](https://github.com/fastapi/sqlmodel/pull/1778) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Update all dependencies to use `griffelib` instead of `griffe`. PR [#1775](https://github.com/fastapi/sqlmodel/pull/1775) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump mkdocs-material from 9.7.1 to 9.7.2. PR [#1764](https://github.com/fastapi/sqlmodel/pull/1764) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pillow from 11.3.0 to 12.1.1. PR [#1770](https://github.com/fastapi/sqlmodel/pull/1770) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pydantic-settings from 2.12.0 to 2.13.1. PR [#1771](https://github.com/fastapi/sqlmodel/pull/1771) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.8 to 0.129.0. PR [#1769](https://github.com/fastapi/sqlmodel/pull/1769) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump black from 25.12.0 to 26.1.0. PR [#1768](https://github.com/fastapi/sqlmodel/pull/1768) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.37
+
+### Internal
+
+* 👷 Fix build CI to not attempt to build `sqlmodel-slim`. PR [#1773](https://github.com/fastapi/sqlmodel/pull/1773) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.36
+
+### Internal
+
+* ➖ Drop support for `sqlmodel-slim`, no more versions will be released, use only `sqmodel`. PR [#1772](https://github.com/fastapi/sqlmodel/pull/1772) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.35
+
+### Breaking Changes
+
+* ➖ Drop support for Python 3.9. PR [#1766](https://github.com/fastapi/sqlmodel/pull/1766) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 🔨 Add script to remove Python 3.9 files, migrate to Python 3.10. PR [#1767](https://github.com/fastapi/sqlmodel/pull/1767) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump prek from 0.3.2 to 0.3.3. PR [#1761](https://github.com/fastapi/sqlmodel/pull/1761) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.1 to 0.23.2. PR [#1760](https://github.com/fastapi/sqlmodel/pull/1760) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.34
+
+### Internal
+
+* 👷 Enable tests with lower and upper bound versions. PR [#1735](https://github.com/fastapi/sqlmodel/pull/1735) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump ruff from 0.15.0 to 0.15.1. PR [#1758](https://github.com/fastapi/sqlmodel/pull/1758) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.0 to 0.23.1. PR [#1759](https://github.com/fastapi/sqlmodel/pull/1759) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.2 to 0.23.0. PR [#1756](https://github.com/fastapi/sqlmodel/pull/1756) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.7 to 0.128.8. PR [#1755](https://github.com/fastapi/sqlmodel/pull/1755) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.0.33
+
+### Docs
+
+* ✏️ Fix typos in inline comment in `expression.py`. PR [#1747](https://github.com/fastapi/sqlmodel/pull/1747) by [@veeceey](https://github.com/veeceey).
+* 📝 Fix async example in `session.execute()` docstring & deprecation message. PR [#1643](https://github.com/fastapi/sqlmodel/pull/1643) by [@DanielLeviLucas](https://github.com/DanielLeviLucas).
+* 📝 Update `management-tasks.md` to be in line with `management-tasks.md` in FastAPI repo. PR [#1743](https://github.com/fastapi/sqlmodel/pull/1743) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+### Internal
+
+* 🔨 Update build script for `sqlmodel-slim`. PR [#1754](https://github.com/fastapi/sqlmodel/pull/1754) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump fastapi from 0.128.6 to 0.128.7. PR [#1751](https://github.com/fastapi/sqlmodel/pull/1751) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.21.1 to 0.21.2. PR [#1752](https://github.com/fastapi/sqlmodel/pull/1752) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Update build setup for `sqlmodel-slim`, deprecate it, and make it only depend on `sqlmodel`. PR [#1753](https://github.com/fastapi/sqlmodel/pull/1753) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump fastapi from 0.128.3 to 0.128.6. PR [#1750](https://github.com/fastapi/sqlmodel/pull/1750) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.1 to 0.128.3. PR [#1746](https://github.com/fastapi/sqlmodel/pull/1746) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.1 to 0.3.2. PR [#1745](https://github.com/fastapi/sqlmodel/pull/1745) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.128.0 to 0.128.1. PR [#1742](https://github.com/fastapi/sqlmodel/pull/1742) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ✅ Update `ValidationError` schema in FastAPI-related tests to be compatible with FastAPI 0.128.1+. PR [#1744](https://github.com/fastapi/sqlmodel/pull/1744) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump ruff from 0.14.14 to 0.15.0. PR [#1740](https://github.com/fastapi/sqlmodel/pull/1740) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Add generate-readme to pre-commit. PR [#1741](https://github.com/fastapi/sqlmodel/pull/1741) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Run mypy by pre-commit. PR [#1738](https://github.com/fastapi/sqlmodel/pull/1738) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump prek from 0.3.0 to 0.3.1. PR [#1739](https://github.com/fastapi/sqlmodel/pull/1739) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.0.32
 
 ### Fixes

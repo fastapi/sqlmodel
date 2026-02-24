@@ -139,7 +139,7 @@ Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
 
 ## Make Circular Imports Work
 
-Let's say that for some reason you hate the idea of having all the database models together in a single file, and you really want to have **separate files** a `hero_model.py` file and a `team_model.py` file.
+Let's say that for some reason you hate the idea of having all the database models together in a single file, and you really want to have **separate files**: a `hero_model.py` file and a `team_model.py` file.
 
 You can also do it. 😎 There's a couple of things to keep in mind. 🤓
 
