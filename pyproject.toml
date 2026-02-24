@@ -83,7 +83,7 @@ tests = [
     "jinja2==3.1.6",
     "mypy==1.19.1",
     "pre-commit>=2.17.0,<5.0.0",
-    "pytest>=7.0.1,<9.0.0",
+    "pytest>=7.0.1,<10.0.0",
     "ruff==0.15.2",
     "typing-extensions==4.15.0",
 ]
