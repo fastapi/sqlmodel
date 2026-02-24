@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump typer from 0.23.2 to 0.24.1. PR [#1777](https://github.com/fastapi/sqlmodel/pull/1777) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.1 to 0.15.2. PR [#1779](https://github.com/fastapi/sqlmodel/pull/1779) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.129.0 to 0.132.0. PR [#1778](https://github.com/fastapi/sqlmodel/pull/1778) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Update all dependencies to use `griffelib` instead of `griffe`. PR [#1775](https://github.com/fastapi/sqlmodel/pull/1775) by [@svlandeg](https://github.com/svlandeg).
