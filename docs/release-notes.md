@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump mkdocs-material from 9.7.2 to 9.7.3. PR [#1782](https://github.com/fastapi/sqlmodel/pull/1782) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.132.0 to 0.133.0. PR [#1781](https://github.com/fastapi/sqlmodel/pull/1781) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump sqlalchemy from 2.0.46 to 2.0.47. PR [#1783](https://github.com/fastapi/sqlmodel/pull/1783) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pytest from 8.4.2 to 9.0.2. PR [#1780](https://github.com/fastapi/sqlmodel/pull/1780) by [@dependabot[bot]](https://github.com/apps/dependabot).
