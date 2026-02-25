@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump sqlalchemy from 2.0.46 to 2.0.47. PR [#1783](https://github.com/fastapi/sqlmodel/pull/1783) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pytest from 8.4.2 to 9.0.2. PR [#1780](https://github.com/fastapi/sqlmodel/pull/1780) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocstrings[python] from 0.30.1 to 1.0.3. PR [#1776](https://github.com/fastapi/sqlmodel/pull/1776) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.23.2 to 0.24.1. PR [#1777](https://github.com/fastapi/sqlmodel/pull/1777) by [@dependabot[bot]](https://github.com/apps/dependabot).
