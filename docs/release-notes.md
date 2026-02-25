@@ -23,7 +23,7 @@
 * ⬆ Bump fastapi from 0.128.8 to 0.129.0. PR [#1769](https://github.com/fastapi/sqlmodel/pull/1769) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump black from 25.12.0 to 26.1.0. PR [#1768](https://github.com/fastapi/sqlmodel/pull/1768) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.37
+## 0.0.37 (2026-02-21)
 
 ### Internal
 
@@ -35,7 +35,7 @@
 
 * ➖ Drop support for `sqlmodel-slim`, no more versions will be released, use only `sqmodel`. PR [#1772](https://github.com/fastapi/sqlmodel/pull/1772) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.35
+## 0.0.35 (2026-02-20)
 
 ### Breaking Changes
 
@@ -47,7 +47,7 @@
 * ⬆ Bump prek from 0.3.2 to 0.3.3. PR [#1761](https://github.com/fastapi/sqlmodel/pull/1761) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.23.1 to 0.23.2. PR [#1760](https://github.com/fastapi/sqlmodel/pull/1760) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.34
+## 0.0.34 (2026-02-16)
 
 ### Internal
 
@@ -57,7 +57,7 @@
 * ⬆ Bump typer from 0.21.2 to 0.23.0. PR [#1756](https://github.com/fastapi/sqlmodel/pull/1756) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.128.7 to 0.128.8. PR [#1755](https://github.com/fastapi/sqlmodel/pull/1755) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.33
+## 0.0.33 (2026-02-11)
 
 ### Docs
 
@@ -81,7 +81,7 @@
 * 👷 Run mypy by pre-commit. PR [#1738](https://github.com/fastapi/sqlmodel/pull/1738) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump prek from 0.3.0 to 0.3.1. PR [#1739](https://github.com/fastapi/sqlmodel/pull/1739) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.32
+## 0.0.32 (2026-02-01)
 
 ### Fixes
 
@@ -112,7 +112,7 @@
 * ⬆ Update fastapi requirement from >=0.103.2,<0.126.0 to >=0.103.2,<0.129.0. PR [#1703](https://github.com/fastapi/sqlmodel/pull/1703) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Update tests, remove conditionals for Pydantic v1. PR [#1702](https://github.com/fastapi/sqlmodel/pull/1702) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.31
+## 0.0.31 (2025-12-28)
 
 ### Breaking Changes
 
@@ -125,7 +125,7 @@
 * ⬆ Bump typer from 0.20.1 to 0.21.0. PR [#1694](https://github.com/fastapi/sqlmodel/pull/1694) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 📌 Relax `prek` version pin to `>=0.2.24,<1.0.0`. PR [#1698](https://github.com/fastapi/sqlmodel/pull/1698) by [@YuriiMotov](https://github.com/YuriiMotov).
 
-## 0.0.30
+## 0.0.30 (2025-12-26)
 
 ### Breaking Changes
 
@@ -150,13 +150,13 @@
 * ⬆ Bump typer from 0.20.0 to 0.20.1. PR [#1685](https://github.com/fastapi/sqlmodel/pull/1685) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.14.8 to 0.14.10. PR [#1681](https://github.com/fastapi/sqlmodel/pull/1681) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.29
+## 0.0.29 (2025-12-23)
 
 ### Fixes
 
 * 🐛 Fix `alias` support for Pydantic v2. PR [#1577](https://github.com/fastapi/sqlmodel/pull/1577) by [@ravishan16](https://github.com/ravishan16).
 
-## 0.0.28
+## 0.0.28 (2025-12-23)
 
 ### Fixes
 
@@ -207,13 +207,13 @@
 * ⬆ Bump typer from 0.19.2 to 0.20.0. PR [#1612](https://github.com/fastapi/sqlmodel/pull/1612) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Remove unused type ignores since SQLAlchemy 2.0.44. PR [#1613](https://github.com/fastapi/sqlmodel/pull/1613) by [@svlandeg](https://github.com/svlandeg).
 
-## 0.0.27
+## 0.0.27 (2025-10-08)
 
 ### Upgrades
 
 * ⬆️ Add support for Python 3.14. PR [#1578](https://github.com/fastapi/sqlmodel/pull/1578) by [@svlandeg](https://github.com/svlandeg).
 
-## 0.0.26
+## 0.0.26 (2025-10-08)
 
 ### Fixes
 
@@ -239,7 +239,7 @@
 * ⬆ Bump ruff from 0.13.0 to 0.13.2. PR [#1576](https://github.com/fastapi/sqlmodel/pull/1576) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 💚 Fix CI test suite for Windows and MacOS. PR [#1307](https://github.com/fastapi/sqlmodel/pull/1307) by [@svlandeg](https://github.com/svlandeg).
 
-## 0.0.25
+## 0.0.25 (2025-09-17)
 
 ### Features
 
@@ -327,7 +327,7 @@
 * ⬆ Bump jinja2 from 3.1.4 to 3.1.6. PR [#1317](https://github.com/fastapi/sqlmodel/pull/1317) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1319](https://github.com/fastapi/sqlmodel/pull/1319) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 
-## 0.0.24
+## 0.0.24 (2025-03-07)
 
 ### Upgrades
 
@@ -338,7 +338,7 @@
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1114](https://github.com/fastapi/sqlmodel/pull/1114) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * ⬆ Bump ruff from 0.6.2 to 0.9.6. PR [#1294](https://github.com/fastapi/sqlmodel/pull/1294) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.23
+## 0.0.23 (2025-02-28)
 
 ### Fixes
 
@@ -396,7 +396,7 @@
 * 💚 Set `include-hidden-files` to `True` when using the `upload-artifact` GH action. PR [#1098](https://github.com/fastapi/sqlmodel/pull/1098) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#1088](https://github.com/fastapi/sqlmodel/pull/1088) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 
-## 0.0.22
+## 0.0.22 (2024-08-31)
 
 ### Fixes
 
@@ -442,7 +442,7 @@
 * 👷 Update issue-manager.yml GitHub Action permissions. PR [#1040](https://github.com/tiangolo/sqlmodel/pull/1040) by [@tiangolo](https://github.com/tiangolo).
 * ♻️ Refactor Deploy Docs GitHub Action to be a script and update token preparing for org. PR [#1039](https://github.com/tiangolo/sqlmodel/pull/1039) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.21
+## 0.0.21 (2024-07-21)
 
 ### Features
 
@@ -462,7 +462,7 @@
 * ⬆ Bump mkdocstrings[python] from 0.23.0 to 0.25.1. PR [#927](https://github.com/tiangolo/sqlmodel/pull/927) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump dorny/paths-filter from 2 to 3. PR [#972](https://github.com/tiangolo/sqlmodel/pull/972) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
-## 0.0.20
+## 0.0.20 (2024-07-17)
 
 ### Features
 
@@ -483,7 +483,7 @@
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#979](https://github.com/tiangolo/sqlmodel/pull/979) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * 🔨 Update docs Termynal scripts to not include line nums for local dev. PR [#1018](https://github.com/tiangolo/sqlmodel/pull/1018) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.19
+## 0.0.19 (2024-06-04)
 
 ### Fixes
 
@@ -510,7 +510,7 @@
 * 👷 Update GitHub Actions to download and upload artifacts. PR [#936](https://github.com/tiangolo/sqlmodel/pull/936) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Tweak CI for test-redistribute, add needed env vars for slim. PR [#929](https://github.com/tiangolo/sqlmodel/pull/929) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.18
+## 0.0.18 (2024-04-30)
 
 ### Internal
 
@@ -520,7 +520,7 @@ In the future SQLModel will include the standard default recommended packages, a
 
 * 🔧 Re-enable MkDocs Material Social plugin. PR [#915](https://github.com/tiangolo/sqlmodel/pull/915) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.17
+## 0.0.17 (2024-04-29)
 
 ### Refactors
 
@@ -541,7 +541,7 @@ In the future SQLModel will include the standard default recommended packages, a
 * ⬆️ Upgrade Ruff version and configs. PR [#859](https://github.com/tiangolo/sqlmodel/pull/859) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove Jina QA Bot as it has been discontinued. PR [#840](https://github.com/tiangolo/sqlmodel/pull/840) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.16
+## 0.0.16 (2024-02-17)
 
 ### Features
 
@@ -549,7 +549,7 @@ In the future SQLModel will include the standard default recommended packages, a
     * Updated docs: [Update Data with FastAPI](https://sqlmodel.tiangolo.com/tutorial/fastapi/update/).
     * New docs: [Update with Extra Data (Hashed Passwords) with FastAPI](https://sqlmodel.tiangolo.com/tutorial/fastapi/update-extra-data/).
 
-## 0.0.15
+## 0.0.15 (2024-02-17)
 
 ### Fixes
 
@@ -560,13 +560,13 @@ In the future SQLModel will include the standard default recommended packages, a
 * ⬆ Bump tiangolo/issue-manager from 0.4.0 to 0.4.1. PR [#775](https://github.com/tiangolo/sqlmodel/pull/775) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Fix GitHub Actions build docs filter paths for GitHub workflows. PR [#738](https://github.com/tiangolo/sqlmodel/pull/738) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.14
+## 0.0.14 (2023-12-04)
 
 ### Features
 
 * ✨ Add support for Pydantic v2 (while keeping support for v1 if v2 is not available). PR [#722](https://github.com/tiangolo/sqlmodel/pull/722) by [@tiangolo](https://github.com/tiangolo) including initial work in PR [#699](https://github.com/tiangolo/sqlmodel/pull/699) by [@AntonDeMeester](https://github.com/AntonDeMeester).
 
-## 0.0.13
+## 0.0.13 (2023-12-04)
 
 ### Fixes
 
@@ -596,7 +596,7 @@ In the future SQLModel will include the standard default recommended packages, a
 * 🔧 Show line numbers in docs during local development. PR [#714](https://github.com/tiangolo/sqlmodel/pull/714) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update details syntax with new pymdown extensions format. PR [#713](https://github.com/tiangolo/sqlmodel/pull/713) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.12
+## 0.0.12 (2023-11-18)
 
 ### Features
 
@@ -607,7 +607,7 @@ In the future SQLModel will include the standard default recommended packages, a
 * ⬆ [pre-commit.ci] pre-commit autoupdate. PR [#686](https://github.com/tiangolo/sqlmodel/pull/686) by [@pre-commit-ci[bot]](https://github.com/apps/pre-commit-ci).
 * 👷 Upgrade latest-changes GitHub Action. PR [#693](https://github.com/tiangolo/sqlmodel/pull/693) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.11
+## 0.0.11 (2023-10-29)
 
 ### Features
 
@@ -627,7 +627,7 @@ In the future SQLModel will include the standard default recommended packages, a
 * ⬆ Update black requirement from ^22.10.0 to >=22.10,<24.0. PR [#664](https://github.com/tiangolo/sqlmodel/pull/664) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update CI to build MkDocs Insiders only when the secrets are available, for Dependabot. PR [#683](https://github.com/tiangolo/sqlmodel/pull/683) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.10
+## 0.0.10 (2023-10-26)
 
 ### Features
 
@@ -637,7 +637,7 @@ In the future SQLModel will include the standard default recommended packages, a
 
 * 🔧 Adopt Ruff for formatting. PR [#679](https://github.com/tiangolo/sqlmodel/pull/679) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.9
+## 0.0.9 (2023-10-23)
 
 ### Breaking Changes
 
@@ -715,7 +715,7 @@ In the future SQLModel will include the standard default recommended packages, a
 * ⬆ Bump dawidd6/action-download-artifact from 2.9.0 to 2.24.0. PR [#470](https://github.com/tiangolo/sqlmodel/pull/470) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update Dependabot config. PR [#484](https://github.com/tiangolo/sqlmodel/pull/484) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.8
+## 0.0.8 (2022-08-30)
 
 ### Fixes
 
@@ -727,7 +727,7 @@ In the future SQLModel will include the standard default recommended packages, a
 * 📝 Adjust and clarify docs for `docs/tutorial/create-db-and-table.md`. PR [#426](https://github.com/tiangolo/sqlmodel/pull/426) by [@tiangolo](https://github.com/tiangolo).
 * ✏ Fix typo in `docs/tutorial/connect/remove-data-connections.md`. PR [#421](https://github.com/tiangolo/sqlmodel/pull/421) by [@VerdantFox](https://github.com/VerdantFox).
 
-## 0.0.7
+## 0.0.7 (2022-08-28)
 
 ### Features
 
@@ -791,7 +791,7 @@ In the future SQLModel will include the standard default recommended packages, a
 * 🔧 Upgrade MkDocs Material and update configs. PR [#217](https://github.com/tiangolo/sqlmodel/pull/217) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Upgrade mypy, fix type annotations. PR [#218](https://github.com/tiangolo/sqlmodel/pull/218) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.6
+## 0.0.6 (2021-12-28)
 
 ### Breaking Changes
 
@@ -862,7 +862,7 @@ Here's the new, extensive documentation explaining indexes and how to use them: 
 * ✏ Fix typo in `docs/tutorial/automatic-id-none-refresh.md`. PR [#14](https://github.com/tiangolo/sqlmodel/pull/14) by [@leynier](https://github.com/leynier).
 * ✏ Fix typos in `docs/tutorial/index.md` and `docs/databases.md`. PR [#5](https://github.com/tiangolo/sqlmodel/pull/5) by [@sebastianmarines](https://github.com/sebastianmarines).
 
-## 0.0.5
+## 0.0.5 (2021-12-13)
 
 ### Features
 
@@ -880,15 +880,15 @@ Here's the new, extensive documentation explaining indexes and how to use them: 
 * 🔧 Add MkDocs Material social cards. PR [#90](https://github.com/tiangolo/sqlmodel/pull/90) by [@tiangolo](https://github.com/tiangolo).
 * ✨ Update type annotations and upgrade mypy. PR [#173](https://github.com/tiangolo/sqlmodel/pull/173) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.4
+## 0.0.4 (2021-08-25)
 
 * 🎨 Fix type detection of select results in PyCharm. PR [#15](https://github.com/tiangolo/sqlmodel/pull/15) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.3
+## 0.0.3 (2021-08-24)
 
 * ⬆️ Update and relax specification range for `sqlalchemy-stubs`. PR [#4](https://github.com/tiangolo/sqlmodel/pull/4) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.2
+## 0.0.2 (2021-08-24)
 
 * This includes several small bug fixes detected during the first CI runs.
 * 💚 Fix CI installs and tests. PR [#2](https://github.com/tiangolo/sqlmodel/pull/2) by [@tiangolo](https://github.com/tiangolo).
