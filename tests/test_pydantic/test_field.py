@@ -54,3 +54,37 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_min_items():
+    with pytest.warns(
+        DeprecationWarning,
+        match="`min_items` is deprecated and will be removed, use `min_length` instead",
+    ):
+
+        class Model(SQLModel):
+            items: list[int] = Field(min_items=2)
+
+    Model(items=[1, 2])
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model(items=[1])
+    assert len(exc_info.value.errors()) == 1
+    assert exc_info.value.errors()[0]["type"] == "too_short"
+
+
+def test_max_items():
+    with pytest.warns(
+        DeprecationWarning,
+        match="`max_items` is deprecated and will be removed, use `max_length` instead",
+    ):
+
+        class Model(SQLModel):
+            items: list[int] = Field(max_items=2)
+
+    Model(items=[1, 2])
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model(items=[1, 2, 3])
+    assert len(exc_info.value.errors()) == 1
+    assert exc_info.value.errors()[0]["type"] == "too_long"
