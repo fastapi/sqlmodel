@@ -54,3 +54,23 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_const_is_deprecated():
+    with pytest.warns(
+        DeprecationWarning,
+        match="`const` is deprecated and doesn't work, use `Literal` instead",
+    ):
+
+        class Model(SQLModel):
+            int_value: int = Field(default=10, const=True)
+
+
+def test_unique_items_is_deprecated():
+    with pytest.warns(
+        DeprecationWarning,
+        match="`unique_items` is deprecated and doesn't work, use `set` type instead",
+    ):
+
+        class Model(SQLModel):
+            values: list[int] = Field(unique_items=True)
