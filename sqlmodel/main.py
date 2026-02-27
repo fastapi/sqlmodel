@@ -27,6 +27,7 @@ from pydantic import BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
+    CheckConstraint,
     Column,
     Date,
     DateTime,
@@ -63,6 +64,7 @@ from ._compat import (  # type: ignore[attr-defined]
     finish_init,
     get_annotations,
     get_field_metadata,
+    get_literal_annotation_info,
     get_model_fields,
     get_relationship_to,
     get_sa_type_from_field,
@@ -680,6 +682,31 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # Ref: https://github.com/sqlalchemy/sqlalchemy/commit/428ea01f00a9cc7f85e435018565eb6da7af1b77
             # Tag: 1.4.36
             DeclarativeMeta.__init__(cls, classname, bases, dict_, **kw)
+            table = getattr(cls, "__table__", None)
+            if table is not None:
+                # Attach Literal-based value constraints at the database level
+                for field_name, field in get_model_fields(cls).items():  # type: ignore
+                    annotation = getattr(field, "annotation", None)
+                    literal_info = get_literal_annotation_info(annotation)
+                    if literal_info is None:
+                        continue
+                    base_type, values = literal_info
+                    assert base_type in (str, int, bool)
+                    column = table.c.get(field_name)
+                    if column is None:
+                        continue
+                    if base_type is int:
+                        coerced_values = tuple(int(v) for v in values)
+                    elif base_type is bool:
+                        coerced_values = tuple(bool(v) for v in values)
+                    else:
+                        coerced_values = tuple(str(v) for v in values)  # type: ignore
+                    constraint_name = f"ck_{table.name}_{field_name}_literal"
+                    constraint = CheckConstraint(
+                        column.in_(coerced_values),
+                        name=constraint_name,
+                    )
+                    table.append_constraint(constraint)
         else:
             ModelMetaclass.__init__(cls, classname, bases, dict_, **kw)
 
