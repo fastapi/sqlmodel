@@ -4,7 +4,7 @@ The **Advanced User Guide** is gradually growing, you can already read about som
 
 At some point it will include:
 
-* How to use `async` and `await` with the async session.
+* [How to use `async` and `await` with the async session](../tutorial/async/index.md).
 * How to run migrations.
 * How to combine **SQLModel** models with SQLAlchemy.
 * ...and more. 🤓
