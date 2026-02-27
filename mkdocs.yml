@@ -129,6 +129,7 @@ nav:
       - advanced/index.md
       - advanced/decimal.md
       - advanced/uuid.md
+      - advanced/pydantic-jsonb.md
   - Resources:
     - resources/index.md
     - help.md
