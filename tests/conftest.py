@@ -89,3 +89,6 @@ def print_mock_fixture() -> Generator[PrintMock, None, None]:
 needs_py310 = pytest.mark.skipif(
     sys.version_info < (3, 10), reason="requires python3.10+"
 )
+needs_py312 = pytest.mark.skipif(
+    sys.version_info < (3, 12), reason="requires python3.12+"
+)
