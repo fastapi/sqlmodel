@@ -8,6 +8,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/upload-artifact from 6 to 7. PR [#1788](https://github.com/fastapi/sqlmodel/pull/1788) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.133.0 to 0.133.1. PR [#1787](https://github.com/fastapi/sqlmodel/pull/1787) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.7.2 to 9.7.3. PR [#1782](https://github.com/fastapi/sqlmodel/pull/1782) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.132.0 to 0.133.0. PR [#1781](https://github.com/fastapi/sqlmodel/pull/1781) by [@dependabot[bot]](https://github.com/apps/dependabot).
