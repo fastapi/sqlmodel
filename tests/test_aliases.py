@@ -1,7 +1,9 @@
 import pytest
+from pydantic import AliasChoices as PAliasChoices
+from pydantic import AliasPath as PAliasPath
 from pydantic import BaseModel, ValidationError
 from pydantic import Field as PField
-from sqlmodel import Field, SQLModel
+from sqlmodel import AliasChoices, AliasPath, Field, SQLModel
 
 """
 Alias tests for SQLModel and Pydantic compatibility
@@ -95,10 +97,18 @@ def test_json_by_alias(
 
 class PydanticUserV2(BaseModel):
     first_name: str = PField(validation_alias="firstName", serialization_alias="f_name")
+    second_name: str | None = PField(
+        default=None, validation_alias=PAliasChoices("secondName", "surname")
+    )
+    nickname: str | None = PField(default=None, validation_alias=PAliasPath("names", 2))
 
 
 class SQLModelUserV2(SQLModel):
     first_name: str = Field(validation_alias="firstName", serialization_alias="f_name")
+    second_name: str | None = Field(
+        default=None, validation_alias=AliasChoices("secondName", "surname")
+    )
+    nickname: str | None = Field(default=None, validation_alias=AliasPath("names", 2))
 
 
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
@@ -107,6 +117,27 @@ def test_create_with_validation_alias(
 ):
     user = model(firstName="John")
     assert user.first_name == "John"
+
+
+@pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
+def test_create_with_validation_alias_alias_choices(
+    model: type[PydanticUserV2] | type[SQLModelUserV2],
+):
+    user = model.model_validate({"firstName": "John", "secondName": "Doe"})
+    assert user.second_name == "Doe"
+
+    user2 = model.model_validate({"firstName": "John", "surname": "Doe"})
+    assert user2.second_name == "Doe"
+
+
+@pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])
+def test_create_with_validation_alias_alias_path(
+    model: type[PydanticUserV2] | type[SQLModelUserV2],
+):
+    user = model.model_validate(
+        {"firstName": "John", "names": ["John", "Doe", "Johnny"]}
+    )
+    assert user.nickname == "Johnny"
 
 
 @pytest.mark.parametrize("model", [PydanticUserV2, SQLModelUserV2])

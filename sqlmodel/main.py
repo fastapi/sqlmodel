@@ -23,7 +23,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import AliasChoices, AliasPath, BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -240,7 +240,7 @@ def Field(
     *,
     default_factory: NoArgAnyCallable | None = None,
     alias: str | None = None,
-    validation_alias: str | None = None,
+    validation_alias: str | AliasPath | AliasChoices | None = None,
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
@@ -283,7 +283,7 @@ def Field(
     *,
     default_factory: NoArgAnyCallable | None = None,
     alias: str | None = None,
-    validation_alias: str | None = None,
+    validation_alias: str | AliasPath | AliasChoices | None = None,
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
@@ -335,7 +335,7 @@ def Field(
     *,
     default_factory: NoArgAnyCallable | None = None,
     alias: str | None = None,
-    validation_alias: str | None = None,
+    validation_alias: str | AliasPath | AliasChoices | None = None,
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
@@ -368,7 +368,7 @@ def Field(
     *,
     default_factory: NoArgAnyCallable | None = None,
     alias: str | None = None,
-    validation_alias: str | None = None,
+    validation_alias: str | AliasPath | AliasChoices | None = None,
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
