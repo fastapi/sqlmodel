@@ -161,3 +161,8 @@ known-third-party = ["sqlmodel", "sqlalchemy", "pydantic", "fastapi"]
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg,*.drawio'
+# Ines - name
+ignore-words-list = 'ines,re-use,selectin'
