@@ -579,6 +579,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
+        # Also include pydantic's internal kwargs
+        config_kwargs.update(
+            (key, value)
+            for key, value in kwargs.items()
+            if key.startswith("__pydantic_")
+        )
         new_cls = cast(
             "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
         )
