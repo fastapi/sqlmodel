@@ -129,6 +129,8 @@ nav:
       - advanced/index.md
       - advanced/decimal.md
       - advanced/uuid.md
+      - Advanced Relationships:
+        - advanced/advanced-relationships/self-referential.md
   - Resources:
     - resources/index.md
     - help.md
