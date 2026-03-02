@@ -12,6 +12,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi from 0.133.1 to 0.134.0. PR [#1792](https://github.com/fastapi/sqlmodel/pull/1792) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.2 to 0.15.4. PR [#1790](https://github.com/fastapi/sqlmodel/pull/1790) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/download-artifact from 7 to 8. PR [#1789](https://github.com/fastapi/sqlmodel/pull/1789) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 6 to 7. PR [#1788](https://github.com/fastapi/sqlmodel/pull/1788) by [@dependabot[bot]](https://github.com/apps/dependabot).
