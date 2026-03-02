@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Fix `tuple_` return type annotation. PR [#1639](https://github.com/fastapi/sqlmodel/pull/1639) by [@kakeruzoku](https://github.com/kakeruzoku).
+
 ### Docs
 
 * 📝 Fix small typos in the documentation. PR [#1641](https://github.com/fastapi/sqlmodel/pull/1641) by [@svlandeg](https://github.com/svlandeg).
