@@ -12,6 +12,7 @@
 
 ### Internal
 
+* ⬆ Bump sqlalchemy from 2.0.47 to 2.0.48. PR [#1793](https://github.com/fastapi/sqlmodel/pull/1793) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.3 to 0.3.4. PR [#1794](https://github.com/fastapi/sqlmodel/pull/1794) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.134.0 to 0.135.1. PR [#1795](https://github.com/fastapi/sqlmodel/pull/1795) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.133.1 to 0.134.0. PR [#1792](https://github.com/fastapi/sqlmodel/pull/1792) by [@dependabot[bot]](https://github.com/apps/dependabot).
