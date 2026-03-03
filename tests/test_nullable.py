@@ -1,5 +1,3 @@
-from typing import Optional
-
 import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Field, Session, SQLModel, create_engine
@@ -7,41 +5,41 @@ from sqlmodel import Field, Session, SQLModel, create_engine
 
 def test_nullable_fields(clear_sqlmodel, caplog):
     class Hero(SQLModel, table=True):
-        primary_key: Optional[int] = Field(
+        primary_key: int | None = Field(
             default=None,
             primary_key=True,
         )
         required_value: str
-        optional_default_ellipsis: Optional[str] = Field(default=...)
-        optional_default_none: Optional[str] = Field(default=None)
-        optional_non_nullable: Optional[str] = Field(
+        optional_default_ellipsis: str | None = Field(default=...)
+        optional_default_none: str | None = Field(default=None)
+        optional_non_nullable: str | None = Field(
             nullable=False,
         )
-        optional_nullable: Optional[str] = Field(
+        optional_nullable: str | None = Field(
             nullable=True,
         )
-        optional_default_ellipses_non_nullable: Optional[str] = Field(
+        optional_default_ellipses_non_nullable: str | None = Field(
             default=...,
             nullable=False,
         )
-        optional_default_ellipses_nullable: Optional[str] = Field(
+        optional_default_ellipses_nullable: str | None = Field(
             default=...,
             nullable=True,
         )
-        optional_default_none_non_nullable: Optional[str] = Field(
+        optional_default_none_non_nullable: str | None = Field(
             default=None,
             nullable=False,
         )
-        optional_default_none_nullable: Optional[str] = Field(
+        optional_default_none_nullable: str | None = Field(
             default=None,
             nullable=True,
         )
         default_ellipses_non_nullable: str = Field(default=..., nullable=False)
-        optional_default_str: Optional[str] = "default"
-        optional_default_str_non_nullable: Optional[str] = Field(
+        optional_default_str: str | None = "default"
+        optional_default_str_non_nullable: str | None = Field(
             default="default", nullable=False
         )
-        optional_default_str_nullable: Optional[str] = Field(
+        optional_default_str_nullable: str | None = Field(
             default="default", nullable=True
         )
         str_default_str: str = "default"
@@ -82,12 +80,12 @@ def test_nullable_fields(clear_sqlmodel, caplog):
 # Test for regression in https://github.com/tiangolo/sqlmodel/issues/420
 def test_non_nullable_optional_field_with_no_default_set(clear_sqlmodel, caplog):
     class Hero(SQLModel, table=True):
-        primary_key: Optional[int] = Field(
+        primary_key: int | None = Field(
             default=None,
             primary_key=True,
         )
 
-        optional_non_nullable_no_default: Optional[str] = Field(nullable=False)
+        optional_non_nullable_no_default: str | None = Field(nullable=False)
 
     engine = create_engine("sqlite://", echo=True)
     SQLModel.metadata.create_all(engine)
@@ -110,7 +108,7 @@ def test_non_nullable_optional_field_with_no_default_set(clear_sqlmodel, caplog)
 def test_nullable_primary_key(clear_sqlmodel, caplog):
     # Probably the weirdest corner case, it shouldn't happen anywhere, but let's test it
     class Hero(SQLModel, table=True):
-        nullable_integer_primary_key: Optional[int] = Field(
+        nullable_integer_primary_key: int | None = Field(
             default=None,
             primary_key=True,
             nullable=True,

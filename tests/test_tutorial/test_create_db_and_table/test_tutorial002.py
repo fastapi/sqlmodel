@@ -12,7 +12,6 @@ from ...conftest import needs_py310
 @pytest.fixture(
     name="module",
     params=[
-        "tutorial002_py39",
         pytest.param("tutorial002_py310", marks=needs_py310),
     ],
 )

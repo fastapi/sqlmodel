@@ -1,6 +1,5 @@
 from typing import (
     TypeVar,
-    Union,
 )
 
 from sqlalchemy.sql._typing import (
@@ -17,13 +16,13 @@ _T = TypeVar("_T")
 class SelectBase(_Select[tuple[_T]]):
     inherit_cache = True
 
-    def where(self, *whereclause: Union[_ColumnExpressionArgument[bool], bool]) -> Self:
+    def where(self, *whereclause: _ColumnExpressionArgument[bool] | bool) -> Self:
         """Return a new `Select` construct with the given expression added to
         its `WHERE` clause, joined to the existing clause via `AND`, if any.
         """
         return super().where(*whereclause)  # type: ignore[arg-type]
 
-    def having(self, *having: Union[_ColumnExpressionArgument[bool], bool]) -> Self:
+    def having(self, *having: _ColumnExpressionArgument[bool] | bool) -> Self:
         """Return a new `Select` construct with the given expression added to
         its `HAVING` clause, joined to the existing clause via `AND`, if any.
         """

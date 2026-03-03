@@ -8,7 +8,6 @@ from ...conftest import coverage_run, needs_py310
 @pytest.mark.parametrize(
     "module_name",
     [
-        "tutorial001_py39",
         pytest.param("tutorial001_py310", marks=needs_py310),
     ],
 )

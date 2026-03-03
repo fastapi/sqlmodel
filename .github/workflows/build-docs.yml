@@ -64,11 +64,9 @@ jobs:
         with:
           key: mkdocs-cards-${{ github.ref }}
           path: .cache
-      - name: Verify README
-        run: uv run ./scripts/docs.py verify-readme
       - name: Build Docs
         run: uv run ./scripts/docs.py build
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: docs-site
           path: ./site/**

@@ -1,10 +1,10 @@
 import shutil
 import subprocess
 import sys
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Union
+from typing import Any
 from unittest.mock import patch
 
 import pytest
@@ -35,7 +35,7 @@ def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
         shutil.copy(coverage_path, coverage_destiny_path)
 
 
-def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedProcess:
+def coverage_run(*, module: str, cwd: str | Path) -> subprocess.CompletedProcess:
     result = subprocess.run(
         [
             "coverage",
@@ -53,7 +53,7 @@ def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedP
 
 
 def get_testing_print_function(
-    calls: list[list[Union[str, dict[str, Any]]]],
+    calls: list[list[str | dict[str, Any]]],
 ) -> Callable[..., Any]:
     def new_print(*args: Any) -> None:
         data: list[Any] = []
