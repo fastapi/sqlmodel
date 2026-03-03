@@ -213,7 +213,7 @@ class FieldInfoMetadata:
     ondelete: OnDeleteType | UndefinedType = Undefined
     unique: bool | UndefinedType = Undefined
     index: bool | UndefinedType = Undefined
-    sa_type: type[Any] | UndefinedType = Undefined
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined
     sa_column: Column[Any] | UndefinedType = Undefined
     sa_column_args: Sequence[Any] | UndefinedType = Undefined
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined
