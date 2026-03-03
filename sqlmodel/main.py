@@ -23,7 +23,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr, AliasPath, AliasChoices
+from pydantic import AliasChoices, AliasPath, BaseModel, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
