@@ -12,8 +12,8 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
-    Any,
     Annotated,
+    Any,
     ClassVar,
     Literal,
     TypeAlias,
