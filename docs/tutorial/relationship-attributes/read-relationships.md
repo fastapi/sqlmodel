@@ -34,7 +34,7 @@ For example, here, **inside** a `with` block with a `Session` object.
 
 ## Get a List of Relationship Objects
 
-And the same way, when we are working on the **many** side of the **one-to-many** relationship, we can get a list of of the related objects just by accessing the relationship attribute:
+And the same way, when we are working on the **many** side of the **one-to-many** relationship, we can get a list of the related objects just by accessing the relationship attribute:
 
 {* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py ln[94:100] hl[100] *}
 
