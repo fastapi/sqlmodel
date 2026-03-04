@@ -8,6 +8,7 @@
 
 ### Docs
 
+* 📝 Document `.in_()` method. PR [#619](https://github.com/fastapi/sqlmodel/pull/619) by [@masylum](https://github.com/masylum).
 * 📝 Fix small typos in the documentation. PR [#1641](https://github.com/fastapi/sqlmodel/pull/1641) by [@svlandeg](https://github.com/svlandeg).
 
 ### Internal
