@@ -8,7 +8,7 @@ Up to now, we have been creating a session in each *path operation*, in a `with`
 
 {* ./docs_src/tutorial/fastapi/delete/tutorial001_py310.py ln[48:55] hl[50] *}
 
-That's perfectly fine, but in many use cases we would want to use <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI Dependencies</a>, for example to **verify** that the client is **logged in** and get the **current user** before executing any other code in the *path operation*.
+That's perfectly fine, but in many use cases we would want to use [FastAPI Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/), for example to **verify** that the client is **logged in** and get the **current user** before executing any other code in the *path operation*.
 
 These dependencies are also very useful during **testing**, because we can **easily replace them**, and then, for example, use a new database for our tests, or put some data before the tests, etc.
 
@@ -38,7 +38,7 @@ Here we are passing the parameter `session` that has a "default value" of `Depen
 
 Python would normally complain about that, but we can use the initial "parameter" `*,` to mark all the rest of the parameters as "keyword only", which solves the problem.
 
-You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
+You can read more about it in the FastAPI documentation [Path Parameters and Numeric Validations - Order the parameters as you need, tricks](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks)
 
 ///
 
@@ -86,4 +86,4 @@ You just learned how to use **FastAPI dependencies** to handle the database sess
 
 And you will see how much these dependencies can help the more you work with FastAPI, to handle **permissions**, **authentication**, resources like database **sessions**, etc. 🚀
 
-If you want to learn more about dependencies, checkout the <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI docs about Dependencies</a>.
+If you want to learn more about dependencies, checkout the [FastAPI docs about Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/).

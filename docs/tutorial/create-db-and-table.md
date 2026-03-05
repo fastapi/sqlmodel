@@ -2,7 +2,7 @@
 
 Now let's get to the code. 👩‍💻
 
-Make sure you are inside of your project directory and with your virtual environment activated as explained in [Virtual Environments](../virtual-environments.md#create-a-project){.internal-link target=_blank}.
+Make sure you are inside of your project directory and with your virtual environment activated as explained in [Virtual Environments](../virtual-environments.md#create-a-project).
 
 We will:
 
@@ -176,7 +176,7 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 
 {* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[11:12,14] *}
 
-You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the <a href="https://docs.sqlalchemy.org/en/14/core/engines.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
+You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the [SQLAlchemy documentation](https://docs.sqlalchemy.org/en/14/core/engines.html).
 
 ### Engine Echo
 
@@ -202,7 +202,7 @@ If you didn't know about SQLAlchemy before and are just learning **SQLModel**, y
 
 ///
 
-You can read a lot more about the engine in the <a href="https://docs.sqlalchemy.org/en/14/tutorial/engine.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
+You can read a lot more about the engine in the [SQLAlchemy documentation](https://docs.sqlalchemy.org/en/14/tutorial/engine.html).
 
 **SQLModel** defines its own `create_engine()` function. It is the same as SQLAlchemy's `create_engine()`, but with the difference that it defaults to use `future=True` (which means that it uses the style of the latest SQLAlchemy, 1.4, and the future 2.0).
 
@@ -327,7 +327,7 @@ Put the code in a file `app.py` if you haven't already.
 
 /// tip
 
-Remember to [activate the virtual environment](../virtual-environments.md#create-a-virtual-environment){.internal-link target=_blank} before running it.
+Remember to [activate the virtual environment](../virtual-environments.md#create-a-virtual-environment) before running it.
 
 ///
 
@@ -390,7 +390,7 @@ In the example in the previous chapter we created the table using `TEXT` for som
 
 But in this output SQLAlchemy is using `VARCHAR` instead. Let's see what's going on.
 
-Remember that [each SQL Database has some different variations in what they support?](../databases.md#sql-the-language){.internal-link target=_blank}
+Remember that [each SQL Database has some different variations in what they support?](../databases.md#sql-the-language)
 
 This is one of the differences. Each database supports some particular **data types**, like `INTEGER` and `TEXT`.
 
@@ -484,7 +484,7 @@ from app import Hero
 
 That `if` block using `if __name__ == "__main__":` is sometimes called the "**main block**".
 
-The official name (in the <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">Python docs</a>) is "**Top-level script environment**".
+The official name (in the [Python docs](https://docs.python.org/3/library/__main__.html)) is "**Top-level script environment**".
 
 ///
 
@@ -540,7 +540,7 @@ if __name__ == "__main__":
 
 /// info
 
-For more information, check <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">the official Python docs</a>.
+For more information, check [the official Python docs](https://docs.python.org/3/library/__main__.html).
 
 ///
 

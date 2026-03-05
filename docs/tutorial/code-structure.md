@@ -91,7 +91,7 @@ Here we import the models, the engine, and the function to create all the tables
 
 ### Order Matters
 
-Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} when calling `SQLModel.metadata.create_all()`?
+Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters) when calling `SQLModel.metadata.create_all()`?
 
 The point of that section in the docs is that you have to import the module that has the models **before** calling `SQLModel.metadata.create_all()`.
 
