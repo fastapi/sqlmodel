@@ -1,6 +1,5 @@
-from sqlmodel import Field, SQLModel, create_engine, Session, select
-from sqlalchemy import UniqueConstraint, CheckConstraint
-from typing import Optional
+from sqlalchemy import CheckConstraint, UniqueConstraint
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 class Hero(SQLModel, table=True):
@@ -9,8 +8,8 @@ class Hero(SQLModel, table=True):
         CheckConstraint("age >= 0", name="age_non_negative"),
         CheckConstraint("LENGTH(name) >= 2", name="name_min_length"),
     )
-    
-    id: Optional[int] = Field(default=None, primary_key=True)
+
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     age: int
     secret_name: str

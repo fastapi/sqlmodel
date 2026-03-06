@@ -1,11 +1,9 @@
-from sqlmodel import Field, SQLModel, create_engine, Session, select
-from sqlalchemy import UniqueConstraint, CheckConstraint
-from typing import Optional
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(unique=True)  # Single column unique constraint
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(unique=True)
     age: int
     secret_name: str
 

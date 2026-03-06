@@ -1,12 +1,11 @@
-from sqlmodel import Field, SQLModel, create_engine, Session, select
 from sqlalchemy import CheckConstraint
-from typing import Optional
+from sqlmodel import Field, Session, SQLModel, create_engine
 
 
 class Hero(SQLModel, table=True):
     __table_args__ = (CheckConstraint("age >= 0", name="age_non_negative"),)
-    
-    id: Optional[int] = Field(default=None, primary_key=True)
+
+    id: int | None = Field(default=None, primary_key=True)
     name: str
     age: int
     secret_name: str
@@ -24,7 +23,7 @@ def create_db_and_tables():
 
 def create_heroes():
     hero_1 = Hero(name="Spider-Boy", age=16, secret_name="Pedro Parqueador")
-    hero_2 = Hero(name="Baby Hero", age=0, secret_name="Little One")  # Age 0 is OK
+    hero_2 = Hero(name="Baby Hero", age=0, secret_name="Little One")
 
     with Session(engine) as session:
         session.add(hero_1)

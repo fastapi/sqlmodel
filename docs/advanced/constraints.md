@@ -18,7 +18,7 @@ Unique constraints ensure that certain fields or combinations of fields have uni
 
 The simplest way to add a unique constraint is using the `unique` parameter in the `Field()` function:
 
-{* ./docs_src/advanced/constraints/tutorial001_py310.py ln[6:11] hl[8] *}
+{* ./docs_src/advanced/constraints/tutorial001_py310.py ln[4:8] hl[6] *}
 
 In this example, the `name` field must be unique across all heroes. If you try to insert a hero with a name that already exists, the database will raise an error.
 
@@ -34,7 +34,7 @@ In this example, the `name` field must be unique across all heroes. If you try t
 
 Sometimes you want a combination of fields to be unique, even though each individual field can have duplicate values. You can achieve this using `__table_args__` with `UniqueConstraint`:
 
-{* ./docs_src/advanced/constraints/tutorial002_py310.py ln[7:13] hl[8] *}
+{* ./docs_src/advanced/constraints/tutorial002_py310.py ln[5:11] hl[6] *}
 
 In this example, the combination of `name` and `age` must be unique. This means you can have multiple heroes with the same name (as long as they have different ages), and you can have multiple heroes with the same age (as long as they have different names).
 
@@ -55,7 +55,7 @@ You can include as many fields as needed in a `UniqueConstraint`. For example: `
 
 Check constraints allow you to define custom validation rules using SQL expressions. These are more flexible than basic type validation and can enforce business rules at the database level.
 
-{* ./docs_src/advanced/constraints/tutorial003_py310.py ln[7:13] hl[8] *}
+{* ./docs_src/advanced/constraints/tutorial003_py310.py ln[5:11] hl[6] *}
 
 In this example, the check constraint ensures that the `age` field cannot be negative. The constraint has a name (`age_non_negative`) which makes error messages clearer and allows you to reference it later if needed.
 
@@ -91,7 +91,7 @@ CheckConstraint("email LIKE '%@%'", name="email_format")
 
 You can combine different types of constraints in the same table by adding multiple constraint objects to `__table_args__`:
 
-{* ./docs_src/advanced/constraints/tutorial004_py310.py ln[7:16] hl[8:12] *}
+{* ./docs_src/advanced/constraints/tutorial004_py310.py ln[5:15] hl[6:10] *}
 
 This example combines:
 - A unique constraint on the combination of `name` and `age`
