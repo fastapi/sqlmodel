@@ -1,6 +1,6 @@
 # Database Constraints
 
-In some cases you might want to enforce rules about your data directly at the **database level**. For example, making sure that a hero's name is unique, or that their age is never negative.
+In some cases you might want to enforce rules about your data directly at the **database level**. For example, making sure that a hero's name is unique, or that their age is never negative. 🦸‍♀️
 
 These rules are called **constraints**, and because they live in the database, they work regardless of which application is inserting the data. This is particularly important for data consistency in production systems.
 
@@ -14,7 +14,7 @@ These rules are called **constraints**, and because they live in the database, t
 
 Let's say you want to make sure that no two heroes can have the same name. The simplest way to do this is with the `unique` parameter in `Field()`:
 
-{* ./docs_src/advanced/constraints/tutorial001_py310.py ln[4:8] hl[5] *}
+{* ./docs_src/advanced/constraints/tutorial001_py310.py ln[4:8] hl[6] *}
 
 Now the `name` field must be unique across all heroes. If you try to insert a hero with a name that already exists, the database will raise an error.
 
@@ -53,6 +53,33 @@ You can mix different types of constraints in the same model by adding multiple 
 {* ./docs_src/advanced/constraints/tutorial004_py310.py ln[5:15] hl[6:10] *}
 
 This model has three constraints working together: the combination of `name` and `age` must be unique, age cannot be negative, and the name must be at least 2 characters long. All constraints must be satisfied for data to be inserted successfully.
+
+## What Happens When a Constraint is Violated?
+
+If you try to insert data that breaks a constraint, the database will raise an error. SQLAlchemy wraps this as an `IntegrityError`. Here's what that looks like in practice:
+
+{* ./docs_src/advanced/constraints/tutorial005_py310.py ln[25:38] hl[32:37] *}
+
+When you run this code, you'll see that the first hero is created successfully, but the attempt to create a duplicate fails with a clear error message.
+
+<div class="termy">
+
+```console
+$ python app.py
+
+// Some boilerplate and previous output omitted 😉
+
+✅ Created hero: id=1 age=48 secret_name='Dive Wilson' name='Deadpond'
+🚫 Constraint violation caught:
+   Error: (sqlite3.IntegrityError) UNIQUE constraint failed: hero.name
+[SQL: INSERT INTO hero (name, age, secret_name) VALUES (?, ?, ?)]
+[parameters: ('Deadpond', 25, 'Wade Wilson')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+```
+
+</div>
+
+This error handling lets you gracefully manage constraint violations in your application instead of having your program crash unexpectedly. 🛡️
 
 /// warning
 
