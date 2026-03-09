@@ -8,11 +8,13 @@
 
 ### Docs
 
+* 🔨 Handle external links `target=_blank` and CSS automatically in JS and CSS. PR [#1799](https://github.com/fastapi/sqlmodel/pull/1799) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Document `.in_()` method. PR [#619](https://github.com/fastapi/sqlmodel/pull/619) by [@masylum](https://github.com/masylum).
 * 📝 Fix small typos in the documentation. PR [#1641](https://github.com/fastapi/sqlmodel/pull/1641) by [@svlandeg](https://github.com/svlandeg).
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.4 to 0.15.5. PR [#1801](https://github.com/fastapi/sqlmodel/pull/1801) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.7.3 to 9.7.4. PR [#1797](https://github.com/fastapi/sqlmodel/pull/1797) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump sqlalchemy from 2.0.47 to 2.0.48. PR [#1793](https://github.com/fastapi/sqlmodel/pull/1793) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.3 to 0.3.4. PR [#1794](https://github.com/fastapi/sqlmodel/pull/1794) by [@dependabot[bot]](https://github.com/apps/dependabot).
