@@ -29,9 +29,9 @@ _TCCA = TypedColumnsClauseRole[_T] | SQLCoreOperations[_T] | type[_T]
 
 _TScalar_0 = TypeVar(
     "_TScalar_0",
-    Column,  # type: ignore
-    Sequence,  # type: ignore
-    Mapping,  # type: ignore
+    Column,
+    Sequence,
+    Mapping,
     UUID,
     datetime,
     float,
@@ -47,9 +47,9 @@ _T0 = TypeVar("_T0")
 
 _TScalar_1 = TypeVar(
     "_TScalar_1",
-    Column,  # type: ignore
-    Sequence,  # type: ignore
-    Mapping,  # type: ignore
+    Column,
+    Sequence,
+    Mapping,
     UUID,
     datetime,
     float,
@@ -65,9 +65,9 @@ _T1 = TypeVar("_T1")
 
 _TScalar_2 = TypeVar(
     "_TScalar_2",
-    Column,  # type: ignore
-    Sequence,  # type: ignore
-    Mapping,  # type: ignore
+    Column,
+    Sequence,
+    Mapping,
     UUID,
     datetime,
     float,
@@ -83,9 +83,9 @@ _T2 = TypeVar("_T2")
 
 _TScalar_3 = TypeVar(
     "_TScalar_3",
-    Column,  # type: ignore
-    Sequence,  # type: ignore
-    Mapping,  # type: ignore
+    Column,
+    Sequence,
+    Mapping,
     UUID,
     datetime,
     float,
@@ -107,7 +107,7 @@ def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]: ...
 
 
 @overload
-def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
+def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:
     ...
 
 
@@ -115,35 +115,35 @@ def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     __ent1: _TCCA[_T1],
 ) -> Select[tuple[_T0, _T1]]: ...
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
 ) -> Select[tuple[_T0, _TScalar_1]]: ...
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     __ent1: _TCCA[_T1],
 ) -> Select[tuple[_TScalar_0, _T1]]: ...
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
 ) -> Select[tuple[_TScalar_0, _TScalar_1]]: ...
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     __ent1: _TCCA[_T1],
     __ent2: _TCCA[_T2],
@@ -151,7 +151,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     __ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
@@ -159,7 +159,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     __ent2: _TCCA[_T2],
@@ -167,7 +167,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
@@ -175,7 +175,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     __ent1: _TCCA[_T1],
     __ent2: _TCCA[_T2],
@@ -183,7 +183,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     __ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
@@ -191,7 +191,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     __ent2: _TCCA[_T2],
@@ -199,7 +199,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
@@ -207,7 +207,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     __ent1: _TCCA[_T1],
     __ent2: _TCCA[_T2],
@@ -216,7 +216,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     __ent1: _TCCA[_T1],
     __ent2: _TCCA[_T2],
@@ -225,7 +225,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     __ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
@@ -234,7 +234,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     __ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
@@ -243,7 +243,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     __ent2: _TCCA[_T2],
@@ -252,7 +252,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     __ent2: _TCCA[_T2],
@@ -261,7 +261,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
@@ -270,7 +270,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     __ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
@@ -279,7 +279,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     __ent1: _TCCA[_T1],
     __ent2: _TCCA[_T2],
@@ -288,7 +288,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     __ent1: _TCCA[_T1],
     __ent2: _TCCA[_T2],
@@ -297,7 +297,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     __ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
@@ -306,7 +306,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     __ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
@@ -315,7 +315,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     __ent2: _TCCA[_T2],
@@ -324,7 +324,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     __ent2: _TCCA[_T2],
@@ -333,7 +333,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
@@ -342,7 +342,7 @@ def select(  # type: ignore
 
 
 @overload
-def select(  # type: ignore
+def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
@@ -353,7 +353,7 @@ def select(  # type: ignore
 # Generated overloads end
 
 
-def select(*entities: Any) -> Select | SelectOfScalar:  # type: ignore
+def select(*entities: Any) -> Select | SelectOfScalar:
     if len(entities) == 1:
         return SelectOfScalar(*entities)
     return Select(*entities)
