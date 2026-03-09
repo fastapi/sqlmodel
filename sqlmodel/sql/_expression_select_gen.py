@@ -130,7 +130,7 @@ def select(
 @overload
 def select(
     entity_0: _TScalar_0,
-    __ent1: _TCCA[_T1],
+    _ent1: _TCCA[_T1],
 ) -> Select[tuple[_TScalar_0, _T1]]: ...
 
 
