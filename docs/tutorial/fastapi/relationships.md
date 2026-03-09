@@ -146,7 +146,7 @@ Then we do the same for the `TeamPublicWithHeroes`, it **inherits** from `TeamPu
 
 ### Data Models Without Relationship Attributes
 
-Now, notice that these new fields `team` and `heroes` are not declared with `Relationship()`, because these are not **table models**, they cannot have **relationship attributes** with the magic access to get that data from the database.
+Now, notice that these new fields `team` and `heroes` are not declared with `Relationship()`, because `HeroPublicWithTeam` and `TeamPublicWithHeroes` are not **table models**, they cannot have **relationship attributes** with the magic access to get that data from the database.
 
 Instead, here these are only **data models** that will tell FastAPI **which attributes** to get data from and **which data** to get from them.
 
