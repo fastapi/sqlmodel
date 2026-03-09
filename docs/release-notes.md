@@ -14,6 +14,7 @@
 
 ### Internal
 
+* ⬆ Bump black from 26.1.0 to 26.3.0. PR [#1803](https://github.com/fastapi/sqlmodel/pull/1803) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.4 to 0.15.5. PR [#1801](https://github.com/fastapi/sqlmodel/pull/1801) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.7.3 to 9.7.4. PR [#1797](https://github.com/fastapi/sqlmodel/pull/1797) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump sqlalchemy from 2.0.47 to 2.0.48. PR [#1793](https://github.com/fastapi/sqlmodel/pull/1793) by [@dependabot[bot]](https://github.com/apps/dependabot).
