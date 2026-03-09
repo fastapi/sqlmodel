@@ -107,8 +107,7 @@ def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]: ...
 
 
 @overload
-def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:
-    ...
+def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]: ...
 
 
 # Generated overloads start
