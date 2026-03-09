@@ -773,7 +773,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         assert isinstance(foreign_key, str)
         assert isinstance(ondelete_value, (str, type(None)))  # for typing
         args.append(ForeignKey(foreign_key, ondelete=ondelete_value))
-    kwargs = {
+    kwargs: dict[str, Any] = {
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
