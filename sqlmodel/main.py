@@ -525,17 +525,17 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     model_fields: ClassVar[dict[str, FieldInfo]]
 
     # Replicate SQLAlchemy
-    def __setattr__(cls, name: str, value: Any) -> None:
+    def __setattr__(cls, key: str, value: Any) -> None:
         if is_table_model_class(cls):
-            DeclarativeMeta.__setattr__(cls, name, value)
+            DeclarativeMeta.__setattr__(cls, key, value)
         else:
-            super().__setattr__(name, value)
+            super().__setattr__(key, value)
 
-    def __delattr__(cls, name: str) -> None:
+    def __delattr__(cls, key: str) -> None:
         if is_table_model_class(cls):
-            DeclarativeMeta.__delattr__(cls, name)
+            DeclarativeMeta.__delattr__(cls, key)
         else:
-            super().__delattr__(name)
+            super().__delattr__(key)
 
     # From Pydantic
     def __new__(
