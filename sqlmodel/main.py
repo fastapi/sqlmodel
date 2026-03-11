@@ -738,7 +738,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def _create_union(args: tuple[Any, ...]) -> Any | Any:
+def _create_union(args: tuple[Any, ...]) -> Any:
     if len(args) == 1:
         return args[0]
     return args[0] | _create_union(args[1:])
