@@ -74,13 +74,17 @@ def test_discriminated_union_with_generics(clear_sqlmodel) -> None:
 
     DiscriminantT = TypeVar("DiscriminantT", bound=RefundStatus)
 
-    class RefundRequestFields(SQLModel, Generic[AmountRefundedT, RejectionMessageT, DiscriminantT]):
+    class RefundRequestFields(
+        SQLModel, Generic[AmountRefundedT, RejectionMessageT, DiscriminantT]
+    ):
         item_name: str
         amount_refunded: AmountRefundedT
         rejection_message: RejectionMessageT
         status: DiscriminantT
 
-    class RefundRequest(RefundRequestFields[int | None, str | None, RefundStatus], table=True):
+    class RefundRequest(
+        RefundRequestFields[int | None, str | None, RefundStatus], table=True
+    ):
         id: int | None = Field(default=None, primary_key=True)
         status: RefundStatus
 
