@@ -738,7 +738,24 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
+def _create_union(args: tuple[Any, ...]) -> Any | Any:
+    if len(args) == 1:
+        return args[0]
+    return args[0] | _create_union(args[1:])
+
+
 def get_column_from_field(field: Any) -> Column:  # type: ignore
+    if isinstance(field.annotation, TypeVar):
+        generic: TypeVar = field.annotation
+        if generic.__bound__ is not None:
+            field.annotation = generic.__bound__
+        elif generic.__constraints__ != ():
+            constraints = generic.__constraints__
+            field.annotation = _create_union(constraints)
+        else:
+            raise TypeError(
+                f"Invalid type used for {field}. Please define a bound or constraints."
+            )
     field_info = field
     sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
