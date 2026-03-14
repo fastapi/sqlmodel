@@ -15,6 +15,7 @@
 
 ### Internal
 
+* ⬆ Bump dorny/paths-filter from 3 to 4. PR [#1812](https://github.com/fastapi/sqlmodel/pull/1812) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump black from 26.3.0 to 26.3.1. PR [#1811](https://github.com/fastapi/sqlmodel/pull/1811) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.7.4 to 9.7.5. PR [#1808](https://github.com/fastapi/sqlmodel/pull/1808) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.4 to 0.3.5. PR [#1807](https://github.com/fastapi/sqlmodel/pull/1807) by [@dependabot[bot]](https://github.com/apps/dependabot).
