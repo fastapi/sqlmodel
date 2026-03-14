@@ -52,7 +52,7 @@ from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from typing_extensions import deprecated
 
-from ._compat import (  # type: ignore[attr-defined]
+from ._compat import (
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelMetaclass,
@@ -177,7 +177,7 @@ class RelationshipInfo(Representation):
         cascade_delete: bool | None = False,
         passive_deletes: bool | Literal["all"] | None = False,
         link_model: Any | None = None,
-        sa_relationship: RelationshipProperty | None = None,  # type: ignore
+        sa_relationship: RelationshipProperty | None = None,
         sa_relationship_args: Sequence[Any] | None = None,
         sa_relationship_kwargs: Mapping[str, Any] | None = None,
     ) -> None:
@@ -398,7 +398,7 @@ def Field(
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
     sa_type: type[Any] | UndefinedType = Undefined,
-    sa_column: Column | UndefinedType = Undefined,  # type: ignore
+    sa_column: Column | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -525,17 +525,17 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     model_fields: ClassVar[dict[str, FieldInfo]]
 
     # Replicate SQLAlchemy
-    def __setattr__(cls, name: str, value: Any) -> None:
+    def __setattr__(cls, key: str, value: Any) -> None:
         if is_table_model_class(cls):
-            DeclarativeMeta.__setattr__(cls, name, value)
+            DeclarativeMeta.__setattr__(cls, key, value)
         else:
-            super().__setattr__(name, value)
+            super().__setattr__(key, value)
 
-    def __delattr__(cls, name: str) -> None:
+    def __delattr__(cls, key: str) -> None:
         if is_table_model_class(cls):
-            DeclarativeMeta.__delattr__(cls, name)
+            DeclarativeMeta.__delattr__(cls, key)
         else:
-            super().__delattr__(name)
+            super().__delattr__(key)
 
     # From Pydantic
     def __new__(
@@ -649,7 +649,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # Plain forward references, for models not yet defined, are not
                     # handled well by SQLAlchemy without Mapped, so, wrap the
                     # annotations in Mapped here
-                    cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
+                    cls.__annotations__[rel_name] = Mapped[ann]
                 relationship_to = get_relationship_to(
                     name=rel_name, rel_info=rel_info, annotation=ann
                 )
@@ -738,7 +738,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column:  # type: ignore
+def get_column_from_field(field: Any) -> Column:
     field_info = field
     sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
@@ -773,7 +773,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         assert isinstance(foreign_key, str)
         assert isinstance(ondelete_value, (str, type(None)))  # for typing
         args.append(ForeignKey(foreign_key, ondelete=ondelete_value))
-    kwargs = {
+    kwargs: dict[str, Any] = {
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
@@ -797,7 +797,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     return Column(sa_type, *args, **kwargs)
 
 
-class_registry = weakref.WeakValueDictionary()  # type: ignore
+class_registry = weakref.WeakValueDictionary()
 
 default_registry = registry()
 
@@ -850,7 +850,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if is_table_model_class(self.__class__) and is_instrumented(self, name):  # type: ignore[no-untyped-call]
+            if is_table_model_class(self.__class__) and is_instrumented(self, name):
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
