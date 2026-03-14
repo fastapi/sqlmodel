@@ -1954,6 +1954,7 @@ source = { editable = "." }
 dependencies = [
     { name = "pydantic" },
     { name = "sqlalchemy" },
+    { name = "typing-extensions" },
 ]
 
 [package.dev-dependencies]
@@ -2023,6 +2024,7 @@ tests = [
 requires-dist = [
     { name = "pydantic", specifier = ">=2.11.0" },
     { name = "sqlalchemy", specifier = ">=2.0.14,<2.1.0" },
+    { name = "typing-extensions", specifier = ">=4.5.0" },
 ]
 
 [package.metadata.requires-dev]
