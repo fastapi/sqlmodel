@@ -15,6 +15,7 @@
 
 ### Internal
 
+* 📌 Update internal dependency limits. PR [#1809](https://github.com/fastapi/sqlmodel/pull/1809) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump ruff from 0.15.5 to 0.15.6. PR [#1814](https://github.com/fastapi/sqlmodel/pull/1814) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump cairosvg from 2.8.2 to 2.9.0. PR [#1813](https://github.com/fastapi/sqlmodel/pull/1813) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump dorny/paths-filter from 3 to 4. PR [#1812](https://github.com/fastapi/sqlmodel/pull/1812) by [@dependabot[bot]](https://github.com/apps/dependabot).
