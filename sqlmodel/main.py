@@ -12,6 +12,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     ClassVar,
     Literal,
@@ -19,6 +20,7 @@ from typing import (
     TypeVar,
     Union,
     cast,
+    get_args,
     get_origin,
     overload,
 )
@@ -518,6 +520,16 @@ def Relationship(
     return relationship_info
 
 
+def get_annotated_relationshipinfo(t: Any) -> RelationshipInfo | None:
+    """Get the first RelationshipInfo from Annotated or None if not Annotated with RelationshipInfo."""
+    if get_origin(t) is not Annotated:
+        return None
+    for a in get_args(t):
+        if isinstance(a, RelationshipInfo):
+            return a
+    return None
+
+
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
@@ -551,7 +563,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         pydantic_annotations = {}
         relationship_annotations = {}
         for k, v in class_dict.items():
-            if isinstance(v, RelationshipInfo):
+            a = original_annotations.get(k, None)
+            r = get_annotated_relationshipinfo(a)
+            if r is not None:
+                relationships[k] = r
+            elif isinstance(v, RelationshipInfo):
                 relationships[k] = v
             else:
                 dict_for_pydantic[k] = v
@@ -644,6 +660,9 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 origin: Any = get_origin(raw_ann)
                 if origin is Mapped:
                     ann = raw_ann.__args__[0]
+                if origin is Annotated:
+                    ann = get_args(raw_ann)[0]
+                    cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
                 else:
                     ann = raw_ann
                     # Plain forward references, for models not yet defined, are not
