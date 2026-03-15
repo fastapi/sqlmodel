@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
@@ -12,6 +13,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     ClassVar,
     Literal,
@@ -89,6 +91,11 @@ IncEx: TypeAlias = (
     | Mapping[str, Union["IncEx", bool]]
 )
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+
+CONST_DEPRECATION_MSG = "`const` is deprecated and doesn't work, use `Literal` instead"
+UNIQUE_ITEMS_DEPRECATION_MSG = (
+    "`unique_items` is deprecated and doesn't work, use `set` type instead"
+)
 
 
 def __dataclass_transform__(
@@ -246,7 +253,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -256,7 +266,10 @@ def Field(
     decimal_places: int | None = None,
     min_items: int | None = None,
     max_items: int | None = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -289,7 +302,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -299,7 +315,10 @@ def Field(
     decimal_places: int | None = None,
     min_items: int | None = None,
     max_items: int | None = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -341,7 +360,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -351,7 +373,10 @@ def Field(
     decimal_places: int | None = None,
     min_items: int | None = None,
     max_items: int | None = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -374,7 +399,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -384,7 +412,10 @@ def Field(
     decimal_places: int | None = None,
     min_items: int | None = None,
     max_items: int | None = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -404,6 +435,12 @@ def Field(
     schema_extra: dict[str, Any] | None = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if const is not None:
+        warnings.warn(CONST_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+    if unique_items is not None:
+        warnings.warn(UNIQUE_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
@@ -413,7 +450,6 @@ def Field(
         "description": description,
         "exclude": exclude,
         "include": include,
-        "const": const,
         "gt": gt,
         "ge": ge,
         "lt": lt,
@@ -423,7 +459,6 @@ def Field(
         "decimal_places": decimal_places,
         "min_items": min_items,
         "max_items": max_items,
-        "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
         "allow_mutation": allow_mutation,
