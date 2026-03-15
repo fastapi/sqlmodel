@@ -1,5 +1,9 @@
 __version__ = "0.0.37"
 
+# Re-export from Pydantic
+from pydantic import AliasChoices as AliasChoices
+from pydantic import AliasPath as AliasPath
+
 # Re-export from SQLAlchemy
 from sqlalchemy.engine import create_engine as create_engine
 from sqlalchemy.engine import create_mock_engine as create_mock_engine
