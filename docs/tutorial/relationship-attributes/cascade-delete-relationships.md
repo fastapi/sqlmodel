@@ -129,7 +129,7 @@ The `cascade_delete` parameter is set in the `Relationship()`, on the model that
 
 Setting `cascade_delete=True` in the `Relationship()` will configure SQLAlchemy to use `cascade="all, delete-orphan"`, which is the most common and useful configuration when wanting to cascade deletes.
 
-You can read more about it in the <a href="https://docs.sqlalchemy.org/en/20/orm/cascades.html" class="external-link" target="_blank">SQLAlchemy docs</a>.
+You can read more about it in the [SQLAlchemy docs](https://docs.sqlalchemy.org/en/20/orm/cascades.html).
 
 ///
 
@@ -442,7 +442,7 @@ To be able to test this out with SQLite, we first need to enable foreign key sup
 
 /// info
 
-You can learn more about SQLite, foreign keys, and this SQL command on the <a href="https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support" class="external-link" target="_blank">SQLAlchemy docs</a>.
+You can learn more about SQLite, foreign keys, and this SQL command on the [SQLAlchemy docs](https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support).
 
 ///
 

@@ -10,7 +10,7 @@ We want to get the hero based on the `id`, so we will use a **path parameter** `
 
 /// info
 
-If you need to refresh how *path parameters* work, including their data validation, check the <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">FastAPI docs about Path Parameters</a>.
+If you need to refresh how *path parameters* work, including their data validation, check the [FastAPI docs about Path Parameters](https://fastapi.tiangolo.com/tutorial/path-params/).
 
 ///
 

@@ -6,30 +6,30 @@
     <em>SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.</em>
 </p>
 <p align="center">
-<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest+event%3Apush+branch%3Amain" target="_blank">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest+event%3Apush+branch%3Amain">
     <img src="https://github.com/fastapi/sqlmodel/actions/workflows/test.yml/badge.svg?event=push&branch=main" alt="Test">
 </a>
-<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3APublish" target="_blank">
+<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3APublish">
     <img src="https://github.com/fastapi/sqlmodel/actions/workflows/publish.yml/badge.svg" alt="Publish">
 </a>
-<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/sqlmodel" target="_blank">
+<a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/sqlmodel">
     <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/sqlmodel.svg" alt="Coverage">
-<a href="https://pypi.org/project/sqlmodel" target="_blank">
+<a href="https://pypi.org/project/sqlmodel">
     <img src="https://img.shields.io/pypi/v/sqlmodel?color=%2334D058&label=pypi%20package" alt="Package version">
 </a>
 </p>
 
 ---
 
-**Documentation**: <a href="https://sqlmodel.tiangolo.com" target="_blank">https://sqlmodel.tiangolo.com</a>
+**Documentation**: [https://sqlmodel.tiangolo.com](https://sqlmodel.tiangolo.com)
 
-**Source Code**: <a href="https://github.com/fastapi/sqlmodel" target="_blank">https://github.com/fastapi/sqlmodel</a>
+**Source Code**: [https://github.com/fastapi/sqlmodel](https://github.com/fastapi/sqlmodel)
 
 ---
 
 SQLModel is a library for interacting with <abbr title='Also called "Relational databases"'>SQL databases</abbr> from Python code, with Python objects. It is designed to be intuitive, easy to use, highly compatible, and robust.
 
-**SQLModel** is based on Python type annotations, and powered by <a href="https://pydantic-docs.helpmanual.io/" class="external-link" target="_blank">Pydantic</a> and <a href="https://sqlalchemy.org/" class="external-link" target="_blank">SQLAlchemy</a>.
+**SQLModel** is based on Python type annotations, and powered by [Pydantic](https://pydantic-docs.helpmanual.io/) and [SQLAlchemy](https://sqlalchemy.org/).
 
 The key features are:
 
@@ -49,9 +49,9 @@ The key features are:
 
 ## SQL Databases in FastAPI
 
-<a href="https://fastapi.tiangolo.com" target="_blank"><img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" style="width: 20%;"></a>
+<a href="https://fastapi.tiangolo.com"><img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" style="width: 20%;"></a>
 
-**SQLModel** is designed to simplify interacting with SQL databases in <a href="https://fastapi.tiangolo.com" class="external-link" target="_blank">FastAPI</a> applications, it was created by the same <a href="https://tiangolo.com/" class="external-link" target="_blank">author</a>. 😁
+**SQLModel** is designed to simplify interacting with SQL databases in [FastAPI](https://fastapi.tiangolo.com) applications, it was created by the same [author](https://tiangolo.com/). 😁
 
 It combines SQLAlchemy and Pydantic and tries to simplify the code you write as much as possible, allowing you to reduce the **code duplication to a minimum**, but while getting the **best developer experience** possible.
 
@@ -59,13 +59,13 @@ It combines SQLAlchemy and Pydantic and tries to simplify the code you write as 
 
 ## Requirements
 
-A recent and currently supported <a href="https://www.python.org/downloads/" class="external-link" target="_blank">version of Python</a>.
+A recent and currently supported [version of Python](https://www.python.org/downloads/).
 
 As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. They will be automatically installed when you install SQLModel.
 
 ## Installation
 
-Make sure you create a <a href="https://sqlmodel.tiangolo.com/virtual-environments/" class="external-link" target="_blank">virtual environment</a>, activate it, and then install SQLModel, for example with:
+Make sure you create a [virtual environment](https://sqlmodel.tiangolo.com/virtual-environments/), activate it, and then install SQLModel, for example with:
 
 <div class="termy">
 
@@ -79,7 +79,7 @@ Successfully installed sqlmodel
 
 ## Example
 
-For an introduction to databases, SQL, and everything else, see the <a href="https://sqlmodel.tiangolo.com/databases/" target="_blank">SQLModel documentation</a>.
+For an introduction to databases, SQL, and everything else, see the [SQLModel documentation](https://sqlmodel.tiangolo.com/databases/).
 
 Here's a quick example. ✨
 
