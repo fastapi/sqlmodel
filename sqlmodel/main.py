@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 import weakref
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
@@ -247,6 +248,7 @@ def Field(
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
     const: bool | None = None,
+    coerce_numbers_to_str: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -259,9 +261,12 @@ def Field(
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
+    union_mode: Literal["smart", "left_to_right"] | None = None,
+    fail_fast: bool | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     discriminator: str | None = None,
+    validate_default: bool | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -290,6 +295,7 @@ def Field(
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
     const: bool | None = None,
+    coerce_numbers_to_str: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -302,9 +308,12 @@ def Field(
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
+    union_mode: Literal["smart", "left_to_right"] | None = None,
+    fail_fast: bool | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     discriminator: str | None = None,
+    validate_default: bool | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: str,
@@ -342,6 +351,7 @@ def Field(
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
     const: bool | None = None,
+    coerce_numbers_to_str: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -354,9 +364,12 @@ def Field(
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
+    union_mode: Literal["smart", "left_to_right"] | None = None,
+    fail_fast: bool | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     discriminator: str | None = None,
+    validate_default: bool | None = None,
     repr: bool = True,
     sa_column: Column[Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -375,6 +388,7 @@ def Field(
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
     const: bool | None = None,
+    coerce_numbers_to_str: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -387,9 +401,12 @@ def Field(
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
+    union_mode: Literal["smart", "left_to_right"] | None = None,
+    fail_fast: bool | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     discriminator: str | None = None,
+    validate_default: bool | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -404,9 +421,27 @@ def Field(
     schema_extra: dict[str, Any] | None = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    for param_name in (
+        "coerce_numbers_to_str",
+        "validate_default",
+        "union_mode",
+        "fail_fast",
+    ):
+        if param_name in current_schema_extra:
+            msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
+            warnings.warn(msg, UserWarning, stacklevel=2)
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
+    current_coerce_numbers_to_str = coerce_numbers_to_str or current_schema_extra.pop(
+        "coerce_numbers_to_str", None
+    )
+    current_validate_default = validate_default or current_schema_extra.pop(
+        "validate_default", None
+    )
+    current_fail_fast = fail_fast or current_schema_extra.pop("fail_fast", None)
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -414,6 +449,8 @@ def Field(
         "exclude": exclude,
         "include": include,
         "const": const,
+        "coerce_numbers_to_str": current_coerce_numbers_to_str,
+        "validate_default": current_validate_default,
         "gt": gt,
         "ge": ge,
         "lt": lt,
@@ -426,6 +463,7 @@ def Field(
         "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
+        "fail_fast": current_fail_fast,
         "allow_mutation": allow_mutation,
         "regex": regex,
         "discriminator": discriminator,
@@ -450,6 +488,10 @@ def Field(
     field_info_kwargs["serialization_alias"] = (
         serialization_alias or schema_serialization_alias or alias
     )
+
+    current_union_mode = union_mode or current_schema_extra.pop("union_mode", None)
+    if current_union_mode is not None:
+        field_info_kwargs["union_mode"] = current_union_mode
 
     field_info = FieldInfo(
         default,
