@@ -6,7 +6,7 @@
 
 4. Create the `id` field:
 
-    It could be `None` until the database assigns a value to it, so we annotate it with `Optional`.
+    It could be `None` until the database assigns a value to it, so we annotate it with `Optional` (`int | None` in Python 3.10+).
 
     It is a **primary key**, so we use `Field()` and the argument `primary_key=True`.
 
@@ -24,7 +24,7 @@
 
     In the database, the default value will be `NULL`, the SQL equivalent of `None`.
 
-    As this field could be `None` (and `NULL` in the database), we annotate it with `Optional`.
+    As this field could be `None` (and `NULL` in the database), we annotate it with `Optional` (`int | None` in Python 3.10+).
 
 8. Write the name of the database file.
 9. Use the name of the database file to create the database URL.

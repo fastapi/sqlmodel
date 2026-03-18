@@ -1,12 +1,8 @@
+from collections.abc import Mapping, Sequence
 from datetime import datetime
 from typing import (
     Any,
-    Mapping,
-    Sequence,
-    Tuple,
-    Type,
     TypeVar,
-    Union,
     overload,
 )
 from uuid import UUID
@@ -24,11 +20,7 @@ from ._expression_select_cls import Select, SelectOfScalar
 _T = TypeVar("_T")
 
 
-_TCCA = Union[
-    TypedColumnsClauseRole[_T],
-    SQLCoreOperations[_T],
-    Type[_T],
-]
+_TCCA = TypedColumnsClauseRole[_T] | SQLCoreOperations[_T] | type[_T]
 
 # Generated TypeVars start
 
@@ -71,14 +63,14 @@ def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
 @overload
 def select(  # type: ignore
     {% for arg in signature[0] %}{{ arg.name }}: {{ arg.annotation }}, {% endfor %}
-    ) -> Select[Tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]: ...
+    ) -> Select[tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]: ...
 
 {% endfor %}
 
 # Generated overloads end
 
 
-def select(*entities: Any) -> Union[Select, SelectOfScalar]:  # type: ignore
+def select(*entities: Any) -> Select | SelectOfScalar:  # type: ignore
     if len(entities) == 1:
         return SelectOfScalar(*entities)
     return Select(*entities)

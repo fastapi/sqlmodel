@@ -40,7 +40,7 @@ Click the button <kbd>New Database</kbd>.
 
 <img class="shadow" src="/img/create-db-and-table-with-db-browser/image001.png">
 
-A dialog should show up. Go to the [project directory you created](./index.md#create-a-project){.internal-link target=_blank} and save the file with a name of `database.db`.
+A dialog should show up. Go to the [project directory you created](../virtual-environments.md#create-a-project){.internal-link target=_blank} and save the file with a name of `database.db`.
 
 /// tip
 
