@@ -102,7 +102,7 @@ def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
     private_attributes = getattr(cls, "__private_attributes__", {})
     pydantic_private = {}
     for k, v in private_attributes.items():
-        pydantic_private[k] = v.get_default(call_default_factory=True)
+        pydantic_private[k] = v.get_default()
     object.__setattr__(
         new_object,
         "__pydantic_private__",
