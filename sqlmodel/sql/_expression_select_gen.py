@@ -103,11 +103,11 @@ _T3 = TypeVar("_T3")
 
 
 @overload
-def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]: ...
+def select(ent0: _TCCA[_T0], /) -> SelectOfScalar[_T0]: ...
 
 
 @overload
-def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]: ...
+def select(ent0: _TScalar_0, /) -> SelectOfScalar[_TScalar_0]: ...
 
 
 # Generated overloads start
@@ -115,22 +115,25 @@ def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]: ...
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
-    _ent1: _TCCA[_T1],
+    ent0: _TCCA[_T0],
+    ent1: _TCCA[_T1],
+    /,
 ) -> Select[tuple[_T0, _T1]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
+    ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
+    /,
 ) -> Select[tuple[_T0, _TScalar_1]]: ...
 
 
 @overload
 def select(
     entity_0: _TScalar_0,
-    _ent1: _TCCA[_T1],
+    ent1: _TCCA[_T1],
+    /,
 ) -> Select[tuple[_TScalar_0, _T1]]: ...
 
 
@@ -138,54 +141,61 @@ def select(
 def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
+    /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
-    _ent1: _TCCA[_T1],
-    _ent2: _TCCA[_T2],
+    ent0: _TCCA[_T0],
+    ent1: _TCCA[_T1],
+    ent2: _TCCA[_T2],
+    /,
 ) -> Select[tuple[_T0, _T1, _T2]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
-    _ent1: _TCCA[_T1],
+    ent0: _TCCA[_T0],
+    ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
+    /,
 ) -> Select[tuple[_T0, _T1, _TScalar_2]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
+    ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
-    _ent2: _TCCA[_T2],
+    ent2: _TCCA[_T2],
+    /,
 ) -> Select[tuple[_T0, _TScalar_1, _T2]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
+    ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
+    /,
 ) -> Select[tuple[_T0, _TScalar_1, _TScalar_2]]: ...
 
 
 @overload
 def select(
     entity_0: _TScalar_0,
-    _ent1: _TCCA[_T1],
-    _ent2: _TCCA[_T2],
+    ent1: _TCCA[_T1],
+    ent2: _TCCA[_T2],
+    /,
 ) -> Select[tuple[_TScalar_0, _T1, _T2]]: ...
 
 
 @overload
 def select(
     entity_0: _TScalar_0,
-    _ent1: _TCCA[_T1],
+    ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
+    /,
 ) -> Select[tuple[_TScalar_0, _T1, _TScalar_2]]: ...
 
 
@@ -193,7 +203,8 @@ def select(
 def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
-    _ent2: _TCCA[_T2],
+    ent2: _TCCA[_T2],
+    /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _T2]]: ...
 
 
@@ -202,114 +213,127 @@ def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
+    /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _TScalar_2]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
-    _ent1: _TCCA[_T1],
-    _ent2: _TCCA[_T2],
-    _ent3: _TCCA[_T3],
+    ent0: _TCCA[_T0],
+    ent1: _TCCA[_T1],
+    ent2: _TCCA[_T2],
+    ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_T0, _T1, _T2, _T3]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
-    _ent1: _TCCA[_T1],
-    _ent2: _TCCA[_T2],
+    ent0: _TCCA[_T0],
+    ent1: _TCCA[_T1],
+    ent2: _TCCA[_T2],
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_T0, _T1, _T2, _TScalar_3]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
-    _ent1: _TCCA[_T1],
+    ent0: _TCCA[_T0],
+    ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
-    _ent3: _TCCA[_T3],
+    ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_T0, _T1, _TScalar_2, _T3]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
-    _ent1: _TCCA[_T1],
+    ent0: _TCCA[_T0],
+    ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_T0, _T1, _TScalar_2, _TScalar_3]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
+    ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
-    _ent2: _TCCA[_T2],
-    _ent3: _TCCA[_T3],
+    ent2: _TCCA[_T2],
+    ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_T0, _TScalar_1, _T2, _T3]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
+    ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
-    _ent2: _TCCA[_T2],
+    ent2: _TCCA[_T2],
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_T0, _TScalar_1, _T2, _TScalar_3]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
+    ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
-    _ent3: _TCCA[_T3],
+    ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_T0, _TScalar_1, _TScalar_2, _T3]]: ...
 
 
 @overload
 def select(
-    _ent0: _TCCA[_T0],
+    ent0: _TCCA[_T0],
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_T0, _TScalar_1, _TScalar_2, _TScalar_3]]: ...
 
 
 @overload
 def select(
     entity_0: _TScalar_0,
-    _ent1: _TCCA[_T1],
-    _ent2: _TCCA[_T2],
-    _ent3: _TCCA[_T3],
+    ent1: _TCCA[_T1],
+    ent2: _TCCA[_T2],
+    ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_TScalar_0, _T1, _T2, _T3]]: ...
 
 
 @overload
 def select(
     entity_0: _TScalar_0,
-    _ent1: _TCCA[_T1],
-    _ent2: _TCCA[_T2],
+    ent1: _TCCA[_T1],
+    ent2: _TCCA[_T2],
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_TScalar_0, _T1, _T2, _TScalar_3]]: ...
 
 
 @overload
 def select(
     entity_0: _TScalar_0,
-    _ent1: _TCCA[_T1],
+    ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
-    _ent3: _TCCA[_T3],
+    ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_TScalar_0, _T1, _TScalar_2, _T3]]: ...
 
 
 @overload
 def select(
     entity_0: _TScalar_0,
-    _ent1: _TCCA[_T1],
+    ent1: _TCCA[_T1],
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_TScalar_0, _T1, _TScalar_2, _TScalar_3]]: ...
 
 
@@ -317,8 +341,9 @@ def select(
 def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
-    _ent2: _TCCA[_T2],
-    _ent3: _TCCA[_T3],
+    ent2: _TCCA[_T2],
+    ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _T2, _T3]]: ...
 
 
@@ -328,6 +353,7 @@ def select(
     entity_1: _TScalar_1,
     _ent2: _TCCA[_T2],
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3]]: ...
 
 
@@ -337,6 +363,7 @@ def select(
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
     _ent3: _TCCA[_T3],
+    /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3]]: ...
 
 
@@ -346,6 +373,7 @@ def select(
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
     entity_3: _TScalar_3,
+    /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _TScalar_2, _TScalar_3]]: ...
 
 
