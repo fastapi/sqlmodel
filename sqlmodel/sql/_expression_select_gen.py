@@ -351,7 +351,7 @@ def select(
 def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
-    _ent2: _TCCA[_T2],
+    ent2: _TCCA[_T2],
     entity_3: _TScalar_3,
     /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _T2, _TScalar_3]]: ...
@@ -362,7 +362,7 @@ def select(
     entity_0: _TScalar_0,
     entity_1: _TScalar_1,
     entity_2: _TScalar_2,
-    _ent3: _TCCA[_T3],
+    ent3: _TCCA[_T3],
     /,
 ) -> Select[tuple[_TScalar_0, _TScalar_1, _TScalar_2, _T3]]: ...
 
