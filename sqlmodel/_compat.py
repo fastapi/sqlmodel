@@ -94,7 +94,20 @@ def get_model_fields(model: InstanceOrType[BaseModel]) -> dict[str, "FieldInfo"]
 def init_pydantic_private_attrs(new_object: InstanceOrType["SQLModel"]) -> None:
     object.__setattr__(new_object, "__pydantic_fields_set__", set())
     object.__setattr__(new_object, "__pydantic_extra__", None)
-    object.__setattr__(new_object, "__pydantic_private__", None)
+    # Initialize __pydantic_private__ with defaults from __private_attributes__,
+    # mirroring what Pydantic's own BaseModel.__init__ does. Previously this was
+    # set to None, which caused AttributeError when accessing PrivateAttr fields
+    # on instances reconstructed from the database (via __new__, bypassing __init__).
+    cls = new_object if isinstance(new_object, type) else new_object.__class__
+    private_attributes = getattr(cls, "__private_attributes__", {})
+    pydantic_private = {}
+    for k, v in private_attributes.items():
+        pydantic_private[k] = v.get_default()
+    object.__setattr__(
+        new_object,
+        "__pydantic_private__",
+        pydantic_private if pydantic_private else None,
+    )
 
 
 def get_annotations(class_dict: dict[str, Any]) -> dict[str, Any]:
