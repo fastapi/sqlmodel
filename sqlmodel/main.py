@@ -3,7 +3,6 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
-import weakref
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
@@ -796,8 +795,6 @@ def get_column_from_field(field: Any) -> Column:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
     return Column(sa_type, *args, **kwargs)
 
-
-class_registry = weakref.WeakValueDictionary()
 
 default_registry = registry()
 
