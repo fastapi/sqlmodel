@@ -128,7 +128,7 @@ I'm using the term "link table" because it's short, doesn't collide with other t
 
 ## Link Primary Key
 
-Cool, we have a link table with **just two columns**. But remember that SQL databases [require each row to have a **primary key**](../../databases.md#identifications-primary-key){.internal-link target=_blank} that **uniquely identifies** the row in that table?
+Cool, we have a link table with **just two columns**. But remember that SQL databases [require each row to have a **primary key**](../../databases.md#identifications-primary-key) that **uniquely identifies** the row in that table?
 
 Now, what is the **primary key** in this table?
 

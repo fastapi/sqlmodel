@@ -18,7 +18,7 @@ Now we will see how useful it is to have this session dependency. ✨
 
 ## File Structure
 
-Now we will have a Python project with multiple files, one file `main.py` with all the application, and one file `test_main.py` with the tests, with the same ideas from [Code Structure and Multiple Files](../code-structure.md){.internal-link target=_blank}.
+Now we will have a Python project with multiple files, one file `main.py` with all the application, and one file `test_main.py` with the tests, with the same ideas from [Code Structure and Multiple Files](../code-structure.md).
 
 The file structure is:
 
@@ -32,11 +32,11 @@ The file structure is:
 
 ## Testing FastAPI Applications
 
-If you haven't done testing in FastAPI applications, first check the <a href="https://fastapi.tiangolo.com/tutorial/testing/" class="external-link" target="_blank">FastAPI docs about Testing</a>.
+If you haven't done testing in FastAPI applications, first check the [FastAPI docs about Testing](https://fastapi.tiangolo.com/tutorial/testing/).
 
 Then, we can continue here, the first step is to install the dependencies, `requests` and `pytest`.
 
-Make sure you create a [virtual environment](../../virtual-environments.md){.internal-link target=_blank}, activate it, and then install them, for example with:
+Make sure you create a [virtual environment](../../virtual-environments.md), activate it, and then install them, for example with:
 
 <div class="termy">
 
@@ -144,7 +144,7 @@ Here we create all the tables in the testing database with:
 SQLModel.metadata.create_all(engine)
 ```
 
-But remember that [Order Matters](../create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} and we need to make sure all the **SQLModel** models are already defined and **imported** before calling `.create_all()`.
+But remember that [Order Matters](../create-db-and-table.md#sqlmodel-metadata-order-matters) and we need to make sure all the **SQLModel** models are already defined and **imported** before calling `.create_all()`.
 
 In this case, it all works for a little subtlety that deserves some attention.
 
@@ -230,7 +230,7 @@ Let's use these **fixtures** to improve our code and reduce de duplicated boiler
 
 ## Pytest Fixtures
 
-You can read more about them in the <a href="https://docs.pytest.org/en/6.2.x/fixture.html" class="external-link" target="_blank">pytest docs for fixtures</a>, but I'll give you a short example for what we need here.
+You can read more about them in the [pytest docs for fixtures](https://docs.pytest.org/en/6.2.x/fixture.html), but I'll give you a short example for what we need here.
 
 Let's see the first code example with a fixture:
 
