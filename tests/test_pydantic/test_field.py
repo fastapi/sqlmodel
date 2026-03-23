@@ -2,7 +2,7 @@ from decimal import Decimal
 from typing import Literal
 
 import pytest
-from pydantic import ValidationError
+from pydantic import ConfigDict, ValidationError
 from sqlmodel import Field, SQLModel
 
 
@@ -54,3 +54,57 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_alias_priority_1():
+    def to_camel(string: str) -> str:
+        return "".join(word.capitalize() for word in string.split("_"))
+
+    class Model(SQLModel):
+        model_config = ConfigDict(alias_generator=to_camel)
+
+        field: str = Field(alias="field_alias", alias_priority=1)
+
+    m = Model.model_validate({"Field": "value1"})
+    assert m.field == "value1"
+
+    with pytest.raises(ValidationError):
+        Model.model_validate({"field_alias": "value1"})
+
+
+@pytest.mark.parametrize("alias_priority", [None, 2])
+def test_alias_priority_2(alias_priority: int | None):
+    def to_camel(string: str) -> str:
+        return "".join(word.capitalize() for word in string.split("_"))
+
+    class Model(SQLModel):
+        model_config = ConfigDict(alias_generator=to_camel)
+
+        field: str = Field(alias="field_alias", alias_priority=alias_priority)
+
+    m = Model.model_validate({"field_alias": "value1"})
+    assert m.field == "value1"
+
+    with pytest.raises(ValidationError):
+        Model.model_validate({"Field": "value1"})
+
+
+def test_alias_priority_via_schema_extra():  # Current workaround. Remove after some time
+    def to_camel(string: str) -> str:
+        return "".join(word.capitalize() for word in string.split("_"))
+
+    with pytest.warns(
+        DeprecationWarning,
+        match="Pass `alias_priority` parameter directly to Field instead of passing it via `schema_extra`",
+    ):
+
+        class Model(SQLModel):
+            model_config = ConfigDict(alias_generator=to_camel)
+
+            field: str = Field(alias="field_alias", schema_extra={"alias_priority": 2})
+
+    m = Model.model_validate({"field_alias": "value1"})
+    assert m.field == "value1"
+
+    with pytest.raises(ValidationError):
+        Model.model_validate({"Field": "value1"})
