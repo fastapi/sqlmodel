@@ -15,6 +15,7 @@
 
 ### Internal
 
+* ➕ Add a direct dependency on `typing-extensions`. PR [#1815](https://github.com/fastapi/sqlmodel/pull/1815) by [@musicinmybrain](https://github.com/musicinmybrain).
 * ⬆ Bump mkdocs-material from 9.7.5 to 9.7.6. PR [#1825](https://github.com/fastapi/sqlmodel/pull/1825) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.6 to 0.15.7. PR [#1826](https://github.com/fastapi/sqlmodel/pull/1826) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.5 to 0.3.6. PR [#1817](https://github.com/fastapi/sqlmodel/pull/1817) by [@dependabot[bot]](https://github.com/apps/dependabot).
