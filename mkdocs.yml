@@ -127,6 +127,7 @@ nav:
         - tutorial/fastapi/tests.md
     - Advanced User Guide:
       - advanced/index.md
+      - tutorial/async/index.md
       - advanced/decimal.md
       - advanced/uuid.md
   - Resources:
