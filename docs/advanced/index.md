@@ -1,10 +1,16 @@
 # Advanced User Guide
 
-The **Advanced User Guide** is gradually growing, you can already read about some advanced topics.
+The **Advanced User Guide** is gradually growing, you can already read about some advanced topics
 
-At some point it will include:
+Current topics include:
 
-* How to use `async` and `await` with the async session.
-* How to run migrations.
-* How to combine **SQLModel** models with SQLAlchemy.
+* [Working with Decimal Fields](decimal.md) - How to handle decimal numbers in SQLModel
+* [Working with UUID Fields](uuid.md) - How to use UUID fields in your models
+* [Storing Pydantic Models in JSONB Columns](pydantic-jsonb.md) - How to store and work with Pydantic models in JSONB columns
+
+Coming soon:
+
+* How to use `async` and `await` with the async session
+* How to run migrations
+* How to combine **SQLModel** models with SQLAlchemy
 * ...and more. 🤓
