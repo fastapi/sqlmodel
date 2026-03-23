@@ -23,6 +23,8 @@ env:
 
 jobs:
   test:
+    # Run scheduled jobs only on the main repository (disable cron on forks)
+    if: ${{ github.repository_owner == 'fastapi' || github.event_name != 'schedule' }}
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
