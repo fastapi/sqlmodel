@@ -16,6 +16,7 @@
 
 ### Internal
 
+* ⬆ Bump prek from 0.3.6 to 0.3.8. PR [#1829](https://github.com/fastapi/sqlmodel/pull/1829) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pygithub from 2.8.1 to 2.9.0. PR [#1827](https://github.com/fastapi/sqlmodel/pull/1827) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.1 to 0.135.2. PR [#1828](https://github.com/fastapi/sqlmodel/pull/1828) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ➕ Add a direct dependency on `typing-extensions`. PR [#1815](https://github.com/fastapi/sqlmodel/pull/1815) by [@musicinmybrain](https://github.com/musicinmybrain).
