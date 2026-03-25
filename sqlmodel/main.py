@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import builtins
+import copy
 import ipaddress
 import uuid
 import weakref
@@ -594,7 +595,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                         ann = field_info.annotation
                         # Only wrap in Optional if not already Optional
                         if ann is not None and not _is_optional_annotation(ann):
-                            pydantic_annotations[field_name] = Union[ann, None]
+                            pydantic_annotations[field_name] = ann | None
                         else:
                             pydantic_annotations[field_name] = ann
                         # Set default to None if the field was required and
@@ -602,7 +603,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                         if field_name not in dict_for_pydantic:
                             # Copy the FieldInfo to preserve metadata like
                             # min_length, ge, etc.
-                            new_field_info = field_info._copy()
+                            if hasattr(field_info, "_copy"):
+                                new_field_info = field_info._copy()
+                            else:
+                                new_field_info = copy.copy(field_info)
                             if new_field_info.is_required():
                                 new_field_info.default = None
                             dict_for_pydantic[field_name] = new_field_info
