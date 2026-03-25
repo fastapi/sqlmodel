@@ -30,7 +30,7 @@ repos:
 
       - id: local-ty
         name: ty check
-        entry: uv run ty check sqlmodel
+        entry: uv run ty check sqlmodel tests/test_select_typing.py
         require_serial: true
         language: unsupported
         pass_filenames: false
