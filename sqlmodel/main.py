@@ -582,12 +582,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # Also check model_config in class_dict
             config_dict = class_dict.get("model_config", {})
             if isinstance(config_dict, dict):
-                model_fields_optional = config_dict.get(
-                    "model_fields_optional", None
-                )
+                model_fields_optional = config_dict.get("model_fields_optional", None)
         if model_fields_optional == "all":
             for base in bases:
-                base_fields = get_model_fields(base) if hasattr(base, "model_fields") else {}
+                base_fields = (
+                    get_model_fields(base) if hasattr(base, "model_fields") else {}
+                )
                 for field_name, field_info in base_fields.items():
                     # Only modify fields not explicitly redefined in this class
                     if field_name not in pydantic_annotations:

@@ -1,5 +1,3 @@
-from typing import Optional
-
 import pytest
 from pydantic import ValidationError
 from sqlmodel import Field, SQLModel
@@ -13,7 +11,7 @@ def test_model_fields_optional_basic(clear_sqlmodel):
     class HeroBase(SQLModel):
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         pass
@@ -35,7 +33,7 @@ def test_model_fields_optional_partial_data(clear_sqlmodel):
     class HeroBase(SQLModel):
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         pass
@@ -53,7 +51,7 @@ def test_model_fields_optional_exclude_unset(clear_sqlmodel):
     class HeroBase(SQLModel):
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         pass
@@ -70,7 +68,7 @@ def test_model_fields_optional_override_field(clear_sqlmodel):
     class HeroBase(SQLModel):
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         name: str  # Keep name required
@@ -95,7 +93,7 @@ def test_model_fields_optional_preserves_constraints(clear_sqlmodel):
 
     class HeroBase(SQLModel):
         name: str = Field(min_length=1)
-        age: Optional[int] = Field(default=None, ge=0)
+        age: int | None = Field(default=None, ge=0)
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         pass
@@ -149,7 +147,7 @@ def test_model_fields_optional_via_model_config(clear_sqlmodel):
     class HeroBase(SQLModel):
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     class HeroUpdate(HeroBase):
         model_config = SQLModelConfig(model_fields_optional="all")
@@ -170,10 +168,10 @@ def test_model_fields_optional_with_table_base(clear_sqlmodel):
     class HeroBase(SQLModel):
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     class Hero(HeroBase, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         pass
@@ -194,8 +192,8 @@ def test_model_fields_optional_already_optional_fields(clear_sqlmodel):
 
     class HeroBase(SQLModel):
         name: str
-        nickname: Optional[str] = "Unknown"
-        age: Optional[int] = None
+        nickname: str | None = "Unknown"
+        age: int | None = None
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         pass
@@ -215,7 +213,7 @@ def test_model_fields_optional_model_validate(clear_sqlmodel):
     class HeroBase(SQLModel):
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     class HeroUpdate(HeroBase, model_fields_optional="all"):
         pass
