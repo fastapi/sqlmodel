@@ -84,7 +84,7 @@ tests = [
     "jinja2 >=3.1.6",
     "pytest >=7.0.1",
     "ruff >=0.15.6",
-    "ty>=0.0.9",
+    "ty>=0.0.25",
     "typing-extensions >=4.15.0",
 ]
 
