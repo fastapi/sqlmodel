@@ -100,7 +100,7 @@ def __dataclass_transform__(
     return lambda a: a
 
 
-class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
+class FieldInfo(PydanticFieldInfo):  # ty: ignore[subclass-of-final-class]
     # mypy - ignore that PydanticFieldInfo is @final
     def __init__(self, default: Any = Undefined, **kwargs: Any) -> None:
         primary_key = kwargs.pop("primary_key", False)
@@ -608,10 +608,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            new_cls.model_config["read_from_attributes"] = True  # type: ignore[typeddict-unknown-key]
+            new_cls.model_config["read_from_attributes"] = True  # ty: ignore[invalid-key]
             # For compatibility with older versions
             # TODO: remove this in the future
-            new_cls.model_config["read_with_orm_mode"] = True  # type: ignore[typeddict-unknown-key]
+            new_cls.model_config["read_with_orm_mode"] = True  # ty: ignore[invalid-key]
 
         config_registry = get_config("registry")
         if config_registry is not Undefined:
@@ -867,7 +867,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(  # type: ignore[override]
+    def model_validate(  # ty: ignore[invalid-method-override]
         cls: type[_TSQLModel],
         obj: Any,
         *,
