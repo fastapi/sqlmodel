@@ -18,8 +18,8 @@ class Hero(SQLModel, table=True):
     age: int | None = Field(default=None, index=True)
 
 # Note the +asyncpg in the database URL
-sqlite_url = "postgresql+asyncpg://user:password@localhost/db"
-engine = create_async_engine(sqlite_url, echo=True)
+async_url = "postgresql+asyncpg://user:password@localhost/db"
+engine = create_async_engine(async_url, echo=True)
 
 async def create_db_and_tables():
     async with engine.begin() as conn:
@@ -28,10 +28,14 @@ async def create_db_and_tables():
 async def create_heroes():
     hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
     async with AsyncSession(engine) as session:
-        session.add(hero_1)
-        await session.commit()
-        await session.refresh(hero_1)
-        print("Created hero:", hero_1)
+        try:
+            session.add(hero_1)
+            await session.commit()
+            await session.refresh(hero_1)
+            print("Created hero:", hero_1)
+        except Exception as e:
+            await session.rollback()
+            print("Failed to create hero:", e)
 
 async def read_heroes():
     async with AsyncSession(engine) as session:
@@ -43,11 +47,22 @@ async def read_heroes():
 
 ## Using with FastAPI
 
-When integrating with FastAPI, you can use `AsyncSession` as a dependency.
+When integrating with FastAPI, you can use `AsyncSession` as a dependency. Note that you should explicitly handle rollbacks when performing write operations.
 
 ```python
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from sqlmodel.ext.asyncio.session import AsyncSession
+from sqlmodel import SQLModel, Field, select
+from sqlalchemy.ext.asyncio import create_async_engine
+
+class Hero(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    secret_name: str
+    age: int | None = Field(default=None, index=True)
+
+async_url = "postgresql+asyncpg://user:password@localhost/db"
+engine = create_async_engine(async_url, echo=True)
 
 app = FastAPI()
 
@@ -61,4 +76,15 @@ async def read_heroes(session: AsyncSession = Depends(get_session)):
     result = await session.exec(statement)
     heroes = result.all()
     return heroes
+
+@app.post("/heroes/")
+async def create_hero(hero: Hero, session: AsyncSession = Depends(get_session)):
+    try:
+        session.add(hero)
+        await session.commit()
+        await session.refresh(hero)
+        return hero
+    except Exception as e:
+        await session.rollback()
+        raise HTTPException(status_code=500, detail="Database error occurred")
 ```
