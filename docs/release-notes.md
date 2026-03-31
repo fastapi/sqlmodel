@@ -8,6 +8,7 @@
 
 ### Docs
 
+* ✏️ Fix typos in `contributing.md`. PR [#1842](https://github.com/fastapi/sqlmodel/pull/1842) by [@GopalGB](https://github.com/GopalGB).
 * 🔥 Remove outdated Python 3.9 tutorial file. PR [#1822](https://github.com/fastapi/sqlmodel/pull/1822) by [@svlandeg](https://github.com/svlandeg).
 * 📝 Fix ambiguous phrasing regarding `HeroPublicWithTeam` model. PR [#1678](https://github.com/fastapi/sqlmodel/pull/1678) by [@berkaykrc](https://github.com/berkaykrc).
 * 🔨 Handle external links `target=_blank` and CSS automatically in JS and CSS. PR [#1799](https://github.com/fastapi/sqlmodel/pull/1799) by [@tiangolo](https://github.com/tiangolo).
