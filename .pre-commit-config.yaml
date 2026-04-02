@@ -41,6 +41,13 @@ repos:
         entry: uv run ./scripts/generate_select.py
         files: ^scripts/generate_select\.py|sqlmodel/sql/_expression_select_gen\.py\.jinja2$
 
+      - id: add-release-date
+        language: unsupported
+        name: add date to latest release header
+        entry: uv run python scripts/add_latest_release_date.py
+        files: ^docs/release-notes\.md$
+        pass_filenames: false
+
       - id: generate-readme
         language: unsupported
         name: generate README.md from index.md
