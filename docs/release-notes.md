@@ -2,12 +2,48 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Fix `tuple_` return type annotation. PR [#1639](https://github.com/fastapi/sqlmodel/pull/1639) by [@kakeruzoku](https://github.com/kakeruzoku).
+
 ### Docs
 
+* ✏️ Fix typos in `contributing.md`. PR [#1842](https://github.com/fastapi/sqlmodel/pull/1842) by [@GopalGB](https://github.com/GopalGB).
+* 🔥 Remove outdated Python 3.9 tutorial file. PR [#1822](https://github.com/fastapi/sqlmodel/pull/1822) by [@svlandeg](https://github.com/svlandeg).
+* 📝 Fix ambiguous phrasing regarding `HeroPublicWithTeam` model. PR [#1678](https://github.com/fastapi/sqlmodel/pull/1678) by [@berkaykrc](https://github.com/berkaykrc).
+* 🔨 Handle external links `target=_blank` and CSS automatically in JS and CSS. PR [#1799](https://github.com/fastapi/sqlmodel/pull/1799) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Document `.in_()` method. PR [#619](https://github.com/fastapi/sqlmodel/pull/619) by [@masylum](https://github.com/masylum).
 * 📝 Fix small typos in the documentation. PR [#1641](https://github.com/fastapi/sqlmodel/pull/1641) by [@svlandeg](https://github.com/svlandeg).
 
 ### Internal
 
+* ⬆ Bump pillow from 12.1.1 to 12.2.0. PR [#1845](https://github.com/fastapi/sqlmodel/pull/1845) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.135.2 to 0.135.3. PR [#1844](https://github.com/fastapi/sqlmodel/pull/1844) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.6 to 0.3.8. PR [#1829](https://github.com/fastapi/sqlmodel/pull/1829) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pygithub from 2.8.1 to 2.9.0. PR [#1827](https://github.com/fastapi/sqlmodel/pull/1827) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.135.1 to 0.135.2. PR [#1828](https://github.com/fastapi/sqlmodel/pull/1828) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ➕ Add a direct dependency on `typing-extensions`. PR [#1815](https://github.com/fastapi/sqlmodel/pull/1815) by [@musicinmybrain](https://github.com/musicinmybrain).
+* ⬆ Bump mkdocs-material from 9.7.5 to 9.7.6. PR [#1825](https://github.com/fastapi/sqlmodel/pull/1825) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.6 to 0.15.7. PR [#1826](https://github.com/fastapi/sqlmodel/pull/1826) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.5 to 0.3.6. PR [#1817](https://github.com/fastapi/sqlmodel/pull/1817) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 📌 Update internal dependency limits. PR [#1809](https://github.com/fastapi/sqlmodel/pull/1809) by [@svlandeg](https://github.com/svlandeg).
+* ⬆ Bump ruff from 0.15.5 to 0.15.6. PR [#1814](https://github.com/fastapi/sqlmodel/pull/1814) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump cairosvg from 2.8.2 to 2.9.0. PR [#1813](https://github.com/fastapi/sqlmodel/pull/1813) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump dorny/paths-filter from 3 to 4. PR [#1812](https://github.com/fastapi/sqlmodel/pull/1812) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump black from 26.3.0 to 26.3.1. PR [#1811](https://github.com/fastapi/sqlmodel/pull/1811) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.7.4 to 9.7.5. PR [#1808](https://github.com/fastapi/sqlmodel/pull/1808) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.4 to 0.3.5. PR [#1807](https://github.com/fastapi/sqlmodel/pull/1807) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump black from 26.1.0 to 26.3.0. PR [#1803](https://github.com/fastapi/sqlmodel/pull/1803) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.4 to 0.15.5. PR [#1801](https://github.com/fastapi/sqlmodel/pull/1801) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocs-material from 9.7.3 to 9.7.4. PR [#1797](https://github.com/fastapi/sqlmodel/pull/1797) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump sqlalchemy from 2.0.47 to 2.0.48. PR [#1793](https://github.com/fastapi/sqlmodel/pull/1793) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.3 to 0.3.4. PR [#1794](https://github.com/fastapi/sqlmodel/pull/1794) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.134.0 to 0.135.1. PR [#1795](https://github.com/fastapi/sqlmodel/pull/1795) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.133.1 to 0.134.0. PR [#1792](https://github.com/fastapi/sqlmodel/pull/1792) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.2 to 0.15.4. PR [#1790](https://github.com/fastapi/sqlmodel/pull/1790) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/download-artifact from 7 to 8. PR [#1789](https://github.com/fastapi/sqlmodel/pull/1789) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/upload-artifact from 6 to 7. PR [#1788](https://github.com/fastapi/sqlmodel/pull/1788) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.133.0 to 0.133.1. PR [#1787](https://github.com/fastapi/sqlmodel/pull/1787) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mkdocs-material from 9.7.2 to 9.7.3. PR [#1782](https://github.com/fastapi/sqlmodel/pull/1782) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.132.0 to 0.133.0. PR [#1781](https://github.com/fastapi/sqlmodel/pull/1781) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump sqlalchemy from 2.0.46 to 2.0.47. PR [#1783](https://github.com/fastapi/sqlmodel/pull/1783) by [@dependabot[bot]](https://github.com/apps/dependabot).
