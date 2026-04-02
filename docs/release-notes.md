@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.38 (2026-04-02)
+
 ### Fixes
 
 * 🐛 Fix type annotation in `SQLModel.__new__`, avoid explicitly returning `Any`. PR [#1846](https://github.com/fastapi/sqlmodel/pull/1846) by [@carljm](https://github.com/carljm).
