@@ -17,6 +17,7 @@
 
 ### Internal
 
+* ⬆ Bump pillow from 12.1.1 to 12.2.0. PR [#1845](https://github.com/fastapi/sqlmodel/pull/1845) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.2 to 0.135.3. PR [#1844](https://github.com/fastapi/sqlmodel/pull/1844) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.6 to 0.3.8. PR [#1829](https://github.com/fastapi/sqlmodel/pull/1829) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pygithub from 2.8.1 to 2.9.0. PR [#1827](https://github.com/fastapi/sqlmodel/pull/1827) by [@dependabot[bot]](https://github.com/apps/dependabot).
