@@ -65,7 +65,7 @@
 
 * 👷 Fix build CI to not attempt to build `sqlmodel-slim`. PR [#1773](https://github.com/fastapi/sqlmodel/pull/1773) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.36
+## 0.0.36 (2026-02-21)
 
 ### Internal
 
@@ -929,6 +929,6 @@ Here's the new, extensive documentation explaining indexes and how to use them: 
 * This includes several small bug fixes detected during the first CI runs.
 * 💚 Fix CI installs and tests. PR [#2](https://github.com/tiangolo/sqlmodel/pull/2) by [@tiangolo](https://github.com/tiangolo).
 
-## 0.0.1
+## 0.0.1 (2021-08-24)
 
 * First release. 🎉
