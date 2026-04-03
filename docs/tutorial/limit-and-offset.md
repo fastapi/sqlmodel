@@ -10,7 +10,7 @@ Now let's see how to get only a **range of results**.
 
 ## Create Data
 
-We will continue with the same code as before, but we'll modify it a little the `select_heroes()` function to simplify the example and focus on what we want to achieve here.
+We will continue with the same code as before, but we'll modify the `select_heroes()` function to simplify the example and focus on what we want to achieve here.
 
 Again, we will create several heroes to have some data to select from:
 
