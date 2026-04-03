@@ -2,7 +2,7 @@
 
 Now let's get to the code. 👩‍💻
 
-Make sure you are inside of your project directory and with your virtual environment activated as [explained in the previous chapter](index.md){.internal-link target=_blank}.
+Make sure you are inside of your project directory and with your virtual environment activated as explained in [Virtual Environments](../virtual-environments.md#create-a-project){.internal-link target=_blank}.
 
 We will:
 
@@ -321,13 +321,13 @@ But you will learn about migrations later in the Advanced User Guide.
 
 Let's run the program to see it all working.
 
-Put the code it in a file `app.py` if you haven't already.
+Put the code in a file `app.py` if you haven't already.
 
 {* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py *}
 
 /// tip
 
-Remember to [activate the virtual environment](./index.md#create-a-python-virtual-environment){.internal-link target=_blank} before running it.
+Remember to [activate the virtual environment](../virtual-environments.md#create-a-virtual-environment){.internal-link target=_blank} before running it.
 
 ///
 
@@ -556,16 +556,6 @@ Now, let's give the code a final look:
 
 ```{.python .annotate}
 {!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py!}
-```
-
-{!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
-
-////
-
-//// tab | Python 3.8+
-
-```{.python .annotate}
-{!./docs_src/tutorial/create_db_and_table/tutorial003.py!}
 ```
 
 {!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}

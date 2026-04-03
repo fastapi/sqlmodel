@@ -1,15 +1,12 @@
+from collections.abc import Mapping, Sequence
 from typing import (
     Any,
-    Dict,
-    Mapping,
-    Optional,
-    Sequence,
     TypeVar,
-    Union,
     overload,
 )
 
 from sqlalchemy import util
+from sqlalchemy.engine.cursor import CursorResult
 from sqlalchemy.engine.interfaces import _CoreAnyExecuteParams
 from sqlalchemy.engine.result import Result, ScalarResult, TupleResult
 from sqlalchemy.orm import Query as _Query
@@ -17,6 +14,7 @@ from sqlalchemy.orm import Session as _Session
 from sqlalchemy.orm._typing import OrmExecuteOptionsParameter
 from sqlalchemy.sql._typing import _ColumnsClauseArgument
 from sqlalchemy.sql.base import Executable as _Executable
+from sqlalchemy.sql.dml import UpdateBase
 from sqlmodel.sql.base import Executable
 from sqlmodel.sql.expression import Select, SelectOfScalar
 from typing_extensions import deprecated
@@ -30,11 +28,11 @@ class Session(_Session):
         self,
         statement: Select[_TSelectParam],
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> TupleResult[_TSelectParam]: ...
 
     @overload
@@ -42,27 +40,38 @@ class Session(_Session):
         self,
         statement: SelectOfScalar[_TSelectParam],
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> ScalarResult[_TSelectParam]: ...
+
+    @overload
+    def exec(
+        self,
+        statement: UpdateBase,
+        *,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
+        execution_options: Mapping[str, Any] = util.EMPTY_DICT,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
+    ) -> CursorResult[Any]: ...
 
     def exec(
         self,
-        statement: Union[
-            Select[_TSelectParam],
-            SelectOfScalar[_TSelectParam],
-            Executable[_TSelectParam],
-        ],
+        statement: Select[_TSelectParam]
+        | SelectOfScalar[_TSelectParam]
+        | Executable[_TSelectParam]
+        | UpdateBase,
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
-    ) -> Union[TupleResult[_TSelectParam], ScalarResult[_TSelectParam]]:
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
+    ) -> TupleResult[_TSelectParam] | ScalarResult[_TSelectParam] | CursorResult[Any]:
         results = super().execute(
             statement,
             params=params,
@@ -96,15 +105,15 @@ class Session(_Session):
         """,
         category=None,
     )
-    def execute(  # type: ignore
+    def execute(
         self,
         statement: _Executable,
-        params: Optional[_CoreAnyExecuteParams] = None,
+        params: _CoreAnyExecuteParams | None = None,
         *,
         execution_options: OrmExecuteOptionsParameter = util.EMPTY_DICT,
-        bind_arguments: Optional[Dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> Result[Any]:
         """
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
