@@ -146,13 +146,13 @@ Then we do the same for the `TeamPublicWithHeroes`, it **inherits** from `TeamPu
 
 ### Data Models Without Relationship Attributes
 
-Now, notice that these new fields `team` and `heroes` are not declared with `Relationship()`, because these are not **table models**, they cannot have **relationship attributes** with the magic access to get that data from the database.
+Now, notice that these new fields `team` and `heroes` are not declared with `Relationship()`, because `HeroPublicWithTeam` and `TeamPublicWithHeroes` are not **table models**, they cannot have **relationship attributes** with the magic access to get that data from the database.
 
 Instead, here these are only **data models** that will tell FastAPI **which attributes** to get data from and **which data** to get from them.
 
 ### Reference to Other Models
 
-Also, notice that the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
+Also, notice that in the `HeroPublicWithTeam` model, the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
 
 And the same for `TeamPublicWithHeroes`, the model used for the new field `heroes` uses `HeroPublic` to get only each hero's data.
 
