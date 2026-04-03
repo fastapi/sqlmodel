@@ -10,8 +10,7 @@ from ...conftest import PrintMock, needs_py310
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial010_py39"),
-        pytest.param("tutorial010_py310", marks=needs_py310),
+        pytest.param("tutorial006b_py310", marks=needs_py310),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:
@@ -24,14 +23,12 @@ def get_module(request: pytest.FixtureRequest) -> ModuleType:
 def test_tutorial(print_mock: PrintMock, mod: ModuleType):
     mod.main()
     assert print_mock.calls == [
-        [{"name": "Tarantula", "secret_name": "Natalia Roman-on", "age": 32, "id": 4}],
-        [{"name": "Black Lion", "secret_name": "Trevor Challa", "age": 35, "id": 5}],
         [
             {
-                "name": "Captain North America",
-                "secret_name": "Esteban Rogelios",
-                "age": 93,
-                "id": 7,
+                "name": "Deadpond",
+                "secret_name": "Dive Wilson",
+                "age": None,
+                "id": 1,
             }
-        ],
+        ]
     ]
