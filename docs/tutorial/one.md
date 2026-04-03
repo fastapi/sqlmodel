@@ -106,7 +106,7 @@ In that case, instead of `.first()` we can use `.one()`:
 
 Here we know that there's only one `"Deadpond"`, and there shouldn't be any more than one.
 
-If we run it once will output:
+If we run it once, it will output:
 
 <div class="termy">
 
