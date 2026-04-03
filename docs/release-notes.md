@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Replace `mypy` with `ty` in precommit. PR [#1806](https://github.com/fastapi/sqlmodel/pull/1806) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump ruff from 0.15.7 to 0.15.9. PR [#1847](https://github.com/fastapi/sqlmodel/pull/1847) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump mypy from 1.19.1 to 1.20.0. PR [#1843](https://github.com/fastapi/sqlmodel/pull/1843) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
