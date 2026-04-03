@@ -738,7 +738,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Union[Column, MappedColumn]:
+def get_column_from_field(field: Any) -> Column | MappedColumn:
     field_info = field
     sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
     if isinstance(sa_column, (Column, MappedColumn)):
