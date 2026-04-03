@@ -811,7 +811,9 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
     model_config = SQLModelConfig(from_attributes=True)
 
-    def __new__(cls, *args: Any, **kwargs: Any) -> Any:
+    # Typing spec says `__new__` returning `Any` overrides normal constructor
+    # behavior, but a missing annotation does not:
+    def __new__(cls, *args: Any, **kwargs: Any):  # type: ignore[no-untyped-def]
         new_object = super().__new__(cls)
         # SQLAlchemy doesn't call __init__ on the base class when querying from DB
         # Ref: https://docs.sqlalchemy.org/en/14/orm/constructors.html
