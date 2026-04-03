@@ -28,9 +28,9 @@ repos:
         language: unsupported
         types: [python]
 
-      - id: local-mypy
-        name: mypy check
-        entry: uv run mypy sqlmodel tests/test_select_typing.py
+      - id: local-ty
+        name: ty check
+        entry: uv run ty check sqlmodel tests/test_select_typing.py
         require_serial: true
         language: unsupported
         pass_filenames: false
@@ -40,6 +40,13 @@ repos:
         name: generate-select
         entry: uv run ./scripts/generate_select.py
         files: ^scripts/generate_select\.py|sqlmodel/sql/_expression_select_gen\.py\.jinja2$
+
+      - id: add-release-date
+        language: unsupported
+        name: add date to latest release header
+        entry: uv run python scripts/add_latest_release_date.py
+        files: ^docs/release-notes\.md$
+        pass_filenames: false
 
       - id: generate-readme
         language: unsupported
