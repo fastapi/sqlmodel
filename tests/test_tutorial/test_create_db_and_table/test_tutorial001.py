@@ -2,13 +2,13 @@ from pathlib import Path
 
 import pytest
 
-from ...conftest import coverage_run, needs_py310
+from ...conftest import coverage_run
 
 
 @pytest.mark.parametrize(
     "module_name",
     [
-        pytest.param("tutorial001_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
     ],
 )
 def test_create_db_and_table(cov_tmp_path: Path, module_name: str):

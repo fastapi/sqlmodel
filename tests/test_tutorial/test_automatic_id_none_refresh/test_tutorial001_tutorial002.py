@@ -5,7 +5,7 @@ from typing import Any
 import pytest
 from sqlmodel import create_engine
 
-from tests.conftest import PrintMock, needs_py310
+from tests.conftest import PrintMock
 
 
 def check_calls(calls: list[list[str | dict[str, Any]]]) -> None:
@@ -138,8 +138,8 @@ def check_calls(calls: list[list[str | dict[str, Any]]]) -> None:
 @pytest.fixture(
     name="module",
     params=[
-        pytest.param("tutorial001_py310", marks=needs_py310),
-        pytest.param("tutorial002_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
+        pytest.param("tutorial002_py310"),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:

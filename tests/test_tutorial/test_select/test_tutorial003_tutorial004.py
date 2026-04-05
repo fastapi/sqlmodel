@@ -5,7 +5,7 @@ from typing import Any
 import pytest
 from sqlmodel import create_engine
 
-from ...conftest import PrintMock, needs_py310
+from ...conftest import PrintMock
 
 
 def check_calls(calls: list[list[str | dict[str, Any]]]):
@@ -42,7 +42,7 @@ def get_module(request: pytest.FixtureRequest) -> ModuleType:
 @pytest.mark.parametrize(
     "module",
     [
-        pytest.param("tutorial003_py310", marks=needs_py310),
+        pytest.param("tutorial003_py310"),
     ],
     indirect=True,
 )
@@ -54,7 +54,7 @@ def test_tutorial_003(print_mock: PrintMock, module: ModuleType):
 @pytest.mark.parametrize(
     "module",
     [
-        pytest.param("tutorial004_py310", marks=needs_py310),
+        pytest.param("tutorial004_py310"),
     ],
     indirect=True,
 )
