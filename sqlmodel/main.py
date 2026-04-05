@@ -266,7 +266,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: Annotated[
-        str | re.Pattern[str] | None,
+        str | None,
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
@@ -313,7 +313,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: Annotated[
-        str | re.Pattern[str] | None,
+        str | None,
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
@@ -369,7 +369,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: Annotated[
-        str | re.Pattern[str] | None,
+        str | None,
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
@@ -406,7 +406,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: Annotated[
-        str | re.Pattern[str] | None,
+        str | None,
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
