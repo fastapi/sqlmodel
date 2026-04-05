@@ -6,6 +6,7 @@ import sys
 import types
 import typing
 import uuid
+import weakref
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
@@ -811,10 +812,7 @@ def _is_typing_type_instance(annotation: Any, type_name: str) -> bool:
 
 
 def _is_new_type_instance(annotation: Any) -> bool:
-    if sys.version_info >= (3, 10):
-        return _is_typing_type_instance(annotation, "NewType")
-    else:
-        return hasattr(annotation, "__supertype__")
+    return _is_typing_type_instance(annotation, "NewType")
 
 
 def _is_type_var_instance(annotation: Any) -> bool:
@@ -848,7 +846,7 @@ def resolve_type_alias(annotation: Any) -> Any:
     return resolution
 
 
-class_registry = weakref.WeakValueDictionary()  # type: ignore
+class_registry = weakref.WeakValueDictionary()
 
 default_registry = registry()
 
