@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import builtins
 import ipaddress
+import re
 import uuid
 import warnings
 from collections.abc import Callable, Mapping, Sequence, Set
