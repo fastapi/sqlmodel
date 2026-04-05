@@ -6,7 +6,6 @@ import sys
 import types
 import typing
 import uuid
-import weakref
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
@@ -845,8 +844,6 @@ def resolve_type_alias(annotation: Any) -> Any:
 
     return resolution
 
-
-class_registry = weakref.WeakValueDictionary()
 
 default_registry = registry()
 
