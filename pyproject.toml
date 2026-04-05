@@ -7,7 +7,7 @@ name = "sqlmodel"
 dynamic = ["version"]
 description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 authors = [
     { name = "Sebastián Ramírez", email = "tiangolo@gmail.com" },
 ]
@@ -21,8 +21,6 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Intended Audience :: System Administrators",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -38,7 +36,8 @@ classifiers = [
 
 dependencies = [
     "SQLAlchemy >=2.0.14,<2.1.0",
-    "pydantic >=1.10.13,<3.0.0",
+    "pydantic>=2.11.0",
+    "typing-extensions>=4.5.0",
 ]
 
 [project.urls]
@@ -48,6 +47,47 @@ Repository = "https://github.com/fastapi/sqlmodel"
 Issues = "https://github.com/fastapi/sqlmodel/issues"
 Changelog = "https://sqlmodel.tiangolo.com/release-notes/"
 
+[dependency-groups]
+dev = [
+    { include-group = "docs" },
+    { include-group = "tests" },
+    "prek>=0.2.24,<1.0.0",
+]
+docs = [
+    "black >=24.1.0",
+    "cairosvg >=2.9.0",
+    "griffe-typingdoc >=0.3.0",
+    "griffe-warnings-deprecated >=1.1.0",
+    "markdown-include-variants >=0.0.8",
+    "mdx-include >=1.4.1",
+    "mkdocs-macros-plugin >=1.5.0",
+    "mkdocs-material >=9.7.5",
+    "mkdocs-redirects >=1.2.1",
+    "mkdocstrings[python] >=1.0.3",
+    "pillow >=12.1.1",
+    "pyyaml >=5.3.1",
+    "typer >=0.24.1",
+]
+github-actions = [
+    "httpx >=0.28.1",
+    "pydantic >=2.5.3",
+    "pydantic-settings >=2.1.0",
+    "pygithub >=2.3.0",
+    "smokeshow >=0.5.0",
+]
+tests = [
+    "black >=24.1.0",
+    "coverage[toml] >=6.2",
+    "dirty-equals >=0.11",
+    "fastapi >=0.128.0",
+    "httpx >=0.28.1",
+    "jinja2 >=3.1.6",
+    "pytest >=7.0.1",
+    "ruff >=0.15.6",
+    "ty>=0.0.25",
+    "typing-extensions >=4.15.0",
+]
+
 [tool.pdm]
 version = { source = "file", path = "sqlmodel/__init__.py" }
 distribution = true
@@ -56,22 +96,9 @@ distribution = true
 source-includes = [
     "tests/",
     "docs_src/",
-    "requirements*.txt",
     "scripts/",
     "sqlmodel/sql/expression.py.jinja2",
-    ]
-
-[tool.tiangolo._internal-slim-build.packages.sqlmodel-slim.project]
-name = "sqlmodel-slim"
-
-[tool.tiangolo._internal-slim-build.packages.sqlmodel]
-# include-optional-dependencies = ["standard"]
-
-[tool.tiangolo._internal-slim-build.packages.sqlmodel.project]
-optional-dependencies = {}
-
-# [tool.tiangolo._internal-slim-build.packages.sqlmodel.project.scripts]
-# sqlmodel = "sqlmodel.cli:main"
+]
 
 [tool.coverage.run]
 parallel = true
@@ -97,16 +124,6 @@ exclude_lines = [
 
 [tool.coverage.html]
 show_contexts = true
-
-[tool.mypy]
-strict = true
-exclude = "sqlmodel.sql._expression_select_gen"
-
-[[tool.mypy.overrides]]
-module = "docs_src.*"
-disallow_incomplete_defs = false
-disallow_untyped_defs = false
-disallow_untyped_calls = false
 
 [tool.ruff.lint]
 select = [
@@ -134,3 +151,6 @@ known-third-party = ["sqlmodel", "sqlalchemy", "pydantic", "fastapi"]
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[tool.ty.terminal]
+error-on-warning = true
