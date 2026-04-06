@@ -1,16 +1,16 @@
 from __future__ import annotations
 
-from typing import Annotated, Optional
+from typing import Annotated
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
 def test_model_with_future_annotations(clear_sqlmodel):
     class Hero(SQLModel, table=True):
-        id: Annotated[Optional[int], Field(primary_key=True)] = None
+        id: Annotated[int | None, Field(primary_key=True)] = None
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     hero = Hero(name="Deadpond", secret_name="Dive Wilson", age=25)
 
@@ -35,13 +35,13 @@ def test_model_with_future_annotations(clear_sqlmodel):
 
 def test_model_with_string_annotations(clear_sqlmodel):
     class Team(SQLModel, table=True):
-        id: Annotated[Optional[int], Field(primary_key=True)] = None
+        id: Annotated[int | None, Field(primary_key=True)] = None
         name: str
 
     class Player(SQLModel, table=True):
-        id: Annotated[Optional[int], Field(primary_key=True)] = None
+        id: Annotated[int | None, Field(primary_key=True)] = None
         name: str
-        team_id: Annotated[Optional[int], Field(foreign_key="team.id")] = None
+        team_id: Annotated[int | None, Field(foreign_key="team.id")] = None
 
     engine = create_engine("sqlite://")
     SQLModel.metadata.create_all(engine)

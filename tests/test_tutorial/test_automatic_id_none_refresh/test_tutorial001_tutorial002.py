@@ -1,14 +1,14 @@
 import importlib
 from types import ModuleType
-from typing import Any, Union
+from typing import Any
 
 import pytest
 from sqlmodel import create_engine
 
-from tests.conftest import PrintMock, needs_py310
+from tests.conftest import PrintMock
 
 
-def check_calls(calls: list[list[Union[str, dict[str, Any]]]]) -> None:
+def check_calls(calls: list[list[str | dict[str, Any]]]) -> None:
     assert calls[0] == ["Before interacting with the database"]
     assert calls[1] == [
         "Hero 1:",
@@ -138,10 +138,8 @@ def check_calls(calls: list[list[Union[str, dict[str, Any]]]]) -> None:
 @pytest.fixture(
     name="module",
     params=[
-        "tutorial001_py39",
-        "tutorial002_py39",
-        pytest.param("tutorial001_py310", marks=needs_py310),
-        pytest.param("tutorial002_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
+        pytest.param("tutorial002_py310"),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:

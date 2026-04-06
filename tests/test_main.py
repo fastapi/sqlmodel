@@ -1,4 +1,4 @@
-from typing import Annotated, Optional
+from typing import Annotated
 
 import pytest
 from sqlalchemy.exc import IntegrityError
@@ -8,10 +8,10 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, sele
 
 def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sqlmodel):
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
     hero_2 = Hero(name="Deadpond", secret_name="Dive Wilson")
@@ -38,10 +38,10 @@ def test_should_allow_duplicate_row_if_unique_constraint_is_not_passed(clear_sql
 
 def test_should_allow_duplicate_row_if_unique_constraint_is_false(clear_sqlmodel):
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         secret_name: str = Field(unique=False)
-        age: Optional[int] = None
+        age: int | None = None
 
     hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
     hero_2 = Hero(name="Deadpond", secret_name="Dive Wilson")
@@ -70,10 +70,10 @@ def test_should_raise_exception_when_try_to_duplicate_row_if_unique_constraint_i
     clear_sqlmodel,
 ):
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         secret_name: str = Field(unique=True)
-        age: Optional[int] = None
+        age: int | None = None
 
     hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
     hero_2 = Hero(name="Deadpond", secret_name="Dive Wilson")
@@ -97,17 +97,17 @@ def test_sa_relationship_property(clear_sqlmodel):
     """Test https://github.com/tiangolo/sqlmodel/issues/315#issuecomment-1272122306"""
 
     class Team(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str = Field(unique=True)
         heroes: list["Hero"] = Relationship(  # noqa: F821
             sa_relationship=RelationshipProperty("Hero", back_populates="team")
         )
 
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str = Field(unique=True)
-        team_id: Optional[int] = Field(default=None, foreign_key="team.id")
-        team: Optional[Team] = Relationship(
+        team_id: int | None = Field(default=None, foreign_key="team.id")
+        team: Team | None = Relationship(
             sa_relationship=RelationshipProperty("Team", back_populates="heroes")
         )
 

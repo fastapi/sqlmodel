@@ -5,8 +5,6 @@ from types import ModuleType
 
 import pytest
 
-from tests.conftest import needs_py310
-
 
 @dataclass
 class Modules:
@@ -17,8 +15,7 @@ class Modules:
 @pytest.fixture(
     name="modules_path",
     params=[
-        pytest.param("tutorial001_py39"),
-        pytest.param("tutorial001_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
     ],
 )
 def get_modules_path(request: pytest.FixtureRequest) -> str:

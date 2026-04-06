@@ -4,7 +4,7 @@ from types import ModuleType
 import pytest
 from sqlmodel import create_engine
 
-from ....conftest import PrintMock, needs_py310
+from ....conftest import PrintMock
 
 expected_calls = [
     [
@@ -77,8 +77,7 @@ def get_module(request: pytest.FixtureRequest) -> ModuleType:
 @pytest.mark.parametrize(
     "module",
     [
-        "tutorial001_py39",
-        pytest.param("tutorial001_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
     ],
     indirect=True,
 )
@@ -90,8 +89,7 @@ def test_tutorial001(print_mock: PrintMock, module: ModuleType):
 @pytest.mark.parametrize(
     "module",
     [
-        "tutorial002_py39",
-        pytest.param("tutorial002_py310", marks=needs_py310),
+        pytest.param("tutorial002_py310"),
     ],
     indirect=True,
 )
