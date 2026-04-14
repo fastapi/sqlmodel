@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump prek from 0.3.8 to 0.3.9. PR [#1859](https://github.com/fastapi/sqlmodel/pull/1859) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.9 to 0.15.10. PR [#1856](https://github.com/fastapi/sqlmodel/pull/1856) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pytest from 9.0.2 to 9.0.3. PR [#1855](https://github.com/fastapi/sqlmodel/pull/1855) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.28 to 0.0.29. PR [#1854](https://github.com/fastapi/sqlmodel/pull/1854) by [@dependabot[bot]](https://github.com/apps/dependabot).
