@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/cache from 5.0.4 to 5.0.5. PR [#1865](https://github.com/fastapi/sqlmodel/pull/1865) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 7.0.0 to 7.0.1. PR [#1867](https://github.com/fastapi/sqlmodel/pull/1867) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 7.6.0 to 8.1.0. PR [#1866](https://github.com/fastapi/sqlmodel/pull/1866) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.3 to 0.136.0. PR [#1869](https://github.com/fastapi/sqlmodel/pull/1869) by [@dependabot[bot]](https://github.com/apps/dependabot).
