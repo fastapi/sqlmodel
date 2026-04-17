@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/upload-artifact from 7.0.0 to 7.0.1. PR [#1867](https://github.com/fastapi/sqlmodel/pull/1867) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 7.6.0 to 8.1.0. PR [#1866](https://github.com/fastapi/sqlmodel/pull/1866) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.135.3 to 0.136.0. PR [#1869](https://github.com/fastapi/sqlmodel/pull/1869) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.10 to 0.15.11. PR [#1870](https://github.com/fastapi/sqlmodel/pull/1870) by [@dependabot[bot]](https://github.com/apps/dependabot).
