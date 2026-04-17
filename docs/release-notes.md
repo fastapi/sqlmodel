@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump fastapi from 0.135.3 to 0.136.0. PR [#1869](https://github.com/fastapi/sqlmodel/pull/1869) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ruff from 0.15.10 to 0.15.11. PR [#1870](https://github.com/fastapi/sqlmodel/pull/1870) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔒 Pin GitHub actions by commit SHA. PR [#1840](https://github.com/fastapi/sqlmodel/pull/1840) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.29 to 0.0.30. PR [#1861](https://github.com/fastapi/sqlmodel/pull/1861) by [@dependabot[bot]](https://github.com/apps/dependabot).
