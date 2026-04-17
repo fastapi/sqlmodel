@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump cloudflare/wrangler-action from 3.14.1 to 3.15.0. PR [#1868](https://github.com/fastapi/sqlmodel/pull/1868) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.30 to 0.0.31. PR [#1862](https://github.com/fastapi/sqlmodel/pull/1862) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/cache from 5.0.4 to 5.0.5. PR [#1865](https://github.com/fastapi/sqlmodel/pull/1865) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/upload-artifact from 7.0.0 to 7.0.1. PR [#1867](https://github.com/fastapi/sqlmodel/pull/1867) by [@dependabot[bot]](https://github.com/apps/dependabot).
