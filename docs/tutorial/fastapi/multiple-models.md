@@ -14,7 +14,7 @@ For input, we have:
 
 <img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/simple-hero-api/image01.png">
 
-If we pay attention, it shows that the client *could* send an `id` in the JSON body of the request.
+If we pay attention, it shows that the client _could_ send an `id` in the JSON body of the request.
 
 This means that the client could try to use the same ID that already exists in the database to create another hero.
 
@@ -22,9 +22,9 @@ That's not what we want.
 
 We want the client only to send the data that is needed to create a new hero:
 
-* `name`
-* `secret_name`
-* Optional `age`
+- `name`
+- `secret_name`
+- Optional `age`
 
 And we want the `id` to be generated automatically by the database, so we don't want the client to send it.
 
@@ -40,12 +40,12 @@ If you click the small tab <kbd>Schema</kbd> instead of the <kbd>Example Value</
 
 Let's see the details.
 
-The fields with a red asterisk (<span style="color: #ff0000;">*</span>) are "required".
+The fields with a red asterisk (<span style="color: #ff0000;">\*</span>) are "required".
 
 This means that our API application is required to return those fields in the response:
 
-* `name`
-* `secret_name`
+- `name`
+- `secret_name`
 
 The `age` is optional, we don't have to return it, or it could be `None` (or `null` in JSON), but the `name` and the `secret_name` are required.
 
@@ -87,29 +87,29 @@ Let's fix that too. 🤓
 
 So, we want to have our `Hero` model that declares the **data in the database**:
 
-* `id`, optional on creation, required on database
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+- `id`, optional on creation, required on database
+- `name`, required
+- `secret_name`, required
+- `age`, optional
 
 But we also want to have a `HeroCreate` for the data we want to receive when **creating** a new hero, which is almost all the same data as `Hero`, except for the `id`, because that is created automatically by the database:
 
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+- `name`, required
+- `secret_name`, required
+- `age`, optional
 
 And we want to have a `HeroPublic` with the `id` field, but this time with a type of `id: int`, instead of `id: int | None`, to make it clear that it will always have an `int` in responses **read** from the clients:
 
-* `id`, required
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+- `id`, required
+- `name`, required
+- `secret_name`, required
+- `age`, optional
 
 ## Multiple Models with Duplicated Fields
 
 The simplest way to solve it could be to create **multiple models**, each one with all the corresponding fields:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9,12:15,18:22] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[5:22] hl[5:9,12:15,18:22] _}
 
 Here's the important detail, and probably the most important feature of **SQLModel**: only `Hero` is declared with `table = True`.
 
@@ -118,6 +118,12 @@ This means that the class `Hero` represents a **table** in the database. It is b
 But `HeroCreate` and `HeroPublic` don't have `table = True`. They are only **data models**, they are only **Pydantic** models. They won't be used with the database, but only to declare data schemas for the API (or for other uses).
 
 This also means that `SQLModel.metadata.create_all()` won't create tables in the database for `HeroCreate` and `HeroPublic`, because they don't have `table = True`, which is exactly what we want. 🚀
+
+!!! warning
+    When using `table=True`, SQLModel disables Pydantic's data validation.
+    This means invalid data (e.g. passing a `str` where a `bool` is expected)
+    will **not** raise a validation error. Use models without `table=True`
+    (like `HeroCreate`) for data validation at the API layer.
 
 /// tip
 
@@ -131,13 +137,13 @@ Let's now see how to use these new models in the FastAPI application.
 
 Let's first check how is the process to create a hero now:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44:51] hl[44:45,47] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44:51] hl[44:45,47] _}
 
 Let's check that in detail.
 
 Now we use the type annotation `HeroCreate` for the request JSON data in the `hero` parameter of the **path operation function**.
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[45] hl[45] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[45] hl[45] _}
 
 Then we create a new `Hero` (this is the actual **table** model that saves things to the database) using `Hero.model_validate()`.
 
@@ -151,7 +157,7 @@ In versions of **SQLModel** before `0.0.14` you would use the method `.from_orm(
 
 We can now create a new `Hero` instance (the one for the database) and put it in the variable `db_hero` from the data in the `hero` variable that is the `HeroCreate` instance we received from the request.
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47] hl[47] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[47] hl[47] _}
 
 Then we just `add` it to the **session**, `commit`, and `refresh` it, and finally, we return the same `db_hero` variable that has the just refreshed `Hero` instance.
 
@@ -159,7 +165,7 @@ Because it is just refreshed, it has the `id` field set with a new ID taken from
 
 And now that we return it, FastAPI will validate the data with the `response_model`, which is a `HeroPublic`:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44] hl[44] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44] hl[44] _}
 
 This will validate that all the data that we promised is there and will remove any data we didn't declare.
 
@@ -179,9 +185,9 @@ But looking closely, we could see that these models have a lot of **duplicated i
 
 All **the 3 models** declare that they share some **common fields** that look exactly the same:
 
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+- `name`, required
+- `secret_name`, required
+- `age`, optional
 
 And then they declare other fields with some differences (in this case, only about the `id`).
 
@@ -205,15 +211,15 @@ On top of that, we can use inheritance to avoid duplicated information in these 
 
 We can see from above that they all share some **base** fields:
 
-* `name`, required
-* `secret_name`, required
-* `age`, optional
+- `name`, required
+- `secret_name`, required
+- `age`, optional
 
 So let's create a **base** model `HeroBase` that the others can inherit from:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:8] hl[5:8] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:8] hl[5:8] _}
 
-As you can see, this is *not* a **table model**, it doesn't have the `table = True` config.
+As you can see, this is _not_ a **table model**, it doesn't have the `table = True` config.
 
 But now we can create the **other models inheriting from it**, they will all share these fields, just as if they had them declared.
 
@@ -221,7 +227,7 @@ But now we can create the **other models inheriting from it**, they will all sha
 
 Let's start with the only **table model**, the `Hero`:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[11:12] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[11:12] _}
 
 Notice that `Hero` now doesn't inherit from `SQLModel`, but from `HeroBase`.
 
@@ -235,9 +241,9 @@ And those inherited fields will also be in the **autocompletion** and **inline e
 
 ### Columns and Inheritance with Multiple Models
 
-Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
+Notice that the parent model `HeroBase` is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[6,8,11] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[6,8,11] _}
 
 This won't affect this parent **data model** `HeroBase`.
 
@@ -249,7 +255,7 @@ Now let's see the `HeroCreate` model that will be used to define the data that w
 
 This is a fun one:
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:16] hl[15:16] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:16] hl[15:16] _}
 
 What's happening here?
 
@@ -269,7 +275,7 @@ Now let's check the `HeroPublic` model.
 
 This one just declares that the `id` field is required when reading a hero from the API, because a hero read from the API will come from the database, and in the database it will always have an ID.
 
-{* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[19:20] *}
+{_ ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:20] hl[19:20] _}
 
 ## Review the Updated Docs UI
 
@@ -293,9 +299,9 @@ Now we can scroll down a bit to see the response schema:
 
 <img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/multiple-models/image03.png">
 
-We can now see that `id` is a required field, it has a red asterisk (<span style="color: #f00;">*</span>).
+We can now see that `id` is a required field, it has a red asterisk (<span style="color: #f00;">\*</span>).
 
-And if we check the schema for the **Read Heroes** *path operation* it will also show the updated schema.
+And if we check the schema for the **Read Heroes** _path operation_ it will also show the updated schema.
 
 ## Inheritance and Table Models
 
@@ -339,8 +345,8 @@ Remember that inheritance, the same as **SQLModel**, and anything else, are just
 
 You can use **SQLModel** to declare multiple models:
 
-* Some models can be only **data models**. They will also be **Pydantic** models.
-* And some can *also* be **table models** (apart from already being **data models**) by having the config `table = True`. They will also be **Pydantic** models and **SQLAlchemy** models.
+- Some models can be only **data models**. They will also be **Pydantic** models.
+- And some can _also_ be **table models** (apart from already being **data models**) by having the config `table = True`. They will also be **Pydantic** models and **SQLAlchemy** models.
 
 Only the **table models** will create tables in the database.
 
