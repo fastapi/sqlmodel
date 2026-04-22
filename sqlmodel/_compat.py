@@ -177,6 +177,7 @@ def unwrap_newtype(tp: Any) -> Any:
         tp = tp.__supertype__
     return tp
 
+
 def get_sa_type_from_type_annotation(annotation: Any) -> Any:
     # Resolve Optional fields
     if annotation is None:
