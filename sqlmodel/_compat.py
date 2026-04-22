@@ -171,10 +171,17 @@ def is_field_noneable(field: "FieldInfo") -> bool:
     return False
 
 
+def unwrap_newtype(tp: Any) -> Any:
+    # returns wrapped type of newtype recursivly
+    while hasattr(tp, "__supertype__"):
+        tp = tp.__supertype__
+    return tp
+
 def get_sa_type_from_type_annotation(annotation: Any) -> Any:
     # Resolve Optional fields
     if annotation is None:
         raise ValueError("Missing field type")
+    annotation = unwrap_newtype(annotation)
     origin = get_origin(annotation)
     if origin is None:
         return annotation
