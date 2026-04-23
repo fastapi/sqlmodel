@@ -20,7 +20,7 @@ JSONValue = Union[dict[str, Any], list[Any], str, int, float, bool, None]
 JSON_VARIANT = JSON().with_variant(JSONB, "postgresql")
 
 
-class AutoString(types.TypeDecorator):  # type: ignore
+class AutoString(types.TypeDecorator):
     impl = types.String
     cache_ok = True
     mysql_default_length = 255
