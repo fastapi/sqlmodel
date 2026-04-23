@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump typer from 0.24.1 to 0.24.2. PR [#1883](https://github.com/fastapi/sqlmodel/pull/1883) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.9 to 0.3.10. PR [#1881](https://github.com/fastapi/sqlmodel/pull/1881) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.31 to 0.0.32. PR [#1876](https://github.com/fastapi/sqlmodel/pull/1876) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pydantic-settings from 2.13.1 to 2.14.0. PR [#1878](https://github.com/fastapi/sqlmodel/pull/1878) by [@dependabot[bot]](https://github.com/apps/dependabot).
