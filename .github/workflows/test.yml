@@ -84,6 +84,38 @@ jobs:
           path: coverage
           include-hidden-files: true
 
+  test-sqlalchemy-prerelease:
+    # Run tests against the latest SQLAlchemy pre-release to catch compatibility
+    # issues early. This job is intentionally not required by alls-green.
+    runs-on: ubuntu-latest
+    env:
+      UV_PYTHON: "3.14"
+      UV_RESOLUTION: highest
+      UV_PRERELEASE: allow
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: "3.14"
+      - name: Setup uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+      - name: Install Dependencies
+        run: uv sync --no-dev --group tests --upgrade-package sqlalchemy
+      - name: Show SQLAlchemy version
+        run: uv run python -c "import sqlalchemy; print(f'SQLAlchemy {sqlalchemy.__version__}')"
+      - run: mkdir coverage
+      - name: Test
+        run: uv run bash scripts/test.sh
+        env:
+          COVERAGE_FILE: coverage/.coverage.sqlalchemy-prerelease
+          CONTEXT: sqlalchemy-prerelease
+
   coverage-combine:
     needs:
       - test
