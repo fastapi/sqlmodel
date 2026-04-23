@@ -2,34 +2,43 @@ name: Publish
 
 on:
   release:
-    types:
-      - created
-  workflow_dispatch:
-    inputs:
-      debug_enabled:
-        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
-        required: false
-        default: 'false'
+    types: [published]
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'Dandelion-Science/sqlmodel' }}
     permissions:
       id-token: write
-      contents: read
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version-file: ".python-version"
-      - name: Install uv
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-      - name: Build distribution
-        run: uv build
-      - name: Publish
-        run: uv publish
+      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+      - run: uv build
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.whl
+            dist/*.tar.gz
+          tag_name: ${{ github.event.release.tag_name }}
+      - uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.ARN_IAM_ROLE_GHA_CORE }}
+      - name: Get CodeArtifact authorization token
+        run: |
+          AWS_CODEARTIFACT_TOKEN=$(aws codeartifact get-authorization-token \
+            --domain ${{ vars.CODEARTIFACT_DOMAIN }} \
+            --domain-owner ${{ vars.CODEARTIFACT_DOMAIN_OWNER }} \
+            --query authorizationToken \
+            --output text)
+          echo "AWS_CODEARTIFACT_TOKEN=$AWS_CODEARTIFACT_TOKEN" >> $GITHUB_ENV
+      - run: uv publish
+        env:
+          UV_PUBLISH_USERNAME: aws
+          UV_PUBLISH_PASSWORD: ${{ env.AWS_CODEARTIFACT_TOKEN }}
+          UV_PUBLISH_URL: ${{ vars.CODEARTIFACT_PYPI_STORE_REPOSITORY_URL }}
