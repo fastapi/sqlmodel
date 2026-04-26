@@ -1,9 +1,7 @@
-import pytest
 from datetime import datetime
-from typing import Optional
 
-from sqlmodel import SQLModel, create_engine, Field
-from sqlmodel.main import default_registry
+import pytest
+from sqlmodel import Field, SQLModel, create_engine
 from sqlmodel.soft_delete import SoftDeleteMixin
 from sqlmodel.soft_delete_session import SoftDeleteSession
 
@@ -17,7 +15,7 @@ def clear_sqlmodel():
 def test_soft_delete():
     # Define model inside test to avoid registry conflicts
     class SoftDeleteHero(SQLModel, SoftDeleteMixin, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
 
     engine = create_engine("sqlite:///:memory:")
@@ -45,7 +43,7 @@ def test_hard_delete():
     # Define model inside test to avoid registry conflicts
     class HardDeleteHero(SQLModel, SoftDeleteMixin, table=True):
         __tablename__ = "hard_delete_heroes"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
 
     engine = create_engine("sqlite:///:memory:")

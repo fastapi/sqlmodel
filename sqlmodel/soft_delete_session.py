@@ -1,7 +1,6 @@
 from typing import Any
 
 from sqlmodel.orm.session import Session
-
 from sqlmodel.soft_delete import SoftDeleteMixin
 
 
@@ -15,4 +14,5 @@ class SoftDeleteSession(Session):
 
     def _now(self) -> Any:
         from datetime import datetime, timezone
+
         return datetime.now(timezone.utc)
