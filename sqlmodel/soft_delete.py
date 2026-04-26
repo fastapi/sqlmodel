@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from sqlmodel import Field
 
@@ -11,4 +10,5 @@ class SoftDeleteMixin:
     Usage:
         class MyModel(SQLModel, SoftDeleteMixin, table=True): ...
     """
-    deleted_at: Optional[datetime] = Field(default=None)
+
+    deleted_at: datetime | None = Field(default=None)
