@@ -41,13 +41,21 @@ def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
+def hash_password(password: str) -> str:
+    return f"not really hashed {password} hehehe"
+
+
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+app = FastAPI()
+
+
+@app.on_event("startup")
+def on_startup():
     create_db_and_tables()
-    yield
-
-
-app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/heroes/", response_model=HeroPublic)

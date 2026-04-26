@@ -5,4 +5,10 @@ from sqlmodel import Field
 
 
 class SoftDeleteMixin:
-    deleted_at: Optional[datetime] = Field(default=None, nullable=True)
+    """
+    Mixin that adds a `deleted_at` timestamp column.
+
+    Usage:
+        class MyModel(SQLModel, SoftDeleteMixin, table=True): ...
+    """
+    deleted_at: Optional[datetime] = Field(default=None)

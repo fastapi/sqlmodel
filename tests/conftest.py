@@ -37,6 +37,7 @@ def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
 
 def coverage_run(*, module: str, cwd: str | Path) -> subprocess.CompletedProcess:
     import os
+
     env = os.environ.copy()
     env["PYTHONPATH"] = str(top_level_path)
     # On Windows, coverage causes asyncio issues, so run python directly
