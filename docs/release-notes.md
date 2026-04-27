@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.11 to 0.15.12. PR [#1888](https://github.com/fastapi/sqlmodel/pull/1888) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump fastapi from 0.136.0 to 0.136.1. PR [#1887](https://github.com/fastapi/sqlmodel/pull/1887) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.24.1 to 0.24.2. PR [#1883](https://github.com/fastapi/sqlmodel/pull/1883) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.9 to 0.3.10. PR [#1881](https://github.com/fastapi/sqlmodel/pull/1881) by [@dependabot[bot]](https://github.com/apps/dependabot).
