@@ -150,6 +150,15 @@ def get_relationship_to(
     # If a list, then also get the real field
     elif origin is list:
         use_annotation = get_args(annotation)[0]
+    elif origin is dict:
+        args = get_args(annotation)
+        if len(args) != 2:
+            raise ValueError(
+                f"dict relationship field '{name}' has {len(args)} "
+                "type arguments.  Exactly two required (e.g., dict[str, "
+                "Model])"
+            )
+        use_annotation = args[1]
 
     return get_relationship_to(name=name, rel_info=rel_info, annotation=use_annotation)
 
