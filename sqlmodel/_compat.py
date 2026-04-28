@@ -8,6 +8,7 @@ from typing import (
     TYPE_CHECKING,
     Annotated,
     Any,
+    ClassVar,
     ForwardRef,
     TypeAlias,
     TypeVar,
@@ -24,6 +25,8 @@ from pydantic._internal._fields import PydanticMetadata
 from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
 from pydantic._internal._repr import Representation as Representation
 from pydantic.fields import FieldInfo
+from sqlalchemy import inspect
+from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from pydantic_core import PydanticUndefined as Undefined
 from pydantic_core import PydanticUndefinedType as PydanticUndefinedType
 
@@ -66,6 +69,93 @@ def _is_union_type(t: Any) -> bool:
 
 
 finish_init: ContextVar[bool] = ContextVar("finish_init", default=True)
+
+
+def set_polymorphic_default_value(
+    self_instance: _TSQLModel,
+    values: dict[str, Any],
+) -> bool:
+    """By default, when init a model, pydantic will set the polymorphic_on
+    value to field default value. But when inherit a model, the polymorphic_on
+    should be set to polymorphic_identity value by default."""
+    cls = type(self_instance)
+    mapper = inspect(cls)
+    ret = False
+    if isinstance(mapper, Mapper):
+        polymorphic_on = mapper.polymorphic_on
+        if polymorphic_on is not None:
+            polymorphic_property = mapper.get_property_by_column(polymorphic_on)
+            field_info = get_model_fields(cls).get(polymorphic_property.key)
+            if field_info:
+                v = values.get(polymorphic_property.key)
+                if mapper.inherits or v is None:
+                    setattr(
+                        self_instance,
+                        polymorphic_property.key,
+                        mapper.polymorphic_identity,
+                    )
+                    ret = True
+    return ret
+
+
+def _wrap_inherited_relationships_as_classvar(
+    base: type,
+    base_annotations: dict[str, Any],
+    dict_used: dict[str, Any],
+) -> None:
+    """Convert inherited relationship annotations to ClassVar on the subclass.
+
+    Pydantic would try to treat inherited SQLAlchemy relationship descriptors as plain
+    fields, which fails at class-creation time.  Tagging them ClassVar tells
+    Pydantic to ignore them while SQLAlchemy continues to own the attribute.
+    """
+    if not hasattr(base, "__sqlmodel_relationships__"):
+        return
+    for k in base.__sqlmodel_relationships__:
+        anno = base_annotations.get(k, Any)
+        if get_origin(anno) is not ClassVar:
+            dict_used["__annotations__"][k] = ClassVar[anno]  # type: ignore[valid-type]
+
+
+def _is_polymorphic_subclass(bases: tuple[type, ...]) -> bool:
+    """Return True when any base class already defines a ``__tablename__``.
+
+    This distinguishes a polymorphic subclass (which inherits from an existing
+    table model) from a root table model that defines its own table.
+    """
+    return any(
+        issubclass(base, BaseModel) and hasattr(base, "__tablename__")
+        for base in bases
+    )
+
+
+def _collect_inherited_namespace(
+    bases: tuple[type, ...],
+    dict_used: dict[str, Any],
+) -> dict[str, Any]:
+    """Merge base-class fields/annotations into *dict_used* for polymorphic subclasses.
+
+    Walks bases in method resolution order (reversed so the most-specific base wins),
+    collecting Pydantic field definitions and annotations from every
+    SQLModel table parent, and marking inherited relationships as ClassVar
+    so Pydantic ignores them.
+    """
+    base_fields: dict[str, Any] = {}
+    base_annotations: dict[str, Any] = {}
+    for base in bases[::-1]:
+        if not issubclass(base, BaseModel):
+            continue
+        base_model_fields = get_model_fields(base)
+        base_fields.update(base_model_fields)
+        for k in base_model_fields:
+            if k in base.__annotations__:
+                base_annotations[k] = base.__annotations__[k]
+        _wrap_inherited_relationships_as_classvar(base, base_annotations, dict_used)
+    base_annotations.update(dict_used["__annotations__"])
+    dict_used["__annotations__"] = base_annotations
+    base_fields.update(dict_used)
+    return base_fields
+
 
 
 @contextmanager
@@ -270,6 +360,8 @@ def sqlmodel_table_construct(
         if value is not Undefined:
             setattr(self_instance, key, value)
     # End SQLModel override
+    # Override polymorphic_on default value
+    set_polymorphic_default_value(self_instance, values)
     return self_instance
 
 
