@@ -152,5 +152,10 @@ known-third-party = ["sqlmodel", "sqlalchemy", "pydantic", "fastapi"]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
 
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:(?s).*on_event is deprecated.*:DeprecationWarning",
+]
+
 [tool.ty.terminal]
 error-on-warning = true
