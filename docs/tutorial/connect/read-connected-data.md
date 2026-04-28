@@ -413,7 +413,7 @@ And then why we didn't include `Hero` in the `.join()`. 🤔
 
 In SQLModel (actually in SQLAlchemy), all these functions and tools try to **replicate** how it would be to work with the **SQL** language.
 
-Remember that [`SELECT` defines the columns to get and `WHERE` how to filter them?](../where.md#select-and-where){.internal-link target=_blank}.
+Remember that [`SELECT` defines the columns to get and `WHERE` how to filter them?](../where.md#select-and-where).
 
 This also applies here, but with `JOIN` and `ON`.
 

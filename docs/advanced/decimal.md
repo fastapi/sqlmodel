@@ -11,7 +11,7 @@ As an example, if you open Python and sum `1.1` + `2.2` you would expect to see 
 3.3000000000000003
 ```
 
-This is because of the way numbers are stored in "ones and zeros" (binary). But Python has a module and some types to have strict decimal values. You can read more about it in the official <a href="https://docs.python.org/3/library/decimal.html" class="external-link" target="_blank">Python docs for Decimal</a>.
+This is because of the way numbers are stored in "ones and zeros" (binary). But Python has a module and some types to have strict decimal values. You can read more about it in the official [Python docs for Decimal](https://docs.python.org/3/library/decimal.html).
 
 Because databases store data in the same ways as computers (in binary), they would have the same types of issues. And because of that, they also have a special **decimal** type.
 
@@ -19,13 +19,13 @@ In most cases this would probably not be a problem, for example measuring views 
 
 ## Decimal Types
 
-Pydantic has special support for <a href="https://docs.pydantic.dev/latest/api/standard_library_types/#decimaldecimal" class="external-link" target="_blank">`Decimal` types</a>.
+Pydantic has special support for [`Decimal` types](https://docs.pydantic.dev/latest/api/standard_library_types/#decimaldecimal).
 
 When you use `Decimal` you can specify the number of digits and decimal places to support in the `Field()` function. They will be validated by Pydantic (for example when using FastAPI) and the same information will also be used for the database columns.
 
 /// info
 
-For the database, **SQLModel** will use <a href="https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.DECIMAL" class="external-link" target="_blank">SQLAlchemy's `DECIMAL` type</a>.
+For the database, **SQLModel** will use [SQLAlchemy's `DECIMAL` type](https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.DECIMAL).
 
 ///
 

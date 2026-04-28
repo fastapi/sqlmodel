@@ -40,7 +40,7 @@ Click the button <kbd>New Database</kbd>.
 
 <img class="shadow" src="/img/create-db-and-table-with-db-browser/image001.png">
 
-A dialog should show up. Go to the [project directory you created](../virtual-environments.md#create-a-project){.internal-link target=_blank} and save the file with a name of `database.db`.
+A dialog should show up. Go to the [project directory you created](../virtual-environments.md#create-a-project) and save the file with a name of `database.db`.
 
 /// tip
 
@@ -159,9 +159,9 @@ And if you go back to the <kbd>Database Structure</kbd> tab, you will see that y
 
 I will keep showing you small bits of SQL through this tutorial. And you don't have to be a SQL expert to use **SQLModel**.
 
-But if you are curious and want to get a quick overview of SQL, I recommend the visual documentation from SQLite, on <a href="https://www.sqlite.org/lang.html" class="external-link" target="_blank">SQL As Understood By SQLite</a>.
+But if you are curious and want to get a quick overview of SQL, I recommend the visual documentation from SQLite, on [SQL As Understood By SQLite](https://www.sqlite.org/lang.html).
 
-You can start with <a href="https://www.sqlite.org/lang_createtable.html" class="external-link" target="_blank">`CREATE TABLE`</a>.
+You can start with [`CREATE TABLE`](https://www.sqlite.org/lang_createtable.html).
 
 Of course, you can also go and take a full SQL course or read a book about SQL, but you don't need more than what I'll explain here on the tutorial to start being productive with **SQLModel**. 🤓
 

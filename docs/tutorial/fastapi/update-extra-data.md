@@ -26,7 +26,7 @@ So, the thief won't be able to try to use that password in another system (as ma
 
 /// tip
 
-You could use <a href="https://passlib.readthedocs.io/en/stable/" class="external-link" target="_blank">passlib</a> to hash passwords.
+You could use [passlib](https://passlib.readthedocs.io/en/stable/) to hash passwords.
 
 In this example we will use a fake hashing function to focus on the data changes. 🤡
 
