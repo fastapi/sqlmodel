@@ -1,5 +1,6 @@
 import shutil
 import subprocess
+import sys
 from collections.abc import Callable, Generator
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -35,18 +36,28 @@ def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
 
 
 def coverage_run(*, module: str, cwd: str | Path) -> subprocess.CompletedProcess:
-    result = subprocess.run(
-        [
+    import os
+
+    env = os.environ.copy()
+    env["PYTHONPATH"] = str(top_level_path)
+    # On Windows, coverage causes asyncio issues, so run python directly
+    if sys.platform == "win32":
+        cmd = [sys.executable, "-m", module]
+    else:
+        cmd = [
             "coverage",
             "run",
             "--parallel-mode",
             "--source=docs_src,tests,sqlmodel",
             "-m",
             module,
-        ],
+        ]
+    result = subprocess.run(
+        cmd,
         cwd=str(cwd),
         capture_output=True,
         encoding="utf-8",
+        env=env,
     )
     return result
 

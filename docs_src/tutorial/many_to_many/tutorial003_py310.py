@@ -89,8 +89,8 @@ def update_heroes():
         spider_boy_z_force_link = HeroTeamLink(
             team=team_z_force, hero=hero_spider_boy, is_training=True
         )
+        session.add(spider_boy_z_force_link)
         team_z_force.hero_links.append(spider_boy_z_force_link)
-        session.add(team_z_force)
         session.commit()
 
         print("Updated Spider-Boy's Teams:", hero_spider_boy.team_links)
