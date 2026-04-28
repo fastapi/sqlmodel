@@ -47,8 +47,9 @@ from sqlalchemy.orm import (
 from sqlalchemy.orm.attributes import set_attribute
 from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
-from sqlalchemy.sql.schema import MetaData
+from sqlalchemy.sql.schema import MetaData, SchemaEventTarget
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
+from sqlalchemy.types import TypeEngine
 from typing_extensions import deprecated
 
 from ._compat import (
@@ -86,6 +87,9 @@ IncEx: TypeAlias = (
     | set[str]
     | Mapping[int, Union["IncEx", bool]]
     | Mapping[str, Union["IncEx", bool]]
+)
+SaTypeOrInstance: TypeAlias = (
+    TypeEngine[Any] | type[TypeEngine[Any]] | SchemaEventTarget
 )
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
@@ -208,7 +212,7 @@ class FieldInfoMetadata:
     ondelete: OnDeleteType | UndefinedType = Undefined
     unique: bool | UndefinedType = Undefined
     index: bool | UndefinedType = Undefined
-    sa_type: type[Any] | UndefinedType = Undefined
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined
     sa_column: Column[Any] | UndefinedType = Undefined
     sa_column_args: Sequence[Any] | UndefinedType = Undefined
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined
@@ -267,7 +271,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -311,7 +315,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -396,7 +400,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column: Column | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
