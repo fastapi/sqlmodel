@@ -117,6 +117,12 @@ This means that the class `Hero` represents a **table** in the database. It is b
 
 But `HeroCreate` and `HeroPublic` don't have `table = True`. They are only **data models**, they are only **Pydantic** models. They won't be used with the database, but only to declare data schemas for the API (or for other uses).
 
+!!! warning
+    When using `table=True`, SQLModel disables Pydantic's data validation.
+    This means invalid data (e.g. passing a `str` where a `bool` is expected)
+    will **not** raise a validation error. Use models without `table=True`
+    (like `HeroCreate`) for data validation at the API layer.
+
 This also means that `SQLModel.metadata.create_all()` won't create tables in the database for `HeroCreate` and `HeroPublic`, because they don't have `table = True`, which is exactly what we want. 🚀
 
 /// tip
