@@ -320,7 +320,11 @@ def sqlmodel_validate(
     # Get and set any relationship objects
     if is_table_model_class(cls):
         for key in new_obj.__sqlmodel_relationships__:
-            value = getattr(use_obj, key, Undefined)
+            value = (
+                use_obj.get(key, Undefined)
+                if isinstance(use_obj, dict)
+                else getattr(use_obj, key, Undefined)
+            )
             if value is not Undefined:
                 setattr(new_obj, key, value)
     return new_obj
