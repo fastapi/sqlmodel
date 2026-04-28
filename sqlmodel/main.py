@@ -870,6 +870,14 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         if finish_init.get():
             sqlmodel_init(self=__pydantic_self__, data=data)
 
+    def _is_sqlmodel_relationship(self, name: str) -> bool:
+        if name in self.__sqlmodel_relationships__:
+            return True
+        if not (is_table_model_class(self.__class__) and is_instrumented(self, name)):
+            return False
+        mapper = inspect(self.__class__, raiseerr=False)
+        return mapper is not None and name in mapper.relationships
+
     def __setattr__(self, name: str, value: Any) -> None:
         if name in {"_sa_instance_state"}:
             self.__dict__[name] = value
@@ -880,7 +888,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
-            if name not in self.__sqlmodel_relationships__:
+            if not self._is_sqlmodel_relationship(name):
                 super().__setattr__(name, value)
 
     def __repr_args__(self) -> Sequence[tuple[str | None, Any]]:
