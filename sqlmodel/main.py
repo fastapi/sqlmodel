@@ -588,12 +588,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         }
 
         def get_config(name: str) -> Any:
-            config_class_value = new_cls.model_config.get(name, Undefined)
-            if config_class_value is not Undefined:
-                return config_class_value
             kwarg_value = kwargs.get(name, Undefined)
             if kwarg_value is not Undefined:
                 return kwarg_value
+            config_class_value = new_cls.model_config.get(name, Undefined)
+            if config_class_value is not Undefined:
+                return config_class_value
             return Undefined
 
         config_table = get_config("table")
@@ -617,10 +617,15 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         if config_registry is not Undefined:
             config_registry = cast(registry, config_registry)
             # If it was passed by kwargs, ensure it's also set in config
-            new_cls.model_config["registry"] = config_table
-            setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
-            setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
-            setattr(new_cls, "__abstract__", True)  # noqa: B010
+            new_cls.model_config["registry"] = config_registry
+            # Only set up the registry attributes when explicitly passed
+            # as a kwarg on this class, not when inherited from a parent.
+            # Setting __abstract__ on subclasses that merely inherit the
+            # registry would prevent SQLAlchemy from instrumenting them.
+            if "registry" in kwargs:
+                setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
+                setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
+                setattr(new_cls, "__abstract__", True)  # noqa: B010
         return new_cls
 
     # Override SQLAlchemy, allow both SQLAlchemy and plain Pydantic models
