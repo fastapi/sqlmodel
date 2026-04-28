@@ -1,6 +1,6 @@
 import sys
 import types
-from collections.abc import Generator
+from collections.abc import Generator, Iterable
 from contextlib import contextmanager
 from contextvars import ContextVar
 from dataclasses import dataclass
@@ -156,6 +156,10 @@ def _collect_inherited_namespace(
     base_fields.update(dict_used)
     return base_fields
 
+
+def _relationship_keys(instance: _TSQLModel) -> Iterable[str]:
+    mapper = inspect(type(instance), raiseerr=False)
+    return mapper.relationships.keys() if mapper is not None else instance.__sqlmodel_relationships__
 
 
 @contextmanager
@@ -355,7 +359,7 @@ def sqlmodel_table_construct(
         object.__setattr__(self_instance, "__pydantic_private__", None)
     # SQLModel override, set relationships
     # Get and set any relationship objects
-    for key in self_instance.__sqlmodel_relationships__:
+    for key in _relationship_keys(self_instance):
         value = values.get(key, Undefined)
         if value is not Undefined:
             setattr(self_instance, key, value)
@@ -411,7 +415,7 @@ def sqlmodel_validate(
     object.__setattr__(new_obj, "__pydantic_fields_set__", fields_set)
     # Get and set any relationship objects
     if is_table_model_class(cls):
-        for key in new_obj.__sqlmodel_relationships__:
+        for key in _relationship_keys(new_obj):
             value = getattr(use_obj, key, Undefined)
             if value is not Undefined:
                 setattr(new_obj, key, value)
