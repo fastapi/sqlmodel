@@ -595,7 +595,8 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 )
         else:
             new_cls = cast(
-                "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
+                "SQLModel",
+                super().__new__(cls, name, bases, dict_used, **config_kwargs),
             )
         new_cls.__annotations__ = {
             **relationship_annotations,
@@ -765,7 +766,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Union[Column, MappedColumn]:  # type: ignore
+def get_column_from_field(field: Any) -> Column | MappedColumn:  # type: ignore
     field_info = field
     sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column) or isinstance(sa_column, MappedColumn):

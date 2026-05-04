@@ -1,7 +1,5 @@
 """Mirrors sqlalchemy/test/orm/inheritance/test_single.py :: SingleInheritanceTest, AbstractPolymorphicTest"""
 
-from typing import Optional
-
 from sqlalchemy import true
 from sqlalchemy.orm import aliased, mapped_column
 from sqlmodel import Field, Session, SQLModel, create_engine, select
@@ -10,12 +8,12 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select
 def _employee_classes():
     class Employee(SQLModel, table=True):
         __tablename__ = "employees"
-        employee_id: Optional[int] = Field(default=None, primary_key=True)
+        employee_id: int | None = Field(default=None, primary_key=True)
         name: str
-        manager_data: Optional[str] = Field(
+        manager_data: str | None = Field(
             default=None, sa_column=mapped_column(nullable=True)
         )
-        engineer_info: Optional[str] = Field(
+        engineer_info: str | None = Field(
             default=None, sa_column=mapped_column(nullable=True)
         )
         type: str = Field(default="employee")
@@ -138,13 +136,13 @@ def test_abstract_intermediate():
     # mirrors AbstractPolymorphicTest.test_select_against_abstract
     class Employee(SQLModel, table=True):
         __tablename__ = "emp_abstract"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         type: str = Field(default="employee")
         name: str
-        mgr_data: Optional[str] = Field(
+        mgr_data: str | None = Field(
             default=None, sa_column=mapped_column(nullable=True)
         )
-        tech_data: Optional[str] = Field(
+        tech_data: str | None = Field(
             default=None, sa_column=mapped_column(nullable=True)
         )
 

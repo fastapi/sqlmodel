@@ -14,11 +14,11 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 def _make_classes():
     class Node(SQLModel, table=True):
         __tablename__ = "ll_node"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         type: str = Field(default="node")
         name: str
         # FK points to the *previous* node (my predecessor's id)
-        related_id: Optional[int] = Field(default=None, foreign_key="ll_node.id")
+        related_id: int | None = Field(default=None, foreign_key="ll_node.id")
 
         # nxt: the node whose related_id == my id (i.e. the successor)
         nxt: Optional["Node"] = Relationship(
@@ -39,16 +39,12 @@ def _make_classes():
 
     class Node2(Node, table=True):
         __tablename__ = "ll_node2"
-        id: Optional[int] = Field(
-            default=None, primary_key=True, foreign_key="ll_node.id"
-        )
+        id: int | None = Field(default=None, primary_key=True, foreign_key="ll_node.id")
         __mapper_args__ = {"polymorphic_identity": "node2"}
 
     class Node3(Node, table=True):
         __tablename__ = "ll_node3"
-        id: Optional[int] = Field(
-            default=None, primary_key=True, foreign_key="ll_node.id"
-        )
+        id: int | None = Field(default=None, primary_key=True, foreign_key="ll_node.id")
         __mapper_args__ = {"polymorphic_identity": "node3"}
 
     return Node, NodeB, Node2, Node3
@@ -86,7 +82,7 @@ def _traverse_backward(db, Node, tail_id):
 
 
 def test_linked_list_jti_chain():
-    """ nodes chain: Node → Node2 → Node → Node2 (mirrors test_one)."""
+    """nodes chain: Node → Node2 → Node → Node2 (mirrors test_one)."""
     Node, NodeB, Node2, Node3 = _make_classes()
     engine = create_engine("sqlite:///:memory:")
     SQLModel.metadata.create_all(engine)
@@ -140,7 +136,17 @@ def test_linked_list_all_four_subtypes():
         Node2(name="h"),
         Node(name="i"),
     ]
-    expected_types = ["Node2", "Node", "NodeB", "Node3", "Node3", "NodeB", "NodeB", "Node2", "Node"]
+    expected_types = [
+        "Node2",
+        "Node",
+        "NodeB",
+        "Node3",
+        "Node3",
+        "NodeB",
+        "NodeB",
+        "Node2",
+        "Node",
+    ]
     expected_names = list("abcdefghi")
 
     with Session(engine) as db:

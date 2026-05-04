@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
 
 
@@ -8,19 +6,17 @@ def _make_dept_employee_classes():
 
     class Department(SQLModel, table=True):
         __tablename__ = "department"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         employees: list["Employee"] = Relationship(back_populates="department")
 
     class Employee(SQLModel, table=True):
         __tablename__ = "employee"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         type: str = Field(default="employee")
         name: str
-        department_id: Optional[int] = Field(
-            default=None, foreign_key="department.id"
-        )
-        department: Optional[Department] = Relationship(back_populates="employees")
+        department_id: int | None = Field(default=None, foreign_key="department.id")
+        department: Department | None = Relationship(back_populates="employees")
 
         __mapper_args__ = {
             "polymorphic_on": "type",
@@ -29,10 +25,10 @@ def _make_dept_employee_classes():
 
     class Manager(Employee, table=True):
         __tablename__ = "manager"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="employee.id"
         )
-        budget: Optional[float] = Field(default=None)
+        budget: float | None = Field(default=None)
 
         __mapper_args__ = {"polymorphic_identity": "manager"}
 

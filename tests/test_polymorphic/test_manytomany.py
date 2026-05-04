@@ -1,25 +1,22 @@
 """Mirrors sqlalchemy/test/orm/inheritance/test_manytomany.py"""
 
-from typing import Optional
-
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine
-
 
 
 # Two jointed table inheritance subclasses (User, Group) linked many to many; both sides of the relationship resolve correctly.
 def test_jti_m2m_subclass_to_subclass():
     class UserGroupLink(SQLModel, table=True):
         __tablename__ = "prin_user_group_map"
-        user_id: Optional[int] = Field(
+        user_id: int | None = Field(
             default=None, foreign_key="prin_users.id", primary_key=True
         )
-        group_id: Optional[int] = Field(
+        group_id: int | None = Field(
             default=None, foreign_key="prin_groups.id", primary_key=True
         )
 
     class Principal(SQLModel, table=True):
         __tablename__ = "principals"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         type: str = Field(default="principal")
 
@@ -30,7 +27,7 @@ def test_jti_m2m_subclass_to_subclass():
 
     class User(Principal, table=True):
         __tablename__ = "prin_users"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="principals.id"
         )
         password: str
@@ -44,7 +41,7 @@ def test_jti_m2m_subclass_to_subclass():
 
     class Group(Principal, table=True):
         __tablename__ = "prin_groups"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="principals.id"
         )
         users: list[User] = Relationship(
@@ -80,17 +77,17 @@ def test_jti_m2m_subclass_to_subclass():
 def test_jti_m2m_get_by_subclass_pk():
     class FooBarLink(SQLModel, table=True):
         __tablename__ = "foo_bar_link"
-        foo_id: Optional[int] = Field(
+        foo_id: int | None = Field(
             default=None, foreign_key="m2m_foo.id", primary_key=True
         )
-        bar_id: Optional[int] = Field(
+        bar_id: int | None = Field(
             default=None, foreign_key="m2m_bar.id", primary_key=True
         )
 
     class Foo(SQLModel, table=True):
         __tablename__ = "m2m_foo"
-        id: Optional[int] = Field(default=None, primary_key=True)
-        data: Optional[str] = None
+        id: int | None = Field(default=None, primary_key=True)
+        data: str | None = None
         type: str = Field(default="foo")
 
         __mapper_args__ = {
@@ -100,9 +97,7 @@ def test_jti_m2m_get_by_subclass_pk():
 
     class Bar(Foo, table=True):
         __tablename__ = "m2m_bar"
-        id: Optional[int] = Field(
-            default=None, primary_key=True, foreign_key="m2m_foo.id"
-        )
+        id: int | None = Field(default=None, primary_key=True, foreign_key="m2m_foo.id")
         foos: list[Foo] = Relationship(link_model=FooBarLink)
 
         __mapper_args__ = {"polymorphic_identity": "bar"}
@@ -133,26 +128,26 @@ def test_jti_m2m_get_by_subclass_pk():
 def test_jti_m2m_three_level():
     class BlubBarLink(SQLModel, table=True):
         __tablename__ = "blub_bar_link"
-        blub_id: Optional[int] = Field(
+        blub_id: int | None = Field(
             default=None, foreign_key="m3_blub.id", primary_key=True
         )
-        bar_id: Optional[int] = Field(
+        bar_id: int | None = Field(
             default=None, foreign_key="m3_bar.id", primary_key=True
         )
 
     class BlubFooLink(SQLModel, table=True):
         __tablename__ = "blub_foo_link"
-        blub_id: Optional[int] = Field(
+        blub_id: int | None = Field(
             default=None, foreign_key="m3_blub.id", primary_key=True
         )
-        foo_id: Optional[int] = Field(
+        foo_id: int | None = Field(
             default=None, foreign_key="m3_foo.id", primary_key=True
         )
 
     class Foo(SQLModel, table=True):
         __tablename__ = "m3_foo"
-        id: Optional[int] = Field(default=None, primary_key=True)
-        data: Optional[str] = None
+        id: int | None = Field(default=None, primary_key=True)
+        data: str | None = None
         type: str = Field(default="foo")
 
         __mapper_args__ = {
@@ -162,19 +157,15 @@ def test_jti_m2m_three_level():
 
     class Bar(Foo, table=True):
         __tablename__ = "m3_bar"
-        id: Optional[int] = Field(
-            default=None, primary_key=True, foreign_key="m3_foo.id"
-        )
-        bar_data: Optional[str] = None
+        id: int | None = Field(default=None, primary_key=True, foreign_key="m3_foo.id")
+        bar_data: str | None = None
 
         __mapper_args__ = {"polymorphic_identity": "bar"}
 
     class Blub(Bar, table=True):
         __tablename__ = "m3_blub"
-        id: Optional[int] = Field(
-            default=None, primary_key=True, foreign_key="m3_bar.id"
-        )
-        blub_data: Optional[str] = None
+        id: int | None = Field(default=None, primary_key=True, foreign_key="m3_bar.id")
+        blub_data: str | None = None
         bars: list[Bar] = Relationship(link_model=BlubBarLink)
         foos: list[Foo] = Relationship(link_model=BlubFooLink)
 
