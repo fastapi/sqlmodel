@@ -1,7 +1,6 @@
 """Mirrors sqlalchemy/test/orm/inheritance/test_poly_persistence.py :: InsertOrderTest, RoundTripTest"""
 
 from types import SimpleNamespace
-from typing import Optional
 
 import pytest
 from sqlalchemy.exc import IntegrityError
@@ -12,19 +11,17 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, sele
 def _make_classes():
     class Company(SQLModel, table=True):
         __tablename__ = "companies"
-        company_id: Optional[int] = Field(default=None, primary_key=True)
+        company_id: int | None = Field(default=None, primary_key=True)
         name: str
         employees: list["Person"] = Relationship(back_populates="company")
 
     class Person(SQLModel, table=True):
         __tablename__ = "people"
-        person_id: Optional[int] = Field(default=None, primary_key=True)
-        company_id: Optional[int] = Field(
-            default=None, foreign_key="companies.company_id"
-        )
+        person_id: int | None = Field(default=None, primary_key=True)
+        company_id: int | None = Field(default=None, foreign_key="companies.company_id")
         name: str
         type: str = Field(default="person")
-        company: Optional[Company] = Relationship(back_populates="employees")
+        company: Company | None = Relationship(back_populates="employees")
 
         __mapper_args__ = {
             "polymorphic_on": "type",
@@ -33,31 +30,39 @@ def _make_classes():
 
     class Engineer(Person):
         __tablename__ = "engineers"
-        person_id: Optional[int] = Field(
+        person_id: int | None = Field(
             default=None, primary_key=True, foreign_key="people.person_id"
         )
-        status: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
-        engineer_name: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
-        primary_language: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
+        status: str | None = Field(default=None, sa_column=mapped_column(nullable=True))
+        engineer_name: str | None = Field(
+            default=None, sa_column=mapped_column(nullable=True)
+        )
+        primary_language: str | None = Field(
+            default=None, sa_column=mapped_column(nullable=True)
+        )
 
         __mapper_args__ = {"polymorphic_identity": "engineer"}
 
     class Manager(Person):
         __tablename__ = "managers"
-        person_id: Optional[int] = Field(
+        person_id: int | None = Field(
             default=None, primary_key=True, foreign_key="people.person_id"
         )
-        status: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
-        manager_name: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
+        status: str | None = Field(default=None, sa_column=mapped_column(nullable=True))
+        manager_name: str | None = Field(
+            default=None, sa_column=mapped_column(nullable=True)
+        )
 
         __mapper_args__ = {"polymorphic_identity": "manager"}
 
     class Boss(Manager):
         __tablename__ = "boss"
-        person_id: Optional[int] = Field(
+        person_id: int | None = Field(
             default=None, primary_key=True, foreign_key="managers.person_id"
         )
-        golf_swing: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
+        golf_swing: str | None = Field(
+            default=None, sa_column=mapped_column(nullable=True)
+        )
 
         __mapper_args__ = {"polymorphic_identity": "boss"}
 
@@ -70,10 +75,37 @@ def _seed(engine, Company, Engineer, Manager):
         db.add(c)
         db.flush()
         cid = c.company_id
-        db.add(Manager(name="pointy haired boss", status="AAB", manager_name="manager1", company_id=cid))
-        db.add(Engineer(name="dilbert", status="BBA", engineer_name="engineer1", primary_language="java", company_id=cid))
-        db.add(Engineer(name="wally", status="CGG", engineer_name="engineer2", primary_language="python", company_id=cid))
-        db.add(Manager(name="jsmith", status="ABA", manager_name="manager2", company_id=cid))
+        db.add(
+            Manager(
+                name="pointy haired boss",
+                status="AAB",
+                manager_name="manager1",
+                company_id=cid,
+            )
+        )
+        db.add(
+            Engineer(
+                name="dilbert",
+                status="BBA",
+                engineer_name="engineer1",
+                primary_language="java",
+                company_id=cid,
+            )
+        )
+        db.add(
+            Engineer(
+                name="wally",
+                status="CGG",
+                engineer_name="engineer2",
+                primary_language="python",
+                company_id=cid,
+            )
+        )
+        db.add(
+            Manager(
+                name="jsmith", status="ABA", manager_name="manager2", company_id=cid
+            )
+        )
         db.commit()
     return SimpleNamespace(company_id=cid)
 
@@ -89,10 +121,37 @@ def test_insert_order():
         db.add(c)
         db.flush()
         cid = c.company_id
-        db.add(Manager(name="pointy haired boss", status="AAB", manager_name="manager1", company_id=cid))
-        db.add(Engineer(name="dilbert", status="BBA", engineer_name="engineer1", primary_language="java", company_id=cid))
-        db.add(Engineer(name="wally", status="CGG", engineer_name="engineer2", primary_language="python", company_id=cid))
-        db.add(Manager(name="jsmith", status="ABA", manager_name="manager2", company_id=cid))
+        db.add(
+            Manager(
+                name="pointy haired boss",
+                status="AAB",
+                manager_name="manager1",
+                company_id=cid,
+            )
+        )
+        db.add(
+            Engineer(
+                name="dilbert",
+                status="BBA",
+                engineer_name="engineer1",
+                primary_language="java",
+                company_id=cid,
+            )
+        )
+        db.add(
+            Engineer(
+                name="wally",
+                status="CGG",
+                engineer_name="engineer2",
+                primary_language="python",
+                company_id=cid,
+            )
+        )
+        db.add(
+            Manager(
+                name="jsmith", status="ABA", manager_name="manager2", company_id=cid
+            )
+        )
         db.commit()
 
     with Session(engine) as db:
@@ -142,13 +201,13 @@ def test_standalone_orphans():
     # mirrors RoundTripTest.test_standalone_orphans
     class Company2(SQLModel, table=True):
         __tablename__ = "companies2"
-        company_id: Optional[int] = Field(default=None, primary_key=True)
+        company_id: int | None = Field(default=None, primary_key=True)
         name: str
 
     class Person2(SQLModel, table=True):
         __tablename__ = "people2"
-        person_id: Optional[int] = Field(default=None, primary_key=True)
-        company_id: Optional[int] = Field(
+        person_id: int | None = Field(default=None, primary_key=True)
+        company_id: int | None = Field(
             default=None, sa_column=mapped_column(nullable=False)
         )
         name: str
@@ -161,19 +220,23 @@ def test_standalone_orphans():
 
     class Manager2(Person2):
         __tablename__ = "managers2"
-        person_id: Optional[int] = Field(
+        person_id: int | None = Field(
             default=None, primary_key=True, foreign_key="people2.person_id"
         )
-        manager_name: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
+        manager_name: str | None = Field(
+            default=None, sa_column=mapped_column(nullable=True)
+        )
 
         __mapper_args__ = {"polymorphic_identity": "manager"}
 
     class Boss2(Manager2):
         __tablename__ = "boss2"
-        person_id: Optional[int] = Field(
+        person_id: int | None = Field(
             default=None, primary_key=True, foreign_key="managers2.person_id"
         )
-        golf_swing: Optional[str] = Field(default=None, sa_column=mapped_column(nullable=True))
+        golf_swing: str | None = Field(
+            default=None, sa_column=mapped_column(nullable=True)
+        )
 
         __mapper_args__ = {"polymorphic_identity": "boss"}
 
@@ -199,7 +262,11 @@ def test_multi_level_three_tables():
         db.flush()
         cid = c.company_id
         db.add(Manager(name="mgr", manager_name="middle mgr", company_id=cid))
-        db.add(Boss(name="boss", manager_name="top boss", golf_swing="fore", company_id=cid))
+        db.add(
+            Boss(
+                name="boss", manager_name="top boss", golf_swing="fore", company_id=cid
+            )
+        )
         db.commit()
 
     with Session(engine) as db:

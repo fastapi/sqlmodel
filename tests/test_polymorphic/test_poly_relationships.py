@@ -15,7 +15,7 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, sele
 def _make_person_engineer_classes():
     class Person(SQLModel, table=True):
         __tablename__ = "rel_person"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         type: str = Field(default="person")
 
@@ -26,13 +26,13 @@ def _make_person_engineer_classes():
 
     class Engineer(Person, table=True):
         __tablename__ = "rel_engineer"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="rel_person.id"
         )
-        primary_language: Optional[str] = None
+        primary_language: str | None = None
         # plain integer — no FK constraint, so inherit_condition stays unambiguous
-        reports_to_id: Optional[int] = None
-        reports_to: Optional[Person] = Relationship(
+        reports_to_id: int | None = None
+        reports_to: Person | None = Relationship(
             sa_relationship_kwargs={
                 "primaryjoin": "Engineer.reports_to_id == Person.id",
                 "foreign_keys": "[Engineer.reports_to_id]",
@@ -117,7 +117,7 @@ def test_jti_subclass_relationship_to_base_filter():
 def _make_engineer_self_ref_classes():
     class SPerson(SQLModel, table=True):
         __tablename__ = "rel_sperson"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         type: str = Field(default="person")
 
@@ -128,13 +128,11 @@ def _make_engineer_self_ref_classes():
 
     class SEngineer(SPerson, table=True):
         __tablename__ = "rel_sengineer"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="rel_sperson.id"
         )
-        primary_language: Optional[str] = None
-        reports_to_id: Optional[int] = Field(
-            default=None, foreign_key="rel_sengineer.id"
-        )
+        primary_language: str | None = None
+        reports_to_id: int | None = Field(default=None, foreign_key="rel_sengineer.id")
         reports_to: Optional["SEngineer"] = Relationship(
             sa_relationship_kwargs={
                 "primaryjoin": "SEngineer.reports_to_id == SEngineer.id",

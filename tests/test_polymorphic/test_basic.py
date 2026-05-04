@@ -1,7 +1,5 @@
 """Mirrors sqlalchemy/test/orm/inheritance/test_basic.py :: FalseDiscriminatorTest, CascadeTest"""
 
-from typing import Optional
-
 from sqlalchemy import Boolean
 from sqlalchemy.orm import mapped_column
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
@@ -11,8 +9,8 @@ def test_false_discriminator_on_sub():
     # mirrors FalseDiscriminatorTest.test_false_on_sub
     class DFoo(SQLModel, table=True):
         __tablename__ = "t_false_sub"
-        id: Optional[int] = Field(default=None, primary_key=True)
-        type: Optional[bool] = Field(
+        id: int | None = Field(default=None, primary_key=True)
+        type: bool | None = Field(
             default=None, sa_column=mapped_column(Boolean, nullable=True)
         )
 
@@ -40,8 +38,8 @@ def test_false_discriminator_on_base():
     # mirrors FalseDiscriminatorTest.test_false_on_base
     class Ding(SQLModel, table=True):
         __tablename__ = "t_false_base"
-        id: Optional[int] = Field(default=None, primary_key=True)
-        type: Optional[bool] = Field(
+        id: int | None = Field(default=None, primary_key=True)
+        type: bool | None = Field(
             default=None, sa_column=mapped_column(Boolean, nullable=True)
         )
 
@@ -68,13 +66,13 @@ def test_cascade_delete_follows_subclass_mapper():
     # mirrors CascadeTest.test_cascade
     class Note(SQLModel, table=True):
         __tablename__ = "cascade_note"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         data: str
-        item_id: Optional[int] = Field(default=None, foreign_key="cascade_item.id")
+        item_id: int | None = Field(default=None, foreign_key="cascade_item.id")
 
     class Item(SQLModel, table=True):
         __tablename__ = "cascade_item"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         type: str = Field(default="item")
         data: str
         notes: list[Note] = Relationship(sa_relationship_kwargs={"cascade": "all"})
@@ -86,7 +84,7 @@ def test_cascade_delete_follows_subclass_mapper():
 
     class SubItem(Item):
         __tablename__ = "cascade_subitem"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="cascade_item.id"
         )
         extra: str = Field(default="")
@@ -114,5 +112,3 @@ def test_cascade_delete_follows_subclass_mapper():
     with Session(engine) as db:
         assert db.exec(select(Note)).all() == []
         assert db.exec(select(Item)).all() == []
-
-

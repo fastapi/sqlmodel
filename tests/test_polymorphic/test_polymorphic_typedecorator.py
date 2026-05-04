@@ -1,9 +1,18 @@
 import json
 import typing as t
-from typing import Optional
 
 from pydantic import BaseModel, TypeAdapter
-from sqlmodel import JSON, Column, Field, Session, SQLModel, TypeDecorator, create_engine, select
+from sqlmodel import (
+    JSON,
+    Column,
+    Field,
+    Session,
+    SQLModel,
+    TypeDecorator,
+    create_engine,
+    select,
+)
+
 
 # See https://github.com/fastapi/sqlmodel/pull/1226#issuecomment-2568867964
 def _make_classes():
@@ -23,6 +32,7 @@ def _make_classes():
                     if isinstance(value, str):
                         value = json.loads(value)
                     return TypeAdapter(pydantic_type).validate_python(value)
+
                 return process
 
             def compare_values(self, x: t.Any, y: t.Any) -> bool:
@@ -35,7 +45,7 @@ def _make_classes():
 
     class ComplexModel(SQLModel, table=True):
         __tablename__ = "complexmodel"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         my_model: t.Annotated[
             MyModel | None,
             Field(sa_column=Column(pydantic_column_type(MyModel)())),
@@ -43,9 +53,12 @@ def _make_classes():
 
     class Hero(SQLModel, table=True):
         __tablename__ = "hero"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         hero_type: str = Field(default="hero")
-        __mapper_args__ = {"polymorphic_on": "hero_type", "polymorphic_identity": "hero"}
+        __mapper_args__ = {
+            "polymorphic_on": "hero_type",
+            "polymorphic_identity": "hero",
+        }
 
     class DarkHero(Hero):
         __mapper_args__ = {"polymorphic_identity": "dark"}

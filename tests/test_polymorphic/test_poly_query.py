@@ -4,9 +4,6 @@ Tests the polymorphic query operators that operate above SQLModel's layer
 metaclass produces a mapper config compatible with them.
 """
 
-from typing import Optional
-
-import pytest
 from sqlalchemy import or_
 from sqlalchemy.orm import selectin_polymorphic, selectinload, with_polymorphic
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
@@ -15,17 +12,17 @@ from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, sele
 def _make_classes():
     class Company(SQLModel, table=True):
         __tablename__ = "qg_company"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         employees: list["Employee"] = Relationship(back_populates="company")
 
     class Employee(SQLModel, table=True):
         __tablename__ = "qg_employee"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         type: str = Field(default="employee")
-        company_id: Optional[int] = Field(default=None, foreign_key="qg_company.id")
-        company: Optional[Company] = Relationship(back_populates="employees")
+        company_id: int | None = Field(default=None, foreign_key="qg_company.id")
+        company: Company | None = Relationship(back_populates="employees")
 
         __mapper_args__ = {
             "polymorphic_on": "type",
@@ -34,31 +31,29 @@ def _make_classes():
 
     class Manager(Employee, table=True):
         __tablename__ = "qg_manager"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="qg_employee.id"
         )
-        manager_name: Optional[str] = None
+        manager_name: str | None = None
         paperwork: list["Paperwork"] = Relationship(back_populates="manager")
 
         __mapper_args__ = {"polymorphic_identity": "manager"}
 
     class Engineer(Employee, table=True):
         __tablename__ = "qg_engineer"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="qg_employee.id"
         )
-        engineer_info: Optional[str] = None
+        engineer_info: str | None = None
 
         __mapper_args__ = {"polymorphic_identity": "engineer"}
 
     class Paperwork(SQLModel, table=True):
         __tablename__ = "qg_paperwork"
-        id: Optional[int] = Field(default=None, primary_key=True)
-        manager_id: Optional[int] = Field(
-            default=None, foreign_key="qg_manager.id"
-        )
+        id: int | None = Field(default=None, primary_key=True)
+        manager_id: int | None = Field(default=None, foreign_key="qg_manager.id")
         document_name: str
-        manager: Optional[Manager] = Relationship(back_populates="paperwork")
+        manager: Manager | None = Relationship(back_populates="paperwork")
 
     return Company, Employee, Manager, Engineer, Paperwork
 
@@ -68,10 +63,10 @@ def _make_deep_classes():
 
     class SeniorEngineer(Engineer, table=True):
         __tablename__ = "qg_senior_engineer"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="qg_engineer.id"
         )
-        years_experience: Optional[int] = None
+        years_experience: int | None = None
 
         __mapper_args__ = {"polymorphic_identity": "senior_engineer"}
 
@@ -271,10 +266,13 @@ def _seed_deep(engine, Company, Manager, Engineer, SeniorEngineer, Paperwork):
 
 # three-level joined-table inheritance query tests
 
+
 def test_three_level_selectin_polymorphic_loads_deepest_subclass():
     """selectin_polymorphic on a 3-level hierarchy eagerly loads the deepest
     subclass attrs without an extra lazy load."""
-    Company, Employee, Manager, Engineer, SeniorEngineer, Paperwork = _make_deep_classes()
+    Company, Employee, Manager, Engineer, SeniorEngineer, Paperwork = (
+        _make_deep_classes()
+    )
     engine = create_engine("sqlite:///:memory:")
     SQLModel.metadata.create_all(engine)
     _seed_deep(engine, Company, Manager, Engineer, SeniorEngineer, Paperwork)
@@ -283,7 +281,9 @@ def test_three_level_selectin_polymorphic_loads_deepest_subclass():
         stmt = (
             select(Employee)
             .order_by(Employee.id)
-            .options(selectin_polymorphic(Employee, [Manager, Engineer, SeniorEngineer]))
+            .options(
+                selectin_polymorphic(Employee, [Manager, Engineer, SeniorEngineer])
+            )
         )
         employees = db.exec(stmt).all()
         assert len(employees) == 3
@@ -296,7 +296,9 @@ def test_three_level_selectin_polymorphic_loads_deepest_subclass():
 def test_three_level_with_polymorphic_filters_on_deepest_column():
     """with_polymorphic exposes the third-level sub-table so a WHERE clause
     can reference years_experience without a separate join step."""
-    Company, Employee, Manager, Engineer, SeniorEngineer, Paperwork = _make_deep_classes()
+    Company, Employee, Manager, Engineer, SeniorEngineer, Paperwork = (
+        _make_deep_classes()
+    )
     engine = create_engine("sqlite:///:memory:")
     SQLModel.metadata.create_all(engine)
     _seed_deep(engine, Company, Manager, Engineer, SeniorEngineer, Paperwork)
@@ -312,15 +314,16 @@ def test_three_level_with_polymorphic_filters_on_deepest_column():
 def test_three_level_of_type_joins_through_all_tables():
     """of_type(SeniorEngineer) on a base relationship joins through both
     intermediate tables and returns only the deepest subclass rows."""
-    Company, Employee, Manager, Engineer, SeniorEngineer, Paperwork = _make_deep_classes()
+    Company, Employee, Manager, Engineer, SeniorEngineer, Paperwork = (
+        _make_deep_classes()
+    )
     engine = create_engine("sqlite:///:memory:")
     SQLModel.metadata.create_all(engine)
     _seed_deep(engine, Company, Manager, Engineer, SeniorEngineer, Paperwork)
 
     with Session(engine) as db:
-        stmt = (
-            select(Company.name, SeniorEngineer.name)
-            .join(Company.employees.of_type(SeniorEngineer))
+        stmt = select(Company.name, SeniorEngineer.name).join(
+            Company.employees.of_type(SeniorEngineer)
         )
         rows = db.exec(stmt).all()
         assert len(rows) == 1

@@ -25,10 +25,10 @@ from pydantic._internal._fields import PydanticMetadata
 from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
 from pydantic._internal._repr import Representation as Representation
 from pydantic.fields import FieldInfo
-from sqlalchemy import inspect
-from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from pydantic_core import PydanticUndefined as Undefined
 from pydantic_core import PydanticUndefinedType as PydanticUndefinedType
+from sqlalchemy import inspect
+from sqlalchemy.orm import Mapper
 
 BaseConfig = ConfigDict
 UndefinedType = PydanticUndefinedType
@@ -124,8 +124,7 @@ def _is_polymorphic_subclass(bases: tuple[type, ...]) -> bool:
     table model) from a root table model that defines its own table.
     """
     return any(
-        issubclass(base, BaseModel) and hasattr(base, "__tablename__")
-        for base in bases
+        issubclass(base, BaseModel) and hasattr(base, "__tablename__") for base in bases
     )
 
 
@@ -159,7 +158,11 @@ def _collect_inherited_namespace(
 
 def _relationship_keys(instance: _TSQLModel) -> Iterable[str]:
     mapper = inspect(type(instance), raiseerr=False)
-    return mapper.relationships.keys() if mapper is not None else instance.__sqlmodel_relationships__
+    return (
+        mapper.relationships.keys()
+        if mapper is not None
+        else instance.__sqlmodel_relationships__
+    )
 
 
 @contextmanager

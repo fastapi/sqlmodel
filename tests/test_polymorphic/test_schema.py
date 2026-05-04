@@ -1,6 +1,5 @@
 # Verify that polymorphic inheritance produces the correct table structure at the database level.
 
-from typing import Optional
 
 from sqlalchemy import text
 from sqlmodel import Field, Session, SQLModel, create_engine
@@ -10,7 +9,7 @@ from sqlmodel import Field, Session, SQLModel, create_engine
 def _make_jti_classes():
     class Animal(SQLModel, table=True):
         __tablename__ = "schema_animal"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         type: str = Field(default="animal")
         name: str
 
@@ -21,19 +20,19 @@ def _make_jti_classes():
 
     class Dog(Animal, table=True):
         __tablename__ = "schema_dog"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="schema_animal.id"
         )
-        breed: Optional[str] = None
+        breed: str | None = None
 
         __mapper_args__ = {"polymorphic_identity": "dog"}
 
     class Bulldog(Dog, table=True):
         __tablename__ = "schema_bulldog"
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None, primary_key=True, foreign_key="schema_dog.id"
         )
-        wrinkle_count: Optional[int] = None
+        wrinkle_count: int | None = None
 
         __mapper_args__ = {"polymorphic_identity": "bulldog"}
 
@@ -73,8 +72,7 @@ def test_jti_data_split_across_tables():
             for r in conn.execute(text("PRAGMA table_info(schema_animal)")).fetchall()
         }
         dog_cols = {
-            r[1]
-            for r in conn.execute(text("PRAGMA table_info(schema_dog)")).fetchall()
+            r[1] for r in conn.execute(text("PRAGMA table_info(schema_dog)")).fetchall()
         }
         assert animal_cols == {"id", "type", "name"}
         assert dog_cols == {"id", "breed"}
@@ -119,8 +117,7 @@ def test_jti_three_level_data_split_across_tables():
             for r in conn.execute(text("PRAGMA table_info(schema_animal)")).fetchall()
         }
         dog_cols = {
-            r[1]
-            for r in conn.execute(text("PRAGMA table_info(schema_dog)")).fetchall()
+            r[1] for r in conn.execute(text("PRAGMA table_info(schema_dog)")).fetchall()
         }
         bulldog_cols = {
             r[1]
@@ -135,7 +132,7 @@ def test_jti_three_level_data_split_across_tables():
 def _make_sti_classes():
     class Vehicle(SQLModel, table=True):
         __tablename__ = "schema_vehicle"
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         type: str = Field(default="vehicle")
         name: str
 
@@ -145,11 +142,11 @@ def _make_sti_classes():
         }
 
     class Car(Vehicle):
-        num_doors: Optional[int] = None
+        num_doors: int | None = None
         __mapper_args__ = {"polymorphic_identity": "car"}
 
     class Truck(Vehicle):
-        payload_tons: Optional[int] = None
+        payload_tons: int | None = None
         __mapper_args__ = {"polymorphic_identity": "truck"}
 
     return Vehicle, Car, Truck
@@ -172,7 +169,9 @@ def test_sti_data_in_single_table():
     with engine.connect() as conn:
         # Each row has its own feature column set and the other subclass column is null.
         car_row = conn.execute(
-            text("SELECT name, type, num_doors, payload_tons FROM schema_vehicle WHERE id = :id"),
+            text(
+                "SELECT name, type, num_doors, payload_tons FROM schema_vehicle WHERE id = :id"
+            ),
             {"id": car_id},
         ).fetchone()
         assert car_row is not None
@@ -182,7 +181,9 @@ def test_sti_data_in_single_table():
         assert car_row[3] is None
 
         truck_row = conn.execute(
-            text("SELECT name, type, num_doors, payload_tons FROM schema_vehicle WHERE id = :id"),
+            text(
+                "SELECT name, type, num_doors, payload_tons FROM schema_vehicle WHERE id = :id"
+            ),
             {"id": truck_id},
         ).fetchone()
         assert truck_row is not None
