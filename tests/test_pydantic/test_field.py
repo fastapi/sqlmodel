@@ -1,9 +1,9 @@
 from decimal import Decimal
-from typing import Literal
+from typing import Annotated, Any, Literal
 
 import pytest
 from pydantic import ValidationError
-from sqlmodel import Field, SQLModel
+from sqlmodel import Discriminator, Field, SQLModel, Tag
 
 
 def test_decimal():
@@ -45,6 +45,38 @@ def test_discriminator():
 
     with pytest.raises(ValidationError):
         Model(pet={"pet_type": "dog"}, n=1)  # type: ignore[arg-type]
+
+
+def test_discriminator_callable():
+    # Example adapted from
+    # [Pydantic docs](https://docs.pydantic.dev/latest/concepts/unions/#discriminated-unions-with-callable-discriminator):
+
+    class Pie(SQLModel):
+        pass
+
+    class ApplePie(Pie):
+        fruit: Literal["apple"] = "apple"
+
+    class PumpkinPie(Pie):
+        filling: Literal["pumpkin"] = "pumpkin"
+
+    def get_discriminator_value(v: Any) -> str:
+        if isinstance(v, dict):
+            return v.get("fruit", v.get("filling"))
+        return getattr(v, "fruit", getattr(v, "filling", None))
+
+    class ThanksgivingDinner(SQLModel):
+        dessert: (
+            Annotated[ApplePie, Tag("apple")] | Annotated[PumpkinPie, Tag("pumpkin")]
+        ) = Field(
+            discriminator=Discriminator(get_discriminator_value),
+        )
+
+    apple_pie = ThanksgivingDinner.model_validate({"dessert": {"fruit": "apple"}})
+    assert isinstance(apple_pie.dessert, ApplePie)
+
+    pumpkin_pie = ThanksgivingDinner.model_validate({"dessert": {"filling": "pumpkin"}})
+    assert isinstance(pumpkin_pie.dessert, PumpkinPie)
 
 
 def test_repr():

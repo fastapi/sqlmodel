@@ -22,7 +22,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, Discriminator, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -260,7 +260,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -303,7 +303,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: str,
@@ -355,7 +355,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     sa_column: Column[Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -388,7 +388,7 @@ def Field(
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
