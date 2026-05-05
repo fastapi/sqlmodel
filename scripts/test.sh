@@ -3,7 +3,7 @@
 set -e
 set -x
 
-coverage run -m pytest tests
+coverage run --source=sqlmodel -m pytest tests/
 coverage combine
-coverage report
-coverage html
+coverage report --show-missing
+coverage html --title="SQLModel Coverage"

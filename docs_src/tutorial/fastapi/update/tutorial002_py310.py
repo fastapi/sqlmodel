@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
@@ -40,16 +42,16 @@ def create_db_and_tables():
 
 
 def hash_password(password: str) -> str:
-    # Use something like passlib here
     return f"not really hashed {password} hehehe"
 
 
-app = FastAPI()
-
-
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     create_db_and_tables()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.post("/heroes/", response_model=HeroPublic)
