@@ -1842,7 +1842,7 @@ tests = [
 [package.metadata]
 requires-dist = [
     { name = "pydantic", specifier = ">=2.11.0" },
-    { name = "sqlalchemy", specifier = ">=2.0.14,<2.1.0" },
+    { name = "sqlalchemy", specifier = ">=2.0.14,<2.2.0" },
     { name = "typing-extensions", specifier = ">=4.5.0" },
 ]
 
