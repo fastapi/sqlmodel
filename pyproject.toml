@@ -155,7 +155,7 @@ keep-runtime-typing = true
 [tool.codespell]
 skip = '.git,*.pdf,*.svg,*.drawio'
 # Ines - name
-ignore-words-list = 'ines,re-use,selectin'
+ignore-words-list = 'ines,re-use,selectin,alls'
 
 [tool.ty.terminal]
 error-on-warning = true
