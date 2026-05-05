@@ -128,6 +128,7 @@ nav:
     - Advanced User Guide:
       - advanced/index.md
       - advanced/decimal.md
+      - advanced/migrations.md
       - advanced/uuid.md
   - Resources:
     - resources/index.md
@@ -184,6 +185,7 @@ markdown_extensions:
     - warning
     # Custom types
     - info
+    - success
   pymdownx.blocks.details:
   pymdownx.blocks.tab:
     alternate_style: True
