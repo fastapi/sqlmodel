@@ -40,7 +40,6 @@ from sqlalchemy import Enum as sa_Enum
 from sqlalchemy.orm import (
     Mapped,
     RelationshipProperty,
-    declared_attr,
     registry,
     relationship,
 )
@@ -565,6 +564,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             "__sqlmodel_relationships__": relationships,
             "__annotations__": pydantic_annotations,
         }
+        # Set default __tablename__ before class creation so it's part of the
+        # class dict and consistent with the ClassVar[str | Callable] declaration.
+        if "__tablename__" not in class_dict:
+            dict_used["__tablename__"] = name.lower()
         # Duplicate logic from Pydantic to filter config kwargs because if they are
         # passed directly including the registry Pydantic will pass them over to the
         # superclass causing an error
@@ -863,10 +866,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             for k, v in super().__repr_args__()
             if not (isinstance(k, str) and k.startswith("_sa_"))
         ]
-
-    @declared_attr  # type: ignore
-    def __tablename__(cls) -> str:
-        return cls.__name__.lower()
 
     @classmethod
     def model_validate(  # ty: ignore[invalid-method-override]
