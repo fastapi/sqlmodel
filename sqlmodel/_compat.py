@@ -78,6 +78,7 @@ def partial_init() -> Generator[None, None, None]:
 class SQLModelConfig(BaseConfig, total=False):
     table: bool | None
     registry: Any | None
+    model_fields_optional: str | None
 
 
 def get_model_fields(model: InstanceOrType[BaseModel]) -> dict[str, "FieldInfo"]:
