@@ -167,7 +167,7 @@ This will validate that all the data that we promised is there and will remove a
 
 This filtering could be very important and could be a very good security feature, for example, to make sure you filter private data, hashed passwords, etc.
 
-You can read more about it in the <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI docs about Response Model</a>.
+You can read more about it in the [FastAPI docs about Response Model](https://fastapi.tiangolo.com/tutorial/response-model/).
 
 ///
 

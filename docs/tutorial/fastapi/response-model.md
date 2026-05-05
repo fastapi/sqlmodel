@@ -8,7 +8,7 @@ Up to now, with the code we have used, the API docs know the data the clients ha
 
 <img class="shadow" alt="Interactive API docs UI" src="/img/tutorial/fastapi/simple-hero-api/image01.png">
 
-This interactive docs UI is powered by <a href="https://github.com/swagger-api/swagger-ui" class="external-link" target="_blank">Swagger UI</a>, and what Swagger UI does is to read a big JSON content that defines the API with all the data schemas (data shapes) using the standard <a href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md" class="external-link" target="_blank">OpenAPI</a>, and showing it in that nice <abbr title="User Interface">UI</abbr>.
+This interactive docs UI is powered by [Swagger UI](https://github.com/swagger-api/swagger-ui), and what Swagger UI does is to read a big JSON content that defines the API with all the data schemas (data shapes) using the standard [OpenAPI](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md), and showing it in that nice <abbr title="User Interface">UI</abbr>.
 
 FastAPI automatically **generates that OpenAPI** for Swagger UI to read it.
 
@@ -48,7 +48,7 @@ FastAPI will do data validation and filtering of the response with this `respons
 
 So this works like a contract between our application and the client.
 
-You can read more about it in the <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI docs about `response_model`</a>.
+You can read more about it in the [FastAPI docs about `response_model`](https://fastapi.tiangolo.com/tutorial/response-model/).
 
 ## New API Docs UI
 
@@ -62,7 +62,7 @@ The clients will know what data they should expect.
 
 The most visible advantage of using the `response_model` is that it shows up in the API docs UI.
 
-But there are other advantages, like that FastAPI will do automatic <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">data validation and filtering</a> of the response data using this model.
+But there are other advantages, like that FastAPI will do automatic [data validation and filtering](https://fastapi.tiangolo.com/tutorial/response-model/) of the response data using this model.
 
 Additionally, because the schemas are defined in using a standard, there are many tools that can take advantage of this.
 
@@ -72,7 +72,7 @@ For example, client generators, that can automatically create the code necessary
 
 If you are curious about the standards, FastAPI generates OpenAPI, that internally uses JSON Schema.
 
-You can read about all that in the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/#openapi" class="external-link" target="_blank">FastAPI docs - First Steps</a>.
+You can read about all that in the [FastAPI docs - First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/#openapi).
 
 ///
 
