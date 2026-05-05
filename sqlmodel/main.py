@@ -3,6 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
+import warnings
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
@@ -38,9 +39,10 @@ from sqlalchemy import (
 )
 from sqlalchemy import Enum as sa_Enum
 from sqlalchemy.orm import (
+    InstrumentedAttribute,
     Mapped,
+    MappedColumn,
     RelationshipProperty,
-    declared_attr,
     registry,
     relationship,
 )
@@ -59,6 +61,8 @@ from ._compat import (
     SQLModelConfig,
     Undefined,
     UndefinedType,
+    _collect_inherited_namespace,
+    _is_polymorphic_subclass,
     finish_init,
     get_annotations,
     get_field_metadata,
@@ -578,9 +582,22 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         config_kwargs = {
             key: kwargs[key] for key in kwargs.keys() & allowed_config_kwargs
         }
-        new_cls = cast(
-            "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
-        )
+        dict_used = _collect_inherited_namespace(bases, dict_used)
+        if _is_polymorphic_subclass(bases):
+            with warnings.catch_warnings():
+                warnings.filterwarnings(
+                    "ignore",
+                    message="Field name .+ shadows an attribute in parent.+",
+                )
+                new_cls = cast(
+                    "SQLModel",
+                    super().__new__(cls, name, bases, dict_used, **config_kwargs),
+                )
+        else:
+            new_cls = cast(
+                "SQLModel",
+                super().__new__(cls, name, bases, dict_used, **config_kwargs),
+            )
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
@@ -598,9 +615,16 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
 
         config_table = get_config("table")
         if config_table is True:
+            if new_cls.__name__ != "SQLModel" and not hasattr(new_cls, "__tablename__"):
+                setattr(new_cls, "__tablename__", new_cls.__name__.lower())  # noqa: B010
             # If it was passed by kwargs, ensure it's also set in config
             new_cls.model_config["table"] = config_table
             for k, v in get_model_fields(new_cls).items():
+                if (
+                    isinstance(getattr(new_cls, k, None), InstrumentedAttribute)
+                    and k not in class_dict
+                ):
+                    continue
                 col = get_column_from_field(v)
                 setattr(new_cls, k, col)
             # Set a config flag to tell FastAPI that this should be read with a field
@@ -632,7 +656,12 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         # trying to create a new SQLAlchemy, for a new table, with the same name, that
         # triggers an error
         base_is_table = any(is_table_model_class(base) for base in bases)
-        if is_table_model_class(cls) and not base_is_table:
+        _mapper_args = dict_.get("__mapper_args__", {})
+        has_polymorphic = (
+            _mapper_args.get("polymorphic_identity") is not None
+            or _mapper_args.get("polymorphic_abstract") is not None
+        )
+        if is_table_model_class(cls) and (not base_is_table or has_polymorphic):
             for rel_name, rel_info in cls.__sqlmodel_relationships__.items():
                 if rel_info.sa_relationship:
                     # There's a SQLAlchemy relationship declared, that takes precedence
@@ -737,10 +766,10 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column:
+def get_column_from_field(field: Any) -> Column | MappedColumn:  # type: ignore
     field_info = field
     sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
-    if isinstance(sa_column, Column):
+    if isinstance(sa_column, Column) or isinstance(sa_column, MappedColumn):
         return sa_column
     sa_type = get_sqlalchemy_type(field)
     primary_key = _get_sqlmodel_field_value(field_info, "primary_key", Undefined)
@@ -804,7 +833,6 @@ _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
-    __tablename__: ClassVar[str | Callable[..., str]]
     __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipProperty[Any]]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
@@ -843,6 +871,14 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         if finish_init.get():
             sqlmodel_init(self=__pydantic_self__, data=data)
 
+    def _is_sqlmodel_relationship(self, name: str) -> bool:
+        if name in self.__sqlmodel_relationships__:
+            return True
+        if not (is_table_model_class(self.__class__) and is_instrumented(self, name)):
+            return False
+        mapper = inspect(self.__class__, raiseerr=False)
+        return mapper is not None and name in mapper.relationships
+
     def __setattr__(self, name: str, value: Any) -> None:
         if name in {"_sa_instance_state"}:
             self.__dict__[name] = value
@@ -853,7 +889,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
-            if name not in self.__sqlmodel_relationships__:
+            if not self._is_sqlmodel_relationship(name):
                 super().__setattr__(name, value)
 
     def __repr_args__(self) -> Sequence[tuple[str | None, Any]]:
@@ -863,10 +899,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             for k, v in super().__repr_args__()
             if not (isinstance(k, str) and k.startswith("_sa_"))
         ]
-
-    @declared_attr  # type: ignore
-    def __tablename__(cls) -> str:
-        return cls.__name__.lower()
 
     @classmethod
     def model_validate(  # ty: ignore[invalid-method-override]
