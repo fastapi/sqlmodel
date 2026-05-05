@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Add pre-commit for typos. PR [#1899](https://github.com/fastapi/sqlmodel/pull/1899) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump ty from 0.0.32 to 0.0.34. PR [#1898](https://github.com/fastapi/sqlmodel/pull/1898) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump typer from 0.25.0 to 0.25.1. PR [#1896](https://github.com/fastapi/sqlmodel/pull/1896) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.10 to 0.3.11. PR [#1892](https://github.com/fastapi/sqlmodel/pull/1892) by [@dependabot[bot]](https://github.com/apps/dependabot).
