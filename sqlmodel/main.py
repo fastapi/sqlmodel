@@ -984,25 +984,17 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         obj: builtins.dict[str, Any] | BaseModel,
         *,
         update: builtins.dict[str, Any] | None = None,
+        **model_dump_kwargs,
     ) -> _TSQLModel:
-        use_update = (update or {}).copy()
-        if isinstance(obj, dict):
-            for key, value in {**obj, **use_update}.items():
-                if key in get_model_fields(self):
-                    setattr(self, key, value)
-        elif isinstance(obj, BaseModel):
-            for key in get_model_fields(obj):
-                if key in use_update:
-                    value = use_update.pop(key)
-                else:
-                    value = getattr(obj, key)
-                setattr(self, key, value)
-            for remaining_key, value in use_update.items():
-                if remaining_key in get_model_fields(self):
-                    setattr(self, remaining_key, value)
-        else:
+        if not (isinstance(obj, dict) or isinstance(obj, BaseModel)):
             raise ValueError(
                 "Can't use sqlmodel_update() with something that "
                 f"is not a dict or SQLModel or Pydantic model: {obj}"
             )
+        if isinstance(obj, BaseModel):
+            obj = obj.model_dump(**model_dump_kwargs)
+        use_update = (update or {}).copy()
+        for key, value in {**obj, **use_update}.items():
+            if key in get_model_fields(self):
+                setattr(self, key, value)
         return self
