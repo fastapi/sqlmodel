@@ -15,8 +15,8 @@ from typing import (
     ClassVar,
     Literal,
     TypeAlias,
-    TypeVar,
     TypedDict,
+    TypeVar,
     Union,
     cast,
     get_origin,
@@ -50,7 +50,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import deprecated, Unpack
+from typing_extensions import Unpack, deprecated
 
 from ._compat import (
     PYDANTIC_MINOR_VERSION,
@@ -801,6 +801,7 @@ default_registry = registry()
 
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
+
 class _ModelDumpKwargs(TypedDict):
     mode: Literal["json", "python"] | str
     include: IncEx | None
@@ -1013,9 +1014,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 fname: finfo.annotation
                 for fname, finfo in ObjClass.model_fields.items()
             }
-            UpdateModel = create_model(
-                f"_{ObjClass.__name__}Update_", **fields_def
-            )
+            UpdateModel = create_model(f"_{ObjClass.__name__}Update_", **fields_def)
             # rebuild obj instance with model_construct
             obj = UpdateModel.model_construct(
                 _fields_set=obj.model_fields_set, **obj.__dict__
