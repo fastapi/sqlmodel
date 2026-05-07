@@ -23,7 +23,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, create_model
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -1007,6 +1007,20 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
                 f"is not a dict or SQLModel or Pydantic model: {obj}"
             )
         if isinstance(obj, BaseModel):
+            # Create a temp UpdateModel schema (removes extra serialization settings)
+            ObjClass = obj.__class__
+            fields_def = {
+                fname: finfo.annotation
+                for fname, finfo in ObjClass.model_fields.items()
+            }
+            UpdateModel = create_model(
+                f"_{ObjClass.__name__}Update_", **fields_def
+            )
+            # rebuild obj instance with model_construct
+            obj = UpdateModel.model_construct(
+                _fields_set=obj.model_fields_set, **obj.__dict__
+            )
+            # Now `obj.model_dump` works with **model_dump_kwargs
             obj = obj.model_dump(**model_dump_kwargs)
         use_update = (update or {}).copy()
         for key, value in {**obj, **use_update}.items():
