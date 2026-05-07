@@ -806,16 +806,17 @@ class _ModelDumpKwargs(TypedDict):
     mode: Literal["json", "python"] | str
     include: IncEx | None
     exclude: IncEx | None
-    context: Any | None # v2.7
+    context: Any | None  # v2.7
     by_alias: bool | None
     exclude_unset: bool
     exclude_defaults: bool
     exclude_none: bool
-    exclude_computed_fields: bool # v2.12
+    exclude_computed_fields: bool  # v2.12
     round_trip: bool
     warnings: bool | Literal["none", "warn", "error"]
-    fallback: Callable[[Any], Any] | None # v2.11
-    serialize_as_any: bool # v2.7
+    fallback: Callable[[Any], Any] | None  # v2.11
+    serialize_as_any: bool  # v2.7
+
 
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
