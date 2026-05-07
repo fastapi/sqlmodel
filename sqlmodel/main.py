@@ -802,19 +802,19 @@ default_registry = registry()
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 class _ModelDumpKwargs(TypedDict):
-    mode: Literal["json", "python"] | str = "python",
-    include: IncEx | None = None,
-    exclude: IncEx | None = None,
-    context: Any | None = None,  # v2.7
-    by_alias: bool | None = None,
-    exclude_unset: bool = False,
-    exclude_defaults: bool = False,
-    exclude_none: bool = False,
-    exclude_computed_fields: bool = False,  # v2.12
-    round_trip: bool = False,
-    warnings: bool | Literal["none", "warn", "error"] = True,
-    fallback: Callable[[Any], Any] | None = None,  # v2.11
-    serialize_as_any: bool = False,  # v2.7
+    mode: Literal["json", "python"] | str
+    include: IncEx | None
+    exclude: IncEx | None
+    context: Any | None # v2.7
+    by_alias: bool | None
+    exclude_unset: bool
+    exclude_defaults: bool
+    exclude_none: bool
+    exclude_computed_fields: bool # v2.12
+    round_trip: bool
+    warnings: bool | Literal["none", "warn", "error"]
+    fallback: Callable[[Any], Any] | None # v2.11
+    serialize_as_any: bool # v2.7
 
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
