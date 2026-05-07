@@ -16,6 +16,7 @@ from typing import (
     Literal,
     TypeAlias,
     TypeVar,
+    TypedDict,
     Union,
     cast,
     get_origin,
@@ -49,7 +50,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import deprecated
+from typing_extensions import deprecated, Unpack
 
 from ._compat import (
     PYDANTIC_MINOR_VERSION,
@@ -800,6 +801,20 @@ default_registry = registry()
 
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
+class _ModelDumpKwargs(TypedDict):
+    mode: Literal["json", "python"] | str = "python",
+    include: IncEx | None = None,
+    exclude: IncEx | None = None,
+    context: Any | None = None,  # v2.7
+    by_alias: bool | None = None,
+    exclude_unset: bool = False,
+    exclude_defaults: bool = False,
+    exclude_none: bool = False,
+    exclude_computed_fields: bool = False,  # v2.12
+    round_trip: bool = False,
+    warnings: bool | Literal["none", "warn", "error"] = True,
+    fallback: Callable[[Any], Any] | None = None,  # v2.11
+    serialize_as_any: bool = False,  # v2.7
 
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
@@ -984,7 +999,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         obj: builtins.dict[str, Any] | BaseModel,
         *,
         update: builtins.dict[str, Any] | None = None,
-        **model_dump_kwargs,
+        **model_dump_kwargs: Unpack[_ModelDumpKwargs],
     ) -> _TSQLModel:
         if not (isinstance(obj, dict) or isinstance(obj, BaseModel)):
             raise ValueError(
