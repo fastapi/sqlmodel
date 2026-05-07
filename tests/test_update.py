@@ -10,7 +10,7 @@ def test_sqlmodel_update():
         headquarters: str
 
     class OrganizationUpdate(SQLModel):
-        name: str
+        name: str = Field(exclude=True)
         city: str | None = None
 
     org = Organization(name="Example Org", city="New York", headquarters="NYC HQ")
@@ -20,11 +20,11 @@ def test_sqlmodel_update():
         update={
             "headquarters": "-",  # This field is in Organization, but not in OrganizationUpdate
         },
-        exclude_unset=True
+        exclude_unset=True,
     )
     # fields that should stay the same
     assert org.city == "New York"
-    #fields that should be updated
+    # fields that should be updated
     assert org.name == "Updated org"
     assert org.headquarters == "-"
     # test raise value error when passing in updates other than dict or BaseModel
