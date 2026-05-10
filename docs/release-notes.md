@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump pydantic-settings from 2.14.0 to 2.14.1. PR [#1903](https://github.com/fastapi/sqlmodel/pull/1903) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.11 to 0.3.13. PR [#1901](https://github.com/fastapi/sqlmodel/pull/1901) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add pre-commit for typos. PR [#1899](https://github.com/fastapi/sqlmodel/pull/1899) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump ty from 0.0.32 to 0.0.34. PR [#1898](https://github.com/fastapi/sqlmodel/pull/1898) by [@dependabot[bot]](https://github.com/apps/dependabot).
