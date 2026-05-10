@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump actions/labeler from 6.0.1 to 6.1.0. PR [#1902](https://github.com/fastapi/sqlmodel/pull/1902) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pydantic-settings from 2.14.0 to 2.14.1. PR [#1903](https://github.com/fastapi/sqlmodel/pull/1903) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.11 to 0.3.13. PR [#1901](https://github.com/fastapi/sqlmodel/pull/1901) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add pre-commit for typos. PR [#1899](https://github.com/fastapi/sqlmodel/pull/1899) by [@tiangolo](https://github.com/tiangolo).
