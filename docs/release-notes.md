@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#1904](https://github.com/fastapi/sqlmodel/pull/1904) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#1900](https://github.com/fastapi/sqlmodel/pull/1900) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/labeler from 6.0.1 to 6.1.0. PR [#1902](https://github.com/fastapi/sqlmodel/pull/1902) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pydantic-settings from 2.14.0 to 2.14.1. PR [#1903](https://github.com/fastapi/sqlmodel/pull/1903) by [@dependabot[bot]](https://github.com/apps/dependabot).
