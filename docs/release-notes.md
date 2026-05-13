@@ -4,6 +4,19 @@
 
 ### Internal
 
+* ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#1904](https://github.com/fastapi/sqlmodel/pull/1904) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#1900](https://github.com/fastapi/sqlmodel/pull/1900) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump actions/labeler from 6.0.1 to 6.1.0. PR [#1902](https://github.com/fastapi/sqlmodel/pull/1902) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pydantic-settings from 2.14.0 to 2.14.1. PR [#1903](https://github.com/fastapi/sqlmodel/pull/1903) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.11 to 0.3.13. PR [#1901](https://github.com/fastapi/sqlmodel/pull/1901) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Add pre-commit for typos. PR [#1899](https://github.com/fastapi/sqlmodel/pull/1899) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump ty from 0.0.32 to 0.0.34. PR [#1898](https://github.com/fastapi/sqlmodel/pull/1898) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.25.0 to 0.25.1. PR [#1896](https://github.com/fastapi/sqlmodel/pull/1896) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump prek from 0.3.10 to 0.3.11. PR [#1892](https://github.com/fastapi/sqlmodel/pull/1892) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.24.2 to 0.25.0. PR [#1893](https://github.com/fastapi/sqlmodel/pull/1893) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.11 to 0.15.12. PR [#1888](https://github.com/fastapi/sqlmodel/pull/1888) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.136.0 to 0.136.1. PR [#1887](https://github.com/fastapi/sqlmodel/pull/1887) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.24.1 to 0.24.2. PR [#1883](https://github.com/fastapi/sqlmodel/pull/1883) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump prek from 0.3.9 to 0.3.10. PR [#1881](https://github.com/fastapi/sqlmodel/pull/1881) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump ty from 0.0.31 to 0.0.32. PR [#1876](https://github.com/fastapi/sqlmodel/pull/1876) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pydantic-settings from 2.13.1 to 2.14.0. PR [#1878](https://github.com/fastapi/sqlmodel/pull/1878) by [@dependabot[bot]](https://github.com/apps/dependabot).
