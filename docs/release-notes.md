@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 🔒️ Add zizmor and fix audit findings. PR [#1871](https://github.com/fastapi/sqlmodel/pull/1871) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#1904](https://github.com/fastapi/sqlmodel/pull/1904) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#1900](https://github.com/fastapi/sqlmodel/pull/1900) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/labeler from 6.0.1 to 6.1.0. PR [#1902](https://github.com/fastapi/sqlmodel/pull/1902) by [@dependabot[bot]](https://github.com/apps/dependabot).
