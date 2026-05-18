@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 🔒️ Only allow team members to modify dependencies. PR [#1914](https://github.com/fastapi/sqlmodel/pull/1914) by [@svlandeg](https://github.com/svlandeg).
+
 ### Internal
 
 * ♻️ Migrate docs to Zensical. PR [#1913](https://github.com/fastapi/sqlmodel/pull/1913) by [@tiangolo](https://github.com/tiangolo).
