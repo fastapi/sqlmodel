@@ -563,7 +563,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             **dict_for_pydantic,
             "__weakref__": None,
             "__sqlmodel_relationships__": relationships,
-            "__annotations__": pydantic_annotations,
+            "__annotations__": original_annotations,
         }
         # Duplicate logic from Pydantic to filter config kwargs because if they are
         # passed directly including the registry Pydantic will pass them over to the
@@ -581,6 +581,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         new_cls = cast(
             "SQLModel", super().__new__(cls, name, bases, dict_used, **config_kwargs)
         )
+        for k in relationships:
+            if k in new_cls.model_fields:
+                del new_cls.model_fields[k]
+
         new_cls.__annotations__ = {
             **relationship_annotations,
             **pydantic_annotations,
