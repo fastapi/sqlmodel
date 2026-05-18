@@ -36,9 +36,9 @@ This way, a client can decide to take fewer heroes if they want, but not more.
 
 If you need to refresh how query parameters and their validation work, check out the docs in FastAPI:
 
-* <a href="https://fastapi.tiangolo.com/tutorial/query-params/" class="external-link" target="_blank">Query Parameters</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" class="external-link" target="_blank">Query Parameters and String Validations</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/" class="external-link" target="_blank">Path Parameters and Numeric Validations</a>
+* [Query Parameters](https://fastapi.tiangolo.com/tutorial/query-params/)
+* [Query Parameters and String Validations](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/)
+* [Path Parameters and Numeric Validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/)
 
 ///
 

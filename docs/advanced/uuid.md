@@ -82,9 +82,9 @@ This means that the UUID will be generated in the Python code, **before sending 
 
 {* ./docs_src/advanced/uuid/tutorial001_py310.py ln[1:10] hl[1,7] *}
 
-Pydantic has support for <a href="https://docs.pydantic.dev/latest/api/standard_library_types/#uuid" class="external-link" target="_blank">`UUID` types</a>.
+Pydantic has support for [`UUID` types](https://docs.pydantic.dev/latest/api/standard_library_types/#uuid).
 
-For the database, **SQLModel** internally uses <a href="https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.Uuid" class="external-link" target="_blank">SQLAlchemy's `Uuid` type</a>.
+For the database, **SQLModel** internally uses [SQLAlchemy's `Uuid` type](https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.Uuid).
 
 ### Create a Record with a UUID
 
@@ -174,5 +174,5 @@ Selected hero ID:
 
 You can learn more about **UUIDs** in:
 
-* The official <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python docs for UUID</a>.
-* The <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier" class="external-link" target="_blank">Wikipedia for UUID</a>.
+* The official [Python docs for UUID](https://docs.python.org/3/library/uuid.html).
+* The [Wikipedia for UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).
