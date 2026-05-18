@@ -100,7 +100,7 @@ This is the name of the **table** in the database, so it is `"team"`, not the na
 
 If you had a custom table name, you would use that custom table name.
 
-/// info
+/// note
 
 You can learn about setting a custom table name for a model in the Advanced User Guide.
 

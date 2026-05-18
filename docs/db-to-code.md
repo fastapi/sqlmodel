@@ -190,7 +190,7 @@ Then your code will continue to execute and calmly tell the user that it couldn'
 
 But we never deleted the `hero` table. 🎉
 
-/// info
+/// note
 
 Of course, there are also other ways to do SQL data sanitization without using a tool like **SQLModel**, but it's still a nice feature you get by default.
 
@@ -296,7 +296,7 @@ There are many ORMs available apart from **SQLModel**, you can read more about s
 
 ## SQL Table Names
 
-/// info  | Technical Background
+/// note  | Technical Background
 
 This is a bit of boring background for SQL purists. Feel free to skip this section. 😉
 

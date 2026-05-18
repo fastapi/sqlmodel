@@ -8,7 +8,7 @@ So, we probably want to limit it.
 
 Let's use the same **offset** and **limit** we learned about in the previous tutorial chapters for the API.
 
-/// info
+/// note
 
 In many cases, this is also called **pagination**.
 
@@ -32,7 +32,7 @@ So, to prevent it, we add additional validation to the `limit` query parameter, 
 
 This way, a client can decide to take fewer heroes if they want, but not more.
 
-/// info
+/// note
 
 If you need to refresh how query parameters and their validation work, check out the docs in FastAPI:
 

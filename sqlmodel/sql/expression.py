@@ -48,30 +48,30 @@ _TypeEngineArgument = type[TypeEngine[_T]] | TypeEngine[_T]
 
 
 def all_(expr: _ColumnExpressionArgument[_T] | _T) -> CollectionAggregate[bool]:
-    return sqlalchemy.all_(expr)  # type: ignore[arg-type]
+    return sqlalchemy.all_(expr)  # ty: ignore[invalid-argument-type]
 
 
 def and_(
     initial_clause: Literal[True] | _ColumnExpressionArgument[bool] | bool,
     *clauses: _ColumnExpressionArgument[bool] | bool,
 ) -> ColumnElement[bool]:
-    return sqlalchemy.and_(initial_clause, *clauses)  # type: ignore[arg-type]
+    return sqlalchemy.and_(initial_clause, *clauses)  # ty: ignore[invalid-argument-type]
 
 
 def any_(expr: _ColumnExpressionArgument[_T] | _T) -> CollectionAggregate[bool]:
-    return sqlalchemy.any_(expr)  # type: ignore[arg-type]
+    return sqlalchemy.any_(expr)  # ty: ignore[invalid-argument-type]
 
 
 def asc(
     column: _ColumnExpressionOrStrLabelArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
-    return sqlalchemy.asc(column)  # type: ignore[arg-type]
+    return sqlalchemy.asc(column)  # ty: ignore[invalid-argument-type]
 
 
 def collate(
     expression: _ColumnExpressionArgument[str] | str, collation: str
 ) -> BinaryExpression[str]:
-    return sqlalchemy.collate(expression, collation)  # type: ignore[arg-type]
+    return sqlalchemy.collate(expression, collation)  # ty: ignore[invalid-argument-type]
 
 
 def between(
@@ -84,7 +84,7 @@ def between(
 
 
 def not_(clause: _ColumnExpressionArgument[_T] | _T) -> ColumnElement[_T]:
-    return sqlalchemy.not_(clause)  # type: ignore[arg-type]
+    return sqlalchemy.not_(clause)  # ty: ignore[no-matching-overload]
 
 
 def case(
@@ -92,7 +92,7 @@ def case(
     value: Any | None = None,
     else_: Any | None = None,
 ) -> Case[Any]:
-    return sqlalchemy.case(*whens, value=value, else_=else_)  # type: ignore[arg-type]
+    return sqlalchemy.case(*whens, value=value, else_=else_)  # ty: ignore[invalid-argument-type]
 
 
 def cast(
@@ -112,15 +112,15 @@ def try_cast(
 def desc(
     column: _ColumnExpressionOrStrLabelArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
-    return sqlalchemy.desc(column)  # type: ignore[arg-type]
+    return sqlalchemy.desc(column)  # ty: ignore[invalid-argument-type]
 
 
 def distinct(expr: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
-    return sqlalchemy.distinct(expr)  # type: ignore[arg-type]
+    return sqlalchemy.distinct(expr)  # ty: ignore[invalid-argument-type]
 
 
 def bitwise_not(expr: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
-    return sqlalchemy.bitwise_not(expr)  # type: ignore[arg-type]
+    return sqlalchemy.bitwise_not(expr)  # ty: ignore[invalid-argument-type]
 
 
 def extract(field: str, expr: _ColumnExpressionArgument[Any] | Any) -> Extract:
@@ -130,7 +130,7 @@ def extract(field: str, expr: _ColumnExpressionArgument[Any] | Any) -> Extract:
 def funcfilter(
     func: FunctionElement[_T], *criterion: _ColumnExpressionArgument[bool] | bool
 ) -> FunctionFilter[_T]:
-    return sqlalchemy.funcfilter(func, *criterion)  # type: ignore[arg-type]
+    return sqlalchemy.funcfilter(func, *criterion)  # ty: ignore[invalid-argument-type]
 
 
 def label(
@@ -138,24 +138,24 @@ def label(
     element: _ColumnExpressionArgument[_T] | _T,
     type_: Optional["_TypeEngineArgument[_T]"] = None,
 ) -> Label[_T]:
-    return sqlalchemy.label(name, element, type_=type_)  # type: ignore[arg-type]
+    return sqlalchemy.label(name, element, type_=type_)  # ty: ignore[invalid-argument-type]
 
 
 def nulls_first(
     column: _ColumnExpressionArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
-    return sqlalchemy.nulls_first(column)  # type: ignore[arg-type]
+    return sqlalchemy.nulls_first(column)  # ty: ignore[invalid-argument-type]
 
 
 def nulls_last(column: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
-    return sqlalchemy.nulls_last(column)  # type: ignore[arg-type]
+    return sqlalchemy.nulls_last(column)  # ty: ignore[invalid-argument-type]
 
 
 def or_(
     initial_clause: Literal[False] | _ColumnExpressionArgument[bool] | bool,
     *clauses: _ColumnExpressionArgument[bool] | bool,
 ) -> ColumnElement[bool]:
-    return sqlalchemy.or_(initial_clause, *clauses)  # type: ignore[arg-type]
+    return sqlalchemy.or_(initial_clause, *clauses)  # ty: ignore[invalid-argument-type]
 
 
 def over(

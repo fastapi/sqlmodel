@@ -1,6 +1,6 @@
 # Intro to Databases
 
-/// info
+/// note
 
 Are you a seasoned developer and already know everything about databases? 🤓
 
@@ -317,7 +317,7 @@ Next, it receives the data and puts it in Python objects that you can continue t
 
 I'll tell you more about SQL, SQLModel, how to use them, and how they are related in the next sections.
 
-/// info  | Technical Details
+/// note  | Technical Details
 
 SQLModel is built on top of SQLAlchemy. It is, in fact, just [SQLAlchemy](https://www.sqlalchemy.org/) and [Pydantic](https://pydantic-docs.helpmanual.io/) mixed together with some sugar on top.
 

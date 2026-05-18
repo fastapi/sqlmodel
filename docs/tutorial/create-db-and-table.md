@@ -47,7 +47,7 @@ This class `Hero` **represents the table** for our heroes. And each instance we 
 
 We use the config `table=True` to tell **SQLModel** that this is a **table model**, it represents a table.
 
-/// info
+/// note
 
 It's also possible to have models without `table=True`, those would be only **data models**, without a table in the database, they would not be **table models**.
 
@@ -366,7 +366,7 @@ INFO Engine COMMIT
 
 </div>
 
-/// info
+/// note
 
 I simplified the output above a bit to make it easier to read.
 
@@ -538,7 +538,7 @@ if __name__ == "__main__":
 
 ...will **not** be executed.
 
-/// info
+/// note
 
 For more information, check [the official Python docs](https://docs.python.org/3/library/__main__.html).
 

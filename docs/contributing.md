@@ -92,18 +92,18 @@ That way, you can edit the documentation/source files and see the changes live.
 
 /// tip
 
-Alternatively, you can perform the same steps that scripts does manually.
+Alternatively, you can perform the same steps that the script does manually.
 
-Go into the docs director at `docs/`:
+Go into the docs directory at `docs/`:
 
 ```console
 $ cd docs/
 ```
 
-Then run `mkdocs` in that directory:
+Then run `zensical` in that directory:
 
 ```console
-$ mkdocs serve --dev-addr 8008
+$ zensical serve --dev-addr 8008
 ```
 
 ///
@@ -129,7 +129,7 @@ Completion will take effect once you restart the terminal.
 
 ### Docs Structure
 
-The documentation uses [MkDocs](https://www.mkdocs.org/).
+The documentation uses <a href="https://zensical.org" class="external-link" target="_blank">Zensical</a>.
 
 And there are extra tools/scripts in place in `./scripts/docs.py`.
 

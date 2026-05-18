@@ -23,7 +23,7 @@ Pydantic has special support for [`Decimal` types](https://docs.pydantic.dev/lat
 
 When you use `Decimal` you can specify the number of digits and decimal places to support in the `Field()` function. They will be validated by Pydantic (for example when using FastAPI) and the same information will also be used for the database columns.
 
-/// info
+/// note
 
 For the database, **SQLModel** will use [SQLAlchemy's `DECIMAL` type](https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.DECIMAL).
 

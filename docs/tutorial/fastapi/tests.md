@@ -214,7 +214,7 @@ Do we really have to duplicate all that for **each test**? No, we can do better!
 
 We are using **pytest** to run the tests. And pytest also has a very similar concept to the **dependencies in FastAPI**.
 
-/// info
+/// note
 
 In fact, pytest was one of the things that inspired the design of the dependencies in FastAPI.
 

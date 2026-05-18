@@ -68,7 +68,7 @@ Additionally, because the schemas are defined in using a standard, there are man
 
 For example, client generators, that can automatically create the code necessary to talk to your API in many languages.
 
-/// info
+/// note
 
 If you are curious about the standards, FastAPI generates OpenAPI, that internally uses JSON Schema.
 

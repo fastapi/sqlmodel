@@ -28,9 +28,9 @@ _TCCA = TypedColumnsClauseRole[_T] | SQLCoreOperations[_T] | type[_T]
 {% for i in range(number_of_types) %}
 _TScalar_{{ i }} = TypeVar(
     "_TScalar_{{ i }}",
-    Column,  # type: ignore
-    Sequence,  # type: ignore
-    Mapping,  # type: ignore
+    Column,
+    Sequence,
+    Mapping,
     UUID,
     datetime,
     float,
@@ -48,12 +48,11 @@ _T{{ i }} = TypeVar("_T{{ i }}")
 # Generated TypeVars end
 
 @overload
-def select(__ent0: _TCCA[_T0]) -> SelectOfScalar[_T0]: ...
+def select(ent0: _TCCA[_T0], /) -> SelectOfScalar[_T0]: ...
 
 
 @overload
-def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
-    ...
+def select(ent0: _TScalar_0, /) -> SelectOfScalar[_TScalar_0]: ...
 
 
 # Generated overloads start
@@ -61,8 +60,8 @@ def select(__ent0: _TScalar_0) -> SelectOfScalar[_TScalar_0]:  # type: ignore
 {% for signature in signatures %}
 
 @overload
-def select(  # type: ignore
-    {% for arg in signature[0] %}{{ arg.name }}: {{ arg.annotation }}, {% endfor %}
+def select(
+    {% for arg in signature[0] %}{{ arg.name }}: {{ arg.annotation }}, {% endfor %}/,
     ) -> Select[tuple[{%for ret in signature[1] %}{{ ret }} {% if not loop.last %}, {% endif %}{% endfor %}]]: ...
 
 {% endfor %}
@@ -70,7 +69,7 @@ def select(  # type: ignore
 # Generated overloads end
 
 
-def select(*entities: Any) -> Select | SelectOfScalar:  # type: ignore
+def select(*entities: Any) -> Select | SelectOfScalar:
     if len(entities) == 1:
         return SelectOfScalar(*entities)
     return Select(*entities)
