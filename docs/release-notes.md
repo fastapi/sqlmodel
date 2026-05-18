@@ -10,6 +10,7 @@
 
 ### Internal
 
+* 👷 Fix branch name in `guard-dependencies.yml`. PR [#1916](https://github.com/fastapi/sqlmodel/pull/1916) by [@svlandeg](https://github.com/svlandeg).
 * ♻️ Migrate docs to Zensical. PR [#1913](https://github.com/fastapi/sqlmodel/pull/1913) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump ruff from 0.15.12 to 0.15.13. PR [#1910](https://github.com/fastapi/sqlmodel/pull/1910) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔒️ Add zizmor and fix audit findings. PR [#1871](https://github.com/fastapi/sqlmodel/pull/1871) by [@YuriiMotov](https://github.com/YuriiMotov).
