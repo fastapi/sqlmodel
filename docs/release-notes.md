@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump ruff from 0.15.12 to 0.15.13. PR [#1910](https://github.com/fastapi/sqlmodel/pull/1910) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔒️ Add zizmor and fix audit findings. PR [#1871](https://github.com/fastapi/sqlmodel/pull/1871) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#1904](https://github.com/fastapi/sqlmodel/pull/1904) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#1900](https://github.com/fastapi/sqlmodel/pull/1900) by [@dependabot[bot]](https://github.com/apps/dependabot).
