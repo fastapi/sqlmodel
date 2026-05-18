@@ -16,11 +16,11 @@ To allow more fine-grained control over it, the `Relationship` constructor allow
 
 Since SQLAlchemy relationships provide the [`remote_side`](https://docs.sqlalchemy.org/en/20/orm/relationship_api.html#sqlalchemy.orm.relationship.params.remote_side){.external-link target=_blank} parameter for just such an occasion, we can leverage that directly to construct the self-referential pattern with minimal code.
 
-{* ./docs_src/advanced/self_referential/tutorial001_py39.py ln[6:18] hl[16] *}
+{* ./docs_src/advanced/self_referential/tutorial001_py310.py ln[6:16] hl[14] *}
 
 Using the `sa_relationship_kwargs` parameter, we pass the keyword argument `remote_side='Villain.id'` to the underlying relationship property.
 
-/// info
+/// note
 
 The `remote_side` parameter accepts a Python-evaluable string when using Declarative. This allows us to reference `Villain.id` even though the class is still being defined.
 
@@ -40,23 +40,23 @@ For our purposes, it is necessary that we also provide the `back_populates` para
 
 In addition, the type annotations were made by enclosing our `Villain` class name in quotes, since we are referencing a class that is not yet fully defined by the time the interpreter reaches those lines. See the chapter on [type annotation strings](../../tutorial/relationship-attributes/type-annotation-strings.md){.internal-link target=_blank} for a detailed explanation.
 
-Finally, as with regular (i.e. non-self-referential) foreign key relationships, it is up to us to decide whether it makes sense to allow the field to be **empty** or not. In our example, not every villain must have a boss (in fact, we would otherwise introduce a circular reference chain, which would not make sense in this context). Therefore we declare `boss_id: Optional[int]` and `boss: Optional['Villain']`. This is analogous to the `Hero`→`Team` relationship we saw [in an earlier chapter](../../tutorial/relationship-attributes/define-relationships-attributes.md#relationship-attributes-or-none){.internal-link target=_blank}.
+Finally, as with regular (i.e. non-self-referential) foreign key relationships, it is up to us to decide whether it makes sense to allow the field to be **empty** or not. In our example, not every villain must have a boss (in fact, we would otherwise introduce a circular reference chain, which would not make sense in this context). Therefore we declare `boss_id: int | None` and `boss: 'Villain' | None`. This is analogous to the `Hero`→`Team` relationship we saw [in an earlier chapter](../../tutorial/relationship-attributes/define-relationships-attributes.md#relationship-attributes-or-none){.internal-link target=_blank}.
 
 ## Creating instances
 
 Now let's see how we can create villains with a boss:
 
-{* ./docs_src/advanced/self_referential/tutorial001_py39.py ln[31:50] hl[34:35] *}
+{* ./docs_src/advanced/self_referential/tutorial001_py310.py ln[29:48] hl[32:33] *}
 
 Just as with regular relationships, we can simply pass our boss villain as an argument to the constructor using `boss=thinnus`.
 
 If we later learn that a villain actually had a secret boss after we've already created him, we can just as easily assign that boss retroactively:
 
-{* ./docs_src/advanced/self_referential/tutorial001_py39.py ln[31:32,52:56] hl[52] *}
+{* ./docs_src/advanced/self_referential/tutorial001_py310.py ln[29:30,50:54] hl[50] *}
 
 And if we want to add minions to a boss afterward, it's as easy as adding items to a Python list (because that's all it is 🤓):
 
-{* ./docs_src/advanced/self_referential/tutorial001_py39.py ln[31:32,58:69] hl[61] *}
+{* ./docs_src/advanced/self_referential/tutorial001_py310.py ln[29:30,56:67] hl[59] *}
 
 Since our relationships work both ways, we don't even need to add all our `clone_bot_`s to the session individually. Instead, we can simply add `ultra_bot` again and commit the changes. We do need to refresh them individually, though, if we want to access their updated attributes.
 
@@ -71,7 +71,7 @@ top_boss_minions = clone_bot_3.boss.boss.minions
 assert any(minion is ebonite_mew for minion in top_boss_minions)  # passes
 ```
 
-/// info
+/// note
 
 Notice that we can, in fact, check for **identity** using `is` instead of `==` here, since we are dealing with the exact same objects, not just objects containing the same **data**.
 
