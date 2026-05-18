@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ♻️ Migrate docs to Zensical. PR [#1913](https://github.com/fastapi/sqlmodel/pull/1913) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump ruff from 0.15.12 to 0.15.13. PR [#1910](https://github.com/fastapi/sqlmodel/pull/1910) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔒️ Add zizmor and fix audit findings. PR [#1871](https://github.com/fastapi/sqlmodel/pull/1871) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#1904](https://github.com/fastapi/sqlmodel/pull/1904) by [@dependabot[bot]](https://github.com/apps/dependabot).
