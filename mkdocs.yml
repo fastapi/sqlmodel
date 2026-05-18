@@ -81,6 +81,7 @@ nav:
       - tutorial/create-db-and-table.md
       - tutorial/insert.md
       - tutorial/automatic-id-none-refresh.md
+      - tutorial/str-fields-and-column-length.md
       - tutorial/select.md
       - tutorial/where.md
       - tutorial/indexes.md
