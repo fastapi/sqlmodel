@@ -120,7 +120,8 @@ nav:
       - advanced/index.md
       - advanced/decimal.md
       - advanced/uuid.md
-      - Advanced Relationships:
+      - "":
+        - advanced/advanced-relationships/index.md
         - advanced/advanced-relationships/self-referential.md
   - "":
     - resources/index.md
