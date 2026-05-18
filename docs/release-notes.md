@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 📝 Update admonitions, simplify and use defaults. PR [#1915](https://github.com/fastapi/sqlmodel/pull/1915) by [@tiangolo](https://github.com/tiangolo).
 * 🔒️ Only allow team members to modify dependencies. PR [#1914](https://github.com/fastapi/sqlmodel/pull/1914) by [@svlandeg](https://github.com/svlandeg).
 
 ### Internal
