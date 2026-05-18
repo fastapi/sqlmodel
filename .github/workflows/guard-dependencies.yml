@@ -2,7 +2,7 @@ name: Guard Dependencies
 
 on:
   pull_request_target: # zizmor: ignore[dangerous-triggers] -- This workflow only reads context.payload metadata, never checks out PR code
-    branches: [master]
+    branches: [main]
     paths:
       - pyproject.toml
       - uv.lock
