@@ -2,18 +2,16 @@ import importlib
 from types import ModuleType
 
 import pytest
+from dirty_equals import IsOneOf
 from fastapi.testclient import TestClient
 from sqlmodel import Session, create_engine
 from sqlmodel.pool import StaticPool
-
-from tests.conftest import needs_py310
 
 
 @pytest.fixture(
     name="module",
     params=[
-        pytest.param("tutorial002_py39"),
-        pytest.param("tutorial002_py310", marks=needs_py310),
+        pytest.param("tutorial002_py310"),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:
@@ -388,17 +386,38 @@ def test_tutorial(module: ModuleType):
                         "title": "ValidationError",
                         "required": ["loc", "msg", "type"],
                         "type": "object",
-                        "properties": {
-                            "loc": {
-                                "title": "Location",
-                                "type": "array",
-                                "items": {
-                                    "anyOf": [{"type": "string"}, {"type": "integer"}]
+                        "properties": IsOneOf(
+                            {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [
+                                            {"type": "string"},
+                                            {"type": "integer"},
+                                        ]
+                                    },
                                 },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
                             },
-                            "msg": {"title": "Message", "type": "string"},
-                            "type": {"title": "Error Type", "type": "string"},
-                        },
+                            {
+                                "loc": {
+                                    "title": "Location",
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [
+                                            {"type": "string"},
+                                            {"type": "integer"},
+                                        ]
+                                    },
+                                },
+                                "msg": {"title": "Message", "type": "string"},
+                                "type": {"title": "Error Type", "type": "string"},
+                                "ctx": {"title": "Context", "type": "object"},
+                                "input": {"title": "Input"},
+                            },
+                        ),
                     },
                 }
             },

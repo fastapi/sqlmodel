@@ -3,6 +3,7 @@ site_name: SQLModel
 site_description: SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.
 site_url: https://sqlmodel.tiangolo.com/
 theme:
+  variant: classic
   name: material
   custom_dir: docs/overrides
   palette:
@@ -48,34 +49,24 @@ theme:
   - toc.follow
 
   icon:
-    repo: fontawesome/brands/github-alt
+    repo: octicons/mark-github-24
   logo: img/icon-white.svg
   favicon: img/favicon.png
   language: en
 repo_name: fastapi/sqlmodel
 repo_url: https://github.com/fastapi/sqlmodel
-plugins:
-  # Material for MkDocs
-  search:
-  social:
-  typeset:
-  # Other plugins
-  macros:
-    include_yaml:
-    - sponsors: data/sponsors.yml
-    - members: data/members.yml
 
 nav:
   - SQLModel: index.md
   - features.md
-  - Learn:
+  - "":
     - learn/index.md
     - databases.md
     - db-to-code.md
     - environment-variables.md
     - virtual-environments.md
     - install.md
-    - Tutorial - User Guide:
+    - "":
       - tutorial/index.md
       - tutorial/create-db-and-table-with-db-browser.md
       - tutorial/create-db-and-table.md
@@ -88,14 +79,14 @@ nav:
       - tutorial/limit-and-offset.md
       - tutorial/update.md
       - tutorial/delete.md
-      - Connect Tables - JOIN:
+      - "":
         - tutorial/connect/index.md
         - tutorial/connect/create-connected-tables.md
         - tutorial/connect/create-connected-rows.md
         - tutorial/connect/read-connected-data.md
         - tutorial/connect/update-data-connections.md
         - tutorial/connect/remove-data-connections.md
-      - Relationship Attributes:
+      - "":
         - tutorial/relationship-attributes/index.md
         - tutorial/relationship-attributes/define-relationships-attributes.md
         - tutorial/relationship-attributes/create-and-update-relationships.md
@@ -104,14 +95,14 @@ nav:
         - tutorial/relationship-attributes/back-populates.md
         - tutorial/relationship-attributes/cascade-delete-relationships.md
         - tutorial/relationship-attributes/type-annotation-strings.md
-      - Many to Many:
+      - "":
         - tutorial/many-to-many/index.md
         - tutorial/many-to-many/create-models-with-link.md
         - tutorial/many-to-many/create-data.md
         - tutorial/many-to-many/update-remove-relationships.md
         - tutorial/many-to-many/link-with-extra-fields.md
       - tutorial/code-structure.md
-      - FastAPI and Pydantic:
+      - "":
         - tutorial/fastapi/index.md
         - tutorial/fastapi/simple-hero-api.md
         - tutorial/fastapi/response-model.md
@@ -125,18 +116,18 @@ nav:
         - tutorial/fastapi/teams.md
         - tutorial/fastapi/relationships.md
         - tutorial/fastapi/tests.md
-    - Advanced User Guide:
+    - "":
       - advanced/index.md
       - advanced/decimal.md
       - advanced/uuid.md
       - Advanced Relationships:
         - advanced/advanced-relationships/self-referential.md
-  - Resources:
+  - "":
     - resources/index.md
     - help.md
     - contributing.md
     - management-tasks.md
-  - About:
+  - "":
     - about/index.md
     - alternatives.md
     - management.md
@@ -148,6 +139,7 @@ markdown_extensions:
     targets:
       include:
         - "*"
+  zensical.extensions.macros:
   # Python Markdown
   abbr:
   attr_list:
@@ -175,17 +167,6 @@ markdown_extensions:
 
   # pymdownx blocks
   pymdownx.blocks.admonition:
-    types:
-    - note
-    - attention
-    - caution
-    - danger
-    - error
-    - tip
-    - hint
-    - warning
-    # Custom types
-    - info
   pymdownx.blocks.details:
   pymdownx.blocks.tab:
     alternate_style: True
@@ -196,18 +177,14 @@ markdown_extensions:
 
 extra:
   social:
-  - icon: fontawesome/brands/github-alt
-    link: https://github.com/fastapi/sqlmodel
-  - icon: fontawesome/brands/twitter
-    link: https://twitter.com/tiangolo
-  - icon: fontawesome/brands/linkedin
-    link: https://www.linkedin.com/in/tiangolo
-  - icon: fontawesome/brands/dev
-    link: https://dev.to/tiangolo
-  - icon: fontawesome/brands/medium
-    link: https://medium.com/@tiangolo
-  - icon: fontawesome/solid/globe
-    link: https://tiangolo.com
+    - icon: octicons/mark-github-24
+      link: https://github.com/fastapi/sqlmodel
+    - icon: fontawesome/brands/x-twitter
+      link: https://x.com/tiangolo
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/tiangolo.com
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/tiangolo
 
 extra_css:
   - css/termynal.css
@@ -217,5 +194,5 @@ extra_javascript:
   - js/termynal.js
   - js/custom.js
 
-hooks:
-  - scripts/mkdocs_hooks.py
+validation:
+  unresolved_references: false

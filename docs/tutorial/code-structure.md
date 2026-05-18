@@ -91,7 +91,7 @@ Here we import the models, the engine, and the function to create all the tables
 
 ### Order Matters
 
-Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} when calling `SQLModel.metadata.create_all()`?
+Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters) when calling `SQLModel.metadata.create_all()`?
 
 The point of that section in the docs is that you have to import the module that has the models **before** calling `SQLModel.metadata.create_all()`.
 
@@ -139,7 +139,7 @@ Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
 
 ## Make Circular Imports Work
 
-Let's say that for some reason you hate the idea of having all the database models together in a single file, and you really want to have **separate files** a `hero_model.py` file and a `team_model.py` file.
+Let's say that for some reason you hate the idea of having all the database models together in a single file, and you really want to have **separate files**: a `hero_model.py` file and a `team_model.py` file.
 
 You can also do it. 😎 There's a couple of things to keep in mind. 🤓
 

@@ -5,14 +5,13 @@ import pytest
 from sqlalchemy.exc import NoResultFound
 from sqlmodel import Session, create_engine, delete
 
-from ...conftest import PrintMock, needs_py310
+from ...conftest import PrintMock
 
 
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial005_py39"),
-        pytest.param("tutorial005_py310", marks=needs_py310),
+        pytest.param("tutorial005_py310"),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:

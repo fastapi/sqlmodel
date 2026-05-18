@@ -1,13 +1,11 @@
-from typing import Optional
-
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Field, Session, SQLModel, col, create_engine, select
 
 
 class Hero(SQLModel, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(index=True)
+    id: int | None = Field(default=None, primary_key=True)
+    name: str
     secret_name: str
-    age: Optional[int] = Field(default=None, index=True)
+    age: int | None = None
 
 
 sqlite_file_name = "database.db"
@@ -43,10 +41,10 @@ def create_heroes():
 
 def select_heroes():
     with Session(engine) as session:
-        statement = select(Hero).where(Hero.age <= 35)
+        statement = select(Hero).where(col(Hero.name).in_(["Deadpond", "Ratman"]))
         results = session.exec(statement)
-        hero = results.first()
-        print("Hero:", hero)
+        for hero in results:
+            print(hero)
 
 
 def main():

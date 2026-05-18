@@ -3,11 +3,11 @@ import importlib
 import pytest
 from sqlmodel import Session
 
-from docs_src.tutorial.fastapi.app_testing.tutorial001_py39 import main as app_mod
-from docs_src.tutorial.fastapi.app_testing.tutorial001_py39 import (
+from docs_src.tutorial.fastapi.app_testing.tutorial001_py310 import main as app_mod
+from docs_src.tutorial.fastapi.app_testing.tutorial001_py310 import (
     test_main_005 as test_mod,
 )
-from docs_src.tutorial.fastapi.app_testing.tutorial001_py39.test_main_005 import (
+from docs_src.tutorial.fastapi.app_testing.tutorial001_py310.test_main_005 import (
     session_fixture,
 )
 

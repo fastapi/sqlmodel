@@ -5,14 +5,13 @@ import pytest
 from sqlalchemy.exc import SAWarning
 from sqlmodel import create_engine
 
-from ....conftest import PrintMock, needs_py310
+from ....conftest import PrintMock
 
 
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial001_py39"),
-        pytest.param("tutorial001_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:

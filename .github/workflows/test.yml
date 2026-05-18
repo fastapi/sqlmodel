@@ -18,6 +18,8 @@ on:
     # cron every week on monday
     - cron: "0 0 * * 1"
 
+permissions: {}
+
 env:
   UV_NO_SYNC: true
 
@@ -27,44 +29,56 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
         python-version: [ "3.14" ]
+        uv-resolution:
+          - highest
         include:
-          - os: windows-latest
-            python-version: "3.9"
           - os: ubuntu-latest
             python-version: "3.10"
+            uv-resolution: lowest-direct
           - os: macos-latest
             python-version: "3.11"
+            uv-resolution: highest
           - os: windows-latest
             python-version: "3.12"
+            uv-resolution: lowest-direct
           - os: ubuntu-latest
             python-version: "3.13"
+            uv-resolution: highest
           - os: macos-latest
             python-version: "3.13"
+            uv-resolution: highest
       fail-fast: false
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
     env:
       UV_PYTHON: ${{ matrix.python-version }}
+      UV_RESOLUTION: ${{ matrix.uv-resolution }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: ${{ matrix.python-version }}
       - name: Setup uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
+          # Before upgrading uv version, make sure astral-sh/setup-uv knows its checksum.
+          # See: https://github.com/astral-sh/setup-uv/issues/851#issuecomment-4282017837
+          version: "0.11.4"
           enable-cache: true
           cache-dependency-glob: |
             pyproject.toml
             uv.lock
       # Allow debugging with tmate
       - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+        uses: mxschmitt/action-tmate@c0afd6f790e3a5564914980036ebf83216678101 # v3.23
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled == 'true' }}
         with:
           limit-access-to-actor: true
       - name: Install Dependencies
-        run: uv sync --locked --no-dev --group tests
+        run: uv sync --no-dev --group tests
       - run: mkdir coverage
       - name: Test
         run: uv run bash scripts/test.sh
@@ -72,7 +86,7 @@ jobs:
           COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
       - name: Store coverage files
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
           path: coverage
@@ -82,20 +96,26 @@ jobs:
     needs:
       - test
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version-file: ".python-version"
       - name: Setup uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
         with:
+          # Before upgrading uv version, make sure astral-sh/setup-uv knows its checksum.
+          # See: https://github.com/astral-sh/setup-uv/issues/851#issuecomment-4282017837
+          version: "0.11.4"
           enable-cache: true
           cache-dependency-glob: |
             pyproject.toml
             uv.lock
       - name: Get coverage files
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           pattern: coverage-*
           path: coverage
@@ -106,7 +126,7 @@ jobs:
       - run: uv run coverage combine coverage
       - run: uv run coverage html --title "Coverage for ${{ github.sha }}"
       - name: Store coverage HTML
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage-html
           path: htmlcov
@@ -119,8 +139,9 @@ jobs:
     needs:
       - coverage-combine
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Decide whether the needed jobs succeeded or failed
-        uses: re-actors/alls-green@release/v1
+        uses: re-actors/alls-green@05ac9388f0aebcb5727afa17fcccfecd6f8ec5fe # v1.2.2
         with:
           jobs: ${{ toJSON(needs) }}

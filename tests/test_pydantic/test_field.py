@@ -1,10 +1,9 @@
 from decimal import Decimal
-from typing import Optional, Union
+from typing import Literal
 
 import pytest
 from pydantic import ValidationError
 from sqlmodel import Field, SQLModel
-from typing_extensions import Literal
 
 
 def test_decimal():
@@ -39,7 +38,7 @@ def test_discriminator():
         scales: bool
 
     class Model(SQLModel):
-        pet: Union[Cat, Dog, Lizard] = Field(..., discriminator="pet_type")
+        pet: Cat | Dog | Lizard = Field(..., discriminator="pet_type")
         n: int
 
     Model(pet={"pet_type": "dog", "barks": 3.14}, n=1)  # type: ignore[arg-type]
@@ -50,7 +49,7 @@ def test_discriminator():
 
 def test_repr():
     class Model(SQLModel):
-        id: Optional[int] = Field(primary_key=True)
+        id: int | None = Field(primary_key=True)
         foo: str = Field(repr=False)
 
     instance = Model(id=123, foo="bar")
