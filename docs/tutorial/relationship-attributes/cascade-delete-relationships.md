@@ -8,7 +8,7 @@ Should their `team_id` instead be set to `NULL` in the database?
 
 Let's see how to configure that with **SQLModel**.
 
-/// info
+/// note
 
 This feature, including `cascade_delete`, `ondelete`, and `passive_deletes`, is available since SQLModel version `0.0.21`.
 
@@ -440,7 +440,7 @@ To be able to test this out with SQLite, we first need to enable foreign key sup
 
 {* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[30:33] hl[33] *}
 
-/// info
+/// note
 
 You can learn more about SQLite, foreign keys, and this SQL command on the <a href="https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support" class="external-link" target="_blank">SQLAlchemy docs</a>.
 

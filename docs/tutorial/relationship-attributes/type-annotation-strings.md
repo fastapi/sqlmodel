@@ -16,7 +16,7 @@ And of course, **SQLModel** can also understand it in the string correctly. ✨
 
 That is actually part of Python, it's the current official solution to handle it.
 
-/// info
+/// note
 
 There's a lot of work going on in Python itself to make that simpler and more intuitive, and find ways to make it possible to not wrap the class in a string.
 

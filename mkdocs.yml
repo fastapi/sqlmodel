@@ -165,17 +165,6 @@ markdown_extensions:
 
   # pymdownx blocks
   pymdownx.blocks.admonition:
-    types:
-    - note
-    - attention
-    - caution
-    - danger
-    - error
-    - tip
-    - hint
-    - warning
-    # Custom types
-    - info
   pymdownx.blocks.details:
   pymdownx.blocks.tab:
     alternate_style: True

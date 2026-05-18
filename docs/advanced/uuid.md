@@ -12,7 +12,7 @@ You might have seen **UUIDs**, for example in URLs. They look something like thi
 
 UUIDs can be particularly useful as an alternative to auto-incrementing integers for **primary keys**.
 
-/// info
+/// note
 
 Official support for UUIDs was added in SQLModel version `0.0.20`.
 
