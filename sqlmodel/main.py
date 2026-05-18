@@ -200,7 +200,7 @@ class RelationshipInfo(Representation):
         self.sa_relationship_kwargs = sa_relationship_kwargs
 
 
-@dataclass
+@dataclass(unsafe_hash=True)
 class FieldInfoMetadata:
     primary_key: bool | UndefinedType = Undefined
     nullable: bool | UndefinedType = Undefined
