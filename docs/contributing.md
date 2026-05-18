@@ -129,7 +129,7 @@ Completion will take effect once you restart the terminal.
 
 ### Docs Structure
 
-The documentation uses <a href="https://zensical.org" class="external-link" target="_blank">Zensical</a>.
+The documentation uses [Zensical](https://zensical.org).
 
 And there are extra tools/scripts in place in `./scripts/docs.py`.
 
