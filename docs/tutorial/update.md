@@ -34,7 +34,7 @@ And the second part, with the `WHERE`, defines to which rows it should apply tha
 
 In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
 
-/// info
+/// note
 
 Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
 

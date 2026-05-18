@@ -39,7 +39,7 @@ The new **relationship attributes** have their own `back_populates` pointing to 
 * `team`: has `back_populates="hero_links"`, because in the `Team` model, the attribute will contain the links to the **team's heroes**.
 * `hero`: has `back_populates="team_links"`, because in the `Hero` model, the attribute will contain the links to the **hero's teams**.
 
-/// info
+/// note
 
 In SQLAlchemy this is called an Association Object or Association Model.
 

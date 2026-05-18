@@ -109,7 +109,7 @@ Specifically, the new link table `heroteamlink` would be:
 </tr>
 </table>
 
-/// info
+/// note
 
 Other names used for this **link table** are:
 

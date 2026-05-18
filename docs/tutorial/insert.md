@@ -193,7 +193,7 @@ And once we are ready, we can **commit** those changes, and then the **session**
 
 This makes the interactions with the database more efficient (plus some extra benefits).
 
-/// info  | Technical Details
+/// note  | Technical Details
 
 The session will create a new transaction and execute all the SQL code in that transaction.
 

@@ -40,7 +40,7 @@ But here we will make sure we don't share the same **session** in more than one 
 
 And we also need to disable it because in **FastAPI** each request could be handled by multiple interacting threads.
 
-/// info
+/// note
 
 That's enough information for now, you can read more about it in the <a href="https://fastapi.tiangolo.com/async/" class="external-link" target="_blank">FastAPI docs for `async` and `await`</a>.
 
@@ -68,7 +68,7 @@ This should be called only once at startup, not before every request, so we put 
 
 ## Create Heroes *Path Operation*
 
-/// info
+/// note
 
 If you need a refresher on what a **Path Operation** is (an endpoint with a specific HTTP Operation) and how to work with it in FastAPI, check out the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">FastAPI First Steps docs</a>.
 
@@ -80,7 +80,7 @@ It will be called when a user sends a request with a `POST` **operation** to the
 
 {* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:37] hl[31:32] *}
 
-/// info
+/// note
 
 If you need a refresher on some of those concepts, checkout the FastAPI documentation:
 
@@ -152,7 +152,7 @@ $ fastapi dev main.py
 
 </div>
 
-/// info
+/// note
 
 The `fastapi` command uses <a href="https://www.uvicorn.org/" class="external-link" target="_blank">Uvicorn</a> underneath.
 
