@@ -6,8 +6,8 @@ import subprocess
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
-import mkdocs.utils
 import typer
+import yaml
 from jinja2 import Template
 from ruff.__main__ import find_ruff_bin
 
@@ -45,7 +45,7 @@ def generate_readme_content() -> str:
     match_start = re.search(r"<!-- sponsors -->", content)
     match_end = re.search(r"<!-- /sponsors -->", content)
     sponsors_data_path = en_docs_path / "data" / "sponsors.yml"
-    sponsors = mkdocs.utils.yaml_load(sponsors_data_path.read_text(encoding="utf-8"))
+    sponsors = yaml.safe_load(sponsors_data_path.read_text(encoding="utf-8"))
     if not (match_start and match_end):
         raise RuntimeError("Couldn't auto-generate sponsors section")
     if not match_pre:
