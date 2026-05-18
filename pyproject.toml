@@ -61,13 +61,11 @@ docs = [
     "griffe-warnings-deprecated >=1.1.0",
     "markdown-include-variants >=0.0.8",
     "mdx-include >=1.4.1",
-    "mkdocs-macros-plugin >=1.5.0",
-    "mkdocs-material >=9.7.5",
-    "mkdocs-redirects >=1.2.1",
     "mkdocstrings[python] >=1.0.3",
     "pillow >=12.1.1",
     "pyyaml >=5.3.1",
     "typer >=0.24.1",
+    "zensical>=0.0.42",
 ]
 github-actions = [
     "httpx >=0.28.1",
