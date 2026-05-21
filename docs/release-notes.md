@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 📝 Update docs about contributing, reference central docs. PR [#1975](https://github.com/fastapi/sqlmodel/pull/1975) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update security policy. PR [#1973](https://github.com/fastapi/sqlmodel/pull/1973) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update link syntax to minimal Markdown. PR [#1800](https://github.com/fastapi/sqlmodel/pull/1800) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update admonitions, simplify and use defaults. PR [#1915](https://github.com/fastapi/sqlmodel/pull/1915) by [@tiangolo](https://github.com/tiangolo).
