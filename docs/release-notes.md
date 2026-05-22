@@ -13,6 +13,7 @@
 
 ### Internal
 
+* 🔥 Remove config files now in central GitHub repo. PR [#1979](https://github.com/fastapi/sqlmodel/pull/1979) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump zizmorcore/zizmor-action from 0.5.3 to 0.5.5. PR [#1974](https://github.com/fastapi/sqlmodel/pull/1974) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Fix branch name in `guard-dependencies.yml`. PR [#1916](https://github.com/fastapi/sqlmodel/pull/1916) by [@svlandeg](https://github.com/svlandeg).
 * ♻️ Migrate docs to Zensical. PR [#1913](https://github.com/fastapi/sqlmodel/pull/1913) by [@tiangolo](https://github.com/tiangolo).
