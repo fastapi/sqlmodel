@@ -1,6 +1,7 @@
 __version__ = "0.0.38"
 
 # Re-export from SQLAlchemy
+from sqlalchemy.engine import Engine as Engine
 from sqlalchemy.engine import create_engine as create_engine
 from sqlalchemy.engine import create_mock_engine as create_mock_engine
 from sqlalchemy.engine import engine_from_config as engine_from_config
