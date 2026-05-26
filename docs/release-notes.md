@@ -13,6 +13,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group with 2 updates. PR [#1983](https://github.com/fastapi/sqlmodel/pull/1983) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Configure Dependabot to group updates and update weekly. PR [#1972](https://github.com/fastapi/sqlmodel/pull/1972) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔥 Remove config files now in central GitHub repo. PR [#1979](https://github.com/fastapi/sqlmodel/pull/1979) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump zizmorcore/zizmor-action from 0.5.3 to 0.5.5. PR [#1974](https://github.com/fastapi/sqlmodel/pull/1974) by [@dependabot[bot]](https://github.com/apps/dependabot).
