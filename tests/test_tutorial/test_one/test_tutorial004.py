@@ -25,8 +25,6 @@ def test_tutorial(print_mock: PrintMock, mod: ModuleType):
     with pytest.raises(MultipleResultsFound):
         mod.main()
     with Session(mod.engine) as session:
-        # TODO: create delete() function
-        # TODO: add overloads for .exec() with delete object
         session.exec(delete(mod.Hero))
         session.add(mod.Hero(name="Test Hero", secret_name="Secret Test Hero", age=24))
         session.commit()
