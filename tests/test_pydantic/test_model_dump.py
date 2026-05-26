@@ -1,4 +1,6 @@
+import pytest
 from sqlmodel import SQLModel
+from sqlmodel._compat import PYDANTIC_MINOR_VERSION
 
 
 def test_polymorphic_serialization_default():
@@ -39,6 +41,10 @@ def test_polymorphic_serialization_false():
     }
 
 
+@pytest.mark.skipif(
+    PYDANTIC_MINOR_VERSION < (2, 13),
+    reason="polymorphic_serialization is only available in Pydantic v2.13+",
+)
 def test_polymorphic_serialization_true():
 
     class User(SQLModel):
