@@ -1743,6 +1743,7 @@ tests = [
     { name = "pytest" },
     { name = "ruff" },
     { name = "ty" },
+    { name = "typer" },
     { name = "typing-extensions" },
 ]
 
@@ -1808,6 +1809,7 @@ tests = [
     { name = "pytest", specifier = ">=7.0.1" },
     { name = "ruff", specifier = ">=0.15.6" },
     { name = "ty", specifier = ">=0.0.25" },
+    { name = "typer", specifier = ">=0.24.1" },
     { name = "typing-extensions", specifier = ">=4.15.0" },
 ]
 
