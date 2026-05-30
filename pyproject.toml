@@ -84,6 +84,7 @@ tests = [
     "pytest >=7.0.1",
     "ruff >=0.15.6",
     "ty>=0.0.25",
+    "typer >=0.24.1",
     "typing-extensions >=4.15.0",
 ]
 
