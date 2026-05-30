@@ -13,6 +13,7 @@
 
 ### Internal
 
+* 👷 Automate release preparation. PR [#1988](https://github.com/fastapi/sqlmodel/pull/1988) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove old package stub slim, not used nor needed. PR [#1987](https://github.com/fastapi/sqlmodel/pull/1987) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the github-actions group with 2 updates. PR [#1983](https://github.com/fastapi/sqlmodel/pull/1983) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Configure Dependabot to group updates and update weekly. PR [#1972](https://github.com/fastapi/sqlmodel/pull/1972) by [@YuriiMotov](https://github.com/YuriiMotov).
