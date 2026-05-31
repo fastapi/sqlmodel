@@ -37,6 +37,8 @@ from sqlalchemy import (
     inspect,
 )
 from sqlalchemy import Enum as sa_Enum
+from sqlalchemy.ext.associationproxy import AssociationProxy
+from sqlalchemy.ext.hybrid import hybrid_method, hybrid_property
 from sqlalchemy.orm import (
     Mapped,
     RelationshipProperty,
@@ -809,7 +811,14 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
-    model_config = SQLModelConfig(from_attributes=True)
+    # SQLAlchemy descriptors (hybrid_property, hybrid_method, association_proxy)
+    # are not Pydantic fields. Pydantic v2 otherwise raises ``PydanticUserError``
+    # ("A non-annotated attribute was detected") when they appear in a class body
+    # without a type annotation -- see https://github.com/fastapi/sqlmodel/issues/299
+    model_config = SQLModelConfig(
+        from_attributes=True,
+        ignored_types=(hybrid_property, hybrid_method, AssociationProxy),
+    )
 
     # Typing spec says `__new__` returning `Any` overrides normal constructor
     # behavior, but a missing annotation does not:
