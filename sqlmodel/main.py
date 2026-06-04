@@ -903,6 +903,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         warnings: bool | Literal["none", "warn", "error"] = True,
         fallback: Callable[[Any], Any] | None = None,  # v2.11
         serialize_as_any: bool = False,  # v2.7
+        polymorphic_serialization: bool | None = None,  # v2.13
     ) -> builtins.dict[str, Any]:
         if PYDANTIC_MINOR_VERSION < (2, 11):
             by_alias = by_alias or False
@@ -913,6 +914,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             extra_kwargs["fallback"] = fallback
         if PYDANTIC_MINOR_VERSION >= (2, 12):
             extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
+        if PYDANTIC_MINOR_VERSION >= (2, 13):
+            extra_kwargs["polymorphic_serialization"] = polymorphic_serialization
         return super().model_dump(
             mode=mode,
             include=include,
