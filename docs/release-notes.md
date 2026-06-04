@@ -13,6 +13,7 @@
 
 ### Internal
 
+* ⬆ Bump eps1lon/actions-label-merge-conflict from 3.0.3 to 3.1.0 in the github-actions group. PR [#1993](https://github.com/fastapi/sqlmodel/pull/1993) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Bump Pydantic to 2.13.4. PR [#1985](https://github.com/fastapi/sqlmodel/pull/1985) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 👷 Automate release preparation. PR [#1988](https://github.com/fastapi/sqlmodel/pull/1988) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove old package stub slim, not used nor needed. PR [#1987](https://github.com/fastapi/sqlmodel/pull/1987) by [@tiangolo](https://github.com/tiangolo).
