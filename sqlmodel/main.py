@@ -805,7 +805,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[str | Callable[..., str]]
-    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipProperty[Any]]]
+    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipInfo]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
