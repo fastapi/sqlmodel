@@ -34,7 +34,7 @@ def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
         shutil.copy(coverage_path, coverage_destiny_path)
 
 
-def coverage_run(*, module: str, cwd: str | Path) -> subprocess.CompletedProcess:
+def coverage_run(*, module: str, cwd: str | Path) -> subprocess.CompletedProcess[str]:
     result = subprocess.run(
         [
             "coverage",

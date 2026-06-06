@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Annotated
 
 import pytest
@@ -216,3 +217,11 @@ def test_foreign_key_ondelete_with_annotated(clear_sqlmodel):
     assert len(foreign_keys) == 1
     assert foreign_keys[0].ondelete == "CASCADE"
     assert team_id_column.nullable is False
+
+
+def test_coverage_run_reports_failure_on_bad_module(cov_tmp_path: Path) -> None:
+    from tests.conftest import coverage_run
+    result = coverage_run(module="nonexistent_module_xyz", cwd=cov_tmp_path)
+    assert result.returncode != 0
+    assert isinstance(result.stdout, str)
+    assert isinstance(result.stderr, str)
