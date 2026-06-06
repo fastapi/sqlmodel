@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Fix type of `__sqlmodel_relationships__`. PR [#1996](https://github.com/fastapi/sqlmodel/pull/1996) by [@svlandeg](https://github.com/svlandeg).
+
 ### Docs
 
 * 📝 Update and simplify docs about help and management. PR [#1978](https://github.com/fastapi/sqlmodel/pull/1978) by [@tiangolo](https://github.com/tiangolo).
