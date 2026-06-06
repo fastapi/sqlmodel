@@ -221,6 +221,7 @@ def test_foreign_key_ondelete_with_annotated(clear_sqlmodel):
 
 def test_coverage_run_reports_failure_on_bad_module(cov_tmp_path: Path) -> None:
     from tests.conftest import coverage_run
+
     result = coverage_run(module="nonexistent_module_xyz", cwd=cov_tmp_path)
     assert result.returncode != 0
     assert isinstance(result.stdout, str)
