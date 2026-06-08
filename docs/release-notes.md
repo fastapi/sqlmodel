@@ -17,6 +17,7 @@
 
 ### Internal
 
+* ⬆ Bump sqlalchemy from 2.0.49 to 2.0.50. PR [#1992](https://github.com/fastapi/sqlmodel/pull/1992) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the python-packages group across 1 directory with 9 updates. PR [#1995](https://github.com/fastapi/sqlmodel/pull/1995) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump eps1lon/actions-label-merge-conflict from 3.0.3 to 3.1.0 in the github-actions group. PR [#1993](https://github.com/fastapi/sqlmodel/pull/1993) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Bump Pydantic to 2.13.4. PR [#1985](https://github.com/fastapi/sqlmodel/pull/1985) by [@YuriiMotov](https://github.com/YuriiMotov).
