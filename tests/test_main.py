@@ -220,6 +220,7 @@ def test_foreign_key_ondelete_with_annotated(clear_sqlmodel):
 
 def test_string_constraints_max_length(clear_sqlmodel):
     from typing import Annotated
+
     from pydantic import StringConstraints
 
     class Item(SQLModel, table=True):
