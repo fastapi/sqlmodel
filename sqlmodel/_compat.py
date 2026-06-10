@@ -20,6 +20,7 @@ from annotated_types import MaxLen
 from pydantic import VERSION as P_VERSION
 from pydantic import BaseModel
 from pydantic import ConfigDict as ConfigDict
+from pydantic import StringConstraints as StringConstraints
 from pydantic._internal._fields import PydanticMetadata
 from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
 from pydantic._internal._repr import Representation as Representation
@@ -200,7 +201,7 @@ def get_sa_type_from_field(field: Any) -> Any:
 
 def get_field_metadata(field: Any) -> Any:
     for meta in field.metadata:
-        if isinstance(meta, (PydanticMetadata, MaxLen)):
+        if isinstance(meta, (PydanticMetadata, MaxLen, StringConstraints)):
             return meta
     return FakeMetadata()
 
