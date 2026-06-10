@@ -17,6 +17,7 @@
 
 ### Internal
 
+* ⬆ Bump the python-packages group with 3 updates. PR [#2000](https://github.com/fastapi/sqlmodel/pull/2000) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump https://github.com/crate-ci/typos from v1.46.0 to v1.47.1 in the pre-commit group. PR [#1999](https://github.com/fastapi/sqlmodel/pull/1999) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 2 updates. PR [#1998](https://github.com/fastapi/sqlmodel/pull/1998) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump sqlalchemy from 2.0.49 to 2.0.50. PR [#1992](https://github.com/fastapi/sqlmodel/pull/1992) by [@dependabot[bot]](https://github.com/apps/dependabot).
