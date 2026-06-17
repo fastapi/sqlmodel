@@ -613,11 +613,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # TODO: remove this in the future
             new_cls.model_config["read_with_orm_mode"] = True  # ty: ignore[invalid-key]
 
-        config_registry = get_config("registry")
+        config_registry = kwargs.get("registry", Undefined)
         if config_registry is not Undefined:
             config_registry = cast(registry, config_registry)
             # If it was passed by kwargs, ensure it's also set in config
-            new_cls.model_config["registry"] = config_table
+            new_cls.model_config["registry"] = config_registry
             setattr(new_cls, "_sa_registry", config_registry)  # noqa: B010
             setattr(new_cls, "metadata", config_registry.metadata)  # noqa: B010
             setattr(new_cls, "__abstract__", True)  # noqa: B010
