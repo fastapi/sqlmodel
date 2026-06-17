@@ -1,5 +1,5 @@
 """Tests for SQLModelMetaclass.__new__ registry kwarg handling."""
-import pytest
+
 from sqlalchemy.orm import registry
 from sqlmodel import SQLModel
 
