@@ -17,6 +17,7 @@
 
 ### Internal
 
+* ⬆ Bump the python-packages group with 5 updates. PR [#2006](https://github.com/fastapi/sqlmodel/pull/2006) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump https://github.com/crate-ci/typos from v1.47.1 to v1.47.2 in the pre-commit group. PR [#2005](https://github.com/fastapi/sqlmodel/pull/2005) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump astral-sh/setup-uv from 8.1.0 to 8.2.0 in the github-actions group. PR [#2004](https://github.com/fastapi/sqlmodel/pull/2004) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the python-packages group with 3 updates. PR [#2000](https://github.com/fastapi/sqlmodel/pull/2000) by [@dependabot[bot]](https://github.com/apps/dependabot).
