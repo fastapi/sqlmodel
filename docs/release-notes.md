@@ -2,8 +2,41 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Fix type of `__sqlmodel_relationships__`. PR [#1996](https://github.com/fastapi/sqlmodel/pull/1996) by [@svlandeg](https://github.com/svlandeg).
+
+### Docs
+
+* 📝 Update and simplify docs about help and management. PR [#1978](https://github.com/fastapi/sqlmodel/pull/1978) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update docs about contributing, reference central docs. PR [#1975](https://github.com/fastapi/sqlmodel/pull/1975) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update security policy. PR [#1973](https://github.com/fastapi/sqlmodel/pull/1973) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update link syntax to minimal Markdown. PR [#1800](https://github.com/fastapi/sqlmodel/pull/1800) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update admonitions, simplify and use defaults. PR [#1915](https://github.com/fastapi/sqlmodel/pull/1915) by [@tiangolo](https://github.com/tiangolo).
+* 🔒️ Only allow team members to modify dependencies. PR [#1914](https://github.com/fastapi/sqlmodel/pull/1914) by [@svlandeg](https://github.com/svlandeg).
+
 ### Internal
 
+* ⬆ Bump the python-packages group with 5 updates. PR [#2006](https://github.com/fastapi/sqlmodel/pull/2006) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump https://github.com/crate-ci/typos from v1.47.1 to v1.47.2 in the pre-commit group. PR [#2005](https://github.com/fastapi/sqlmodel/pull/2005) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump astral-sh/setup-uv from 8.1.0 to 8.2.0 in the github-actions group. PR [#2004](https://github.com/fastapi/sqlmodel/pull/2004) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump the python-packages group with 3 updates. PR [#2000](https://github.com/fastapi/sqlmodel/pull/2000) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump https://github.com/crate-ci/typos from v1.46.0 to v1.47.1 in the pre-commit group. PR [#1999](https://github.com/fastapi/sqlmodel/pull/1999) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump the github-actions group with 2 updates. PR [#1998](https://github.com/fastapi/sqlmodel/pull/1998) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump sqlalchemy from 2.0.49 to 2.0.50. PR [#1992](https://github.com/fastapi/sqlmodel/pull/1992) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump the python-packages group across 1 directory with 9 updates. PR [#1995](https://github.com/fastapi/sqlmodel/pull/1995) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump eps1lon/actions-label-merge-conflict from 3.0.3 to 3.1.0 in the github-actions group. PR [#1993](https://github.com/fastapi/sqlmodel/pull/1993) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆️ Bump Pydantic to 2.13.4. PR [#1985](https://github.com/fastapi/sqlmodel/pull/1985) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 👷 Automate release preparation. PR [#1988](https://github.com/fastapi/sqlmodel/pull/1988) by [@tiangolo](https://github.com/tiangolo).
+* 🔥 Remove old package stub slim, not used nor needed. PR [#1987](https://github.com/fastapi/sqlmodel/pull/1987) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump the github-actions group with 2 updates. PR [#1983](https://github.com/fastapi/sqlmodel/pull/1983) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Configure Dependabot to group updates and update weekly. PR [#1972](https://github.com/fastapi/sqlmodel/pull/1972) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 🔥 Remove config files now in central GitHub repo. PR [#1979](https://github.com/fastapi/sqlmodel/pull/1979) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump zizmorcore/zizmor-action from 0.5.3 to 0.5.5. PR [#1974](https://github.com/fastapi/sqlmodel/pull/1974) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Fix branch name in `guard-dependencies.yml`. PR [#1916](https://github.com/fastapi/sqlmodel/pull/1916) by [@svlandeg](https://github.com/svlandeg).
+* ♻️ Migrate docs to Zensical. PR [#1913](https://github.com/fastapi/sqlmodel/pull/1913) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump ruff from 0.15.12 to 0.15.13. PR [#1910](https://github.com/fastapi/sqlmodel/pull/1910) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 🔒️ Add zizmor and fix audit findings. PR [#1871](https://github.com/fastapi/sqlmodel/pull/1871) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ty from 0.0.34 to 0.0.35. PR [#1904](https://github.com/fastapi/sqlmodel/pull/1904) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#1900](https://github.com/fastapi/sqlmodel/pull/1900) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump actions/labeler from 6.0.1 to 6.1.0. PR [#1902](https://github.com/fastapi/sqlmodel/pull/1902) by [@dependabot[bot]](https://github.com/apps/dependabot).

@@ -55,7 +55,7 @@ FROM hero, team
 WHERE hero.team_id = team.id
 ```
 
-/// info
+/// note
 
 Because we have two columns called `name`, one for `hero` and one for `team`, we can specify them with the prefix of the table name and the dot to make it explicit what we refer to.
 
@@ -133,7 +133,7 @@ For each iteration in the `for` loop we get a tuple with an instance of the clas
 
 And in this `for` loop we assign them to the variable `hero` and the variable `team`.
 
-/// info
+/// note
 
 There was a lot of research, design, and work behind **SQLModel** to make this provide the best possible developer experience.
 
@@ -413,7 +413,7 @@ And then why we didn't include `Hero` in the `.join()`. 🤔
 
 In SQLModel (actually in SQLAlchemy), all these functions and tools try to **replicate** how it would be to work with the **SQL** language.
 
-Remember that [`SELECT` defines the columns to get and `WHERE` how to filter them?](../where.md#select-and-where){.internal-link target=_blank}.
+Remember that [`SELECT` defines the columns to get and `WHERE` how to filter them?](../where.md#select-and-where).
 
 This also applies here, but with `JOIN` and `ON`.
 
