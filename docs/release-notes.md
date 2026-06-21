@@ -18,6 +18,7 @@
 
 ### Internal
 
+* 🔒️ Update zizmor workflow security checks. PR [#2010](https://github.com/fastapi/sqlmodel/pull/2010) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Fix alls-green test dependency. PR [#2008](https://github.com/fastapi/sqlmodel/pull/2008) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group with 5 updates. PR [#2006](https://github.com/fastapi/sqlmodel/pull/2006) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump https://github.com/crate-ci/typos from v1.47.1 to v1.47.2 in the pre-commit group. PR [#2005](https://github.com/fastapi/sqlmodel/pull/2005) by [@dependabot[bot]](https://github.com/apps/dependabot).
