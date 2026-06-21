@@ -8,6 +8,7 @@
 
 ### Docs
 
+* 📝 Update docs badges: remove Publish badge, it doesn't give extra information. PR [#2009](https://github.com/fastapi/sqlmodel/pull/2009) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update and simplify docs about help and management. PR [#1978](https://github.com/fastapi/sqlmodel/pull/1978) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update docs about contributing, reference central docs. PR [#1975](https://github.com/fastapi/sqlmodel/pull/1975) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update security policy. PR [#1973](https://github.com/fastapi/sqlmodel/pull/1973) by [@tiangolo](https://github.com/tiangolo).
