@@ -22,9 +22,6 @@ include_yaml:
 <a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest+event%3Apush+branch%3Amain">
     <img src="https://github.com/fastapi/sqlmodel/actions/workflows/test.yml/badge.svg?event=push&branch=main" alt="Test">
 </a>
-<a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3APublish">
-    <img src="https://github.com/fastapi/sqlmodel/actions/workflows/publish.yml/badge.svg" alt="Publish">
-</a>
 <a href="https://coverage-badge.samuelcolvin.workers.dev/redirect/fastapi/sqlmodel">
     <img src="https://coverage-badge.samuelcolvin.workers.dev/fastapi/sqlmodel.svg" alt="Coverage">
 <a href="https://pypi.org/project/sqlmodel">
