@@ -18,6 +18,7 @@
 
 ### Internal
 
+* ⬆️ Update issue-manager to 0.7.0. PR [#2014](https://github.com/fastapi/sqlmodel/pull/2014) by [@tiangolo](https://github.com/tiangolo).
 * 🔒️ Update zizmor workflow security checks. PR [#2010](https://github.com/fastapi/sqlmodel/pull/2010) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Fix alls-green test dependency. PR [#2008](https://github.com/fastapi/sqlmodel/pull/2008) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group with 5 updates. PR [#2006](https://github.com/fastapi/sqlmodel/pull/2006) by [@dependabot[bot]](https://github.com/apps/dependabot).
