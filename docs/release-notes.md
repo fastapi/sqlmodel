@@ -18,6 +18,7 @@
 
 ### Internal
 
+* 👷 Simplify pull request workflow triggers. PR [#2016](https://github.com/fastapi/sqlmodel/pull/2016) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Update issue-manager to 0.7.1. PR [#2015](https://github.com/fastapi/sqlmodel/pull/2015) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update issue-manager to 0.7.0. PR [#2014](https://github.com/fastapi/sqlmodel/pull/2014) by [@tiangolo](https://github.com/tiangolo).
 * 🔒️ Update zizmor workflow security checks. PR [#2010](https://github.com/fastapi/sqlmodel/pull/2010) by [@tiangolo](https://github.com/tiangolo).
