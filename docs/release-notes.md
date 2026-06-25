@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Update release workflows, fix gitmoji emoji used. PR [#2019](https://github.com/fastapi/sqlmodel/pull/2019) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.39 (2026-06-25)
 
 ### Features
