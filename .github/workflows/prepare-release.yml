@@ -75,6 +75,6 @@ jobs:
           gh pr create \
             --base main \
             --head "$branch" \
-            --title "Release version ${VERSION}" \
+            --title "🔖 Release version ${VERSION}" \
             --body "Prepare release ${VERSION}." \
             --label release
