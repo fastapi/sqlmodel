@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.39 (2026-06-25)
+
 ### Features
 
 * ✨ Add SQLModel Agent Library Skill, install with `uvx library-skills`. PR [#2017](https://github.com/fastapi/sqlmodel/pull/2017) by [@tiangolo](https://github.com/tiangolo).
