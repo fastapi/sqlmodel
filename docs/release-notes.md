@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump sqlalchemy from 2.0.50 to 2.0.51. PR [#2013](https://github.com/fastapi/sqlmodel/pull/2013) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Update release workflows, fix gitmoji emoji used. PR [#2019](https://github.com/fastapi/sqlmodel/pull/2019) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.0.39 (2026-06-25)
