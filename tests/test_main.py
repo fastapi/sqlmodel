@@ -216,3 +216,15 @@ def test_foreign_key_ondelete_with_annotated(clear_sqlmodel):
     assert len(foreign_keys) == 1
     assert foreign_keys[0].ondelete == "CASCADE"
     assert team_id_column.nullable is False
+
+
+def test_string_constraints_max_length(clear_sqlmodel):
+    from typing import Annotated
+
+    from pydantic import StringConstraints
+
+    class Item(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        name: Annotated[str, StringConstraints(max_length=50)]
+
+    assert Item.__table__.c.name.type.length == 50
