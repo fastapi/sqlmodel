@@ -280,6 +280,8 @@ def sqlmodel_validate(
     strict: bool | None = None,
     from_attributes: bool | None = None,
     context: dict[str, Any] | None = None,
+    by_alias: bool | None = None,
+    by_name: bool | None = None,
     update: dict[str, Any] | None = None,
 ) -> _TSQLModel:
     if not is_table_model_class(cls):
@@ -303,6 +305,8 @@ def sqlmodel_validate(
         strict=strict,
         from_attributes=from_attributes,
         context=context,
+        by_alias=by_alias,
+        by_name=by_name,
         self_instance=new_obj,
     )
     # Capture fields set to restore it later
