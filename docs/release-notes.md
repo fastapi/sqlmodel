@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆️ Update latest-changes to 0.6.1. PR [#2029](https://github.com/fastapi/sqlmodel/pull/2029) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 8 updates. PR [#2028](https://github.com/fastapi/sqlmodel/pull/2028) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 4 updates. PR [#2027](https://github.com/fastapi/sqlmodel/pull/2027) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump sqlalchemy from 2.0.50 to 2.0.51. PR [#2013](https://github.com/fastapi/sqlmodel/pull/2013) by [@dependabot[bot]](https://github.com/apps/dependabot).
