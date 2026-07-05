@@ -3,6 +3,7 @@ from typing import Annotated
 import pytest
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import RelationshipProperty
+from sqlalchemy.schema import CreateTable
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
 
@@ -216,3 +217,26 @@ def test_foreign_key_ondelete_with_annotated(clear_sqlmodel):
     assert len(foreign_keys) == 1
     assert foreign_keys[0].ondelete == "CASCADE"
     assert team_id_column.nullable is False
+
+
+@pytest.mark.parametrize("ondelete", ["SET DEFAULT", "NO ACTION"])
+def test_foreign_key_ondelete_referential_actions(clear_sqlmodel, ondelete):
+    class Team(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+
+    class Hero(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        team_id: int | None = Field(
+            default=None, foreign_key="team.id", ondelete=ondelete
+        )
+
+    engine = create_engine("sqlite://")
+    SQLModel.metadata.create_all(engine)
+
+    hero_table = Hero.__table__  # type: ignore[attr-defined]
+    foreign_keys = list(hero_table.c.team_id.foreign_keys)
+    assert len(foreign_keys) == 1
+    assert foreign_keys[0].ondelete == ondelete
+
+    ddl = str(CreateTable(hero_table).compile(engine))
+    assert f"ON DELETE {ondelete}" in ddl

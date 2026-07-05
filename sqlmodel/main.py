@@ -87,7 +87,7 @@ IncEx: TypeAlias = (
     | Mapping[int, Union["IncEx", bool]]
     | Mapping[str, Union["IncEx", bool]]
 )
-OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+OnDeleteType = Literal["CASCADE", "SET NULL", "SET DEFAULT", "RESTRICT", "NO ACTION"]
 
 
 def __dataclass_transform__(
