@@ -216,3 +216,26 @@ def test_foreign_key_ondelete_with_annotated(clear_sqlmodel):
     assert len(foreign_keys) == 1
     assert foreign_keys[0].ondelete == "CASCADE"
     assert team_id_column.nullable is False
+
+
+def test_metadata_constraints_not_shadowed_by_earlier_metadata(clear_sqlmodel):
+    from decimal import Decimal
+
+    from pydantic import Field as PydanticField
+
+    class Item(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        code: Annotated[
+            str, PydanticField(pattern=r"^[a-z]+$"), PydanticField(max_length=10)
+        ]
+        price: Annotated[
+            Decimal,
+            PydanticField(allow_inf_nan=False),
+            PydanticField(max_digits=8, decimal_places=2),
+        ]
+
+    code_column = Item.__table__.c.code  # type: ignore[attr-defined]
+    price_column = Item.__table__.c.price  # type: ignore[attr-defined]
+    assert code_column.type.length == 10
+    assert price_column.type.precision == 8
+    assert price_column.type.scale == 2

@@ -199,10 +199,15 @@ def get_sa_type_from_field(field: Any) -> Any:
 
 
 def get_field_metadata(field: Any) -> Any:
+    result = FakeMetadata()
     for meta in field.metadata:
         if isinstance(meta, (PydanticMetadata, MaxLen)):
-            return meta
-    return FakeMetadata()
+            for attr in ("max_length", "max_digits", "decimal_places"):
+                if getattr(result, attr, None) is None:
+                    value = getattr(meta, attr, None)
+                    if value is not None:
+                        setattr(result, attr, value)
+    return result
 
 
 def sqlmodel_table_construct(
