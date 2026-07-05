@@ -204,9 +204,9 @@ If you didn't know about SQLAlchemy before and are just learning **SQLModel**, y
 
 You can read a lot more about the engine in the [SQLAlchemy documentation](https://docs.sqlalchemy.org/en/14/tutorial/engine.html).
 
-**SQLModel** defines its own `create_engine()` function. It is the same as SQLAlchemy's `create_engine()`, but with the difference that it defaults to use `future=True` (which means that it uses the style of the latest SQLAlchemy, 1.4, and the future 2.0).
+**SQLModel** re-exports SQLAlchemy's `create_engine()` directly, so `sqlmodel.create_engine` is the same function as `sqlalchemy.create_engine`. SQLModel requires SQLAlchemy 2.0 or above, which uses the modern 2.0 style by default.
 
-And SQLModel's version of `create_engine()` is type annotated internally, so your editor will be able to help you with autocompletion and inline errors.
+SQLAlchemy's `create_engine()` is type annotated, so your editor will be able to help you with autocompletion and inline errors.
 
 ## Create the Database and Table
 
