@@ -118,6 +118,8 @@ from .main import Field as Field
 from .main import Relationship as Relationship
 from .main import SQLModel as SQLModel
 from .orm.session import Session as Session
+from .soft_delete import SoftDeleteMixin as SoftDeleteMixin
+from .soft_delete import SoftDeleteSession as SoftDeleteSession
 from .sql.expression import all_ as all_
 from .sql.expression import and_ as and_
 from .sql.expression import any_ as any_
