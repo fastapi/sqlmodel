@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump the python-packages group with 4 updates. PR [#2039](https://github.com/fastapi/sqlmodel/pull/2039) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump https://github.com/crate-ci/typos from v1.47.2 to 1.48.0 in the pre-commit group. PR [#2038](https://github.com/fastapi/sqlmodel/pull/2038) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Fix latest-changes checkout target. PR [#2031](https://github.com/fastapi/sqlmodel/pull/2031) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Update issue-manager to 0.8.1. PR [#2030](https://github.com/fastapi/sqlmodel/pull/2030) by [@tiangolo](https://github.com/tiangolo).
