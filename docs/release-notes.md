@@ -4,6 +4,7 @@
 
 ### Internal
 
+* 👷 Add GH workflow to bump pre-commit hook versions. PR [#2026](https://github.com/fastapi/sqlmodel/pull/2026) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔧 Set Dependabot schedule interval to "monthly". PR [#2025](https://github.com/fastapi/sqlmodel/pull/2025) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump the python-packages group with 4 updates. PR [#2039](https://github.com/fastapi/sqlmodel/pull/2039) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump https://github.com/crate-ci/typos from v1.47.2 to 1.48.0 in the pre-commit group. PR [#2038](https://github.com/fastapi/sqlmodel/pull/2038) by [@dependabot[bot]](https://github.com/apps/dependabot).
