@@ -13,7 +13,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/crate-ci/typos
-    rev: bee27e3a4fd1ea2111cf90ab89cd076c870fce14 # v1.48.0
+    rev: b859c0df7f391deba73030f79b957e62b4d81dc6 # varcon-core-v5.0.7
     hooks:
       - id: typos
         args: [--force-exclude]
