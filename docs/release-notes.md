@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group across 1 directory with 4 updates. PR [#2045](https://github.com/fastapi/sqlmodel/pull/2045) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add GH workflow to bump pre-commit hook versions. PR [#2026](https://github.com/fastapi/sqlmodel/pull/2026) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔧 Set Dependabot schedule interval to "monthly". PR [#2025](https://github.com/fastapi/sqlmodel/pull/2025) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump the python-packages group with 4 updates. PR [#2039](https://github.com/fastapi/sqlmodel/pull/2039) by [@dependabot[bot]](https://github.com/apps/dependabot).
