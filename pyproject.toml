@@ -52,6 +52,7 @@ dev = [
     { include-group = "docs" },
     { include-group = "tests" },
     "prek>=0.2.24,<1.0.0",
+    "zizmor >=1.23.1",
 ]
 docs = [
     "black >=24.1.0",
@@ -60,13 +61,11 @@ docs = [
     "griffe-warnings-deprecated >=1.1.0",
     "markdown-include-variants >=0.0.8",
     "mdx-include >=1.4.1",
-    "mkdocs-macros-plugin >=1.5.0",
-    "mkdocs-material >=9.7.5",
-    "mkdocs-redirects >=1.2.1",
     "mkdocstrings[python] >=1.0.3",
     "pillow >=12.1.1",
     "pyyaml >=5.3.1",
     "typer >=0.24.1",
+    "zensical>=0.0.42",
 ]
 github-actions = [
     "httpx >=0.28.1",
@@ -85,6 +84,7 @@ tests = [
     "pytest >=7.0.1",
     "ruff >=0.15.6",
     "ty>=0.0.25",
+    "typer >=0.24.1",
     "typing-extensions >=4.15.0",
 ]
 
@@ -154,3 +154,22 @@ keep-runtime-typing = true
 
 [tool.ty.terminal]
 error-on-warning = true
+
+[tool.typos.files]
+extend-exclude = [
+    "coverage/",
+    "dist/",
+    "docs/img/",
+    "docs/release-notes.md",
+    "htmlcov/",
+    "site/",
+    "site_build/",
+    "uv.lock",
+]
+
+[tool.typos.default.extend-identifiers]
+alls = "alls"
+
+[tool.typos.default.extend-words]
+Ines = "Ines"
+selectin = "selectin"

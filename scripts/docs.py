@@ -6,8 +6,8 @@ import subprocess
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
-import mkdocs.utils
 import typer
+import yaml
 from jinja2 import Template
 from ruff.__main__ import find_ruff_bin
 
@@ -45,7 +45,7 @@ def generate_readme_content() -> str:
     match_start = re.search(r"<!-- sponsors -->", content)
     match_end = re.search(r"<!-- /sponsors -->", content)
     sponsors_data_path = en_docs_path / "data" / "sponsors.yml"
-    sponsors = mkdocs.utils.yaml_load(sponsors_data_path.read_text(encoding="utf-8"))
+    sponsors = yaml.safe_load(sponsors_data_path.read_text(encoding="utf-8"))
     if not (match_start and match_end):
         raise RuntimeError("Couldn't auto-generate sponsors section")
     if not match_pre:
@@ -108,7 +108,7 @@ def live(dirty: bool = False) -> None:
     en.
     """
     # Enable line numbers during local development to make it easier to highlight
-    args = ["mkdocs", "serve", "--dev-addr", "127.0.0.1:8008"]
+    args = ["zensical", "serve", "--dev-addr", "127.0.0.1:8008"]
     if dirty:
         args.append("--dirty")
     subprocess.run(args, env={**os.environ, "LINENUMS": "true"}, check=True)
@@ -120,7 +120,7 @@ def build() -> None:
     Build the docs.
     """
     print("Building docs")
-    subprocess.run(["mkdocs", "build"], check=True)
+    subprocess.run(["zensical", "build"], check=True)
     typer.secho("Successfully built docs", color=typer.colors.GREEN)
 
 
@@ -129,7 +129,7 @@ def serve() -> None:
     """
     A quick server to preview a built site.
 
-    For development, prefer the command live (or just mkdocs serve).
+    For development, prefer the command live (or just zensical serve).
 
     This is here only to preview the documentation site.
 

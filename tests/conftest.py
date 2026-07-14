@@ -1,6 +1,5 @@
 import shutil
 import subprocess
-import sys
 from collections.abc import Callable, Generator
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -84,8 +83,3 @@ def print_mock_fixture() -> Generator[PrintMock, None, None]:
     new_print = get_testing_print_function(print_mock.calls)
     with patch("builtins.print", new=new_print):
         yield print_mock
-
-
-needs_py310 = pytest.mark.skipif(
-    sys.version_info < (3, 10), reason="requires python3.10+"
-)
