@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Update help docs. PR [#2049](https://github.com/fastapi/sqlmodel/pull/2049) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump the python-packages group across 1 directory with 6 updates. PR [#2042](https://github.com/fastapi/sqlmodel/pull/2042) by [@dependabot[bot]](https://github.com/apps/dependabot).
