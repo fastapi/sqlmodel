@@ -82,7 +82,7 @@ If we run that code we have up to now, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -168,7 +168,7 @@ If we execute that in the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 

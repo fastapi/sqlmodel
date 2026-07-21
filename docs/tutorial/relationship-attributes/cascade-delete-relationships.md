@@ -236,7 +236,7 @@ We can confirm everything is working by running the program.
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -378,7 +378,7 @@ Let's confirm it all works by running the program now:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -461,7 +461,7 @@ Now, if we run the program, we will see that SQLModel (SQLAlchemy) is no longer 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -539,7 +539,7 @@ Now, if we run the program and try to delete a team with heroes, we will see an 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -602,7 +602,7 @@ Now, if we run the program and delete the heroes first, we will be able to delet
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 

@@ -102,13 +102,13 @@ We are doing that here, we import the models in `app.py` and **after** that we c
 Because now this is a larger project with a **Python package** and not a single Python file, we **cannot** call it just passing a single file name as we did before with:
 
 ```console
-$ python app.py
+$ uv run python app.py
 ```
 
 Now we have to tell Python that we want it to execute a *module* that is part of a package:
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 ```
 
 The `-m` is to tell Python to call a *module*. And the next thing we pass is a string with `project.app`, that is the same format we would use in an **import**:
@@ -129,7 +129,7 @@ So, the output would be:
 <div class="termy">
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 
 Created hero: id=1 secret_name='Dive Wilson' team_id=1 name='Deadpond' age=None
 Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
@@ -228,7 +228,7 @@ And running that achieves the same result as before:
 <div class="termy">
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 
 Created hero: id=1 age=None name='Deadpond' secret_name='Dive Wilson' team_id=1
 Hero's team: id=1 name='Z-Force' headquarters='Sister Margaret's Bar'

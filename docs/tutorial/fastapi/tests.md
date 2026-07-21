@@ -36,12 +36,12 @@ If you haven't done testing in FastAPI applications, first check the [FastAPI do
 
 Then, we can continue here, the first step is to install the dependencies, `requests` and `pytest`.
 
-Make sure you create a [virtual environment](../../virtual-environments.md), activate it, and then install them, for example with:
+Add them to your project:
 
 <div class="termy">
 
 ```console
-$ pip install requests pytest
+$ uv add requests pytest
 
 ---> 100%
 ```
@@ -353,7 +353,7 @@ Now we can run the tests with `pytest` and see the results:
 <div class="termy">
 
 ```console
-$ pytest
+$ uv run pytest
 
 ============= test session starts ==============
 platform linux -- Python 3.10.0, pytest-7.4.4, pluggy-1.5.0

@@ -43,7 +43,7 @@ If we run it on the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -147,7 +147,7 @@ And if we run it in the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -196,7 +196,7 @@ But we are starting to include after an offset of 1 (so we don't count the first
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 

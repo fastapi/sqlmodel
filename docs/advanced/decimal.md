@@ -82,7 +82,7 @@ Now if you run this, instead of printing the unexpected number `3.30000000000000
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 

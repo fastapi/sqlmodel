@@ -2,7 +2,7 @@
 
 Now let's get to the code. 👩‍💻
 
-Make sure you are inside of your project directory and with your virtual environment activated as explained in [Virtual Environments](../virtual-environments.md#create-a-project).
+Make sure you are inside of your project directory.
 
 We will:
 
@@ -327,7 +327,7 @@ Put the code in a file `app.py` if you haven't already.
 
 /// tip
 
-Remember to [activate the virtual environment](../virtual-environments.md#create-a-virtual-environment) before running it.
+Run it inside the project environment with `uv run`.
 
 ///
 
@@ -337,7 +337,7 @@ Now run the program with Python:
 
 ```console
 // We set echo=True, so this will show the SQL code
-$ python app.py
+$ uv run python app.py
 
 // First, some boilerplate SQL that we are not that interested in
 
@@ -467,7 +467,7 @@ The main purpose of the `__name__ == "__main__"` is to have some code that is ex
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Something happens here ✨
 ```
@@ -497,7 +497,7 @@ If you run it with:
 <div class="termy">
 
 ```console
-$ python myapp.py
+$ uv run python myapp.py
 
 // This will call create_db_and_tables()
 ```

@@ -251,7 +251,7 @@ Because we created the **engine** with `echo=True`, it will print out all the SQ
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 // Some boilerplate, checking that the hero table already exists
 INFO Engine BEGIN (implicit)
 INFO Engine PRAGMA main.table_info("hero")
