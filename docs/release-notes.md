@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 🐛 Prevent Termynal controls from scrolling. PR [#2051](https://github.com/fastapi/sqlmodel/pull/2051) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update help docs. PR [#2049](https://github.com/fastapi/sqlmodel/pull/2049) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
