@@ -43,6 +43,24 @@ Read the [Virtual Environments guide](https://tiangolo.com/guides/virtual-enviro
 
 ///
 
+## AI Agent Skills
+
+SQLModel includes an official skill for AI coding agents. It is bundled with the package, so its guidance stays aligned with the version of SQLModel installed in your project and updates when you update SQLModel.
+
+After installing SQLModel in your project, you can install the skill with <a href="https://library-skills.io">Library Skills</a>:
+
+```bash
+uvx library-skills
+```
+
+/// note
+
+`uvx` is an alias for `uv tool run`. It runs Library Skills in a temporary, isolated environment while Library Skills scans the packages installed in your project.
+
+///
+
+The skill is compatible with Codex, Claude Code, Cursor, GitHub Copilot, Gemini CLI, Pi, OpenCode, and most other coding agents. For Claude Code, select `.claude/skills` when asked where to install the skill.
+
 ## Install DB Browser for SQLite
 
 Remember that [SQLite is a simple database in a single file](databases.md#a-single-file-database)?
