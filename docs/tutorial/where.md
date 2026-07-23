@@ -444,7 +444,7 @@ And in this case the results will be just one:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -624,7 +624,7 @@ We can then run it to see the output from the program:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -676,7 +676,7 @@ When we run it, this generates the output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 

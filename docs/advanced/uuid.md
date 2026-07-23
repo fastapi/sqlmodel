@@ -127,7 +127,7 @@ If you run the program, you will see the **UUID** generated in the Python code, 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 

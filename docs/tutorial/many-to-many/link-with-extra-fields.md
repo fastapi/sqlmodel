@@ -80,7 +80,7 @@ Now, if we run the program, it will show almost the same output as before, becau
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -176,7 +176,7 @@ If we run that program, we will see the output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -257,7 +257,7 @@ And if we run the program now, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 

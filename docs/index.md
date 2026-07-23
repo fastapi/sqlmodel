@@ -82,17 +82,18 @@ As **SQLModel** is based on **Pydantic** and **SQLAlchemy**, it requires them. T
 
 ## Installation
 
-Make sure you create a [virtual environment](https://sqlmodel.tiangolo.com/virtual-environments/), activate it, and then install SQLModel, for example with:
+First, [install `uv`](https://docs.astral.sh/uv/getting-started/installation/), and then add SQLModel to your project:
 
 <div class="termy">
 
 ```console
-$ pip install sqlmodel
+$ uv add sqlmodel
 ---> 100%
-Successfully installed sqlmodel
 ```
 
 </div>
+
+If you prefer to use `pip`, install `sqlmodel` inside a virtual environment. See the [installation guide](install.md) for the alternative steps.
 
 ## Example
 

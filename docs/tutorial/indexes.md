@@ -294,7 +294,7 @@ If you run the program now, you will see an output like this:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 

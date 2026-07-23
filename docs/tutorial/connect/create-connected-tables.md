@@ -129,7 +129,7 @@ If we run the code we have up to now, it will go and create the database file `d
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Automatically start a new transaction
 INFO Engine BEGIN (implicit)

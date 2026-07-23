@@ -43,7 +43,7 @@ That would print a list with all the heroes in the Preventers team:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Automatically fetch the heroes
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id

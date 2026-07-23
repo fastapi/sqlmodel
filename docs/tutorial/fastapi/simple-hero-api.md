@@ -8,12 +8,12 @@ The first step is to install FastAPI.
 
 FastAPI is the framework to create the **web API**.
 
-Make sure you create a [virtual environment](../../virtual-environments.md), activate it, and then install them, for example with:
+Add them to your project:
 
 <div class="termy">
 
 ```console
-$ pip install fastapi "uvicorn[standard]"
+$ uv add fastapi "uvicorn[standard]"
 
 ---> 100%
 ```
@@ -145,7 +145,7 @@ Then run it with the `fastapi` <abbr title="Command Line Interface">CLI</abbr>, 
 <div class="termy">
 
 ```console
-$ fastapi dev main.py
+$ uv run fastapi dev main.py
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
@@ -169,7 +169,7 @@ For production, use `fastapi run` instead of `fastapi dev`:
 <div class="termy">
 
 ```console
-$ fastapi run main.py
+$ uv run fastapi run main.py
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
