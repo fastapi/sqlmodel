@@ -11,6 +11,7 @@
 
 ### Internal
 
+* ⬆️ Upgrade latest-changes to 0.7.1. PR [#2054](https://github.com/fastapi/sqlmodel/pull/2054) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 6 updates. PR [#2042](https://github.com/fastapi/sqlmodel/pull/2042) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group across 1 directory with 4 updates. PR [#2045](https://github.com/fastapi/sqlmodel/pull/2045) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add GH workflow to bump pre-commit hook versions. PR [#2026](https://github.com/fastapi/sqlmodel/pull/2026) by [@YuriiMotov](https://github.com/YuriiMotov).
