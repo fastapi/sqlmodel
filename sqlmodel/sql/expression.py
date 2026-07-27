@@ -18,7 +18,7 @@ from sqlalchemy import (
     TypeCoerce,
     WithinGroup,
 )
-from sqlalchemy.orm import InstrumentedAttribute, Mapped
+from sqlalchemy.orm import InstrumentedAttribute, Mapped, QueryableAttribute
 from sqlalchemy.sql._typing import (
     _ColumnExpressionArgument,
     _ColumnExpressionOrLiteralArgument,
@@ -197,6 +197,9 @@ def within_group(
 
 
 def col(column_expression: _T) -> Mapped[_T]:
-    if not isinstance(column_expression, (ColumnClause, Column, InstrumentedAttribute)):
+    if not isinstance(
+        column_expression,
+        (ColumnClause, Column, InstrumentedAttribute, QueryableAttribute, ColumnElement),
+    ):
         raise RuntimeError(f"Not a SQLAlchemy column: {column_expression}")
     return column_expression  # type: ignore
