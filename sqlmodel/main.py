@@ -877,6 +877,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         from_attributes: bool | None = None,
         context: builtins.dict[str, Any] | None = None,
         update: builtins.dict[str, Any] | None = None,
+        by_alias: bool | None = None,
+        by_name: bool | None = None,
     ) -> _TSQLModel:
         return sqlmodel_validate(
             cls=cls,
@@ -885,6 +887,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             from_attributes=from_attributes,
             context=context,
             update=update,
+            by_alias=by_alias,
+            by_name=by_name,
         )
 
     def model_dump(
