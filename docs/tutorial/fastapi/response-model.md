@@ -18,7 +18,7 @@ And it generates it **based on the code you write**, using the Pydantic models (
 
 But up to now, the API docs UI doesn't know the schema of the *responses* our app sends back.
 
-You can see that there's a possible "Successful Response" with a code `200`, but we have no idea how the response data would look like.
+You can see that there's a possible "Successful Response" with a code `200`, but we have no idea what the response data would look like.
 
 <img class="shadow" alt="API docs UI without response data schemas" src="/img/tutorial/fastapi/response-model/image01.png">
 

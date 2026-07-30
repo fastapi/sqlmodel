@@ -181,7 +181,7 @@ Starting with some table:
 
 Let's review some of the code we used to read data with **SQLModel**.
 
-We care specially about the **select** statement:
+We care especially about the **select** statement:
 
 {* ./docs_src/tutorial/select/tutorial001_py310.py ln[34:39] hl[36] *}
 
@@ -220,7 +220,7 @@ Notice that we didn't call it with a single equal (`=`) sign, and with something
 select(Hero).where(name="Deadpond")
 ```
 
-That would have been shorter, of course, but it would have been much more error prone and limited. I'll show you why in a bit.
+That would have been shorter, of course, but it would have been much more error-prone and limited. I'll show you why in a bit.
 
 Instead, we used two `==`:
 
@@ -474,7 +474,7 @@ We'll see other ways to get the data later.
 
 ## Other Comparisons
 
-Here's another great advantage of these special **expressions**  passed to `.where()`.
+Here's another great advantage of these special **expressions** passed to `.where()`.
 
 Above, we have been using an "equality" comparison (using `==`), only checking if two things are the same value.
 
@@ -548,7 +548,7 @@ Similarly, we can use `<` to get the rows where a column is **less than** a valu
 
 {* ./docs_src/tutorial/where/tutorial005_py310.py ln[42:47] hl[44] *}
 
-And we get the younger one with an age in the database:
+And we get the youngest one with an age in the database:
 
 ```
 age=32 id=4 name='Tarantula' secret_name='Natalia Roman-on'
@@ -712,7 +712,7 @@ By using these simple and standard Python type annotations we get the benefit of
 
 And when we use these special **class attributes** in a `.where()`, during execution of the program, the special class attribute will know that the comparison only applies for the values that are not `NULL` in the database, and it will work correctly.
 
-But the editor doesn't know that it's a special **class attribute**, so it tries to help us preventing an error (that in this case is a false alarm).
+But the editor doesn't know that it's a special **class attribute**, so it tries to help us prevent an error (that in this case is a false alarm).
 
 Nevertheless, we can easily fix it. 🎉
 

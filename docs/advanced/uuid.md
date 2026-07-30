@@ -28,7 +28,7 @@ There are several versions of UUID, some versions include the current time in th
 
 ### Distributed UUIDs
 
-You could generate one UUID in one computer, and someone else could generate another UUID in another computer, and it would be almost **impossible** for both UUIDs to be the **same**.
+You could generate one UUID on one computer, and someone else could generate another UUID on another computer, and it would be almost **impossible** for both UUIDs to be the **same**.
 
 This means that you don't have to wait for the DB to generate the ID for you, you can **generate it in code before sending it to the database**, because you can be quite certain it will be unique.
 

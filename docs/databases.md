@@ -108,7 +108,7 @@ Having distributed systems also creates additional challenges, so there's a high
 
 We already talked about the different ways to interact with a database and how they handle files, etc. That applies to most or all of the databases.
 
-But there's another way to categorize databases that is very important. As you can imagine, there are many types of databases and many databases in each group. But in general, they can be separated in two big groups: "SQL Databases" and "NoSQL Databases".
+But there's another way to categorize databases that is very important. As you can imagine, there are many types of databases and many databases in each group. But in general, they can be separated into two big groups: "SQL Databases" and "NoSQL Databases".
 
 We will get to why the name "SQL" in a bit, but first, let's see what it is all about.
 

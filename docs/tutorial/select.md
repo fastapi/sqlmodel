@@ -31,7 +31,7 @@ We will need the `Hero` model and the **engine**, but we will create a new sessi
 
 ## Read Data with SQL
 
-Before writing Python code let's do a quick review of how querying data with SQL looks like:
+Before writing Python code let's do a quick review of what querying data with SQL looks like:
 
 ```SQL
 SELECT id, name, secret_name, age
@@ -293,7 +293,7 @@ So, both sections could be in **different places** and would need their own sess
 
 To be fair, in this example all that code could actually share the same **session**, there's actually no need to have two here.
 
-But it allows me to show you how they could be separated and to reinforce the idea that you should have **one engine** per application, and **multiple sessions**, one per each group of operations.
+But it allows me to show you how they could be separated and to reinforce the idea that you should have **one engine** per application, and **multiple sessions**, one per group of operations.
 
 ///
 
@@ -349,7 +349,7 @@ In this chapter we are touching some of them.
 
 When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`.
 
-SQLAchemy also has its own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
+SQLAlchemy also has its own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
 
 But SQLModel's version does a lot of **tricks** with type annotations to make sure you get the best **editor support** possible, no matter if you use **VS Code**, **PyCharm**, or something else. ✨
 

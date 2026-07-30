@@ -219,7 +219,7 @@ As selecting a single row by its Id column with the **primary key** is a common 
 
 {* ./docs_src/tutorial/one/tutorial008_py310.py ln[42:45] hl[44] *}
 
-`session.get(Hero, 1)` is an equivalent to creating a `select()`, then filtering by Id using `.where()`, and then getting the first item with `.first()`.
+`session.get(Hero, 1)` is equivalent to creating a `select()`, then filtering by Id using `.where()`, and then getting the first item with `.first()`.
 
 If you run it, it will output:
 
@@ -244,7 +244,7 @@ Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 
 ## Select by Id with `.get()` with No Data
 
-`.get()` behaves similar to `.first()`, if there's no data it will simply return `None` (instead of raising an error):
+`.get()` behaves similarly to `.first()`, if there's no data it will simply return `None` (instead of raising an error):
 
 {* ./docs_src/tutorial/one/tutorial009_py310.py ln[42:45] hl[44] *}
 

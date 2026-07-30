@@ -129,7 +129,7 @@ We will improve this code to avoid duplicating the fields, but for now we can co
 
 Let's now see how to use these new models in the FastAPI application.
 
-Let's first check how is the process to create a hero now:
+Let's first check how we create a hero now:
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial001_py310.py ln[44:51] hl[44:45,47] *}
 
@@ -235,7 +235,7 @@ And those inherited fields will also be in the **autocompletion** and **inline e
 
 ### Columns and Inheritance with Multiple Models
 
-Notice that the parent model `HeroBase`  is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
+Notice that the parent model `HeroBase` is not a **table model**, but still, we can declare `name` and `age` using `Field(index=True)`.
 
 {* ./docs_src/tutorial/fastapi/multiple_models/tutorial002_py310.py ln[5:12] hl[6,8,11] *}
 

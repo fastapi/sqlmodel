@@ -2,7 +2,7 @@
 
 Now that we have a database and a table, we can start adding data.
 
-Here's a reminder of how the table would look like, this is the data we want to add:
+Here's a reminder of what the table would look like, this is the data we want to add:
 
 <table>
 <tr>
@@ -39,7 +39,7 @@ This is the code we had to create the database and table, nothing new here:
 
 ////
 
-Now that we can create the database and the table, we will continue from this point and add more code on the same file to create the data.
+Now that we can create the database and the table, we will continue from this point and add more code in the same file to create the data.
 
 ## Create Data with SQL
 
@@ -335,7 +335,7 @@ Review what each line does by clicking each number bubble in the code. 👆
 
 ///
 
-You can now put it in a `app.py` file and run it with Python. And you will see an output like the one shown above.
+You can now put it in an `app.py` file and run it with Python. And you will see an output like the one shown above.
 
 After that, if you open the database with **DB Browser for SQLite**, you will see the data you just created in the <kbd>Browse Data</kbd> tab:
 

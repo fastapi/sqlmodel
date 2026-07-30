@@ -1,6 +1,6 @@
 # Create Data with Many-to-Many Relationships
 
-Let's continue from where we left and create some data.
+Let's continue from where we left off and create some data.
 
 We'll create data for this same **many-to-many** relationship with a link table:
 
