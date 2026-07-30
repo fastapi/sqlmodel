@@ -38,7 +38,7 @@ So we don't have to call `session.refresh()`.
 
 ///
 
-We then commit the change, refresh, and print the updated **Spider-Boy**'s heroes to confirm.
+We then commit the change, refresh, and print the updated **Spider-Boy**'s teams to confirm.
 
 Notice that we only `add` **Z-Force** to the session, then we commit.
 
