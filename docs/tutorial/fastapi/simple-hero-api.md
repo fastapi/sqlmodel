@@ -162,7 +162,7 @@ When you use `fastapi dev` it starts Uvicorn with the option to reload automatic
 
 ## Run the **FastAPI** Server in Production Mode
 
-The development mode should not be used in production, as it includes automatic reload by default it consumes much more resources than necessary, and it would be more error-prone, etc.
+The development mode should not be used in production: it includes automatic reload by default, which consumes far more resources than necessary and is more error-prone.
 
 For production, use `fastapi run` instead of `fastapi dev`:
 
