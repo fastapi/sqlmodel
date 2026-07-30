@@ -105,7 +105,7 @@ class AsyncSession(_AsyncSession):
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -114,7 +114,7 @@ class AsyncSession(_AsyncSession):
         heroes = result.scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         result = await session.exec(select(Hero))
@@ -136,7 +136,7 @@ class AsyncSession(_AsyncSession):
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -145,7 +145,7 @@ class AsyncSession(_AsyncSession):
         heroes = result.scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         result = await session.exec(select(Hero))
