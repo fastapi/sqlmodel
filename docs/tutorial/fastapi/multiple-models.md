@@ -98,7 +98,7 @@ But we also want to have a `HeroCreate` for the data we want to receive when **c
 * `secret_name`, required
 * `age`, optional
 
-And we want to have a `HeroPublic` with the `id` field, but this time with a type of `id: int`, instead of `id: int | None`, to make it clear that it will always have an `int` in responses **read** from the clients:
+And we want to have a `HeroPublic` with the `id` field, but this time with a type of `id: int`, instead of `id: int | None`, to make it clear that it will always have an `int` in responses **read** by the clients:
 
 * `id`, required
 * `name`, required
