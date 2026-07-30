@@ -99,13 +99,7 @@ def verify_readme() -> None:
 @app.command()
 def live(dirty: bool = False) -> None:
     """
-    Serve with livereload a docs site for a specific language.
-
-    This only shows the actual translated files, not the placeholders created with
-    build-all.
-
-    Takes an optional LANG argument with the name of the language to serve, by default
-    en.
+    Serve the docs site with livereload, at http://127.0.0.1:8008.
     """
     # Enable line numbers during local development to make it easier to highlight
     args = ["zensical", "serve", "--dev-addr", "127.0.0.1:8008"]
