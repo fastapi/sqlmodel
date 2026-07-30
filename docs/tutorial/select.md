@@ -369,7 +369,7 @@ If you see SQLAlchemy tutorials, they will always use `session.execute()`.
 
 **SQLModel**'s own `Session` inherits directly from SQLAlchemy's `Session`, and adds this additional method `session.exec()`. Underneath, it uses the same `session.execute()`.
 
-But `session.exec()` does several **tricks** combined with the tricks in `session()` to give you the **best editor support**, with **autocompletion** and **inline errors** everywhere, even after getting data from a select. ✨
+But `session.exec()` does several **tricks** combined with the tricks in `select()` to give you the **best editor support**, with **autocompletion** and **inline errors** everywhere, even after getting data from a select. ✨
 
 For example, in SQLAlchemy you would need to add a `.scalars()` here:
 
