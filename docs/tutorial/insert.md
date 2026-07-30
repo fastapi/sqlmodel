@@ -68,9 +68,9 @@ It means, more or less:
 > * `"Deadpond"`
 > * `"Dive Wilson"`
 
-### Try it in DB Explorer for SQLite
+### Try it in DB Browser for SQLite
 
-You can try that SQL statement in **DB Explorer for SQLite**.
+You can try that SQL statement in **DB Browser for SQLite**.
 
 Make sure to open the same database we already created by clicking <kbd>Open Database</kbd> and selecting the same `database.db` file.
 

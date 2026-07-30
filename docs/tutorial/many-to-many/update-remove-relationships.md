@@ -12,7 +12,7 @@ Let's now create a function `update_heroes()`.
 
 We'll get **Spider-Boy** and the **Z-Force** team.
 
-As you already know how these goes, I'll use the **short version** and get the data in a single Python statement.
+As you already know how this goes, I'll use the **short version** and get the data in a single Python statement.
 
 And because we are now using `select()`, we also have to import it.
 
@@ -81,7 +81,7 @@ Updated Spider-Boy's Teams: [
     Team(id=1, name='Z-Force', headquarters='Sister Margaret's Bar')
 ]
 
-// Automatically refresh the data while accessing the attribute .heores
+// Automatically refresh the data while accessing the attribute .heroes
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age
 FROM hero, heroteamlink
 WHERE ? = heroteamlink.team_id AND hero.id = heroteamlink.hero_id
@@ -115,7 +115,7 @@ In this case, we use the method `.remove()`, that takes an item and removes it f
 
 {* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[72:91] hl[86:88,90:91] *}
 
-And this time, just to show again that by using `back_populates` **SQLModel** (actually SQLAlchemy) takes care of connecting the models by their relationships, even though we performed the operation from the `hero_spider_boy` object (modifying `hero_spider_boy.teams`), we are adding `team_z_force` to the **session**. And we commit that, without even add `hero_spider_boy`.
+And this time, just to show again that by using `back_populates` **SQLModel** (actually SQLAlchemy) takes care of connecting the models by their relationships, even though we performed the operation from the `hero_spider_boy` object (modifying `hero_spider_boy.teams`), we are adding `team_z_force` to the **session**. And we commit that, without even adding `hero_spider_boy`.
 
 This still works because by updating the teams in `hero_spider_boy`, because they are synchronized with `back_populates`, the changes are also reflected in `team_z_force`, so it also has changes to be saved in the DB (that **Spider-Boy** was removed).
 
@@ -184,4 +184,4 @@ INFO Engine ROLLBACK
 
 Updating and removing many-to-many relationships is quite straightforward after setting up the **link model** and the relationship attributes.
 
-You can just use common list operation. 🚀
+You can just use common list operations. 🚀

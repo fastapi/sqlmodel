@@ -119,7 +119,7 @@ INFO Engine [cached since 0.002739s ago] (3,)
 // Print Spider-Boy's teams, just one, but still a list
 Spider-Boy Teams: [Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
-// Automatic roll back any previous automatic transaction, at the end of the with block
+// Automatically roll back any previous automatic transaction, at the end of the with block
 INFO Engine ROLLBACK
 ```
 

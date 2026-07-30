@@ -648,4 +648,4 @@ In some cases, when you want to **cascade** the delete of a record to its relate
 
 That will **cover most of the use cases**. 🚀
 
-And if you need something else, you can refer the additional options described above. 🤓
+And if you need something else, you can refer to the additional options described above. 🤓

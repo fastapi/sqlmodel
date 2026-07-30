@@ -88,7 +88,7 @@ FROM hero
 WHERE hero.age <= ?
 INFO Engine [no key 0.00021s] (35,)
 
-// Now rows found, first is None
+// No rows found, first is None
 Hero: None
 ```
 

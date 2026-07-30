@@ -90,7 +90,7 @@ You can try that out in **DB Browser for SQLite**:
 
 These additional keywords with some sections like `WHERE` and `FROM` that go after `SELECT` (or others) have a technical name, they are called **clauses**.
 
-There are others clauses too, with their own SQL keywords.
+There are other clauses too, with their own SQL keywords.
 
 I won't use the term **clause** too much here, but it's good for you to know it as it will probably show up in other tutorials you could study later. 🤓
 
@@ -101,7 +101,7 @@ Here's a quick tip that helps me think about it.
 * **`SELECT`** is used to tell the SQL database what **columns** to return.
 * **`WHERE`** is used to tell the SQL database what **rows** to return.
 
-The size of the table in the two dimensions depend mostly on those two keywords.
+The size of the table in the two dimensions depends mostly on those two keywords.
 
 ### `SELECT` Land
 
@@ -191,7 +191,7 @@ Now, the same way that we add `WHERE` to a SQL statement to filter rows, we can 
 
 {* ./docs_src/tutorial/where/tutorial001_py310.py ln[34:39] hl[36] *}
 
-It's a very small change, but it's packed of details. Let's explore them.
+It's a very small change, but it's packed with details. Let's explore them.
 
 ## `select()` Objects
 
@@ -538,7 +538,7 @@ age=93 id=7 name='Captain North America' secret_name='Esteban Rogelios'
 
 /// tip
 
-This time we got `Black Lion` too because although the age is not *strictly* greater than `35`it is *equal* to `35`.
+This time we got `Black Lion` too because although the age is not *strictly* greater than `35` it is *equal* to `35`.
 
 ///
 
@@ -585,7 +585,7 @@ Finally, we can use `in_` to get the rows where a column is a member of a collec
 
 {* ./docs_src/tutorial/where/tutorial006b_py310.py ln[42:47] hl[44] *}
 
-In this case, we match `Deadpond` since it's part of the collections of names.
+In this case, we match `Deadpond` since it's part of the collection of names.
 We don't have any hero called `Ratman`, so it does not match any hero.
 
 /// tip
@@ -708,13 +708,13 @@ It would be an error telling you that
 
 This is because as we are using pure and plain Python annotations for the fields, `age` is indeed annotated as `int | None`.
 
-By using this simple and standard Python type annotations we get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
+By using these simple and standard Python type annotations we get the benefit of the extra simplicity and the inline error checks when creating or using instances. ✨
 
 And when we use these special **class attributes** in a `.where()`, during execution of the program, the special class attribute will know that the comparison only applies for the values that are not `NULL` in the database, and it will work correctly.
 
 But the editor doesn't know that it's a special **class attribute**, so it tries to help us preventing an error (that in this case is a false alarm).
 
-Nevertheless, we can easily fix. 🎉
+Nevertheless, we can easily fix it. 🎉
 
 We can tell the editor that this class attribute is actually a special **SQLModel** column (instead of an instance attribute with a normal value).
 
@@ -742,7 +742,7 @@ And with that the editor knows this code is actually fine, because this is a spe
 
 /// tip
 
-That `col()` will come handy later, giving autocompletion to several other things we can do with these special **class attributes** for columns.
+That `col()` will come in handy later, giving autocompletion to several other things we can do with these special **class attributes** for columns.
 
 But we'll get there later.
 

@@ -50,7 +50,7 @@ $ uv add requests pytest
 
 ## Basic Tests Code
 
-Let's start with a simple test, with just the basic test code we need the check that the **FastAPI** application is creating a new hero correctly.
+Let's start with a simple test, with just the basic test code we need to check that the **FastAPI** application is creating a new hero correctly.
 
 ```{ .python .annotate }
 {!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_001.py[ln:1-7]!}
@@ -226,7 +226,7 @@ In fact, it also has the same trick of allowing to use `yield` instead of `retur
 
 In pytest, these things are called **fixtures** instead of *dependencies*.
 
-Let's use these **fixtures** to improve our code and reduce de duplicated boilerplate for the next tests.
+Let's use these **fixtures** to improve our code and reduce the duplicated boilerplate for the next tests.
 
 ## Pytest Fixtures
 
@@ -253,7 +253,7 @@ Check out the number bubbles to see what is done by each line of code.
 
 But apart from the way we declare them and how we tell the framework that we want to have them in the function, they **work in a very similar way**.
 
-Now we create lot's of tests and re-use that same fixture in all of them, saving us that **boilerplate code**.
+Now we create lots of tests and re-use that same fixture in all of them, saving us that **boilerplate code**.
 
 **pytest** will make sure to run them right before (and finish them right after) each test function. So, each test function will actually have its own database, engine, and session.
 
@@ -302,7 +302,7 @@ Let's add some more tests:
 
 /// tip
 
-It's always **good idea** to not only test the normal case, but also that **invalid data**, **errors**, and **corner cases** are handled correctly.
+It's always a **good idea** to not only test the normal case, but also that **invalid data**, **errors**, and **corner cases** are handled correctly.
 
 That's why we add these two extra tests here.
 

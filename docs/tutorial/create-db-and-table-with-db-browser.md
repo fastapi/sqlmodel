@@ -117,7 +117,7 @@ You will see again the same table we created.
 
 ## Create the Table again, with SQL
 
-Now, to see how is it that SQL works, let's create the table again, but with SQL.
+Now, to see how SQL works, let's create the table again, but with SQL.
 
 Click the <kbd>Close Database</kbd> button again.
 

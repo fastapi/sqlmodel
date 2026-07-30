@@ -249,7 +249,7 @@ This `JOIN` will be useful in a bit to be able to also get Spider-Boy, even if h
 
 The same way there's a `.where()` available when using `select()`, there's also a `.join()`.
 
-And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we already declared what is the `foreign_key` when creating the models, we don't have to pass an `ON` part, it is inferred automatically:
+And in SQLModel (actually SQLAlchemy), we don't have to pass an `ON` part when using `.join()`. It is inferred automatically because we already declared the `foreign_key` in the model definition:
 
 {* ./docs_src/tutorial/connect/select/tutorial002_py310.py ln[61:66] hl[63] *}
 

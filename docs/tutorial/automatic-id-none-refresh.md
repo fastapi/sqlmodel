@@ -442,4 +442,4 @@ If you understood all that, now you know a lot about **SQLModel**, SQLAlchemy, a
 
 If you didn't get all that, it's fine, you can always come back later to <abbr title="See what I did there? 😜">`refresh`</abbr> the concepts.
 
-I think this might be one of the main types of bugs that cause problems and makes you scratch your head. So, good job studying it! 💪
+I think this might be one of the main types of bugs that cause problems and make you scratch your head. So, good job studying it! 💪

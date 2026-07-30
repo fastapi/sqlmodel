@@ -259,7 +259,7 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 
 ## Review The Code
 
-Great, you're now being able to read the data from the database! 🎉
+Great, you're now able to read the data from the database! 🎉
 
 Let's review the code up to this point:
 
@@ -329,7 +329,7 @@ It would actually look more compact, I'm formatting it a bit for you to see that
 
 I have been creating several variables to be able to explain to you what each thing is doing.
 
-But knowing what is each object and what it is all doing, we can simplify it a bit and put it in a more compact form:
+But knowing what each object is and what it is all doing, we can simplify it a bit and put it in a more compact form:
 
 {* ./docs_src/tutorial/select/tutorial004_py310.py ln[34:37] hl[36] *}
 
