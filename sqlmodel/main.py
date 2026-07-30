@@ -1006,6 +1006,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         else:
             raise ValueError(
                 "Can't use sqlmodel_update() with something that "
-                f"is not a dict or SQLModel or Pydantic model: {obj}"
+                f"is not a dict, SQLModel, or Pydantic model: {obj}"
             )
         return self
