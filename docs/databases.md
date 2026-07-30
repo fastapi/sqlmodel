@@ -137,7 +137,7 @@ If we worked with a single table to store our heroes, it could be like this:
 <th>id</th><th>name</th><th>secret_name</th><th>age</th><th>team</th><th>headquarters</th>
 </tr>
 <tr>
-<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Factor</td><td>Sister Margaret's Bar</td>
+<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 <tr>
 <td>2</td><td>Spider-Boy</td><td>Pedro Parqueador</td><td>null</td><td>Preventers</td><td>Sharp Tower</td>
