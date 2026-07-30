@@ -61,7 +61,7 @@ INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.001239s ago] ('Preventers', 'Sharp Tower')
-// Insert the link data last, to be able to re-use the created IDs
+// Insert the link data last, to be able to reuse the created IDs
 INFO Engine INSERT INTO heroteamlink (team_id, hero_id) VALUES (?, ?)
 INFO Engine [generated in 0.00026s] ((2, 3), (1, 1), (2, 1), (2, 2))
 // Commit and save the data in the database

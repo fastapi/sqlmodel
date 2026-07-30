@@ -152,7 +152,7 @@ Creating the **engine** is very simple, just call `create_engine()` with a URL f
 
 {* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[1,14] *}
 
-You should normally have a single **engine** object for your whole application and re-use it everywhere.
+You should normally have a single **engine** object for your whole application and reuse it everywhere.
 
 /// tip
 

@@ -159,7 +159,7 @@ In fact, the **session** needs and uses an **engine**.
 
 For example, if we have a web application, we would normally have a single **session** per request.
 
-We would re-use the same **engine** in all the code, everywhere in the application (shared by all the requests). But for each request, we would create and use a new **session**. And once the request is done, we would close the session.
+We would reuse the same **engine** in all the code, everywhere in the application (shared by all the requests). But for each request, we would create and use a new **session**. And once the request is done, we would close the session.
 
 The first step is to import the `Session` class:
 

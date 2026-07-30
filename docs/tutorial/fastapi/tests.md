@@ -253,7 +253,7 @@ Check out the number bubbles to see what is done by each line of code.
 
 But apart from the way we declare them and how we tell the framework that we want to have them in the function, they **work in a very similar way**.
 
-Now we create lots of tests and re-use that same fixture in all of them, saving us that **boilerplate code**.
+Now we create lots of tests and reuse that same fixture in all of them, saving us that **boilerplate code**.
 
 **pytest** will make sure to run them right before (and finish them right after) each test function. So, each test function will actually have its own database, engine, and session.
 
