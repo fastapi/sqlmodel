@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       debug_enabled:
-        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        description: "Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)"
         required: false
         default: 'false'
   schedule:
@@ -131,7 +131,7 @@ jobs:
       - run: uv run coverage report --fail-under=99
 
   # https://github.com/marketplace/actions/alls-green#why
-  alls-green:  # This job does nothing and is only used for the branch protection
+  alls-green: # This job does nothing and is only used for the branch protection
     if: always()
     needs:
       - coverage-combine

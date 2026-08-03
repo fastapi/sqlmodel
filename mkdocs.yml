@@ -118,6 +118,7 @@ nav:
       - advanced/index.md
       - advanced/decimal.md
       - advanced/uuid.md
+      - advanced/migrations.md
   - "":
     - resources/index.md
     - help.md

@@ -36,7 +36,9 @@ classifiers = [
 
 dependencies = [
     "SQLAlchemy >=2.0.14,<2.1.0",
+    "alembic >=1.12.0",
     "pydantic>=2.11.0",
+    "typer >=0.24.1",
     "typing-extensions>=4.5.0",
 ]
 
@@ -46,6 +48,12 @@ Documentation = "https://sqlmodel.tiangolo.com"
 Repository = "https://github.com/fastapi/sqlmodel"
 Issues = "https://github.com/fastapi/sqlmodel/issues"
 Changelog = "https://sqlmodel.tiangolo.com/release-notes/"
+
+[project.scripts]
+sqlmodel = "sqlmodel.cli:cli"
+
+[project.entry-points."sqlmodel"]
+migrations = "sqlmodel.cli.migrations.cli:migrations"
 
 [dependency-groups]
 dev = [
@@ -136,9 +144,9 @@ select = [
     "UP", # pyupgrade
 ]
 ignore = [
-    "E501",  # line too long, handled by black
-    "B008",  # do not perform function calls in argument defaults
-    "C901",  # too complex
+    "E501", # line too long, handled by black
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
     "W191", # indentation contains tabs
 ]
 
