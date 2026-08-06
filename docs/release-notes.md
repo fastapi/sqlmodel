@@ -12,6 +12,7 @@
 
 ### Internal
 
+* 🔥 Remove the old Latest Changes workflow. PR [#2064](https://github.com/fastapi/sqlmodel/pull/2064) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group with 7 updates. PR [#2060](https://github.com/fastapi/sqlmodel/pull/2060) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 5 updates. PR [#2059](https://github.com/fastapi/sqlmodel/pull/2059) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Upgrade latest-changes to 0.7.1. PR [#2054](https://github.com/fastapi/sqlmodel/pull/2054) by [@tiangolo](https://github.com/tiangolo).
