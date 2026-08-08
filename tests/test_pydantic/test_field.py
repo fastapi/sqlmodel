@@ -54,3 +54,26 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_exclude():
+    class Model(SQLModel):
+        id: int
+        name: str
+        value: int = Field(exclude=True)
+
+    instance = Model(id=1, name="test", value=42)
+    dict_representation = instance.model_dump()
+    assert "id" in dict_representation
+    assert "name" in dict_representation
+    assert "value" not in dict_representation
+
+
+def test_include_is_deprecated():
+    with pytest.warns(
+        DeprecationWarning,
+        match="`include` is deprecated and does nothing. It will be removed, use `exclude` instead",
+    ):
+
+        class Model(SQLModel):
+            values: list[int] = Field(include=True)
