@@ -12,6 +12,7 @@
 
 ### Internal
 
+* 🔐 Use PR Submit for pull requests. PR [#2071](https://github.com/fastapi/sqlmodel/pull/2071) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Use GitHub CLI for Git authentication. PR [#2070](https://github.com/fastapi/sqlmodel/pull/2070) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Use PR Push commit identity. PR [#2069](https://github.com/fastapi/sqlmodel/pull/2069) by [@tiangolo](https://github.com/tiangolo).
 * 🔒 Replace pre-commit PAT with PR Push. PR [#2067](https://github.com/fastapi/sqlmodel/pull/2067) by [@tiangolo](https://github.com/tiangolo).
