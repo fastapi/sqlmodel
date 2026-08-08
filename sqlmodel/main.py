@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import builtins
+import copy
 import ipaddress
 import uuid
 from collections.abc import Callable, Mapping, Sequence, Set
@@ -18,6 +19,7 @@ from typing import (
     TypeVar,
     Union,
     cast,
+    get_args,
     get_origin,
     overload,
 )
@@ -55,10 +57,12 @@ from ._compat import (
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelMetaclass,
+    NoneType,
     Representation,
     SQLModelConfig,
     Undefined,
     UndefinedType,
+    _is_union_type,
     finish_init,
     get_annotations,
     get_field_metadata,
@@ -88,6 +92,17 @@ IncEx: TypeAlias = (
     | Mapping[str, Union["IncEx", bool]]
 )
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+
+
+def _is_optional_annotation(annotation: Any) -> bool:
+    """Check if a type annotation is already Optional (i.e., Union[X, None])."""
+    origin = get_origin(annotation)
+    if origin is not None and _is_union_type(origin):
+        args = get_args(annotation)
+        return NoneType in args
+    if annotation is NoneType:
+        return True
+    return False
 
 
 def __dataclass_transform__(
@@ -559,6 +574,42 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 relationship_annotations[k] = v
             else:
                 pydantic_annotations[k] = v
+
+        # Handle model_fields_optional: make all inherited fields Optional
+        # with a default of None
+        model_fields_optional = kwargs.pop("model_fields_optional", None)
+        if model_fields_optional is None:
+            # Also check model_config in class_dict
+            config_dict = class_dict.get("model_config", {})
+            if isinstance(config_dict, dict):
+                model_fields_optional = config_dict.get("model_fields_optional", None)
+        if model_fields_optional == "all":
+            for base in bases:
+                base_fields = (
+                    get_model_fields(base) if hasattr(base, "model_fields") else {}
+                )
+                for field_name, field_info in base_fields.items():
+                    # Only modify fields not explicitly redefined in this class
+                    if field_name not in pydantic_annotations:
+                        ann = field_info.annotation
+                        # Only wrap in Optional if not already Optional
+                        if ann is not None and not _is_optional_annotation(ann):
+                            pydantic_annotations[field_name] = ann | None
+                        else:
+                            pydantic_annotations[field_name] = ann
+                        # Set default to None if the field was required and
+                        # not already defined in the current class
+                        if field_name not in dict_for_pydantic:
+                            # Copy the FieldInfo to preserve metadata like
+                            # min_length, ge, etc.
+                            if hasattr(field_info, "_copy"):
+                                new_field_info = field_info._copy()
+                            else:
+                                new_field_info = copy.copy(field_info)
+                            if new_field_info.is_required():
+                                new_field_info.default = None
+                            dict_for_pydantic[field_name] = new_field_info
+
         dict_used = {
             **dict_for_pydantic,
             "__weakref__": None,
