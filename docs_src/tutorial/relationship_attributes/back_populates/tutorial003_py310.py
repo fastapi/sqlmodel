@@ -5,7 +5,7 @@ class Weapon(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True)
 
-    hero: "Hero" = Relationship(back_populates="weapon")
+    owner: "Hero" = Relationship(back_populates="weapon")
 
 
 class Power(SQLModel, table=True):
@@ -34,7 +34,7 @@ class Hero(SQLModel, table=True):
     team: Team | None = Relationship(back_populates="heroes")
 
     weapon_id: int | None = Field(default=None, foreign_key="weapon.id")
-    weapon: Weapon | None = Relationship(back_populates="hero")
+    weapon: Weapon | None = Relationship(back_populates="owner")
 
     powers: list[Power] = Relationship(back_populates="hero")
 
