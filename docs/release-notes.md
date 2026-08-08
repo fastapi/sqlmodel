@@ -12,6 +12,7 @@
 
 ### Internal
 
+* 👷 Use PR Push commit identity. PR [#2069](https://github.com/fastapi/sqlmodel/pull/2069) by [@tiangolo](https://github.com/tiangolo).
 * 🔒 Replace pre-commit PAT with PR Push. PR [#2067](https://github.com/fastapi/sqlmodel/pull/2067) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Remove Zensical docs cache. PR [#2065](https://github.com/fastapi/sqlmodel/pull/2065) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove the old Latest Changes workflow. PR [#2064](https://github.com/fastapi/sqlmodel/pull/2064) by [@tiangolo](https://github.com/tiangolo).
