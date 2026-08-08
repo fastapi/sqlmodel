@@ -132,7 +132,7 @@ Cool, we have a link table with **just two columns**. But remember that SQL data
 
 Now, what is the **primary key** in this table?
 
-How to we identify each unique row?
+How do we identify each unique row?
 
 Should we add another column just to be the **primary key** of this link table? Nope! We don't have to do that. 👌
 

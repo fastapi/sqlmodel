@@ -83,4 +83,4 @@ Go ahead and [Install DB Browser for SQLite](https://sqlitebrowser.org/), it's f
 
 ## Next Steps
 
-Okay, let's get going! On the next section we'll start the [Tutorial - User Guide](tutorial/index.md). 🚀
+Okay, let's get going! In the next section we'll start the [Tutorial - User Guide](tutorial/index.md). 🚀

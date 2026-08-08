@@ -82,7 +82,7 @@ It will be called when a user sends a request with a `POST` **operation** to the
 
 /// note
 
-If you need a refresher on some of those concepts, checkout the FastAPI documentation:
+If you need a refresher on some of those concepts, check out the FastAPI documentation:
 
 * [First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
 * [Path Parameters - Data Validation and Data Conversion](https://fastapi.tiangolo.com/tutorial/path-params/)
@@ -92,7 +92,7 @@ If you need a refresher on some of those concepts, checkout the FastAPI document
 
 ## The **SQLModel** Advantage
 
-Here's where having our **SQLModel** class models be both **SQLAlchemy** models and **Pydantic** models at the same time shine. ✨
+Here's where having our **SQLModel** class models be both **SQLAlchemy** models and **Pydantic** models at the same time shines. ✨
 
 Here we use the **same** class model to define the **request body** that will be received by our API.
 
@@ -120,7 +120,7 @@ When a client sends a request to the **path** `/heroes/` with a `GET` HTTP **ope
 
 ## One Session per Request
 
-Remember that we should use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session?
+Remember that we should use a SQLModel **session** per group of operations and if we need other unrelated operations we should use a different session?
 
 Here it is much more obvious.
 
@@ -162,7 +162,7 @@ When you use `fastapi dev` it starts Uvicorn with the option to reload automatic
 
 ## Run the **FastAPI** Server in Production Mode
 
-The development mode should not be used in production, as it includes automatic reload by default it consumes much more resources than necessary, and it would be more error prone, etc.
+The development mode should not be used in production: it includes automatic reload by default, which consumes far more resources than necessary and is more error-prone.
 
 For production, use `fastapi run` instead of `fastapi dev`:
 

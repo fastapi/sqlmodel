@@ -20,7 +20,7 @@ When we create a new `Hero` instance, we don't set the `id`:
 
 ### How `int | None` Helps
 
-Because we don't set the `id`, it takes the Python's default value of `None` that we set in `Field(default=None)`.
+Because we don't set the `id`, it takes Python's default value of `None` that we set in `Field(default=None)`.
 
 This is the only reason why we define it with `int | None` and with a default value of `None`.
 
@@ -249,7 +249,7 @@ session.refresh(hero_1)
 
 ...the **session** goes and makes the **engine** communicate with the database to get the recent data for this object `hero_1`, and then the **session** puts the data in the `hero_1` object and marks it as "fresh" or "not expired".
 
-Here's how the output would look like:
+Here's what the output would look like:
 
 <div class="termy">
 
@@ -442,4 +442,4 @@ If you understood all that, now you know a lot about **SQLModel**, SQLAlchemy, a
 
 If you didn't get all that, it's fine, you can always come back later to <abbr title="See what I did there? 😜">`refresh`</abbr> the concepts.
 
-I think this might be one of the main types of bugs that cause problems and makes you scratch your head. So, good job studying it! 💪
+I think this might be one of the main types of bugs that cause problems and make you scratch your head. So, good job studying it! 💪

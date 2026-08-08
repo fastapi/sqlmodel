@@ -89,7 +89,7 @@ class Session(_Session):
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -97,7 +97,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
@@ -119,7 +119,7 @@ class Session(_Session):
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -127,7 +127,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
@@ -146,10 +146,10 @@ class Session(_Session):
         """
         🚨 You probably want to use `session.exec()` instead of `session.query()`.
 
-        `session.exec()` is SQLModel's own short version with increased type
+        `session.exec()` is SQLModel's own short version with improved type
         annotations.
 
-        Or otherwise you might want to use `session.execute()` instead of
+        Otherwise, you might want to use `session.execute()` instead of
         `session.query()`.
         """
     )
@@ -159,10 +159,10 @@ class Session(_Session):
         """
         🚨 You probably want to use `session.exec()` instead of `session.query()`.
 
-        `session.exec()` is SQLModel's own short version with increased type
+        `session.exec()` is SQLModel's own short version with improved type
         annotations.
 
-        Or otherwise you might want to use `session.execute()` instead of
+        Otherwise, you might want to use `session.execute()` instead of
         `session.query()`.
         """
         return super().query(*entities, **kwargs)

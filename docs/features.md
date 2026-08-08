@@ -14,7 +14,7 @@ Nevertheless, SQLModel is completely **independent** of FastAPI and can be used 
 
 It's all based on standard <abbr title="Currently supported versions of Python">modern **Python**</abbr> type annotations. No new syntax to learn. Just standard modern Python.
 
-If you need a 2 minute refresher of how to use Python types (even if you don't use SQLModel or FastAPI), check the FastAPI tutorial section: [Python types intro](https://fastapi.tiangolo.com/python-types/).
+If you need a 2 minute refresher on how to use Python types (even if you don't use SQLModel or FastAPI), check the FastAPI tutorial section: [Python types intro](https://fastapi.tiangolo.com/python-types/).
 
 You will also see a 20 seconds refresher on the section [Tutorial - User Guide: First Steps](tutorial/index.md).
 
@@ -56,7 +56,7 @@ And later, you can fine-tune everything with all the power of SQLAlchemy and Pyd
 
 Underneath, ✨ a **SQLModel** model is also a **Pydantic** model. ✨
 
-There was a lot of research and effort dedicated to make it that way.
+There was a lot of research and effort dedicated to making it that way.
 
 That means you get all of **Pydantic's features**, including automatic data **validation**, **serialization**, and **documentation**. You can use SQLModel in the same way you can use Pydantic.
 
@@ -74,7 +74,7 @@ You will learn more about combining different models later in the tutorial.
 
 Underneath, ✨ a **SQLModel** model is also a **SQLAlchemy** model. ✨
 
-There was **a lot** of research and effort dedicated to make it that way. In particular, there was a lot of effort and experimentation in making a single model be **both a SQLAlchemy model and a Pydantic** model at the same time.
+There was **a lot** of research and effort dedicated to making it that way. In particular, there was a lot of effort and experimentation in making a single model be **both a SQLAlchemy model and a Pydantic** model at the same time.
 
 That means that you get all the power, robustness, and certainty of SQLAlchemy, the [most widely used database library in Python](https://lp.jetbrains.com/python-developers-survey-2024/#orms).
 

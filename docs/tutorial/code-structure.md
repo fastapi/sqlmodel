@@ -61,7 +61,7 @@ from .models import Hero, Team
 from .database import engine
 ```
 
-We can use these relative imports because, for example, in the file `app.py` (the `app` module) Python knows that it is **part of our Python package** because it is in the same directory as the file `__init__.py`. And all the Python files on the same directory are part of the same Python package too.
+We can use these relative imports because, for example, in the file `app.py` (the `app` module) Python knows that it is **part of our Python package** because it is in the same directory as the file `__init__.py`. And all the Python files in the same directory are part of the same Python package too.
 
 ### Models File
 
@@ -203,7 +203,7 @@ Using that trick of `TYPE_CHECKING` we can "import" the `Team` in `hero_model.py
 
 {* ./docs_src/tutorial/code_structure/tutorial002_py310/hero_model.py hl[1,5:6,16] *}
 
-Have in mind that now we *have* to put the annotation of `Team` as a string: `"Team"`, so that Python doesn't have errors at runtime.
+Keep in mind that now we *have* to put the annotation of `Team` as a string: `"Team"`, so that Python doesn't have errors at runtime.
 
 ### Team Model File
 
@@ -221,7 +221,7 @@ Now, just for completeness, the `app.py` file would import the models from both 
 
 And of course, all the tricks with `TYPE_CHECKING` and type annotations in strings are **only needed in the files with circular imports**.
 
-As there are no circular imports with `app.py`, we can just use normal imports and use the classes as normally here.
+As there are no circular imports with `app.py`, we can just use normal imports and use the classes normally here.
 
 And running that achieves the same result as before:
 

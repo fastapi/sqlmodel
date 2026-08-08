@@ -204,7 +204,7 @@ CREATE TABLE hero (
 )
 ```
 
-The only new  is the `FOREIGN KEY` line, and as you can see, it tells the database what column in this table is a foreign key (`team_id`), which other (foreign) table it references (`team`) and which column in that table is the key to define which row to connect (`id`).
+The only new part is the `FOREIGN KEY` line, and as you can see, it tells the database what column in this table is a foreign key (`team_id`), which other (foreign) table it references (`team`) and which column in that table is the key to define which row to connect (`id`).
 
 Feel free to experiment with it in **DB Browser for SQLite**.
 

@@ -65,7 +65,7 @@ And the type of each of them will also be the type of table column:
 
 {* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5:8] *}
 
-Let's now see with more detail these field/column declarations.
+Let's now see these field/column declarations in more detail.
 
 ### `None` Fields, Nullable Columns
 
@@ -152,7 +152,7 @@ Creating the **engine** is very simple, just call `create_engine()` with a URL f
 
 {* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[1,14] *}
 
-You should normally have a single **engine** object for your whole application and re-use it everywhere.
+You should normally have a single **engine** object for your whole application and reuse it everywhere.
 
 /// tip
 
@@ -402,7 +402,7 @@ The same way, there are several possible types for storing strings. SQLite uses 
 
 SQLAlchemy generates the SQL statements to create tables using `VARCHAR`, and then SQLite receives them, and internally converts them to `TEXT`s.
 
-Additional to the difference between those two data types, some databases like MySQL require setting a maximum length for the `VARCHAR` types, for example `VARCHAR(255)` sets the maximum number of characters to 255.
+In addition to the difference between those two data types, some databases like MySQL require setting a maximum length for the `VARCHAR` types, for example `VARCHAR(255)` sets the maximum number of characters to 255.
 
 To make it easier to start using **SQLModel** right away independent of the database you use (even with MySQL), and without any extra configurations, by default, `str` fields are interpreted as `VARCHAR` in most databases and `VARCHAR(255)` in MySQL, this way you know the same class will be compatible with the most popular databases without extra effort.
 
@@ -570,7 +570,7 @@ Review what each line does by clicking each number bubble in the code. 👆
 
 ## Recap
 
-We learnt how to use **SQLModel** to define how a table in the database should look like, and we created a database and a table using **SQLModel**.
+We learnt how to use **SQLModel** to define what a table in the database should look like, and we created a database and a table using **SQLModel**.
 
 We also refactored the code to make it easier to reuse, share, and test later.
 

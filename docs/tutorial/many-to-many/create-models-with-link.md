@@ -24,7 +24,7 @@ And **both fields are primary keys**. We hadn't used this before. 🤓
 
 ## Team Model
 
-Let's see the `Team` model, it's almost identical as before, but with a little change:
+Let's see the `Team` model, it's almost identical to the previous version, but with a little change:
 
 {* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[9:14] hl[14] *}
 
@@ -98,7 +98,7 @@ CREATE TABLE hero (
 INFO Engine [no key 0.00016s] ()
 INFO Engine
 
-// Our shinny new link table ✨
+// Our shiny new link table ✨
 CREATE TABLE heroteamlink (
         team_id INTEGER,
         hero_id INTEGER,

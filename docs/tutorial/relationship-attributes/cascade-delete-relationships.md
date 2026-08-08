@@ -30,7 +30,7 @@ Let's say that we have these **teams** and **heroes**.
 
 | id   | name            | secret_name      | age  | team_id |
 | ---- | --------------- | ---------------- | ---- | ------- |
-| 1    | Deadpond        | Dive WIlson      |      | 1       |
+| 1    | Deadpond        | Dive Wilson      |      | 1       |
 | 2    | Rusty-Man       | Tommy Sharp      | 48   | 2       |
 | 3    | Spider-Boy      | Pedro Parqueador |      | 2       |
 | 4    | Black Lion      | Trevor Challa    | 35   | 3       |
@@ -648,4 +648,4 @@ In some cases, when you want to **cascade** the delete of a record to its relate
 
 That will **cover most of the use cases**. 🚀
 
-And if you need something else, you can refer the additional options described above. 🤓
+And if you need something else, you can refer to the additional options described above. 🤓
