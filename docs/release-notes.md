@@ -12,6 +12,7 @@
 
 ### Internal
 
+* 👷 Remove legacy label check. PR [#2072](https://github.com/fastapi/sqlmodel/pull/2072) by [@tiangolo](https://github.com/tiangolo).
 * 🔐 Use PR Submit for pull requests. PR [#2071](https://github.com/fastapi/sqlmodel/pull/2071) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Use GitHub CLI for Git authentication. PR [#2070](https://github.com/fastapi/sqlmodel/pull/2070) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Use PR Push commit identity. PR [#2069](https://github.com/fastapi/sqlmodel/pull/2069) by [@tiangolo](https://github.com/tiangolo).
