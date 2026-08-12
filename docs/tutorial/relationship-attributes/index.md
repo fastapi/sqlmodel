@@ -10,7 +10,7 @@ Now we will see how to use **Relationship Attributes**, an extra feature of **SQ
 
 When I say "**relationship**" I mean the standard dictionary term, of data related to other data.
 
-I'm not using the term "**relation**" that is the technical, academical, SQL term for a single table.
+I'm not using the term "**relation**" that is the technical, academic, SQL term for a single table.
 
 ///
 

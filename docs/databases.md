@@ -50,7 +50,7 @@ In most of the cases, the objective of your program is to do something with data
 
 * It could be just moving **files** from one place to the other.
 * Or it could be taking data from the user in the **terminal** and showing it differently.
-* Or a **web API** that takes some data and process it in some way, etc.
+* Or a **web API** that takes some data and processes it in some way, etc.
 
 In most cases, the data *comes from outside* the program or *ends outside the program* (for example, shown on the screen, in a file, etc).
 
@@ -108,9 +108,9 @@ Having distributed systems also creates additional challenges, so there's a high
 
 We already talked about the different ways to interact with a database and how they handle files, etc. That applies to most or all of the databases.
 
-But there's another way to categorize databases that is very important. As you can imagine, there are many types of databases and many databases in each group. But in general, they can be separated in two big groups: "SQL Databases" and "NoSQL Databases".
+But there's another way to categorize databases that is very important. As you can imagine, there are many types of databases and many databases in each group. But in general, they can be separated into two big groups: "SQL Databases" and "NoSQL Databases".
 
-We will get to why the name "SQL" in a bit, but first, let's see what is it all about.
+We will get to why the name "SQL" in a bit, but first, let's see what it is all about.
 
 ### SQLModel for SQL Databases
 
@@ -137,7 +137,7 @@ If we worked with a single table to store our heroes, it could be like this:
 <th>id</th><th>name</th><th>secret_name</th><th>age</th><th>team</th><th>headquarters</th>
 </tr>
 <tr>
-<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Factor</td><td>Sister Margaret's Bar</td>
+<td>1</td><td>Deadpond</td><td>Dive Wilson</td><td>null</td><td>Z-Force</td><td>Sister Margaret's Bar</td>
 </tr>
 <tr>
 <td>2</td><td>Spider-Boy</td><td>Pedro Parqueador</td><td>null</td><td>Preventers</td><td>Sharp Tower</td>
@@ -279,7 +279,7 @@ And because of this technical term, these **SQL Databases** are also called **Re
 
 After developing these ideas of how to store data in multiple tables they also created a **language** that could be used to interact with them.
 
-The language is called **SQL**, the name comes from for **Structured Query Language**.
+The language is called **SQL**, the name comes from **Structured Query Language**.
 
 Nevertheless, the language is not only used to *query* for data. It is also used to create records/rows, to update them, to delete them. And to manipulate the database, create tables, etc.
 

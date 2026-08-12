@@ -59,7 +59,7 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 
 The same with the `Hero` model.
 
-We change the `teams` relationship attribute for `team_links`:
+We change the `teams` relationship attribute to `team_links`:
 
 {* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[21:27] hl[27] *}
 
@@ -71,7 +71,7 @@ But now we create the **explicit link models** manually, pointing to their hero 
 
 {* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[40:79] hl[58:67,69:72] *}
 
-We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will be also automatically included in the session when we commit.
+We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will also be automatically included in the session when we commit.
 
 ## Run the Program
 

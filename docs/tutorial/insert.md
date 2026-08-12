@@ -2,7 +2,7 @@
 
 Now that we have a database and a table, we can start adding data.
 
-Here's a reminder of how the table would look like, this is the data we want to add:
+Here's a reminder of what the table would look like, this is the data we want to add:
 
 <table>
 <tr>
@@ -39,7 +39,7 @@ This is the code we had to create the database and table, nothing new here:
 
 ////
 
-Now that we can create the database and the table, we will continue from this point and add more code on the same file to create the data.
+Now that we can create the database and the table, we will continue from this point and add more code in the same file to create the data.
 
 ## Create Data with SQL
 
@@ -68,9 +68,9 @@ It means, more or less:
 > * `"Deadpond"`
 > * `"Dive Wilson"`
 
-### Try it in DB Explorer for SQLite
+### Try it in DB Browser for SQLite
 
-You can try that SQL statement in **DB Explorer for SQLite**.
+You can try that SQL statement in **DB Browser for SQLite**.
 
 Make sure to open the same database we already created by clicking <kbd>Open Database</kbd> and selecting the same `database.db` file.
 
@@ -159,7 +159,7 @@ In fact, the **session** needs and uses an **engine**.
 
 For example, if we have a web application, we would normally have a single **session** per request.
 
-We would re-use the same **engine** in all the code, everywhere in the application (shared by all the requests). But for each request, we would create and use a new **session**. And once the request is done, we would close the session.
+We would reuse the same **engine** in all the code, everywhere in the application (shared by all the requests). But for each request, we would create and use a new **session**. And once the request is done, we would close the session.
 
 The first step is to import the `Session` class:
 
@@ -335,7 +335,7 @@ Review what each line does by clicking each number bubble in the code. 👆
 
 ///
 
-You can now put it in a `app.py` file and run it with Python. And you will see an output like the one shown above.
+You can now put it in an `app.py` file and run it with Python. And you will see an output like the one shown above.
 
 After that, if you open the database with **DB Browser for SQLite**, you will see the data you just created in the <kbd>Browse Data</kbd> tab:
 

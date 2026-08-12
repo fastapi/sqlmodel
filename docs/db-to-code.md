@@ -119,7 +119,7 @@ The process of making sure that whatever the external user sends is safe to use 
 
 It comes by default in **SQLModel** (thanks to SQLAlchemy). And many other similar tools would also provide that functionality among many other features.
 
-Now you are ready for [a  joke from xkcd](https://xkcd.com/327/):
+Now you are ready for [a joke from xkcd](https://xkcd.com/327/):
 
 ![Exploits of a Mom](https://imgs.xkcd.com/comics/exploits_of_a_mom.png)
 
@@ -244,7 +244,7 @@ These types of libraries like **SQLModel** (and of course, SQLAlchemy) that tran
 
 **ORM** means **Object-Relational Mapper**.
 
-This is a very common term, but it also comes from quite technical and **academical** concepts 👩‍🎓:
+This is a very common term, but it also comes from quite technical and **academic** concepts 👩‍🎓:
 
 * **Object**: refers to code with classes and instances, normally called "Object Oriented Programming", that's why the "**Object**" part.
 
