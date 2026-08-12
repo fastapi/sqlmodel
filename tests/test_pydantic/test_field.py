@@ -54,3 +54,83 @@ def test_repr():
 
     instance = Model(id=123, foo="bar")
     assert "foo=" not in repr(instance)
+
+
+def test_gt():
+    class Model(SQLModel):
+        int_value: int = Field(gt=10)
+        tuple_value: tuple[int, int] = Field(gt=(1, 2))
+
+    Model(int_value=11, tuple_value=(1, 3))
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model(int_value=10, tuple_value=(1, 3))
+    assert len(exc_info.value.errors()) == 1
+    assert exc_info.value.errors()[0]["type"] == "greater_than"
+    assert exc_info.value.errors()[0]["loc"] == ("int_value",)
+
+    with pytest.raises(ValidationError) as exc_info_2:
+        Model(int_value=11, tuple_value=(1, 2))
+    assert len(exc_info_2.value.errors()) == 1
+    assert exc_info_2.value.errors()[0]["type"] == "greater_than"
+    assert exc_info_2.value.errors()[0]["loc"] == ("tuple_value",)
+
+
+def test_ge():
+    class Model(SQLModel):
+        int_value: int = Field(ge=10)
+        tuple_value: tuple[int, int] = Field(ge=(1, 2))
+
+    Model(int_value=10, tuple_value=(1, 2))
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model(int_value=9, tuple_value=(1, 2))
+    assert len(exc_info.value.errors()) == 1
+    assert exc_info.value.errors()[0]["type"] == "greater_than_equal"
+    assert exc_info.value.errors()[0]["loc"] == ("int_value",)
+
+    with pytest.raises(ValidationError) as exc_info_2:
+        Model(int_value=10, tuple_value=(1, 1))
+    assert len(exc_info_2.value.errors()) == 1
+    assert exc_info_2.value.errors()[0]["type"] == "greater_than_equal"
+    assert exc_info_2.value.errors()[0]["loc"] == ("tuple_value",)
+
+
+def test_lt():
+    class Model(SQLModel):
+        int_value: int = Field(lt=10)
+        tuple_value: tuple[int, int] = Field(lt=(1, 2))
+
+    Model(int_value=9, tuple_value=(1, 1))
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model(int_value=10, tuple_value=(1, 1))
+    assert len(exc_info.value.errors()) == 1
+    assert exc_info.value.errors()[0]["type"] == "less_than"
+    assert exc_info.value.errors()[0]["loc"] == ("int_value",)
+
+    with pytest.raises(ValidationError) as exc_info_2:
+        Model(int_value=9, tuple_value=(1, 2))
+    assert len(exc_info_2.value.errors()) == 1
+    assert exc_info_2.value.errors()[0]["type"] == "less_than"
+    assert exc_info_2.value.errors()[0]["loc"] == ("tuple_value",)
+
+
+def test_le():
+    class Model(SQLModel):
+        int_value: int = Field(le=10)
+        tuple_value: tuple[int, int] = Field(le=(1, 2))
+
+    Model(int_value=10, tuple_value=(1, 2))
+
+    with pytest.raises(ValidationError) as exc_info:
+        Model(int_value=11, tuple_value=(1, 2))
+    assert len(exc_info.value.errors()) == 1
+    assert exc_info.value.errors()[0]["type"] == "less_than_equal"
+    assert exc_info.value.errors()[0]["loc"] == ("int_value",)
+
+    with pytest.raises(ValidationError) as exc_info_2:
+        Model(int_value=10, tuple_value=(1, 3))
+    assert len(exc_info_2.value.errors()) == 1
+    assert exc_info_2.value.errors()[0]["type"] == "less_than_equal"
+    assert exc_info_2.value.errors()[0]["loc"] == ("tuple_value",)
