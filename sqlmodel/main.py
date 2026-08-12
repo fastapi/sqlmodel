@@ -40,7 +40,6 @@ from sqlalchemy import Enum as sa_Enum
 from sqlalchemy.orm import (
     Mapped,
     RelationshipProperty,
-    declared_attr,
     registry,
     relationship,
 )
@@ -519,6 +518,7 @@ def Relationship(
 
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
+    __tablename__: str
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
     model_config: SQLModelConfig
     model_fields: ClassVar[dict[str, FieldInfo]]
@@ -565,6 +565,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             "__sqlmodel_relationships__": relationships,
             "__annotations__": pydantic_annotations,
         }
+        # Set default __tablename__ before class creation so it's part of the
+        # class dict, unless the user supplied one.
+        if "__tablename__" not in class_dict:
+            dict_used["__tablename__"] = name.lower()
         # Duplicate logic from Pydantic to filter config kwargs because if they are
         # passed directly including the registry Pydantic will pass them over to the
         # superclass causing an error
@@ -804,7 +808,6 @@ _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
-    __tablename__: ClassVar[str | Callable[..., str]]
     __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipInfo]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
@@ -863,10 +866,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             for k, v in super().__repr_args__()
             if not (isinstance(k, str) and k.startswith("_sa_"))
         ]
-
-    @declared_attr  # type: ignore
-    def __tablename__(cls) -> str:
-        return cls.__name__.lower()
 
     @classmethod
     def model_validate(  # ty: ignore[invalid-method-override]
