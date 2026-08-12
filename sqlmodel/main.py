@@ -11,6 +11,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     ClassVar,
     Literal,
@@ -18,6 +19,7 @@ from typing import (
     TypeVar,
     Union,
     cast,
+    get_args,
     get_origin,
     overload,
 )
@@ -517,6 +519,16 @@ def Relationship(
     return relationship_info
 
 
+def get_annotated_relationshipinfo(t: Any) -> RelationshipInfo | None:
+    """Get the first RelationshipInfo from Annotated or None if not Annotated with RelationshipInfo."""
+    if get_origin(t) is not Annotated:
+        return None
+    for a in get_args(t):
+        if isinstance(a, RelationshipInfo):
+            return a
+    return None
+
+
 @__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
@@ -549,16 +561,29 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
         original_annotations = get_annotations(class_dict)
         pydantic_annotations = {}
         relationship_annotations = {}
-        for k, v in class_dict.items():
+
+        # find relationship info in both annotations and class dict
+        for k in {**original_annotations, **class_dict}:
+            v = class_dict.get(k)
             if isinstance(v, RelationshipInfo):
                 relationships[k] = v
-            else:
+                continue
+            r = get_annotated_relationshipinfo(original_annotations.get(k))
+            if r is not None:
+                relationships[k] = r
+
+        # populate dict passed to pydantic
+        for k, v in class_dict.items():
+            if k not in relationships:
                 dict_for_pydantic[k] = v
-        for k, v in original_annotations.items():
+
+        # split out pydantic annotations
+        for k, a in original_annotations.items():
             if k in relationships:
-                relationship_annotations[k] = v
+                relationship_annotations[k] = a
             else:
-                pydantic_annotations[k] = v
+                pydantic_annotations[k] = a
+
         dict_used = {
             **dict_for_pydantic,
             "__weakref__": None,
@@ -643,6 +668,11 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                 origin: Any = get_origin(raw_ann)
                 if origin is Mapped:
                     ann = raw_ann.__args__[0]
+                elif origin is Annotated:
+                    ann = get_args(raw_ann)[0]
+                    if get_origin(ann) is Mapped:
+                        ann = ann.__args__[0]
+                    cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
                 else:
                     ann = raw_ann
                     # Plain forward references, for models not yet defined, are not
