@@ -31,7 +31,7 @@ For the database, **SQLModel** will use [SQLAlchemy's `DECIMAL` type](https://do
 
 ## Decimals in SQLModel
 
-Let's say that each hero in the database will have an amount of money. We could make that field a `Decimal` type using the `condecimal()` function:
+Let's say that each hero in the database will have an amount of money. We can define that field as a `Decimal` and configure the maximum number of digits and decimal places using the parameters of `Field()`:
 
 {* ./docs_src/advanced/decimal/tutorial001_py310.py ln[1:11] hl[11] *}
 
