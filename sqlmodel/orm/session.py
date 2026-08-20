@@ -97,7 +97,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
@@ -127,7 +127,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
