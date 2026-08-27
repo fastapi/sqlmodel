@@ -12,6 +12,7 @@
 
 ### Internal
 
+* ⬆️ Bump Typer min version to `0.26.1`. PR [#2078](https://github.com/fastapi/sqlmodel/pull/2078) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆️ Bump `setup-uv` action to `10.0.1`. PR [#2077](https://github.com/fastapi/sqlmodel/pull/2077) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 👷 Migrate automatic labels to Latest Changes. PR [#2074](https://github.com/fastapi/sqlmodel/pull/2074) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Remove legacy label check. PR [#2072](https://github.com/fastapi/sqlmodel/pull/2072) by [@tiangolo](https://github.com/tiangolo).
