@@ -267,7 +267,7 @@ We use the same `Field()` again as we did before, and set `index=True`. That's i
 
 Notice that we didn't set an argument of `default=None` or anything similar. This means that **SQLModel** (thanks to Pydantic) will keep it as a **required** field.
 
-/// info
+/// note
 
 SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
 
@@ -294,7 +294,7 @@ If you run the program now, you will see an output like this:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 

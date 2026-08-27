@@ -91,7 +91,7 @@ Here we import the models, the engine, and the function to create all the tables
 
 ### Order Matters
 
-Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} when calling `SQLModel.metadata.create_all()`?
+Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters) when calling `SQLModel.metadata.create_all()`?
 
 The point of that section in the docs is that you have to import the module that has the models **before** calling `SQLModel.metadata.create_all()`.
 
@@ -102,13 +102,13 @@ We are doing that here, we import the models in `app.py` and **after** that we c
 Because now this is a larger project with a **Python package** and not a single Python file, we **cannot** call it just passing a single file name as we did before with:
 
 ```console
-$ python app.py
+$ uv run python app.py
 ```
 
 Now we have to tell Python that we want it to execute a *module* that is part of a package:
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 ```
 
 The `-m` is to tell Python to call a *module*. And the next thing we pass is a string with `project.app`, that is the same format we would use in an **import**:
@@ -129,7 +129,7 @@ So, the output would be:
 <div class="termy">
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 
 Created hero: id=1 secret_name='Dive Wilson' team_id=1 name='Deadpond' age=None
 Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
@@ -139,7 +139,7 @@ Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
 
 ## Make Circular Imports Work
 
-Let's say that for some reason you hate the idea of having all the database models together in a single file, and you really want to have **separate files** a `hero_model.py` file and a `team_model.py` file.
+Let's say that for some reason you hate the idea of having all the database models together in a single file, and you really want to have **separate files**: a `hero_model.py` file and a `team_model.py` file.
 
 You can also do it. 😎 There's a couple of things to keep in mind. 🤓
 
@@ -228,7 +228,7 @@ And running that achieves the same result as before:
 <div class="termy">
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 
 Created hero: id=1 age=None name='Deadpond' secret_name='Dive Wilson' team_id=1
 Hero's team: id=1 name='Z-Force' headquarters='Sister Margaret's Bar'

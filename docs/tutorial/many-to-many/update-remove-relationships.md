@@ -53,7 +53,7 @@ You can confirm it's all working by running the program in the command line:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -130,7 +130,7 @@ To confirm that this last part worked, you can run the program again, it will ou
 <div style="font-size: 1rem;" class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 

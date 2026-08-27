@@ -43,7 +43,7 @@ If we run the program from the command line, it would output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 

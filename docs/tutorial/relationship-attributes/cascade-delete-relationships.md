@@ -8,7 +8,7 @@ Should their `team_id` instead be set to `NULL` in the database?
 
 Let's see how to configure that with **SQLModel**.
 
-/// info
+/// note
 
 This feature, including `cascade_delete`, `ondelete`, and `passive_deletes`, is available since SQLModel version `0.0.21`.
 
@@ -129,7 +129,7 @@ The `cascade_delete` parameter is set in the `Relationship()`, on the model that
 
 Setting `cascade_delete=True` in the `Relationship()` will configure SQLAlchemy to use `cascade="all, delete-orphan"`, which is the most common and useful configuration when wanting to cascade deletes.
 
-You can read more about it in the <a href="https://docs.sqlalchemy.org/en/20/orm/cascades.html" class="external-link" target="_blank">SQLAlchemy docs</a>.
+You can read more about it in the [SQLAlchemy docs](https://docs.sqlalchemy.org/en/20/orm/cascades.html).
 
 ///
 
@@ -236,7 +236,7 @@ We can confirm everything is working by running the program.
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -378,7 +378,7 @@ Let's confirm it all works by running the program now:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -440,9 +440,9 @@ To be able to test this out with SQLite, we first need to enable foreign key sup
 
 {* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[30:33] hl[33] *}
 
-/// info
+/// note
 
-You can learn more about SQLite, foreign keys, and this SQL command on the <a href="https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support" class="external-link" target="_blank">SQLAlchemy docs</a>.
+You can learn more about SQLite, foreign keys, and this SQL command on the [SQLAlchemy docs](https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support).
 
 ///
 
@@ -461,7 +461,7 @@ Now, if we run the program, we will see that SQLModel (SQLAlchemy) is no longer 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -539,7 +539,7 @@ Now, if we run the program and try to delete a team with heroes, we will see an 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -602,7 +602,7 @@ Now, if we run the program and delete the heroes first, we will be able to delet
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 

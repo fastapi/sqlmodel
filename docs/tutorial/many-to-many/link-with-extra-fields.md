@@ -39,7 +39,7 @@ The new **relationship attributes** have their own `back_populates` pointing to 
 * `team`: has `back_populates="hero_links"`, because in the `Team` model, the attribute will contain the links to the **team's heroes**.
 * `hero`: has `back_populates="team_links"`, because in the `Hero` model, the attribute will contain the links to the **hero's teams**.
 
-/// info
+/// note
 
 In SQLAlchemy this is called an Association Object or Association Model.
 
@@ -80,7 +80,7 @@ Now, if we run the program, it will show almost the same output as before, becau
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -176,7 +176,7 @@ If we run that program, we will see the output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -257,7 +257,7 @@ And if we run the program now, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 

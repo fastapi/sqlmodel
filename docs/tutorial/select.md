@@ -289,7 +289,7 @@ And the second section reading data from the database could be in another functi
 
 So, both sections could be in **different places** and would need their own sessions.
 
-/// info
+/// note
 
 To be fair, in this example all that code could actually share the same **session**, there's actually no need to have two here.
 
@@ -319,7 +319,7 @@ After printing it, we would see something like:
 ]
 ```
 
-/// info
+/// note
 
 It would actually look more compact, I'm formatting it a bit for you to see that it is actually a list with all the data.
 
@@ -353,7 +353,7 @@ SQLAchemy also has its own `select`, and SQLModel's `select` uses SQLAlchemy's `
 
 But SQLModel's version does a lot of **tricks** with type annotations to make sure you get the best **editor support** possible, no matter if you use **VS Code**, **PyCharm**, or something else. ✨
 
-/// info
+/// note
 
 There was a lot of work and research, with different versions of the internal code, to improve this as much as possible. 🤓
 

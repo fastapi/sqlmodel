@@ -71,7 +71,7 @@ If you run the code in the command line, it would output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Boilerplate omitted 😉
 

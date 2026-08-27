@@ -4,7 +4,7 @@ from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
 
 
-class AutoString(types.TypeDecorator):  # type: ignore
+class AutoString(types.TypeDecorator):
     impl = types.String
     cache_ok = True
     mysql_default_length = 255

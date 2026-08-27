@@ -193,7 +193,7 @@ And once we are ready, we can **commit** those changes, and then the **session**
 
 This makes the interactions with the database more efficient (plus some extra benefits).
 
-/// info  | Technical Details
+/// note  | Technical Details
 
 The session will create a new transaction and execute all the SQL code in that transaction.
 
@@ -251,7 +251,7 @@ Because we created the **engine** with `echo=True`, it will print out all the SQ
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 // Some boilerplate, checking that the hero table already exists
 INFO Engine BEGIN (implicit)
 INFO Engine PRAGMA main.table_info("hero")

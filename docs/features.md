@@ -2,9 +2,9 @@
 
 ## Designed for **FastAPI**
 
-**SQLModel** was created by the same <a href="https://tiangolo.com/" class="external-link" target="_blank">author</a> of FastAPI.
+**SQLModel** was created by the same [author](https://tiangolo.com/) of FastAPI.
 
-<a href="https://fastapi.tiangolo.com" target="_blank"><img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" style="width: 20%;"></a>
+<a href="https://fastapi.tiangolo.com"><img src="https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" style="width: 20%;"></a>
 
 It follows the same design and ideas, and it was created to be the most intuitive way to interact with SQL databases in FastAPI applications.
 
@@ -14,9 +14,9 @@ Nevertheless, SQLModel is completely **independent** of FastAPI and can be used 
 
 It's all based on standard <abbr title="Currently supported versions of Python">modern **Python**</abbr> type annotations. No new syntax to learn. Just standard modern Python.
 
-If you need a 2 minute refresher of how to use Python types (even if you don't use SQLModel or FastAPI), check the FastAPI tutorial section: <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">Python types intro</a>.
+If you need a 2 minute refresher of how to use Python types (even if you don't use SQLModel or FastAPI), check the FastAPI tutorial section: [Python types intro](https://fastapi.tiangolo.com/python-types/).
 
-You will also see a 20 seconds refresher on the section [Tutorial - User Guide: First Steps](tutorial/index.md){.internal-link target=_blank}.
+You will also see a 20 seconds refresher on the section [Tutorial - User Guide: First Steps](tutorial/index.md).
 
 ## Editor support
 
@@ -24,11 +24,11 @@ You will also see a 20 seconds refresher on the section [Tutorial - User Guide: 
 
 Here's how your editor might help you:
 
-* in <a href="https://code.visualstudio.com/" class="external-link" target="_blank">Visual Studio Code</a>:
+* in [Visual Studio Code](https://code.visualstudio.com/):
 
 <img class="shadow" src="/img/index/autocompletion02.png">
 
-* in <a href="https://www.jetbrains.com/pycharm/" class="external-link" target="_blank">PyCharm</a>:
+* in [PyCharm](https://www.jetbrains.com/pycharm/):
 
 <img class="shadow" src="/img/features/autocompletion01.png">
 
@@ -36,7 +36,7 @@ You will get completion for everything while writing the **minimum** amount of c
 
 You won't need to keep guessing the types of different attributes in your models, if they could be `None`, etc. Your editor will be able to help you with everything because **SQLModel** is based on **standard Python type annotations**.
 
-**SQLModel** adopts <a href="https://peps.python.org/pep-0681/" class="external-link" target="_blank">PEP 681</a> for Python type annotations to ensure the **best developer experience**, so you will get inline errors and autocompletion even while creating new model instances.
+**SQLModel** adopts [PEP 681](https://peps.python.org/pep-0681/) for Python type annotations to ensure the **best developer experience**, so you will get inline errors and autocompletion even while creating new model instances.
 
 <img class="shadow" src="/img/index/autocompletion01.png">
 
@@ -76,7 +76,7 @@ Underneath, ✨ a **SQLModel** model is also a **SQLAlchemy** model. ✨
 
 There was **a lot** of research and effort dedicated to make it that way. In particular, there was a lot of effort and experimentation in making a single model be **both a SQLAlchemy model and a Pydantic** model at the same time.
 
-That means that you get all the power, robustness, and certainty of SQLAlchemy, the <a href="https://lp.jetbrains.com/python-developers-survey-2024/#orms" class="external-link" target="_blank">most widely used database library in Python</a>.
+That means that you get all the power, robustness, and certainty of SQLAlchemy, the [most widely used database library in Python](https://lp.jetbrains.com/python-developers-survey-2024/#orms).
 
 **SQLModel** provides its own utilities to <abbr title="with type completion, type checks, etc.">improve the developer experience</abbr>, but underneath, it uses all of SQLAlchemy.
 
