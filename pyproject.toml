@@ -64,7 +64,7 @@ docs = [
     "mkdocstrings[python] >=1.0.3",
     "pillow >=12.1.1",
     "pyyaml >=5.3.1",
-    "typer >=0.24.1",
+    "typer >=0.26.1",
     "zensical>=0.0.42",
 ]
 github-actions = [
@@ -84,7 +84,7 @@ tests = [
     "pytest >=7.0.1",
     "ruff >=0.15.6",
     "ty>=0.0.25",
-    "typer >=0.24.1",
+    "typer >=0.26.1",
     "typing-extensions >=4.15.0",
 ]
 
