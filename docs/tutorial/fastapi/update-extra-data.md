@@ -10,7 +10,7 @@ This is particularly useful when you need to **generate some data** in your code
 
 Let's imagine that each hero in our system also has a **password**.
 
-We should never store the password in plain text in the database, we should only stored a **hashed version** of it.
+We should never store the password in plain text in the database, we should only store a **hashed version** of it.
 
 "**Hashing**" means converting some content (a password in this case) into a sequence of bytes (just a string) that looks like gibberish.
 
@@ -26,7 +26,7 @@ So, the thief won't be able to try to use that password in another system (as ma
 
 /// tip
 
-You could use <a href="https://passlib.readthedocs.io/en/stable/" class="external-link" target="_blank">passlib</a> to hash passwords.
+You could use [passlib](https://passlib.readthedocs.io/en/stable/) to hash passwords.
 
 In this example we will use a fake hashing function to focus on the data changes. 🤡
 

@@ -6,11 +6,11 @@ And then we read the data together with `select()` and using `.where()` or `.joi
 
 Now we will see how to use **Relationship Attributes**, an extra feature of **SQLModel** (and SQLAlchemy), to work with the data in the database in a much more familiar way, and closer to normal Python code.
 
-/// info
+/// note
 
 When I say "**relationship**" I mean the standard dictionary term, of data related to other data.
 
-I'm not using the term "**relation**" that is the technical, academical, SQL term for a single table.
+I'm not using the term "**relation**" that is the technical, academic, SQL term for a single table.
 
 ///
 

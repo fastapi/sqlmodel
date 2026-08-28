@@ -37,7 +37,7 @@ Each row in the table `hero` will point to a row in the table `team`:
 
 <img alt="table relationships" src="/img/tutorial/relationships/select/relationships2.drawio.svg">
 
-/// info
+/// note
 
 We will later update **Spider-Boy** to add him to the **Preventers** team too, but not yet.
 
@@ -82,7 +82,7 @@ If we run that code we have up to now, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -168,7 +168,7 @@ If we execute that in the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 

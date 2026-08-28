@@ -1,4 +1,4 @@
-# Define Relationships Attributes
+# Define Relationship Attributes
 
 Now we are finally in one of the most exciting parts of **SQLModel**.
 
