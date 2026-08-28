@@ -106,6 +106,8 @@ def test_unique_items_is_deprecated():
 
         class Model(SQLModel):
             values: list[int] = Field(unique_items=True)
+
+
 def test_min_items():
     with pytest.warns(
         DeprecationWarning,
