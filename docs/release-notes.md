@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.40 (2026-08-28)
+
 ### Docs
 
 * ✏️ Fix grammar and typos in docs. PR [#2058](https://github.com/fastapi/sqlmodel/pull/2058) by [@YuriiMotov](https://github.com/YuriiMotov).
