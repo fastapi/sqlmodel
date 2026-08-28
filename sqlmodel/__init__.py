@@ -1,4 +1,8 @@
-__version__ = "0.0.38"
+__version__ = "0.0.41"
+
+# Re-export from Pydantic
+from pydantic import Discriminator as Discriminator
+from pydantic import Tag as Tag
 
 # Re-export from SQLAlchemy
 from sqlalchemy.engine import create_engine as create_engine

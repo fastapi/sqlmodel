@@ -61,7 +61,7 @@ from .models import Hero, Team
 from .database import engine
 ```
 
-We can use these relative imports because, for example, in the file `app.py` (the `app` module) Python knows that it is **part of our Python package** because it is in the same directory as the file `__init__.py`. And all the Python files on the same directory are part of the same Python package too.
+We can use these relative imports because, for example, in the file `app.py` (the `app` module) Python knows that it is **part of our Python package** because it is in the same directory as the file `__init__.py`. And all the Python files in the same directory are part of the same Python package too.
 
 ### Models File
 
@@ -91,7 +91,7 @@ Here we import the models, the engine, and the function to create all the tables
 
 ### Order Matters
 
-Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} when calling `SQLModel.metadata.create_all()`?
+Remember that [Order Matters](create-db-and-table.md#sqlmodel-metadata-order-matters) when calling `SQLModel.metadata.create_all()`?
 
 The point of that section in the docs is that you have to import the module that has the models **before** calling `SQLModel.metadata.create_all()`.
 
@@ -102,13 +102,13 @@ We are doing that here, we import the models in `app.py` and **after** that we c
 Because now this is a larger project with a **Python package** and not a single Python file, we **cannot** call it just passing a single file name as we did before with:
 
 ```console
-$ python app.py
+$ uv run python app.py
 ```
 
 Now we have to tell Python that we want it to execute a *module* that is part of a package:
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 ```
 
 The `-m` is to tell Python to call a *module*. And the next thing we pass is a string with `project.app`, that is the same format we would use in an **import**:
@@ -129,7 +129,7 @@ So, the output would be:
 <div class="termy">
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 
 Created hero: id=1 secret_name='Dive Wilson' team_id=1 name='Deadpond' age=None
 Hero's team: name='Z-Force' headquarters='Sister Margaret's Bar' id=1
@@ -203,7 +203,7 @@ Using that trick of `TYPE_CHECKING` we can "import" the `Team` in `hero_model.py
 
 {* ./docs_src/tutorial/code_structure/tutorial002_py310/hero_model.py hl[1,5:6,16] *}
 
-Have in mind that now we *have* to put the annotation of `Team` as a string: `"Team"`, so that Python doesn't have errors at runtime.
+Keep in mind that now we *have* to put the annotation of `Team` as a string: `"Team"`, so that Python doesn't have errors at runtime.
 
 ### Team Model File
 
@@ -221,14 +221,14 @@ Now, just for completeness, the `app.py` file would import the models from both 
 
 And of course, all the tricks with `TYPE_CHECKING` and type annotations in strings are **only needed in the files with circular imports**.
 
-As there are no circular imports with `app.py`, we can just use normal imports and use the classes as normally here.
+As there are no circular imports with `app.py`, we can just use normal imports and use the classes normally here.
 
 And running that achieves the same result as before:
 
 <div class="termy">
 
 ```console
-$ python -m project.app
+$ uv run python -m project.app
 
 Created hero: id=1 age=None name='Deadpond' secret_name='Dive Wilson' team_id=1
 Hero's team: id=1 name='Z-Force' headquarters='Sister Margaret's Bar'

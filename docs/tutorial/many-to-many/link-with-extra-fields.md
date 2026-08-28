@@ -39,7 +39,7 @@ The new **relationship attributes** have their own `back_populates` pointing to 
 * `team`: has `back_populates="hero_links"`, because in the `Team` model, the attribute will contain the links to the **team's heroes**.
 * `hero`: has `back_populates="team_links"`, because in the `Hero` model, the attribute will contain the links to the **hero's teams**.
 
-/// info
+/// note
 
 In SQLAlchemy this is called an Association Object or Association Model.
 
@@ -59,7 +59,7 @@ We no longer have the `heroes` relationship attribute, and instead we have the n
 
 The same with the `Hero` model.
 
-We change the `teams` relationship attribute for `team_links`:
+We change the `teams` relationship attribute to `team_links`:
 
 {* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[21:27] hl[27] *}
 
@@ -71,7 +71,7 @@ But now we create the **explicit link models** manually, pointing to their hero 
 
 {* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[40:79] hl[58:67,69:72] *}
 
-We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will be also automatically included in the session when we commit.
+We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will also be automatically included in the session when we commit.
 
 ## Run the Program
 
@@ -80,7 +80,7 @@ Now, if we run the program, it will show almost the same output as before, becau
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -176,7 +176,7 @@ If we run that program, we will see the output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -257,7 +257,7 @@ And if we run the program now, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
