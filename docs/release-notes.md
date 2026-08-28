@@ -4,6 +4,7 @@
 
 ### Docs
 
+* ✏️ Fix grammar and typos in docs. PR [#2058](https://github.com/fastapi/sqlmodel/pull/2058) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 📝 Fix "Decimals in SQLModel" to reference `Field()` instead of `condecimal()`. PR [#2035](https://github.com/fastapi/sqlmodel/pull/2035) by [@anxkhn](https://github.com/anxkhn).
 * 🐛 Use buttons for Termynal controls. PR [#2063](https://github.com/fastapi/sqlmodel/pull/2063) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add Library Skills documentation. PR [#2052](https://github.com/fastapi/sqlmodel/pull/2052) by [@tiangolo](https://github.com/tiangolo).
