@@ -1,6 +1,6 @@
 # Read Relationships
 
-Now that we know how to connect data using **relationship Attributes**, let's see how to get and read the objects from a relationship.
+Now that we know how to connect data using **relationship attributes**, let's see how to get and read the objects from a relationship.
 
 ## Select a Hero
 

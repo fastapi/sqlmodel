@@ -1,6 +1,6 @@
 # Create Data with Many-to-Many Relationships
 
-Let's continue from where we left and create some data.
+Let's continue from where we left off and create some data.
 
 We'll create data for this same **many-to-many** relationship with a link table:
 
@@ -61,7 +61,7 @@ INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.001239s ago] ('Preventers', 'Sharp Tower')
-// Insert the link data last, to be able to re-use the created IDs
+// Insert the link data last, to be able to reuse the created IDs
 INFO Engine INSERT INTO heroteamlink (team_id, hero_id) VALUES (?, ?)
 INFO Engine [generated in 0.00026s] ((2, 3), (1, 1), (2, 1), (2, 2))
 // Commit and save the data in the database
@@ -119,7 +119,7 @@ INFO Engine [cached since 0.002739s ago] (3,)
 // Print Spider-Boy's teams, just one, but still a list
 Spider-Boy Teams: [Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
-// Automatic roll back any previous automatic transaction, at the end of the with block
+// Automatically roll back any previous automatic transaction, at the end of the with block
 INFO Engine ROLLBACK
 ```
 

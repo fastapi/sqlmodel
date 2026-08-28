@@ -102,7 +102,7 @@ Total money: 3.300
 
 /// warning
 
-Although Decimal types are supported and used in the Python side, not all databases support it. In particular, SQLite doesn't support decimals, so it will convert them to the same floating `NUMERIC` type it supports.
+Although Decimal types are supported and used on the Python side, not all databases support them. In particular, SQLite doesn't support decimals, so it will convert them to the same floating `NUMERIC` type it supports.
 
 But decimals are supported by most of the other SQL databases. 🎉
 

@@ -44,7 +44,7 @@ You can try that in **DB Browser for SQLite**:
 
 <img class="shadow" src="/img/tutorial/delete/image01.png">
 
-Have in mind that `DELETE` is to delete entire **rows**, not single values in a row.
+Keep in mind that `DELETE` is to delete entire **rows**, not single values in a row.
 
 If you want to "delete" a single value in a column while **keeping the row**, you would instead **update** the row as explained in the previous chapter, setting the specific value of the column in that row to `NULL` (to `None` in Python).
 
