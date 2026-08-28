@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.41 (2026-08-28)
+
 ### Refactors
 
 * 🗑️ Deprecate `min_items` and `max_items` parameters of `Field`. PR [#1731](https://github.com/fastapi/sqlmodel/pull/1731) by [@YuriiMotov](https://github.com/YuriiMotov).
