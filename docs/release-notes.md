@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.42 (2026-08-28)
+
 ### Features
 
 * 🏷️ Allow `Discriminator` type for `discriminator` parameter in `Field`. PR [#1729](https://github.com/fastapi/sqlmodel/pull/1729) by [@YuriiMotov](https://github.com/YuriiMotov).
