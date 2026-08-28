@@ -57,8 +57,8 @@ def test_repr():
 
 
 def test_const_is_deprecated():
-    with pytest.warns(
-        DeprecationWarning,
+    with pytest.raises(
+        RuntimeError,
         match="`const` is deprecated and doesn't work, use `Literal` instead",
     ):
 
@@ -67,8 +67,8 @@ def test_const_is_deprecated():
 
 
 def test_unique_items_is_deprecated():
-    with pytest.warns(
-        DeprecationWarning,
+    with pytest.raises(
+        RuntimeError,
         match="`unique_items` is deprecated and doesn't work, use `set` type instead",
     ):
 

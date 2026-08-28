@@ -3,7 +3,6 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
-import warnings
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
@@ -436,9 +435,9 @@ def Field(
     current_schema_extra = schema_extra or {}
 
     if const is not None:
-        warnings.warn(CONST_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        raise RuntimeError(CONST_DEPRECATION_MSG)
     if unique_items is not None:
-        warnings.warn(UNIQUE_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        raise RuntimeError(UNIQUE_ITEMS_DEPRECATION_MSG)
 
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
