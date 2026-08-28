@@ -184,7 +184,7 @@ def get_sa_type_from_type_annotation(annotation: Any) -> Any:
         bases = get_args(annotation)
         if len(bases) > 2:
             raise ValueError("Cannot have a (non-optional) union as a SQLAlchemy field")
-        # Non optional unions are not allowed
+        # Non-optional unions are not allowed
         if bases[0] is not NoneType and bases[1] is not NoneType:
             raise ValueError("Cannot have a (non-optional) union as a SQLAlchemy field")
         # Optional unions are allowed
