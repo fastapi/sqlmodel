@@ -3,7 +3,7 @@ from typing import Annotated, Any, Literal
 
 import pytest
 from pydantic import ValidationError
-from sqlmodel import Discriminator, Field, Session, SQLModel, create_engine, Tag
+from sqlmodel import Discriminator, Field, Session, SQLModel, Tag, create_engine
 from sqlmodel._compat import PYDANTIC_MINOR_VERSION
 
 
