@@ -4,9 +4,9 @@ In this tutorial you will learn how to use **SQLModel**.
 
 ## Type hints
 
-If you need a refresher about how to use Python type hints (type annotations), check <a href="https://fastapi.tiangolo.com/python-types/" class="external-link" target="_blank">FastAPI's Python types intro</a>.
+If you need a refresher about how to use Python type hints (type annotations), check [FastAPI's Python types intro](https://fastapi.tiangolo.com/python-types/).
 
-You can also check the <a href="https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html" class="external-link" target="_blank">mypy cheat sheet</a>.
+You can also check the [mypy cheat sheet](https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html).
 
 **SQLModel** uses type annotations for everything, this way you can use a familiar Python syntax and get all the editor support possible, with autocompletion and in-editor error checking.
 

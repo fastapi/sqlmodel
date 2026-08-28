@@ -12,6 +12,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     ClassVar,
     Literal,
@@ -23,7 +24,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, Discriminator, EmailStr
 from pydantic.fields import Deprecated as Deprecated
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
@@ -90,6 +91,13 @@ IncEx: TypeAlias = (
     | Mapping[str, Union["IncEx", bool]]
 )
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
+
+MIN_ITEMS_DEPRECATION_MSG = (
+    "`min_items` is deprecated and will be removed, use `min_length` instead"
+)
+MAX_ITEMS_DEPRECATION_MSG = (
+    "`max_items` is deprecated and will be removed, use `max_length` instead"
+)
 
 
 def __dataclass_transform__(
@@ -259,15 +267,21 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     strict: bool | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -307,15 +321,21 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     strict: bool | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: str,
@@ -364,15 +384,21 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     strict: bool | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     sa_column: Column[Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -402,15 +428,21 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
     strict: bool | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -436,6 +468,15 @@ def Field(
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
             warnings.warn(msg, DeprecationWarning, stacklevel=2)
+
+    if min_items is not None:
+        warnings.warn(MIN_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if min_length is None:
+            min_length = min_items
+    if max_items is not None:
+        warnings.warn(MAX_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if max_length is None:
+            max_length = max_items
 
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
@@ -465,8 +506,6 @@ def Field(
         "multiple_of": multiple_of,
         "max_digits": max_digits,
         "decimal_places": decimal_places,
-        "min_items": min_items,
-        "max_items": max_items,
         "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
@@ -851,7 +890,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[str | Callable[..., str]]
-    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipProperty[Any]]]
+    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipInfo]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
@@ -949,6 +988,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         warnings: bool | Literal["none", "warn", "error"] = True,
         fallback: Callable[[Any], Any] | None = None,  # v2.11
         serialize_as_any: bool = False,  # v2.7
+        polymorphic_serialization: bool | None = None,  # v2.13
     ) -> builtins.dict[str, Any]:
         if PYDANTIC_MINOR_VERSION < (2, 11):
             by_alias = by_alias or False
@@ -959,6 +999,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             extra_kwargs["fallback"] = fallback
         if PYDANTIC_MINOR_VERSION >= (2, 12):
             extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
+        if PYDANTIC_MINOR_VERSION >= (2, 13):
+            extra_kwargs["polymorphic_serialization"] = polymorphic_serialization
         return super().model_dump(
             mode=mode,
             include=include,
@@ -1049,6 +1091,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         else:
             raise ValueError(
                 "Can't use sqlmodel_update() with something that "
-                f"is not a dict or SQLModel or Pydantic model: {obj}"
+                f"is not a dict, SQLModel, or Pydantic model: {obj}"
             )
         return self

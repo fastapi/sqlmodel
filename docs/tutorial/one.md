@@ -47,7 +47,7 @@ If we run it in the command line it would output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -78,7 +78,7 @@ When we run it in the command line it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -88,7 +88,7 @@ FROM hero
 WHERE hero.age <= ?
 INFO Engine [no key 0.00021s] (35,)
 
-// Now rows found, first is None
+// No rows found, first is None
 Hero: None
 ```
 
@@ -111,7 +111,7 @@ If we run it once, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -134,7 +134,7 @@ So, running it again, without first deleting the file `database.db` will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -175,7 +175,7 @@ This is what we would get if we run it in the command line:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -219,14 +219,14 @@ As selecting a single row by its Id column with the **primary key** is a common 
 
 {* ./docs_src/tutorial/one/tutorial008_py310.py ln[42:45] hl[44] *}
 
-`session.get(Hero, 1)` is an equivalent to creating a `select()`, then filtering by Id using `.where()`, and then getting the first item with `.first()`.
+`session.get(Hero, 1)` is equivalent to creating a `select()`, then filtering by Id using `.where()`, and then getting the first item with `.first()`.
 
 If you run it, it will output:
 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -244,7 +244,7 @@ Hero: secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 
 ## Select by Id with `.get()` with No Data
 
-`.get()` behaves similar to `.first()`, if there's no data it will simply return `None` (instead of raising an error):
+`.get()` behaves similarly to `.first()`, if there's no data it will simply return `None` (instead of raising an error):
 
 {* ./docs_src/tutorial/one/tutorial009_py310.py ln[42:45] hl[44] *}
 
@@ -253,7 +253,7 @@ Running that will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
