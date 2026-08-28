@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 📝 Fix "Decimals in SQLModel" to reference `Field()` instead of `condecimal()`. PR [#2035](https://github.com/fastapi/sqlmodel/pull/2035) by [@anxkhn](https://github.com/anxkhn).
 * 🐛 Use buttons for Termynal controls. PR [#2063](https://github.com/fastapi/sqlmodel/pull/2063) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add Library Skills documentation. PR [#2052](https://github.com/fastapi/sqlmodel/pull/2052) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Recommend uv projects by default in docs. PR [#2050](https://github.com/fastapi/sqlmodel/pull/2050) by [@tiangolo](https://github.com/tiangolo).
