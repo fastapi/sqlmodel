@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump pre-commit hooks. PR [#2083](https://github.com/fastapi/sqlmodel/pull/2083) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+
 ## 0.0.42 (2026-08-28)
 
 ### Features
