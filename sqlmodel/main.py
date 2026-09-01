@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import builtins
 import ipaddress
+import re
 import uuid
 import warnings
 from collections.abc import Callable, Mapping, Sequence, Set
@@ -96,6 +97,9 @@ MIN_ITEMS_DEPRECATION_MSG = (
 )
 MAX_ITEMS_DEPRECATION_MSG = (
     "`max_items` is deprecated and will be removed, use `max_length` instead"
+)
+REGEX_PARAM_DEPRECATION_MSG = (
+    "The `regex` parameter is deprecated. \nUse `pattern` parameter instead."
 )
 
 
@@ -274,7 +278,11 @@ def Field(
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: str | None = None,
+    regex: Annotated[
+        str | None,
+        deprecated(REGEX_PARAM_DEPRECATION_MSG),
+    ] = None,
+    pattern: str | re.Pattern[str] | None = None,
     discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
@@ -323,7 +331,11 @@ def Field(
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: str | None = None,
+    regex: Annotated[
+        str | None,
+        deprecated(REGEX_PARAM_DEPRECATION_MSG),
+    ] = None,
+    pattern: str | re.Pattern[str] | None = None,
     discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
@@ -381,7 +393,11 @@ def Field(
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: str | None = None,
+    regex: Annotated[
+        str | None,
+        deprecated(REGEX_PARAM_DEPRECATION_MSG),
+    ] = None,
+    pattern: str | re.Pattern[str] | None = None,
     discriminator: str | Discriminator | None = None,
     repr: bool = True,
     sa_column: Column[Any] | UndefinedType = Undefined,
@@ -420,7 +436,11 @@ def Field(
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: str | None = None,
+    regex: Annotated[
+        str | None,
+        deprecated(REGEX_PARAM_DEPRECATION_MSG),
+    ] = None,
+    pattern: str | re.Pattern[str] | None = None,
     discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
@@ -445,10 +465,17 @@ def Field(
         warnings.warn(MAX_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
         if max_length is None:
             max_length = max_items
+    if regex:
+        warnings.warn(REGEX_PARAM_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+    for param_name in ("pattern",):
+        if param_name in current_schema_extra:
+            msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
+            warnings.warn(msg, UserWarning, stacklevel=2)
 
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
+    current_pattern = pattern or regex or current_schema_extra.pop("pattern", None)
     field_info_kwargs = {
         "alias": alias,
         "title": title,
@@ -467,7 +494,7 @@ def Field(
         "min_length": min_length,
         "max_length": max_length,
         "allow_mutation": allow_mutation,
-        "regex": regex,
+        "pattern": current_pattern,
         "discriminator": discriminator,
         "repr": repr,
         "primary_key": primary_key,
