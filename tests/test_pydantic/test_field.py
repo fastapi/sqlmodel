@@ -120,7 +120,7 @@ def test_max_items():
         Model(items=[1, 2, 3])
     assert len(exc_info.value.errors()) == 1
     assert exc_info.value.errors()[0]["type"] == "too_long"
-    
+
 
 def test_regex():
     with pytest.warns(DeprecationWarning, match="The `regex` parameter is deprecated"):
