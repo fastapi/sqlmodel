@@ -24,7 +24,7 @@ For example, to get the hero with ID `2` we would send a `GET` request to:
 
 ## Handling Errors
 
-Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `Hero.get()` to try and get one hero by that ID.
+Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `session.get()` to try and get one hero by that ID.
 
 But if the integer is not the ID of any hero in the database, it will not find anything, and the variable `hero` will be `None`.
 

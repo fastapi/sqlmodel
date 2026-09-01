@@ -63,8 +63,6 @@ nav:
     - learn/index.md
     - databases.md
     - db-to-code.md
-    - environment-variables.md
-    - virtual-environments.md
     - install.md
     - "":
       - tutorial/index.md

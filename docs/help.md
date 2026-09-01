@@ -26,7 +26,7 @@ You can follow **FastAPI** online in several places:
 
 You can "star" SQLModel in GitHub (clicking the star button at the top right): [https://github.com/fastapi/sqlmodel](https://github.com/fastapi/sqlmodel). ⭐️
 
-By adding a star, other users will be able to find it more easily and see that it has been already useful for others.
+By adding a star, other users will be able to find it more easily and see that it has already been useful for others.
 
 ## Watch the GitHub repository for releases
 
@@ -44,18 +44,6 @@ You can follow [me (Sebastián Ramírez / `tiangolo`)](https://tiangolo.com), th
 * [@tiangolo on **X (Twitter)**](https://x.com/tiangolo)
 * [@tiangolo.com on **Bluesky**](https://bsky.app/profile/tiangolo.com)
 * [@tiangolo on **LinkedIn**](https://www.linkedin.com/in/tiangolo/).
-
-## Help others with questions in GitHub
-
-You can try and help others with their questions in [GitHub Discussions](https://github.com/fastapi/sqlmodel/discussions/categories/questions?discussions_q=category%3AQuestions+is%3Aunanswered).
-
-In many cases you might already know the answer for those questions. 🤓
-
-Just remember, the most important point is: try to be kind. 🤗
-
-### How to Help
-
-Follow the [guide on how to help](https://tiangolo.com/open-source/help/#help-others-with-questions-in-github) here.
 
 ## Ask Questions
 

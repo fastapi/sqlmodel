@@ -25,7 +25,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, Discriminator, EmailStr
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -92,6 +92,12 @@ IncEx: TypeAlias = (
 )
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
+MIN_ITEMS_DEPRECATION_MSG = (
+    "`min_items` is deprecated and will be removed, use `min_length` instead"
+)
+MAX_ITEMS_DEPRECATION_MSG = (
+    "`max_items` is deprecated and will be removed, use `max_length` instead"
+)
 REGEX_PARAM_DEPRECATION_MSG = (
     "The `regex` parameter is deprecated. \nUse `pattern` parameter instead."
 )
@@ -260,8 +266,14 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
@@ -271,7 +283,7 @@ def Field(
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -307,8 +319,14 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
@@ -318,7 +336,7 @@ def Field(
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: str,
@@ -363,8 +381,14 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
@@ -374,7 +398,7 @@ def Field(
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     sa_column: Column[Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -400,8 +424,14 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
@@ -411,7 +441,7 @@ def Field(
         deprecated(REGEX_PARAM_DEPRECATION_MSG),
     ] = None,
     pattern: str | re.Pattern[str] | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -427,9 +457,16 @@ def Field(
 ) -> Any:
     current_schema_extra = schema_extra or {}
 
+    if min_items is not None:
+        warnings.warn(MIN_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if min_length is None:
+            min_length = min_items
+    if max_items is not None:
+        warnings.warn(MAX_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if max_length is None:
+            max_length = max_items
     if regex:
         warnings.warn(REGEX_PARAM_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
-
     for param_name in ("pattern",):
         if param_name in current_schema_extra:
             msg = f"Pass `{param_name}` parameter directly to Field instead of passing it via `schema_extra`"
@@ -453,8 +490,6 @@ def Field(
         "multiple_of": multiple_of,
         "max_digits": max_digits,
         "decimal_places": decimal_places,
-        "min_items": min_items,
-        "max_items": max_items,
         "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
@@ -1039,6 +1074,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         else:
             raise ValueError(
                 "Can't use sqlmodel_update() with something that "
-                f"is not a dict or SQLModel or Pydantic model: {obj}"
+                f"is not a dict, SQLModel, or Pydantic model: {obj}"
             )
         return self

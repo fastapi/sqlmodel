@@ -31,7 +31,7 @@ For the database, **SQLModel** will use [SQLAlchemy's `DECIMAL` type](https://do
 
 ## Decimals in SQLModel
 
-Let's say that each hero in the database will have an amount of money. We could make that field a `Decimal` type using the `condecimal()` function:
+Let's say that each hero in the database will have an amount of money. We can define that field as a `Decimal` and configure the maximum number of digits and decimal places using the parameters of `Field()`:
 
 {* ./docs_src/advanced/decimal/tutorial001_py310.py ln[1:11] hl[11] *}
 
@@ -82,7 +82,7 @@ Now if you run this, instead of printing the unexpected number `3.30000000000000
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -102,7 +102,7 @@ Total money: 3.300
 
 /// warning
 
-Although Decimal types are supported and used in the Python side, not all databases support it. In particular, SQLite doesn't support decimals, so it will convert them to the same floating `NUMERIC` type it supports.
+Although Decimal types are supported and used on the Python side, not all databases support them. In particular, SQLite doesn't support decimals, so it will convert them to the same floating `NUMERIC` type it supports.
 
 But decimals are supported by most of the other SQL databases. 🎉
 

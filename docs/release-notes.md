@@ -2,8 +2,45 @@
 
 ## Latest Changes
 
+## 0.0.42 (2026-08-28)
+
+### Features
+
+* 🏷️ Allow `Discriminator` type for `discriminator` parameter in `Field`. PR [#1729](https://github.com/fastapi/sqlmodel/pull/1729) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.0.41 (2026-08-28)
+
+### Refactors
+
+* 🗑️ Deprecate `min_items` and `max_items` parameters of `Field`. PR [#1731](https://github.com/fastapi/sqlmodel/pull/1731) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.0.40 (2026-08-28)
+
+### Docs
+
+* ✏️ Fix grammar and typos in docs. PR [#2058](https://github.com/fastapi/sqlmodel/pull/2058) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 📝 Fix "Decimals in SQLModel" to reference `Field()` instead of `condecimal()`. PR [#2035](https://github.com/fastapi/sqlmodel/pull/2035) by [@anxkhn](https://github.com/anxkhn).
+* 🐛 Use buttons for Termynal controls. PR [#2063](https://github.com/fastapi/sqlmodel/pull/2063) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Add Library Skills documentation. PR [#2052](https://github.com/fastapi/sqlmodel/pull/2052) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Recommend uv projects by default in docs. PR [#2050](https://github.com/fastapi/sqlmodel/pull/2050) by [@tiangolo](https://github.com/tiangolo).
+* 🐛 Prevent Termynal controls from scrolling. PR [#2051](https://github.com/fastapi/sqlmodel/pull/2051) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Update help docs. PR [#2049](https://github.com/fastapi/sqlmodel/pull/2049) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
+* ⬆️ Bump Typer min version to `0.26.1`. PR [#2078](https://github.com/fastapi/sqlmodel/pull/2078) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆️ Bump `setup-uv` action to `10.0.1`. PR [#2077](https://github.com/fastapi/sqlmodel/pull/2077) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 👷 Migrate automatic labels to Latest Changes. PR [#2074](https://github.com/fastapi/sqlmodel/pull/2074) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Remove legacy label check. PR [#2072](https://github.com/fastapi/sqlmodel/pull/2072) by [@tiangolo](https://github.com/tiangolo).
+* 🔐 Use PR Submit for pull requests. PR [#2071](https://github.com/fastapi/sqlmodel/pull/2071) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Use GitHub CLI for Git authentication. PR [#2070](https://github.com/fastapi/sqlmodel/pull/2070) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Use PR Push commit identity. PR [#2069](https://github.com/fastapi/sqlmodel/pull/2069) by [@tiangolo](https://github.com/tiangolo).
+* 🔒 Replace pre-commit PAT with PR Push. PR [#2067](https://github.com/fastapi/sqlmodel/pull/2067) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Remove Zensical docs cache. PR [#2065](https://github.com/fastapi/sqlmodel/pull/2065) by [@tiangolo](https://github.com/tiangolo).
+* 🔥 Remove the old Latest Changes workflow. PR [#2064](https://github.com/fastapi/sqlmodel/pull/2064) by [@tiangolo](https://github.com/tiangolo).
+* ⬆ Bump the python-packages group with 7 updates. PR [#2060](https://github.com/fastapi/sqlmodel/pull/2060) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump the github-actions group with 5 updates. PR [#2059](https://github.com/fastapi/sqlmodel/pull/2059) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆️ Upgrade latest-changes to 0.7.1. PR [#2054](https://github.com/fastapi/sqlmodel/pull/2054) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 6 updates. PR [#2042](https://github.com/fastapi/sqlmodel/pull/2042) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group across 1 directory with 4 updates. PR [#2045](https://github.com/fastapi/sqlmodel/pull/2045) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add GH workflow to bump pre-commit hook versions. PR [#2026](https://github.com/fastapi/sqlmodel/pull/2026) by [@YuriiMotov](https://github.com/YuriiMotov).

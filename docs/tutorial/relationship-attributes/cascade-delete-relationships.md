@@ -30,7 +30,7 @@ Let's say that we have these **teams** and **heroes**.
 
 | id   | name            | secret_name      | age  | team_id |
 | ---- | --------------- | ---------------- | ---- | ------- |
-| 1    | Deadpond        | Dive WIlson      |      | 1       |
+| 1    | Deadpond        | Dive Wilson      |      | 1       |
 | 2    | Rusty-Man       | Tommy Sharp      | 48   | 2       |
 | 3    | Spider-Boy      | Pedro Parqueador |      | 2       |
 | 4    | Black Lion      | Trevor Challa    | 35   | 3       |
@@ -236,7 +236,7 @@ We can confirm everything is working by running the program.
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -378,7 +378,7 @@ Let's confirm it all works by running the program now:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -461,7 +461,7 @@ Now, if we run the program, we will see that SQLModel (SQLAlchemy) is no longer 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -539,7 +539,7 @@ Now, if we run the program and try to delete a team with heroes, we will see an 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -602,7 +602,7 @@ Now, if we run the program and delete the heroes first, we will be able to delet
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -648,4 +648,4 @@ In some cases, when you want to **cascade** the delete of a record to its relate
 
 That will **cover most of the use cases**. 🚀
 
-And if you need something else, you can refer the additional options described above. 🤓
+And if you need something else, you can refer to the additional options described above. 🤓

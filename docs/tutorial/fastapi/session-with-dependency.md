@@ -86,4 +86,4 @@ You just learned how to use **FastAPI dependencies** to handle the database sess
 
 And you will see how much these dependencies can help the more you work with FastAPI, to handle **permissions**, **authentication**, resources like database **sessions**, etc. 🚀
 
-If you want to learn more about dependencies, checkout the [FastAPI docs about Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/).
+If you want to learn more about dependencies, check out the [FastAPI docs about Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/).

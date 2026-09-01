@@ -154,7 +154,7 @@ Now we can run the program and see how it shows us each hero with their correspo
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -249,7 +249,7 @@ This `JOIN` will be useful in a bit to be able to also get Spider-Boy, even if h
 
 The same way there's a `.where()` available when using `select()`, there's also a `.join()`.
 
-And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we already declared what is the `foreign_key` when creating the models, we don't have to pass an `ON` part, it is inferred automatically:
+And in SQLModel (actually SQLAlchemy), we don't have to pass an `ON` part when using `.join()`. It is inferred automatically because we already declared the `foreign_key` in the model definition:
 
 {* ./docs_src/tutorial/connect/select/tutorial002_py310.py ln[61:66] hl[63] *}
 
@@ -262,7 +262,7 @@ And if we run it in the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -385,7 +385,7 @@ And if we run it, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -436,7 +436,7 @@ If we run that, it would output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Select only the hero data
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
@@ -463,7 +463,7 @@ And if we run that, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Select the hero and the team data
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters

@@ -40,7 +40,7 @@ Click the button <kbd>New Database</kbd>.
 
 <img class="shadow" src="/img/create-db-and-table-with-db-browser/image001.png">
 
-A dialog should show up. Go to the [project directory you created](../virtual-environments.md#create-a-project) and save the file with a name of `database.db`.
+A dialog should show up. Go to your project directory and save the file with a name of `database.db`.
 
 /// tip
 
@@ -117,7 +117,7 @@ You will see again the same table we created.
 
 ## Create the Table again, with SQL
 
-Now, to see how is it that SQL works, let's create the table again, but with SQL.
+Now, to see how SQL works, let's create the table again, but with SQL.
 
 Click the <kbd>Close Database</kbd> button again.
 
@@ -151,7 +151,7 @@ You will see the "execution finished successfully" message.
 
 <img class="shadow" src="/img/create-db-and-table-with-db-browser/image010.png">
 
-And if you go back to the <kbd>Database Structure</kbd> tab, you will see that you effectively created again the same table.
+And if you go back to the <kbd>Database Structure</kbd> tab, you will see that you effectively created the same table again.
 
 <img class="shadow" src="/img/create-db-and-table-with-db-browser/image008.png">
 
@@ -163,12 +163,12 @@ But if you are curious and want to get a quick overview of SQL, I recommend the 
 
 You can start with [`CREATE TABLE`](https://www.sqlite.org/lang_createtable.html).
 
-Of course, you can also go and take a full SQL course or read a book about SQL, but you don't need more than what I'll explain here on the tutorial to start being productive with **SQLModel**. 🤓
+Of course, you can also go and take a full SQL course or read a book about SQL, but you don't need more than what I'll explain here in the tutorial to start being productive with **SQLModel**. 🤓
 
 ## Recap
 
 We saw how to interact with SQLite databases in files using **DB Browser for SQLite** in a visual user interface.
 
-We also saw how to use it to write some SQL directly to the SQLite database. This will be useful to verify the data in the database is looking correctly, to debug, etc.
+We also saw how to use it to write some SQL directly to the SQLite database. This will be useful to verify the data in the database looks correct, to debug, etc.
 
 In the next chapters we will start using **SQLModel** to interact with the database, and we will continue to use **DB Browser for SQLite** at the same time to look at the database underneath. 🔍
