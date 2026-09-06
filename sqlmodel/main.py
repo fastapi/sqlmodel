@@ -1015,7 +1015,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         instead use `obj.model_copy()`.
         """
     )
-    def copy(
+    def copy(  # ty: ignore[invalid-method-override]
         self: _TSQLModel,
         *,
         include: IncEx | None = None,
