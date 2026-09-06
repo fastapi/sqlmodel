@@ -70,6 +70,7 @@ from ._compat import (
     init_pydantic_private_attrs,
     is_field_noneable,
     is_table_model_class,
+    partial_init,
     sqlmodel_init,
     sqlmodel_validate,
 )
@@ -993,6 +994,38 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             exclude_unset=exclude_unset,
             exclude_defaults=exclude_defaults,
             exclude_none=exclude_none,
+        )
+
+    def model_copy(
+        self: _TSQLModel,
+        *,
+        update: Mapping[str, Any] | None = None,
+        deep: bool = False,
+    ) -> _TSQLModel:
+        new_copy = super().model_copy(update=update, deep=deep)
+        if is_table_model_class(self.__class__):
+            new_copy.__dict__.pop("_sa_instance_state", None)
+            with partial_init():
+                self.__class__.__init__(new_copy)
+        return new_copy
+
+    @deprecated(
+        """
+        🚨 `obj.copy()` was deprecated in SQLModel 0.0.14, you should
+        instead use `obj.model_copy()`.
+        """
+    )
+    def copy(
+        self: _TSQLModel,
+        *,
+        include: IncEx | None = None,
+        exclude: IncEx | None = None,
+        update: Mapping[str, Any] | None = None,
+        deep: bool = False,
+    ) -> _TSQLModel:
+        return self.model_copy(
+            update=update,
+            deep=deep,
         )
 
     @classmethod
