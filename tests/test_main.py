@@ -216,3 +216,37 @@ def test_foreign_key_ondelete_with_annotated(clear_sqlmodel):
     assert len(foreign_keys) == 1
     assert foreign_keys[0].ondelete == "CASCADE"
     assert team_id_column.nullable is False
+
+
+def test_custom_registry_in_model_config(clear_sqlmodel):
+    from sqlalchemy.orm import registry
+
+    custom_reg = registry()
+
+    class CustomBase(SQLModel, registry=custom_reg):
+        pass
+
+    assert CustomBase.model_config["registry"] is custom_reg
+    assert getattr(CustomBase, "_sa_registry") is custom_reg  # noqa: B009
+    assert CustomBase.metadata is custom_reg.metadata
+
+    class Hero(CustomBase, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        name: str
+
+    assert Hero.model_config["registry"] is custom_reg
+    assert getattr(Hero, "_sa_registry") is custom_reg  # noqa: B009
+    assert Hero.metadata is custom_reg.metadata
+    assert hasattr(Hero, "__mapper__")
+    assert Hero.__table__.name == "hero"
+
+    engine = create_engine("sqlite://")
+    custom_reg.metadata.create_all(engine)
+
+    with Session(engine) as session:
+        hero = Hero(name="Deadpond")
+        session.add(hero)
+        session.commit()
+        session.refresh(hero)
+        assert hero.id is not None
+        assert hero.name == "Deadpond"
