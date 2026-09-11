@@ -57,9 +57,9 @@ from typing_extensions import dataclass_transform, deprecated
 from ._compat import (
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
+    ConfigDict,
     ModelMetaclass,
     Representation,
-    SQLModelConfig,
     Undefined,
     UndefinedType,
     finish_init,
@@ -73,6 +73,9 @@ from ._compat import (
     is_table_model_class,
     sqlmodel_init,
     sqlmodel_validate,
+)
+from ._compat import (
+    SQLModelConfig as SQLModelConfig,
 )
 from .sql.sqltypes import AutoString, UTCDateTime
 
@@ -557,7 +560,7 @@ def Relationship(
 @dataclass_transform(kw_only_default=True, field_specifiers=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
-    model_config: SQLModelConfig
+    model_config: SQLModelConfig | ConfigDict | dict[str, Any]
     model_fields: ClassVar[dict[str, FieldInfo]]
 
     # Replicate SQLAlchemy
