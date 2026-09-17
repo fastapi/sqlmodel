@@ -2,6 +2,20 @@
 
 SQLModel integrates [Alembic](https://alembic.sqlalchemy.org/en/latest/) to manage migrations and DB Schema.
 
+## Installation
+
+The migrations CLI relies on extra dependencies (Alembic and Typer) that are not installed by default. Install them with the `migrations` extra:
+
+<div class="termy">
+
+```console
+$ pip install "sqlmodel[migrations]"
+
+---> 100%
+```
+
+</div>
+
 
 ## **SQLModel** Code - Models and Migrations
 
