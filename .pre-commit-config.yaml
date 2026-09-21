@@ -37,7 +37,7 @@ repos:
       - id: local-ty
         name: ty check
         entry: >-
-          uv run ty check sqlmodel tests/test_field_sa_type.py
+          uv run ty check sqlmodel tests/test_dataclass_transform.py tests/test_field_sa_type.py
           tests/test_select_typing.py
         require_serial: true
         language: unsupported

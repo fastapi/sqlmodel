@@ -52,7 +52,7 @@ from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from sqlalchemy.types import TypeEngine
-from typing_extensions import deprecated
+from typing_extensions import dataclass_transform, deprecated
 
 from ._compat import (
     PYDANTIC_MINOR_VERSION,
@@ -82,7 +82,6 @@ if TYPE_CHECKING:
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
 
-_T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx: TypeAlias = (
     set[int]
@@ -99,16 +98,6 @@ MIN_ITEMS_DEPRECATION_MSG = (
 MAX_ITEMS_DEPRECATION_MSG = (
     "`max_items` is deprecated and will be removed, use `max_length` instead"
 )
-
-
-def __dataclass_transform__(
-    *,
-    eq_default: bool = True,
-    order_default: bool = False,
-    kw_only_default: bool = False,
-    field_descriptors: tuple[type | Callable[..., Any], ...] = (()),
-) -> Callable[[_T], _T]:
-    return lambda a: a
 
 
 class FieldInfo(PydanticFieldInfo):  # ty: ignore[subclass-of-final-class]
@@ -565,7 +554,7 @@ def Relationship(
     return relationship_info
 
 
-@__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
+@dataclass_transform(kw_only_default=True, field_specifiers=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
     model_config: SQLModelConfig
