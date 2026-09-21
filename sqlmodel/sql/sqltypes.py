@@ -1,7 +1,44 @@
+from datetime import datetime, timezone
 from typing import Any, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
+
+
+class UTCDateTime(types.TypeDecorator[datetime]):
+    """Store aware datetimes and return them in UTC."""
+
+    impl = types.DateTime
+    cache_ok = True
+
+    def __init__(self) -> None:
+        super().__init__(timezone=True)
+
+    def __repr__(self) -> str:
+        return "UTCDateTime()"
+
+    def process_bind_param(
+        self, value: datetime | None, dialect: Dialect
+    ) -> datetime | None:
+        if value is None:
+            return None
+        if value.utcoffset() is None:
+            raise ValueError(
+                "Datetime values must have timezone information. "
+                "Use datetime.now(timezone.utc), or annotate the field with "
+                "NaiveDatetime for naive storage."
+            )
+        return value.astimezone(timezone.utc)
+
+    def process_result_value(
+        self, value: datetime | None, dialect: Dialect
+    ) -> datetime | None:
+        if value is None:
+            return None
+        if value.utcoffset() is None:
+            # Databases without timezone support store UTC without an offset.
+            return value.replace(tzinfo=timezone.utc)
+        return value.astimezone(timezone.utc)
 
 
 class AutoString(types.TypeDecorator):

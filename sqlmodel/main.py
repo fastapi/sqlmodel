@@ -24,7 +24,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, Discriminator, EmailStr
+from pydantic import AwareDatetime, BaseModel, Discriminator, EmailStr, NaiveDatetime
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -74,7 +74,7 @@ from ._compat import (
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import AutoString
+from .sql.sqltypes import AutoString, UTCDateTime
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -754,8 +754,10 @@ def get_sqlalchemy_type(field: Any) -> Any:
         return Boolean
     if issubclass(type_, int):
         return Integer
-    if issubclass(type_, datetime):
-        return DateTime
+    if issubclass(type_, (datetime, AwareDatetime, NaiveDatetime)):
+        if issubclass(type_, cast(type, NaiveDatetime)):
+            return DateTime(timezone=False)
+        return UTCDateTime()
     if issubclass(type_, date):
         return Date
     if issubclass(type_, timedelta):
