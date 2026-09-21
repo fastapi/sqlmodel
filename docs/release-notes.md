@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.44 (2026-09-21)
+
 ### Refactors
 
 * ♻️ Replace the dataclass_transform shim with typing_extensions. PR [#2097](https://github.com/fastapi/sqlmodel/pull/2097) by [@tiangolo](https://github.com/tiangolo).
