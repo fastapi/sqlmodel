@@ -157,7 +157,7 @@ For example, if `event.created_at` contains naive **UTC** values, the operations
 
 This migration uses `sa.DateTime(timezone=True)`, the underlying database type of `UTCDateTime`.
 
-If Alembic generates `sqlmodel.sql.sqltypes.UTCDateTime()`, you can simplify it to the public `sqlmodel.UTCDateTime()` and add `import sqlmodel` to the migration. Both references point to the same type.
+By default, Alembic renders this type as `sqlmodel.sql.sqltypes.UTCDateTime()`. Add `import sqlmodel.sql.sqltypes` at the top of the migration to use the generated code.
 
 If the existing values represent another timezone, replace `UTC` in both `upgrade()` and `downgrade()` with that timezone. The downgrade converts instants back to naive values in the original timezone.
 
