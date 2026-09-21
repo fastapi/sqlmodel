@@ -36,6 +36,33 @@ id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
 
 Use non-table `SQLModel` classes for create/update/public API schemas instead of mixing request/response-only fields into table models.
 
+## Datetimes
+
+In SQLModel `0.0.45` and newer, use `datetime` for timestamp fields. SQLModel automatically selects `UTCDateTime`, which normalizes aware values to UTC when writing and returns aware UTC datetimes when reading, including with SQLite and MySQL/MariaDB.
+
+Do not add `sa_type=DateTime(timezone=True)` or `sa_column=Column(DateTime(timezone=True))` just to enable timezone support. These overrides bypass SQLModel's UTC processing. If an explicit column type is needed, import `UTCDateTime` from `sqlmodel`.
+
+For generated timestamps on Python 3.11 and newer:
+
+```python
+from datetime import UTC, datetime
+
+from sqlmodel import Field, SQLModel
+
+
+class Event(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+```
+
+On Python 3.10, import `timezone` instead of `UTC` and use `lambda: datetime.now(timezone.utc)`.
+
+- Supply aware datetimes for writes, updates, and query filters. Avoid `datetime.now()` without a timezone and `datetime.utcnow()` for UTC timestamps. Naive database parameters are rejected when the statement executes.
+- Use Pydantic's `AwareDatetime` when input validation must reject naive values. It uses the same UTC storage. Validate table-model input with `Model.model_validate(data)`. Direct table-model construction currently skips Pydantic validation, and plain `datetime` validation accepts naive values.
+- Use Pydantic's `NaiveDatetime` for intentional naive storage. It selects `DateTime(timezone=False)` and requires naive values during Pydantic validation.
+
+When upgrading existing applications, follow the [datetime migration guide](https://sqlmodel.tiangolo.com/advanced/datetime/#upgrade-existing-applications). Changing the model does not alter existing columns or convert historical data.
+
 ## Sessions and Queries
 
 Open sessions directly with the engine:
