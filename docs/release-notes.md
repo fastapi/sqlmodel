@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.45 (2026-09-21)
+
 ### Breaking Changes
 
 * ✨ Use UTC datetimes by default. PR [#2099](https://github.com/fastapi/sqlmodel/pull/2099) by [@tiangolo](https://github.com/tiangolo).
