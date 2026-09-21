@@ -11,6 +11,7 @@ from ....conftest import PrintMock
     name="mod",
     params=[
         pytest.param("tutorial001_py310"),
+        pytest.param("tutorial001_an_py310"),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:
