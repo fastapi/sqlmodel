@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Fixes
+
+* 🐛 Fix SQLAlchemy type handling in `Field`. PR [#2095](https://github.com/fastapi/sqlmodel/pull/2095) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump sqlalchemy from 2.0.51 to 2.0.52. PR [#2086](https://github.com/fastapi/sqlmodel/pull/2086) by [@dependabot[bot]](https://github.com/apps/dependabot).
