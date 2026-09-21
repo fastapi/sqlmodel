@@ -51,6 +51,7 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
+from sqlalchemy.types import TypeEngine
 from typing_extensions import deprecated
 
 from ._compat import (
@@ -89,6 +90,7 @@ IncEx: TypeAlias = (
     | Mapping[int, Union["IncEx", bool]]
     | Mapping[str, Union["IncEx", bool]]
 )
+SaTypeOrInstance: TypeAlias = TypeEngine[Any] | type[TypeEngine[Any]]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 MIN_ITEMS_DEPRECATION_MSG = (
@@ -161,6 +163,11 @@ class FieldInfo(PydanticFieldInfo):  # ty: ignore[subclass-of-final-class]
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
+        if sa_column_kwargs is not Undefined and "type_" in sa_column_kwargs:
+            raise RuntimeError(
+                "Passing type_ is not supported in sa_column_kwargs, "
+                "use sa_type instead"
+            )
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
@@ -217,7 +224,7 @@ class FieldInfoMetadata:
     ondelete: OnDeleteType | UndefinedType = Undefined
     unique: bool | UndefinedType = Undefined
     index: bool | UndefinedType = Undefined
-    sa_type: type[Any] | UndefinedType = Undefined
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined
     sa_column: Column[Any] | UndefinedType = Undefined
     sa_column_args: Sequence[Any] | UndefinedType = Undefined
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined
@@ -282,7 +289,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -332,7 +339,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -429,7 +436,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column: Column | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
@@ -834,7 +841,7 @@ def get_column_from_field(field: Any) -> Column:
     )
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)
+    return Column(*args, type_=sa_type, **kwargs)
 
 
 default_registry = registry()
