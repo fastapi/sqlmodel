@@ -7,6 +7,7 @@
 ### Breaking Changes
 
 * ✨ Use UTC datetimes by default. PR [#2099](https://github.com/fastapi/sqlmodel/pull/2099) by [@tiangolo](https://github.com/tiangolo).
+
 `datetime` fields now use `UTCDateTime`, a custom type based on `DateTime(timezone=True)`. It requires aware datetime parameters, normalizes them to UTC, and returns aware UTC values from database reads, including on SQLite and MySQL/MariaDB. Pydantic's `AwareDatetime` uses the same type, while `NaiveDatetime` explicitly selects `DateTime(timezone=False)`. Plain `datetime` validation still accepts both aware and naive values, but naive database parameters now raise an error.
 
 Existing databases are not changed automatically. To retain naive storage, use `NaiveDatetime` or an explicit `Field(sa_type=DateTime(timezone=False))`. Explicit SQLAlchemy types retain their existing behavior. PostgreSQL needs a column migration that explicitly specifies the timezone of existing values. SQLite and MySQL/MariaDB keep their column definitions, but existing non-UTC values need a data migration before adopting the new type. Update datetime producers, query parameters, comparisons, and any database defaults to follow the new UTC convention.
