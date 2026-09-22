@@ -1,5 +1,7 @@
+from collections.abc import Callable
 from datetime import date, datetime, time, timedelta, timezone, tzinfo
 from io import StringIO
+from operator import add, sub
 from typing import Annotated, Any
 
 import pytest
@@ -262,6 +264,34 @@ def test_postgresql_datetime_processing() -> None:
     assert loaded.tzinfo is timezone.utc
     assert bind(None) is None
     assert result(None) is None
+
+
+@pytest.mark.parametrize(
+    "operation, reverse",
+    [(add, False), (sub, False), (add, True)],
+)
+def test_postgresql_datetime_interval_arithmetic(
+    operation: Callable[[Any, Any], Any], reverse: bool
+) -> None:
+    class Event(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        occurred_at: datetime
+
+    occurred_at = SQLModel.metadata.tables["event"].c.occurred_at
+    duration = timedelta(days=30)
+    expression = (
+        operation(duration, occurred_at)
+        if reverse
+        else operation(occurred_at, duration)
+    )
+    # Adding or subtracting a duration still produces a UTC datetime.
+    assert isinstance(expression.type, UTCDateTime)
+    # Exercise the actual parameter processor used for database execution.
+    parameter = expression.left if reverse else expression.right
+    dialect = postgresql.dialect()
+    bind = parameter.type.dialect_impl(dialect).bind_processor(dialect)
+    bound = bind(parameter.value) if bind is not None else parameter.value
+    assert bound == duration
 
 
 def test_existing_sqlite_utc_data() -> None:

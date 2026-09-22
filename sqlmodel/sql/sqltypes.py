@@ -1,8 +1,9 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
+from sqlalchemy.sql.operators import OperatorType
 
 
 class UTCDateTime(types.TypeDecorator[datetime]):
@@ -16,6 +17,13 @@ class UTCDateTime(types.TypeDecorator[datetime]):
 
     def __repr__(self) -> str:
         return "UTCDateTime()"
+
+    def coerce_compared_value(
+        self, op: OperatorType | None, value: Any
+    ) -> types.TypeEngine[Any]:
+        if isinstance(value, timedelta):
+            return types.Interval()
+        return self
 
     def process_bind_param(
         self, value: datetime | None, dialect: Dialect
