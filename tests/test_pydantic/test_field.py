@@ -212,7 +212,7 @@ def test_deprecated_via_schema_extra():  # Current workaround. Remove after some
 
 @pytest.mark.skipif(
     PYDANTIC_MINOR_VERSION < (2, 12),
-    reason="exlude_if requires Pydantic 2.12+",
+    reason="exclude_if requires Pydantic 2.12+",
 )
 def test_exclude_if():
     def is_empty_string(value: Any) -> bool:
@@ -236,7 +236,7 @@ def test_exclude_if():
 
 @pytest.mark.skipif(
     PYDANTIC_MINOR_VERSION < (2, 12),
-    reason="exlude_if requires Pydantic 2.12+",
+    reason="exclude_if requires Pydantic 2.12+",
 )
 def test_exclude_if_via_schema_extra():
     def is_empty_string(value: Any) -> bool:
