@@ -1,4 +1,4 @@
-__version__ = "0.0.42"
+__version__ = "0.0.46"
 
 # Re-export from Pydantic
 from pydantic import Discriminator as Discriminator
@@ -145,3 +145,4 @@ from .sql.expression import tuple_ as tuple_
 from .sql.expression import type_coerce as type_coerce
 from .sql.expression import within_group as within_group
 from .sql.sqltypes import AutoString as AutoString
+from .sql.sqltypes import UTCDateTime as UTCDateTime

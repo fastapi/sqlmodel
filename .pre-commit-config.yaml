@@ -13,7 +13,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/crate-ci/typos
-    rev: bee27e3a4fd1ea2111cf90ab89cd076c870fce14 # v1.48.0
+    rev: 8a48f81b6c64dcfea44b3633223084c4be58ac5f # frozen: v1.49.0
     hooks:
       - id: typos
         args: [--force-exclude]
@@ -36,7 +36,9 @@ repos:
 
       - id: local-ty
         name: ty check
-        entry: uv run ty check sqlmodel tests/test_select_typing.py
+        entry: >-
+          uv run ty check sqlmodel tests/test_dataclass_transform.py tests/test_field_sa_type.py
+          tests/test_select_typing.py
         require_serial: true
         language: unsupported
         pass_filenames: false

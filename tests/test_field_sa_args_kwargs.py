@@ -1,4 +1,7 @@
-from sqlalchemy import ForeignKey
+from typing import Any
+
+import pytest
+from sqlalchemy import ForeignKey, Integer, String
 from sqlmodel import Field, SQLModel, create_engine
 
 
@@ -35,3 +38,18 @@ def test_sa_column_kargs(clear_sqlmodel, caplog) -> None:
         message for message in caplog.messages if "CREATE TABLE item" in message
     ][0]
     assert "PRIMARY KEY (id)" in create_table_log
+
+
+@pytest.mark.parametrize(
+    "field_kwargs",
+    [
+        {"sa_column_kwargs": {"type_": Integer}},
+        {"sa_type": String, "sa_column_kwargs": {"type_": Integer}},
+    ],
+)
+def test_sa_column_kwargs_type_raises(field_kwargs: dict[str, Any]) -> None:
+    with pytest.raises(
+        RuntimeError,
+        match="Passing type_ is not supported in sa_column_kwargs, use sa_type instead",
+    ):
+        Field(**field_kwargs)
