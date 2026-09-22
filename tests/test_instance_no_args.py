@@ -3,7 +3,17 @@ from pydantic import ValidationError
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 
-def test_allow_instantiation_without_arguments(clear_sqlmodel):
+def test_not_allow_instantiation_without_arguments(clear_sqlmodel):
+    class Item(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        name: str
+        description: str | None = None
+
+    with pytest.raises(ValidationError):
+        Item()
+
+
+def test_allow_instantiation_with_required_arguments(clear_sqlmodel):
     class Item(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         name: str
@@ -12,8 +22,7 @@ def test_allow_instantiation_without_arguments(clear_sqlmodel):
     engine = create_engine("sqlite:///:memory:")
     SQLModel.metadata.create_all(engine)
     with Session(engine) as db:
-        item = Item()
-        item.name = "Rick"
+        item = Item(name="Rick")
         db.add(item)
         db.commit()
         statement = select(Item)
@@ -21,13 +30,3 @@ def test_allow_instantiation_without_arguments(clear_sqlmodel):
     assert len(result) == 1
     assert isinstance(item.id, int)
     SQLModel.metadata.clear()
-
-
-def test_not_allow_instantiation_without_arguments_if_not_table():
-    class Item(SQLModel):
-        id: int | None = Field(default=None, primary_key=True)
-        name: str
-        description: str | None = None
-
-    with pytest.raises(ValidationError):
-        Item()
