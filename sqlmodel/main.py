@@ -25,7 +25,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, Discriminator, EmailStr
+from pydantic import AwareDatetime, BaseModel, Discriminator, EmailStr, NaiveDatetime
 from pydantic import Field as PydanticField
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
@@ -53,7 +53,8 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import deprecated
+from sqlalchemy.types import TypeEngine
+from typing_extensions import dataclass_transform, deprecated
 
 from ._compat import (
     PYDANTIC_MINOR_VERSION,
@@ -75,7 +76,7 @@ from ._compat import (
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import AutoString
+from .sql.sqltypes import AutoString, UTCDateTime
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -83,7 +84,6 @@ if TYPE_CHECKING:
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
 
-_T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx: TypeAlias = (
     set[int]
@@ -91,6 +91,7 @@ IncEx: TypeAlias = (
     | Mapping[int, Union["IncEx", bool]]
     | Mapping[str, Union["IncEx", bool]]
 )
+SaTypeOrInstance: TypeAlias = TypeEngine[Any] | type[TypeEngine[Any]]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
 SCHEMA_EXTRA_DEPRECATION_MSG = (
@@ -108,16 +109,6 @@ MIN_ITEMS_DEPRECATION_MSG = (
 MAX_ITEMS_DEPRECATION_MSG = (
     "`max_items` is deprecated and will be removed, use `max_length` instead"
 )
-
-
-def __dataclass_transform__(
-    *,
-    eq_default: bool = True,
-    order_default: bool = False,
-    kw_only_default: bool = False,
-    field_descriptors: tuple[type | Callable[..., Any], ...] = (()),
-) -> Callable[[_T], _T]:
-    return lambda a: a
 
 
 class FieldInfo(PydanticFieldInfo):  # ty: ignore[subclass-of-final-class]
@@ -172,6 +163,11 @@ class FieldInfo(PydanticFieldInfo):  # ty: ignore[subclass-of-final-class]
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
+        if sa_column_kwargs is not Undefined and "type_" in sa_column_kwargs:
+            raise RuntimeError(
+                "Passing type_ is not supported in sa_column_kwargs, "
+                "use sa_type instead"
+            )
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
@@ -228,7 +224,7 @@ class FieldInfoMetadata:
     ondelete: OnDeleteType | UndefinedType = Undefined
     unique: bool | UndefinedType = Undefined
     index: bool | UndefinedType = Undefined
-    sa_type: type[Any] | UndefinedType = Undefined
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined
     sa_column: Column[Any] | UndefinedType = Undefined
     sa_column_args: Sequence[Any] | UndefinedType = Undefined
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined
@@ -293,7 +289,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: Annotated[
@@ -347,7 +343,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: Annotated[
@@ -452,7 +448,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column: Column | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
@@ -609,7 +605,7 @@ def Relationship(
     return relationship_info
 
 
-@__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
+@dataclass_transform(kw_only_default=True, field_specifiers=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
     model_config: SQLModelConfig
@@ -809,8 +805,10 @@ def get_sqlalchemy_type(field: Any) -> Any:
         return Boolean
     if issubclass(type_, int):
         return Integer
-    if issubclass(type_, datetime):
-        return DateTime
+    if issubclass(type_, (datetime, AwareDatetime, NaiveDatetime)):
+        if issubclass(type_, cast(type, NaiveDatetime)):
+            return DateTime(timezone=False)
+        return UTCDateTime()
     if issubclass(type_, date):
         return Date
     if issubclass(type_, timedelta):
@@ -885,7 +883,7 @@ def get_column_from_field(field: Any) -> Column:
     )
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)
+    return Column(*args, type_=sa_type, **kwargs)
 
 
 default_registry = registry()

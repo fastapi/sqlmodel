@@ -2,6 +2,43 @@
 
 ## Latest Changes
 
+## 0.0.46 (2026-09-22)
+
+### Fixes
+
+* 🐛 Fix timedelta arithmetic with UTC datetime fields. PR [#2101](https://github.com/fastapi/sqlmodel/pull/2101) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.45 (2026-09-21)
+
+### Breaking Changes
+
+* ✨ Use UTC datetimes by default. PR [#2099](https://github.com/fastapi/sqlmodel/pull/2099) by [@tiangolo](https://github.com/tiangolo).
+
+`datetime` fields now use `UTCDateTime`, a custom type based on `DateTime(timezone=True)`. It requires aware datetime parameters, normalizes them to UTC, and returns aware UTC values from database reads, including on SQLite and MySQL/MariaDB. Pydantic's `AwareDatetime` uses the same type, while `NaiveDatetime` explicitly selects `DateTime(timezone=False)`. Plain `datetime` validation still accepts both aware and naive values, but naive database parameters now raise an error.
+
+Existing databases are not changed automatically. To retain naive storage, use `NaiveDatetime` or an explicit `Field(sa_type=DateTime(timezone=False))`. Explicit SQLAlchemy types retain their existing behavior. PostgreSQL needs a column migration that explicitly specifies the timezone of existing values. SQLite and MySQL/MariaDB keep their column definitions, but existing non-UTC values need a data migration before adopting the new type. Update datetime producers, query parameters, comparisons, and any database defaults to follow the new UTC convention.
+
+Read [Datetimes and Timezones: Upgrade Existing Applications](https://sqlmodel.tiangolo.com/advanced/datetime/#upgrade-existing-applications) before upgrading.
+
+## 0.0.44 (2026-09-21)
+
+### Refactors
+
+* ♻️ Replace the dataclass_transform shim with typing_extensions. PR [#2097](https://github.com/fastapi/sqlmodel/pull/2097) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.0.43 (2026-09-21)
+
+### Fixes
+
+* 🐛 Fix SQLAlchemy type handling in `Field`. PR [#2095](https://github.com/fastapi/sqlmodel/pull/2095) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ⬆ Bump sqlalchemy from 2.0.51 to 2.0.52. PR [#2086](https://github.com/fastapi/sqlmodel/pull/2086) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump the python-packages group with 9 updates. PR [#2085](https://github.com/fastapi/sqlmodel/pull/2085) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump the github-actions group with 4 updates. PR [#2084](https://github.com/fastapi/sqlmodel/pull/2084) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pre-commit hooks. PR [#2083](https://github.com/fastapi/sqlmodel/pull/2083) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+
 ## 0.0.42 (2026-08-28)
 
 ### Features
