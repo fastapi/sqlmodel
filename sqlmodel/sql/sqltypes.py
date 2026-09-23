@@ -64,6 +64,8 @@ class AutoString(types.TypeDecorator):  # type: ignore
 
 
 _TIntEnum = TypeVar("_TIntEnum", bound="_IntEnum")
+
+
 class IntEnum(types.TypeDecorator[Optional[_TIntEnum]]):
     impl = types.SmallInteger
     cache_ok = True
@@ -79,14 +81,14 @@ class IntEnum(types.TypeDecorator[Optional[_TIntEnum]]):
 
     def process_result_value(
         self,
-        value: Optional[int],
+        value: int | None,
         dialect: Dialect,
-    ) -> Optional[_TIntEnum]:
+    ) -> _TIntEnum | None:
         return None if (value is None) else self.enum_type(value)
 
     def process_bind_param(
         self,
-        value: Optional[_TIntEnum],
+        value: _TIntEnum | None,
         dialect: Dialect,
-    ) -> Optional[int]:
+    ) -> int | None:
         return None if (value is None) else value.value
