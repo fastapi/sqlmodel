@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.47 (2026-09-23)
+
 ### Features
 
 * ✨ Add direct support for PostgreSQL, MySQL, and MariaDB, include in CI tests. PR [#2103](https://github.com/fastapi/sqlmodel/pull/2103) by [@tiangolo](https://github.com/tiangolo).
