@@ -1,8 +1,8 @@
-from sqlmodel import Field, Session, SQLModel, create_engine, select
-from sqlmodel.pool import StaticPool
+from sqlalchemy import Engine
+from sqlmodel import Field, Session, SQLModel, select
 
 
-def test_fields() -> None:
+def test_fields(database_engine: Engine) -> None:
     class Hero(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         name: str
@@ -10,9 +10,7 @@ def test_fields() -> None:
         age: int | None = None
         food: str | None = None
 
-    engine = create_engine(
-        "sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool
-    )
+    engine = database_engine
 
     SQLModel.metadata.create_all(engine)
 

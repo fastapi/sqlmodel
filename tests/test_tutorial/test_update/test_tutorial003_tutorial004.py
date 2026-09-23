@@ -2,7 +2,7 @@ import importlib
 from types import ModuleType
 
 import pytest
-from sqlmodel import create_engine
+from sqlalchemy import Engine
 
 from ...conftest import PrintMock
 
@@ -42,10 +42,9 @@ expected_calls = [
 
 
 @pytest.fixture(name="module")
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     module = importlib.import_module(f"docs_src.tutorial.update.{request.param}")
-    module.sqlite_url = "sqlite://"
-    module.engine = create_engine(module.sqlite_url)
+    module.engine = database_engine
     return module
 
 

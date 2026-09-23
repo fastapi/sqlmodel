@@ -2,9 +2,8 @@ import importlib
 from types import ModuleType
 
 import pytest
-from sqlalchemy import inspect
+from sqlalchemy import Engine, inspect
 from sqlalchemy.engine.reflection import Inspector
-from sqlmodel import create_engine
 
 
 @pytest.fixture(
@@ -13,12 +12,11 @@ from sqlmodel import create_engine
         pytest.param("tutorial003_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     mod = importlib.import_module(
         f"docs_src.tutorial.relationship_attributes.back_populates.{request.param}"
     )
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
+    mod.engine = database_engine
     return mod
 
 

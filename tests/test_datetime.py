@@ -9,7 +9,7 @@ from alembic.autogenerate import compare_metadata, render_python_code
 from alembic.migration import MigrationContext
 from alembic.operations import Operations, ops
 from pydantic import AwareDatetime, NaiveDatetime, ValidationError
-from sqlalchemy import Column, Date, DateTime, Interval, Time
+from sqlalchemy import Column, Date, DateTime, Engine, Interval, Time
 from sqlalchemy.dialects import mysql, postgresql, sqlite
 from sqlalchemy.exc import StatementError
 from sqlalchemy.schema import CreateTable
@@ -147,7 +147,7 @@ def test_datetime_column_types(dialect: Any, aware_type: str, naive_type: str) -
     assert f"local_time {naive_type} NOT NULL" in ddl
 
 
-def test_sqlite_datetime_round_trip() -> None:
+def test_datetime_round_trip(database_engine: Engine) -> None:
     class Event(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         occurred_at: datetime
@@ -156,7 +156,7 @@ def test_sqlite_datetime_round_trip() -> None:
 
     aware = datetime(2026, 1, 1, 12, tzinfo=timezone(timedelta(hours=2)))
     naive = datetime(2026, 1, 1, 12)
-    engine = create_engine("sqlite://")
+    engine = database_engine
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
         event = Event(occurred_at=aware, local_time=naive)
@@ -164,12 +164,6 @@ def test_sqlite_datetime_round_trip() -> None:
         session.flush()
         # Binding doesn't change the original value on the model.
         assert event.occurred_at is aware
-        assert (
-            session.connection()
-            .exec_driver_sql("SELECT occurred_at FROM event")
-            .scalar_one()
-            == "2026-01-01 10:00:00.000000"
-        )
         session.commit()
         session.refresh(event)
         assert event.occurred_at == aware
@@ -203,7 +197,9 @@ class UndefinedOffset(tzinfo):
 
 @pytest.mark.parametrize("offset", [None, UndefinedOffset()])
 @pytest.mark.parametrize("operation", ["insert", "update", "filter"])
-def test_naive_database_parameters(offset: tzinfo | None, operation: str) -> None:
+def test_naive_database_parameters(
+    database_engine: Engine, offset: tzinfo | None, operation: str
+) -> None:
     class Event(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         occurred_at: datetime
@@ -213,7 +209,7 @@ def test_naive_database_parameters(offset: tzinfo | None, operation: str) -> Non
     # Plain datetime validation remains permissive, including a tzinfo object
     # that doesn't actually provide an offset.
     assert event.occurred_at is naive
-    engine = create_engine("sqlite://")
+    engine = database_engine
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:
         with pytest.raises(StatementError, match="timezone information") as exc_info:
@@ -229,7 +225,9 @@ def test_naive_database_parameters(offset: tzinfo | None, operation: str) -> Non
 
 
 @pytest.mark.parametrize("timezone_enabled", [False, True])
-def test_explicit_datetime_bypasses_utc_processing(timezone_enabled: bool) -> None:
+def test_sqlite_explicit_datetime_bypasses_utc_processing(
+    timezone_enabled: bool,
+) -> None:
     class Event(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         occurred_at: datetime = Field(sa_type=DateTime(timezone=timezone_enabled))

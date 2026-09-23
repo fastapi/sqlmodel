@@ -438,7 +438,7 @@ If you know your database would be able to correctly handle the deletes or updat
 
 To be able to test this out with SQLite, we first need to enable foreign key support.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[30:33] hl[33] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[30:34] hl[32,34] *}
 
 /// note
 
@@ -516,7 +516,7 @@ For SQLite, this also needs enabling foreign key support.
 
 As `ondelete="RESTRICT"` is mainly a database-level constraint, let's enable foreign key support in SQLite first to be able to test it.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004_py310.py ln[30:33] hl[33] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004_py310.py ln[30:34] hl[32,34] *}
 
 ### Use `ondelete="RESTRICT"`
 
@@ -593,7 +593,7 @@ Calling `team.heroes.clear()` is very similar to what SQLModel (actually SQLAlch
 
 ///
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial005_py310.py ln[80:88] hl[84] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial005_py310.py ln[81:89] hl[85] *}
 
 ### Run the Program Deleting Heroes First
 
