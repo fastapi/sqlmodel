@@ -1,7 +1,7 @@
 import enum
 from datetime import datetime, timedelta, timezone
 from enum import IntEnum as _IntEnum
-from typing import Any, Optional, TypeVar, cast
+from typing import Any, TypeVar, cast
 
 from sqlalchemy import types
 from sqlalchemy.engine.interfaces import Dialect
@@ -51,7 +51,7 @@ class UTCDateTime(types.TypeDecorator[datetime]):
         return value.astimezone(timezone.utc)
 
 
-class AutoString(types.TypeDecorator):  # type: ignore
+class AutoString(types.TypeDecorator):
     impl = types.String
     cache_ok = True
     mysql_default_length = 255
@@ -66,7 +66,7 @@ class AutoString(types.TypeDecorator):  # type: ignore
 _TIntEnum = TypeVar("_TIntEnum", bound="_IntEnum")
 
 
-class IntEnum(types.TypeDecorator[Optional[_TIntEnum]]):
+class IntEnum(types.TypeDecorator[_TIntEnum | None]):
     impl = types.SmallInteger
     cache_ok = True
 
