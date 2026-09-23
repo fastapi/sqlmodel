@@ -3,7 +3,7 @@ from types import ModuleType
 from typing import Any
 
 import pytest
-from sqlmodel import create_engine
+from sqlalchemy import Engine
 
 from tests.conftest import PrintMock
 
@@ -142,12 +142,11 @@ def check_calls(calls: list[list[str | dict[str, Any]]]) -> None:
         pytest.param("tutorial002_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     module = importlib.import_module(
         f"docs_src.tutorial.automatic_id_none_refresh.{request.param}"
     )
-    module.sqlite_url = "sqlite://"
-    module.engine = create_engine(module.sqlite_url)
+    module.engine = database_engine
 
     return module
 

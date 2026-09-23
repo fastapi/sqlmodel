@@ -1,15 +1,16 @@
 import pytest
 from pydantic import ValidationError
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlalchemy import Engine
+from sqlmodel import Field, Session, SQLModel, select
 
 
-def test_allow_instantiation_without_arguments(clear_sqlmodel):
+def test_allow_instantiation_without_arguments(database_engine: Engine):
     class Item(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         name: str
         description: str | None = None
 
-    engine = create_engine("sqlite:///:memory:")
+    engine = database_engine
     SQLModel.metadata.create_all(engine)
     with Session(engine) as db:
         item = Item()
@@ -20,7 +21,6 @@ def test_allow_instantiation_without_arguments(clear_sqlmodel):
         result = db.exec(statement).all()
     assert len(result) == 1
     assert isinstance(item.id, int)
-    SQLModel.metadata.clear()
 
 
 def test_not_allow_instantiation_without_arguments_if_not_table():

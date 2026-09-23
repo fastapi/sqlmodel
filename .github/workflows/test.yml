@@ -22,6 +22,7 @@ env:
 
 jobs:
   test:
+    name: Test (${{ matrix.os }}, Python ${{ matrix.python-version }}, ${{ matrix.uv-resolution }}, ${{ matrix.database || 'sqlite' }})
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
@@ -30,8 +31,17 @@ jobs:
           - highest
         include:
           - os: ubuntu-latest
+            python-version: "3.14"
+            database: postgres
+            database-url: postgresql+psycopg://sqlmodel:sqlmodel@127.0.0.1:15432/sqlmodel_test
+          - os: ubuntu-latest
             python-version: "3.10"
             uv-resolution: lowest-direct
+            database: mysql
+            database-url: mysql+pymysql://sqlmodel:sqlmodel@127.0.0.1:13306/sqlmodel_test
+          - os: ubuntu-latest
+            python-version: "3.11"
+            uv-resolution: highest
           - os: macos-latest
             python-version: "3.11"
             uv-resolution: highest
@@ -41,6 +51,8 @@ jobs:
           - os: ubuntu-latest
             python-version: "3.13"
             uv-resolution: highest
+            database: mariadb
+            database-url: mariadb+pymysql://sqlmodel:sqlmodel@127.0.0.1:13307/sqlmodel_test
           - os: macos-latest
             python-version: "3.13"
             uv-resolution: highest
@@ -50,6 +62,8 @@ jobs:
     env:
       UV_PYTHON: ${{ matrix.python-version }}
       UV_RESOLUTION: ${{ matrix.uv-resolution }}
+      DATABASE: ${{ matrix.database || 'sqlite' }}
+      DATABASE_URL: ${{ matrix.database-url || 'sqlite://' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -74,18 +88,27 @@ jobs:
           limit-access-to-actor: true
       - name: Install Dependencies
         run: uv sync --no-dev --group tests
+      - name: Start Database
+        if: matrix.database
+        run: docker compose up --wait --wait-timeout 120 "$DATABASE"
       - run: mkdir coverage
       - name: Test
         run: uv run bash scripts/test.sh
         env:
-          COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.pydantic-version }}
-          CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}
+          COVERAGE_FILE: coverage/.coverage.${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.database || 'sqlite' }}
+          CONTEXT: ${{ runner.os }}-py${{ matrix.python-version }}-${{ matrix.database || 'sqlite' }}
       - name: Store coverage files
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: coverage-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.pydantic-version }}
+          name: coverage-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.database || 'sqlite' }}
           path: coverage
           include-hidden-files: true
+      - name: Show Database Logs
+        if: ${{ failure() && matrix.database }}
+        run: docker compose logs --no-color "$DATABASE"
+      - name: Stop Database
+        if: ${{ always() && matrix.database }}
+        run: docker compose down --volumes
 
   coverage-combine:
     needs:

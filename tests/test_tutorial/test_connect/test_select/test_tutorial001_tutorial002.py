@@ -2,7 +2,8 @@ import importlib
 from types import ModuleType
 
 import pytest
-from sqlmodel import create_engine
+from dirty_equals import IsList
+from sqlalchemy import Engine
 
 from ....conftest import PrintMock
 
@@ -65,12 +66,11 @@ expected_calls = [
 
 
 @pytest.fixture(name="module")
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     module = importlib.import_module(
         f"docs_src.tutorial.connect.select.{request.param}"
     )
-    module.sqlite_url = "sqlite://"
-    module.engine = create_engine(module.sqlite_url)
+    module.engine = database_engine
     return module
 
 
@@ -83,7 +83,8 @@ def get_module(request: pytest.FixtureRequest) -> ModuleType:
 )
 def test_tutorial001(print_mock: PrintMock, module: ModuleType):
     module.main()
-    assert print_mock.calls == expected_calls
+    assert print_mock.calls[:3] == expected_calls[:3]
+    assert print_mock.calls[3:] == IsList(*expected_calls[3:], check_order=False)
 
 
 @pytest.mark.parametrize(
@@ -95,4 +96,5 @@ def test_tutorial001(print_mock: PrintMock, module: ModuleType):
 )
 def test_tutorial002(print_mock: PrintMock, module: ModuleType):
     module.main()
-    assert print_mock.calls == expected_calls
+    assert print_mock.calls[:3] == expected_calls[:3]
+    assert print_mock.calls[3:] == IsList(*expected_calls[3:], check_order=False)

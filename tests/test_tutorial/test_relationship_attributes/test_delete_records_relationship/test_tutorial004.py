@@ -2,8 +2,9 @@ import importlib
 from types import ModuleType
 
 import pytest
+from sqlalchemy import Engine
 from sqlalchemy.exc import IntegrityError
-from sqlmodel import Session, create_engine, select
+from sqlmodel import Session, select
 
 from ....conftest import PrintMock
 
@@ -14,12 +15,11 @@ from ....conftest import PrintMock
         pytest.param("tutorial004_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     mod = importlib.import_module(
         f"docs_src.tutorial.relationship_attributes.cascade_delete_relationships.{request.param}"
     )
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
+    mod.engine = database_engine
     return mod
 
 
@@ -106,4 +106,4 @@ def test_tutorial(print_mock: PrintMock, mod: ModuleType):
 
     with pytest.raises(IntegrityError) as exc:
         mod.main()
-    assert "FOREIGN KEY constraint failed" in str(exc.value)
+    assert "foreign key" in str(exc.value).lower()
