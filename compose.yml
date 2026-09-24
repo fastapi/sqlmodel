@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: sqlmodel
+      POSTGRES_PASSWORD: sqlmodel
+      POSTGRES_DB: sqlmodel_test
+    ports:
+      - "127.0.0.1:15432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-h", "127.0.0.1", "-U", "sqlmodel", "-d", "sqlmodel_test"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: sqlmodel
+      MYSQL_USER: sqlmodel
+      MYSQL_PASSWORD: sqlmodel
+      MYSQL_DATABASE: sqlmodel_test
+    ports:
+      - "127.0.0.1:13306:3306"
+    healthcheck:
+      test: ["CMD", "mysql", "--host=127.0.0.1", "--user=sqlmodel", "--password=sqlmodel", "--database=sqlmodel_test", "--execute=SELECT 1"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  mariadb:
+    image: mariadb:11.8
+    environment:
+      MARIADB_ROOT_PASSWORD: sqlmodel
+      MARIADB_USER: sqlmodel
+      MARIADB_PASSWORD: sqlmodel
+      MARIADB_DATABASE: sqlmodel_test
+    ports:
+      - "127.0.0.1:13307:3306"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  adminer:
+    image: adminer:5
+    profiles: ["debug"]
+    ports:
+      - "127.0.0.1:18080:8080"

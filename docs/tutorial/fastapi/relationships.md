@@ -46,7 +46,7 @@ And the same way, we declared the `TeamPublic` with only the same base fields of
 
 {* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[5:7,20:21,29:34,43:44] hl[5:7,20:21,29:34,43:44] *}
 
-Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI uses the `response_model` to validate and **filter** the response data</a>?
+Now, remember that [FastAPI uses the `response_model` to validate and **filter** the response data](https://fastapi.tiangolo.com/tutorial/response-model/)?
 
 In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
 

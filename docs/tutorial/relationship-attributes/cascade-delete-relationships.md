@@ -8,7 +8,7 @@ Should their `team_id` instead be set to `NULL` in the database?
 
 Let's see how to configure that with **SQLModel**.
 
-/// info
+/// note
 
 This feature, including `cascade_delete`, `ondelete`, and `passive_deletes`, is available since SQLModel version `0.0.21`.
 
@@ -30,7 +30,7 @@ Let's say that we have these **teams** and **heroes**.
 
 | id   | name            | secret_name      | age  | team_id |
 | ---- | --------------- | ---------------- | ---- | ------- |
-| 1    | Deadpond        | Dive WIlson      |      | 1       |
+| 1    | Deadpond        | Dive Wilson      |      | 1       |
 | 2    | Rusty-Man       | Tommy Sharp      | 48   | 2       |
 | 3    | Spider-Boy      | Pedro Parqueador |      | 2       |
 | 4    | Black Lion      | Trevor Challa    | 35   | 3       |
@@ -129,7 +129,7 @@ The `cascade_delete` parameter is set in the `Relationship()`, on the model that
 
 Setting `cascade_delete=True` in the `Relationship()` will configure SQLAlchemy to use `cascade="all, delete-orphan"`, which is the most common and useful configuration when wanting to cascade deletes.
 
-You can read more about it in the <a href="https://docs.sqlalchemy.org/en/20/orm/cascades.html" class="external-link" target="_blank">SQLAlchemy docs</a>.
+You can read more about it in the [SQLAlchemy docs](https://docs.sqlalchemy.org/en/20/orm/cascades.html).
 
 ///
 
@@ -236,7 +236,7 @@ We can confirm everything is working by running the program.
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -378,7 +378,7 @@ Let's confirm it all works by running the program now:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -438,11 +438,11 @@ If you know your database would be able to correctly handle the deletes or updat
 
 To be able to test this out with SQLite, we first need to enable foreign key support.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[30:33] hl[33] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[30:34] hl[32,34] *}
 
-/// info
+/// note
 
-You can learn more about SQLite, foreign keys, and this SQL command on the <a href="https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support" class="external-link" target="_blank">SQLAlchemy docs</a>.
+You can learn more about SQLite, foreign keys, and this SQL command on the [SQLAlchemy docs](https://docs.sqlalchemy.org/en/20/dialects/sqlite.html#foreign-key-support).
 
 ///
 
@@ -461,7 +461,7 @@ Now, if we run the program, we will see that SQLModel (SQLAlchemy) is no longer 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -516,7 +516,7 @@ For SQLite, this also needs enabling foreign key support.
 
 As `ondelete="RESTRICT"` is mainly a database-level constraint, let's enable foreign key support in SQLite first to be able to test it.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004_py310.py ln[30:33] hl[33] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004_py310.py ln[30:34] hl[32,34] *}
 
 ### Use `ondelete="RESTRICT"`
 
@@ -539,7 +539,7 @@ Now, if we run the program and try to delete a team with heroes, we will see an 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -593,7 +593,7 @@ Calling `team.heroes.clear()` is very similar to what SQLModel (actually SQLAlch
 
 ///
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial005_py310.py ln[80:88] hl[84] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial005_py310.py ln[81:89] hl[85] *}
 
 ### Run the Program Deleting Heroes First
 
@@ -602,7 +602,7 @@ Now, if we run the program and delete the heroes first, we will be able to delet
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -648,4 +648,4 @@ In some cases, when you want to **cascade** the delete of a record to its relate
 
 That will **cover most of the use cases**. 🚀
 
-And if you need something else, you can refer the additional options described above. 🤓
+And if you need something else, you can refer to the additional options described above. 🤓

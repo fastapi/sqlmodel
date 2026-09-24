@@ -33,7 +33,7 @@ And a `hero` table:
 
 Some of these heroes are part of a team.
 
-Now we'll see how to **update** those connections between rows tables.
+Now we'll see how to **update** those connections between rows in tables.
 
 We will continue with the code we used to create some heroes, and we'll update them.
 
@@ -56,7 +56,7 @@ Running that in the command line will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 

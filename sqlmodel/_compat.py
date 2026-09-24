@@ -12,13 +12,14 @@ from typing import (
     TypeAlias,
     TypeVar,
     Union,
+    cast,
     get_args,
     get_origin,
 )
 
 from annotated_types import MaxLen
 from pydantic import VERSION as P_VERSION
-from pydantic import BaseModel
+from pydantic import AwareDatetime, BaseModel, NaiveDatetime
 from pydantic import ConfigDict as ConfigDict
 from pydantic._internal._fields import PydanticMetadata
 from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -188,12 +189,20 @@ def get_sa_type_from_type_annotation(annotation: Any) -> Any:
     if origin is None:
         return annotation
     elif origin is Annotated:
-        return get_sa_type_from_type_annotation(get_args(annotation)[0])
+        type_, *metadata = get_args(annotation)
+        type_ = get_sa_type_from_type_annotation(type_)
+        # Like Pydantic, apply the last timezone constraint in Annotated.
+        for meta in metadata:
+            if meta is AwareDatetime or isinstance(meta, cast(type, AwareDatetime)):
+                type_ = AwareDatetime
+            elif meta is NaiveDatetime or isinstance(meta, cast(type, NaiveDatetime)):
+                type_ = NaiveDatetime
+        return type_
     if _is_union_type(origin):
         bases = get_args(annotation)
         if len(bases) > 2:
             raise ValueError("Cannot have a (non-optional) union as a SQLAlchemy field")
-        # Non optional unions are not allowed
+        # Non-optional unions are not allowed
         if bases[0] is not NoneType and bases[1] is not NoneType:
             raise ValueError("Cannot have a (non-optional) union as a SQLAlchemy field")
         # Optional unions are allowed
@@ -203,7 +212,7 @@ def get_sa_type_from_type_annotation(annotation: Any) -> Any:
 
 
 def get_sa_type_from_field(field: Any) -> Any:
-    type_: Any = field.annotation
+    type_: Any = field.rebuild_annotation()
     return get_sa_type_from_type_annotation(type_)
 
 

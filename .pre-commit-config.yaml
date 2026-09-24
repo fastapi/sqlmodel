@@ -2,7 +2,7 @@
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
+    rev: 3e8a8703264a2f4a69428a0aa4dcb512790b2c8c # v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-toml
@@ -11,6 +11,12 @@ repos:
           - --unsafe
       - id: end-of-file-fixer
       - id: trailing-whitespace
+
+  - repo: https://github.com/crate-ci/typos
+    rev: 8a48f81b6c64dcfea44b3633223084c4be58ac5f # frozen: v1.49.0
+    hooks:
+      - id: typos
+        args: [--force-exclude]
 
   - repo: local
     hooks:
@@ -30,7 +36,9 @@ repos:
 
       - id: local-ty
         name: ty check
-        entry: uv run ty check sqlmodel tests/test_select_typing.py
+        entry: >-
+          uv run ty check sqlmodel tests/test_dataclass_transform.py tests/test_field_sa_type.py
+          tests/test_select_typing.py
         require_serial: true
         language: unsupported
         pass_filenames: false
@@ -53,4 +61,12 @@ repos:
         name: generate README.md from index.md
         entry: uv run ./scripts/docs.py generate-readme
         files: ^docs/index\.md|scripts/docs\.py$
+        pass_filenames: false
+
+      - id: zizmor
+        name: zizmor
+        language: python
+        entry: uv run zizmor .
+        files: ^\.github\/workflows\/
+        require_serial: true
         pass_filenames: false
