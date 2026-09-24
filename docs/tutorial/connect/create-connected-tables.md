@@ -100,7 +100,7 @@ This is the name of the **table** in the database, so it is `"team"`, not the na
 
 If you had a custom table name, you would use that custom table name.
 
-/// info
+/// note
 
 You can learn about setting a custom table name for a model in the Advanced User Guide.
 
@@ -129,7 +129,7 @@ If we run the code we have up to now, it will go and create the database file `d
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Automatically start a new transaction
 INFO Engine BEGIN (implicit)
@@ -204,7 +204,7 @@ CREATE TABLE hero (
 )
 ```
 
-The only new  is the `FOREIGN KEY` line, and as you can see, it tells the database what column in this table is a foreign key (`team_id`), which other (foreign) table it references (`team`) and which column in that table is the key to define which row to connect (`id`).
+The only new part is the `FOREIGN KEY` line, and as you can see, it tells the database what column in this table is a foreign key (`team_id`), which other (foreign) table it references (`team`) and which column in that table is the key to define which row to connect (`id`).
 
 Feel free to experiment with it in **DB Browser for SQLite**.
 

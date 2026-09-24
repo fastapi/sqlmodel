@@ -9,14 +9,17 @@ from typing import (
     Annotated,
     Any,
     ForwardRef,
-    Optional,
+    TypeAlias,
     TypeVar,
     Union,
+    cast,
+    get_args,
+    get_origin,
 )
 
 from annotated_types import MaxLen
 from pydantic import VERSION as P_VERSION
-from pydantic import BaseModel
+from pydantic import AwareDatetime, BaseModel, NaiveDatetime
 from pydantic import ConfigDict as ConfigDict
 from pydantic._internal._fields import PydanticMetadata
 from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -24,7 +27,6 @@ from pydantic._internal._repr import Representation as Representation
 from pydantic.fields import FieldInfo
 from pydantic_core import PydanticUndefined as Undefined
 from pydantic_core import PydanticUndefinedType as PydanticUndefinedType
-from typing_extensions import get_args, get_origin
 
 BaseConfig = ConfigDict
 UndefinedType = PydanticUndefinedType
@@ -37,14 +39,14 @@ if TYPE_CHECKING:
 UnionType = getattr(types, "UnionType", Union)
 NoneType = type(None)
 T = TypeVar("T")
-InstanceOrType = Union[T, type[T]]
+InstanceOrType: TypeAlias = T | type[T]
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
 class FakeMetadata:
-    max_length: Optional[int] = None
-    max_digits: Optional[int] = None
-    decimal_places: Optional[int] = None
+    max_length: int | None = None
+    max_digits: int | None = None
+    decimal_places: int | None = None
 
 
 @dataclass
@@ -75,8 +77,8 @@ def partial_init() -> Generator[None, None, None]:
 
 
 class SQLModelConfig(BaseConfig, total=False):
-    table: Optional[bool]
-    registry: Optional[Any]
+    table: bool | None
+    registry: Any | None
 
 
 def get_model_fields(model: InstanceOrType[BaseModel]) -> dict[str, "FieldInfo"]:
@@ -178,12 +180,20 @@ def get_sa_type_from_type_annotation(annotation: Any) -> Any:
     if origin is None:
         return annotation
     elif origin is Annotated:
-        return get_sa_type_from_type_annotation(get_args(annotation)[0])
+        type_, *metadata = get_args(annotation)
+        type_ = get_sa_type_from_type_annotation(type_)
+        # Like Pydantic, apply the last timezone constraint in Annotated.
+        for meta in metadata:
+            if meta is AwareDatetime or isinstance(meta, cast(type, AwareDatetime)):
+                type_ = AwareDatetime
+            elif meta is NaiveDatetime or isinstance(meta, cast(type, NaiveDatetime)):
+                type_ = NaiveDatetime
+        return type_
     if _is_union_type(origin):
         bases = get_args(annotation)
         if len(bases) > 2:
             raise ValueError("Cannot have a (non-optional) union as a SQLAlchemy field")
-        # Non optional unions are not allowed
+        # Non-optional unions are not allowed
         if bases[0] is not NoneType and bases[1] is not NoneType:
             raise ValueError("Cannot have a (non-optional) union as a SQLAlchemy field")
         # Optional unions are allowed
@@ -193,7 +203,7 @@ def get_sa_type_from_type_annotation(annotation: Any) -> Any:
 
 
 def get_sa_type_from_field(field: Any) -> Any:
-    type_: Any = field.annotation
+    type_: Any = field.rebuild_annotation()
     return get_sa_type_from_type_annotation(type_)
 
 
@@ -208,7 +218,7 @@ def sqlmodel_table_construct(
     *,
     self_instance: _TSQLModel,
     values: dict[str, Any],
-    _fields_set: Union[set[str], None] = None,
+    _fields_set: set[str] | None = None,
 ) -> _TSQLModel:
     # Copy from Pydantic's BaseModel.construct()
     # Ref: https://github.com/pydantic/pydantic/blob/v2.5.2/pydantic/main.py#L198
@@ -236,7 +246,7 @@ def sqlmodel_table_construct(
         _fields_set = set(fields_values.keys())
     fields_values.update(defaults)
 
-    _extra: Union[dict[str, Any], None] = None
+    _extra: dict[str, Any] | None = None
     if cls.model_config.get("extra") == "allow":
         _extra = {}
         for k, v in values.items():
@@ -276,10 +286,10 @@ def sqlmodel_validate(
     cls: type[_TSQLModel],
     obj: Any,
     *,
-    strict: Union[bool, None] = None,
-    from_attributes: Union[bool, None] = None,
-    context: Union[dict[str, Any], None] = None,
-    update: Union[dict[str, Any], None] = None,
+    strict: bool | None = None,
+    from_attributes: bool | None = None,
+    context: dict[str, Any] | None = None,
+    update: dict[str, Any] | None = None,
 ) -> _TSQLModel:
     if not is_table_model_class(cls):
         new_obj: _TSQLModel = cls.__new__(cls)

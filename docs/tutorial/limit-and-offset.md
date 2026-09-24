@@ -10,7 +10,7 @@ Now let's see how to get only a **range of results**.
 
 ## Create Data
 
-We will continue with the same code as before, but we'll modify it a little the `select_heroes()` function to simplify the example and focus on what we want to achieve here.
+We will continue with the same code as before, but we'll modify the `select_heroes()` function to simplify the example and focus on what we want to achieve here.
 
 Again, we will create several heroes to have some data to select from:
 
@@ -43,7 +43,7 @@ If we run it on the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -95,7 +95,7 @@ We can use `.offset()`:
 
 The way this works is that the special **select** object we get from `select()` has methods like `.where()`, `.offset()` and `.limit()`.
 
-Each of those methods applies the change in the internal special select statement object, and also **return the same object**, this way, we can continue using more methods on it, like in the example above that we use both `.offset()` and `.limit()`.
+Each of those methods applies the change in the internal special select statement object, and also **returns the same object**, this way, we can continue using more methods on it, like in the example above that we use both `.offset()` and `.limit()`.
 
 **Offset** means "skip this many rows", and as we want to skip the ones we already saw, the first three, we use `.offset(3)`.
 
@@ -106,7 +106,7 @@ Now we can run the program on the command line, and it will output:
 <div class="termy">
 
 ```console
-$python app.py
+$ python app.py
 
 // Previous output omitted 🙈
 
@@ -147,7 +147,7 @@ And if we run it in the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -196,7 +196,7 @@ But we are starting to include after an offset of 1 (so we don't count the first
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 

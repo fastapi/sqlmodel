@@ -8,12 +8,12 @@ The first step is to install FastAPI.
 
 FastAPI is the framework to create the **web API**.
 
-Make sure you create a [virtual environment](../../virtual-environments.md){.internal-link target=_blank}, activate it, and then install them, for example with:
+Add them to your project:
 
 <div class="termy">
 
 ```console
-$ pip install fastapi "uvicorn[standard]"
+$ uv add fastapi "uvicorn[standard]"
 
 ---> 100%
 ```
@@ -40,9 +40,9 @@ But here we will make sure we don't share the same **session** in more than one 
 
 And we also need to disable it because in **FastAPI** each request could be handled by multiple interacting threads.
 
-/// info
+/// note
 
-That's enough information for now, you can read more about it in the <a href="https://fastapi.tiangolo.com/async/" class="external-link" target="_blank">FastAPI docs for `async` and `await`</a>.
+That's enough information for now, you can read more about it in the [FastAPI docs for `async` and `await`](https://fastapi.tiangolo.com/async/).
 
 The main point is, by ensuring you **don't share** the same **session** with more than one request, the code is already safe.
 
@@ -68,9 +68,9 @@ This should be called only once at startup, not before every request, so we put 
 
 ## Create Heroes *Path Operation*
 
-/// info
+/// note
 
-If you need a refresher on what a **Path Operation** is (an endpoint with a specific HTTP Operation) and how to work with it in FastAPI, check out the <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">FastAPI First Steps docs</a>.
+If you need a refresher on what a **Path Operation** is (an endpoint with a specific HTTP Operation) and how to work with it in FastAPI, check out the [FastAPI First Steps docs](https://fastapi.tiangolo.com/tutorial/first-steps/).
 
 ///
 
@@ -80,19 +80,19 @@ It will be called when a user sends a request with a `POST` **operation** to the
 
 {* ./docs_src/tutorial/fastapi/simple_hero_api/tutorial001_py310.py ln[23:37] hl[31:32] *}
 
-/// info
+/// note
 
-If you need a refresher on some of those concepts, checkout the FastAPI documentation:
+If you need a refresher on some of those concepts, check out the FastAPI documentation:
 
-* <a href="https://fastapi.tiangolo.com/tutorial/first-steps/" class="external-link" target="_blank">First Steps</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">Path Parameters - Data Validation and Data Conversion</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/body/" class="external-link" target="_blank">Request Body</a>
+* [First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/)
+* [Path Parameters - Data Validation and Data Conversion](https://fastapi.tiangolo.com/tutorial/path-params/)
+* [Request Body](https://fastapi.tiangolo.com/tutorial/body/)
 
 ///
 
 ## The **SQLModel** Advantage
 
-Here's where having our **SQLModel** class models be both **SQLAlchemy** models and **Pydantic** models at the same time shine. ✨
+Here's where having our **SQLModel** class models be both **SQLAlchemy** models and **Pydantic** models at the same time shines. ✨
 
 Here we use the **same** class model to define the **request body** that will be received by our API.
 
@@ -120,7 +120,7 @@ When a client sends a request to the **path** `/heroes/` with a `GET` HTTP **ope
 
 ## One Session per Request
 
-Remember that we should use a SQLModel **session** per each group of operations and if we need other unrelated operations we should use a different session?
+Remember that we should use a SQLModel **session** per group of operations and if we need other unrelated operations we should use a different session?
 
 Here it is much more obvious.
 
@@ -132,7 +132,7 @@ But we would **never want to *share* the same session** among different requests
 
 In this simple example, we just create the new sessions manually in the **path operation functions**.
 
-In future examples later we will use a <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI Dependency</a> to get the **session**, being able to share it with other dependencies and being able to replace it during testing. 🤓
+In future examples later we will use a [FastAPI Dependency](https://fastapi.tiangolo.com/tutorial/dependencies/) to get the **session**, being able to share it with other dependencies and being able to replace it during testing. 🤓
 
 ## Run the **FastAPI** Server in Development Mode
 
@@ -145,16 +145,16 @@ Then run it with the `fastapi` <abbr title="Command Line Interface">CLI</abbr>, 
 <div class="termy">
 
 ```console
-$ fastapi dev main.py
+$ uv run fastapi dev main.py
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 ```
 
 </div>
 
-/// info
+/// note
 
-The `fastapi` command uses <a href="https://www.uvicorn.org/" class="external-link" target="_blank">Uvicorn</a> underneath.
+The `fastapi` command uses [Uvicorn](https://www.uvicorn.org/) underneath.
 
 ///
 
@@ -162,14 +162,14 @@ When you use `fastapi dev` it starts Uvicorn with the option to reload automatic
 
 ## Run the **FastAPI** Server in Production Mode
 
-The development mode should not be used in production, as it includes automatic reload by default it consumes much more resources than necessary, and it would be more error prone, etc.
+The development mode should not be used in production: it includes automatic reload by default, which consumes far more resources than necessary and is more error-prone.
 
 For production, use `fastapi run` instead of `fastapi dev`:
 
 <div class="termy">
 
 ```console
-$ fastapi run main.py
+$ uv run fastapi run main.py
 
 <span style="color: green;">INFO</span>:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
@@ -180,7 +180,7 @@ $ fastapi run main.py
 
 Now you can go to that URL in your browser `http://127.0.0.1:8000`. We didn't create a *path operation* for the root path `/`, so that URL alone will only show a "Not Found" error... that "Not Found" error is produced by your FastAPI application.
 
-But you can go to the **automatically generated interactive API documentation** at the path `/docs`: <a href="http://127.0.0.1:8000/docs" class="external-link" target="_blank">http://127.0.0.1:8000/docs</a>. ✨
+But you can go to the **automatically generated interactive API documentation** at the path `/docs`: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs). ✨
 
 You will see that this **automatic API docs <abbr title="user interface">UI</abbr>** has the *paths* that we defined above with their *operations*, and that it already knows the shape of the data that the **path operations** will receive:
 

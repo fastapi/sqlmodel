@@ -52,7 +52,7 @@ You know that `d` from `database` comes before `f`. So it has to be **before** t
 
 <img src="/img/tutorial/indexes/dictionary005.drawio.svg">
 
-Now you have a **small section of dictionary** to search (only a **quarter** of dictionary can have your word). You take that **quarter** of the pages at the start of the dictionary that can contain your word, and open it in the middle of that section. Maybe you arrive at the letter `c`.
+Now you have a **small section of dictionary** to search (only a **quarter** of the dictionary can have your word). You take that **quarter** of the pages at the start of the dictionary that can contain your word, and open it in the middle of that section. Maybe you arrive at the letter `c`.
 
 <img src="/img/tutorial/indexes/dictionary005.drawio.svg">
 
@@ -90,7 +90,7 @@ Now let's imagine you are reading a technical book. For example, with several to
 
 This book might have a **book index**: a section in the book that has some **names of topics covered** and the **page numbers** in the book where you can read about them. And the topic names are **sorted** in alphabetic order, pretty much like a dictionary (a book with words, as in the previous example).
 
-In this case, you can open that book in the end (or in the beginning) to find the **book index** section, it would have only a few pages. And then, you can do the same process as with the **dictionary** example above.
+In this case, you can open that book at the end (or at the beginning) to find the **book index** section, it would have only a few pages. And then, you can do the same process as with the **dictionary** example above.
 
 Open the index, and after **5 or 10 steps**, quickly find the topic "**database**" with the page numbers where that is covered, for example "page 253 in Chapter 5". Now you used the dictionary technique to find the **topic**, and that topic gave you a **page number**.
 
@@ -267,7 +267,7 @@ We use the same `Field()` again as we did before, and set `index=True`. That's i
 
 Notice that we didn't set an argument of `default=None` or anything similar. This means that **SQLModel** (thanks to Pydantic) will keep it as a **required** field.
 
-/// info
+/// note
 
 SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
 
@@ -294,7 +294,7 @@ If you run the program now, you will see an output like this:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 

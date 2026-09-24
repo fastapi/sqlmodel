@@ -1,5 +1,3 @@
-from typing import Optional
-
 import pytest
 from sqlalchemy.orm import relationship
 from sqlmodel import Field, Relationship, SQLModel
@@ -9,7 +7,7 @@ def test_sa_relationship_no_args() -> None:
     with pytest.raises(RuntimeError):  # pragma: no cover
 
         class Team(SQLModel, table=True):
-            id: Optional[int] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
             name: str = Field(index=True)
             headquarters: str
 
@@ -20,20 +18,20 @@ def test_sa_relationship_no_args() -> None:
             )
 
         class Hero(SQLModel, table=True):
-            id: Optional[int] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
             name: str = Field(index=True)
             secret_name: str
-            age: Optional[int] = Field(default=None, index=True)
+            age: int | None = Field(default=None, index=True)
 
-            team_id: Optional[int] = Field(default=None, foreign_key="team.id")
-            team: Optional[Team] = Relationship(back_populates="heroes")
+            team_id: int | None = Field(default=None, foreign_key="team.id")
+            team: Team | None = Relationship(back_populates="heroes")
 
 
 def test_sa_relationship_no_kwargs() -> None:
     with pytest.raises(RuntimeError):  # pragma: no cover
 
         class Team(SQLModel, table=True):
-            id: Optional[int] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
             name: str = Field(index=True)
             headquarters: str
 
@@ -44,10 +42,10 @@ def test_sa_relationship_no_kwargs() -> None:
             )
 
         class Hero(SQLModel, table=True):
-            id: Optional[int] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
             name: str = Field(index=True)
             secret_name: str
-            age: Optional[int] = Field(default=None, index=True)
+            age: int | None = Field(default=None, index=True)
 
-            team_id: Optional[int] = Field(default=None, foreign_key="team.id")
-            team: Optional[Team] = Relationship(back_populates="heroes")
+            team_id: int | None = Field(default=None, foreign_key="team.id")
+            team: Team | None = Relationship(back_populates="heroes")

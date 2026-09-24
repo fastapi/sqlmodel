@@ -1,19 +1,18 @@
-from typing import Optional
-
 import pytest
-from sqlmodel import Field, Session, SQLModel, create_engine
+from sqlalchemy import Engine
+from sqlmodel import Field, Session, SQLModel
 
 
-def test_query(clear_sqlmodel):
+def test_query(database_engine: Engine):
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     hero_1 = Hero(name="Deadpond", secret_name="Dive Wilson")
 
-    engine = create_engine("sqlite://")
+    engine = database_engine
 
     SQLModel.metadata.create_all(engine)
     with Session(engine) as session:

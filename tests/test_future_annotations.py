@@ -1,20 +1,21 @@
 from __future__ import annotations
 
-from typing import Annotated, Optional
+from typing import Annotated
 
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlalchemy import Engine
+from sqlmodel import Field, Session, SQLModel, select
 
 
-def test_model_with_future_annotations(clear_sqlmodel):
+def test_model_with_future_annotations(database_engine: Engine):
     class Hero(SQLModel, table=True):
-        id: Annotated[Optional[int], Field(primary_key=True)] = None
+        id: Annotated[int | None, Field(primary_key=True)] = None
         name: str
         secret_name: str
-        age: Optional[int] = None
+        age: int | None = None
 
     hero = Hero(name="Deadpond", secret_name="Dive Wilson", age=25)
 
-    engine = create_engine("sqlite://")
+    engine = database_engine
     SQLModel.metadata.create_all(engine)
 
     with Session(engine) as session:
@@ -33,17 +34,17 @@ def test_model_with_future_annotations(clear_sqlmodel):
         assert heroes[0].name == "Deadpond"
 
 
-def test_model_with_string_annotations(clear_sqlmodel):
+def test_model_with_string_annotations(database_engine: Engine):
     class Team(SQLModel, table=True):
-        id: Annotated[Optional[int], Field(primary_key=True)] = None
+        id: Annotated[int | None, Field(primary_key=True)] = None
         name: str
 
     class Player(SQLModel, table=True):
-        id: Annotated[Optional[int], Field(primary_key=True)] = None
+        id: Annotated[int | None, Field(primary_key=True)] = None
         name: str
-        team_id: Annotated[Optional[int], Field(foreign_key="team.id")] = None
+        team_id: Annotated[int | None, Field(foreign_key="team.id")] = None
 
-    engine = create_engine("sqlite://")
+    engine = database_engine
     SQLModel.metadata.create_all(engine)
 
     team = Team(name="Champions")

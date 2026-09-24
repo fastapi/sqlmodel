@@ -34,7 +34,7 @@ And the second part, with the `WHERE`, defines to which rows it should apply tha
 
 In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
 
-/// info
+/// note
 
 Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
 
@@ -98,7 +98,7 @@ Up to that point, running that in the command line will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -153,7 +153,7 @@ This commit will generate this output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -182,7 +182,7 @@ This refresh will trigger the same SQL query that would be automatically trigger
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -210,7 +210,7 @@ So, printing it will show the new `age`:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -230,16 +230,6 @@ Now let's review all that code:
 
 ```{ .python .annotate hl_lines="42-53" }
 {!./docs_src/tutorial/update/tutorial002_py310.py!}
-```
-
-{!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
-
-////
-
-//// tab | Python 3.9+
-
-```{ .python .annotate hl_lines="44-55" }
-{!./docs_src/tutorial/update/tutorial002_py39.py!}
 ```
 
 {!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
@@ -272,34 +262,12 @@ This also means that you can update several fields (attributes, columns) at once
 
 ////
 
-//// tab | Python 3.9+
-
-```{ .python .annotate hl_lines="15-17  19-21  23" }
-# Code above omitted 👆
-
-{!./docs_src/tutorial/update/tutorial004_py39.py[ln:44-70]!}
-
-# Code below omitted 👇
-```
-
-{!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
-
-////
-
 /// details | 👀 Full file preview
 
 //// tab | Python 3.10+
 
 ```Python
 {!./docs_src/tutorial/update/tutorial004_py310.py!}
-```
-
-////
-
-//// tab | Python 3.9+
-
-```Python
-{!./docs_src/tutorial/update/tutorial004_py39.py!}
 ```
 
 ////

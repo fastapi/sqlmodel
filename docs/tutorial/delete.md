@@ -44,7 +44,7 @@ You can try that in **DB Browser for SQLite**:
 
 <img class="shadow" src="/img/tutorial/delete/image01.png">
 
-Have in mind that `DELETE` is to delete entire **rows**, not single values in a row.
+Keep in mind that `DELETE` is to delete entire **rows**, not single values in a row.
 
 If you want to "delete" a single value in a column while **keeping the row**, you would instead **update** the row as explained in the previous chapter, setting the specific value of the column in that row to `NULL` (to `None` in Python).
 
@@ -67,7 +67,7 @@ That will print the same existing hero **Spider-Youngster**:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -105,7 +105,7 @@ This commit after deleting the hero will generate this output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -138,7 +138,7 @@ This will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -167,7 +167,7 @@ This will execute some SQL in the database and output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -198,7 +198,7 @@ This will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -221,16 +221,6 @@ Now let's review all that code:
 
 ```{ .python .annotate hl_lines="70-88" }
 {!./docs_src/tutorial/delete/tutorial002_py310.py!}
-```
-
-{!./docs_src/tutorial/delete/annotations/en/tutorial002.md!}
-
-////
-
-//// tab | Python 3.9+
-
-```{ .python .annotate hl_lines="72-90" }
-{!./docs_src/tutorial/delete/tutorial002_py39.py!}
 ```
 
 {!./docs_src/tutorial/delete/annotations/en/tutorial002.md!}

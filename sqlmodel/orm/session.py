@@ -1,9 +1,7 @@
 from collections.abc import Mapping, Sequence
 from typing import (
     Any,
-    Optional,
     TypeVar,
-    Union,
     overload,
 )
 
@@ -30,11 +28,11 @@ class Session(_Session):
         self,
         statement: Select[_TSelectParam],
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> TupleResult[_TSelectParam]: ...
 
     @overload
@@ -42,11 +40,11 @@ class Session(_Session):
         self,
         statement: SelectOfScalar[_TSelectParam],
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> ScalarResult[_TSelectParam]: ...
 
     @overload
@@ -54,30 +52,26 @@ class Session(_Session):
         self,
         statement: UpdateBase,
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> CursorResult[Any]: ...
 
     def exec(
         self,
-        statement: Union[
-            Select[_TSelectParam],
-            SelectOfScalar[_TSelectParam],
-            Executable[_TSelectParam],
-            UpdateBase,
-        ],
+        statement: Select[_TSelectParam]
+        | SelectOfScalar[_TSelectParam]
+        | Executable[_TSelectParam]
+        | UpdateBase,
         *,
-        params: Optional[Union[Mapping[str, Any], Sequence[Mapping[str, Any]]]] = None,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
-    ) -> Union[
-        TupleResult[_TSelectParam], ScalarResult[_TSelectParam], CursorResult[Any]
-    ]:
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
+    ) -> TupleResult[_TSelectParam] | ScalarResult[_TSelectParam] | CursorResult[Any]:
         results = super().execute(
             statement,
             params=params,
@@ -95,7 +89,7 @@ class Session(_Session):
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -103,7 +97,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
@@ -114,18 +108,18 @@ class Session(_Session):
     def execute(
         self,
         statement: _Executable,
-        params: Optional[_CoreAnyExecuteParams] = None,
+        params: _CoreAnyExecuteParams | None = None,
         *,
         execution_options: OrmExecuteOptionsParameter = util.EMPTY_DICT,
-        bind_arguments: Optional[dict[str, Any]] = None,
-        _parent_execute_state: Optional[Any] = None,
-        _add_event: Optional[Any] = None,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
     ) -> Result[Any]:
         """
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -133,7 +127,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
@@ -152,10 +146,10 @@ class Session(_Session):
         """
         🚨 You probably want to use `session.exec()` instead of `session.query()`.
 
-        `session.exec()` is SQLModel's own short version with increased type
+        `session.exec()` is SQLModel's own short version with improved type
         annotations.
 
-        Or otherwise you might want to use `session.execute()` instead of
+        Otherwise, you might want to use `session.execute()` instead of
         `session.query()`.
         """
     )
@@ -165,10 +159,10 @@ class Session(_Session):
         """
         🚨 You probably want to use `session.exec()` instead of `session.query()`.
 
-        `session.exec()` is SQLModel's own short version with increased type
+        `session.exec()` is SQLModel's own short version with improved type
         annotations.
 
-        Or otherwise you might want to use `session.execute()` instead of
+        Otherwise, you might want to use `session.execute()` instead of
         `session.query()`.
         """
         return super().query(*entities, **kwargs)

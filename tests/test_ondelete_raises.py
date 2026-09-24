@@ -1,4 +1,4 @@
-from typing import Any, Union
+from typing import Any
 
 import pytest
 from sqlmodel import Field, Relationship, SQLModel
@@ -8,17 +8,17 @@ def test_ondelete_requires_nullable(clear_sqlmodel: Any) -> None:
     with pytest.raises(RuntimeError) as exc:
 
         class Team(SQLModel, table=True):
-            id: Union[int, None] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
 
             heroes: list["Hero"] = Relationship(
                 back_populates="team", passive_deletes="all"
             )
 
         class Hero(SQLModel, table=True):
-            id: Union[int, None] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
             name: str = Field(index=True)
             secret_name: str
-            age: Union[int, None] = Field(default=None, index=True)
+            age: int | None = Field(default=None, index=True)
 
             team_id: int = Field(foreign_key="team.id", ondelete="SET NULL")
             team: Team = Relationship(back_populates="heroes")
@@ -30,7 +30,7 @@ def test_ondelete_requires_foreign_key(clear_sqlmodel: Any) -> None:
     with pytest.raises(RuntimeError) as exc:
 
         class Team(SQLModel, table=True):
-            id: Union[int, None] = Field(default=None, primary_key=True)
+            id: int | None = Field(default=None, primary_key=True)
 
             age: int = Field(ondelete="CASCADE")
 

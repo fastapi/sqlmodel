@@ -2,23 +2,22 @@ import importlib
 from types import ModuleType
 
 import pytest
+from sqlalchemy import Engine
 from sqlalchemy.exc import MultipleResultsFound
-from sqlmodel import Session, create_engine, delete
+from sqlmodel import Session, delete
 
-from ...conftest import PrintMock, needs_py310
+from ...conftest import PrintMock
 
 
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial004_py39"),
-        pytest.param("tutorial004_py310", marks=needs_py310),
+        pytest.param("tutorial004_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     mod = importlib.import_module(f"docs_src.tutorial.one.{request.param}")
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
+    mod.engine = database_engine
     return mod
 
 
@@ -29,15 +28,19 @@ def test_tutorial(print_mock: PrintMock, mod: ModuleType):
         # TODO: create delete() function
         # TODO: add overloads for .exec() with delete object
         session.exec(delete(mod.Hero))
-        session.add(mod.Hero(name="Test Hero", secret_name="Secret Test Hero", age=24))
+        hero = mod.Hero(name="Test Hero", secret_name="Secret Test Hero", age=24)
+        session.add(hero)
         session.commit()
+        session.refresh(hero)
+        hero_id = hero.id
+        assert hero_id is not None
 
     mod.select_heroes()
     assert print_mock.calls == [
         [
             "Hero:",
             {
-                "id": 1,
+                "id": hero_id,
                 "name": "Test Hero",
                 "secret_name": "Secret Test Hero",
                 "age": 24,

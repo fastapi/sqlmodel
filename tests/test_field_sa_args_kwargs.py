@@ -1,39 +1,54 @@
-from typing import Optional
+from typing import Any
 
-from sqlalchemy import ForeignKey
-from sqlmodel import Field, SQLModel, create_engine
+import pytest
+from sqlalchemy import Engine, ForeignKey, Integer, String, inspect
+from sqlmodel import Field, SQLModel
 
 
-def test_sa_column_args(clear_sqlmodel, caplog) -> None:
+def test_sa_column_args(database_engine: Engine) -> None:
     class Team(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
 
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
-        team_id: Optional[int] = Field(
+        id: int | None = Field(default=None, primary_key=True)
+        team_id: int | None = Field(
             default=None,
             sa_column_args=[ForeignKey("team.id")],
         )
 
-    engine = create_engine("sqlite://", echo=True)
+    engine = database_engine
     SQLModel.metadata.create_all(engine)
-    create_table_log = [
-        message for message in caplog.messages if "CREATE TABLE hero" in message
-    ][0]
-    assert "FOREIGN KEY(team_id) REFERENCES team (id)" in create_table_log
+    foreign_keys = inspect(engine).get_foreign_keys("hero")
+    assert len(foreign_keys) == 1
+    assert foreign_keys[0]["constrained_columns"] == ["team_id"]
+    assert foreign_keys[0]["referred_table"] == "team"
+    assert foreign_keys[0]["referred_columns"] == ["id"]
 
 
-def test_sa_column_kargs(clear_sqlmodel, caplog) -> None:
+def test_sa_column_kargs(database_engine: Engine) -> None:
     class Item(SQLModel, table=True):
-        id: Optional[int] = Field(
+        id: int | None = Field(
             default=None,
             sa_column_kwargs={"primary_key": True},
         )
 
-    engine = create_engine("sqlite://", echo=True)
+    engine = database_engine
     SQLModel.metadata.create_all(engine)
-    create_table_log = [
-        message for message in caplog.messages if "CREATE TABLE item" in message
-    ][0]
-    assert "PRIMARY KEY (id)" in create_table_log
+    primary_key = inspect(engine).get_pk_constraint("item")
+    assert primary_key["constrained_columns"] == ["id"]
+
+
+@pytest.mark.parametrize(
+    "field_kwargs",
+    [
+        {"sa_column_kwargs": {"type_": Integer}},
+        {"sa_type": String, "sa_column_kwargs": {"type_": Integer}},
+    ],
+)
+def test_sa_column_kwargs_type_raises(field_kwargs: dict[str, Any]) -> None:
+    with pytest.raises(
+        RuntimeError,
+        match="Passing type_ is not supported in sa_column_kwargs, use sa_type instead",
+    ):
+        Field(**field_kwargs)

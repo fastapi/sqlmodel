@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from types import ModuleType
 
 import pytest
-from sqlmodel import create_engine
+from sqlalchemy import Engine
 
-from ...conftest import PrintMock, needs_py310
+from ...conftest import PrintMock
 
 expected_calls = [
     [
@@ -34,19 +34,17 @@ class Modules:
 @pytest.fixture(
     name="modules",
     params=[
-        pytest.param("tutorial002_py39"),
-        pytest.param("tutorial002_py310", marks=needs_py310),
+        pytest.param("tutorial002_py310"),
     ],
 )
-def get_modules(request: pytest.FixtureRequest) -> Modules:
+def get_modules(request: pytest.FixtureRequest, database_engine: Engine) -> Modules:
     app_module = importlib.import_module(
         f"docs_src.tutorial.code_structure.{request.param}.app"
     )
     database_module = importlib.import_module(
         f"docs_src.tutorial.code_structure.{request.param}.database"
     )
-    database_module.sqlite_url = "sqlite://"
-    database_module.engine = create_engine(database_module.sqlite_url)
+    database_module.engine = database_engine
     app_module.engine = database_module.engine
 
     return Modules(app=app_module, database=database_module)

@@ -8,9 +8,9 @@ Let's add a new *path operation* to read one single hero.
 
 We want to get the hero based on the `id`, so we will use a **path parameter** `hero_id`.
 
-/// info
+/// note
 
-If you need to refresh how *path parameters* work, including their data validation, check the <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">FastAPI docs about Path Parameters</a>.
+If you need to refresh how *path parameters* work, including their data validation, check the [FastAPI docs about Path Parameters](https://fastapi.tiangolo.com/tutorial/path-params/).
 
 ///
 
@@ -24,7 +24,7 @@ For example, to get the hero with ID `2` we would send a `GET` request to:
 
 ## Handling Errors
 
-Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `Hero.get()` to try and get one hero by that ID.
+Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `session.get()` to try and get one hero by that ID.
 
 But if the integer is not the ID of any hero in the database, it will not find anything, and the variable `hero` will be `None`.
 

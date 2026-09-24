@@ -2,9 +2,9 @@ import importlib
 from types import ModuleType
 
 import pytest
-from sqlmodel import create_engine
+from sqlalchemy import Engine
 
-from ....conftest import PrintMock, needs_py310
+from ....conftest import PrintMock
 
 expected_calls = [
     [
@@ -79,16 +79,14 @@ expected_calls = [
 @pytest.fixture(
     name="module",
     params=[
-        "tutorial003_py39",
-        pytest.param("tutorial003_py310", marks=needs_py310),
+        pytest.param("tutorial003_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     module = importlib.import_module(
         f"docs_src.tutorial.connect.select.{request.param}"
     )
-    module.sqlite_url = "sqlite://"
-    module.engine = create_engine(module.sqlite_url)
+    module.engine = database_engine
     return module
 
 

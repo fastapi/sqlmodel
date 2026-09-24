@@ -4,25 +4,18 @@ from types import ModuleType
 import pytest
 from dirty_equals import IsOneOf
 from fastapi.testclient import TestClient
-from sqlmodel import create_engine
-from sqlmodel.pool import StaticPool
-
-from tests.conftest import needs_py310
+from sqlalchemy import Engine
 
 
 @pytest.fixture(
     name="module",
     params=[
-        pytest.param("tutorial001_py39"),
-        pytest.param("tutorial001_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     mod = importlib.import_module(f"docs_src.tutorial.fastapi.update.{request.param}")
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(
-        mod.sqlite_url, connect_args=mod.connect_args, poolclass=StaticPool
-    )
+    mod.engine = database_engine
     return mod
 
 

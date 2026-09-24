@@ -2,25 +2,23 @@ import importlib
 from types import ModuleType
 
 import pytest
+from sqlalchemy import Engine
 from sqlalchemy.exc import SAWarning
-from sqlmodel import create_engine
 
-from ....conftest import PrintMock, needs_py310
+from ....conftest import PrintMock
 
 
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial001_py39"),
-        pytest.param("tutorial001_py310", marks=needs_py310),
+        pytest.param("tutorial001_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     mod = importlib.import_module(
         f"docs_src.tutorial.relationship_attributes.back_populates.{request.param}"
     )
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
+    mod.engine = database_engine
     return mod
 
 

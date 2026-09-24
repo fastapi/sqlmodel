@@ -3,8 +3,8 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
-import weakref
-from collections.abc import Mapping, Sequence, Set
+import warnings
+from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
 from decimal import Decimal
@@ -12,18 +12,19 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
-    Callable,
     ClassVar,
     Literal,
-    Optional,
+    TypeAlias,
     TypeVar,
     Union,
     cast,
+    get_origin,
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import AwareDatetime, BaseModel, Discriminator, EmailStr, NaiveDatetime
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -50,9 +51,10 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import TypeAlias, deprecated, get_origin
+from sqlalchemy.types import TypeEngine
+from typing_extensions import dataclass_transform, deprecated
 
-from ._compat import (  # type: ignore[attr-defined]
+from ._compat import (
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelMetaclass,
@@ -72,7 +74,7 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import AutoString
+from .sql.sqltypes import AutoString, UTCDateTime
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -80,28 +82,25 @@ if TYPE_CHECKING:
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
 
-_T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
-IncEx: TypeAlias = Union[
-    set[int],
-    set[str],
-    Mapping[int, Union["IncEx", bool]],
-    Mapping[str, Union["IncEx", bool]],
-]
+IncEx: TypeAlias = (
+    set[int]
+    | set[str]
+    | Mapping[int, Union["IncEx", bool]]
+    | Mapping[str, Union["IncEx", bool]]
+)
+SaTypeOrInstance: TypeAlias = TypeEngine[Any] | type[TypeEngine[Any]]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
-
-def __dataclass_transform__(
-    *,
-    eq_default: bool = True,
-    order_default: bool = False,
-    kw_only_default: bool = False,
-    field_descriptors: tuple[Union[type, Callable[..., Any]], ...] = (()),
-) -> Callable[[_T], _T]:
-    return lambda a: a
+MIN_ITEMS_DEPRECATION_MSG = (
+    "`min_items` is deprecated and will be removed, use `min_length` instead"
+)
+MAX_ITEMS_DEPRECATION_MSG = (
+    "`max_items` is deprecated and will be removed, use `max_length` instead"
+)
 
 
-class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
+class FieldInfo(PydanticFieldInfo):  # ty: ignore[subclass-of-final-class]
     # mypy - ignore that PydanticFieldInfo is @final
     def __init__(self, default: Any = Undefined, **kwargs: Any) -> None:
         primary_key = kwargs.pop("primary_key", False)
@@ -153,6 +152,11 @@ class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
+        if sa_column_kwargs is not Undefined and "type_" in sa_column_kwargs:
+            raise RuntimeError(
+                "Passing type_ is not supported in sa_column_kwargs, "
+                "use sa_type instead"
+            )
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
@@ -173,13 +177,13 @@ class RelationshipInfo(Representation):
     def __init__(
         self,
         *,
-        back_populates: Optional[str] = None,
-        cascade_delete: Optional[bool] = False,
-        passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-        link_model: Optional[Any] = None,
-        sa_relationship: Optional[RelationshipProperty] = None,  # type: ignore
-        sa_relationship_args: Optional[Sequence[Any]] = None,
-        sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+        back_populates: str | None = None,
+        cascade_delete: bool | None = False,
+        passive_deletes: bool | Literal["all"] | None = False,
+        link_model: Any | None = None,
+        sa_relationship: RelationshipProperty | None = None,
+        sa_relationship_args: Sequence[Any] | None = None,
+        sa_relationship_kwargs: Mapping[str, Any] | None = None,
     ) -> None:
         if sa_relationship is not None:
             if sa_relationship_args is not None:
@@ -203,19 +207,19 @@ class RelationshipInfo(Representation):
 
 @dataclass
 class FieldInfoMetadata:
-    primary_key: Union[bool, UndefinedType] = Undefined
-    nullable: Union[bool, UndefinedType] = Undefined
+    primary_key: bool | UndefinedType = Undefined
+    nullable: bool | UndefinedType = Undefined
     foreign_key: Any = Undefined
-    ondelete: Union[OnDeleteType, UndefinedType] = Undefined
-    unique: Union[bool, UndefinedType] = Undefined
-    index: Union[bool, UndefinedType] = Undefined
-    sa_type: Union[type[Any], UndefinedType] = Undefined
-    sa_column: Union[Column[Any], UndefinedType] = Undefined
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined
+    ondelete: OnDeleteType | UndefinedType = Undefined
+    unique: bool | UndefinedType = Undefined
+    index: bool | UndefinedType = Undefined
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined
+    sa_column: Column[Any] | UndefinedType = Undefined
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined
 
 
-def _get_sqlmodel_field_metadata(field_info: Any) -> Optional[FieldInfoMetadata]:
+def _get_sqlmodel_field_metadata(field_info: Any) -> FieldInfoMetadata | None:
     metadata_items = getattr(field_info, "metadata", None)
     if metadata_items:
         for meta in metadata_items:
@@ -238,40 +242,46 @@ def _get_sqlmodel_field_value(
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
-    primary_key: Union[bool, UndefinedType] = Undefined,
+    primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
-    unique: Union[bool, UndefinedType] = Undefined,
-    nullable: Union[bool, UndefinedType] = Undefined,
-    index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[type[Any], UndefinedType] = Undefined,
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    unique: bool | UndefinedType = Undefined,
+    nullable: bool | UndefinedType = Undefined,
+    index: bool | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined,
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any: ...
 
 
@@ -281,41 +291,47 @@ def Field(
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
-    primary_key: Union[bool, UndefinedType] = Undefined,
+    primary_key: bool | UndefinedType = Undefined,
     foreign_key: str,
-    ondelete: Union[OnDeleteType, UndefinedType] = Undefined,
-    unique: Union[bool, UndefinedType] = Undefined,
-    nullable: Union[bool, UndefinedType] = Undefined,
-    index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[type[Any], UndefinedType] = Undefined,
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    ondelete: OnDeleteType | UndefinedType = Undefined,
+    unique: bool | UndefinedType = Undefined,
+    nullable: bool | UndefinedType = Undefined,
+    index: bool | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined,
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any: ...
 
 
@@ -333,77 +349,99 @@ def Field(
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
-    sa_column: Union[Column[Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    sa_column: Column[Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any: ...
 
 
 def Field(
     default: Any = Undefined,
     *,
-    default_factory: Optional[NoArgAnyCallable] = None,
-    alias: Optional[str] = None,
-    validation_alias: Optional[str] = None,
-    serialization_alias: Optional[str] = None,
-    title: Optional[str] = None,
-    description: Optional[str] = None,
-    exclude: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    include: Union[Set[Union[int, str]], Mapping[Union[int, str], Any], Any] = None,
-    const: Optional[bool] = None,
-    gt: Optional[float] = None,
-    ge: Optional[float] = None,
-    lt: Optional[float] = None,
-    le: Optional[float] = None,
-    multiple_of: Optional[float] = None,
-    max_digits: Optional[int] = None,
-    decimal_places: Optional[int] = None,
-    min_items: Optional[int] = None,
-    max_items: Optional[int] = None,
-    unique_items: Optional[bool] = None,
-    min_length: Optional[int] = None,
-    max_length: Optional[int] = None,
+    default_factory: NoArgAnyCallable | None = None,
+    alias: str | None = None,
+    validation_alias: str | None = None,
+    serialization_alias: str | None = None,
+    title: str | None = None,
+    description: str | None = None,
+    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    const: bool | None = None,
+    gt: float | None = None,
+    ge: float | None = None,
+    lt: float | None = None,
+    le: float | None = None,
+    multiple_of: float | None = None,
+    max_digits: int | None = None,
+    decimal_places: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    unique_items: bool | None = None,
+    min_length: int | None = None,
+    max_length: int | None = None,
     allow_mutation: bool = True,
-    regex: Optional[str] = None,
-    discriminator: Optional[str] = None,
+    regex: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
-    primary_key: Union[bool, UndefinedType] = Undefined,
+    primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
-    ondelete: Union[OnDeleteType, UndefinedType] = Undefined,
-    unique: Union[bool, UndefinedType] = Undefined,
-    nullable: Union[bool, UndefinedType] = Undefined,
-    index: Union[bool, UndefinedType] = Undefined,
-    sa_type: Union[type[Any], UndefinedType] = Undefined,
-    sa_column: Union[Column, UndefinedType] = Undefined,  # type: ignore
-    sa_column_args: Union[Sequence[Any], UndefinedType] = Undefined,
-    sa_column_kwargs: Union[Mapping[str, Any], UndefinedType] = Undefined,
-    schema_extra: Optional[dict[str, Any]] = None,
+    ondelete: OnDeleteType | UndefinedType = Undefined,
+    unique: bool | UndefinedType = Undefined,
+    nullable: bool | UndefinedType = Undefined,
+    index: bool | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
+    sa_column: Column | UndefinedType = Undefined,
+    sa_column_args: Sequence[Any] | UndefinedType = Undefined,
+    sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
+    schema_extra: dict[str, Any] | None = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if min_items is not None:
+        warnings.warn(MIN_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if min_length is None:
+            min_length = min_items
+    if max_items is not None:
+        warnings.warn(MAX_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if max_length is None:
+            max_length = max_items
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
@@ -421,8 +459,6 @@ def Field(
         "multiple_of": multiple_of,
         "max_digits": max_digits,
         "decimal_places": decimal_places,
-        "min_items": min_items,
-        "max_items": max_items,
         "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
@@ -476,35 +512,35 @@ def Field(
 @overload
 def Relationship(
     *,
-    back_populates: Optional[str] = None,
-    cascade_delete: Optional[bool] = False,
-    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-    link_model: Optional[Any] = None,
-    sa_relationship_args: Optional[Sequence[Any]] = None,
-    sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+    back_populates: str | None = None,
+    cascade_delete: bool | None = False,
+    passive_deletes: bool | Literal["all"] | None = False,
+    link_model: Any | None = None,
+    sa_relationship_args: Sequence[Any] | None = None,
+    sa_relationship_kwargs: Mapping[str, Any] | None = None,
 ) -> Any: ...
 
 
 @overload
 def Relationship(
     *,
-    back_populates: Optional[str] = None,
-    cascade_delete: Optional[bool] = False,
-    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-    link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty[Any]] = None,
+    back_populates: str | None = None,
+    cascade_delete: bool | None = False,
+    passive_deletes: bool | Literal["all"] | None = False,
+    link_model: Any | None = None,
+    sa_relationship: RelationshipProperty[Any] | None = None,
 ) -> Any: ...
 
 
 def Relationship(
     *,
-    back_populates: Optional[str] = None,
-    cascade_delete: Optional[bool] = False,
-    passive_deletes: Optional[Union[bool, Literal["all"]]] = False,
-    link_model: Optional[Any] = None,
-    sa_relationship: Optional[RelationshipProperty[Any]] = None,
-    sa_relationship_args: Optional[Sequence[Any]] = None,
-    sa_relationship_kwargs: Optional[Mapping[str, Any]] = None,
+    back_populates: str | None = None,
+    cascade_delete: bool | None = False,
+    passive_deletes: bool | Literal["all"] | None = False,
+    link_model: Any | None = None,
+    sa_relationship: RelationshipProperty[Any] | None = None,
+    sa_relationship_args: Sequence[Any] | None = None,
+    sa_relationship_kwargs: Mapping[str, Any] | None = None,
 ) -> Any:
     relationship_info = RelationshipInfo(
         back_populates=back_populates,
@@ -518,20 +554,20 @@ def Relationship(
     return relationship_info
 
 
-@__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
+@dataclass_transform(kw_only_default=True, field_specifiers=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
     model_config: SQLModelConfig
     model_fields: ClassVar[dict[str, FieldInfo]]
 
     # Replicate SQLAlchemy
-    def __setattr__(cls, name: str, value: Any) -> None:
+    def __setattr__(cls, name: str, value: Any) -> None:  # ty: ignore[invalid-method-override]
         if is_table_model_class(cls):
             DeclarativeMeta.__setattr__(cls, name, value)
         else:
             super().__setattr__(name, value)
 
-    def __delattr__(cls, name: str) -> None:
+    def __delattr__(cls, name: str) -> None:  # ty: ignore[invalid-method-override]
         if is_table_model_class(cls):
             DeclarativeMeta.__delattr__(cls, name)
         else:
@@ -609,10 +645,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            new_cls.model_config["read_from_attributes"] = True  # type: ignore[typeddict-unknown-key]
+            new_cls.model_config["read_from_attributes"] = True  # ty: ignore[invalid-key]
             # For compatibility with older versions
             # TODO: remove this in the future
-            new_cls.model_config["read_with_orm_mode"] = True  # type: ignore[typeddict-unknown-key]
+            new_cls.model_config["read_with_orm_mode"] = True  # ty: ignore[invalid-key]
 
         config_registry = get_config("registry")
         if config_registry is not Undefined:
@@ -649,7 +685,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # Plain forward references, for models not yet defined, are not
                     # handled well by SQLAlchemy without Mapped, so, wrap the
                     # annotations in Mapped here
-                    cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
+                    cls.__annotations__[rel_name] = Mapped[ann]
                 relationship_to = get_relationship_to(
                     name=rel_name, rel_info=rel_info, annotation=ann
                 )
@@ -718,8 +754,10 @@ def get_sqlalchemy_type(field: Any) -> Any:
         return Boolean
     if issubclass(type_, int):
         return Integer
-    if issubclass(type_, datetime):
-        return DateTime
+    if issubclass(type_, (datetime, AwareDatetime, NaiveDatetime)):
+        if issubclass(type_, cast(type, NaiveDatetime)):
+            return DateTime(timezone=False)
+        return UTCDateTime()
     if issubclass(type_, date):
         return Date
     if issubclass(type_, timedelta):
@@ -738,7 +776,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column:  # type: ignore
+def get_column_from_field(field: Any) -> Column:
     field_info = field
     sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
@@ -773,7 +811,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         assert isinstance(foreign_key, str)
         assert isinstance(ondelete_value, (str, type(None)))  # for typing
         args.append(ForeignKey(foreign_key, ondelete=ondelete_value))
-    kwargs = {
+    kwargs: dict[str, Any] = {
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
@@ -794,10 +832,8 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     )
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)
+    return Column(*args, type_=sa_type, **kwargs)
 
-
-class_registry = weakref.WeakValueDictionary()  # type: ignore
 
 default_registry = registry()
 
@@ -807,14 +843,16 @@ _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
-    __tablename__: ClassVar[Union[str, Callable[..., str]]]
-    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipProperty[Any]]]
+    __tablename__: ClassVar[str | Callable[..., str]]
+    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipInfo]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
     model_config = SQLModelConfig(from_attributes=True)
 
-    def __new__(cls, *args: Any, **kwargs: Any) -> Any:
+    # Typing spec says `__new__` returning `Any` overrides normal constructor
+    # behavior, but a missing annotation does not:
+    def __new__(cls, *args: Any, **kwargs: Any):  # type: ignore[no-untyped-def]
         new_object = super().__new__(cls)
         # SQLAlchemy doesn't call __init__ on the base class when querying from DB
         # Ref: https://docs.sqlalchemy.org/en/14/orm/constructors.html
@@ -850,14 +888,14 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if is_table_model_class(self.__class__) and is_instrumented(self, name):  # type: ignore[no-untyped-call]
+            if is_table_model_class(self.__class__) and is_instrumented(self, name):
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
             if name not in self.__sqlmodel_relationships__:
                 super().__setattr__(name, value)
 
-    def __repr_args__(self) -> Sequence[tuple[Optional[str], Any]]:
+    def __repr_args__(self) -> Sequence[tuple[str | None, Any]]:
         # Don't show SQLAlchemy private attributes
         return [
             (k, v)
@@ -870,14 +908,14 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(  # type: ignore[override]
+    def model_validate(  # ty: ignore[invalid-method-override]
         cls: type[_TSQLModel],
         obj: Any,
         *,
-        strict: Union[bool, None] = None,
-        from_attributes: Union[bool, None] = None,
-        context: Union[builtins.dict[str, Any], None] = None,
-        update: Union[builtins.dict[str, Any], None] = None,
+        strict: bool | None = None,
+        from_attributes: bool | None = None,
+        context: builtins.dict[str, Any] | None = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         return sqlmodel_validate(
             cls=cls,
@@ -891,19 +929,20 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def model_dump(
         self,
         *,
-        mode: Union[Literal["json", "python"], str] = "python",
-        include: Union[IncEx, None] = None,
-        exclude: Union[IncEx, None] = None,
-        context: Union[Any, None] = None,  # v2.7
-        by_alias: Union[bool, None] = None,
+        mode: Literal["json", "python"] | str = "python",
+        include: IncEx | None = None,
+        exclude: IncEx | None = None,
+        context: Any | None = None,  # v2.7
+        by_alias: bool | None = None,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
         exclude_none: bool = False,
         exclude_computed_fields: bool = False,  # v2.12
         round_trip: bool = False,
-        warnings: Union[bool, Literal["none", "warn", "error"]] = True,
-        fallback: Union[Callable[[Any], Any], None] = None,  # v2.11
+        warnings: bool | Literal["none", "warn", "error"] = True,
+        fallback: Callable[[Any], Any] | None = None,  # v2.11
         serialize_as_any: bool = False,  # v2.7
+        polymorphic_serialization: bool | None = None,  # v2.13
     ) -> builtins.dict[str, Any]:
         if PYDANTIC_MINOR_VERSION < (2, 11):
             by_alias = by_alias or False
@@ -914,6 +953,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             extra_kwargs["fallback"] = fallback
         if PYDANTIC_MINOR_VERSION >= (2, 12):
             extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
+        if PYDANTIC_MINOR_VERSION >= (2, 13):
+            extra_kwargs["polymorphic_serialization"] = polymorphic_serialization
         return super().model_dump(
             mode=mode,
             include=include,
@@ -936,8 +977,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def dict(
         self,
         *,
-        include: Union[IncEx, None] = None,
-        exclude: Union[IncEx, None] = None,
+        include: IncEx | None = None,
+        exclude: IncEx | None = None,
         by_alias: bool = False,
         exclude_unset: bool = False,
         exclude_defaults: bool = False,
@@ -962,7 +1003,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def from_orm(
         cls: type[_TSQLModel],
         obj: Any,
-        update: Optional[builtins.dict[str, Any]] = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         return cls.model_validate(obj, update=update)
 
@@ -976,15 +1017,15 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     def parse_obj(
         cls: type[_TSQLModel],
         obj: Any,
-        update: Optional[builtins.dict[str, Any]] = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         return cls.model_validate(obj, update=update)
 
     def sqlmodel_update(
         self: _TSQLModel,
-        obj: Union[builtins.dict[str, Any], BaseModel],
+        obj: builtins.dict[str, Any] | BaseModel,
         *,
-        update: Union[builtins.dict[str, Any], None] = None,
+        update: builtins.dict[str, Any] | None = None,
     ) -> _TSQLModel:
         use_update = (update or {}).copy()
         if isinstance(obj, dict):
@@ -1004,6 +1045,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         else:
             raise ValueError(
                 "Can't use sqlmodel_update() with something that "
-                f"is not a dict or SQLModel or Pydantic model: {obj}"
+                f"is not a dict, SQLModel, or Pydantic model: {obj}"
             )
         return self

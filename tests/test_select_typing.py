@@ -1,20 +1,16 @@
-from typing import Optional
-
-from sqlmodel import Field, Session, SQLModel, create_engine, select
-from sqlmodel.pool import StaticPool
+from sqlalchemy import Engine
+from sqlmodel import Field, Session, SQLModel, select
 
 
-def test_fields() -> None:
+def test_fields(database_engine: Engine) -> None:
     class Hero(SQLModel, table=True):
-        id: Optional[int] = Field(default=None, primary_key=True)
+        id: int | None = Field(default=None, primary_key=True)
         name: str
         secret_name: str
-        age: Optional[int] = None
-        food: Optional[str] = None
+        age: int | None = None
+        food: str | None = None
 
-    engine = create_engine(
-        "sqlite://", connect_args={"check_same_thread": False}, poolclass=StaticPool
-    )
+    engine = database_engine
 
     SQLModel.metadata.create_all(engine)
 

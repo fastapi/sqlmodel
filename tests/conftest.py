@@ -1,15 +1,19 @@
+import os
 import shutil
 import subprocess
 import sys
-from collections.abc import Generator
+from collections.abc import Callable, Generator
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Callable, Union
+from typing import Any
 from unittest.mock import patch
 
 import pytest
 from pydantic import BaseModel
-from sqlmodel import SQLModel
+from sqlalchemy import Engine
+from sqlalchemy.engine import make_url
+from sqlalchemy.pool import StaticPool
+from sqlmodel import SQLModel, create_engine
 from sqlmodel.main import default_registry
 
 top_level_path = Path(__file__).resolve().parent.parent
@@ -28,6 +32,25 @@ def clear_sqlmodel() -> Any:
 
 
 @pytest.fixture()
+def database_engine(clear_sqlmodel: Any) -> Generator[Engine, None, None]:
+    url = make_url(os.environ.get("DATABASE_URL", "sqlite://"))
+    if url.get_backend_name() == "sqlite":
+        engine = create_engine(
+            url, connect_args={"check_same_thread": False}, poolclass=StaticPool
+        )
+    else:
+        engine = create_engine(url)
+    try:
+        yield engine
+    finally:
+        # Drop tables before clear_sqlmodel removes their metadata.
+        try:
+            SQLModel.metadata.drop_all(engine)
+        finally:
+            engine.dispose()
+
+
+@pytest.fixture()
 def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
     yield tmp_path
     for coverage_path in tmp_path.glob(".coverage*"):
@@ -35,7 +58,7 @@ def cov_tmp_path(tmp_path: Path) -> Generator[Path, None, None]:
         shutil.copy(coverage_path, coverage_destiny_path)
 
 
-def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedProcess:
+def coverage_run(*, module: str, cwd: str | Path) -> subprocess.CompletedProcess:
     result = subprocess.run(
         [
             "coverage",
@@ -53,7 +76,7 @@ def coverage_run(*, module: str, cwd: Union[str, Path]) -> subprocess.CompletedP
 
 
 def get_testing_print_function(
-    calls: list[list[Union[str, dict[str, Any]]]],
+    calls: list[list[str | dict[str, Any]]],
 ) -> Callable[..., Any]:
     def new_print(*args: Any) -> None:
         data: list[Any] = []
@@ -86,6 +109,6 @@ def print_mock_fixture() -> Generator[PrintMock, None, None]:
         yield print_mock
 
 
-needs_py310 = pytest.mark.skipif(
-    sys.version_info < (3, 10), reason="requires python3.10+"
+needs_py311 = pytest.mark.skipif(
+    sys.version_info < (3, 11), reason="requires Python 3.11+"
 )

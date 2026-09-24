@@ -1,14 +1,14 @@
 import importlib
 from types import ModuleType
-from typing import Any, Union
+from typing import Any
 
 import pytest
-from sqlmodel import create_engine
+from sqlalchemy import Engine
 
-from ...conftest import PrintMock, needs_py310
+from ...conftest import PrintMock
 
 
-def check_calls(calls: list[list[Union[str, dict[str, Any]]]]):
+def check_calls(calls: list[list[str | dict[str, Any]]]):
     assert calls[0][0] == [
         {
             "name": "Deadpond",
@@ -32,18 +32,16 @@ def check_calls(calls: list[list[Union[str, dict[str, Any]]]]):
 
 
 @pytest.fixture(name="module")
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     module = importlib.import_module(f"docs_src.tutorial.select.{request.param}")
-    module.sqlite_url = "sqlite://"
-    module.engine = create_engine(module.sqlite_url)
+    module.engine = database_engine
     return module
 
 
 @pytest.mark.parametrize(
     "module",
     [
-        pytest.param("tutorial003_py39"),
-        pytest.param("tutorial003_py310", marks=needs_py310),
+        pytest.param("tutorial003_py310"),
     ],
     indirect=True,
 )
@@ -55,8 +53,7 @@ def test_tutorial_003(print_mock: PrintMock, module: ModuleType):
 @pytest.mark.parametrize(
     "module",
     [
-        pytest.param("tutorial004_py39"),
-        pytest.param("tutorial004_py310", marks=needs_py310),
+        pytest.param("tutorial004_py310"),
     ],
     indirect=True,
 )
