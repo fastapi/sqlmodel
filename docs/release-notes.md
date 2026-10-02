@@ -4,6 +4,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group with 3 updates. PR [#2109](https://github.com/fastapi/sqlmodel/pull/2109) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pre-commit hooks. PR [#2108](https://github.com/fastapi/sqlmodel/pull/2108) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
 
 ## 0.0.47 (2026-09-23)
