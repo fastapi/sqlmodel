@@ -5,7 +5,7 @@ from typing import (
     overload,
 )
 
-from sqlalchemy import util
+from sqlalchemy import TextClause, util
 from sqlalchemy.engine.cursor import CursorResult
 from sqlalchemy.engine.interfaces import _CoreAnyExecuteParams
 from sqlalchemy.engine.result import Result, ScalarResult, TupleResult
@@ -59,12 +59,25 @@ class Session(_Session):
         _add_event: Any | None = None,
     ) -> CursorResult[Any]: ...
 
+    @overload
+    def exec(
+        self,
+        statement: TextClause,
+        *,
+        params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
+        execution_options: Mapping[str, Any] = util.EMPTY_DICT,
+        bind_arguments: dict[str, Any] | None = None,
+        _parent_execute_state: Any | None = None,
+        _add_event: Any | None = None,
+    ) -> CursorResult[Any]: ...
+
     def exec(
         self,
         statement: Select[_TSelectParam]
         | SelectOfScalar[_TSelectParam]
         | Executable[_TSelectParam]
-        | UpdateBase,
+        | UpdateBase
+        | TextClause,
         *,
         params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
