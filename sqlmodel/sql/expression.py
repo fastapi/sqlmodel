@@ -5,6 +5,7 @@ from typing import (
     Optional,
     TypeVar,
 )
+from typing import cast as typing_cast
 
 import sqlalchemy
 from sqlalchemy import (
@@ -65,7 +66,7 @@ def any_(expr: _ColumnExpressionArgument[_T] | _T) -> CollectionAggregate[bool]:
 def asc(
     column: _ColumnExpressionOrStrLabelArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
-    return sqlalchemy.asc(column)  # ty: ignore[invalid-argument-type]
+    return sqlalchemy.asc(typing_cast(ColumnElement[_T], column))
 
 
 def collate(
@@ -112,7 +113,7 @@ def try_cast(
 def desc(
     column: _ColumnExpressionOrStrLabelArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
-    return sqlalchemy.desc(column)  # ty: ignore[invalid-argument-type]
+    return sqlalchemy.desc(typing_cast(ColumnElement[_T], column))
 
 
 def distinct(expr: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
@@ -144,11 +145,11 @@ def label(
 def nulls_first(
     column: _ColumnExpressionArgument[_T] | _T,
 ) -> UnaryExpression[_T]:
-    return sqlalchemy.nulls_first(column)  # ty: ignore[invalid-argument-type]
+    return sqlalchemy.nulls_first(typing_cast(ColumnElement[_T], column))
 
 
 def nulls_last(column: _ColumnExpressionArgument[_T] | _T) -> UnaryExpression[_T]:
-    return sqlalchemy.nulls_last(column)  # ty: ignore[invalid-argument-type]
+    return sqlalchemy.nulls_last(typing_cast(ColumnElement[_T], column))
 
 
 def or_(
