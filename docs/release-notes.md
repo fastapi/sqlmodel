@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.48 (2026-10-06)
+
 ### Features
 
 * ✨ Add support for SQLAlchemy 2.1. PR [#2112](https://github.com/fastapi/sqlmodel/pull/2112) by [@tiangolo](https://github.com/tiangolo).
