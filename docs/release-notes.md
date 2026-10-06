@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Features
+
+* ✨ Add support for SQLAlchemy 2.1. PR [#2112](https://github.com/fastapi/sqlmodel/pull/2112) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ⬆ Bump the python-packages group across 1 directory with 8 updates. PR [#2110](https://github.com/fastapi/sqlmodel/pull/2110) by [@dependabot[bot]](https://github.com/apps/dependabot).
