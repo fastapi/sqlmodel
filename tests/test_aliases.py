@@ -179,3 +179,26 @@ def test_alias_generator_with_explicit_alias_prefers_field_alias_sqlmodel_v2():
     assert m.f == "ok"
     data = m.model_dump(by_alias=True)
     assert "custom" in data and "gen_f" not in data
+
+
+@pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
+def test_model_validate_by_name(
+    model: type[PydanticUser] | type[SQLModelUser],
+):
+    # By default, a field with an alias can't be populated by its name
+    with pytest.raises(ValidationError):
+        model.model_validate({"full_name": "Greg"})
+    # With by_name=True, the field name is accepted
+    user = model.model_validate({"full_name": "Greg"}, by_name=True)
+    assert user.full_name == "Greg"
+
+
+@pytest.mark.parametrize("model", [PydanticUser, SQLModelUser])
+def test_model_validate_by_alias_and_by_name(
+    model: type[PydanticUser] | type[SQLModelUser],
+):
+    # With both enabled, either the alias or the field name is accepted
+    by_alias = model.model_validate({"fullName": "Helen"}, by_alias=True, by_name=True)
+    assert by_alias.full_name == "Helen"
+    by_name = model.model_validate({"full_name": "Helen"}, by_alias=True, by_name=True)
+    assert by_name.full_name == "Helen"
