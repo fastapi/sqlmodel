@@ -12,6 +12,12 @@ repos:
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
+  - repo: https://github.com/crate-ci/typos
+    rev: 00f422f3b19c57bc6338715ebfe3316d38768461 # frozen: v1.50.3
+    hooks:
+      - id: typos
+        args: [--force-exclude]
+
   - repo: local
     hooks:
       - id: local-ruff-check
@@ -30,7 +36,9 @@ repos:
 
       - id: local-ty
         name: ty check
-        entry: uv run ty check sqlmodel tests/test_select_typing.py
+        entry: >-
+          uv run ty check sqlmodel tests/test_asyncio.py tests/test_dataclass_transform.py tests/test_field_sa_type.py
+          tests/test_select_typing.py
         require_serial: true
         language: unsupported
         pass_filenames: false
@@ -53,4 +61,12 @@ repos:
         name: generate README.md from index.md
         entry: uv run ./scripts/docs.py generate-readme
         files: ^docs/index\.md|scripts/docs\.py$
+        pass_filenames: false
+
+      - id: zizmor
+        name: zizmor
+        language: python
+        entry: uv run zizmor .
+        files: ^\.github\/workflows\/
+        require_serial: true
         pass_filenames: false

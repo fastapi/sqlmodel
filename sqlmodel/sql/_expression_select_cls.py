@@ -6,30 +6,31 @@ from sqlalchemy.sql._typing import (
     _ColumnExpressionArgument,
 )
 from sqlalchemy.sql.expression import Select as _Select
-from typing_extensions import Self
+from typing_extensions import Self, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
+_Ts = TypeVarTuple("_Ts")
 
 
 # Separate this class in SelectBase, Select, and SelectOfScalar so that they can share
 # where and having without having type overlap incompatibility in session.exec().
-class SelectBase(_Select[tuple[_T]]):
+class SelectBase(_Select[Unpack[_Ts]]):
     inherit_cache = True
 
     def where(self, *whereclause: _ColumnExpressionArgument[bool] | bool) -> Self:
         """Return a new `Select` construct with the given expression added to
         its `WHERE` clause, joined to the existing clause via `AND`, if any.
         """
-        return super().where(*whereclause)
+        return super().where(*whereclause)  # ty: ignore[invalid-argument-type]
 
     def having(self, *having: _ColumnExpressionArgument[bool] | bool) -> Self:
         """Return a new `Select` construct with the given expression added to
         its `HAVING` clause, joined to the existing clause via `AND`, if any.
         """
-        return super().having(*having)
+        return super().having(*having)  # ty: ignore[invalid-argument-type]
 
 
-class Select(SelectBase[_T]):
+class Select(SelectBase[Unpack[_Ts]]):
     inherit_cache = True
 
 

@@ -38,4 +38,4 @@
 
 6. Now in the dependency override function, we just return the same `session` object that came from outside it.
 
-    The `session` object comes from the parameter passed to the test function, and we just re-use it and return it here in the dependency override.
+    The `session` object comes from the parameter passed to the test function, and we just reuse it and return it here in the dependency override.

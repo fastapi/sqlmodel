@@ -2,7 +2,8 @@ import importlib
 from types import ModuleType
 
 import pytest
-from sqlmodel import create_engine
+from dirty_equals import IsList
+from sqlalchemy import Engine
 
 from ...conftest import PrintMock
 
@@ -13,10 +14,9 @@ from ...conftest import PrintMock
         pytest.param("tutorial002_py310"),
     ],
 )
-def get_module(request: pytest.FixtureRequest) -> ModuleType:
+def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
     mod = importlib.import_module(f"docs_src.tutorial.many_to_many.{request.param}")
-    mod.sqlite_url = "sqlite://"
-    mod.engine = create_engine(mod.sqlite_url)
+    mod.engine = database_engine
     return mod
 
 
@@ -27,10 +27,11 @@ expected_calls = [
     ],
     [
         "Deadpond teams:",
-        [
+        IsList(
             {"id": 1, "name": "Z-Force", "headquarters": "Sister Margaret's Bar"},
             {"id": 2, "name": "Preventers", "headquarters": "Sharp Tower"},
-        ],
+            check_order=False,
+        ),
     ],
     [
         "Rusty-Man:",
@@ -50,14 +51,15 @@ expected_calls = [
     ],
     [
         "Updated Spider-Boy's Teams:",
-        [
+        IsList(
             {"id": 2, "name": "Preventers", "headquarters": "Sharp Tower"},
             {"id": 1, "name": "Z-Force", "headquarters": "Sister Margaret's Bar"},
-        ],
+            check_order=False,
+        ),
     ],
     [
         "Z-Force heroes:",
-        [
+        IsList(
             {"id": 1, "secret_name": "Dive Wilson", "age": None, "name": "Deadpond"},
             {
                 "id": 3,
@@ -65,7 +67,8 @@ expected_calls = [
                 "age": None,
                 "name": "Spider-Boy",
             },
-        ],
+            check_order=False,
+        ),
     ],
     [
         "Reverted Z-Force's heroes:",

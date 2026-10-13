@@ -48,7 +48,7 @@ These are equivalent and very similar to the **path operations** for the **heroe
 
 {* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[135:188] hl[135:141,144:152,155:160,163:178,181:188] *}
 
-## Using Relationships Attributes
+## Using Relationship Attributes
 
 Up to this point, we are actually not using the **relationship attributes**, but we could access them in our code.
 

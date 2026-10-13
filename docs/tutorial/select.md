@@ -31,7 +31,7 @@ We will need the `Hero` model and the **engine**, but we will create a new sessi
 
 ## Read Data with SQL
 
-Before writing Python code let's do a quick review of how querying data with SQL looks like:
+Before writing Python code let's do a quick review of what querying data with SQL looks like:
 
 ```SQL
 SELECT id, name, secret_name, age
@@ -259,7 +259,7 @@ Now include a call to `select_heroes()` in the `main()` function so that it is e
 
 ## Review The Code
 
-Great, you're now being able to read the data from the database! 🎉
+Great, you're now able to read the data from the database! 🎉
 
 Let's review the code up to this point:
 
@@ -289,11 +289,11 @@ And the second section reading data from the database could be in another functi
 
 So, both sections could be in **different places** and would need their own sessions.
 
-/// info
+/// note
 
 To be fair, in this example all that code could actually share the same **session**, there's actually no need to have two here.
 
-But it allows me to show you how they could be separated and to reinforce the idea that you should have **one engine** per application, and **multiple sessions**, one per each group of operations.
+But it allows me to show you how they could be separated and to reinforce the idea that you should have **one engine** per application, and **multiple sessions**, one per group of operations.
 
 ///
 
@@ -319,7 +319,7 @@ After printing it, we would see something like:
 ]
 ```
 
-/// info
+/// note
 
 It would actually look more compact, I'm formatting it a bit for you to see that it is actually a list with all the data.
 
@@ -329,7 +329,7 @@ It would actually look more compact, I'm formatting it a bit for you to see that
 
 I have been creating several variables to be able to explain to you what each thing is doing.
 
-But knowing what is each object and what it is all doing, we can simplify it a bit and put it in a more compact form:
+But knowing what each object is and what it is all doing, we can simplify it a bit and put it in a more compact form:
 
 {* ./docs_src/tutorial/select/tutorial004_py310.py ln[34:37] hl[36] *}
 
@@ -349,11 +349,11 @@ In this chapter we are touching some of them.
 
 When importing from `sqlmodel` the `select()` function, you are using **SQLModel**'s version of `select`.
 
-SQLAchemy also has its own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
+SQLAlchemy also has its own `select`, and SQLModel's `select` uses SQLAlchemy's `select` internally.
 
 But SQLModel's version does a lot of **tricks** with type annotations to make sure you get the best **editor support** possible, no matter if you use **VS Code**, **PyCharm**, or something else. ✨
 
-/// info
+/// note
 
 There was a lot of work and research, with different versions of the internal code, to improve this as much as possible. 🤓
 
@@ -369,7 +369,7 @@ If you see SQLAlchemy tutorials, they will always use `session.execute()`.
 
 **SQLModel**'s own `Session` inherits directly from SQLAlchemy's `Session`, and adds this additional method `session.exec()`. Underneath, it uses the same `session.execute()`.
 
-But `session.exec()` does several **tricks** combined with the tricks in `session()` to give you the **best editor support**, with **autocompletion** and **inline errors** everywhere, even after getting data from a select. ✨
+But `session.exec()` does several **tricks** combined with the tricks in `select()` to give you the **best editor support**, with **autocompletion** and **inline errors** everywhere, even after getting data from a select. ✨
 
 For example, in SQLAlchemy you would need to add a `.scalars()` here:
 

@@ -17,23 +17,24 @@ from sqlalchemy.sql.base import Executable as _Executable
 from sqlalchemy.sql.dml import UpdateBase
 from sqlmodel.sql.base import Executable
 from sqlmodel.sql.expression import Select, SelectOfScalar
-from typing_extensions import deprecated
+from typing_extensions import TypeVarTuple, Unpack, deprecated
 
 _TSelectParam = TypeVar("_TSelectParam", bound=Any)
+_Ts = TypeVarTuple("_Ts")
 
 
 class Session(_Session):
     @overload
     def exec(
         self,
-        statement: Select[_TSelectParam],
+        statement: Select[Unpack[_Ts]],
         *,
         params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
         bind_arguments: dict[str, Any] | None = None,
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
-    ) -> TupleResult[_TSelectParam]: ...
+    ) -> TupleResult[tuple[Unpack[_Ts]]]: ...
 
     @overload
     def exec(
@@ -57,11 +58,11 @@ class Session(_Session):
         bind_arguments: dict[str, Any] | None = None,
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
-    ) -> CursorResult[Any]: ...
+    ) -> CursorResult[Unpack[tuple[Any, ...]]]: ...
 
     def exec(
         self,
-        statement: Select[_TSelectParam]
+        statement: Select[Unpack[_Ts]]
         | SelectOfScalar[_TSelectParam]
         | Executable[_TSelectParam]
         | UpdateBase,
@@ -71,7 +72,11 @@ class Session(_Session):
         bind_arguments: dict[str, Any] | None = None,
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
-    ) -> TupleResult[_TSelectParam] | ScalarResult[_TSelectParam] | CursorResult[Any]:
+    ) -> (
+        TupleResult[tuple[Unpack[_Ts]]]
+        | ScalarResult[_TSelectParam]
+        | CursorResult[Unpack[tuple[Any, ...]]]
+    ):
         results = super().execute(
             statement,
             params=params,
@@ -89,7 +94,7 @@ class Session(_Session):
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -97,7 +102,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
@@ -114,12 +119,12 @@ class Session(_Session):
         bind_arguments: dict[str, Any] | None = None,
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
-    ) -> Result[Any]:
+    ) -> Result[Unpack[tuple[Any, ...]]]:
         """
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 
         This is the original SQLAlchemy `session.execute()` method that returns objects
-        of type `Row`, and that you have to call `scalars()` to get the model objects.
+        of type `Row`, on which you have to call `scalars()` to get the model objects.
 
         For example:
 
@@ -127,7 +132,7 @@ class Session(_Session):
         heroes = session.execute(select(Hero)).scalars().all()
         ```
 
-        instead you could use `exec()`:
+        Instead, you could use `exec()`:
 
         ```Python
         heroes = session.exec(select(Hero)).all()
@@ -146,10 +151,10 @@ class Session(_Session):
         """
         🚨 You probably want to use `session.exec()` instead of `session.query()`.
 
-        `session.exec()` is SQLModel's own short version with increased type
+        `session.exec()` is SQLModel's own short version with improved type
         annotations.
 
-        Or otherwise you might want to use `session.execute()` instead of
+        Otherwise, you might want to use `session.execute()` instead of
         `session.query()`.
         """
     )
@@ -159,10 +164,10 @@ class Session(_Session):
         """
         🚨 You probably want to use `session.exec()` instead of `session.query()`.
 
-        `session.exec()` is SQLModel's own short version with increased type
+        `session.exec()` is SQLModel's own short version with improved type
         annotations.
 
-        Or otherwise you might want to use `session.execute()` instead of
+        Otherwise, you might want to use `session.execute()` instead of
         `session.query()`.
         """
         return super().query(*entities, **kwargs)

@@ -56,7 +56,7 @@ Running that in the command line will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 

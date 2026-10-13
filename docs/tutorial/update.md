@@ -34,7 +34,7 @@ And the second part, with the `WHERE`, defines to which rows it should apply tha
 
 In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
 
-/// info
+/// note
 
 Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
 
@@ -98,7 +98,7 @@ Up to that point, running that in the command line will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -153,7 +153,7 @@ This commit will generate this output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -182,7 +182,7 @@ This refresh will trigger the same SQL query that would be automatically trigger
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -210,7 +210,7 @@ So, printing it will show the new `age`:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 

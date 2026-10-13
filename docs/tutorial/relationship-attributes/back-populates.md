@@ -26,7 +26,7 @@ Let's see how that works by writing an **incomplete** version first, without `ba
 
 Now, we will get the **Spider-Boy** hero and, *independently*, the **Preventers** team using two `select`s.
 
-As you already know how this works, I won't separate that in a select `statement`, `results`, etc. Let's use the shorter form in a single call:
+As you already know how this works, I won't separate that into a select `statement`, `results`, etc. Let's use the shorter form in a single call:
 
 {* ./docs_src/tutorial/relationship_attributes/back_populates/tutorial001_py310.py ln[103:111] hl[105:107,109:111] *}
 
@@ -66,7 +66,7 @@ Now let's update **Spider-Boy**, removing him from the team by setting `hero_spi
 
 The first important thing is, we *haven't committed* the hero yet, so accessing the list of heroes would not trigger an automatic refresh.
 
-But in our code, in this exact point in time, we already said that **Spider-Boy** is no longer part of the **Preventers**. 🔥
+But in our code, at this exact point in time, we already said that **Spider-Boy** is no longer part of the **Preventers**. 🔥
 
 /// tip
 
