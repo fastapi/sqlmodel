@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Disable test workflow run by cron on forks. PR [#1611](https://github.com/fastapi/sqlmodel/pull/1611) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.0.48 (2026-10-06)
 
 ### Features
