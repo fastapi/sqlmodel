@@ -120,7 +120,7 @@ import project.app
 Then Python will execute that module *inside* of that package, and because Python is executing it directly, the same trick with the **main block** that we have in `app.py` will still work:
 
 ```Python
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 ```
 

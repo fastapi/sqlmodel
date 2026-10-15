@@ -87,9 +87,7 @@ But if the client sent a JSON with:
 Then the dictionary we would get in Python using `hero.model_dump(exclude_unset=True)` would be:
 
 ```Python
-{
-    "name": "Deadpuddle"
-}
+{"name": "Deadpuddle"}
 ```
 
 Then we use that to get the data that was actually sent by the client:
@@ -143,9 +141,7 @@ So, if the client wanted to intentionally remove the `age` of a hero, they could
 And when getting the data with `hero.model_dump(exclude_unset=True)`, we would get:
 
 ```Python
-{
-    "age": None
-}
+{"age": None}
 ```
 
 So, we would use that value and update the `age` to `None` in the database, **just as the client intended**.
