@@ -132,7 +132,11 @@ For example, you could ask the database for the same hero with ID `2` with this 
 ```Python
 user_id = input("Type the user ID: ")
 
-session.exec(select(Hero).where(Hero.id == user_id)).all()
+# fmt: off
+session.exec(
+    select(Hero).where(Hero.id == user_id)
+).all()
+# fmt: on
 ```
 
 If the user provides this ID:
@@ -229,7 +233,11 @@ results = database.execute(statement)
 But if you use common Python classes and objects, your editor will be able to help you:
 
 ```Python
-database.execute(select(Hero).where(Hero.secret_name == "Dive Wilson")).all()
+# fmt: off
+database.execute(
+    select(Hero).where(Hero.secret_name == "Dive Wilson")
+).all()
+# fmt: on
 ```
 
 ![](img/db-to-code/autocompletion01.png){class="shadow"}
