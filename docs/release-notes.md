@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 📝 Hide formatting guards in HTML comments. PR [#2115](https://github.com/fastapi/sqlmodel/pull/2115) by [@tiangolo](https://github.com/tiangolo).
 * 🎨 Enable Ruff formatting for Python in Markdown. PR [#2114](https://github.com/fastapi/sqlmodel/pull/2114) by [@tiangolo](https://github.com/tiangolo).
 
 ### Internal
