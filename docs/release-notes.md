@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Docs
+
+* 🎨 Enable Ruff formatting for Python in Markdown. PR [#2114](https://github.com/fastapi/sqlmodel/pull/2114) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * 👷 Disable test workflow run by cron on forks. PR [#1611](https://github.com/fastapi/sqlmodel/pull/1611) by [@YuriiMotov](https://github.com/YuriiMotov).
