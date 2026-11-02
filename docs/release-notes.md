@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group with 6 updates. PR [#2122](https://github.com/fastapi/sqlmodel/pull/2122) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Disable test workflow run by cron on forks. PR [#1611](https://github.com/fastapi/sqlmodel/pull/1611) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ## 0.0.48 (2026-10-06)
