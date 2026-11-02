@@ -9,6 +9,7 @@
 
 ### Internal
 
+* ⬆ Bump sqlalchemy from 2.0.54 to 2.0.55 and from 2.1.3 to 2.1.6. PR [#2124](https://github.com/fastapi/sqlmodel/pull/2124) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group with 6 updates. PR [#2122](https://github.com/fastapi/sqlmodel/pull/2122) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Disable test workflow run by cron on forks. PR [#1611](https://github.com/fastapi/sqlmodel/pull/1611) by [@YuriiMotov](https://github.com/YuriiMotov).
 
