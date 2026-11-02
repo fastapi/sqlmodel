@@ -119,6 +119,9 @@ nav:
       - advanced/datetime.md
       - advanced/decimal.md
       - advanced/uuid.md
+      - "":
+        - advanced/advanced-relationships/index.md
+        - advanced/advanced-relationships/self-referential.md
   - "":
     - resources/index.md
     - help.md
