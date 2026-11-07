@@ -41,6 +41,8 @@ SQLModel is a library for interacting with <abbr title='Also called "Relational 
 
 **SQLModel** is based on Python type annotations, and powered by [Pydantic](https://pydantic-docs.helpmanual.io/) and [SQLAlchemy](https://sqlalchemy.org/).
 
+<!-- agent-banner -->
+
 The key features are:
 
 * **Intuitive to write**: Great editor support. <abbr title="also known as auto-complete, autocompletion, IntelliSense">Completion</abbr> everywhere. Less time debugging. Designed to be easy to use and learn. Less time reading docs.

@@ -120,6 +120,7 @@ nav:
       - advanced/decimal.md
       - advanced/uuid.md
   - "":
+    - ai-development.md
     - resources/index.md
     - help.md
     - contributing.md
@@ -129,7 +130,12 @@ nav:
     - management.md
   - release-notes.md
 
+watch:
+  - scripts/agent_banner.py
+  - includes/agent-banner.md
+
 markdown_extensions:
+  scripts.agent_banner:
   # Material for MkDocs
   material.extensions.preview:
     targets:
