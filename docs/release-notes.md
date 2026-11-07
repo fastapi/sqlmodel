@@ -2,6 +2,19 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Hide formatting guards in HTML comments. PR [#2115](https://github.com/fastapi/sqlmodel/pull/2115) by [@tiangolo](https://github.com/tiangolo).
+* 🎨 Enable Ruff formatting for Python in Markdown. PR [#2114](https://github.com/fastapi/sqlmodel/pull/2114) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ⬆ Bump the python-packages group across 1 directory with 9 updates. PR [#2123](https://github.com/fastapi/sqlmodel/pull/2123) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pre-commit hooks. PR [#2120](https://github.com/fastapi/sqlmodel/pull/2120) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* ⬆ Bump sqlalchemy from 2.0.54 to 2.0.55 and from 2.1.3 to 2.1.6. PR [#2124](https://github.com/fastapi/sqlmodel/pull/2124) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump the github-actions group with 6 updates. PR [#2122](https://github.com/fastapi/sqlmodel/pull/2122) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👷 Disable test workflow run by cron on forks. PR [#1611](https://github.com/fastapi/sqlmodel/pull/1611) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.0.48 (2026-10-06)
 
 ### Features
