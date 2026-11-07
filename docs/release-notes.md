@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 🎨 Use the Zensical modern theme for docs. PR [#2128](https://github.com/fastapi/sqlmodel/pull/2128) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add AI development guidance and coding agent notices. PR [#2127](https://github.com/fastapi/sqlmodel/pull/2127) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Hide formatting guards in HTML comments. PR [#2115](https://github.com/fastapi/sqlmodel/pull/2115) by [@tiangolo](https://github.com/tiangolo).
 * 🎨 Enable Ruff formatting for Python in Markdown. PR [#2114](https://github.com/fastapi/sqlmodel/pull/2114) by [@tiangolo](https://github.com/tiangolo).
