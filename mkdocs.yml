@@ -66,6 +66,7 @@ nav:
     - install.md
     - "":
       - tutorial/index.md
+      - ai-development.md
       - tutorial/create-db-and-table-with-db-browser.md
       - tutorial/create-db-and-table.md
       - tutorial/insert.md
@@ -129,7 +130,12 @@ nav:
     - management.md
   - release-notes.md
 
+watch:
+  - scripts/agent_banner.py
+  - includes/agent-banner.md
+
 markdown_extensions:
+  scripts.agent_banner:
   # Material for MkDocs
   material.extensions.preview:
     targets:
