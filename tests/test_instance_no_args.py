@@ -4,7 +4,17 @@ from sqlalchemy import Engine
 from sqlmodel import Field, Session, SQLModel, select
 
 
-def test_allow_instantiation_without_arguments(database_engine: Engine):
+def test_not_allow_instantiation_without_arguments(clear_sqlmodel):
+    class Item(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        name: str
+        description: str | None = None
+
+    with pytest.raises(ValidationError):
+        Item()
+
+
+def test_allow_instantiation_with_required_arguments(database_engine: Engine):
     class Item(SQLModel, table=True):
         id: int | None = Field(default=None, primary_key=True)
         name: str
@@ -13,8 +23,7 @@ def test_allow_instantiation_without_arguments(database_engine: Engine):
     engine = database_engine
     SQLModel.metadata.create_all(engine)
     with Session(engine) as db:
-        item = Item()
-        item.name = "Rick"
+        item = Item(name="Rick")
         db.add(item)
         db.commit()
         statement = select(Item)
