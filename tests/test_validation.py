@@ -90,6 +90,35 @@ def test_table_model_model_validator_after(clear_sqlmodel):
         Hero(name="Same", secret_name="Same")
 
 
+def test_table_model_model_validator_after_sets_attribute(clear_sqlmodel):
+    from pydantic import model_validator
+
+    class Hero(SQLModel, table=True):
+        id: int | None = Field(default=None, primary_key=True)
+        name: str
+        slug: str = ""
+
+        @model_validator(mode="after")
+        def compute_slug(self) -> "Hero":
+            self.slug = self.name.lower()
+            return self
+
+    hero = Hero(name="Deadpond")
+    assert hero.slug == "deadpond"
+
+    validated = Hero.model_validate({"name": "Rusty-Man"})
+    assert validated.slug == "rusty-man"
+
+    engine = create_engine("sqlite://")
+    SQLModel.metadata.create_all(engine)
+    with Session(engine) as session:
+        session.add(hero)
+        session.add(validated)
+        session.commit()
+        heroes = session.exec(select(Hero).order_by(Hero.id)).all()
+        assert [h.slug for h in heroes] == ["deadpond", "rusty-man"]
+
+
 def test_table_model_model_validator_before(clear_sqlmodel):
     from pydantic import model_validator
 
