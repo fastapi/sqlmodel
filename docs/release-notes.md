@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* ⬆️ Upgrade markdown-include-variants to 0.0.10. PR [#2130](https://github.com/fastapi/sqlmodel/pull/2130) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 🎨 Use the Zensical modern theme for docs. PR [#2128](https://github.com/fastapi/sqlmodel/pull/2128) by [@tiangolo](https://github.com/tiangolo).
