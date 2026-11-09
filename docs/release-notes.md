@@ -16,6 +16,7 @@
 
 ### Internal
 
+* 🐛 Preserve snippet variants when cleaning up docs sources. PR [#2131](https://github.com/fastapi/sqlmodel/pull/2131) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 9 updates. PR [#2123](https://github.com/fastapi/sqlmodel/pull/2123) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pre-commit hooks. PR [#2120](https://github.com/fastapi/sqlmodel/pull/2120) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
 * ⬆ Bump sqlalchemy from 2.0.54 to 2.0.55 and from 2.1.3 to 2.1.6. PR [#2124](https://github.com/fastapi/sqlmodel/pull/2124) by [@dependabot[bot]](https://github.com/apps/dependabot).
