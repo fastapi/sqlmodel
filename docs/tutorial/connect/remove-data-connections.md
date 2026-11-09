@@ -35,7 +35,7 @@ Let's see how to **remove** connections between rows in tables.
 
 We will continue with the code from the previous chapter.
 
-{* ./docs_src/tutorial/connect/update/tutorial001_py310.py ln[0] *}
+{* ./docs_src/tutorial/connect/update/tutorial001.py ln[0] *}
 
 ## Break a Connection
 
@@ -45,7 +45,7 @@ Let's say **Spider-Boy** is tired of the lack of friendly neighbors and wants to
 
 We can simply set the `team_id` to `None`, and now it doesn't have a connection with the team:
 
-{* ./docs_src/tutorial/connect/delete/tutorial001_py310.py ln[29:30,66:70] hl[66] *}
+{* ./docs_src/tutorial/connect/delete/tutorial001.py ln[29:30,66:70] hl[66] *}
 
 Again, we just **assign** a value to that field attribute `team_id`, now the value is `None`, which means `NULL` in the database. Then we `add()` the hero to the session, and then `commit()`.
 

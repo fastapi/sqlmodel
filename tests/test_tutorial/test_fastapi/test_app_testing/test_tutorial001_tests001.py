@@ -15,7 +15,7 @@ class Modules:
 @pytest.fixture(
     name="modules_path",
     params=[
-        pytest.param("tutorial001_py310"),
+        pytest.param("tutorial001"),
     ],
 )
 def get_modules_path(request: pytest.FixtureRequest) -> str:

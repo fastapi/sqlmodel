@@ -23,7 +23,7 @@ Things are getting more exciting! Let's now see how to read data from the databa
 
 Let's continue from the last code we used to create some data.
 
-{* ./docs_src/tutorial/insert/tutorial002_py310.py ln[0] *}
+{* ./docs_src/tutorial/insert/tutorial002.py ln[0] *}
 
 We are creating a **SQLModel** `Hero` class model and creating some records.
 
@@ -160,7 +160,7 @@ The first step is to create a **Session**, the same way we did when creating the
 
 We will start with that in a new function `select_heroes()`:
 
-{* ./docs_src/tutorial/select/tutorial001_py310.py ln[34:35] hl[34:35] *}
+{* ./docs_src/tutorial/select/tutorial001.py ln[34:35] hl[34:35] *}
 
 ## Create a `select` Statement
 
@@ -168,11 +168,11 @@ Next, pretty much the same way we wrote a SQL `SELECT` statement above, now we'l
 
 First we have to import `select` from `sqlmodel` at the top of the file:
 
-{* ./docs_src/tutorial/select/tutorial001_py310.py ln[1] hl[1] *}
+{* ./docs_src/tutorial/select/tutorial001.py ln[1] hl[1] *}
 
 And then we will use it to create a `SELECT` statement in Python code:
 
-{* ./docs_src/tutorial/select/tutorial001_py310.py ln[1,34:36] hl[36] *}
+{* ./docs_src/tutorial/select/tutorial001.py ln[1,34:36] hl[36] *}
 
 It's a very simple line of code that conveys a lot of information:
 
@@ -203,7 +203,7 @@ I'll tell you about that in the next chapters.
 
 Now that we have the `select` statement, we can execute it with the **session**:
 
-{* ./docs_src/tutorial/select/tutorial001_py310.py ln[34:37] hl[37] *}
+{* ./docs_src/tutorial/select/tutorial001.py ln[34:37] hl[37] *}
 
 This will tell the **session** to go ahead and use the **engine** to execute that `SELECT` statement in the database and bring the results back.
 
@@ -241,7 +241,7 @@ The `results` object is an <abbr title="Something that can be used in a for loop
 
 Now we can put it in a `for` loop and print each one of the heroes:
 
-{* ./docs_src/tutorial/select/tutorial001_py310.py ln[34:39] hl[38:39] *}
+{* ./docs_src/tutorial/select/tutorial001.py ln[34:39] hl[38:39] *}
 
 This will print the output:
 
@@ -255,7 +255,7 @@ id=3 name='Rusty-Man' age=48 secret_name='Tommy Sharp'
 
 Now include a call to `select_heroes()` in the `main()` function so that it is executed when we run the program from the command line:
 
-{* ./docs_src/tutorial/select/tutorial001_py310.py ln[34:45] hl[45] *}
+{* ./docs_src/tutorial/select/tutorial001.py ln[34:45] hl[45] *}
 
 ## Review The Code
 
@@ -263,15 +263,11 @@ Great, you're now able to read the data from the database! 🎉
 
 Let's review the code up to this point:
 
-//// tab | Python 3.10+
-
 ```{ .python .annotate }
-{!./docs_src/tutorial/select/tutorial002_py310.py!}
+{!./docs_src/tutorial/select/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/select/annotations/en/tutorial002.md!}
-
-////
 
 /// tip
 
@@ -305,7 +301,7 @@ But for different reasons you might want to have the full **list of `Hero`** obj
 
 The special `results` object also has a method `results.all()` that returns a list with all the objects:
 
-{* ./docs_src/tutorial/select/tutorial003_py310.py ln[34:39] hl[38] *}
+{* ./docs_src/tutorial/select/tutorial003.py ln[34:39] hl[38] *}
 
 With this now we have all the heroes in a list in the `heroes` variable.
 
@@ -331,7 +327,7 @@ I have been creating several variables to be able to explain to you what each th
 
 But knowing what each object is and what it is all doing, we can simplify it a bit and put it in a more compact form:
 
-{* ./docs_src/tutorial/select/tutorial004_py310.py ln[34:37] hl[36] *}
+{* ./docs_src/tutorial/select/tutorial004.py ln[34:37] hl[36] *}
 
 Here we are putting it all on a single line, you will probably put the select statements in a single line like this more often.
 

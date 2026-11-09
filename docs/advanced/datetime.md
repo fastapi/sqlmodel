@@ -65,7 +65,7 @@ Pydantic provides [`AwareDatetime` and `NaiveDatetime`](https://docs.pydantic.de
 
 We can use them as field types:
 
-{* ./docs_src/advanced/datetime/tutorial002_py310.py ln[1:8] hl[1,7:8] *}
+{* ./docs_src/advanced/datetime/tutorial002.py ln[1:8] hl[1,7:8] *}
 
 Here, `starts_at` requires timezone information during validation. It uses the same database type as `datetime`: `UTCDateTime`.
 
@@ -77,7 +77,7 @@ These types also work with `| None` and with `Annotated`, for example `Annotated
 
 We can use `Event.model_validate()` to validate the data before creating an event:
 
-{* ./docs_src/advanced/datetime/tutorial002_py310.py ln[11:17] hl[13:14,16] *}
+{* ./docs_src/advanced/datetime/tutorial002.py ln[11:17] hl[13:14,16] *}
 
 The `Z` at the end of `starts_at` means **UTC**. The value for `local_time` has no timezone, so both values pass validation.
 
@@ -137,13 +137,13 @@ Back up the database and test schema changes, data conversions, and application 
 
 Change the field annotation to `NaiveDatetime`:
 
-{* ./docs_src/advanced/datetime/tutorial005_py310.py ln[1:9] hl[3,9] *}
+{* ./docs_src/advanced/datetime/tutorial005.py ln[1:9] hl[3,9] *}
 
 This keeps the previous database column type, so no database migration is needed for that field. It also adds the validation constraint described above.
 
 To retain the previous database type **and** plain `datetime` validation behavior, declare the database type explicitly:
 
-{* ./docs_src/advanced/datetime/tutorial003_py310.py ln[1:9] hl[3,9] *}
+{* ./docs_src/advanced/datetime/tutorial003.py ln[1:9] hl[3,9] *}
 
 ### Adopt Timezone-Aware Storage on PostgreSQL
 
@@ -153,7 +153,7 @@ To retain the previous database type **and** plain `datetime` validation behavio
 
 For example, if `event.created_at` contains naive **UTC** values, the operations in the generated revision can be:
 
-{* ./docs_src/advanced/datetime/tutorial004_py310.py hl[9:11,19:21] *}
+{* ./docs_src/advanced/datetime/tutorial004.py hl[9:11,19:21] *}
 
 This migration uses `sa.DateTime(timezone=True)`, the underlying database type of `UTCDateTime`.
 

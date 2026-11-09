@@ -138,8 +138,8 @@ def check_calls(calls: list[list[str | dict[str, Any]]]) -> None:
 @pytest.fixture(
     name="module",
     params=[
-        pytest.param("tutorial001_py310"),
-        pytest.param("tutorial002_py310"),
+        pytest.param("tutorial001"),
+        pytest.param("tutorial002"),
     ],
 )
 def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:

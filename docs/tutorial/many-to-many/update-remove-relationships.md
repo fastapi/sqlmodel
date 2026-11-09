@@ -4,7 +4,7 @@ Now we'll see how to update and remove these **many-to-many** relationships.
 
 We'll continue from where we left off with the previous code.
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[0] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[0] *}
 
 ## Get Data to Update
 
@@ -16,11 +16,11 @@ As you already know how this goes, I'll use the **short version** and get the da
 
 And because we are now using `select()`, we also have to import it.
 
-{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[1,72:77] hl[1,72:77] *}
+{* ./docs_src/tutorial/many_to_many/tutorial002.py ln[1,72:77] hl[1,72:77] *}
 
 And of course, we have to add `update_heroes()` to our `main()` function:
 
-{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[94:101] hl[97] *}
+{* ./docs_src/tutorial/many_to_many/tutorial002.py ln[94:101] hl[97] *}
 
 ## Add Many-to-Many Relationships
 
@@ -28,7 +28,7 @@ Now let's imagine that **Spider-Boy** thinks that the **Z-Force** team is super 
 
 We can use the same **relationship attributes** to include `hero_spider_boy` in the `team_z_force.heroes`.
 
-{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[72:84] hl[79:81,83:84] *}
+{* ./docs_src/tutorial/many_to_many/tutorial002.py ln[72:84] hl[79:81,83:84] *}
 
 /// tip
 
@@ -113,7 +113,7 @@ Because `hero_spider_boy.teams` is just a list (a special list managed by SQLAlc
 
 In this case, we use the method `.remove()`, that takes an item and removes it from the list.
 
-{* ./docs_src/tutorial/many_to_many/tutorial002_py310.py ln[72:91] hl[86:88,90:91] *}
+{* ./docs_src/tutorial/many_to_many/tutorial002.py ln[72:91] hl[86:88,90:91] *}
 
 And this time, just to show again that by using `back_populates` **SQLModel** (actually SQLAlchemy) takes care of connecting the models by their relationships, even though we performed the operation from the `hero_spider_boy` object (modifying `hero_spider_boy.teams`), we are adding `team_z_force` to the **session**. And we commit that, without even adding `hero_spider_boy`.
 

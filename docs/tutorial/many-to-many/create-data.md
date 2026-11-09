@@ -8,13 +8,13 @@ We'll create data for this same **many-to-many** relationship with a link table:
 
 We'll continue from where we left off with the previous code.
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[0] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[0] *}
 
 ## Create Heroes
 
 As we have done before, we'll create a function `create_heroes()` and we'll create some teams and heroes in it:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[36:54] hl[44] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[36:54] hl[44] *}
 
 This is very similar to what we have done before.
 
@@ -28,13 +28,13 @@ See how **Deadpond** now belongs to the two teams?
 
 Now let's do as we have done before, `commit` the **session**, `refresh` the data, and print it:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[36:69] hl[55:58,60:62,64:69] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[36:69] hl[55:58,60:62,64:69] *}
 
 ## Add to Main
 
 As before, add the `create_heroes()` function to the `main()` function to make sure it is called when running this program from the command line:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[72:74] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[72:74] *}
 
 ## Run the Program
 

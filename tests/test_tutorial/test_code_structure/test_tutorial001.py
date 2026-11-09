@@ -34,7 +34,7 @@ class Modules:
 @pytest.fixture(
     name="modules",
     params=[
-        pytest.param("tutorial001_py310"),
+        pytest.param("tutorial001"),
     ],
 )
 def get_modules(request: pytest.FixtureRequest, database_engine: Engine) -> Modules:

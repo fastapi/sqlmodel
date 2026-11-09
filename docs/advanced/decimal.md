@@ -33,7 +33,7 @@ For the database, **SQLModel** will use [SQLAlchemy's `DECIMAL` type](https://do
 
 Let's say that each hero in the database will have an amount of money. We can define that field as a `Decimal` and configure the maximum number of digits and decimal places using the parameters of `Field()`:
 
-{* ./docs_src/advanced/decimal/tutorial001_py310.py ln[1:11] hl[11] *}
+{* ./docs_src/advanced/decimal/tutorial001.py ln[1:11] hl[11] *}
 
 Here we are saying that `money` can have at most `5` digits with `max_digits`, **this includes the integers** (to the left of the decimal dot) **and the decimals** (to the right of the decimal dot).
 
@@ -67,13 +67,13 @@ Make sure you adjust the number of digits and decimal places for your own needs,
 
 When creating new models you can actually pass normal (`float`) numbers, Pydantic will automatically convert them to `Decimal` types, and **SQLModel** will store them as `Decimal` types in the database (using SQLAlchemy).
 
-{* ./docs_src/advanced/decimal/tutorial001_py310.py ln[24:34] hl[25:27] *}
+{* ./docs_src/advanced/decimal/tutorial001.py ln[24:34] hl[25:27] *}
 
 ## Select Decimal data
 
 Then, when working with Decimal types, you can confirm that they indeed avoid those rounding errors from floats:
 
-{* ./docs_src/advanced/decimal/tutorial001_py310.py ln[37:50] hl[49:50] *}
+{* ./docs_src/advanced/decimal/tutorial001.py ln[37:50] hl[49:50] *}
 
 ## Review the results
 

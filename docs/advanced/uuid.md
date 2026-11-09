@@ -80,7 +80,7 @@ We don't call `uuid.uuid4()` ourselves in the code (we don't put the parenthesis
 
 This means that the UUID will be generated in the Python code, **before sending the data to the database**.
 
-{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[1:10] hl[1,7] *}
+{* ./docs_src/advanced/uuid/tutorial001.py ln[1:10] hl[1,7] *}
 
 Pydantic has support for [`UUID` types](https://docs.pydantic.dev/latest/api/standard_library_types/#uuid).
 
@@ -94,7 +94,7 @@ As `uuid.uuid4` will be called when creating the model instance, even before sen
 
 And that **same ID (a UUID)** will be saved in the database.
 
-{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[23:34] hl[25,27,29,34] *}
+{* ./docs_src/advanced/uuid/tutorial001.py ln[23:34] hl[25,27,29,34] *}
 
 ### Select a Hero
 
@@ -102,7 +102,7 @@ We can do the same operations we could do with other fields.
 
 For example we can **select a hero by ID**:
 
-{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[37:54] hl[49] *}
+{* ./docs_src/advanced/uuid/tutorial001.py ln[37:54] hl[49] *}
 
 /// tip
 
@@ -116,7 +116,7 @@ SQLModel (actually SQLAlchemy) will take care of making it work. ✨
 
 We could also select by ID with `session.get()`:
 
-{* ./docs_src/advanced/uuid/tutorial002_py310.py ln[37:53] hl[49] *}
+{* ./docs_src/advanced/uuid/tutorial002.py ln[37:53] hl[49] *}
 
 The same way as with other fields, we could update, delete, etc. 🚀
 

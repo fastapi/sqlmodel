@@ -12,7 +12,7 @@ from ...conftest import PrintMock
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial005_py310"),
+        pytest.param("tutorial005"),
     ],
 )
 def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:

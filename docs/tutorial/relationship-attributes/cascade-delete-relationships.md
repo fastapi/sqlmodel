@@ -109,7 +109,7 @@ When creating a `Relationship()`, we can set `cascade_delete=True`.
 
 This configures SQLModel to **automatically delete** the related records (heroes) **when the initial one is deleted** (a team).
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001_py310.py ln[1:9] hl[9] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001.py ln[1:9] hl[9] *}
 
 With this configuration, when we delete a team, SQLModel (actually SQLAlchemy) will:
 
@@ -155,7 +155,7 @@ The `ondelete` parameter will set a SQL `ON DELETE` in the **foreign key column*
 
 If we want to configure the database to **automatically delete** the related records when the parent is deleted, we can set `ondelete="CASCADE"`.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001_py310.py ln[1:19] hl[18] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001.py ln[1:19] hl[18] *}
 
 Now, when we **create the tables** in the database, the `team_id` column in the `Hero` table will have an `ON DELETE CASCADE` in its definition at the database level.
 
@@ -219,7 +219,7 @@ class Team(SQLModel, table=True):
 
 Now, when we **delete a team**, we don't need to do anything else, it's **automatically** going to **delete its heroes**.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001_py310.py ln[76:82] hl[80] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001.py ln[76:82] hl[80] *}
 
 ## Confirm Heroes are Deleted
 
@@ -227,7 +227,7 @@ We can confirm that **after deleting the team** `Wakaland`, the heroes `Black Li
 
 If we try to select them from the database, we will **no longer find them**.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001_py310.py ln[85:95] hl[87,90,92,95] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial001.py ln[85:95] hl[87,90,92,95] *}
 
 ## Run the Program with `cascade_delete=True` and `ondelete="CASCADE"`
 
@@ -297,7 +297,7 @@ We can configure the database to **set the foreign key** (the `team_id` in the `
 
 In this case, the side with `Relationship()` won't have `cascade_delete`, but the side with `Field()` and a `foreign_key` will have `ondelete="SET NULL"`.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial002_py310.py ln[1:21] hl[19] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial002.py ln[1:21] hl[19] *}
 
 The configuration above is setting the `team_id` column from the `Hero` table to have an `ON DELETE SET NULL`.
 
@@ -333,7 +333,7 @@ But if you delete a team from code, by default, SQLModel (actually SQLAlchemy) w
 
 Removing a team has the **same code** as before, the only thing that changes is the configuration underneath in the database.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial002_py310.py ln[78:84] hl[82] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial002.py ln[78:84] hl[82] *}
 
 The result would be these tables.
 
@@ -438,7 +438,7 @@ If you know your database would be able to correctly handle the deletes or updat
 
 To be able to test this out with SQLite, we first need to enable foreign key support.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[30:34] hl[32,34] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003.py ln[30:34] hl[32,34] *}
 
 /// note
 
@@ -452,7 +452,7 @@ Now let's update the table model for `Team` to use `passive_deletes="all"` in th
 
 We will also use `ondelete="SET NULL"` in the `Hero` model table, in the foreign key `Field()` for the `team_id` to make the database set those fields to `NULL` automatically.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003_py310.py ln[1:21] hl[9,19] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial003.py ln[1:21] hl[9,19] *}
 
 ### Run the Program with `passive_deletes`
 
@@ -516,7 +516,7 @@ For SQLite, this also needs enabling foreign key support.
 
 As `ondelete="RESTRICT"` is mainly a database-level constraint, let's enable foreign key support in SQLite first to be able to test it.
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004_py310.py ln[30:34] hl[32,34] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004.py ln[30:34] hl[32,34] *}
 
 ### Use `ondelete="RESTRICT"`
 
@@ -530,7 +530,7 @@ Notice that we don't set `cascade_delete` in the `Team` model table.
 
 ///
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004_py310.py ln[1:21] hl[9,19] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial004.py ln[1:21] hl[9,19] *}
 
 ### Run the Program with `RESTRICT`, See the Error
 
@@ -593,7 +593,7 @@ Calling `team.heroes.clear()` is very similar to what SQLModel (actually SQLAlch
 
 ///
 
-{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial005_py310.py ln[81:89] hl[85] *}
+{* ./docs_src/tutorial/relationship_attributes/cascade_delete_relationships/tutorial005.py ln[81:89] hl[85] *}
 
 ### Run the Program Deleting Heroes First
 
