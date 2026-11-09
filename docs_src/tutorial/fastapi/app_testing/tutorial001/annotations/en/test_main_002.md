@@ -17,7 +17,7 @@
     So, here we are telling the FastAPI app to use `get_session_override` instead of `get_session` in all the places in the code that depend on `get_session`, that is, all the parameters with something like:
 
     ```Python
-    session: Session = Depends(get_session)
+    session: Annotated[Session, Depends(get_session)]
     ```
 
 5. After we are done with the dependency override, we can restore the application back to normal, by removing all the values in this dictionary `app.dependency_overrides`.

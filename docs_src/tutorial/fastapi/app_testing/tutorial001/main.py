@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import Depends, FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
@@ -51,7 +53,7 @@ def on_startup():
 
 
 @app.post("/heroes/", response_model=HeroPublic)
-def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
+def create_hero(session: Annotated[Session, Depends(get_session)], hero: HeroCreate):
     db_hero = Hero.model_validate(hero)
     session.add(db_hero)
     session.commit()
@@ -61,17 +63,16 @@ def create_hero(*, session: Session = Depends(get_session), hero: HeroCreate):
 
 @app.get("/heroes/", response_model=list[HeroPublic])
 def read_heroes(
-    *,
-    session: Session = Depends(get_session),
+    session: Annotated[Session, Depends(get_session)],
     offset: int = 0,
-    limit: int = Query(default=100, le=100),
+    limit: Annotated[int, Query(le=100)] = 100,
 ):
     heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
     return heroes
 
 
 @app.get("/heroes/{hero_id}", response_model=HeroPublic)
-def read_hero(*, session: Session = Depends(get_session), hero_id: int):
+def read_hero(session: Annotated[Session, Depends(get_session)], hero_id: int):
     hero = session.get(Hero, hero_id)
     if not hero:
         raise HTTPException(status_code=404, detail="Hero not found")
@@ -80,7 +81,7 @@ def read_hero(*, session: Session = Depends(get_session), hero_id: int):
 
 @app.patch("/heroes/{hero_id}", response_model=HeroPublic)
 def update_hero(
-    *, session: Session = Depends(get_session), hero_id: int, hero: HeroUpdate
+    session: Annotated[Session, Depends(get_session)], hero_id: int, hero: HeroUpdate
 ):
     db_hero = session.get(Hero, hero_id)
     if not db_hero:
@@ -94,7 +95,7 @@ def update_hero(
 
 
 @app.delete("/heroes/{hero_id}")
-def delete_hero(*, session: Session = Depends(get_session), hero_id: int):
+def delete_hero(session: Annotated[Session, Depends(get_session)], hero_id: int):
     hero = session.get(Hero, hero_id)
     if not hero:
         raise HTTPException(status_code=404, detail="Hero not found")

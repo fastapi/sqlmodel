@@ -27,7 +27,7 @@
 5. Now, in the test function, to tell **pytest** that this test wants to get the fixture, instead of declaring something like in FastAPI with:
 
     ```Python
-    session: Session = Depends(session_fixture)
+    session: Annotated[Session, Depends(session_fixture)]
     ```
 
     ...the way we tell pytest what is the fixture that we want is by using the **exact same name** of the fixture.
