@@ -17,6 +17,7 @@
 
 ### Internal
 
+* 🔥 Remove obsolete docs snippet commands. PR [#2135](https://github.com/fastapi/sqlmodel/pull/2135) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Add an agent skills note to GitHub releases. PR [#2134](https://github.com/fastapi/sqlmodel/pull/2134) by [@tiangolo](https://github.com/tiangolo).
 * 🐛 Preserve snippet variants when cleaning up docs sources. PR [#2131](https://github.com/fastapi/sqlmodel/pull/2131) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 9 updates. PR [#2123](https://github.com/fastapi/sqlmodel/pull/2123) by [@dependabot[bot]](https://github.com/apps/dependabot).
