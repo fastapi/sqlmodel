@@ -8,6 +8,7 @@
 
 ### Docs
 
+* 📝 Use Annotated for FastAPI parameters. PR [#2133](https://github.com/fastapi/sqlmodel/pull/2133) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Adopt unversioned documentation snippets. PR [#2132](https://github.com/fastapi/sqlmodel/pull/2132) by [@tiangolo](https://github.com/tiangolo).
 * 🎨 Use the Zensical modern theme for docs. PR [#2128](https://github.com/fastapi/sqlmodel/pull/2128) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add AI development guidance and coding agent notices. PR [#2127](https://github.com/fastapi/sqlmodel/pull/2127) by [@tiangolo](https://github.com/tiangolo).
