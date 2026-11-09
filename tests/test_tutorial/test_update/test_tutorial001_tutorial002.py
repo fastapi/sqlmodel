@@ -38,7 +38,7 @@ def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> Modul
 @pytest.mark.parametrize(
     "module",
     [
-        pytest.param("tutorial001_py310"),
+        pytest.param("tutorial001"),
     ],
     indirect=True,
 )
@@ -50,7 +50,7 @@ def test_tutorial001(print_mock: PrintMock, module: ModuleType):
 @pytest.mark.parametrize(
     "module",
     [
-        pytest.param("tutorial002_py310"),
+        pytest.param("tutorial002"),
     ],
     indirect=True,
 )

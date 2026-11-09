@@ -9,7 +9,7 @@ from sqlalchemy.engine.reflection import Inspector
 @pytest.fixture(
     name="module",
     params=[
-        pytest.param("tutorial003_py310"),
+        pytest.param("tutorial003"),
     ],
 )
 def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:

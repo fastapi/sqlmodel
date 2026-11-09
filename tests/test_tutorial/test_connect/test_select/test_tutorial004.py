@@ -53,7 +53,7 @@ expected_calls = [
 @pytest.fixture(
     name="module",
     params=[
-        pytest.param("tutorial004_py310"),
+        pytest.param("tutorial004"),
     ],
 )
 def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:

@@ -41,7 +41,7 @@ Now that you know how these tables work underneath and how the model classes rep
 
 Up to now, we have only used the `team_id` column to connect the tables when querying with `select()`:
 
-{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[1:16] hl[16] *}
+{* ./docs_src/tutorial/connect/insert/tutorial001.py ln[1:16] hl[16] *}
 
 This is a **plain field** like all the others, all representing a **column in the table**.
 
@@ -49,11 +49,11 @@ But now let's add a couple of new special attributes to these model classes, let
 
 First, import `Relationship` from `sqlmodel`:
 
-{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1] hl[1] *}
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py ln[1] hl[1] *}
 
 Next, use that `Relationship` to declare a new attribute in the model classes:
 
-{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001_py310.py ln[1:19] hl[9,19] *}
+{* ./docs_src/tutorial/relationship_attributes/define_relationship_attributes/tutorial001.py ln[1:19] hl[9,19] *}
 
 ## What Are These Relationship Attributes
 

@@ -32,7 +32,7 @@ We will add a new field `is_training`.
 
 And we will also add two **relationship attributes**, for the linked `team` and `hero`:
 
-{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[4:10] hl[7,9:10] *}
+{* ./docs_src/tutorial/many_to_many/tutorial003.py ln[4:10] hl[7,9:10] *}
 
 The new **relationship attributes** have their own `back_populates` pointing to new relationship attributes we will create in the `Hero` and `Team` models:
 
@@ -53,7 +53,7 @@ Now let's update the `Team` model.
 
 We no longer have the `heroes` relationship attribute, and instead we have the new `hero_links` attribute:
 
-{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[13:18] hl[18] *}
+{* ./docs_src/tutorial/many_to_many/tutorial003.py ln[13:18] hl[18] *}
 
 ## Update Hero Model
 
@@ -61,7 +61,7 @@ The same with the `Hero` model.
 
 We change the `teams` relationship attribute to `team_links`:
 
-{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[21:27] hl[27] *}
+{* ./docs_src/tutorial/many_to_many/tutorial003.py ln[21:27] hl[27] *}
 
 ## Create Relationships
 
@@ -69,7 +69,7 @@ Now the process to create relationships is very similar.
 
 But now we create the **explicit link models** manually, pointing to their hero and team instances, and specifying the additional link data (`is_training`):
 
-{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[40:79] hl[58:67,69:72] *}
+{* ./docs_src/tutorial/many_to_many/tutorial003.py ln[40:79] hl[58:67,69:72] *}
 
 We are just adding the link model instances to the session, because the link model instances are connected to the heroes and teams, they will also be automatically included in the session when we commit.
 
@@ -167,7 +167,7 @@ Now, to add a new relationship, we have to create a new `HeroTeamLink` instance 
 
 Here we do that in the `update_heroes()` function:
 
-{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[82:97] hl[89:94] *}
+{* ./docs_src/tutorial/many_to_many/tutorial003.py ln[82:97] hl[89:94] *}
 
 ## Run the Program with the New Relationship
 
@@ -248,7 +248,7 @@ So now we want to update the status of `is_training` to `False`.
 
 We can do that by iterating on the links:
 
-{* ./docs_src/tutorial/many_to_many/tutorial003_py310.py ln[82:83,99:107] hl[99:101] *}
+{* ./docs_src/tutorial/many_to_many/tutorial003.py ln[82:83,99:107] hl[99:101] *}
 
 ## Run the Program with the Updated Relationships
 

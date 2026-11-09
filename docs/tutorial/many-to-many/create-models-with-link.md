@@ -12,7 +12,7 @@ As we want to support a **many-to-many** relationship, now we need a **link tabl
 
 We can create it just as any other **SQLModel**:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[1:6] hl[4:6] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[1:6] hl[4:6] *}
 
 This is a **SQLModel** class model table like any other.
 
@@ -26,7 +26,7 @@ And **both fields are primary keys**. We hadn't used this before. 🤓
 
 Let's see the `Team` model, it's almost identical to the previous version, but with a little change:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[9:14] hl[14] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[9:14] hl[14] *}
 
 The **relationship attribute `heroes`** is still a list of heroes, annotated as `list["Hero"]`. Again, we use `"Hero"` in quotes because we haven't declared that class yet by this point in the code (but as you know, editors and **SQLModel** understand that).
 
@@ -40,7 +40,7 @@ And here's the important part to allow the **many-to-many** relationship, we use
 
 Let's see the other side, here's the `Hero` model:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[17:23] hl[23] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[17:23] hl[23] *}
 
 We **removed** the previous `team_id` field (column) because now the relationship is done via the link table. 🔥
 
@@ -58,11 +58,11 @@ And now we have a **`link_model=HeroTeamLink`**. ✨
 
 The same as before, we will have the rest of the code to create the **engine**, and a function to create all the tables `create_db_and_tables()`.
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[26:33] hl[32] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[26:33] hl[32] *}
 
 And as in previous examples, we will add that function to a function `main()`, and we will call that `main()` function in the main block:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[72:73,77:78] hl[73] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[72:73,77:78] hl[73] *}
 
 ## Run the Code
 

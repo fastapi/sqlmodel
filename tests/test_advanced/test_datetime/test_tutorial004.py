@@ -10,7 +10,7 @@ from alembic.operations import Operations
 @pytest.fixture(
     name="mod",
     params=[
-        pytest.param("tutorial004_py310"),
+        pytest.param("tutorial004"),
     ],
 )
 def get_module(request: pytest.FixtureRequest) -> ModuleType:

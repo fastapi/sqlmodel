@@ -67,7 +67,7 @@ We can use these relative imports because, for example, in the file `app.py` (th
 
 You could put all the database Models in a single Python module (a single Python file), for example `models.py`:
 
-{* ./docs_src/tutorial/code_structure/tutorial001_py310/models.py *}
+{* ./docs_src/tutorial/code_structure/tutorial001/models.py *}
 
 This way, you wouldn't have to deal with circular imports for other models.
 
@@ -77,7 +77,7 @@ And then you could import the models from this file/module in any other file/mod
 
 Then you could put the code creating the **engine** and the function to create all the tables (if you are not using migrations) in another file `database.py`:
 
-{* ./docs_src/tutorial/code_structure/tutorial001_py310/database.py *}
+{* ./docs_src/tutorial/code_structure/tutorial001/database.py *}
 
 This file would also be imported by your application code, to use the shared **engine** and to get and call the function `create_db_and_tables()`.
 
@@ -85,7 +85,7 @@ This file would also be imported by your application code, to use the shared **e
 
 Finally, you could put the code to create the **app** in another file `app.py`:
 
-{* ./docs_src/tutorial/code_structure/tutorial001_py310/app.py hl[3:4] *}
+{* ./docs_src/tutorial/code_structure/tutorial001/app.py hl[3:4] *}
 
 Here we import the models, the engine, and the function to create all the tables and then we can use them all internally.
 
@@ -201,7 +201,7 @@ So, we can use it in an `if` block and import things inside the `if` block. And 
 
 Using that trick of `TYPE_CHECKING` we can "import" the `Team` in `hero_model.py`:
 
-{* ./docs_src/tutorial/code_structure/tutorial002_py310/hero_model.py hl[1,5:6,16] *}
+{* ./docs_src/tutorial/code_structure/tutorial002/hero_model.py hl[1,5:6,16] *}
 
 Keep in mind that now we *have* to put the annotation of `Team` as a string: `"Team"`, so that Python doesn't have errors at runtime.
 
@@ -209,7 +209,7 @@ Keep in mind that now we *have* to put the annotation of `Team` as a string: `"T
 
 We use the same trick in the `team_model.py` file:
 
-{* ./docs_src/tutorial/code_structure/tutorial002_py310/team_model.py hl[1,5:6,14] *}
+{* ./docs_src/tutorial/code_structure/tutorial002/team_model.py hl[1,5:6,14] *}
 
 Now we get editor support, autocompletion, inline errors, and **SQLModel** keeps working. 🎉
 
@@ -217,7 +217,7 @@ Now we get editor support, autocompletion, inline errors, and **SQLModel** keeps
 
 Now, just for completeness, the `app.py` file would import the models from both modules:
 
-{* ./docs_src/tutorial/code_structure/tutorial002_py310/app.py hl[4:5,10,12:14] *}
+{* ./docs_src/tutorial/code_structure/tutorial002/app.py hl[4:5,10,12:14] *}
 
 And of course, all the tricks with `TYPE_CHECKING` and type annotations in strings are **only needed in the files with circular imports**.
 

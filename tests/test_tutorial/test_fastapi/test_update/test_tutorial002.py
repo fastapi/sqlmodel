@@ -11,7 +11,7 @@ from sqlmodel import Session
 @pytest.fixture(
     name="module",
     params=[
-        pytest.param("tutorial002_py310"),
+        pytest.param("tutorial002"),
     ],
 )
 def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:

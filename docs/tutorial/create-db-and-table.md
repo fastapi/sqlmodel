@@ -41,7 +41,7 @@ That's why this package is called `SQLModel`. Because it's mainly used to create
 
 For that, we will import `SQLModel` (plus other things we will also use) and create a class `Hero` that inherits from `SQLModel` and represents the **table model** for our heroes:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,4] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[1,4] *}
 
 This class `Hero` **represents the table** for our heroes. And each instance we create later will **represent a row** in the table.
 
@@ -63,7 +63,7 @@ The name of each of these variables will be the name of the column in the table.
 
 And the type of each of them will also be the type of table column:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5:8] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[1,5:8] *}
 
 Let's now see these field/column declarations in more detail.
 
@@ -75,7 +75,7 @@ That is the standard way to declare that something "could be an `int` or `None`"
 
 And we also set the default value of `age` to `None`.
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[8] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[8] *}
 
 /// tip
 
@@ -107,7 +107,7 @@ So, we need to mark `id` as the **primary key**.
 
 To do that, we use the special `Field` function from `sqlmodel` and set the argument `primary_key=True`:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[1,5] *}
 
 That way, we tell **SQLModel** that this `id` field/column is the primary key of the table.
 
@@ -150,7 +150,7 @@ If you have a server database (for example PostgreSQL or MySQL), the **engine** 
 
 Creating the **engine** is very simple, just call `create_engine()` with a URL for the database to use:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[1,14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:16] hl[1,14] *}
 
 You should normally have a single **engine** object for your whole application and reuse it everywhere.
 
@@ -174,7 +174,7 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 
 * `sqlite://`
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[11:12,14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:16] hl[11:12,14] *}
 
 You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the [SQLAlchemy documentation](https://docs.sqlalchemy.org/en/14/core/engines.html).
 
@@ -186,7 +186,7 @@ It will make the engine print all the SQL statements it executes, which can help
 
 It is particularly useful for **learning** and **debugging**:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:16] hl[14] *}
 
 But in production, you would probably want to remove `echo=True`:
 
@@ -212,7 +212,7 @@ And SQLModel's version of `create_engine()` is type annotated internally, so you
 
 Now everything is in place to finally create the database and table:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py hl[16] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py hl[16] *}
 
 /// tip
 
@@ -323,7 +323,7 @@ Let's run the program to see it all working.
 
 Put the code in a file `app.py` if you haven't already.
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py *}
 
 /// tip
 
@@ -428,7 +428,7 @@ In this example it's just the `SQLModel.metadata.create_all(engine)`.
 
 Let's put it in a function `create_db_and_tables()`:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py ln[1:18] hl[17:18] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial002.py ln[1:18] hl[17:18] *}
 
 If `SQLModel.metadata.create_all(engine)` was not in a function and we tried to import something from this module (from this file) in another, it would try to create the database and table **every time** we executed that other file that imported this module.
 
@@ -458,7 +458,7 @@ The word **script** often implies that the code could be run independently and e
 
 For that we can use the special variable `__name__` in an `if` block:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py hl[21:22] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial002.py hl[21:22] *}
 
 ### About `__name__ == "__main__"`
 
@@ -552,15 +552,11 @@ But now we can import things from this module in other files.
 
 Now, let's give the code a final look:
 
-//// tab | Python 3.10+
-
 ```{.python .annotate}
-{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py!}
+{!./docs_src/tutorial/create_db_and_table/tutorial003.py!}
 ```
 
 {!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
-
-////
 
 /// tip
 
