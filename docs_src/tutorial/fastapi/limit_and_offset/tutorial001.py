@@ -1,3 +1,5 @@
+from typing import Annotated
+
 from fastapi import FastAPI, HTTPException, Query
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
@@ -50,7 +52,7 @@ def create_hero(hero: HeroCreate):
 
 
 @app.get("/heroes/", response_model=list[HeroPublic])
-def read_heroes(offset: int = 0, limit: int = Query(default=100, le=100)):
+def read_heroes(offset: int = 0, limit: Annotated[int, Query(le=100)] = 100):
     with Session(engine) as session:
         heroes = session.exec(select(Hero).offset(offset).limit(limit)).all()
         return heroes
