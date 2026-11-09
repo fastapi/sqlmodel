@@ -17,6 +17,7 @@
 
 ### Internal
 
+* 🔧 Add an agent skills note to GitHub releases. PR [#2134](https://github.com/fastapi/sqlmodel/pull/2134) by [@tiangolo](https://github.com/tiangolo).
 * 🐛 Preserve snippet variants when cleaning up docs sources. PR [#2131](https://github.com/fastapi/sqlmodel/pull/2131) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 9 updates. PR [#2123](https://github.com/fastapi/sqlmodel/pull/2123) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pre-commit hooks. PR [#2120](https://github.com/fastapi/sqlmodel/pull/2120) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
