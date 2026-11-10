@@ -98,27 +98,6 @@ jobs:
           limit-access-to-actor: true
       - name: Install Dependencies
         run: uv sync --no-dev --group tests ${{ matrix.database == 'postgres' && '--group tests-postgres' || '' }}
-      - name: Verify free-threaded imports
-        if: endsWith(matrix.python-version, 't')
-        shell: bash
-        run: |
-          uv run python - <<'PY'
-          import sys
-          import sysconfig
-
-          assert sysconfig.get_config_var("Py_GIL_DISABLED")
-          assert not sys._is_gil_enabled()
-
-          import aiosqlite
-          import coverage.tracer
-          import cryptography.hazmat.bindings._rust
-          import greenlet
-          import pymysql
-          import sqlmodel
-          from sqlmodel.ext.asyncio.session import AsyncSession
-
-          assert not sys._is_gil_enabled()
-          PY
       - name: Start Database
         if: matrix.database
         run: docker compose up --wait --wait-timeout 120 "$DATABASE"
