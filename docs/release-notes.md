@@ -2,6 +2,8 @@
 
 ## Latest Changes
 
+## 0.0.49 (2026-11-11)
+
 ### Upgrades
 
 * ⬆️ Add support for Python 3.15 and 3.15t. PR [#2136](https://github.com/fastapi/sqlmodel/pull/2136) by [@tiangolo](https://github.com/tiangolo).
