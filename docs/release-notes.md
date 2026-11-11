@@ -4,6 +4,7 @@
 
 ### Upgrades
 
+* ⬆️ Add support for Python 3.15 and 3.15t. PR [#2136](https://github.com/fastapi/sqlmodel/pull/2136) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Upgrade markdown-include-variants to 0.0.10. PR [#2130](https://github.com/fastapi/sqlmodel/pull/2130) by [@tiangolo](https://github.com/tiangolo).
 
 ### Docs
