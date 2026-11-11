@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
-        python-version: [ "3.14" ]
+        python-version: [ "3.14", "3.15", "3.15t" ]
         uv-resolution:
           - highest
         include:
@@ -36,6 +36,14 @@ jobs:
             python-version: "3.14"
             database: postgres
             database-url: postgresql+psycopg://sqlmodel:sqlmodel@127.0.0.1:15432/sqlmodel_test
+          - os: ubuntu-latest
+            python-version: "3.15"
+            database: postgres
+            database-url: postgresql+psycopg://sqlmodel:sqlmodel@127.0.0.1:15432/sqlmodel_test
+          - os: ubuntu-latest
+            python-version: "3.15t"
+            database: mysql
+            database-url: mysql+pymysql://sqlmodel:sqlmodel@127.0.0.1:13306/sqlmodel_test
           - os: ubuntu-latest
             python-version: "3.10"
             uv-resolution: lowest-direct
@@ -89,7 +97,7 @@ jobs:
         with:
           limit-access-to-actor: true
       - name: Install Dependencies
-        run: uv sync --no-dev --group tests
+        run: uv sync --no-dev --group tests ${{ matrix.database == 'postgres' && '--group tests-postgres' || '' }}
       - name: Start Database
         if: matrix.database
         run: docker compose up --wait --wait-timeout 120 "$DATABASE"
