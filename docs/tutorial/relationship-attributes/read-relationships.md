@@ -1,12 +1,12 @@
 # Read Relationships
 
-Now that we know how to connect data using **relationship Attributes**, let's see how to get and read the objects from a relationship.
+Now that we know how to connect data using **relationship attributes**, let's see how to get and read the objects from a relationship.
 
 ## Select a Hero
 
 First, add a function `select_heroes()` where we get a hero to start working with, and add that function to the `main()` function:
 
-{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,108:111] hl[94:98,111] *}
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py ln[94:98,108:111] hl[94:98,111] *}
 
 ## Select the Related Team - Old Way
 
@@ -14,7 +14,7 @@ Now that we have a hero, we can get the team this hero belongs to.
 
 With what we have learned **up to now**, we could use a `select()` statement, then execute it with `session.exec()`, and then get the `.first()` result, for example:
 
-{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:103] hl[100:103] *}
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py ln[94:103] hl[100:103] *}
 
 ## Get Relationship Team - New Way
 
@@ -22,7 +22,7 @@ But now that we have the **relationship attributes**, we can just access them, a
 
 So, the highlighted block above, has the same results as the block below:
 
-{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001_py310.py ln[94:98,105] hl[105] *}
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial001.py ln[94:98,105] hl[105] *}
 
 /// tip
 
@@ -36,14 +36,14 @@ For example, here, **inside** a `with` block with a `Session` object.
 
 And the same way, when we are working on the **many** side of the **one-to-many** relationship, we can get a list of the related objects just by accessing the relationship attribute:
 
-{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002_py310.py ln[94:100] hl[100] *}
+{* ./docs_src/tutorial/relationship_attributes/read_relationships/tutorial002.py ln[94:100] hl[100] *}
 
 That would print a list with all the heroes in the Preventers team:
 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Automatically fetch the heroes
 INFO Engine SELECT hero.id AS hero_id, hero.name AS hero_name, hero.secret_name AS hero_secret_name, hero.age AS hero_age, hero.team_id AS hero_team_id

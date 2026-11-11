@@ -8,7 +8,7 @@ So, we probably want to limit it.
 
 Let's use the same **offset** and **limit** we learned about in the previous tutorial chapters for the API.
 
-/// info
+/// note
 
 In many cases, this is also called **pagination**.
 
@@ -22,23 +22,25 @@ By default, we will return the first results from the database, so `offset` will
 
 And by default, we will return a maximum of `100` heroes, so `limit` will have a default value of `100`.
 
-{* ./docs_src/tutorial/fastapi/limit_and_offset/tutorial001_py310.py ln[1:2,52:56] hl[1,53,55] *}
+We import `Annotated` from `typing` and `Query` from `fastapi`:
+
+{* ./docs_src/tutorial/fastapi/limit_and_offset/tutorial001.py ln[1:4,54:58] hl[1,3,55,57] *}
 
 We want to allow clients to set different `offset` and `limit` values.
 
 But we don't want them to be able to set a `limit` of something like `9999`, that's over `9000`! 😱
 
-So, to prevent it, we add additional validation to the `limit` query parameter, declaring that it has to be **l**ess than or **e**qual to `100` with `le=100`.
+So, to prevent it, we add `Query(le=100)` inside `Annotated`, declaring that the `limit` query parameter has to be **l**ess than or **e**qual to `100`. The `= 100` sets its default value.
 
 This way, a client can decide to take fewer heroes if they want, but not more.
 
-/// info
+/// note
 
 If you need to refresh how query parameters and their validation work, check out the docs in FastAPI:
 
-* <a href="https://fastapi.tiangolo.com/tutorial/query-params/" class="external-link" target="_blank">Query Parameters</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" class="external-link" target="_blank">Query Parameters and String Validations</a>
-* <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/" class="external-link" target="_blank">Path Parameters and Numeric Validations</a>
+* [Query Parameters](https://fastapi.tiangolo.com/tutorial/query-params/)
+* [Query Parameters and String Validations](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/)
+* [Path Parameters and Numeric Validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/)
 
 ///
 

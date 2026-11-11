@@ -33,11 +33,11 @@ And a `hero` table:
 
 Some of these heroes are part of a team.
 
-Now we'll see how to **update** those connections between rows tables.
+Now we'll see how to **update** those connections between rows in tables.
 
 We will continue with the code we used to create some heroes, and we'll update them.
 
-{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[0] *}
+{* ./docs_src/tutorial/connect/insert/tutorial001.py ln[0] *}
 
 ## Assign a Team to a Hero
 
@@ -45,7 +45,7 @@ Let's say that **Tommy Sharp** uses his "rich uncle" charms to recruit **Spider-
 
 Doing it is just like updating any other field:
 
-{* ./docs_src/tutorial/connect/update/tutorial001_py310.py ln[29:30,60:64] hl[60] *}
+{* ./docs_src/tutorial/connect/update/tutorial001.py ln[29:30,60:64] hl[60] *}
 
 We can simply **assign** a value to that field attribute `team_id`, then `add()` the hero to the session, and then `commit()`.
 
@@ -56,7 +56,7 @@ Running that in the command line will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 

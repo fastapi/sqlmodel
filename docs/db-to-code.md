@@ -111,7 +111,7 @@ DROP TABLE hero;
 
 That is how you tell the database in SQL to delete the entire table `hero`.
 
-<a href="https://theuselessweb.site/nooooooooooooooo/" class="external-link" target="_blank">Nooooo!</a> We lost all the data in the `hero` table! 💥😱
+[Nooooo!](https://theuselessweb.site/nooooooooooooooo/) We lost all the data in the `hero` table! 💥😱
 
 ### SQL Sanitization
 
@@ -119,7 +119,7 @@ The process of making sure that whatever the external user sends is safe to use 
 
 It comes by default in **SQLModel** (thanks to SQLAlchemy). And many other similar tools would also provide that functionality among many other features.
 
-Now you are ready for <a href="https://xkcd.com/327/" class="external-link" target="_blank">a  joke from xkcd</a>:
+Now you are ready for [a joke from xkcd](https://xkcd.com/327/):
 
 ![Exploits of a Mom](https://imgs.xkcd.com/comics/exploits_of_a_mom.png)
 
@@ -129,6 +129,7 @@ With **SQLModel**, instead of writing SQL statements directly, you use Python cl
 
 For example, you could ask the database for the same hero with ID `2` with this code:
 
+<!-- fmt:off -->
 ```Python
 user_id = input("Type the user ID: ")
 
@@ -136,6 +137,7 @@ session.exec(
     select(Hero).where(Hero.id == user_id)
 ).all()
 ```
+<!-- fmt:on -->
 
 If the user provides this ID:
 
@@ -190,7 +192,7 @@ Then your code will continue to execute and calmly tell the user that it couldn'
 
 But we never deleted the `hero` table. 🎉
 
-/// info
+/// note
 
 Of course, there are also other ways to do SQL data sanitization without using a tool like **SQLModel**, but it's still a nice feature you get by default.
 
@@ -230,11 +232,13 @@ results = database.execute(statement)
 
 But if you use common Python classes and objects, your editor will be able to help you:
 
+<!-- fmt:off -->
 ```Python
 database.execute(
     select(Hero).where(Hero.secret_name == "Dive Wilson")
 ).all()
 ```
+<!-- fmt:on -->
 
 ![](img/db-to-code/autocompletion01.png){class="shadow"}
 
@@ -244,7 +248,7 @@ These types of libraries like **SQLModel** (and of course, SQLAlchemy) that tran
 
 **ORM** means **Object-Relational Mapper**.
 
-This is a very common term, but it also comes from quite technical and **academical** concepts 👩‍🎓:
+This is a very common term, but it also comes from quite technical and **academic** concepts 👩‍🎓:
 
 * **Object**: refers to code with classes and instances, normally called "Object Oriented Programming", that's why the "**Object**" part.
 
@@ -292,11 +296,11 @@ It's actually a simple idea with a very academic and mathematical name. 😅
 
 So, an **ORM** is a library that translates from SQL to code, and from code to SQL. All using classes and objects.
 
-There are many ORMs available apart from **SQLModel**, you can read more about some of them in [Alternatives, Inspiration and Comparisons](alternatives.md){.internal-link target=_blank}
+There are many ORMs available apart from **SQLModel**, you can read more about some of them in [Alternatives, Inspiration and Comparisons](alternatives.md)
 
 ## SQL Table Names
 
-/// info  | Technical Background
+/// note  | Technical Background
 
 This is a bit of boring background for SQL purists. Feel free to skip this section. 😉
 

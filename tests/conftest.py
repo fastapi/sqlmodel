@@ -1,3 +1,4 @@
+import os
 import shutil
 import subprocess
 import sys
@@ -9,7 +10,10 @@ from unittest.mock import patch
 
 import pytest
 from pydantic import BaseModel
-from sqlmodel import SQLModel
+from sqlalchemy import Engine
+from sqlalchemy.engine import make_url
+from sqlalchemy.pool import StaticPool
+from sqlmodel import SQLModel, create_engine
 from sqlmodel.main import default_registry
 
 top_level_path = Path(__file__).resolve().parent.parent
@@ -25,6 +29,25 @@ def clear_sqlmodel() -> Any:
     yield
     SQLModel.metadata.clear()
     default_registry.dispose()
+
+
+@pytest.fixture()
+def database_engine(clear_sqlmodel: Any) -> Generator[Engine, None, None]:
+    url = make_url(os.environ.get("DATABASE_URL", "sqlite://"))
+    if url.get_backend_name() == "sqlite":
+        engine = create_engine(
+            url, connect_args={"check_same_thread": False}, poolclass=StaticPool
+        )
+    else:
+        engine = create_engine(url)
+    try:
+        yield engine
+    finally:
+        # Drop tables before clear_sqlmodel removes their metadata.
+        try:
+            SQLModel.metadata.drop_all(engine)
+        finally:
+            engine.dispose()
 
 
 @pytest.fixture()
@@ -86,6 +109,6 @@ def print_mock_fixture() -> Generator[PrintMock, None, None]:
         yield print_mock
 
 
-needs_py310 = pytest.mark.skipif(
-    sys.version_info < (3, 10), reason="requires python3.10+"
+needs_py311 = pytest.mark.skipif(
+    sys.version_info < (3, 11), reason="requires Python 3.11+"
 )

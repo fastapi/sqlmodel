@@ -44,13 +44,13 @@ It's because we declared the `HeroPublic` with only the same base fields of the 
 
 And the same way, we declared the `TeamPublic` with only the same base fields of the `TeamBase` plus the `id`. But it doesn't include a field `heroes` for the **relationship attribute**.
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[5:7,20:21,29:34,43:44] hl[5:7,20:21,29:34,43:44] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001.py ln[7:9,22:23,31:36,45:46] hl[7:9,22:23,31:36,45:46] *}
 
-Now, remember that <a href="https://fastapi.tiangolo.com/tutorial/response-model/" class="external-link" target="_blank">FastAPI uses the `response_model` to validate and **filter** the response data</a>?
+Now, remember that [FastAPI uses the `response_model` to validate and **filter** the response data](https://fastapi.tiangolo.com/tutorial/response-model/)?
 
 In this case, we used `response_model=TeamPublic` and `response_model=HeroPublic`, so FastAPI will use them to filter the response data, even if we return a **table model** that includes **relationship attributes**:
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[102:107,155:160] hl[102,107,155,160] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001.py ln[103:108,155:160] hl[103,108,155,160] *}
 
 ## Don't Include All the Data
 
@@ -132,7 +132,7 @@ Let's add the models `HeroPublicWithTeam` and `TeamPublicWithHeroes`.
 
 We'll add them **after** the other models so that we can easily reference the previous models.
 
-{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[59:64] hl[59:60,63:64] *}
+{* ./docs_src/tutorial/fastapi/relationships/tutorial001.py ln[61:66] hl[61:62,65:66] *}
 
 These two models are very **simple in code**, but there's a lot happening here. Let's check it out.
 
@@ -146,13 +146,13 @@ Then we do the same for the `TeamPublicWithHeroes`, it **inherits** from `TeamPu
 
 ### Data Models Without Relationship Attributes
 
-Now, notice that these new fields `team` and `heroes` are not declared with `Relationship()`, because these are not **table models**, they cannot have **relationship attributes** with the magic access to get that data from the database.
+Now, notice that these new fields `team` and `heroes` are not declared with `Relationship()`, because `HeroPublicWithTeam` and `TeamPublicWithHeroes` are not **table models**, they cannot have **relationship attributes** with the magic access to get that data from the database.
 
 Instead, here these are only **data models** that will tell FastAPI **which attributes** to get data from and **which data** to get from them.
 
 ### Reference to Other Models
 
-Also, notice that the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
+Also, notice that in the `HeroPublicWithTeam` model, the field `team` is not declared with this new `TeamPublicWithHeroes`, because that would again create that infinite recursion of data. Instead, we declare it with the normal `TeamPublic` model.
 
 And the same for `TeamPublicWithHeroes`, the model used for the new field `heroes` uses `HeroPublic` to get only each hero's data.
 
@@ -166,7 +166,7 @@ This will tell **FastAPI** to take the object that we return from the *path oper
 
 In the case of the hero, this tells FastAPI to extract the `team` too. And in the case of the team, to extract the list of `heroes` too.
 
-{* ./docs_src/tutorial/fastapi/relationships/tutorial001_py310.py ln[111:116,164:169] hl[111,116,164,169] *}
+{* ./docs_src/tutorial/fastapi/relationships/tutorial001.py ln[112:117,164:169] hl[112,117,164,169] *}
 
 ## Check It Out in the Docs UI
 

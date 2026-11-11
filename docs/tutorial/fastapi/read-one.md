@@ -8,13 +8,13 @@ Let's add a new *path operation* to read one single hero.
 
 We want to get the hero based on the `id`, so we will use a **path parameter** `hero_id`.
 
-/// info
+/// note
 
-If you need to refresh how *path parameters* work, including their data validation, check the <a href="https://fastapi.tiangolo.com/tutorial/path-params/" class="external-link" target="_blank">FastAPI docs about Path Parameters</a>.
+If you need to refresh how *path parameters* work, including their data validation, check the [FastAPI docs about Path Parameters](https://fastapi.tiangolo.com/tutorial/path-params/).
 
 ///
 
-{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59] *}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001.py ln[1:2,59:65] hl[59] *}
 
 For example, to get the hero with ID `2` we would send a `GET` request to:
 
@@ -24,7 +24,7 @@ For example, to get the hero with ID `2` we would send a `GET` request to:
 
 ## Handling Errors
 
-Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `Hero.get()` to try and get one hero by that ID.
+Then, because FastAPI already takes care of making sure that the `hero_id` is an actual integer, we can use it directly with `session.get()` to try and get one hero by that ID.
 
 But if the integer is not the ID of any hero in the database, it will not find anything, and the variable `hero` will be `None`.
 
@@ -34,7 +34,7 @@ And to use it, we first import `HTTPException` from `fastapi`.
 
 This will let the client know that they probably made a mistake on their side and requested a hero that doesn't exist in the database.
 
-{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[1,62:64] *}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001.py ln[1:2,59:65] hl[1,62:64] *}
 
 ## Return the Hero
 
@@ -42,7 +42,7 @@ Then, if the hero exists, we return it.
 
 And because we are using the `response_model` with `HeroPublic`, it will be validated, documented, etc.
 
-{* ./docs_src/tutorial/fastapi/read_one/tutorial001_py310.py ln[1:2,59:65] hl[59,65] *}
+{* ./docs_src/tutorial/fastapi/read_one/tutorial001.py ln[1:2,59:65] hl[59,65] *}
 
 ## Check the Docs UI
 

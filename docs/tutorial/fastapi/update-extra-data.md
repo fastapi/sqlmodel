@@ -10,7 +10,7 @@ This is particularly useful when you need to **generate some data** in your code
 
 Let's imagine that each hero in our system also has a **password**.
 
-We should never store the password in plain text in the database, we should only stored a **hashed version** of it.
+We should never store the password in plain text in the database, we should only store a **hashed version** of it.
 
 "**Hashing**" means converting some content (a password in this case) into a sequence of bytes (just a string) that looks like gibberish.
 
@@ -26,7 +26,7 @@ So, the thief won't be able to try to use that password in another system (as ma
 
 /// tip
 
-You could use <a href="https://passlib.readthedocs.io/en/stable/" class="external-link" target="_blank">passlib</a> to hash passwords.
+You could use [passlib](https://passlib.readthedocs.io/en/stable/) to hash passwords.
 
 In this example we will use a fake hashing function to focus on the data changes. 🤡
 
@@ -38,7 +38,7 @@ The `Hero` table model will now store a new field `hashed_password`.
 
 And the data models for `HeroCreate` and `HeroUpdate` will also have a new field `password` that will contain the plain text password sent by clients.
 
-{* ./docs_src/tutorial/fastapi/update/tutorial002_py310.py ln[5:28] hl[13,17,28] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial002.py ln[7:30] hl[15,19,30] *}
 
 When a client is creating a new hero, they will send the `password` in the request body.
 
@@ -50,7 +50,7 @@ The app will receive the data from the client using the `HeroCreate` model.
 
 This contains the `password` field with the plain text password, and we cannot use that one. So we need to generate a hash from it.
 
-{* ./docs_src/tutorial/fastapi/update/tutorial002_py310.py ln[42:44,55:57] hl[57] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial002.py ln[44:46,57:59] hl[59] *}
 
 ## Create an Object with Extra Data
 
@@ -106,7 +106,7 @@ So now, `db_user_dict` has the updated `age` field with `32` instead of `None` a
 
 Similar to how dictionaries have an `update` method, **SQLModel** models have a parameter `update` in `Hero.model_validate()` that takes a dictionary with extra data, or data that should take precedence:
 
-{* ./docs_src/tutorial/fastapi/update/tutorial002_py310.py ln[55:64] hl[60] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial002.py ln[57:66] hl[62] *}
 
 Now, `db_hero` (which is a *table model* `Hero`) will extract its values from `hero` (which is a *data model* `HeroCreate`), and then it will **`update`** its values with the extra data from the dictionary `extra_data`.
 
@@ -120,7 +120,7 @@ Now let's say we want to **update a hero** that already exists in the database.
 
 The same way as before, to avoid removing existing data, we will use `exclude_unset=True` when calling `hero.model_dump()`, to get a dictionary with only the data sent by the client.
 
-{* ./docs_src/tutorial/fastapi/update/tutorial002_py310.py ln[83:89] hl[89] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial002.py ln[85:91] hl[91] *}
 
 Now, this `hero_data` dictionary could contain a `password`. We need to check it, and if it's there, we need to generate the `hashed_password`.
 
@@ -130,7 +130,7 @@ And then we can update the `db_hero` object using the method `db_hero.sqlmodel_u
 
 It takes a model object or dictionary with the data to update the object and also an **additional `update` argument** with extra data.
 
-{* ./docs_src/tutorial/fastapi/update/tutorial002_py310.py ln[83:99] hl[95] *}
+{* ./docs_src/tutorial/fastapi/update/tutorial002.py ln[85:101] hl[97] *}
 
 /// tip
 

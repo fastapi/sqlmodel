@@ -1,6 +1,6 @@
 # Create Data with Many-to-Many Relationships
 
-Let's continue from where we left and create some data.
+Let's continue from where we left off and create some data.
 
 We'll create data for this same **many-to-many** relationship with a link table:
 
@@ -8,13 +8,13 @@ We'll create data for this same **many-to-many** relationship with a link table:
 
 We'll continue from where we left off with the previous code.
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[0] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[0] *}
 
 ## Create Heroes
 
 As we have done before, we'll create a function `create_heroes()` and we'll create some teams and heroes in it:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[36:54] hl[44] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[36:54] hl[44] *}
 
 This is very similar to what we have done before.
 
@@ -28,13 +28,13 @@ See how **Deadpond** now belongs to the two teams?
 
 Now let's do as we have done before, `commit` the **session**, `refresh` the data, and print it:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[36:69] hl[55:58,60:62,64:69] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[36:69] hl[55:58,60:62,64:69] *}
 
 ## Add to Main
 
 As before, add the `create_heroes()` function to the `main()` function to make sure it is called when running this program from the command line:
 
-{* ./docs_src/tutorial/many_to_many/tutorial001_py310.py ln[72:74] *}
+{* ./docs_src/tutorial/many_to_many/tutorial001.py ln[72:74] *}
 
 ## Run the Program
 
@@ -43,7 +43,7 @@ If we run the program from the command line, it would output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -61,7 +61,7 @@ INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [generated in 0.00037s] ('Z-Force', 'Sister Margaret's Bar')
 INFO Engine INSERT INTO team (name, headquarters) VALUES (?, ?)
 INFO Engine [cached since 0.001239s ago] ('Preventers', 'Sharp Tower')
-// Insert the link data last, to be able to re-use the created IDs
+// Insert the link data last, to be able to reuse the created IDs
 INFO Engine INSERT INTO heroteamlink (team_id, hero_id) VALUES (?, ?)
 INFO Engine [generated in 0.00026s] ((2, 3), (1, 1), (2, 1), (2, 2))
 // Commit and save the data in the database
@@ -119,7 +119,7 @@ INFO Engine [cached since 0.002739s ago] (3,)
 // Print Spider-Boy's teams, just one, but still a list
 Spider-Boy Teams: [Team(id=2, name='Preventers', headquarters='Sharp Tower')]
 
-// Automatic roll back any previous automatic transaction, at the end of the with block
+// Automatically roll back any previous automatic transaction, at the end of the with block
 INFO Engine ROLLBACK
 ```
 

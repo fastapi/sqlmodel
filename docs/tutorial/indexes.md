@@ -20,7 +20,7 @@ Are you already a **SQL expert** and don't have time for all my explanations?
 
 Fine, in that case, you can **sneak peek** the final code to create indexes here.
 
-{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[0] *}
+{* ./docs_src/tutorial/indexes/tutorial002.py ln[0] *}
 
 ..but if you are not an expert, **continue reading**, this will probably be useful. 🤓
 
@@ -52,7 +52,7 @@ You know that `d` from `database` comes before `f`. So it has to be **before** t
 
 <img src="/img/tutorial/indexes/dictionary005.drawio.svg">
 
-Now you have a **small section of dictionary** to search (only a **quarter** of dictionary can have your word). You take that **quarter** of the pages at the start of the dictionary that can contain your word, and open it in the middle of that section. Maybe you arrive at the letter `c`.
+Now you have a **small section of dictionary** to search (only a **quarter** of the dictionary can have your word). You take that **quarter** of the pages at the start of the dictionary that can contain your word, and open it in the middle of that section. Maybe you arrive at the letter `c`.
 
 <img src="/img/tutorial/indexes/dictionary005.drawio.svg">
 
@@ -90,7 +90,7 @@ Now let's imagine you are reading a technical book. For example, with several to
 
 This book might have a **book index**: a section in the book that has some **names of topics covered** and the **page numbers** in the book where you can read about them. And the topic names are **sorted** in alphabetic order, pretty much like a dictionary (a book with words, as in the previous example).
 
-In this case, you can open that book in the end (or in the beginning) to find the **book index** section, it would have only a few pages. And then, you can do the same process as with the **dictionary** example above.
+In this case, you can open that book at the end (or at the beginning) to find the **book index** section, it would have only a few pages. And then, you can do the same process as with the **dictionary** example above.
 
 Open the index, and after **5 or 10 steps**, quickly find the topic "**database**" with the page numbers where that is covered, for example "page 253 in Chapter 5". Now you used the dictionary technique to find the **topic**, and that topic gave you a **page number**.
 
@@ -257,17 +257,17 @@ The change in code is underwhelming, it's very simple. 😆
 
 Here's the `Hero` model we had before:
 
-{* ./docs_src/tutorial/where/tutorial001_py310.py ln[1:8] hl[6] *}
+{* ./docs_src/tutorial/where/tutorial001.py ln[1:8] hl[6] *}
 
 Let's now update it to tell **SQLModel** to create an index for the `name` field when creating the table:
 
-{* ./docs_src/tutorial/indexes/tutorial001_py310.py ln[1:8] hl[6] *}
+{* ./docs_src/tutorial/indexes/tutorial001.py ln[1:8] hl[6] *}
 
 We use the same `Field()` again as we did before, and set `index=True`. That's it! 🚀
 
 Notice that we didn't set an argument of `default=None` or anything similar. This means that **SQLModel** (thanks to Pydantic) will keep it as a **required** field.
 
-/// info
+/// note
 
 SQLModel (actually SQLAlchemy) will **automatically generate the index name** for you.
 
@@ -283,7 +283,7 @@ The SQL database will figure it out **automatically**. ✨
 
 This is great because it means that indexes are very **simple to use**. But it might also feel counterintuitive at first, as you are **not doing anything** explicitly in the code to make it obvious that the index is useful, it all happens in the database behind the scenes.
 
-{* ./docs_src/tutorial/indexes/tutorial001_py310.py ln[34:39] hl[36] *}
+{* ./docs_src/tutorial/indexes/tutorial001.py ln[34:39] hl[36] *}
 
 This is exactly the same code as we had before, but now the database will **use the index** underneath.
 
@@ -294,7 +294,7 @@ If you run the program now, you will see an output like this:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -326,7 +326,7 @@ secret_name='Dive Wilson' age=None id=1 name='Deadpond'
 
 We are going to query the `hero` table doing comparisons on the `age` field too, so we should **define an index** for that one as well:
 
-{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[1:8] hl[8] *}
+{* ./docs_src/tutorial/indexes/tutorial002.py ln[1:8] hl[8] *}
 
 In this case, we want the default value of `age` to continue being `None`, so we set `default=None` when using `Field()`.
 

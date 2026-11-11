@@ -12,7 +12,7 @@ You might have seen **UUIDs**, for example in URLs. They look something like thi
 
 UUIDs can be particularly useful as an alternative to auto-incrementing integers for **primary keys**.
 
-/// info
+/// note
 
 Official support for UUIDs was added in SQLModel version `0.0.20`.
 
@@ -28,7 +28,7 @@ There are several versions of UUID, some versions include the current time in th
 
 ### Distributed UUIDs
 
-You could generate one UUID in one computer, and someone else could generate another UUID in another computer, and it would be almost **impossible** for both UUIDs to be the **same**.
+You could generate one UUID on one computer, and someone else could generate another UUID on another computer, and it would be almost **impossible** for both UUIDs to be the **same**.
 
 This means that you don't have to wait for the DB to generate the ID for you, you can **generate it in code before sending it to the database**, because you can be quite certain it will be unique.
 
@@ -80,11 +80,11 @@ We don't call `uuid.uuid4()` ourselves in the code (we don't put the parenthesis
 
 This means that the UUID will be generated in the Python code, **before sending the data to the database**.
 
-{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[1:10] hl[1,7] *}
+{* ./docs_src/advanced/uuid/tutorial001.py ln[1:10] hl[1,7] *}
 
-Pydantic has support for <a href="https://docs.pydantic.dev/latest/api/standard_library_types/#uuid" class="external-link" target="_blank">`UUID` types</a>.
+Pydantic has support for [`UUID` types](https://docs.pydantic.dev/latest/api/standard_library_types/#uuid).
 
-For the database, **SQLModel** internally uses <a href="https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.Uuid" class="external-link" target="_blank">SQLAlchemy's `Uuid` type</a>.
+For the database, **SQLModel** internally uses [SQLAlchemy's `Uuid` type](https://docs.sqlalchemy.org/en/20/core/type_basics.html#sqlalchemy.types.Uuid).
 
 ### Create a Record with a UUID
 
@@ -94,7 +94,7 @@ As `uuid.uuid4` will be called when creating the model instance, even before sen
 
 And that **same ID (a UUID)** will be saved in the database.
 
-{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[23:34] hl[25,27,29,34] *}
+{* ./docs_src/advanced/uuid/tutorial001.py ln[23:34] hl[25,27,29,34] *}
 
 ### Select a Hero
 
@@ -102,7 +102,7 @@ We can do the same operations we could do with other fields.
 
 For example we can **select a hero by ID**:
 
-{* ./docs_src/advanced/uuid/tutorial001_py310.py ln[37:54] hl[49] *}
+{* ./docs_src/advanced/uuid/tutorial001.py ln[37:54] hl[49] *}
 
 /// tip
 
@@ -116,7 +116,7 @@ SQLModel (actually SQLAlchemy) will take care of making it work. ✨
 
 We could also select by ID with `session.get()`:
 
-{* ./docs_src/advanced/uuid/tutorial002_py310.py ln[37:53] hl[49] *}
+{* ./docs_src/advanced/uuid/tutorial002.py ln[37:53] hl[49] *}
 
 The same way as with other fields, we could update, delete, etc. 🚀
 
@@ -127,7 +127,7 @@ If you run the program, you will see the **UUID** generated in the Python code, 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -174,5 +174,5 @@ Selected hero ID:
 
 You can learn more about **UUIDs** in:
 
-* The official <a href="https://docs.python.org/3/library/uuid.html" class="external-link" target="_blank">Python docs for UUID</a>.
-* The <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier" class="external-link" target="_blank">Wikipedia for UUID</a>.
+* The official [Python docs for UUID](https://docs.python.org/3/library/uuid.html).
+* The [Wikipedia for UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).

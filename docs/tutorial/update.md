@@ -6,7 +6,7 @@ Now let's see how to update data using **SQLModel**.
 
 As before, we'll continue from where we left off with the previous code.
 
-{* ./docs_src/tutorial/indexes/tutorial002_py310.py ln[0] *}
+{* ./docs_src/tutorial/indexes/tutorial002.py ln[0] *}
 
 Remember to remove the `database.db` file before running the examples to get the same results.
 
@@ -34,7 +34,7 @@ And the second part, with the `WHERE`, defines to which rows it should apply tha
 
 In this case, as we only have one hero with the name `"Spider-Boy"`, it will only apply the update in that row.
 
-/// info
+/// note
 
 Notice that in the `UPDATE` the single equals sign (`=`) means **assignment**, setting a column to some value.
 
@@ -87,18 +87,18 @@ To get the same results, delete the `database.db` file before running the exampl
 
 We'll start by selecting the hero `"Spider-Boy"`, this is the one we will update:
 
-{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:47] hl[44] *}
+{* ./docs_src/tutorial/update/tutorial001.py ln[42:47] hl[44] *}
 
 Let's not forget to add that `update_heroes()` function to the `main()` function so that we call it when executing the program from the command line:
 
-{* ./docs_src/tutorial/update/tutorial001_py310.py ln[56:63] hl[59] *}
+{* ./docs_src/tutorial/update/tutorial001.py ln[56:63] hl[59] *}
 
 Up to that point, running that in the command line will output:
 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate and previous output omitted 😉
 
@@ -126,7 +126,7 @@ Now that you have a `hero` object, you can simply set the value of the field (th
 
 In this case, we will set the `age` to `16`:
 
-{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:49] hl[49] *}
+{* ./docs_src/tutorial/update/tutorial001.py ln[42:49] hl[49] *}
 
 ## Add the Hero to the Session
 
@@ -134,7 +134,7 @@ Now that the hero object in memory has a change, in this case a new value for th
 
 This is the same we did when creating new hero instances:
 
-{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:50] hl[50] *}
+{* ./docs_src/tutorial/update/tutorial001.py ln[42:50] hl[50] *}
 
 ## Commit the Session
 
@@ -142,7 +142,7 @@ To save the current changes in the session, **commit** it.
 
 This will save the updated hero in the database:
 
-{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:51] hl[51] *}
+{* ./docs_src/tutorial/update/tutorial001.py ln[42:51] hl[51] *}
 
 It will also save anything else that was added to the session.
 
@@ -153,7 +153,7 @@ This commit will generate this output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -175,14 +175,14 @@ The data in the object would be automatically refreshed if we accessed an attrib
 
 But in this example we are not accessing any attribute, we will only print the object. And we also want to be explicit, so we will `.refresh()` the object directly:
 
-{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:52] hl[52] *}
+{* ./docs_src/tutorial/update/tutorial001.py ln[42:52] hl[52] *}
 
 This refresh will trigger the same SQL query that would be automatically triggered by accessing an attribute. So it will generate this output:
 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -201,7 +201,7 @@ INFO Engine [generated in 0.00018s] (2,)
 
 Now we can just print the hero:
 
-{* ./docs_src/tutorial/update/tutorial001_py310.py ln[42:53] hl[53] *}
+{* ./docs_src/tutorial/update/tutorial001.py ln[42:53] hl[53] *}
 
 Because we refreshed it right after updating it, it has fresh data, including the new `age` we just updated.
 
@@ -210,7 +210,7 @@ So, printing it will show the new `age`:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Some boilerplate output omitted 😉
 
@@ -226,15 +226,11 @@ Updated hero: name='Spider-Boy' secret_name='Pedro Parqueador' age=16 id=2
 
 Now let's review all that code:
 
-//// tab | Python 3.10+
-
 ```{ .python .annotate hl_lines="42-53" }
-{!./docs_src/tutorial/update/tutorial002_py310.py!}
+{!./docs_src/tutorial/update/tutorial002.py!}
 ```
 
 {!./docs_src/tutorial/update/annotations/en/tutorial002.md!}
-
-////
 
 /// tip
 
@@ -248,29 +244,21 @@ The update process with **SQLModel** is more or less the same as with creating n
 
 This also means that you can update several fields (attributes, columns) at once, and you can also update several objects (heroes) at once:
 
-//// tab | Python 3.10+
-
 ```{ .python .annotate hl_lines="15-17  19-21  23" }
 # Code above omitted 👆
 
-{!./docs_src/tutorial/update/tutorial004_py310.py[ln:42-68]!}
+{!./docs_src/tutorial/update/tutorial004.py[ln:42-68]!}
 
 # Code below omitted 👇
 ```
 
 {!./docs_src/tutorial/update/annotations/en/tutorial004.md!}
 
-////
-
 /// details | 👀 Full file preview
 
-//// tab | Python 3.10+
-
 ```Python
-{!./docs_src/tutorial/update/tutorial004_py310.py!}
+{!./docs_src/tutorial/update/tutorial004.py!}
 ```
-
-////
 
 ///
 

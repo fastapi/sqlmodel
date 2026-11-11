@@ -18,7 +18,7 @@ Then we also inherit from the `TeamBase` for the `TeamCreate` and `TeamPublic` *
 
 And we also create a `TeamUpdate` **data model**.
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[1:26] hl[5:7,10:13,16:17,20:21,24:26] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001.py ln[1:28] hl[7:9,12:15,18:19,22:23,26:28] *}
 
 We now also have **relationship attributes**. 🎉
 
@@ -26,7 +26,7 @@ Let's now update the `Hero` models too.
 
 ## Update Hero Models
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[29:55] hl[29:34,37:40,43:44,47:48,51:55] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001.py ln[31:57] hl[31:36,39:42,45:46,49:50,53:57] *}
 
 We now have a `team_id` in the hero models.
 
@@ -38,7 +38,7 @@ And even though the `HeroBase` is *not* a **table model**, we can declare `team_
 
 Notice that the **relationship attributes**, the ones with `Relationship()`, are **only** in the **table models**, as those are the ones that are handled by **SQLModel** with SQLAlchemy and that can have the automatic fetching of data from the database when we access them.
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[5:55] hl[13,40] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001.py ln[7:57] hl[15,42] *}
 
 ## Path Operations for Teams
 
@@ -46,9 +46,9 @@ Let's now add the **path operations** for teams.
 
 These are equivalent and very similar to the **path operations** for the **heroes** we had before, so we don't have to go over the details for each one, let's check the code.
 
-{* ./docs_src/tutorial/fastapi/teams/tutorial001_py310.py ln[135:188] hl[135:141,144:152,155:160,163:178,181:188] *}
+{* ./docs_src/tutorial/fastapi/teams/tutorial001.py ln[136:187] hl[136:142,145:152,155:160,163:177,180:187] *}
 
-## Using Relationships Attributes
+## Using Relationship Attributes
 
 Up to this point, we are actually not using the **relationship attributes**, but we could access them in our code.
 

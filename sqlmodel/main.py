@@ -3,7 +3,7 @@ from __future__ import annotations
 import builtins
 import ipaddress
 import uuid
-import weakref
+import warnings
 from collections.abc import Callable, Mapping, Sequence, Set
 from dataclasses import dataclass
 from datetime import date, datetime, time, timedelta
@@ -12,6 +12,7 @@ from enum import Enum
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
+    Annotated,
     Any,
     ClassVar,
     Literal,
@@ -23,7 +24,7 @@ from typing import (
     overload,
 )
 
-from pydantic import BaseModel, EmailStr
+from pydantic import AwareDatetime, BaseModel, Discriminator, EmailStr, NaiveDatetime
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -50,9 +51,10 @@ from sqlalchemy.orm.decl_api import DeclarativeMeta
 from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
-from typing_extensions import deprecated
+from sqlalchemy.types import TypeEngine
+from typing_extensions import dataclass_transform, deprecated
 
-from ._compat import (  # type: ignore[attr-defined]
+from ._compat import (
     PYDANTIC_MINOR_VERSION,
     BaseConfig,
     ModelMetaclass,
@@ -72,7 +74,7 @@ from ._compat import (  # type: ignore[attr-defined]
     sqlmodel_init,
     sqlmodel_validate,
 )
-from .sql.sqltypes import AutoString
+from .sql.sqltypes import AutoString, UTCDateTime
 
 if TYPE_CHECKING:
     from pydantic._internal._model_construction import ModelMetaclass as ModelMetaclass
@@ -80,7 +82,6 @@ if TYPE_CHECKING:
     from pydantic_core import PydanticUndefined as Undefined
     from pydantic_core import PydanticUndefinedType as UndefinedType
 
-_T = TypeVar("_T")
 NoArgAnyCallable = Callable[[], Any]
 IncEx: TypeAlias = (
     set[int]
@@ -88,20 +89,18 @@ IncEx: TypeAlias = (
     | Mapping[int, Union["IncEx", bool]]
     | Mapping[str, Union["IncEx", bool]]
 )
+SaTypeOrInstance: TypeAlias = TypeEngine[Any] | type[TypeEngine[Any]]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
-
-def __dataclass_transform__(
-    *,
-    eq_default: bool = True,
-    order_default: bool = False,
-    kw_only_default: bool = False,
-    field_descriptors: tuple[type | Callable[..., Any], ...] = (()),
-) -> Callable[[_T], _T]:
-    return lambda a: a
+MIN_ITEMS_DEPRECATION_MSG = (
+    "`min_items` is deprecated and will be removed, use `min_length` instead"
+)
+MAX_ITEMS_DEPRECATION_MSG = (
+    "`max_items` is deprecated and will be removed, use `max_length` instead"
+)
 
 
-class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
+class FieldInfo(PydanticFieldInfo):  # ty: ignore[subclass-of-final-class]
     # mypy - ignore that PydanticFieldInfo is @final
     def __init__(self, default: Any = Undefined, **kwargs: Any) -> None:
         primary_key = kwargs.pop("primary_key", False)
@@ -153,6 +152,11 @@ class FieldInfo(PydanticFieldInfo):  # type: ignore[misc]
                 raise RuntimeError(
                     "Passing sa_type is not supported when also passing a sa_column"
                 )
+        if sa_column_kwargs is not Undefined and "type_" in sa_column_kwargs:
+            raise RuntimeError(
+                "Passing type_ is not supported in sa_column_kwargs, "
+                "use sa_type instead"
+            )
         if ondelete is not Undefined:
             if foreign_key is Undefined:
                 raise RuntimeError("ondelete can only be used with foreign_key")
@@ -177,7 +181,7 @@ class RelationshipInfo(Representation):
         cascade_delete: bool | None = False,
         passive_deletes: bool | Literal["all"] | None = False,
         link_model: Any | None = None,
-        sa_relationship: RelationshipProperty | None = None,  # type: ignore
+        sa_relationship: RelationshipProperty | None = None,
         sa_relationship_args: Sequence[Any] | None = None,
         sa_relationship_kwargs: Mapping[str, Any] | None = None,
     ) -> None:
@@ -209,7 +213,7 @@ class FieldInfoMetadata:
     ondelete: OnDeleteType | UndefinedType = Undefined
     unique: bool | UndefinedType = Undefined
     index: bool | UndefinedType = Undefined
-    sa_type: type[Any] | UndefinedType = Undefined
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined
     sa_column: Column[Any] | UndefinedType = Undefined
     sa_column_args: Sequence[Any] | UndefinedType = Undefined
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined
@@ -254,21 +258,27 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -297,14 +307,20 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: str,
@@ -312,7 +328,7 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -349,14 +365,20 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     sa_column: Column[Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
@@ -382,14 +404,20 @@ def Field(
     multiple_of: float | None = None,
     max_digits: int | None = None,
     decimal_places: int | None = None,
-    min_items: int | None = None,
-    max_items: int | None = None,
+    min_items: Annotated[
+        int | None,
+        deprecated(MIN_ITEMS_DEPRECATION_MSG),
+    ] = None,
+    max_items: Annotated[
+        int | None,
+        deprecated(MAX_ITEMS_DEPRECATION_MSG),
+    ] = None,
     unique_items: bool | None = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
     regex: str | None = None,
-    discriminator: str | None = None,
+    discriminator: str | Discriminator | None = None,
     repr: bool = True,
     primary_key: bool | UndefinedType = Undefined,
     foreign_key: Any = Undefined,
@@ -397,13 +425,23 @@ def Field(
     unique: bool | UndefinedType = Undefined,
     nullable: bool | UndefinedType = Undefined,
     index: bool | UndefinedType = Undefined,
-    sa_type: type[Any] | UndefinedType = Undefined,
-    sa_column: Column | UndefinedType = Undefined,  # type: ignore
+    sa_type: SaTypeOrInstance | UndefinedType = Undefined,
+    sa_column: Column | UndefinedType = Undefined,
     sa_column_args: Sequence[Any] | UndefinedType = Undefined,
     sa_column_kwargs: Mapping[str, Any] | UndefinedType = Undefined,
     schema_extra: dict[str, Any] | None = None,
 ) -> Any:
     current_schema_extra = schema_extra or {}
+
+    if min_items is not None:
+        warnings.warn(MIN_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if min_length is None:
+            min_length = min_items
+    if max_items is not None:
+        warnings.warn(MAX_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
+        if max_length is None:
+            max_length = max_items
+
     # Extract possible alias settings from schema_extra so we can control precedence
     schema_validation_alias = current_schema_extra.pop("validation_alias", None)
     schema_serialization_alias = current_schema_extra.pop("serialization_alias", None)
@@ -421,8 +459,6 @@ def Field(
         "multiple_of": multiple_of,
         "max_digits": max_digits,
         "decimal_places": decimal_places,
-        "min_items": min_items,
-        "max_items": max_items,
         "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
@@ -518,20 +554,20 @@ def Relationship(
     return relationship_info
 
 
-@__dataclass_transform__(kw_only_default=True, field_descriptors=(Field, FieldInfo))
+@dataclass_transform(kw_only_default=True, field_specifiers=(Field, FieldInfo))
 class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
     __sqlmodel_relationships__: dict[str, RelationshipInfo]
     model_config: SQLModelConfig
     model_fields: ClassVar[dict[str, FieldInfo]]
 
     # Replicate SQLAlchemy
-    def __setattr__(cls, name: str, value: Any) -> None:
+    def __setattr__(cls, name: str, value: Any) -> None:  # ty: ignore[invalid-method-override]
         if is_table_model_class(cls):
             DeclarativeMeta.__setattr__(cls, name, value)
         else:
             super().__setattr__(name, value)
 
-    def __delattr__(cls, name: str) -> None:
+    def __delattr__(cls, name: str) -> None:  # ty: ignore[invalid-method-override]
         if is_table_model_class(cls):
             DeclarativeMeta.__delattr__(cls, name)
         else:
@@ -609,10 +645,10 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
             # This could be done by reading new_cls.model_config['table'] in FastAPI, but
             # that's very specific about SQLModel, so let's have another config that
             # other future tools based on Pydantic can use.
-            new_cls.model_config["read_from_attributes"] = True  # type: ignore[typeddict-unknown-key]
+            new_cls.model_config["read_from_attributes"] = True  # ty: ignore[invalid-key]
             # For compatibility with older versions
             # TODO: remove this in the future
-            new_cls.model_config["read_with_orm_mode"] = True  # type: ignore[typeddict-unknown-key]
+            new_cls.model_config["read_with_orm_mode"] = True  # ty: ignore[invalid-key]
 
         config_registry = get_config("registry")
         if config_registry is not Undefined:
@@ -649,7 +685,7 @@ class SQLModelMetaclass(ModelMetaclass, DeclarativeMeta):
                     # Plain forward references, for models not yet defined, are not
                     # handled well by SQLAlchemy without Mapped, so, wrap the
                     # annotations in Mapped here
-                    cls.__annotations__[rel_name] = Mapped[ann]  # type: ignore[valid-type]
+                    cls.__annotations__[rel_name] = Mapped[ann]
                 relationship_to = get_relationship_to(
                     name=rel_name, rel_info=rel_info, annotation=ann
                 )
@@ -718,8 +754,10 @@ def get_sqlalchemy_type(field: Any) -> Any:
         return Boolean
     if issubclass(type_, int):
         return Integer
-    if issubclass(type_, datetime):
-        return DateTime
+    if issubclass(type_, (datetime, AwareDatetime, NaiveDatetime)):
+        if issubclass(type_, cast(type, NaiveDatetime)):
+            return DateTime(timezone=False)
+        return UTCDateTime()
     if issubclass(type_, date):
         return Date
     if issubclass(type_, timedelta):
@@ -738,7 +776,7 @@ def get_sqlalchemy_type(field: Any) -> Any:
     raise ValueError(f"{type_} has no matching SQLAlchemy type")
 
 
-def get_column_from_field(field: Any) -> Column:  # type: ignore
+def get_column_from_field(field: Any) -> Column:
     field_info = field
     sa_column = _get_sqlmodel_field_value(field_info, "sa_column", Undefined)
     if isinstance(sa_column, Column):
@@ -773,7 +811,7 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
         assert isinstance(foreign_key, str)
         assert isinstance(ondelete_value, (str, type(None)))  # for typing
         args.append(ForeignKey(foreign_key, ondelete=ondelete_value))
-    kwargs = {
+    kwargs: dict[str, Any] = {
         "primary_key": primary_key,
         "nullable": nullable,
         "index": index,
@@ -794,10 +832,8 @@ def get_column_from_field(field: Any) -> Column:  # type: ignore
     )
     if sa_column_kwargs is not Undefined:
         kwargs.update(cast(dict[Any, Any], sa_column_kwargs))
-    return Column(sa_type, *args, **kwargs)
+    return Column(*args, type_=sa_type, **kwargs)
 
-
-class_registry = weakref.WeakValueDictionary()  # type: ignore
 
 default_registry = registry()
 
@@ -808,13 +844,15 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
     __tablename__: ClassVar[str | Callable[..., str]]
-    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipProperty[Any]]]
+    __sqlmodel_relationships__: ClassVar[builtins.dict[str, RelationshipInfo]]
     __name__: ClassVar[str]
     metadata: ClassVar[MetaData]
     __allow_unmapped__ = True  # https://docs.sqlalchemy.org/en/20/changelog/migration_20.html#migration-20-step-six
     model_config = SQLModelConfig(from_attributes=True)
 
-    def __new__(cls, *args: Any, **kwargs: Any) -> Any:
+    # Typing spec says `__new__` returning `Any` overrides normal constructor
+    # behavior, but a missing annotation does not:
+    def __new__(cls, *args: Any, **kwargs: Any):  # type: ignore[no-untyped-def]
         new_object = super().__new__(cls)
         # SQLAlchemy doesn't call __init__ on the base class when querying from DB
         # Ref: https://docs.sqlalchemy.org/en/14/orm/constructors.html
@@ -850,7 +888,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if is_table_model_class(self.__class__) and is_instrumented(self, name):  # type: ignore[no-untyped-call]
+            if is_table_model_class(self.__class__) and is_instrumented(self, name):
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
@@ -870,7 +908,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         return cls.__name__.lower()
 
     @classmethod
-    def model_validate(  # type: ignore[override]
+    def model_validate(  # ty: ignore[invalid-method-override]
         cls: type[_TSQLModel],
         obj: Any,
         *,
@@ -904,6 +942,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         warnings: bool | Literal["none", "warn", "error"] = True,
         fallback: Callable[[Any], Any] | None = None,  # v2.11
         serialize_as_any: bool = False,  # v2.7
+        polymorphic_serialization: bool | None = None,  # v2.13
     ) -> builtins.dict[str, Any]:
         if PYDANTIC_MINOR_VERSION < (2, 11):
             by_alias = by_alias or False
@@ -914,6 +953,8 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             extra_kwargs["fallback"] = fallback
         if PYDANTIC_MINOR_VERSION >= (2, 12):
             extra_kwargs["exclude_computed_fields"] = exclude_computed_fields
+        if PYDANTIC_MINOR_VERSION >= (2, 13):
+            extra_kwargs["polymorphic_serialization"] = polymorphic_serialization
         return super().model_dump(
             mode=mode,
             include=include,
@@ -1004,6 +1045,6 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         else:
             raise ValueError(
                 "Can't use sqlmodel_update() with something that "
-                f"is not a dict or SQLModel or Pydantic model: {obj}"
+                f"is not a dict, SQLModel, or Pydantic model: {obj}"
             )
         return self

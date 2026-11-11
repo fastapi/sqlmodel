@@ -14,11 +14,11 @@ We will use the application with the hero models, but without team models, and w
 
 Now we will see how useful it is to have this session dependency. ✨
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/main.py ln[0] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/main.py ln[0] *}
 
 ## File Structure
 
-Now we will have a Python project with multiple files, one file `main.py` with all the application, and one file `test_main.py` with the tests, with the same ideas from [Code Structure and Multiple Files](../code-structure.md){.internal-link target=_blank}.
+Now we will have a Python project with multiple files, one file `main.py` with all the application, and one file `test_main.py` with the tests, with the same ideas from [Code Structure and Multiple Files](../code-structure.md).
 
 The file structure is:
 
@@ -32,16 +32,16 @@ The file structure is:
 
 ## Testing FastAPI Applications
 
-If you haven't done testing in FastAPI applications, first check the <a href="https://fastapi.tiangolo.com/tutorial/testing/" class="external-link" target="_blank">FastAPI docs about Testing</a>.
+If you haven't done testing in FastAPI applications, first check the [FastAPI docs about Testing](https://fastapi.tiangolo.com/tutorial/testing/).
 
 Then, we can continue here, the first step is to install the dependencies, `requests` and `pytest`.
 
-Make sure you create a [virtual environment](../../virtual-environments.md){.internal-link target=_blank}, activate it, and then install them, for example with:
+Add them to your project:
 
 <div class="termy">
 
 ```console
-$ pip install requests pytest
+$ uv add requests pytest
 
 ---> 100%
 ```
@@ -50,19 +50,19 @@ $ pip install requests pytest
 
 ## Basic Tests Code
 
-Let's start with a simple test, with just the basic test code we need the check that the **FastAPI** application is creating a new hero correctly.
+Let's start with a simple test, with just the basic test code we need to check that the **FastAPI** application is creating a new hero correctly.
 
 ```{ .python .annotate }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_001.py[ln:1-7]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:1-7]!}
         # Some code here omitted, we will see it later 👈
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_001.py[ln:20-24]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:20-24]!}
         # Some code here omitted, we will see it later 👈
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_001.py[ln:26-32]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_001.py[ln:26-32]!}
 
 # Code below omitted 👇
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_001.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_001.md!}
 
 /// tip
 
@@ -103,14 +103,14 @@ We will override it to use a different **session** object just for the tests.
 That way we protect the production database and we have better control of the data we are testing.
 
 ```{ .python .annotate hl_lines="4  9-10  12  19" }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_002.py[ln:1-7]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_002.py[ln:1-7]!}
         # Some code here omitted, we will see it later 👈
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_002.py[ln:15-32]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_002.py[ln:15-32]!}
 
 # Code below omitted 👇
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_002.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_002.md!}
 
 /// tip
 
@@ -131,10 +131,10 @@ sqlite:///testing.db
 So, the testing database will be in the file `testing.db`.
 
 ``` { .python .annotate hl_lines="4  8-11  13  16  33"}
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_003.py!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_003.py!}
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_003.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_003.md!}
 
 ### Import Table Models
 
@@ -144,9 +144,9 @@ Here we create all the tables in the testing database with:
 SQLModel.metadata.create_all(engine)
 ```
 
-But remember that [Order Matters](../create-db-and-table.md#sqlmodel-metadata-order-matters){.internal-link target=_blank} and we need to make sure all the **SQLModel** models are already defined and **imported** before calling `.create_all()`.
+But remember that [Order Matters](../create-db-and-table.md#sqlmodel-metadata-order-matters) and we need to make sure all the **SQLModel** models are already defined and **imported** before calling `.create_all()`.
 
-In this case, it all works for a little subtlety that deserves some attention.
+In this case, it all works thanks to a little subtlety that deserves some attention.
 
 Because we import something, *anything*, from `.main`, the code in `.main` will be executed, including the definition of the **table models**, and that will automatically register them in `SQLModel.metadata`.
 
@@ -156,13 +156,13 @@ That way, when we call `.create_all()` all the **table models** are correctly re
 
 Now we are not using the production database. Instead, we use a **new testing database** with the `testing.db` file, which is great.
 
-But SQLite also supports having an **in memory** database. This means that all the database is only in memory, and it is never saved in a file on disk.
+But SQLite also supports having an **in memory** database. This means that the whole database is only in memory, and it is never saved in a file on disk.
 
 After the program terminates, **the in-memory database is deleted**, so it wouldn't help much for a production database.
 
 But **it works great for testing**, because it can be quickly created before each test, and quickly removed after each test. ✅
 
-And also, because it never has to write anything to a file and it's all just in memory, it will be even faster than normally. 🏎
+And also, because it never has to write anything to a file and it's all just in memory, it will be even faster than a disk-based database. 🏎
 
 /// details | Other alternatives and ideas 👀
 
@@ -187,12 +187,12 @@ Let's update our code to use the in-memory database.
 We just have to change a couple of parameters in the **engine**.
 
 ```{ .python .annotate hl_lines="3  9-13"}
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_004.py[ln:1-13]!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_004.py[ln:1-13]!}
 
 # Code below omitted 👇
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_004.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_004.md!}
 
 /// tip
 
@@ -214,7 +214,7 @@ Do we really have to duplicate all that for **each test**? No, we can do better!
 
 We are using **pytest** to run the tests. And pytest also has a very similar concept to the **dependencies in FastAPI**.
 
-/// info
+/// note
 
 In fact, pytest was one of the things that inspired the design of the dependencies in FastAPI.
 
@@ -222,23 +222,23 @@ In fact, pytest was one of the things that inspired the design of the dependenci
 
 It's a way for us to declare some **code that should be run before** each test and **provide a value** for the test function (that's pretty much the same as FastAPI dependencies).
 
-In fact, it also has the same trick of allowing to use `yield` instead of `return` to provide the value, and then **pytest** makes sure that the code after `yield` is executed *after* the function with the test is done.
+In fact, it also has the same trick of allowing you to use `yield` instead of `return` to provide the value, and then **pytest** makes sure that the code after `yield` is executed *after* the function with the test is done.
 
 In pytest, these things are called **fixtures** instead of *dependencies*.
 
-Let's use these **fixtures** to improve our code and reduce de duplicated boilerplate for the next tests.
+Let's use these **fixtures** to improve our code and reduce the duplicated boilerplate for the next tests.
 
 ## Pytest Fixtures
 
-You can read more about them in the <a href="https://docs.pytest.org/en/6.2.x/fixture.html" class="external-link" target="_blank">pytest docs for fixtures</a>, but I'll give you a short example for what we need here.
+You can read more about them in the [pytest docs for fixtures](https://docs.pytest.org/en/6.2.x/fixture.html), but I'll give you a short example for what we need here.
 
 Let's see the first code example with a fixture:
 
 ``` { .python .annotate }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_005.py!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_005.py!}
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_005.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_005.md!}
 
 /// tip
 
@@ -253,7 +253,7 @@ Check out the number bubbles to see what is done by each line of code.
 
 But apart from the way we declare them and how we tell the framework that we want to have them in the function, they **work in a very similar way**.
 
-Now we create lot's of tests and re-use that same fixture in all of them, saving us that **boilerplate code**.
+Now we create lots of tests and reuse that same fixture in all of them, saving us that **boilerplate code**.
 
 **pytest** will make sure to run them right before (and finish them right after) each test function. So, each test function will actually have its own database, engine, and session.
 
@@ -275,10 +275,10 @@ Each **pytest** fixture (the same way as **FastAPI** dependencies), can require 
 So, we can create a **client fixture** that will be used in all the tests, and it will itself require the **session fixture**.
 
 ``` { .python .annotate hl_lines="19-28  31" }
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main_006.py!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main_006.py!}
 ```
 
-{!./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/annotations/en/test_main_006.md!}
+{!./docs_src/tutorial/fastapi/app_testing/tutorial001/annotations/en/test_main_006.md!}
 
 /// tip
 
@@ -298,17 +298,17 @@ But normally we will create **lots of other test functions**. And now all the bo
 
 Let's add some more tests:
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main.py ln[30:58] hl[30,49] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py ln[30:58] hl[30,49] *}
 
 /// tip
 
-It's always **good idea** to not only test the normal case, but also that **invalid data**, **errors**, and **corner cases** are handled correctly.
+It's always a **good idea** to not only test the normal case, but also that **invalid data**, **errors**, and **corner cases** are handled correctly.
 
 That's why we add these two extra tests here.
 
 ///
 
-Now, any additional test functions can be as **simple** as the first one, they just have to **declare the `client` parameter** to get the `TestClient` **fixture** with all the database stuff setup. Nice! 😎
+Now, any additional test functions can be as **simple** as the first one, they just have to **declare the `client` parameter** to get the `TestClient` **fixture** with all the database stuff set up. Nice! 😎
 
 ## Why Two Fixtures
 
@@ -318,7 +318,7 @@ For these examples, **that would have been simpler**, there's no need to separat
 
 But for the next test function, we will require **both fixtures**, the **client** and the **session**.
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main.py ln[1:6,61:81] hl[6,61] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py ln[1:6,61:81] hl[6,61] *}
 
 In this test function, we want to check that the *path operation* to **read a list of heroes** actually sends us heroes.
 
@@ -344,7 +344,7 @@ The function for the **client fixture** and the actual testing function will **b
 
 Using the same ideas, requiring the fixtures, creating data that we need for the tests, etc., we can now add the rest of the tests. They look quite similar to what we have done up to now.
 
-{* ./docs_src/tutorial/fastapi/app_testing/tutorial001_py310/test_main.py ln[84:125] hl[84,99,114] *}
+{* ./docs_src/tutorial/fastapi/app_testing/tutorial001/test_main.py ln[84:125] hl[84,99,114] *}
 
 ## Run the Tests
 
@@ -353,7 +353,7 @@ Now we can run the tests with `pytest` and see the results:
 <div class="termy">
 
 ```console
-$ pytest
+$ uv run pytest
 
 ============= test session starts ==============
 platform linux -- Python 3.10.0, pytest-7.4.4, pluggy-1.5.0

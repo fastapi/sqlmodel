@@ -10,17 +10,17 @@ Now let's see how to get only a **range of results**.
 
 ## Create Data
 
-We will continue with the same code as before, but we'll modify it a little the `select_heroes()` function to simplify the example and focus on what we want to achieve here.
+We will continue with the same code as before, but we'll modify the `select_heroes()` function to simplify the example and focus on what we want to achieve here.
 
 Again, we will create several heroes to have some data to select from:
 
-{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[21:39] hl[22:28] *}
+{* ./docs_src/tutorial/offset_and_limit/tutorial001.py ln[21:39] hl[22:28] *}
 
 ## Review Select All
 
 This is the code we had to select all the heroes in the `select()` examples:
 
-{* ./docs_src/tutorial/select/tutorial003_py310.py ln[34:39] hl[34:39] *}
+{* ./docs_src/tutorial/select/tutorial003.py ln[34:39] hl[34:39] *}
 
 But this would get us **all** the heroes at the same time, in a database that could have thousands, that could be problematic.
 
@@ -28,7 +28,7 @@ But this would get us **all** the heroes at the same time, in a database that co
 
 We currently have 7 heroes in the database. But we could as well have thousands, so let's limit the results to get only the first 3:
 
-{* ./docs_src/tutorial/offset_and_limit/tutorial001_py310.py ln[42:47] hl[44] *}
+{* ./docs_src/tutorial/offset_and_limit/tutorial001.py ln[42:47] hl[44] *}
 
 The special **select** object we get from `select()` also has a method `.limit()` that we can use to limit the results to a certain number.
 
@@ -43,7 +43,7 @@ If we run it on the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -91,11 +91,11 @@ How do we get the next 3?
 
 We can use `.offset()`:
 
-{* ./docs_src/tutorial/offset_and_limit/tutorial002_py310.py ln[42:47] hl[44] *}
+{* ./docs_src/tutorial/offset_and_limit/tutorial002.py ln[42:47] hl[44] *}
 
 The way this works is that the special **select** object we get from `select()` has methods like `.where()`, `.offset()` and `.limit()`.
 
-Each of those methods applies the change in the internal special select statement object, and also **return the same object**, this way, we can continue using more methods on it, like in the example above that we use both `.offset()` and `.limit()`.
+Each of those methods applies the change in the internal special select statement object, and also **returns the same object**, this way, we can continue using more methods on it, like in the example above that we use both `.offset()` and `.limit()`.
 
 **Offset** means "skip this many rows", and as we want to skip the ones we already saw, the first three, we use `.offset(3)`.
 
@@ -106,7 +106,7 @@ Now we can run the program on the command line, and it will output:
 <div class="termy">
 
 ```console
-$python app.py
+$ python app.py
 
 // Previous output omitted 🙈
 
@@ -130,7 +130,7 @@ INFO Engine [no key 0.00020s] (3, 3)
 
 Then to get the next batch of 3 rows we would offset all the ones we already saw, the first 6:
 
-{* ./docs_src/tutorial/offset_and_limit/tutorial003_py310.py ln[42:47] hl[44] *}
+{* ./docs_src/tutorial/offset_and_limit/tutorial003.py ln[42:47] hl[44] *}
 
 The database right now has **only 7 rows**, so this query can only get 1 row.
 
@@ -147,7 +147,7 @@ And if we run it in the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 
@@ -185,7 +185,7 @@ If you try that in **DB Browser for SQLite**, you will get the same result:
 
 Of course, you can also combine `.limit()` and `.offset()` with `.where()` and other methods you will learn about later:
 
-{* ./docs_src/tutorial/offset_and_limit/tutorial004_py310.py ln[42:47] hl[44] *}
+{* ./docs_src/tutorial/offset_and_limit/tutorial004.py ln[42:47] hl[44] *}
 
 ## Run the Program with Limit, Offset, and Where on the Command Line
 
@@ -196,7 +196,7 @@ But we are starting to include after an offset of 1 (so we don't count the first
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 🙈
 

@@ -35,7 +35,7 @@ And the `hero` table has this data:
 
 We will continue with the code in the previous example and we will add more things to it.
 
-{* ./docs_src/tutorial/connect/insert/tutorial001_py310.py ln[0] *}
+{* ./docs_src/tutorial/connect/insert/tutorial001.py ln[0] *}
 
 ## `SELECT` Connected Data with SQL
 
@@ -55,7 +55,7 @@ FROM hero, team
 WHERE hero.team_id = team.id
 ```
 
-/// info
+/// note
 
 Because we have two columns called `name`, one for `hero` and one for `team`, we can specify them with the prefix of the table name and the dot to make it explicit what we refer to.
 
@@ -117,7 +117,7 @@ Remember SQLModel's `select()` function? It can take more than one argument.
 
 So, we can pass the `Hero` and `Team` model classes. And we can also use both their columns in the `.where()` part:
 
-{* ./docs_src/tutorial/connect/select/tutorial001_py310.py ln[61:63] hl[63] *}
+{* ./docs_src/tutorial/connect/select/tutorial001.py ln[61:63] hl[63] *}
 
 Notice that in the comparison with `==` we are using the class attributes for both `Hero.team_id` and `Team.id`.
 
@@ -127,13 +127,13 @@ Now we can execute it and get the `results` object.
 
 And as we used `select` with two models, we will receive tuples of instances of those two models, so we can iterate over them naturally in a `for` loop:
 
-{* ./docs_src/tutorial/connect/select/tutorial001_py310.py ln[61:66] hl[65] *}
+{* ./docs_src/tutorial/connect/select/tutorial001.py ln[61:66] hl[65] *}
 
-For each iteration in the `for` loop we get a a tuple with an instance of the class `Hero` and an instance of the class `Team`.
+For each iteration in the `for` loop we get a tuple with an instance of the class `Hero` and an instance of the class `Team`.
 
 And in this `for` loop we assign them to the variable `hero` and the variable `team`.
 
-/// info
+/// note
 
 There was a lot of research, design, and work behind **SQLModel** to make this provide the best possible developer experience.
 
@@ -145,7 +145,7 @@ And you should get autocompletion and inline errors in your editor for both `her
 
 As always, we must remember to add this new `select_heroes()` function to the `main()` function to make sure it is executed when we call this program from the command line.
 
-{* ./docs_src/tutorial/connect/select/tutorial001_py310.py ln[69:72] hl[72] *}
+{* ./docs_src/tutorial/connect/select/tutorial001.py ln[69:72] hl[72] *}
 
 ## Run the Program
 
@@ -154,7 +154,7 @@ Now we can run the program and see how it shows us each hero with their correspo
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -249,9 +249,9 @@ This `JOIN` will be useful in a bit to be able to also get Spider-Boy, even if h
 
 The same way there's a `.where()` available when using `select()`, there's also a `.join()`.
 
-And in SQLModel (actually SQLAlchemy), when using the `.join()`, because we already declared what is the `foreign_key` when creating the models, we don't have to pass an `ON` part, it is inferred automatically:
+And in SQLModel (actually SQLAlchemy), we don't have to pass an `ON` part when using `.join()`. It is inferred automatically because we already declared the `foreign_key` in the model definition:
 
-{* ./docs_src/tutorial/connect/select/tutorial002_py310.py ln[61:66] hl[63] *}
+{* ./docs_src/tutorial/connect/select/tutorial002.py ln[61:66] hl[63] *}
 
 Also notice that we are still including `Team` in the `select(Hero, Team)`, because we still want to access that data.
 
@@ -262,7 +262,7 @@ And if we run it in the command line, it will output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -378,14 +378,14 @@ Now let's replicate the same query in **SQLModel**.
 
 `.join()` has a parameter we can use `isouter=True` to make the `JOIN` be a `LEFT OUTER JOIN`:
 
-{* ./docs_src/tutorial/connect/select/tutorial003_py310.py ln[61:66] hl[63] *}
+{* ./docs_src/tutorial/connect/select/tutorial003.py ln[61:66] hl[63] *}
 
 And if we run it, it will output:
 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Previous output omitted 😉
 
@@ -413,7 +413,7 @@ And then why we didn't include `Hero` in the `.join()`. 🤔
 
 In SQLModel (actually in SQLAlchemy), all these functions and tools try to **replicate** how it would be to work with the **SQL** language.
 
-Remember that [`SELECT` defines the columns to get and `WHERE` how to filter them?](../where.md#select-and-where){.internal-link target=_blank}.
+Remember that [`SELECT` defines the columns to get and `WHERE` how to filter them?](../where.md#select-and-where).
 
 This also applies here, but with `JOIN` and `ON`.
 
@@ -425,7 +425,7 @@ But we would still be able to **filter** the rows with it. 🤓
 
 We could even add some additional `.where()` after `.join()` to filter the data more, for example to return only the heroes from one team:
 
-{* ./docs_src/tutorial/connect/select/tutorial004_py310.py ln[61:66] hl[63] *}
+{* ./docs_src/tutorial/connect/select/tutorial004.py ln[61:66] hl[63] *}
 
 Here we are **filtering** with `.where()` to get only the heroes that belong to the **Preventers** team.
 
@@ -436,7 +436,7 @@ If we run that, it would output:
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Select only the hero data
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id
@@ -456,14 +456,14 @@ Preventer Hero: id=2 secret_name='Tommy Sharp' team_id=1 name='Rusty-Man' age=48
 
 By putting the `Team` in `select()` we tell **SQLModel** and the database that we want the team data too.
 
-{* ./docs_src/tutorial/connect/select/tutorial005_py310.py ln[61:66] hl[63] *}
+{* ./docs_src/tutorial/connect/select/tutorial005.py ln[61:66] hl[63] *}
 
 And if we run that, it will output:
 
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Select the hero and the team data
 INFO Engine SELECT hero.id, hero.name, hero.secret_name, hero.age, hero.team_id, team.id AS id_1, team.name AS name_1, team.headquarters

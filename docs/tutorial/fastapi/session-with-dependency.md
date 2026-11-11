@@ -6,9 +6,9 @@ Before we keep adding things, let's change a bit how we get the session for each
 
 Up to now, we have been creating a session in each *path operation*, in a `with` block.
 
-{* ./docs_src/tutorial/fastapi/delete/tutorial001_py310.py ln[48:55] hl[50] *}
+{* ./docs_src/tutorial/fastapi/delete/tutorial001.py ln[50:57] hl[52] *}
 
-That's perfectly fine, but in many use cases we would want to use <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI Dependencies</a>, for example to **verify** that the client is **logged in** and get the **current user** before executing any other code in the *path operation*.
+That's perfectly fine, but in many use cases we would want to use [FastAPI Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/), for example to **verify** that the client is **logged in** and get the **current user** before executing any other code in the *path operation*.
 
 These dependencies are also very useful during **testing**, because we can **easily replace them**, and then, for example, use a new database for our tests, or put some data before the tests, etc.
 
@@ -20,27 +20,17 @@ A **FastAPI** dependency is very simple, it's just a function that returns a val
 
 It could use `yield` instead of `return`, and in that case **FastAPI** will make sure it executes all the code **after** the `yield`, once it is done with the request.
 
-{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[40:42] hl[40:42] *}
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py ln[42:44] hl[42:44] *}
 
 ## Use the Dependency
 
 Now let's make FastAPI execute a dependency and get its value in the *path operation*.
 
-We import `Depends()` from `fastapi`. Then we use it in the *path operation function* in a **parameter**, the same way we declared parameters to get JSON bodies, path parameters, etc.
+We import `Annotated` from `typing` and `Depends` from `fastapi`. Then we declare the `session` parameter as `Annotated[Session, Depends(get_session)]`.
 
-{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:59] hl[1,54] *}
+The type of the parameter is `Session`, and `Depends(get_session)` tells FastAPI to use `get_session` to provide its value.
 
-/// tip
-
-Here's a tip about that `*,` thing in the parameters.
-
-Here we are passing the parameter `session` that has a "default value" of `Depends(get_session)` before the parameter `hero`, that doesn't have any default value.
-
-Python would normally complain about that, but we can use the initial "parameter" `*,` to mark all the rest of the parameters as "keyword only", which solves the problem.
-
-You can read more about it in the FastAPI documentation <a href="https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#order-the-parameters-as-you-need-tricks" class="external-link" target="_blank">Path Parameters and Numeric Validations - Order the parameters as you need, tricks</a>
-
-///
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py ln[1:4,42:44,55:61] hl[1,3,56] *}
 
 The value of a dependency will **only be used for one request**, FastAPI will call it right before calling your code and will give you the value from that dependency.
 
@@ -56,13 +46,13 @@ And because dependencies can use `yield`, FastAPI will make sure to run the code
 
 This means that in the main code of the *path operation function*, it will work equivalently to the previous version with the explicit `with` block.
 
-{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:59] hl[55:59] *}
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py ln[1:4,42:44,55:61] hl[57:61] *}
 
 In fact, you could think that all that block of code inside of the `create_hero()` function is still inside a `with` block for the **session**, because this is more or less what's happening behind the scenes.
 
 But now, the `with` block is not explicitly in the function, but in the dependency above:
 
-{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:59] hl[41:42] *}
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py ln[1:4,42:44,55:61] hl[43:44] *}
 
 We will see how this is very useful when testing the code later. ✅
 
@@ -73,12 +63,12 @@ Now we can update the rest of the *path operations* to use the new dependency.
 We just declare the dependency in the parameters of the function, with:
 
 ```Python
-session: Session = Depends(get_session)
+session: Annotated[Session, Depends(get_session)]
 ```
 
 And then we remove the previous `with` block with the old **session**.
 
-{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001_py310.py ln[1:2,40:42,53:104] hl[54,65,74,83,98] *}
+{* ./docs_src/tutorial/fastapi/session_with_dependency/tutorial001.py ln[1:4,42:44,55:104] hl[56,66,75,84,98] *}
 
 ## Recap
 
@@ -86,4 +76,4 @@ You just learned how to use **FastAPI dependencies** to handle the database sess
 
 And you will see how much these dependencies can help the more you work with FastAPI, to handle **permissions**, **authentication**, resources like database **sessions**, etc. 🚀
 
-If you want to learn more about dependencies, checkout the <a href="https://fastapi.tiangolo.com/tutorial/dependencies/" class="external-link" target="_blank">FastAPI docs about Dependencies</a>.
+If you want to learn more about dependencies, check out the [FastAPI docs about Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/).

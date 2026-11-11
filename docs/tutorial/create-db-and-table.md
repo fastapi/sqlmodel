@@ -2,7 +2,7 @@
 
 Now let's get to the code. 👩‍💻
 
-Make sure you are inside of your project directory and with your virtual environment activated as explained in [Virtual Environments](../virtual-environments.md#create-a-project){.internal-link target=_blank}.
+Make sure you are inside of your project directory.
 
 We will:
 
@@ -41,13 +41,13 @@ That's why this package is called `SQLModel`. Because it's mainly used to create
 
 For that, we will import `SQLModel` (plus other things we will also use) and create a class `Hero` that inherits from `SQLModel` and represents the **table model** for our heroes:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,4] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[1,4] *}
 
 This class `Hero` **represents the table** for our heroes. And each instance we create later will **represent a row** in the table.
 
 We use the config `table=True` to tell **SQLModel** that this is a **table model**, it represents a table.
 
-/// info
+/// note
 
 It's also possible to have models without `table=True`, those would be only **data models**, without a table in the database, they would not be **table models**.
 
@@ -63,9 +63,9 @@ The name of each of these variables will be the name of the column in the table.
 
 And the type of each of them will also be the type of table column:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5:8] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[1,5:8] *}
 
-Let's now see with more detail these field/column declarations.
+Let's now see these field/column declarations in more detail.
 
 ### `None` Fields, Nullable Columns
 
@@ -75,7 +75,7 @@ That is the standard way to declare that something "could be an `int` or `None`"
 
 And we also set the default value of `age` to `None`.
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[8] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[8] *}
 
 /// tip
 
@@ -107,7 +107,7 @@ So, we need to mark `id` as the **primary key**.
 
 To do that, we use the special `Field` function from `sqlmodel` and set the argument `primary_key=True`:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:8] hl[1,5] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:8] hl[1,5] *}
 
 That way, we tell **SQLModel** that this `id` field/column is the primary key of the table.
 
@@ -150,9 +150,9 @@ If you have a server database (for example PostgreSQL or MySQL), the **engine** 
 
 Creating the **engine** is very simple, just call `create_engine()` with a URL for the database to use:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[1,14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:16] hl[1,14] *}
 
-You should normally have a single **engine** object for your whole application and re-use it everywhere.
+You should normally have a single **engine** object for your whole application and reuse it everywhere.
 
 /// tip
 
@@ -174,9 +174,9 @@ SQLite supports a special database that lives all *in memory*. Hence, it's very 
 
 * `sqlite://`
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[11:12,14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:16] hl[11:12,14] *}
 
-You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the <a href="https://docs.sqlalchemy.org/en/14/core/engines.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
+You can read a lot more about all the databases supported by **SQLAlchemy** (and that way supported by **SQLModel**) in the [SQLAlchemy documentation](https://docs.sqlalchemy.org/en/14/core/engines.html).
 
 ### Engine Echo
 
@@ -186,7 +186,7 @@ It will make the engine print all the SQL statements it executes, which can help
 
 It is particularly useful for **learning** and **debugging**:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py ln[1:16] hl[14] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py ln[1:16] hl[14] *}
 
 But in production, you would probably want to remove `echo=True`:
 
@@ -202,7 +202,7 @@ If you didn't know about SQLAlchemy before and are just learning **SQLModel**, y
 
 ///
 
-You can read a lot more about the engine in the <a href="https://docs.sqlalchemy.org/en/14/tutorial/engine.html" class="external-link" target="_blank">SQLAlchemy documentation</a>.
+You can read a lot more about the engine in the [SQLAlchemy documentation](https://docs.sqlalchemy.org/en/14/tutorial/engine.html).
 
 **SQLModel** defines its own `create_engine()` function. It is the same as SQLAlchemy's `create_engine()`, but with the difference that it defaults to use `future=True` (which means that it uses the style of the latest SQLAlchemy, 1.4, and the future 2.0).
 
@@ -212,7 +212,7 @@ And SQLModel's version of `create_engine()` is type annotated internally, so you
 
 Now everything is in place to finally create the database and table:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py hl[16] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py hl[16] *}
 
 /// tip
 
@@ -321,13 +321,13 @@ But you will learn about migrations later in the Advanced User Guide.
 
 Let's run the program to see it all working.
 
-Put the code it in a file `app.py` if you haven't already.
+Put the code in a file `app.py` if you haven't already.
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial001_py310.py *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial001.py *}
 
 /// tip
 
-Remember to [activate the virtual environment](../virtual-environments.md#create-a-virtual-environment){.internal-link target=_blank} before running it.
+Run it inside the project environment with `uv run`.
 
 ///
 
@@ -337,7 +337,7 @@ Now run the program with Python:
 
 ```console
 // We set echo=True, so this will show the SQL code
-$ python app.py
+$ uv run python app.py
 
 // First, some boilerplate SQL that we are not that interested in
 
@@ -366,7 +366,7 @@ INFO Engine COMMIT
 
 </div>
 
-/// info
+/// note
 
 I simplified the output above a bit to make it easier to read.
 
@@ -390,7 +390,7 @@ In the example in the previous chapter we created the table using `TEXT` for som
 
 But in this output SQLAlchemy is using `VARCHAR` instead. Let's see what's going on.
 
-Remember that [each SQL Database has some different variations in what they support?](../databases.md#sql-the-language){.internal-link target=_blank}
+Remember that [each SQL Database has some different variations in what they support?](../databases.md#sql-the-language)
 
 This is one of the differences. Each database supports some particular **data types**, like `INTEGER` and `TEXT`.
 
@@ -402,7 +402,7 @@ The same way, there are several possible types for storing strings. SQLite uses 
 
 SQLAlchemy generates the SQL statements to create tables using `VARCHAR`, and then SQLite receives them, and internally converts them to `TEXT`s.
 
-Additional to the difference between those two data types, some databases like MySQL require setting a maximum length for the `VARCHAR` types, for example `VARCHAR(255)` sets the maximum number of characters to 255.
+In addition to the difference between those two data types, some databases like MySQL require setting a maximum length for the `VARCHAR` types, for example `VARCHAR(255)` sets the maximum number of characters to 255.
 
 To make it easier to start using **SQLModel** right away independent of the database you use (even with MySQL), and without any extra configurations, by default, `str` fields are interpreted as `VARCHAR` in most databases and `VARCHAR(255)` in MySQL, this way you know the same class will be compatible with the most popular databases without extra effort.
 
@@ -428,7 +428,7 @@ In this example it's just the `SQLModel.metadata.create_all(engine)`.
 
 Let's put it in a function `create_db_and_tables()`:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py ln[1:18] hl[17:18] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial002.py ln[1:18] hl[17:18] *}
 
 If `SQLModel.metadata.create_all(engine)` was not in a function and we tried to import something from this module (from this file) in another, it would try to create the database and table **every time** we executed that other file that imported this module.
 
@@ -458,7 +458,7 @@ The word **script** often implies that the code could be run independently and e
 
 For that we can use the special variable `__name__` in an `if` block:
 
-{* ./docs_src/tutorial/create_db_and_table/tutorial002_py310.py hl[21:22] *}
+{* ./docs_src/tutorial/create_db_and_table/tutorial002.py hl[21:22] *}
 
 ### About `__name__ == "__main__"`
 
@@ -467,7 +467,7 @@ The main purpose of the `__name__ == "__main__"` is to have some code that is ex
 <div class="termy">
 
 ```console
-$ python app.py
+$ uv run python app.py
 
 // Something happens here ✨
 ```
@@ -484,7 +484,7 @@ from app import Hero
 
 That `if` block using `if __name__ == "__main__":` is sometimes called the "**main block**".
 
-The official name (in the <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">Python docs</a>) is "**Top-level script environment**".
+The official name (in the [Python docs](https://docs.python.org/3/library/__main__.html)) is "**Top-level script environment**".
 
 ///
 
@@ -497,7 +497,7 @@ If you run it with:
 <div class="termy">
 
 ```console
-$ python myapp.py
+$ uv run python myapp.py
 
 // This will call create_db_and_tables()
 ```
@@ -538,9 +538,9 @@ if __name__ == "__main__":
 
 ...will **not** be executed.
 
-/// info
+/// note
 
-For more information, check <a href="https://docs.python.org/3/library/__main__.html" class="external-link" target="_blank">the official Python docs</a>.
+For more information, check [the official Python docs](https://docs.python.org/3/library/__main__.html).
 
 ///
 
@@ -552,15 +552,11 @@ But now we can import things from this module in other files.
 
 Now, let's give the code a final look:
 
-//// tab | Python 3.10+
-
 ```{.python .annotate}
-{!./docs_src/tutorial/create_db_and_table/tutorial003_py310.py!}
+{!./docs_src/tutorial/create_db_and_table/tutorial003.py!}
 ```
 
 {!./docs_src/tutorial/create_db_and_table/annotations/en/tutorial003.md!}
-
-////
 
 /// tip
 
@@ -570,7 +566,7 @@ Review what each line does by clicking each number bubble in the code. 👆
 
 ## Recap
 
-We learnt how to use **SQLModel** to define how a table in the database should look like, and we created a database and a table using **SQLModel**.
+We learnt how to use **SQLModel** to define what a table in the database should look like, and we created a database and a table using **SQLModel**.
 
 We also refactored the code to make it easier to reuse, share, and test later.
 
