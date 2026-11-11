@@ -1,4 +1,4 @@
-1. Import the `get_session` dependency from the the `main` module.
+1. Import the `get_session` dependency from the `main` module.
 
 2. Define the new function that will be the new **dependency override**.
 

@@ -1,8 +1,8 @@
-1. Import the `app` from the the `main` module.
+1. Import the `app` from the `main` module.
 
 2. We create a `TestClient` for the FastAPI `app` and put it in the variable `client`.
 
-3. Then we use use this `client` to **talk to the API** and send a `POST` HTTP operation, creating a new hero.
+3. Then we use this `client` to **talk to the API** and send a `POST` HTTP operation, creating a new hero.
 
 4. Then we get the **JSON data** from the response and put it in the variable `data`.
 
