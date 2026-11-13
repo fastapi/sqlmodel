@@ -93,6 +93,10 @@ IncEx: TypeAlias = (
 SaTypeOrInstance: TypeAlias = TypeEngine[Any] | type[TypeEngine[Any]]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
+CONST_DEPRECATION_MSG = "`const` is deprecated and doesn't work, use `Literal` instead"
+UNIQUE_ITEMS_DEPRECATION_MSG = (
+    "`unique_items` is deprecated and doesn't work, use `set` type instead"
+)
 MIN_ITEMS_DEPRECATION_MSG = (
     "`min_items` is deprecated and will be removed, use `min_length` instead"
 )
@@ -251,7 +255,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -267,7 +274,10 @@ def Field(
         int | None,
         deprecated(MAX_ITEMS_DEPRECATION_MSG),
     ] = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -300,7 +310,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -316,7 +329,10 @@ def Field(
         int | None,
         deprecated(MAX_ITEMS_DEPRECATION_MSG),
     ] = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -358,7 +374,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -374,7 +393,10 @@ def Field(
         int | None,
         deprecated(MAX_ITEMS_DEPRECATION_MSG),
     ] = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -397,7 +419,10 @@ def Field(
     description: str | None = None,
     exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
     include: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    const: bool | None = None,
+    const: Annotated[
+        bool | None,
+        deprecated(CONST_DEPRECATION_MSG),
+    ] = None,
     gt: float | None = None,
     ge: float | None = None,
     lt: float | None = None,
@@ -413,7 +438,10 @@ def Field(
         int | None,
         deprecated(MAX_ITEMS_DEPRECATION_MSG),
     ] = None,
-    unique_items: bool | None = None,
+    unique_items: Annotated[
+        bool | None,
+        deprecated(UNIQUE_ITEMS_DEPRECATION_MSG),
+    ] = None,
     min_length: int | None = None,
     max_length: int | None = None,
     allow_mutation: bool = True,
@@ -434,6 +462,10 @@ def Field(
 ) -> Any:
     current_schema_extra = schema_extra or {}
 
+    if const is not None:
+        raise RuntimeError(CONST_DEPRECATION_MSG)
+    if unique_items is not None:
+        raise RuntimeError(UNIQUE_ITEMS_DEPRECATION_MSG)
     if min_items is not None:
         warnings.warn(MIN_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
         if min_length is None:
@@ -452,7 +484,6 @@ def Field(
         "description": description,
         "exclude": exclude,
         "include": include,
-        "const": const,
         "gt": gt,
         "ge": ge,
         "lt": lt,
@@ -460,7 +491,6 @@ def Field(
         "multiple_of": multiple_of,
         "max_digits": max_digits,
         "decimal_places": decimal_places,
-        "unique_items": unique_items,
         "min_length": min_length,
         "max_length": max_length,
         "allow_mutation": allow_mutation,
