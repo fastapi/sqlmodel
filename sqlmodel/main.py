@@ -889,7 +889,15 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
             return
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
-            if is_table_model_class(self.__class__) and is_instrumented(self, name):
+            # While Pydantic is validating (e.g. in a model_validator with
+            # mode="after"), it temporarily replaces __dict__, so the
+            # _sa_instance_state is not available. In that case, only set the
+            # value in Pydantic, SQLAlchemy is synced after validation finishes
+            if (
+                is_table_model_class(self.__class__)
+                and "_sa_instance_state" in self.__dict__
+                and is_instrumented(self, name)
+            ):
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
