@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from datetime import date, datetime, time, timedelta, timezone, tzinfo
+from datetime import UTC, date, datetime, time, timedelta, timezone, tzinfo
 from io import StringIO
 from operator import add, sub
 from typing import Annotated, Any
@@ -167,7 +167,7 @@ def test_datetime_round_trip(database_engine: Engine) -> None:
         session.commit()
         session.refresh(event)
         assert event.occurred_at == aware
-        assert event.occurred_at.tzinfo is timezone.utc
+        assert event.occurred_at.tzinfo is UTC
         assert event.local_time == naive
         assert event.optional_time is None
         event_id = event.id
@@ -175,19 +175,19 @@ def test_datetime_round_trip(database_engine: Engine) -> None:
     with Session(engine) as session:
         loaded = session.get(Event, event_id)
         assert loaded is not None
-        assert loaded.occurred_at.tzinfo is timezone.utc
+        assert loaded.occurred_at.tzinfo is UTC
         # Query parameters use the same UTC normalization as inserted values.
         assert (
             session.exec(select(Event).where(Event.occurred_at == aware)).one()
             is loaded
         )
-        assert session.exec(select(Event.occurred_at)).one().tzinfo is timezone.utc
+        assert session.exec(select(Event.occurred_at)).one().tzinfo is UTC
         later = aware + timedelta(hours=1)
         session.exec(update(Event).values(occurred_at=later))
         session.commit()
         session.refresh(loaded)
         assert loaded.occurred_at == later
-        assert loaded.occurred_at.tzinfo is timezone.utc
+        assert loaded.occurred_at.tzinfo is UTC
 
 
 class UndefinedOffset(tzinfo):
@@ -256,10 +256,10 @@ def test_postgresql_datetime_processing() -> None:
     aware = datetime(2026, 1, 1, 12, tzinfo=timezone(timedelta(hours=2)))
     bound = bind(aware)
     assert bound == aware
-    assert bound.tzinfo is timezone.utc
+    assert bound.tzinfo is UTC
     loaded = result(aware)
     assert loaded == aware
-    assert loaded.tzinfo is timezone.utc
+    assert loaded.tzinfo is UTC
     assert bind(None) is None
     assert result(None) is None
 
@@ -312,8 +312,8 @@ def test_existing_sqlite_utc_data() -> None:
     with Session(engine) as session:
         event = session.get(Event, 1)
         assert event is not None
-        assert event.occurred_at == datetime(2026, 1, 1, 12, tzinfo=timezone.utc)
-        assert event.occurred_at.tzinfo is timezone.utc
+        assert event.occurred_at == datetime(2026, 1, 1, 12, tzinfo=UTC)
+        assert event.occurred_at.tzinfo is UTC
 
 
 def test_alembic_datetime_rendering() -> None:

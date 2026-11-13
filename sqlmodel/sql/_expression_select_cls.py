@@ -1,12 +1,13 @@
 from typing import (
+    Self,
     TypeVar,
+    TypeVarTuple,
 )
 
 from sqlalchemy.sql._typing import (
     _ColumnExpressionArgument,
 )
 from sqlalchemy.sql.expression import Select as _Select
-from typing_extensions import Self, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _Ts = TypeVarTuple("_Ts")
@@ -14,7 +15,7 @@ _Ts = TypeVarTuple("_Ts")
 
 # Separate this class in SelectBase, Select, and SelectOfScalar so that they can share
 # where and having without having type overlap incompatibility in session.exec().
-class SelectBase(_Select[Unpack[_Ts]]):
+class SelectBase(_Select[*_Ts]):
     inherit_cache = True
 
     def where(self, *whereclause: _ColumnExpressionArgument[bool] | bool) -> Self:
@@ -30,7 +31,7 @@ class SelectBase(_Select[Unpack[_Ts]]):
         return super().having(*having)  # ty: ignore[invalid-argument-type]
 
 
-class Select(SelectBase[Unpack[_Ts]]):
+class Select(SelectBase[*_Ts]):
     inherit_cache = True
 
 

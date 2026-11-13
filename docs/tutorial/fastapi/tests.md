@@ -356,7 +356,7 @@ Now we can run the tests with `pytest` and see the results:
 $ uv run pytest
 
 ============= test session starts ==============
-platform linux -- Python 3.10.0, pytest-7.4.4, pluggy-1.5.0
+platform linux -- Python 3.11.0, pytest-7.4.4, pluggy-1.5.0
 rootdir: /home/user/code/sqlmodel-tutorial
 <b>collected 7 items                              </b>
 

@@ -20,6 +20,7 @@ from typing import (
     TypeVar,
     Union,
     cast,
+    dataclass_transform,
     get_origin,
     overload,
 )
@@ -52,7 +53,7 @@ from sqlalchemy.orm.instrumentation import is_instrumented
 from sqlalchemy.sql.schema import MetaData
 from sqlalchemy.sql.sqltypes import LargeBinary, Time, Uuid
 from sqlalchemy.types import TypeEngine
-from typing_extensions import dataclass_transform, deprecated
+from typing_extensions import deprecated
 
 from ._compat import (
     PYDANTIC_MINOR_VERSION,

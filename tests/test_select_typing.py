@@ -1,3 +1,5 @@
+from typing import assert_type
+
 from sqlalchemy import Engine
 from sqlalchemy.engine import ScalarResult, TupleResult
 from sqlalchemy.sql.elements import UnaryExpression
@@ -12,7 +14,6 @@ from sqlmodel import (
     nulls_last,
     select,
 )
-from typing_extensions import assert_type
 
 
 def test_fields(database_engine: Engine) -> None:

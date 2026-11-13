@@ -1,5 +1,5 @@
 import importlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import ModuleType
 
 import pytest
@@ -26,7 +26,7 @@ def test_tutorial(print_mock: PrintMock, mod: ModuleType) -> None:
             "Event:",
             {
                 "id": None,
-                "starts_at": datetime(2026, 1, 1, 12, tzinfo=timezone.utc),
+                "starts_at": datetime(2026, 1, 1, 12, tzinfo=UTC),
                 "local_time": datetime(2026, 1, 1, 12),
             },
         ]

@@ -21,13 +21,11 @@ Let's say that each event in our application has a `created_at` field.
 
 We can declare it with `datetime` and use `default_factory` to generate the current time in UTC:
 
-{* ./docs_src/advanced/datetime/tutorial001_py311.py ln[1:8] hl[1,8] *}
+{* ./docs_src/advanced/datetime/tutorial001.py ln[1:8] hl[1,8] *}
 
 /// tip
 
-The [`UTC` constant](https://docs.python.org/3/library/datetime.html#datetime.UTC) is available on Python 3.11 and newer. It is an alias for `timezone.utc`.
-
-For Python 3.10, expand **Other versions and variants** below the example. That version imports `timezone` and uses `datetime.now(timezone.utc)` instead.
+The [`UTC` constant](https://docs.python.org/3/library/datetime.html#datetime.UTC) is an alias for `timezone.utc`.
 
 ///
 
@@ -39,7 +37,7 @@ Passing `datetime.now(UTC)` directly would call it immediately, when defining th
 
 We can create an event without passing a value for `created_at`:
 
-{* ./docs_src/advanced/datetime/tutorial001_py311.py ln[17:19] hl[18] *}
+{* ./docs_src/advanced/datetime/tutorial001.py ln[17:19] hl[18] *}
 
 For the database column, **SQLModel** uses `UTCDateTime`, a custom SQLAlchemy type based on `DateTime(timezone=True)`. It uses native timezone support when the database provides it.
 
@@ -47,7 +45,7 @@ For the database column, **SQLModel** uses `UTCDateTime`, a custom SQLAlchemy ty
 
 Let's save the event to `database.db` and read it back using SQLite:
 
-{* ./docs_src/advanced/datetime/tutorial001_py311.py ln[11:14,21:26] hl[23:25] *}
+{* ./docs_src/advanced/datetime/tutorial001.py ln[11:14,21:26] hl[23:25] *}
 
 The datetime goes through these steps:
 

@@ -45,7 +45,7 @@ jobs:
             database: mysql
             database-url: mysql+pymysql://sqlmodel:sqlmodel@127.0.0.1:13306/sqlmodel_test
           - os: ubuntu-latest
-            python-version: "3.10"
+            python-version: "3.11"
             uv-resolution: lowest-direct
             database: mysql
             database-url: mysql+pymysql://sqlmodel:sqlmodel@127.0.0.1:13306/sqlmodel_test
