@@ -1,6 +1,6 @@
 import asyncio
 from collections.abc import Mapping
-from typing import Any
+from typing import Any, assert_type
 
 import pytest
 from sqlalchemy import update
@@ -8,7 +8,6 @@ from sqlalchemy.engine import CursorResult, ScalarResult
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlmodel import Field, SQLModel, col, select
 from sqlmodel.ext.asyncio.session import AsyncSession
-from typing_extensions import Unpack, assert_type
 
 
 @pytest.mark.parametrize("execution_options", [{}, {"populate_existing": True}])
@@ -43,7 +42,7 @@ def test_async_session(execution_options: Mapping[str, Any]) -> None:
                 assert row == (1, "Deadpond")
 
                 updated = await session.exec(update(Hero).values(name="Rusty-Man"))
-                assert_type(updated, CursorResult[Unpack[tuple[Any, ...]]])
+                assert_type(updated, CursorResult[*tuple[Any, ...]])
                 assert updated.rowcount == 1
                 await session.commit()
                 assert (await session.exec(select(Hero.name))).one() == "Rusty-Man"

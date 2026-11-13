@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any, cast
 
 from sqlalchemy import types
@@ -36,7 +36,7 @@ class UTCDateTime(types.TypeDecorator[datetime]):
                 "Use datetime.now(timezone.utc), or annotate the field with "
                 "NaiveDatetime for naive storage."
             )
-        return value.astimezone(timezone.utc)
+        return value.astimezone(UTC)
 
     def process_result_value(
         self, value: datetime | None, dialect: Dialect
@@ -45,8 +45,8 @@ class UTCDateTime(types.TypeDecorator[datetime]):
             return None
         if value.utcoffset() is None:
             # Databases without timezone support store UTC without an offset.
-            return value.replace(tzinfo=timezone.utc)
-        return value.astimezone(timezone.utc)
+            return value.replace(tzinfo=UTC)
+        return value.astimezone(UTC)
 
 
 class AutoString(types.TypeDecorator):

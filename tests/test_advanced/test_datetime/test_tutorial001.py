@@ -1,37 +1,31 @@
 import importlib
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import ModuleType
 
 import pytest
 from sqlalchemy import Engine
 from sqlmodel import SQLModel
 
-from ...conftest import PrintMock, needs_py311
+from ...conftest import PrintMock
 
 
-@pytest.fixture(
-    name="mod",
-    params=[
-        pytest.param("tutorial001_py310"),
-        pytest.param("tutorial001_py311", marks=needs_py311),
-    ],
-)
-def get_module(request: pytest.FixtureRequest, database_engine: Engine) -> ModuleType:
-    mod = importlib.import_module(f"docs_src.advanced.datetime.{request.param}")
+@pytest.fixture(name="mod")
+def get_module(database_engine: Engine) -> ModuleType:
+    mod = importlib.import_module("docs_src.advanced.datetime.tutorial001")
     mod.engine = database_engine
     return mod
 
 
 def test_tutorial(print_mock: PrintMock, mod: ModuleType) -> None:
-    before = datetime.now(timezone.utc)
+    before = datetime.now(UTC)
     mod.main()
-    after = datetime.now(timezone.utc)
+    after = datetime.now(UTC)
 
     created_at = print_mock.calls[0][1]["created_at"]
-    assert created_at.tzinfo is timezone.utc
+    assert created_at.tzinfo is UTC
     assert before <= created_at <= after
     stored_created_at = print_mock.calls[1][1]["created_at"]
-    assert stored_created_at.tzinfo is timezone.utc
+    assert stored_created_at.tzinfo is UTC
     if mod.engine.dialect.name in {"mysql", "mariadb"}:
         # The default DATETIME columns store whole seconds.
         assert abs(stored_created_at - created_at) < timedelta(seconds=1)

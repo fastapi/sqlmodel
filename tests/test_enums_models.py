@@ -4,12 +4,12 @@ import uuid
 from sqlmodel import Field, SQLModel
 
 
-class MyEnum1(str, enum.Enum):
+class MyEnum1(enum.StrEnum):
     A = "A"
     B = "B"
 
 
-class MyEnum2(str, enum.Enum):
+class MyEnum2(enum.StrEnum):
     C = "C"
     D = "D"
 

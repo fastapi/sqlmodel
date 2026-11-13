@@ -1,5 +1,5 @@
 import importlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import ModuleType
 
 import pytest
@@ -24,7 +24,7 @@ def test_tutorial(print_mock: PrintMock, mod: ModuleType) -> None:
         ["Event:", {"id": None, "created_at": datetime(2026, 1, 1, 12)}]
     ]
 
-    aware = datetime(2026, 1, 1, 12, tzinfo=timezone.utc)
+    aware = datetime(2026, 1, 1, 12, tzinfo=UTC)
     assert mod.Event.model_validate({"created_at": aware}).created_at == aware
 
     table = SQLModel.metadata.tables["event"]

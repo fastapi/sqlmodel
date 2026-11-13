@@ -7,7 +7,7 @@ name = "sqlmodel"
 dynamic = ["version"]
 description = "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 authors = [
     { name = "Sebastián Ramírez", email = "tiangolo@gmail.com" },
 ]
@@ -21,7 +21,6 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Intended Audience :: System Administrators",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -83,7 +82,8 @@ tests = [
     "aiosqlite >=0.17.0",
     "alembic >=1.12.0",
     "black >=24.1.0",
-    "coverage[toml] >=6.2",
+    # Support Python 3.11+ and the configured C tracer.
+    "coverage[toml] >=7.9.0",
     "dirty-equals >=0.11",
     "fastapi >=0.128.0",
     "httpx >=0.28.1",

@@ -2,6 +2,7 @@ from collections.abc import Mapping, Sequence
 from typing import (
     Any,
     TypeVar,
+    TypeVarTuple,
     overload,
 )
 
@@ -17,7 +18,7 @@ from sqlalchemy.sql.base import Executable as _Executable
 from sqlalchemy.sql.dml import UpdateBase
 from sqlmodel.sql.base import Executable
 from sqlmodel.sql.expression import Select, SelectOfScalar
-from typing_extensions import TypeVarTuple, Unpack, deprecated
+from typing_extensions import deprecated
 
 _TSelectParam = TypeVar("_TSelectParam", bound=Any)
 _Ts = TypeVarTuple("_Ts")
@@ -27,14 +28,14 @@ class Session(_Session):
     @overload
     def exec(
         self,
-        statement: Select[Unpack[_Ts]],
+        statement: Select[*_Ts],
         *,
         params: Mapping[str, Any] | Sequence[Mapping[str, Any]] | None = None,
         execution_options: Mapping[str, Any] = util.EMPTY_DICT,
         bind_arguments: dict[str, Any] | None = None,
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
-    ) -> TupleResult[tuple[Unpack[_Ts]]]: ...
+    ) -> TupleResult[tuple[*_Ts]]: ...
 
     @overload
     def exec(
@@ -58,11 +59,11 @@ class Session(_Session):
         bind_arguments: dict[str, Any] | None = None,
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
-    ) -> CursorResult[Unpack[tuple[Any, ...]]]: ...
+    ) -> CursorResult[*tuple[Any, ...]]: ...
 
     def exec(
         self,
-        statement: Select[Unpack[_Ts]]
+        statement: Select[*_Ts]
         | SelectOfScalar[_TSelectParam]
         | Executable[_TSelectParam]
         | UpdateBase,
@@ -73,9 +74,9 @@ class Session(_Session):
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
     ) -> (
-        TupleResult[tuple[Unpack[_Ts]]]
+        TupleResult[tuple[*_Ts]]
         | ScalarResult[_TSelectParam]
-        | CursorResult[Unpack[tuple[Any, ...]]]
+        | CursorResult[*tuple[Any, ...]]
     ):
         results = super().execute(
             statement,
@@ -119,7 +120,7 @@ class Session(_Session):
         bind_arguments: dict[str, Any] | None = None,
         _parent_execute_state: Any | None = None,
         _add_event: Any | None = None,
-    ) -> Result[Unpack[tuple[Any, ...]]]:
+    ) -> Result[*tuple[Any, ...]]:
         """
         🚨 You probably want to use `session.exec()` instead of `session.execute()`.
 

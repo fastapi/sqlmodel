@@ -1,5 +1,5 @@
 import importlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import ModuleType
 
 import pytest
@@ -26,9 +26,7 @@ def test_tutorial(print_mock: PrintMock, mod: ModuleType) -> None:
     ]
 
     with pytest.raises(ValidationError) as exc_info:
-        mod.Event.model_validate(
-            {"created_at": datetime(2026, 1, 1, 12, tzinfo=timezone.utc)}
-        )
+        mod.Event.model_validate({"created_at": datetime(2026, 1, 1, 12, tzinfo=UTC)})
     errors = exc_info.value.errors()
     assert [(error["loc"], error["type"]) for error in errors] == [
         (("created_at",), "timezone_naive"),
