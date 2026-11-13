@@ -93,6 +93,7 @@ IncEx: TypeAlias = (
 SaTypeOrInstance: TypeAlias = TypeEngine[Any] | type[TypeEngine[Any]]
 OnDeleteType = Literal["CASCADE", "SET NULL", "RESTRICT"]
 
+INCLUDE_DEPRECATION_MSG = "`include` is deprecated and does nothing. It will be removed, use `exclude` instead"
 MIN_ITEMS_DEPRECATION_MSG = (
     "`min_items` is deprecated and will be removed, use `min_length` instead"
 )
@@ -249,8 +250,11 @@ def Field(
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
-    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    exclude: bool | None = None,
+    include: Annotated[
+        Set[int | str] | Mapping[int | str, Any] | Any,
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
@@ -298,8 +302,11 @@ def Field(
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
-    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    exclude: bool | None = None,
+    include: Annotated[
+        Set[int | str] | Mapping[int | str, Any] | Any,
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
@@ -356,8 +363,11 @@ def Field(
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
-    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    exclude: bool | None = None,
+    include: Annotated[
+        Set[int | str] | Mapping[int | str, Any] | Any,
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
@@ -395,8 +405,11 @@ def Field(
     serialization_alias: str | None = None,
     title: str | None = None,
     description: str | None = None,
-    exclude: Set[int | str] | Mapping[int | str, Any] | Any = None,
-    include: Set[int | str] | Mapping[int | str, Any] | Any = None,
+    exclude: bool | None = None,
+    include: Annotated[
+        Set[int | str] | Mapping[int | str, Any] | Any,
+        deprecated(INCLUDE_DEPRECATION_MSG),
+    ] = None,
     const: bool | None = None,
     gt: float | None = None,
     ge: float | None = None,
@@ -434,6 +447,8 @@ def Field(
 ) -> Any:
     current_schema_extra = schema_extra or {}
 
+    if include is not None:
+        warnings.warn(INCLUDE_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
     if min_items is not None:
         warnings.warn(MIN_ITEMS_DEPRECATION_MSG, DeprecationWarning, stacklevel=2)
         if min_length is None:
