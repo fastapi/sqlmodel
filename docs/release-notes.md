@@ -2,6 +2,10 @@
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Limit the full test matrix to Python 3.15. PR [#2141](https://github.com/fastapi/sqlmodel/pull/2141) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.50 (2026-11-13)
 
 ### Breaking Changes
