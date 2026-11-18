@@ -6,6 +6,9 @@
     <em>SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness.</em>
 </p>
 <p align="center">
+    <a href="https://github.com/fastapi/sqlmodel/blob/main/README.zh.md"><b>简体中文</b></a> | <b>English</b>
+</p>
+<p align="center">
 <a href="https://github.com/fastapi/sqlmodel/actions?query=workflow%3ATest+event%3Apush+branch%3Amain">
     <img src="https://github.com/fastapi/sqlmodel/actions/workflows/test.yml/badge.svg?event=push&branch=main" alt="Test">
 </a>
