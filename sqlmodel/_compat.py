@@ -342,13 +342,38 @@ def sqlmodel_init(*, self: "SQLModel", data: dict[str, Any]) -> None:
             data,
             self_instance=self,
         )
-    else:
+        object.__setattr__(
+            self,
+            "__dict__",
+            {**old_dict, **self.__dict__},
+        )
+    elif not data:
         sqlmodel_table_construct(
             self_instance=self,
             values=data,
         )
-    object.__setattr__(
-        self,
-        "__dict__",
-        {**old_dict, **self.__dict__},
-    )
+        object.__setattr__(
+            self,
+            "__dict__",
+            {**old_dict, **self.__dict__},
+        )
+    else:
+        relationships: dict[str, Any] = {}
+        field_data: dict[str, Any] = {}
+        for key, value in data.items():
+            if key in self.__sqlmodel_relationships__:
+                relationships[key] = value
+            else:
+                field_data[key] = value
+        self.__class__.__pydantic_validator__.validate_python(
+            field_data,
+            self_instance=self,
+        )
+        fields_set = self.__pydantic_fields_set__.copy()
+        validated_dict = self.__dict__.copy()
+        object.__setattr__(self, "__dict__", old_dict)
+        for key, value in validated_dict.items():
+            setattr(self, key, value)
+        object.__setattr__(self, "__pydantic_fields_set__", fields_set)
+        for key, value in relationships.items():
+            setattr(self, key, value)
