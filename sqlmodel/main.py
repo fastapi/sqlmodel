@@ -25,7 +25,14 @@ from typing import (
     overload,
 )
 
-from pydantic import AwareDatetime, BaseModel, Discriminator, EmailStr, NaiveDatetime
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    Discriminator,
+    EmailStr,
+    NaiveDatetime,
+    ValidationError,
+)
 from pydantic.fields import FieldInfo as PydanticFieldInfo
 from sqlalchemy import (
     Boolean,
@@ -841,6 +848,20 @@ default_registry = registry()
 _TSQLModel = TypeVar("_TSQLModel", bound="SQLModel")
 
 
+def _reject_frozen(cls: type[SQLModel], name: str, value: Any) -> None:
+    field = cls.__pydantic_fields__.get(name)
+    if field is None:
+        return
+
+    model_frozen: bool = cls.model_config.get("frozen", False)
+    if (model_frozen or field.frozen) and name not in cls.__sqlmodel_relationships__:
+        error_type: str = "frozen_instance" if model_frozen else "frozen_field"
+        raise ValidationError.from_exception_data(
+            cls.__name__,
+            [{"type": error_type, "loc": (name,), "input": value}],
+        )
+
+
 class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry):
     # SQLAlchemy needs to set weakref(s), Pydantic will set the other slots values
     __slots__ = ("__weakref__",)
@@ -890,6 +911,7 @@ class SQLModel(BaseModel, metaclass=SQLModelMetaclass, registry=default_registry
         else:
             # Set in SQLAlchemy, before Pydantic to trigger events and updates
             if is_table_model_class(self.__class__) and is_instrumented(self, name):
+                _reject_frozen(self.__class__, name, value)
                 set_attribute(self, name, value)
             # Set in Pydantic model to trigger possible validation changes, only for
             # non relationship values
